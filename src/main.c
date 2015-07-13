@@ -5,39 +5,35 @@
 #include "jmpr.h"
 
 
-
 int main(int argc, char** argv)
 {
-	/* Init SDL */
-	if(SDL_Init( SDL_INIT_VIDEO ) < 0)
+	SDL_Event e;
+	int quit = 0;
+
+	if(jmprInitSDL())
 	{
-		printf("SDL could not initialize: %s\n", SDL_GetError());
-		return EXIT_FAILURE;
+		/* Start main loop and event handling */
+
+		while(!quit)
+		{
+			/* Processs events, detect quit signal for window closing */
+			while(SDL_PollEvent(&e))
+			{
+				if(e.type == SDL_QUIT)
+				{
+					quit = 1;
+				}
+			}
+
+			/* Clear screen */
+			SDL_RenderClear( pRenderer );
+
+			/* Update screen */
+			SDL_RenderPresent( pRenderer );
+		}
 	}
 
-	/* Generate SDL main window */
-	pWindow = SDL_CreateWindow(
-			"Jumper Main Window",
-			SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED,
-			SCREEN_WIDTH,
-			SCREEN_HEIGHT,
-			SDL_WINDOW_SHOWN );
-
-	if(pWindow == NULL)
-	{
-		printf("SDL window could not be generated: %s\n", SDL_GetError());
-		return EXIT_FAILURE;
-	}
-
-	/* Get window surface */
-	pScreenSurface = SDL_GetWindowSurface( pWindow );
-
-	/* Swap buffers */
-	SDL_UpdateWindowSurface( pWindow );
-
-	/* Wait for 10 seconds */
-	SDL_Delay(10000);
+	jmprClearSDL();
 
     return 0;
 }

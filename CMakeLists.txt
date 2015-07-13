@@ -4,7 +4,7 @@ project(JUMPER)
 cmake_minimum_required(VERSION 2.8)
  
 # Setup sources
-set(JUMPER_SOURCES src/main.c)
+set(JUMPER_SOURCES src/main.c src/jmpr.c)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):

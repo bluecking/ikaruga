@@ -10,19 +10,30 @@
 
 #include "SDL.h"
 
+/****************************************************************************/
+/* GLOBAL VARIABLES                                                         */
+/****************************************************************************/
+
 /* SDL related global variables */
-SDL_Window* 	pWindow 		= NULL;
-SDL_Surface*	pScreenSurface 	= NULL;
+extern SDL_Window* 		pWindow;
+extern SDL_Renderer*	pRenderer;
 
 /* Screen resolution and stuff */
-const int SCREEN_WIDTH 			= 640;
-const int SCREEN_HEIGHT 		= 480;
+#define SCREEN_WIDTH 	1024
+#define SCREEN_HEIGHT 	786
 
 /* Tile related stuff */
-const int TILE_WIDTH 	= 16;
-const int TILE_HEIGHT	= 16;
-const int TILE_OFFSET	= 1;
+#define TILE_WIDTH		16
+#define TILE_HEIGHT		16
+#define TILE_OFFSET		1
 
+
+/****************************************************************************/
+/* FUNCTION PROTOTYPES                                                      */
+/****************************************************************************/
+
+int jmprInitSDL();
+int jmprClearSDL();
 
 
 
