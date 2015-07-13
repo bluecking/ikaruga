@@ -2,11 +2,9 @@
 #include <stdio.h>
 #include <SDL.h>
 
-SDL_Window* 	pWindow 		= NULL;
-SDL_Surface*	pScreenSurface 	= NULL;
+#include "jmpr.h"
 
-const int SCREEN_WIDTH 			= 640;
-const int SCREEN_HEIGHT 		= 480;
+
 
 int main(int argc, char** argv)
 {
