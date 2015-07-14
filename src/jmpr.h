@@ -38,6 +38,9 @@ struct jmprTileSet
 	int tile_height;
 	int tile_offset;
 	int num_rows;
+	unsigned char key_r;
+	unsigned char key_g;
+	unsigned char key_b;
 	int tiles_per_row;
 	int width;
 	int height;
@@ -61,6 +64,7 @@ int jmprClearSDL();
 
 
 SDL_Texture* jmprLoadTexture(const char* file);
+SDL_Texture* jmprLoadTextureWithKey(const char* file, unsigned char key_r, unsigned char key_g, unsigned char key_b);
 void jmprRenderTiles(struct jmprTileSet*);
 void jmprPrintTiles(struct jmprTileSet*);
 struct jmprTileSet* jmprLoadTileDefinitions(const char* filename);

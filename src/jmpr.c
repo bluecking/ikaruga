@@ -89,6 +89,37 @@ SDL_Texture* jmprLoadTexture(const char* filename)
 	return newTexture;
 }
 
+SDL_Texture* jmprLoadTextureWithKey(const char* filename, unsigned char key_r, unsigned char key_g, unsigned char key_b)
+{
+	/* The loaded texture */
+	SDL_Texture* newTexture = NULL;
+
+	/* Load image at specified path */
+	SDL_Surface* loadedSurface = IMG_Load(filename);
+	if( loadedSurface == NULL )
+	{
+		printf( "Unable to load image %s! SDL_image Error: %s\n", filename, IMG_GetError() );
+	}
+	else
+	{
+		/* Set keying color */
+		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, key_r, key_g, key_b ) );
+
+		/* Create texture from surface pixels */
+		newTexture = SDL_CreateTextureFromSurface( pRenderer, loadedSurface );
+		if( newTexture == NULL )
+		{
+			printf( "Unable to create texture from %s! SDL Error: %s\n", filename, SDL_GetError() );
+		}
+
+		/* Get rid of old loaded surface */
+		SDL_FreeSurface( loadedSurface );
+	}
+	return newTexture;
+}
+
+
+
 void jmprPrintTiles(struct jmprTileSet* t)
 {
 	int i, j;
@@ -129,12 +160,15 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	fscanf(f_level, "%s", texture_filename);
 
 	/* Read tile set meta information */
-	fscanf(f_level, "%d %d %d %d %d",
+	fscanf(f_level, "%d %d %d %d %d %hhu %hhu %hhu",
 		&tileset->tile_width,
 		&tileset->tile_height,
 		&tileset->tiles_per_row,
 		&tileset->num_rows,
-		&tileset->tile_offset);
+		&tileset->tile_offset,
+		&tileset->key_r,
+		&tileset->key_g,
+		&tileset->key_b);
 
 	/* Read dimensions of tile grid */
 	fscanf(f_level, "%d %d", &tileset->width, &tileset->height);
@@ -156,7 +190,7 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	}
 
 	/* Alloc texture */
-	tileset->texture = jmprLoadTexture(texture_filename);
+	tileset->texture = jmprLoadTextureWithKey(texture_filename, tileset->key_r, tileset->key_g, tileset->key_b);
 
 	return tileset;
 }
