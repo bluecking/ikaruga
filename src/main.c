@@ -31,9 +31,11 @@ int main(int argc, char** argv)
 			}
 
 
-
 			/* Clear screen */
 			SDL_RenderClear( pRenderer );
+
+			/* Render tiles */
+			jmprRenderTiles(tileset);
 
 			/* Update screen */
 			SDL_RenderPresent( pRenderer );

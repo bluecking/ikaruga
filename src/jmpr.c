@@ -140,16 +140,16 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	fscanf(f_level, "%d %d", &tileset->width, &tileset->height);
 
 	/* Allocate memory for tile grid */
-	tileset->tiles = (int**)malloc(tileset->width * sizeof(int*));
+	tileset->tiles = (int**)malloc(tileset->height * sizeof(int*));
 	for(i = 0; i < tileset->height; i++)
 	{
-		tileset->tiles[i] = (int*)malloc(tileset->height * sizeof(int));
+		tileset->tiles[i] = (int*)malloc(tileset->width * sizeof(int));
 	}
 
 	/* Read tile numbers in grid */
-	for(i = 0; i < tileset->width; i++)
+	for(i = 0; i < tileset->height; i++)
 	{
-		for(j = 0; j < tileset->height; j++)
+		for(j = 0; j < tileset->width; j++)
 		{
 			fscanf(f_level, "%d", &tileset->tiles[i][j]);
 		}
@@ -161,3 +161,57 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	return tileset;
 }
 
+void jmprRenderTiles(struct jmprTileSet* t)
+{
+	int i;
+	int j;
+	int tile_index;
+	int col, row;
+	SDL_Rect target;
+	SDL_Rect source;
+
+	/* Set target / source width and height to tile size,
+	 * they never change
+	 */
+	target.w = t->tile_width;
+	target.h = t->tile_height;
+
+	source.w = t->tile_width;
+	source.h = t->tile_height;
+
+
+	for(i = 0; i < t->height; i++)
+	{
+		for(j = 0; j < t->width; j++)
+		{
+			tile_index = t->tiles[i][j] - 1;
+			if(tile_index >= 0)
+			{
+				/* Compute the position of the target on the screen */
+				target.x = j * t->tile_width;
+				target.y = i * t->tile_height;
+
+				/* Compute the position of the source pixel data
+				 * within the texture (no offset for first tiles)
+				 */
+				row = tile_index / t->tiles_per_row;
+				col = tile_index % t->tiles_per_row;
+
+				source.x = col * t->tile_width;
+				if(col > 0)
+				{
+					source.x += col * t->tile_offset;
+				}
+
+				source.y = row * t->tile_height;
+				if(row > 0)
+				{
+					source.y += row * t->tile_offset;
+				}
+
+				/* Copy pixel date to correct position */
+				SDL_RenderCopy( pRenderer, t->texture, &source, &target);
+			}
+		}
+	}
+}
