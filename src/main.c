@@ -9,11 +9,16 @@ int main(int argc, char** argv)
 {
 	SDL_Event e;
 	int quit = 0;
+	struct jmprTileSet* tileset;
+
+
 
 	if(jmprInitSDL())
 	{
-		/* Start main loop and event handling */
+		tileset = jmprLoadTileDefinitions(argv[1]);
+		jmprPrintTiles(tileset);
 
+		/* Start main loop and event handling */
 		while(!quit)
 		{
 			/* Processs events, detect quit signal for window closing */
@@ -24,6 +29,8 @@ int main(int argc, char** argv)
 					quit = 1;
 				}
 			}
+
+
 
 			/* Clear screen */
 			SDL_RenderClear( pRenderer );
