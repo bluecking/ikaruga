@@ -137,6 +137,85 @@ void jmprPrintTiles(struct jmprTileSet* t)
 	}
 }
 
+struct jmprSprite* jmprLoadSprite(const char* filename)
+{
+	struct jmprSprite* sprite;
+	FILE* f_sprite;
+	char texture_filename[512];
+
+	sprite = (struct jmprSprite*)malloc(sizeof(struct jmprSprite));
+	if(sprite == NULL)
+	{
+		printf("jmprLoadSprite: Unable to alloc memory for sprite.\n");
+	}
+
+	f_sprite = fopen(filename, "r");
+	if(f_sprite == NULL)
+	{
+		printf("jmprLoadSprite: Unable to open file %s.\n", filename);
+	}
+
+	/* Read image file name and generate texture */
+	fscanf(f_sprite, "%s", texture_filename);
+	sprite->texture = jmprLoadTexture(texture_filename);
+
+	/* Read additional sprite information */
+	fscanf(f_sprite, "%d %d %d", &sprite->width, &sprite->height, &sprite->num_anim);
+	sprite->current_anim = 0;
+
+	return sprite;
+
+}
+
+void jmprRenderSprite(struct jmprSprite* s)
+{
+	SDL_Rect target;
+	SDL_Rect source;
+
+	target.x = s->pos.x;
+	target.y = s->pos.y;
+	target.w = s->width;
+	target.h = s->height;
+
+	/* Check animation status */
+	if(s->current_anim > s->num_anim)
+	{
+		s->current_anim = 0;
+	}
+
+	/* Determine position of animation frame */
+	source.x = s->current_anim * s->width;
+	source.y = 0;
+	source.w = s->width;
+	source.h = s->height;
+
+	/* Render current animation frame */
+	SDL_RenderCopy( pRenderer, s->texture, &source, &target);
+}
+
+void jmprMoveSprite(struct jmprSprite* s,  int direction, int speed)
+{
+	switch(direction)
+	{
+	case UP 	: s->pos.y -= speed; break;
+	case DOWN	: s->pos.y += speed; break;
+	case LEFT	: s->pos.x -= speed; break;
+	case RIGHT  : s->pos.x += speed; break;
+	}
+	s->current_anim++;
+
+	if(s->current_anim >= s->num_anim)
+	{
+		s->current_anim = 0;
+	}
+}
+
+void jmprSetSpritePosition(struct jmprSprite* s, int x, int y)
+{
+	s->pos.x = x;
+	s->pos.y = y;
+}
+
 struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 {
 	/* Variable declarations */
@@ -151,10 +230,17 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	if(tileset == NULL)
 	{
 		printf("jmprLoadTileDefinitions: Unable to alloc memory for tileset struct.\n");
+		return NULL;
 	}
 
 	/* Open given level file */
 	f_level = fopen(filename, "r");
+
+	if(f_level == NULL)
+	{
+		printf("jmprLoadTileDefinitions: Unagle to open file %s.\n", filename);
+		return NULL;
+	}
 
 	/* Read filename of texture bitmap */
 	fscanf(f_level, "%s", texture_filename);
