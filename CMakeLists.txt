@@ -22,3 +22,4 @@ include_directories(${SDL2_IMG_INCLUDE_DIR})
 # Build executable
 add_executable(jumper ${JUMPER_SOURCES})
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
+target_link_libraries(jumper m)

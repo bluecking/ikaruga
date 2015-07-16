@@ -48,17 +48,17 @@ struct jmprTileSet
 	int** tiles;
 };
 
-struct jmprVecF
+typedef struct
 {
 	float x;
 	float y;
-};
+} jmprVecF;
 
-struct jmprVecI
+typedef struct
 {
 	int x;
 	int y;
-};
+} jmprVecI;
 
 struct jmprSprite
 {
@@ -66,9 +66,9 @@ struct jmprSprite
 	int height;
 	int current_anim;
 	int num_anim;
-	struct jmprVecI pos;
-	struct jmprVecF acc;
-	struct jmprVecF vel;
+	jmprVecI pos;
+	jmprVecF acc;
+	jmprVecF vel;
 	SDL_Texture* texture;
 };
 
@@ -97,6 +97,9 @@ void jmprRenderSprite(struct jmprSprite*);
 void jmprMoveSprite(struct jmprSprite* s, int direction, int speed);
 void jmprSetSpritePosition(struct jmprSprite* s, int x, int y);
 void jmprPrintTiles(struct jmprTileSet*);
+
+void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite*, jmprVecI tiles[]);
+void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s);
 
 struct jmprSprite* jmprLoadSprite(const char* filename);
 struct jmprTileSet* jmprLoadTileDefinitions(const char* filename);

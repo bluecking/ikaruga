@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 		tileset = jmprLoadTileDefinitions(argv[1]);
 		if(tileset == NULL)
 		{
-			printf("jprMain: Unable to load tileset %s. Exiting...\n", argv[1]);
+			printf("jmprMain: Unable to load tileset %s. Exiting...\n", argv[1]);
 			return;
 		}
 		jmprPrintTiles(tileset);
@@ -29,10 +29,10 @@ int main(int argc, char** argv)
 		sprite = jmprLoadSprite(argv[2]);
 		if(sprite == NULL)
 		{
-			printf("jprMain: Unable to load sprite %s. Exiting...\n", argv[2]);
+			printf("jmprMain: Unable to load sprite %s. Exiting...\n", argv[2]);
 			return;
 		}
-		jmprSetSpritePosition(sprite, 100, 100);
+		jmprSetSpritePosition(sprite, 100, 300);
 
 		/* Start main loop and event handling */
 		while(!quit)
@@ -57,6 +57,14 @@ int main(int argc, char** argv)
 					{
 						moveX = 1;
 					}
+					else if(e.key.keysym.sym == SDLK_DOWN)
+					{
+						moveY = 1;
+					}
+					else if(e.key.keysym.sym == SDLK_UP)
+					{
+						moveY = -1;
+					}
 
 				}
 			}
@@ -69,8 +77,10 @@ int main(int argc, char** argv)
 
 			if(moveY)
 			{
-				jmprMoveSprite(sprite, UP, moveX);
+				jmprMoveSprite(sprite, DOWN, moveY);
 			}
+
+			jmprCheckAndResolveCollision(tileset, sprite);
 
 			/* Clear screen */
 			SDL_RenderClear( pRenderer );

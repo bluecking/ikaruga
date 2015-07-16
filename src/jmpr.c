@@ -1,5 +1,7 @@
 #include "jmpr.h"
 
+#include <math.h>
+
 /* SDL related global variables */
 SDL_Window* 	pWindow 		= NULL;
 SDL_Renderer*	pRenderer		= NULL;
@@ -334,4 +336,132 @@ void jmprRenderTiles(struct jmprTileSet* t)
 			}
 		}
 	}
+}
+
+void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite* s, jmprVecI tiles[])
+{
+	jmprVecI gridPos;
+
+	/* Determine x and y position of the sprite within the grid */
+	gridPos.x = floor((s->pos.x + 0.5 * s->width) / set->tile_width);
+	gridPos.y = floor((s->pos.y  + 0.5 * s->height) / set->tile_height);
+
+	/* Get the surrounding tiles in "priority" order, i.e., we want
+	 * check some collisions like left befire we check the others
+	 */
+	tiles[0].x = gridPos.x - 1;
+	tiles[0].y = gridPos.y - 1;
+
+	tiles[1].x = gridPos.x;
+	tiles[1].y = gridPos.y - 1;
+
+	tiles[2].x = gridPos.x + 1;
+	tiles[2].y = gridPos.y - 1;
+
+	tiles[3].x = gridPos.x - 1;
+	tiles[3].y = gridPos.y;
+
+	tiles[4].x = gridPos.x + 1;
+	tiles[4].y = gridPos.y;
+
+	tiles[5].x = gridPos.x - 1;
+	tiles[5].y = gridPos.y + 1;
+
+	tiles[6].x = gridPos.x;
+	tiles[6].y = gridPos.y + 1;
+
+	tiles[7].x = gridPos.x + 1;
+	tiles[7].y = gridPos.y + 1;
+
+}
+
+void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
+{
+	SDL_Rect tileRect;
+	SDL_Rect spriteRect;
+	SDL_Rect intersectionRect;
+	jmprVecI desiredPosition;
+	jmprVecI surroundingTiles[8];
+	int n, i ,j;
+
+	/* Set desired position to new position */
+	desiredPosition = s->pos;
+
+	/* Check if sprite intersects with one of its surrounding tiles */
+	jmprGetSurroundingTiles(set, s, surroundingTiles);
+	for(n = 0; n < 8; n++)
+	{
+		j = surroundingTiles[n].x;
+		i = surroundingTiles[n].y;
+
+		/* Check, if tile coordinates are valid */
+		if( (i >= 0) && (i < set->height) && (j >= 0) && (j < set->width) )
+		{
+
+			if(set->tiles[i][j] > 0)
+			{
+
+				/* Get SDL rect for current tile and sprite and check intersection */
+				tileRect.y = i * set->tile_height;
+				tileRect.x = j * set->tile_width;
+				tileRect.w = set->tile_width;
+				tileRect.h = set->tile_height;
+
+				spriteRect.x = desiredPosition.x;
+				spriteRect.y = desiredPosition.y;
+				spriteRect.w = s->width;
+				spriteRect.h = s->height;
+
+				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
+				{
+					/* printf("n:%3d index: %3d @intersects (%3d,%3d)\n", n, set->tiles[i][j], intersectionRect.w, intersectionRect.h); */
+
+					/* Handle pose correction cases */
+					if(n == 4)
+					{
+						desiredPosition.x = desiredPosition.x - intersectionRect.w;
+					}
+					else if(n == 1)
+					{
+						desiredPosition.y = desiredPosition.y + intersectionRect.h;
+					}
+					else if(n == 3)
+					{
+						desiredPosition.x = desiredPosition.x + intersectionRect.w;
+					}
+					else if(n == 6)
+					{
+						desiredPosition.y = desiredPosition.y - intersectionRect.h;
+					}
+					else
+					{
+						if(intersectionRect.w > intersectionRect.h)
+						{
+							if( (n == 5) || (n == 7))
+							{
+								desiredPosition.y = desiredPosition.y - intersectionRect.h;
+							}
+							else
+							{
+								desiredPosition.y = desiredPosition.y + intersectionRect.h;
+							}
+						}
+						else
+						{
+							if( (n == 2) || (n == 7))
+							{
+								desiredPosition.x = desiredPosition.x - intersectionRect.w;
+							}
+							else
+							{
+								desiredPosition.x = desiredPosition.x + intersectionRect.w;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	s->pos = desiredPosition;
+
 }
