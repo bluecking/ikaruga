@@ -21,7 +21,7 @@ jmprPhysics* jmprInitPhysics()
 	p->jump.y		= -440;
 	p->jump.x 		= 0.0;
 
-	p->damping.x	= 0.99;
+	p->damping.x	= 0.99999;
 	p->damping.y	= 1.0;
 
 	p->maxVelJmp	= 300.0;
@@ -160,7 +160,7 @@ void jmprPrintTiles(struct jmprTileSet* t)
 	{
 		for(j = 0; j < t->height; j++)
 		{
-			printf("%3d", t->tiles[i][j]);
+			printf("%3d", t->tiles[j][i]);
 		}
 		printf("\n");
 	}
