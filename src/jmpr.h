@@ -66,11 +66,26 @@ struct jmprSprite
 	int height;
 	int current_anim;
 	int num_anim;
-	jmprVecI pos;
+	jmprVecF pos;
 	jmprVecF acc;
 	jmprVecF vel;
+	int onGround;
+	int jumping;
+	int jumpStart;
 	SDL_Texture* texture;
 };
+
+typedef struct
+{
+	jmprVecF gravity;
+	jmprVecF jump;
+	jmprVecF move;
+	jmprVecF damping;
+	double maxVelJmp;
+	double maxVelRun;
+	double maxVelFall;
+	double jumpHeight;
+} jmprPhysics;
 
 
 enum direction {UP, DOWN, LEFT, RIGHT};
@@ -95,6 +110,10 @@ SDL_Texture* jmprLoadTextureWithKey(const char* file, unsigned char key_r, unsig
 void jmprRenderTiles(struct jmprTileSet*);
 void jmprRenderSprite(struct jmprSprite*);
 void jmprMoveSprite(struct jmprSprite* s, int direction, int speed);
+void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, double dt);
+
+jmprPhysics* jmprInitPhysics();
+
 void jmprSetSpritePosition(struct jmprSprite* s, int x, int y);
 void jmprPrintTiles(struct jmprTileSet*);
 

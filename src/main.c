@@ -11,9 +11,17 @@ int main(int argc, char** argv)
 	int quit = 0;
 	struct jmprTileSet* tileset;
 	struct jmprSprite*  sprite;
+	jmprPhysics* physics;
 
 	int moveX;
 	int moveY;
+	int jump;
+
+	Uint32 startTicks;
+	double renderTime;
+	const Uint8* currentKeyStates;
+
+	renderTime = 0.0;
 
 	if(jmprInitSDL())
 	{
@@ -32,14 +40,17 @@ int main(int argc, char** argv)
 			printf("jmprMain: Unable to load sprite %s. Exiting...\n", argv[2]);
 			return;
 		}
-		jmprSetSpritePosition(sprite, 100, 300);
+
+		physics = jmprInitPhysics();
+		jmprSetSpritePosition(sprite, 400, 200);
 
 		/* Start main loop and event handling */
 		while(!quit)
 		{
-
+			startTicks = SDL_GetTicks();
 			moveX = 0;
 			moveY = 0;
+			jump = 0;
 			/* Processs events, detect quit signal for window closing */
 			while(SDL_PollEvent(&e))
 			{
@@ -47,39 +58,33 @@ int main(int argc, char** argv)
 				{
 					quit = 1;
 				}
-				if(e.type == SDL_KEYDOWN)
-				{
-					if(e.key.keysym.sym == SDLK_LEFT)
-					{
-						moveX = -1;
-					}
-					else if(e.key.keysym.sym == SDLK_RIGHT)
-					{
-						moveX = 1;
-					}
-					else if(e.key.keysym.sym == SDLK_DOWN)
-					{
-						moveY = 1;
-					}
-					else if(e.key.keysym.sym == SDLK_UP)
-					{
-						moveY = -1;
-					}
-
-				}
 			}
 
-			/* Evaluate move commands */
-			if(moveX)
+			currentKeyStates = SDL_GetKeyboardState( NULL );
+
+			if( currentKeyStates[ SDL_SCANCODE_UP ] )
 			{
-				jmprMoveSprite(sprite, RIGHT, moveX);
+				moveY = -1;
 			}
-
-			if(moveY)
+			if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 			{
-				jmprMoveSprite(sprite, DOWN, moveY);
+				moveY = 1;
+			}
+			if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
+			{
+				moveX = -1;
+			}
+			if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
+			{
+				moveX = 1;
+			}
+			if( currentKeyStates[ SDL_SCANCODE_SPACE ])
+			{
+				jump = 1;
 			}
 
+			//if(sprite->onGround) printf("GROUND\n"); else printf("FALLING\n");
+			jmprUpdateSprite(physics, sprite, moveX, jump, renderTime);
 			jmprCheckAndResolveCollision(tileset, sprite);
 
 			/* Clear screen */
@@ -91,6 +96,7 @@ int main(int argc, char** argv)
 
 			/* Update screen */
 			SDL_RenderPresent( pRenderer );
+			renderTime = (SDL_GetTicks() - startTicks) / 1000.0;
 		}
 	}
 

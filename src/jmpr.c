@@ -7,6 +7,33 @@ SDL_Window* 	pWindow 		= NULL;
 SDL_Renderer*	pRenderer		= NULL;
 
 
+jmprPhysics* jmprInitPhysics()
+{
+	jmprPhysics* p;
+	p = (jmprPhysics*)malloc(sizeof(jmprPhysics));
+
+	p->gravity.x 	= 0.0;
+	p->gravity.y 	= 400.0;
+
+	p->move.x		= 800.0;
+	p->move.y		= 0.0;
+
+	p->jump.y		= -410;
+	p->jump.x 		= 0.0;
+
+	p->damping.x	= 0.9;
+	p->damping.y	= 1.0;
+
+	p->maxVelJmp	= 200.0;
+	p->maxVelRun	= 120.0;
+	p->maxVelFall	= 250.0;
+
+	p->jumpHeight	= 90;
+	return p;
+}
+
+
+
 int jmprInitSDL()
 {
 	/* Init SDL */
@@ -164,7 +191,10 @@ struct jmprSprite* jmprLoadSprite(const char* filename)
 	/* Read additional sprite information */
 	fscanf(f_sprite, "%d %d %d", &sprite->width, &sprite->height, &sprite->num_anim);
 	sprite->current_anim = 0;
-
+	sprite->vel.x = 0.0;
+	sprite->vel.y = 0.0;
+	sprite->jumping = 0;
+	sprite->jumpStart = 0;
 	return sprite;
 
 }
@@ -380,15 +410,46 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
 	SDL_Rect intersectionRect;
-	jmprVecI desiredPosition;
+	jmprVecF desiredPosition;
 	jmprVecI surroundingTiles[8];
 	int n, i ,j;
 
 	/* Set desired position to new position */
-	desiredPosition = s->pos;
+	desiredPosition.x = s->pos.x;
+	desiredPosition.y = s->pos.y;
+
 
 	/* Check if sprite intersects with one of its surrounding tiles */
 	jmprGetSurroundingTiles(set, s, surroundingTiles);
+	int d_i, d_j;
+	int f_i, f_j;
+	s->onGround = 0;
+	f_i = surroundingTiles[6].y;
+	f_j = surroundingTiles[6].x;
+
+	if(s->vel.x > 0)
+	{
+		d_i = surroundingTiles[7].y;
+		d_j = surroundingTiles[7].x;
+	}
+	else
+	{
+		d_i = surroundingTiles[5].y;
+		d_j = surroundingTiles[5].x;
+	}
+
+	if(f_i < set->height && f_j < set->width)
+	{
+		if(set->tiles[f_i][f_j] > 0) s->onGround = 1;
+	}
+
+
+	if(d_i < set->height && d_j < set->width)
+	{
+		if(set->tiles[d_i][d_j] > 0) s->onGround = 1;
+	}
+
+
 	for(n = 0; n < 8; n++)
 	{
 		j = surroundingTiles[n].x;
@@ -397,6 +458,7 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 		/* Check, if tile coordinates are valid */
 		if( (i >= 0) && (i < set->height) && (j >= 0) && (j < set->width) )
 		{
+
 
 			if(set->tiles[i][j] > 0)
 			{
@@ -414,7 +476,12 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 
 				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
 				{
-					/* printf("n:%3d index: %3d @intersects (%3d,%3d)\n", n, set->tiles[i][j], intersectionRect.w, intersectionRect.h); */
+					//printf("n:%3d index: %3d @intersects (%3d,%3d)\n", n, set->tiles[i][j], intersectionRect.w, intersectionRect.h);
+
+					if(n >= 5)
+					{
+						s->onGround = 1;
+					}
 
 					/* Handle pose correction cases */
 					if(n == 4)
@@ -435,26 +502,29 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 					}
 					else
 					{
-						if(intersectionRect.w > intersectionRect.h)
+						if(intersectionRect.w >= 2 && intersectionRect.h >= 2)
 						{
-							if( (n == 5) || (n == 7))
+							if(intersectionRect.w > intersectionRect.h)
 							{
-								desiredPosition.y = desiredPosition.y - intersectionRect.h;
+								if( (n == 5) || (n == 7))
+								{
+									desiredPosition.y = desiredPosition.y - intersectionRect.h;
+								}
+								else
+								{
+									desiredPosition.y = desiredPosition.y + intersectionRect.h;
+								}
 							}
 							else
 							{
-								desiredPosition.y = desiredPosition.y + intersectionRect.h;
-							}
-						}
-						else
-						{
-							if( (n == 2) || (n == 7))
-							{
-								desiredPosition.x = desiredPosition.x - intersectionRect.w;
-							}
-							else
-							{
-								desiredPosition.x = desiredPosition.x + intersectionRect.w;
+								if( (n == 2) || (n == 7))
+								{
+									desiredPosition.x = desiredPosition.x - intersectionRect.w;
+								}
+								else
+								{
+									desiredPosition.x = desiredPosition.x + intersectionRect.w;
+								}
 							}
 						}
 					}
@@ -462,6 +532,76 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 			}
 		}
 	}
-	s->pos = desiredPosition;
+
+	s->pos.x = desiredPosition.x;
+	s->pos.y = desiredPosition.y;
+
+}
+
+void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, double dt)
+{
+	//printf("Pos: %3f %3f, Vel: %3f %3f %3d\n", s->pos.x, s->pos.y, s->vel.x, s->vel.y, s->onGround);
+	if(dt > 0)
+	{
+
+		jmprVecI stiles[7];
+		{
+			if(dt > 0 && jump && s->onGround)
+			{
+				s->jumping = 1;
+				s->jumpStart = s->pos.y;
+				printf("JUMP\n");
+			}
+
+			jmprVecF d_gravity;
+			jmprVecF d_move;
+
+			d_gravity.x = p->gravity.x * dt;
+			d_gravity.y = p->gravity.y * dt;
+
+			if(move != 0)
+			{
+				d_move.x = move * p->move.x * dt;
+				d_move.y = move * p->move.y * dt;
+			}
+			else
+			{
+				d_move.x = 0.0;
+				d_move.y = 0.0;
+			}
+
+			s->vel.x = s->vel.x + d_move.x + d_gravity.x;
+			s->vel.y = s->vel.y + d_move.y + d_gravity.y;
+
+			if(s->jumping)
+			{
+				s->vel.y += p->jump.y * dt;
+				printf("INC JUMP: %f %f\n", p->jump.y * dt, s->vel.y);
+			}
+
+			s->vel.x *= p->damping.x;
+			s->vel.y *= p->damping.y;
+
+			/* Clamp velocities */
+			if(s->vel.x >  p->maxVelRun * dt) s->vel.x = p->maxVelRun * dt;
+			if(s->vel.x < -p->maxVelRun * dt) s->vel.x = -p->maxVelRun * dt;
+
+			if(s->vel.y >  p->maxVelFall * dt) s->vel.y = p->maxVelFall * dt;
+			if(s->vel.y < -p->maxVelJmp * dt)  s->vel.y = -p->maxVelJmp * dt;
+
+			s->pos.x += s->vel.x;
+			s->pos.y += s->vel.y;
+
+			printf("DIFF: %f\n", fabs(s->pos.y - s->jumpStart));
+			if(fabs(s->pos.y - s->jumpStart) >= p->jumpHeight)
+			{
+				s->jumping = 0;
+			}
+
+
+			//printf("Pos: %3f %3f, Vel: %3f %3f %3d\n", s->pos.x, s->pos.y, s->vel.x, s->vel.y, s->onGround);
+		}
+	}
+
 
 }
