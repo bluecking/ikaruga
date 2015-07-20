@@ -18,13 +18,13 @@ jmprPhysics* jmprInitPhysics()
 	p->move.x		= 800.0;
 	p->move.y		= 0.0;
 
-	p->jump.y		= -410;
+	p->jump.y		= -440;
 	p->jump.x 		= 0.0;
 
-	p->damping.x	= 0.9;
+	p->damping.x	= 0.99;
 	p->damping.y	= 1.0;
 
-	p->maxVelJmp	= 200.0;
+	p->maxVelJmp	= 300.0;
 	p->maxVelRun	= 120.0;
 	p->maxVelFall	= 250.0;
 
@@ -540,10 +540,15 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 
 void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, double dt)
 {
+	s->current_anim++;
+
+		if(s->current_anim >= s->num_anim)
+		{
+			s->current_anim = 0;
+		}
 	//printf("Pos: %3f %3f, Vel: %3f %3f %3d\n", s->pos.x, s->pos.y, s->vel.x, s->vel.y, s->onGround);
 	if(dt > 0)
 	{
-
 		jmprVecI stiles[7];
 		{
 			if(dt > 0 && jump && s->onGround)
