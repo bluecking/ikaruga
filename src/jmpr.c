@@ -213,6 +213,15 @@ void jmprRenderSprite(struct jmprSprite* s)
 {
 	SDL_Rect target;
 	SDL_Rect source;
+	SDL_RendererFlip flip;
+	if(s->vel.x > 0)
+	{
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+	else
+	{
+		flip = SDL_FLIP_NONE;
+	}
 
 	target.x = s->pos.x;
 	target.y = s->pos.y;
@@ -232,7 +241,7 @@ void jmprRenderSprite(struct jmprSprite* s)
 	source.h = s->height;
 
 	/* Render current animation frame */
-	SDL_RenderCopy( pRenderer, s->texture, &source, &target);
+	SDL_RenderCopyEx( pRenderer, s->texture, &source, &target, 0, NULL, flip);
 }
 
 void jmprMoveSprite(struct jmprSprite* s,  int direction, int speed)
@@ -617,12 +626,12 @@ void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, jmprCamera* cam, int
 
 			if(s->pos.x + s->width / 2 > SCREEN_WIDTH / 2)
 			{
-				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2;
+				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2 + s->width;
 			}
 
 			if(s->pos.x - s->width / 2 < SCREEN_WIDTH / 2)
 			{
-				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2;
+				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2 + s->width;
 			}
 
 			if(cam->pos.x < 0) cam->pos.x = 0;
