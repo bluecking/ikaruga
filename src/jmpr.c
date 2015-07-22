@@ -456,7 +456,7 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s,
 		d_j = surroundingTiles[5].x;
 	}
 
-	if(f_i < set->height && f_j < set->width)
+/*	if(f_i < set->height && f_j < set->width)
 	{
 		if(set->tiles[f_i][f_j] > 0) s->onGround = 1;
 	}
@@ -465,7 +465,7 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s,
 	if(d_i < set->height && d_j < set->width)
 	{
 		if(set->tiles[d_i][d_j] > 0) s->onGround = 1;
-	}
+	} */
 
 
 	for(n = 0; n < 8; n++)
