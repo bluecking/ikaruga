@@ -11,6 +11,7 @@ int main(int argc, char** argv)
 	int quit = 0;
 	struct jmprTileSet* tileset;
 	struct jmprSprite*  sprite;
+	jmprCamera* cam;
 	jmprPhysics* physics;
 
 	int moveX;
@@ -42,6 +43,7 @@ int main(int argc, char** argv)
 		}
 
 		physics = jmprInitPhysics();
+		cam = jmprInitCamera(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		jmprSetSpritePosition(sprite, 400, 200);
 
 		/* Start main loop and event handling */
@@ -84,14 +86,14 @@ int main(int argc, char** argv)
 			}
 
 			//if(sprite->onGround) printf("GROUND\n"); else printf("FALLING\n");
-			jmprUpdateSprite(physics, sprite, moveX, jump, renderTime);
-			jmprCheckAndResolveCollision(tileset, sprite);
+			jmprUpdateSprite(physics, sprite, cam, moveX, jump, renderTime);
+			jmprCheckAndResolveCollision(tileset, sprite, cam);
 
 			/* Clear screen */
 			SDL_RenderClear( pRenderer );
 
 			/* Render tiles and sprite */
-			jmprRenderTiles(tileset);
+			jmprRenderTiles(tileset, cam);
 			jmprRenderSprite(sprite);
 
 			/* Update screen */

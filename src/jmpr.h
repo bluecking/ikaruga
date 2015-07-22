@@ -77,6 +77,12 @@ struct jmprSprite
 
 typedef struct
 {
+	jmprVecI pos;
+	jmprVecI size;
+} jmprCamera;
+
+typedef struct
+{
 	jmprVecF gravity;
 	jmprVecF jump;
 	jmprVecF move;
@@ -107,18 +113,19 @@ int jmprClearSDL();
 
 SDL_Texture* jmprLoadTexture(const char* file);
 SDL_Texture* jmprLoadTextureWithKey(const char* file, unsigned char key_r, unsigned char key_g, unsigned char key_b);
-void jmprRenderTiles(struct jmprTileSet*);
+void jmprRenderTiles(struct jmprTileSet*, jmprCamera* cam);
 void jmprRenderSprite(struct jmprSprite*);
 void jmprMoveSprite(struct jmprSprite* s, int direction, int speed);
-void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, double dt);
+void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, jmprCamera* cam, int move, int jump, double dt);
 
 jmprPhysics* jmprInitPhysics();
+jmprCamera* jmprInitCamera(int x, int y, int w, int h);
 
 void jmprSetSpritePosition(struct jmprSprite* s, int x, int y);
 void jmprPrintTiles(struct jmprTileSet*);
 
-void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite*, jmprVecI tiles[]);
-void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s);
+void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite*, jmprCamera* cam, jmprVecI tiles[]);
+void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s, jmprCamera* cam);
 
 struct jmprSprite* jmprLoadSprite(const char* filename);
 struct jmprTileSet* jmprLoadTileDefinitions(const char* filename);

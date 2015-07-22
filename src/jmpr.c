@@ -21,7 +21,7 @@ jmprPhysics* jmprInitPhysics()
 	p->jump.y		= -440;
 	p->jump.x 		= 0.0;
 
-	p->damping.x	= 0.99999;
+	p->damping.x	= 0.9;
 	p->damping.y	= 1.0;
 
 	p->maxVelJmp	= 300.0;
@@ -32,6 +32,16 @@ jmprPhysics* jmprInitPhysics()
 	return p;
 }
 
+jmprCamera* jmprInitCamera(int x, int y, int w, int h)
+{
+	jmprCamera* cam = (jmprCamera*)malloc(sizeof(jmprCamera));
+	cam->pos.x = x;
+	cam->pos.y = y;
+	cam->size.x = w;
+	cam->size.y = h;
+
+	return cam;
+}
 
 
 int jmprInitSDL()
@@ -313,7 +323,7 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	return tileset;
 }
 
-void jmprRenderTiles(struct jmprTileSet* t)
+void jmprRenderTiles(struct jmprTileSet* t, jmprCamera* cam)
 {
 	int i;
 	int j;
@@ -340,8 +350,8 @@ void jmprRenderTiles(struct jmprTileSet* t)
 			if(tile_index >= 0)
 			{
 				/* Compute the position of the target on the screen */
-				target.x = j * t->tile_width;
-				target.y = i * t->tile_height;
+				target.x = j * t->tile_width - cam->pos.x;
+				target.y = i * t->tile_height - cam->pos.y;
 
 				/* Compute the position of the source pixel data
 				 * within the texture (no offset for first tiles)
@@ -368,13 +378,13 @@ void jmprRenderTiles(struct jmprTileSet* t)
 	}
 }
 
-void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite* s, jmprVecI tiles[])
+void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite* s, jmprCamera* cam, jmprVecI tiles[])
 {
 	jmprVecI gridPos;
 
 	/* Determine x and y position of the sprite within the grid */
 	gridPos.x = floor((s->pos.x + 0.5 * s->width) / set->tile_width);
-	gridPos.y = floor((s->pos.y  + 0.5 * s->height) / set->tile_height);
+	gridPos.y = floor((s->pos.y + 0.5 * s->height) / set->tile_height);
 
 	/* Get the surrounding tiles in "priority" order, i.e., we want
 	 * check some collisions like left befire we check the others
@@ -405,7 +415,7 @@ void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite* s, jmpr
 
 }
 
-void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
+void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s, jmprCamera* cam)
 {
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
@@ -414,13 +424,21 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 	jmprVecI surroundingTiles[8];
 	int n, i ,j;
 
+	/* Convert the player sprite's screen position to global position */
+	struct jmprSprite* global_sprite;
+
+	global_sprite = (struct jmprSprite*)malloc(sizeof(struct jmprSprite));
+	global_sprite = s;
+	global_sprite->pos.x = s->pos.x + cam->pos.x;
+	global_sprite->pos.y = s->pos.y + cam->pos.y;
+
 	/* Set desired position to new position */
-	desiredPosition.x = s->pos.x;
-	desiredPosition.y = s->pos.y;
+	desiredPosition.x = global_sprite->pos.x;
+	desiredPosition.y = global_sprite->pos.y;
 
 
 	/* Check if sprite intersects with one of its surrounding tiles */
-	jmprGetSurroundingTiles(set, s, surroundingTiles);
+	jmprGetSurroundingTiles(set, global_sprite, cam, surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
 	s->onGround = 0;
@@ -478,7 +496,7 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 				{
 					//printf("n:%3d index: %3d @intersects (%3d,%3d)\n", n, set->tiles[i][j], intersectionRect.w, intersectionRect.h);
 
-					if(n >= 5)
+					if(n == 6)
 					{
 						s->onGround = 1;
 					}
@@ -533,20 +551,20 @@ void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s)
 		}
 	}
 
-	s->pos.x = desiredPosition.x;
-	s->pos.y = desiredPosition.y;
+	s->pos.x = desiredPosition.x - cam->pos.x;
+	s->pos.y = desiredPosition.y - cam->pos.y;
 
 }
 
-void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, double dt)
+void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, jmprCamera* cam, int move, int jump, double dt)
 {
 	s->current_anim++;
 
-		if(s->current_anim >= s->num_anim)
-		{
-			s->current_anim = 0;
-		}
-	//printf("Pos: %3f %3f, Vel: %3f %3f %3d\n", s->pos.x, s->pos.y, s->vel.x, s->vel.y, s->onGround);
+	if(s->current_anim >= s->num_anim)
+	{
+		s->current_anim = 0;
+	}
+
 	if(dt > 0)
 	{
 		jmprVecI stiles[7];
@@ -581,7 +599,6 @@ void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, 
 			if(s->jumping)
 			{
 				s->vel.y += p->jump.y * dt;
-				printf("INC JUMP: %f %f\n", p->jump.y * dt, s->vel.y);
 			}
 
 			s->vel.x *= p->damping.x;
@@ -597,14 +614,28 @@ void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, int move, int jump, 
 			s->pos.x += s->vel.x;
 			s->pos.y += s->vel.y;
 
-			printf("DIFF: %f\n", fabs(s->pos.y - s->jumpStart));
+
+			if(s->pos.x + s->width / 2 > SCREEN_WIDTH / 2)
+			{
+				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2;
+			}
+
+			if(s->pos.x - s->width / 2 < SCREEN_WIDTH / 2)
+			{
+				cam->pos.x = s->pos.x - SCREEN_WIDTH / 2;
+			}
+
+			if(cam->pos.x < 0) cam->pos.x = 0;
+
+			printf("%d %d\n", cam->pos.x, cam->pos.y);
+
+
+
 			if(fabs(s->pos.y - s->jumpStart) >= p->jumpHeight)
 			{
 				s->jumping = 0;
 			}
 
-
-			//printf("Pos: %3f %3f, Vel: %3f %3f %3d\n", s->pos.x, s->pos.y, s->vel.x, s->vel.y, s->onGround);
 		}
 	}
 
