@@ -11,9 +11,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-/****************************************************************************/
-/* GLOBAL VARIABLES                                                         */
-/****************************************************************************/
+/*****************************************************************************/
+/* GLOBAL VARIABLES                                                          */
+/*****************************************************************************/
 
 /* SDL related global variables */
 extern SDL_Window* 		pWindow;
@@ -28,77 +28,30 @@ extern SDL_Renderer*	pRenderer;
 #define TILE_HEIGHT		16
 #define TILE_OFFSET		1
 
-/****************************************************************************/
-/* STRUCTURES																*/
-/****************************************************************************/
+/*****************************************************************************/
+/* STRUCTURES													  			 */
+/*****************************************************************************/
 
 struct jmprTileSet
 {
-	int tile_width;
-	int tile_height;
-	int tile_offset;
-	int num_rows;
-	unsigned char key_r;
-	unsigned char key_g;
-	unsigned char key_b;
-	int tiles_per_row;
-	int width;
-	int height;
-	SDL_Texture* texture;
-	int** tiles;
+	int tile_width;			/* With of the tiles within the tile set bitmap  */
+	int tile_height;		/* Height of the tile within the tile set bitmap */
+	int tile_offset;		/* Offset between the tiles (in pixels)          */
+	int num_rows;			/* Number of tile rows in the bitmap 			 */
+	unsigned char key_r;	/* R component of the keying color               */
+	unsigned char key_g;	/* G component of the keying color               */
+	unsigned char key_b;	/* B component of the keying color               */
+	int tiles_per_row;		/* Number of tiles per row                       */
+	int width;				/* Number of tiles per row in the tile set array */
+	int height;				/* Number of rows in the tile set array          */
+	SDL_Texture* texture;   /* A SDL_Texture struct containing the bitmap    */
+	int** tiles;            /* An array containing tile indices              */
 };
 
-typedef struct
-{
-	float x;
-	float y;
-} jmprVecF;
 
-typedef struct
-{
-	int x;
-	int y;
-} jmprVecI;
-
-struct jmprSprite
-{
-	int width;
-	int height;
-	int current_anim;
-	int num_anim;
-	jmprVecF pos;
-	jmprVecF acc;
-	jmprVecF vel;
-	int onGround;
-	int jumping;
-	int jumpStart;
-	SDL_Texture* texture;
-};
-
-typedef struct
-{
-	jmprVecI pos;
-	jmprVecI size;
-} jmprCamera;
-
-typedef struct
-{
-	jmprVecF gravity;
-	jmprVecF jump;
-	jmprVecF move;
-	jmprVecF damping;
-	double maxVelJmp;
-	double maxVelRun;
-	double maxVelFall;
-	double jumpHeight;
-} jmprPhysics;
-
-
-enum direction {UP, DOWN, LEFT, RIGHT};
-
-/****************************************************************************/
-/* FUNCTION PROTOTYPES                                                      */
-/****************************************************************************/
+/*****************************************************************************/
+/* FUNCTION PROTOTYPES                                                       */
+/*****************************************************************************/
 
 /**
  * @brief Initialize SDL engine
@@ -110,24 +63,42 @@ int jmprInitSDL();
  */
 int jmprClearSDL();
 
-
+/***
+ * Loads a SDL_Texture from the given filename.
+ *
+ * @param 	file	An image file from which a texture is created.
+ * @return	A pointer to a SDL_Texture struct if the texture was
+ * 			creates successfully. A null pointer otherwise.
+ */
 SDL_Texture* jmprLoadTexture(const char* file);
+
+/***
+ * Loads a SDL_Texture from the given filename and sets the transparency
+ * color to the color defined by \ref key_r, \ref key_b and \ref key_b.
+ *
+ * @param 	file	An image file from which a texture is created.
+ * @param	key_r	Red component of the key color.
+ * @param	key_g	Green component of the key color.
+ * @param	key_b	Blue component of the key color.
+ * @return	A pointer to a SDL_Texture struct if the texture was
+ * 			creates successfully. A null pointer otherwise.
+ */
 SDL_Texture* jmprLoadTextureWithKey(const char* file, unsigned char key_r, unsigned char key_g, unsigned char key_b);
-void jmprRenderTiles(struct jmprTileSet*, jmprCamera* cam);
-void jmprRenderSprite(struct jmprSprite*);
-void jmprMoveSprite(struct jmprSprite* s, int direction, int speed);
-void jmprUpdateSprite(jmprPhysics* p, struct jmprSprite* s, jmprCamera* cam, int move, int jump, double dt);
 
-jmprPhysics* jmprInitPhysics();
-jmprCamera* jmprInitCamera(int x, int y, int w, int h);
+/***
+ * Renders a tileset.
+ * @param 	tileset	A tileset to render.
+ */
+void jmprRenderTiles(struct jmprTileSet* tileset);
 
-void jmprSetSpritePosition(struct jmprSprite* s, int x, int y);
-void jmprPrintTiles(struct jmprTileSet*);
-
-void jmprGetSurroundingTiles(struct jmprTileSet* set, struct jmprSprite*, jmprCamera* cam, jmprVecI tiles[]);
-void jmprCheckAndResolveCollision(struct jmprTileSet* set, struct jmprSprite* s, jmprCamera* cam);
-
-struct jmprSprite* jmprLoadSprite(const char* filename);
+/**
+ * Loads a tileset from the given file.
+ *
+ * @param 	filename	A file defining a tile set.
+ * @return	A pointer to jmprTileSet struct (if loaded successfully)
+ * 			or a null pointer if the given file could not be
+ * 			parsed.
+ */
 struct jmprTileSet* jmprLoadTileDefinitions(const char* filename);
 
 
