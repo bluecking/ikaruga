@@ -49,7 +49,7 @@ int jmprInitSDL()
 
 
 	/* Set background color for renderer */
-	SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 0);
 
 	return 1;
 }
@@ -120,16 +120,16 @@ SDL_Texture* jmprLoadTextureWithKey(const char* filename, unsigned char key_r, u
 }
 
 
-struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
+struct jmprLevel* jmprLoadTileDefinitions(const char* filename)
 {
 	/* Variable declarations */
-	struct jmprTileSet* tileset;
+	struct jmprLevel* tileset;
 	FILE* f_level;
 	char texture_filename[512];
 	int i, j;
 
 	/* Alloc memory for tileset struct */
-	tileset = (struct jmprTileSet*)malloc(sizeof(struct jmprTileSet));
+	tileset = (struct jmprLevel*)malloc(sizeof(struct jmprLevel));
 
 	if(tileset == NULL)
 	{
@@ -161,19 +161,19 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 		&tileset->key_b);
 
 	/* Read dimensions of tile grid */
-	fscanf(f_level, "%d %d", &tileset->width, &tileset->height);
+	fscanf(f_level, "%d %d", &tileset->level_width, &tileset->level_height);
 
 	/* Allocate memory for tile grid */
-	tileset->tiles = (int**)malloc(tileset->height * sizeof(int*));
-	for(i = 0; i < tileset->height; i++)
+	tileset->tiles = (int**)malloc(tileset->level_height * sizeof(int*));
+	for(i = 0; i < tileset->level_height; i++)
 	{
-		tileset->tiles[i] = (int*)malloc(tileset->width * sizeof(int));
+		tileset->tiles[i] = (int*)malloc(tileset->level_width * sizeof(int));
 	}
 
 	/* Read tile numbers in grid */
-	for(i = 0; i < tileset->height; i++)
+	for(i = 0; i < tileset->level_height; i++)
 	{
-		for(j = 0; j < tileset->width; j++)
+		for(j = 0; j < tileset->level_width; j++)
 		{
 			fscanf(f_level, "%d", &tileset->tiles[i][j]);
 		}
@@ -185,7 +185,7 @@ struct jmprTileSet* jmprLoadTileDefinitions(const char* filename)
 	return tileset;
 }
 
-void jmprRenderTiles(struct jmprTileSet* t)
+void jmprRenderTiles(struct jmprLevel* t)
 {
 	int i;
 	int j;
@@ -204,9 +204,9 @@ void jmprRenderTiles(struct jmprTileSet* t)
 	source.h = t->tile_height;
 
 
-	for(i = 0; i < t->height; i++)
+	for(i = 0; i < t->level_height; i++)
 	{
-		for(j = 0; j < t->width; j++)
+		for(j = 0; j < t->level_width; j++)
 		{
 			tile_index = t->tiles[i][j] - 1;
 			if(tile_index >= 0)

@@ -32,7 +32,7 @@ extern SDL_Renderer*	pRenderer;
 /* STRUCTURES													  			 */
 /*****************************************************************************/
 
-struct jmprTileSet
+struct jmprLevel
 {
 	int tile_width;			/* With of the tiles within the tile set bitmap  */
 	int tile_height;		/* Height of the tile within the tile set bitmap */
@@ -42,8 +42,8 @@ struct jmprTileSet
 	unsigned char key_g;	/* G component of the keying color               */
 	unsigned char key_b;	/* B component of the keying color               */
 	int tiles_per_row;		/* Number of tiles per row                       */
-	int width;				/* Number of tiles per row in the tile set array */
-	int height;				/* Number of rows in the tile set array          */
+	int level_width;		/* Number of tiles per row in the tile array     */
+	int level_height;		/* Number of rows in the tile array              */
 	SDL_Texture* texture;   /* A SDL_Texture struct containing the bitmap    */
 	int** tiles;            /* An array containing tile indices              */
 };
@@ -83,13 +83,17 @@ SDL_Texture* jmprLoadTexture(const char* file);
  * @return	A pointer to a SDL_Texture struct if the texture was
  * 			creates successfully. A null pointer otherwise.
  */
-SDL_Texture* jmprLoadTextureWithKey(const char* file, unsigned char key_r, unsigned char key_g, unsigned char key_b);
+SDL_Texture* jmprLoadTextureWithKey(
+		const char* file,
+		unsigned char key_r,
+		unsigned char key_g,
+		unsigned char key_b);
 
 /***
  * Renders a tileset.
  * @param 	tileset	A tileset to render.
  */
-void jmprRenderTiles(struct jmprTileSet* tileset);
+void jmprRenderTiles(struct jmprLevel* tileset);
 
 /**
  * Loads a tileset from the given file.
@@ -99,7 +103,7 @@ void jmprRenderTiles(struct jmprTileSet* tileset);
  * 			or a null pointer if the given file could not be
  * 			parsed.
  */
-struct jmprTileSet* jmprLoadTileDefinitions(const char* filename);
+struct jmprLevel* jmprLoadTileDefinitions(const char* filename);
 
 
 #endif /* SRC_JMPR_H_ */

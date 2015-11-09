@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 {
 	SDL_Event e;
 	int quit = 0;
-	struct jmprTileSet* tileset;
+	struct jmprLevel* tileset;
 
 	if(jmprInitSDL())
 	{
