@@ -37,6 +37,7 @@ void MainWindow::run()
 {
 	bool quit = false;
 	SDL_Event e;
+	const Uint8* currentKeyStates;
 
 	// Start main loop and event handling
 	while(!quit && m_renderer)
@@ -50,14 +51,35 @@ void MainWindow::run()
 			}
 		}
 
+		currentKeyStates = SDL_GetKeyboardState( NULL );
+
+		if( currentKeyStates[ SDL_SCANCODE_UP ] )
+		{
+			m_camera.moveY(-1);
+		}
+		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
+		{
+			m_camera.moveY(1);
+		}
+		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
+		{
+			m_camera.moveX(-1);
+		}
+		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
+		{
+			m_camera.moveX(1);
+		}
+
 		// Clear screen
 		SDL_RenderClear(m_renderer);
 
 		// Render Level
 		if(m_level)
 		{
-			m_level->render();
+			m_level->render(m_camera);
 		}
+
+		SDL_Delay(10);
 
 		// Update screen
 		SDL_RenderPresent(m_renderer);

@@ -4,7 +4,7 @@ project(JUMPER)
 cmake_minimum_required(VERSION 2.8)
  
 # Setup sources
-set(JUMPER_SOURCES src/Main.cpp src/MainWindow.cpp src/Level.cpp)
+set(JUMPER_SOURCES src/Main.cpp src/MainWindow.cpp src/Level.cpp src/Camera.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
@@ -18,6 +18,8 @@ find_package(SDL2_IMAGE REQUIRED)
 # Add SDL2 include directory to search path
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_IMG_INCLUDE_DIR})
+
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 # Build executable
 add_executable(jumper ${JUMPER_SOURCES})

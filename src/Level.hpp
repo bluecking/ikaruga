@@ -11,6 +11,8 @@
 #include <string>
 #include <SDL.h>
 
+#include "Camera.hpp"
+
 namespace jumper
 {
 
@@ -32,7 +34,7 @@ public:
 	 *
 	 * @param renderer		A SDL_Renderer to render the tiles
 	 */
-	void render();
+	void render(Camera& cam);
 
 	/***
 	 * Destructor
@@ -83,6 +85,7 @@ private:
 
 	/// SDL Renderer
 	SDL_Renderer*		m_renderer;
+
 };
 
 } /* namespace jumper */

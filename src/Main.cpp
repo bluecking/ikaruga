@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 	}
 
 	MainWindow window("Jumper", 800, 600);
-	Level(window.getRenderer(), std::string(argv[2]));
-
+	Level level(window.getRenderer(), std::string(argv[1]));
+	window.setLevel(&level);
 	window.run();
 }

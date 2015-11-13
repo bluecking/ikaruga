@@ -44,7 +44,10 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 		in >> m_tileOffset >> ir >> ig >> ib;
 		in >> m_levelWidth >> m_levelHeight;
 	}
-
+	else
+	{
+		std::cout << "Unable to open file " << filename << std::endl;
+	}
 
 	// Cast keying colors manually!
 	m_keyR = (unsigned char)ir;
@@ -54,6 +57,10 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 	// Load texture
 	m_texture = loadTexture(texFileName);
 
+	if(!m_texture)
+	{
+		std::cout << "Unable to load texture " << texFileName << std::endl;
+	}
 
 	// Alloc tile set memory
 	m_tiles = new int*[m_levelHeight];
@@ -76,7 +83,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 	in.close();
 }
 
-void Level::render()
+void Level::render(Camera& cam)
 {
 	if(m_renderer && m_texture)
 	{
@@ -105,8 +112,8 @@ void Level::render()
 				if(tile_index >= 0)
 				{
 					/* Compute the position of the target on the screen */
-					target.x = j * m_tileWidth;
-					target.y = i * m_tileHeight;
+					target.x = j * m_tileWidth + cam.x();
+					target.y = i * m_tileHeight + cam.y();
 
 					/* Compute the position of the source pixel data
 					 * within the texture (no offset for first tiles)

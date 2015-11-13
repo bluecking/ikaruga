@@ -12,6 +12,7 @@
 #include <SDL.h>
 
 #include "Level.hpp"
+#include "Camera.hpp"
 
 namespace jumper
 {
@@ -75,6 +76,9 @@ private:
 
 	/// A pointer to a level object
 	Level*				m_level;
+
+	/// A Camera object
+	Camera				m_camera;
 };
 
 } /* namespace jumper */
