@@ -10,30 +10,37 @@
 namespace jumper
 {
 
-Camera::Camera(int x, int y)
-{
-	m_x = x;
-	m_y = y;
-}
 
-void Camera::moveX(int pixels)
-{
-	m_x += pixels;
-}
-
-void Camera::moveY(int pixels)
-{
-	m_y += pixels;
-}
 
 int Camera::x()
 {
-	return m_x;
+	return m_position.x();
 }
 
 int Camera::y()
 {
-	return m_y;
+	return m_position.y();
+}
+
+Camera::Camera()
+{
+	m_position.setX(0);
+	m_position.setY(0);
+}
+
+void Camera::move(const Pixel& p)
+{
+	m_position += p;
+}
+
+Camera::Camera(const Pixel& pixel)
+	: m_position(pixel)
+{
+}
+
+Pixel Camera::position() const
+{
+	return m_position;
 }
 
 Camera::~Camera()

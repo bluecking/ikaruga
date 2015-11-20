@@ -8,6 +8,8 @@
 #ifndef CAMERA_HPP_
 #define CAMERA_HPP_
 
+#include "Pixel.hpp"
+
 namespace jumper
 {
 
@@ -19,22 +21,20 @@ class Camera
 public:
 
 	/***
+	 * Constructs a camera at (0, 0)
+	 */
+	Camera();
+
+	/***
 	 * Constructs a camera with the given pixel offsets
 	 */
-	Camera(int x = 0, int y = 0);
+	Camera(const Pixel& pixel);
 
 	/***
-	 * Moves the camera by the given amount of pixels in x-direction. Positive
-	 * values indicate movement to the right, negative values
-	 * move the camera to the left
+	 * Moves the camera according to the given offset
+	 * @param offset	A pixel offset for camera movement
 	 */
-	void moveX(int pixels);
-
-	/***
-	 * Moves the camera by the given amount of pixels in y-direction. Positive
-	 * values indicate downward movement, negative value indicate upward movement
-	 */
-	void moveY(int pixels);
+	void move(const Pixel& offset);
 
 	/// Returns the current x-position
 	int x();
@@ -42,16 +42,17 @@ public:
 	/// Returns the current y-position
 	int y();
 
+	/// Returns the current position
+	Pixel position() const;
+
 	/// Destructor
 	virtual ~Camera();
 
 private:
 
-	/// X-Position of the camera
-	int m_x;
+	/// Current camera position
+	Pixel	m_position;
 
-	/// Y-Position of the camera
-	int m_y;
 };
 
 } /* namespace jumper */

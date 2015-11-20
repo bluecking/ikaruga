@@ -6,6 +6,7 @@
  */
 
 #include "MainWindow.hpp"
+#include "Pixel.hpp"
 
 #include <SDL_image.h>
 #include <iostream>
@@ -38,10 +39,14 @@ void MainWindow::run()
 	bool quit = false;
 	SDL_Event e;
 	const Uint8* currentKeyStates;
+	Pixel offset;
 
 	// Start main loop and event handling
 	while(!quit && m_renderer)
 	{
+		offset.setX(0);
+		offset.setY(0);
+
 		// Process events, detect quit signal for window closing
 		while(SDL_PollEvent(&e))
 		{
@@ -55,20 +60,22 @@ void MainWindow::run()
 
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
-			m_camera.moveY(-1);
+			offset.setY(-1);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 		{
-			m_camera.moveY(1);
+			offset.setY(1);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
-			m_camera.moveX(-1);
+			offset.setX(-1);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
-			m_camera.moveX(1);
+			offset.setX(1);
 		}
+
+		m_camera.move(offset);
 
 		// Clear screen
 		SDL_RenderClear(m_renderer);
