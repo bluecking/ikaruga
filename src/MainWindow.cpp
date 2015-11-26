@@ -97,7 +97,7 @@ void MainWindow::run()
 			m_level->render(m_camera);
 		}
 		m_player->render(m_camera);
-		SDL_Delay(10);
+		//SDL_Delay(10);
 
 		// Update screen
 		SDL_RenderPresent(m_renderer);
