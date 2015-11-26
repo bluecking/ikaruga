@@ -18,6 +18,7 @@ Player::Player(SDL_Renderer *renderer, std::string filename) : Renderable(render
         m_current_anim = 0;
         m_jumping = 0;
         m_jumpStart = 0;
+        m_physicalProps.setM_pos(Vector2F(100,0));
     }
     else
     {
@@ -108,9 +109,38 @@ void Player::setOnGround(bool m_onGround)
     Player::m_onGround = m_onGround;
 }
 
-const PhysicPlayer & Player::getPphysicalProps() const
+PhysicPlayer & Player::getPphysicalProps()
 {
     return m_physicalProps;
 }
 
+void Player::animate()
+{
+    m_current_anim++;
+    if(m_current_anim >= m_num_anim)
+    {
+        m_current_anim = 0;
+    }
+}
+
+int Player::getCurrentAnimation() const
+{
+    return m_current_anim;
+}
+
+bool Player::isJumping()
+{
+    return m_jumping;
+}
+
+void Player::setJumping(bool jump)
+{
+    if(jump) m_jumpStart = m_physicalProps.getM_pos().y();
+    m_jumping = jump;
+}
+
+int Player::getJumpStart()
+{
+    return m_jumpStart;
+}
 }

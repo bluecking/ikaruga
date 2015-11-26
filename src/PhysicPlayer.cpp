@@ -26,7 +26,7 @@ namespace jumper
         PhysicPlayer::m_pos = m_pos;
     }
 
-    const Vector2F & PhysicPlayer::getM_acc() const
+    Vector2F & PhysicPlayer::getM_acc()
     {
         return m_acc;
     }
@@ -36,7 +36,7 @@ namespace jumper
         PhysicPlayer::m_acc = m_acc;
     }
 
-    const Vector2F & PhysicPlayer::getM_vel() const
+    Vector2F & PhysicPlayer::getM_vel()
     {
         return m_vel;
     }

@@ -24,22 +24,27 @@ public:
     Vector2F getPosition();
     int getWidth() const;
     int getHeight() const;
-
-    const PhysicPlayer &getPphysicalProps() const;
+    int getCurrentAnimation() const;
+    PhysicPlayer &getPphysicalProps();
 
     bool isOnGroud() const;
     void setOnGround(bool m_onGround);
+    enum direction {UP, DOWN, LEFT, RIGHT};
+    void animate();
+    void setJumping(bool jump);
+    bool isJumping();
+    int getJumpStart();
 
 private:
 
-    enum direction {UP, DOWN, LEFT, RIGHT};
+
 
     int     m_width;
     int     m_height;
     int     m_current_anim;
     int     m_num_anim;
     bool     m_onGround;
-    int     m_jumping;
+    bool     m_jumping;
     int     m_jumpStart;
     PhysicPlayer m_physicalProps;
     SDL_Texture* m_texture;

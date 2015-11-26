@@ -58,6 +58,34 @@ public:
      */
     void operator+=(const Vector2F& other);
 
+    /***
+    * Scales the Vector2F
+    *
+    * @param other	A float with which the Vector should be multiplied
+    * @return		A modified Vector2F
+    */
+    Vector2F operator*(const double& other) const;
+
+    /***
+     *
+     * @param scalar with which to multiply
+     */
+    void operator*=(const double& other);
+
+    /***
+    * Scales the Vector2F
+    *
+    * @param other	A float with which the Vector should be multiplied
+    * @return		A modified Vector2F
+    */
+    Vector2F operator*(const Vector2F& other) const;
+
+    /***
+     *
+     * @param scalar with which to multiply
+     */
+    void operator*=(const Vector2F& other);
+
     /// Returns the current x value
     float x() const;
 

@@ -141,6 +141,11 @@ void Level::render(Camera& cam)
 	}
 }
 
+PhysicWorld Level::getPhysics() const
+{
+	return m_levelPhysics;
+}
+
 void Level::getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Vector2I tiles[])
 {
     /* Determine x and y position of the sprite within the grid */

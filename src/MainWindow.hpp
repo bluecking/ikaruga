@@ -15,6 +15,7 @@
 #include "Camera.hpp"
 #include "Pixel.hpp"
 #include "Player.hpp"
+#include "PhysicWorld.hpp"
 
 namespace jumper
 {
@@ -61,7 +62,9 @@ public:
 	 */
 	SDL_Renderer* getRenderer();
 
-	void CheckAndResolveCollision();
+	void checkAndResolveCollision();
+
+	void updatePlayerPosition(int move, bool jump, double dt);
 
 private:
 
@@ -92,6 +95,10 @@ private:
 	Camera				m_camera;
 
 	Player*				m_player;
+
+	double				m_renderTime;
+
+	Uint32 				m_startTicks;
 };
 
 } /* namespace jumper */

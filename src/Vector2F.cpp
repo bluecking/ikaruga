@@ -45,6 +45,30 @@ void Vector2F::operator +=(const Vector2F& other)
     m_y += other.m_y;
 }
 
+Vector2F Vector2F::operator *(const double& scalar) const
+{
+    Vector2F p(this->m_x*scalar, this->m_y*scalar);
+    return p;
+}
+
+void Vector2F::operator *=(const double& scalar)
+{
+    m_x *= scalar;
+    m_y *= scalar;
+}
+
+Vector2F Vector2F::operator *(const Vector2F& vec) const
+{
+    Vector2F p(this->m_x*vec.x(), this->m_y*vec.y());
+    return p;
+}
+
+void Vector2F::operator *=(const Vector2F& vec)
+{
+    m_x *= vec.x();
+    m_y *= vec.y();
+}
+
 float Vector2F::x() const
 {
     return m_x;

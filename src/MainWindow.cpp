@@ -24,7 +24,7 @@ MainWindow::MainWindow(std::string title, int w, int h)
 	/// Set pointer to NULL
 	m_renderer = 0;
 	m_level = 0;
-
+	m_renderTime = 0;
 	/// Initialize SDL stuff
 	initSDL();
 }
@@ -40,13 +40,18 @@ void MainWindow::run()
 	SDL_Event e;
 	const Uint8* currentKeyStates;
 	Pixel offset;
-
+	int moveX;
+	int moveY;
+	bool jump;
 	// Start main loop and event handling
 	while(!quit && m_renderer)
 	{
+		m_startTicks = SDL_GetTicks();
 		offset.setX(0);
 		offset.setY(0);
-
+		moveX = 0;
+		moveY = 0;
+		jump = false;
 		// Process events, detect quit signal for window closing
 		while(SDL_PollEvent(&e))
 		{
@@ -60,22 +65,28 @@ void MainWindow::run()
 
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
-			offset.setY(-1);
+			moveY = -1;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 		{
-			offset.setY(1);
+			moveY = 1;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
-			offset.setX(-1);
+			moveX = -1;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
-			offset.setX(1);
+			moveX = 1;
 		}
-
-		m_camera.move(offset);
+		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
+		{
+			jump = true;
+			std::cout << "jump!" << std::endl;
+		}
+		//m_camera.move(offset);
+		updatePlayerPosition(moveX, jump, m_renderTime);
+		checkAndResolveCollision();
 
 		// Clear screen
 		SDL_RenderClear(m_renderer);
@@ -85,11 +96,12 @@ void MainWindow::run()
 		{
 			m_level->render(m_camera);
 		}
-
+		m_player->render(m_camera);
 		SDL_Delay(10);
 
 		// Update screen
 		SDL_RenderPresent(m_renderer);
+		m_renderTime = (SDL_GetTicks() - m_startTicks) / 1000.0;
 	}
 
 }
@@ -156,7 +168,7 @@ void MainWindow::setPlayer(Player* player)
 	m_player = player;
 }
 
-void MainWindow::CheckAndResolveCollision()
+void MainWindow::checkAndResolveCollision()
 {
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
@@ -289,6 +301,88 @@ void MainWindow::CheckAndResolveCollision()
 	m_player->setPosition(Vector2F(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 
 
+}
+
+void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
+{
+	m_player->animate();
+	if(dt > 0)
+	{
+		Pixel stiles[7];
+		{
+			if(dt > 0 && jump && m_player->isOnGroud())
+			{
+				m_player->setJumping(true);
+			}
+
+			Vector2F d_gravity;
+			Vector2F d_move;
+
+			d_gravity = m_level->getPhysics().getM_gravity() * dt;
+
+			if(move != 0)
+			{
+				d_move = (m_level->getPhysics().getM_move() * dt) * move;
+			}
+			else
+			{
+				d_move.setX(0);
+				d_move.setY(0);
+			}
+
+			m_player->getPphysicalProps().setM_vel(m_player->getPphysicalProps().getM_vel() + d_move + d_gravity);
+
+			if(m_player->isJumping())
+			{
+
+				m_player->getPphysicalProps().setM_vel(m_player->getPphysicalProps().getM_vel()+Vector2F(0, m_level->getPhysics().getM_jump().y() * dt));
+			}
+
+
+			m_player->getPphysicalProps().setM_vel(m_player->getPphysicalProps().getM_vel() * m_level->getPhysics().getM_damping());
+
+			/* Clamp velocities */
+
+			if(m_player->getPphysicalProps().getM_vel().x() > m_level->getPhysics().getM_maxVelRun() * dt)
+			{
+				m_player->getPphysicalProps().setM_vel(Vector2F(m_level->getPhysics().getM_maxVelRun() *dt, m_player->getPphysicalProps().getM_vel().y()));
+			}
+			if(m_player->getPphysicalProps().getM_vel().x() < - m_level->getPhysics().getM_maxVelRun() * dt)
+			{
+				m_player->getPphysicalProps().setM_vel(Vector2F(- m_level->getPhysics().getM_maxVelRun() *dt, m_player->getPphysicalProps().getM_vel().y()));
+			}
+
+			if(m_player->getPphysicalProps().getM_vel().y() > m_level->getPhysics().getM_maxVelFall() * dt)
+			{
+				m_player->getPphysicalProps().setM_vel(Vector2F(m_player->getPphysicalProps().getM_vel().x(), m_level->getPhysics().getM_maxVelFall() *dt));
+			}
+			if(m_player->getPphysicalProps().getM_vel().y() < - m_level->getPhysics().getM_maxVelJmp() * dt)
+			{
+				m_player->getPphysicalProps().setM_vel(Vector2F( m_player->getPphysicalProps().getM_vel().x(), - m_level->getPhysics().getM_maxVelJmp() *dt));
+			}
+
+			m_player->getPphysicalProps().setM_pos(m_player->getPphysicalProps().getM_pos() + m_player->getPphysicalProps().getM_vel());
+
+
+			if(m_player->getPphysicalProps().getM_pos().x() + m_level->getM_levelWidth() / 2 > m_width / 2)
+			{
+				m_camera.position().setX(m_player->getPphysicalProps().getM_pos().x() - m_height / 2 + m_level->getM_levelWidth());
+			}
+
+			if(m_player->getPphysicalProps().getM_pos().x() - m_level->getM_levelWidth() / 2 < m_width / 2)
+			{
+				m_camera.position().setX(m_player->getPphysicalProps().getM_pos().x() - m_width / 2 + m_level->getM_levelWidth());
+			}
+
+			if(m_camera.position().x() < 0) m_camera.position().setX(0);
+
+			if(fabs(m_player->getPphysicalProps().getM_pos().y() - m_player->getJumpStart()) >= m_level->getPhysics().getM_jumpHeight())
+			{
+				m_player->setJumping(false);
+			}
+
+		}
+	}
 }
 
 void MainWindow::quitSDL()

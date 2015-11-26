@@ -14,6 +14,7 @@
 #include "Camera.hpp"
 #include "Renderable.hpp"
 #include "Vector2F.hpp"
+#include "PhysicWorld.hpp"
 
 namespace jumper
 {
@@ -49,6 +50,8 @@ public:
 	int getM_tileHeight() const;
 
 	int** getM_tiles() const;
+
+	PhysicWorld getPhysics() const;
 	/***
 	 * Destructor
 	 */
@@ -96,6 +99,9 @@ private:
 
 	/// Array for tile definitions
 	int**				m_tiles;
+
+	///Physical properties of level
+	PhysicWorld			m_levelPhysics;
 
 
 };

@@ -21,11 +21,11 @@ public:
 
     void setM_pos(const Vector2F &m_pos);
 
-    const Vector2F &getM_acc() const;
+    Vector2F &getM_acc();
 
     void setM_acc(const Vector2F &m_acc);
 
-    const Vector2F &getM_vel() const;
+    Vector2F &getM_vel();
 
     void setM_vel(const Vector2F &m_vel);
 
