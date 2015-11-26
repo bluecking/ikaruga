@@ -7,7 +7,7 @@ using namespace jumper;
 
 int main(int argc, char** argv)
 {
-	if(argc != 2)
+	if(argc != 3)
 	{
 		std::cout << "Please specify a level to render" << std::endl;
 		return -1;
@@ -15,6 +15,8 @@ int main(int argc, char** argv)
 
 	MainWindow window("Jumper", 800, 600);
 	Level level(window.getRenderer(), std::string(argv[1]));
+	Player player(window.getRenderer(), std::string(argv[2]));
 	window.setLevel(&level);
+	window.setPlayer(&player);
 	window.run();
 }

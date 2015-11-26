@@ -6,6 +6,7 @@
  */
 
 #include "Level.hpp"
+#include "Vector2F.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -15,7 +16,7 @@ namespace jumper
 {
 
 
-Level::Level(SDL_Renderer* renderer, std::string filename)
+Level::Level(SDL_Renderer* renderer, std::string filename) : Renderable(renderer)
 {
 	// Set all default values
 	m_texture 		= 0;
@@ -29,7 +30,6 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 	m_tilesPerRow = 0;
 	m_levelWidth = 0;
 	m_levelHeight = 0;
-	m_renderer = renderer;
 
 	// Read meta data from level file
 	std::ifstream in(filename.c_str());
@@ -55,7 +55,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 	m_keyB = (unsigned char)ig;
 
 	// Load texture
-	m_texture = loadTexture(texFileName);
+	m_texture = loadTexture(texFileName, m_keyR, m_keyG, m_keyB);
 
 	if(!m_texture)
 	{
@@ -85,7 +85,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename)
 
 void Level::render(Camera& cam)
 {
-	if(m_renderer && m_texture)
+	if(getRenderer() && m_texture)
 	{
 		int i;
 		int j;
@@ -134,57 +134,92 @@ void Level::render(Camera& cam)
 					}
 
 					/* Copy pixel date to correct position */
-					SDL_RenderCopy( m_renderer, m_texture, &source, &target);
+					SDL_RenderCopy(getRenderer(), m_texture, &source, &target);
 				}
 			}
 		}
 	}
 }
 
+void Level::getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Vector2I tiles[])
+{
+    /* Determine x and y position of the sprite within the grid */
+    Vector2I gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
+
+
+
+
+    /* Get the surrounding tiles in "priority" order, i.e., we want
+     * check some collisions like left befire we check the others
+     */
+    tiles[0].setX(gridPos.x() - 1);
+    tiles[0].setY(gridPos.y() - 1);
+
+    tiles[1].setX(gridPos.x());
+    tiles[1].setY(gridPos.y() - 1);
+
+    tiles[2].setX(gridPos.x() + 1);
+    tiles[2].setY(gridPos.y() - 1);
+
+    tiles[3].setX(gridPos.x() - 1);
+    tiles[3].setY(gridPos.y());
+
+    tiles[4].setX(gridPos.x() + 1);
+    tiles[4].setY(gridPos.y());
+
+    tiles[5].setX(gridPos.x() - 1);
+    tiles[5].setY(gridPos.y() + 1);
+
+    tiles[6].setX(gridPos.x());
+    tiles[6].setY(gridPos.y() + 1);
+
+    tiles[7].setX(gridPos.x() + 1);
+    tiles[7].setY(gridPos.y() + 1);
+
+}
+
+int Level::getM_levelHeight() const
+{
+    return m_levelHeight;
+}
+
+int Level::getM_levelWidth() const
+{
+    return m_levelWidth;
+}
+
+int** Level::getM_tiles() const
+{
+    return m_tiles;
+}
+
+int Level::getM_tileWidth() const
+{
+    return m_tileWidth;
+}
+
+int Level::getM_tileHeight() const
+{
+    return m_tileHeight;
+}
+
 Level::~Level()
 {
-	// Free tile array
-	if(m_tiles)
-	{
-		for(int i = 0; i < m_levelHeight; i++)
-		{
-			delete[] m_tiles[i];
-		}
-	}
-	delete[] m_tiles;
+    // Free tile array
+    if(m_tiles)
+    {
+        for(int i = 0; i < m_levelHeight; i++)
+        {
+            delete[] m_tiles[i];
+        }
+    }
+    delete[] m_tiles;
 
-	// Free texture resources
-	SDL_DestroyTexture(m_texture);
+    // Free texture resources
+    SDL_DestroyTexture(m_texture);
 }
 
-SDL_Texture* Level::loadTexture(std::string texFileName)
-{
-	// The loaded texture
-	SDL_Texture* newTexture = NULL;
 
-	// Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(texFileName.c_str());
-	if( loadedSurface == NULL )
-	{
-		std::cout << "Unable to load image! SDL_image Error: " <<  IMG_GetError() << std::endl;
-	}
-	else
-	{
-		// Set keying color
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, m_keyR, m_keyG, m_keyB) );
 
-		// Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface( m_renderer, loadedSurface );
-		if( newTexture == NULL )
-		{
-			std::cout <<  "Unable to create texture from! SDL Error: " << texFileName <<  SDL_GetError() << std::endl;
-		}
-
-		// Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
-	}
-	return newTexture;
-
-}
 
 } /* namespace jumper */

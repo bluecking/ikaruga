@@ -13,6 +13,8 @@
 
 #include "Level.hpp"
 #include "Camera.hpp"
+#include "Pixel.hpp"
+#include "Player.hpp"
 
 namespace jumper
 {
@@ -48,13 +50,22 @@ public:
 	 */
 	void setLevel(Level* level);
 
+	/***
+	 * Sets the player to render.
+	 */
+	void setPlayer(Player* player);
+
 
 	/***
 	 * Gets the current SDL renderer
 	 */
 	SDL_Renderer* getRenderer();
 
+	void CheckAndResolveCollision();
+
 private:
+
+	typedef Pixel Vector2I;
 
 	/// Initializes all needed SDL resources
 	void initSDL();
@@ -79,6 +90,8 @@ private:
 
 	/// A Camera object
 	Camera				m_camera;
+
+	Player*				m_player;
 };
 
 } /* namespace jumper */

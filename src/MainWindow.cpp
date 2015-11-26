@@ -151,6 +151,146 @@ void MainWindow::setLevel(Level* level)
 	m_level = level;
 }
 
+void MainWindow::setPlayer(Player* player)
+{
+	m_player = player;
+}
+
+void MainWindow::CheckAndResolveCollision()
+{
+	SDL_Rect tileRect;
+	SDL_Rect spriteRect;
+	SDL_Rect intersectionRect;
+	Vector2F desiredPosition;
+	Vector2I surroundingTiles[8];
+	int n, i ,j;
+
+	/* Convert the player sprite's screen position to global position */
+	Vector2F global_pos = m_player->getPosition() + Vector2F(m_camera.position().x(), m_camera.position().y());
+
+	/* Set desired position to new position */
+	desiredPosition = global_pos;
+
+
+	/* Check if sprite intersects with one of its surrounding tiles */
+	m_level->getSurroundingTiles(global_pos, m_player->getWidth(), m_player->getHeight(), m_camera, surroundingTiles);
+	int d_i, d_j;
+	int f_i, f_j;
+	m_player->setOnGround(false);
+	f_i = surroundingTiles[6].y();
+	f_j = surroundingTiles[6].x();
+
+	if(m_player->getPphysicalProps().getM_vel().x() > 0)
+	{
+		d_i = surroundingTiles[7].y();
+		d_j = surroundingTiles[7].x();
+	}
+	else
+	{
+		d_i = surroundingTiles[5].y();
+		d_j = surroundingTiles[5].x();
+	}
+
+	if(f_i < m_level->getM_levelHeight() && f_j < m_level->getM_levelWidth())
+	{
+		if(m_level->getM_tiles()[f_i][f_j] > 0) m_player->setOnGround(true);
+	}
+
+
+	if(d_i < m_level->getM_levelHeight() && d_j < m_level->getM_levelWidth() )
+	{
+		if(m_level->getM_tiles()[d_i][d_j] > 0) m_player->setOnGround(true);
+	}
+
+
+	for(n = 0; n < 8; n++)
+	{
+		j = surroundingTiles[n].x();
+		i = surroundingTiles[n].y();
+
+		/* Check, if tile coordinates are valid */
+		if( (i >= 0) && (i < m_level->getM_levelHeight()) && (j >= 0) && (j < m_level->getM_levelWidth()) )
+		{
+
+
+			if(m_level->getM_tiles()[i][j] > 0)
+			{
+
+				/* Get SDL rect for current tile and sprite and check intersection */
+				tileRect.y = i * m_level->getM_tileHeight();
+				tileRect.x = j * m_level->getM_tileWidth();
+				tileRect.w = m_level->getM_tileWidth();
+				tileRect.h = m_level->getM_tileHeight();
+
+				spriteRect.x = desiredPosition.x();
+				spriteRect.y = desiredPosition.y();
+				spriteRect.w = m_level->getM_levelWidth();
+				spriteRect.h = m_level->getM_levelHeight();
+
+				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
+				{
+					//printf("n:%3d index: %3d @intersects (%3d,%3d)\n", n, set->tiles[i][j], intersectionRect.w, intersectionRect.h);
+
+					if(n == 6)
+					{
+						m_player->setOnGround(true);
+					}
+
+					/* Handle pose correction cases */
+					if(n == 4)
+					{
+						desiredPosition.setX(desiredPosition.x() - intersectionRect.w);
+					}
+					else if(n == 1)
+					{
+						desiredPosition.setY(desiredPosition.y() + intersectionRect.h);
+					}
+					else if(n == 3)
+					{
+						desiredPosition.setX(desiredPosition.x() + intersectionRect.w);
+					}
+					else if(n == 6)
+					{
+						desiredPosition.setY(desiredPosition.y() - intersectionRect.h);
+					}
+					else
+					{
+						if(intersectionRect.w >= 2 && intersectionRect.h >= 2)
+						{
+							if(intersectionRect.w > intersectionRect.h)
+							{
+								if( (n == 5) || (n == 7))
+								{
+									desiredPosition.setY(desiredPosition.y() - intersectionRect.h);
+								}
+								else
+								{
+									desiredPosition.setY(desiredPosition.y() + intersectionRect.h);
+								}
+							}
+							else
+							{
+								if( (n == 2) || (n == 7))
+								{
+									desiredPosition.setX(desiredPosition.x() - intersectionRect.w);
+								}
+								else
+								{
+									desiredPosition.setX(desiredPosition.x() + intersectionRect.w);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	m_player->setPosition(Vector2F(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+
+
+}
+
 void MainWindow::quitSDL()
 {
 	// Destroy window and renderer

@@ -12,6 +12,8 @@
 #include <SDL.h>
 
 #include "Camera.hpp"
+#include "Renderable.hpp"
+#include "Vector2F.hpp"
 
 namespace jumper
 {
@@ -19,7 +21,7 @@ namespace jumper
 /***
  * Represents a level in the jumper game.
  */
-class Level
+class Level : Renderable
 {
 public:
 	/***
@@ -36,16 +38,28 @@ public:
 	 */
 	void render(Camera& cam);
 
+	void getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel tiles[]);
+
+	int getM_levelHeight() const;
+
+	int getM_levelWidth() const;
+
+	int getM_tileWidth() const;
+
+	int getM_tileHeight() const;
+
+	int** getM_tiles() const;
 	/***
 	 * Destructor
 	 */
 	~Level();
 
+
+
+
 private:
 
-	/// Generates a SDL_Texture struct from the given files.
-	/// Returns NULL if texture generation failed.
-	SDL_Texture* loadTexture(std::string texFileName);
+	typedef Pixel Vector2I;
 
 	/// A SDL texture for the tile sheet
 	SDL_Texture*		m_texture;
@@ -83,8 +97,6 @@ private:
 	/// Array for tile definitions
 	int**				m_tiles;
 
-	/// SDL Renderer
-	SDL_Renderer*		m_renderer;
 
 };
 

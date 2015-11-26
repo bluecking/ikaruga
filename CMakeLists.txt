@@ -4,7 +4,14 @@ project(JUMPER)
 cmake_minimum_required(VERSION 2.8)
  
 # Setup sources
-set(JUMPER_SOURCES src/Main.cpp src/MainWindow.cpp src/Level.cpp src/Camera.cpp src/Pixel.cpp)
+set(JUMPER_SOURCES
+    src/Main.cpp
+    src/MainWindow.cpp
+    src/Level.cpp
+    src/Camera.cpp
+    src/Pixel.cpp
+    src/Renderable.cpp
+    src/Renderable.hpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
@@ -22,6 +29,6 @@ include_directories(${SDL2_IMG_INCLUDE_DIR})
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 # Build executable
-add_executable(jumper ${JUMPER_SOURCES})
+add_executable(jumper ${JUMPER_SOURCES} src/Player.cpp src/Player.hpp src/PhysicPlayer.cpp src/PhysicPlayer.hpp src/PhysicWorld.cpp src/PhysicWorld.hpp src/Vector2F.cpp src/Vector2F.hpp)
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(jumper m)
