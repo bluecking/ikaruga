@@ -32,7 +32,7 @@ void Player::render()
     SDL_Rect target;
     SDL_Rect source;
     SDL_RendererFlip flip;
-    if(m_physicalProps.getVel().x() > 0)
+    if(m_physicalProps.velocity().x() > 0)
     {
         flip = SDL_FLIP_HORIZONTAL;
     }
@@ -41,8 +41,8 @@ void Player::render()
         flip = SDL_FLIP_NONE;
     }
 
-    target.x = m_physicalProps.getPosition().x();
-    target.y = m_physicalProps.getPosition().y();
+    target.x = m_physicalProps.position().x();
+    target.y = m_physicalProps.position().y();
     target.w = m_width;
     target.h = m_height;
 
@@ -62,9 +62,9 @@ void Player::render()
     SDL_RenderCopyEx( getRenderer(), m_texture, &source, &target, 0, NULL, flip);
 }
 
-Vector2F Player::getPosition()
+Vector2F Player::position()
 {
-    return m_physicalProps.getPosition();
+    return m_physicalProps.position();
 }
 
 void Player::move(int direction, int speed)
@@ -73,13 +73,13 @@ void Player::move(int direction, int speed)
     {
 
         case UP 	:
-            m_physicalProps.getPosition()+=Vector2F(0, -speed);   break;
+            m_physicalProps.position()+=Vector2F(0, -speed);   break;
         case DOWN	:
-            m_physicalProps.getPosition()+=Vector2F(0, speed);    break;
+            m_physicalProps.position()+=Vector2F(0, speed);    break;
         case LEFT	:
-            m_physicalProps.getPosition()+=Vector2F(-speed, 0);   break;
+            m_physicalProps.position()+=Vector2F(-speed, 0);   break;
         case RIGHT  :
-            m_physicalProps.getPosition()+=Vector2F(speed, 0);    break;
+            m_physicalProps.position()+=Vector2F(speed, 0);    break;
     }
     m_current_anim++;
 
@@ -91,20 +91,20 @@ void Player::move(int direction, int speed)
 
 void Player::setPosition(Vector2F pos)
 {
-    m_physicalProps.getPosition() = pos;
+    m_physicalProps.position() = pos;
 }
 
-int Player::getWidth() const
+int Player::w() const
 {
     return m_width;
 }
 
-int Player::getHeight() const
+int Player::h() const
 {
     return m_height;
 }
 
-bool Player::isOnGroud() const
+bool Player::onGround() const
 {
     return m_onGround;
 }
@@ -113,7 +113,7 @@ void Player::setOnGround(bool m_onGround)
     Player::m_onGround = m_onGround;
 }
 
-PhysicPlayer & Player::getPphysicalProps()
+PhysicPlayer & Player::physics()
 {
     return m_physicalProps;
 }
@@ -132,18 +132,18 @@ int Player::getCurrentAnimation() const
     return m_current_anim;
 }
 
-bool Player::isJumping()
+bool Player::jumping()
 {
     return m_jumping;
 }
 
 void Player::setJumping(bool jump)
 {
-    if(jump) m_jumpStart = m_physicalProps.getPosition().y();
+    if(jump) m_jumpStart = m_physicalProps.position().y();
     m_jumping = jump;
 }
 
-int Player::getJumpStart()
+int Player::jumpStart()
 {
     return m_jumpStart;
 }

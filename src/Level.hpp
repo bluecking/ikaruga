@@ -37,29 +37,26 @@ public:
 	 *
 	 * @param renderer		A SDL_Renderer to render the tiles
 	 */
-	void render();
+	virtual void render();
 
-	void getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel tiles[]);
+	void surroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel *tiles);
 
-	int getLevelHeight() const;
+	int levelHeight() const;
 
-	int getLevelWidth() const;
+	int levelWidth() const;
 
-	int getTileWidth() const;
+	int tileWidth() const;
 
-	int getTileHeight() const;
+	int tileHeight() const;
 
-	int** getTiles() const;
+	int**tiles() const;
 
 	PhysicWorld getPhysics() const;
 	/***
 	 * Destructor
 	 */
-	~Level();
-
-
-
-
+	virtual ~Level();
+	
 private:
 
 	typedef Pixel Vector2I;

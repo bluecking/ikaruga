@@ -17,13 +17,13 @@ public:
 
     PhysicPlayer(const Vector2F &m_pos, const Vector2F &m_acc, const Vector2F &m_vel);
 
-    Vector2F &getPosition();
+    Vector2F &position();
 
     void setPosition(const Vector2F &m_pos);
 
-    Vector2F &getVel();
+    Vector2F &velocity();
 
-    void setVel(const Vector2F &m_vel);
+    void setVelocity(const Vector2F &m_vel);
 
 private:
     Vector2F    m_pos;

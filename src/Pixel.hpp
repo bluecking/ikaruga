@@ -8,6 +8,8 @@
 #ifndef SRC_PIXEL_HPP_
 #define SRC_PIXEL_HPP_
 
+#include <ostream>
+
 namespace jumper
 {
 
@@ -80,6 +82,8 @@ public:
 	 */
 	void setY(int y);
 
+
+	friend std::ostream& operator<<(std::ostream& stream, const jumper::Pixel& vec);
 private:
 
 	/// x coordinate of the pixel

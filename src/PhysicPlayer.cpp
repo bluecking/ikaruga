@@ -16,7 +16,7 @@ namespace jumper
 
     }
 
-    Vector2F & PhysicPlayer::getPosition()
+    Vector2F & PhysicPlayer::position()
     {
         return m_pos;
     }
@@ -27,12 +27,12 @@ namespace jumper
     }
 
 
-    Vector2F & PhysicPlayer::getVel()
+    Vector2F & PhysicPlayer::velocity()
     {
         return m_vel;
     }
 
-    void PhysicPlayer::setVel(const Vector2F &m_vel)
+    void PhysicPlayer::setVelocity(const Vector2F &m_vel)
     {
         PhysicPlayer::m_vel = m_vel;
     }

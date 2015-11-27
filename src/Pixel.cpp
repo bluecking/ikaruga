@@ -5,6 +5,7 @@
  *      Author: twiemann
  */
 
+
 #include "Pixel.hpp"
 
 namespace jumper
@@ -67,5 +68,12 @@ void Pixel::setY(int y)
 {
 	m_y = y;
 }
+
+std::ostream& operator<<(std::ostream& stream, const jumper::Pixel& vec)
+{
+	stream << "[" <<vec.x() << "|" << vec.y() << "]";
+	return stream;
+}
+
 
 } /* namespace jumper */

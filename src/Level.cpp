@@ -146,7 +146,7 @@ PhysicWorld Level::getPhysics() const
 	return m_levelPhysics;
 }
 
-void Level::getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Vector2I tiles[])
+void Level::surroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel *tiles)
 {
     /* Determine x and y position of the sprite within the grid */
     Vector2I gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
@@ -183,27 +183,27 @@ void Level::getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam
 
 }
 
-int Level::getLevelHeight() const
+int Level::levelHeight() const
 {
     return m_levelHeight;
 }
 
-int Level::getLevelWidth() const
+int Level::levelWidth() const
 {
     return m_levelWidth;
 }
 
-int** Level::getTiles() const
+int** Level::tiles() const
 {
     return m_tiles;
 }
 
-int Level::getTileWidth() const
+int Level::tileWidth() const
 {
     return m_tileWidth;
 }
 
-int Level::getTileHeight() const
+int Level::tileHeight() const
 {
     return m_tileHeight;
 }

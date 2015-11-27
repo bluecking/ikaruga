@@ -183,21 +183,21 @@ void MainWindow::checkAndResolveCollision()
 	int n, i ,j;
 
 	/* Convert the player sprite's screen position to global position */
-	Vector2F global_pos = m_player->getPosition() + Vector2F(m_camera.position().x(), m_camera.position().y());
+	Vector2F global_pos = m_player->position() + Vector2F(m_camera.position().x(), m_camera.position().y());
 
 	/* Set desired position to new position */
 	desiredPosition = global_pos;
 
 
 	/* Check if sprite intersects with one of its surrounding tiles */
-	m_level->getSurroundingTiles(global_pos, m_player->getWidth(), m_player->getHeight(), m_camera, surroundingTiles);
+	m_level->surroundingTiles(global_pos, m_player->w(), m_player->h(), m_camera, surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
 	m_player->setOnGround(false);
 	f_i = surroundingTiles[6].y();
 	f_j = surroundingTiles[6].x();
 
-	if(m_player->getPphysicalProps().getVel().x() > 0)
+	if(m_player->physics().velocity().x() > 0)
 	{
 		d_i = surroundingTiles[7].y();
 		d_j = surroundingTiles[7].x();
@@ -208,15 +208,15 @@ void MainWindow::checkAndResolveCollision()
 		d_j = surroundingTiles[5].x();
 	}
 
-	if(f_i < m_level->getLevelHeight() && f_j < m_level->getLevelWidth())
+	if(f_i < m_level->levelHeight() && f_j < m_level->levelWidth())
 	{
-		if(m_level->getTiles()[f_i][f_j] > 0) m_player->setOnGround(true);
+		if(m_level->tiles()[f_i][f_j] > 0) m_player->setOnGround(true);
 	}
 
 
-	if(d_i < m_level->getLevelHeight() && d_j < m_level->getLevelWidth() )
+	if(d_i < m_level->levelHeight() && d_j < m_level->levelWidth() )
 	{
-		if(m_level->getTiles()[d_i][d_j] > 0) m_player->setOnGround(true);
+		if(m_level->tiles()[d_i][d_j] > 0) m_player->setOnGround(true);
 	}
 
 
@@ -226,23 +226,23 @@ void MainWindow::checkAndResolveCollision()
 		i = surroundingTiles[n].y();
 
 		/* Check, if tile coordinates are valid */
-		if((i >= 0) && (i < m_level->getLevelHeight()) && (j >= 0) && (j < m_level->getLevelWidth()) )
+		if((i >= 0) && (i < m_level->levelHeight()) && (j >= 0) && (j < m_level->levelWidth()) )
 		{
 
 
-			if(m_level->getTiles()[i][j] > 0)
+			if(m_level->tiles()[i][j] > 0)
 			{
 
 				/* Get SDL rect for current tile and sprite and check intersection */
-				tileRect.y = i * m_level->getTileHeight();
-				tileRect.x = j * m_level->getTileWidth();
-				tileRect.w = m_level->getTileWidth();
-				tileRect.h = m_level->getTileHeight();
+				tileRect.y = i * m_level->tileHeight();
+				tileRect.x = j * m_level->tileWidth();
+				tileRect.w = m_level->tileWidth();
+				tileRect.h = m_level->tileHeight();
 
 				spriteRect.x = desiredPosition.x();
 				spriteRect.y = desiredPosition.y();
-				spriteRect.w = m_level->getLevelWidth();
-				spriteRect.h = m_level->getLevelHeight();
+				spriteRect.w = m_player->w();
+				spriteRect.h = m_player->h();
 
 				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
 				{
@@ -262,6 +262,7 @@ void MainWindow::checkAndResolveCollision()
 					else if(n == 1)
 					{
 						desiredPosition.setY(desiredPosition.y() + intersectionRect.h);
+						m_player->setJumping(false);
 					}
 					else if(n == 3)
 					{
@@ -296,6 +297,10 @@ void MainWindow::checkAndResolveCollision()
 								{
 									desiredPosition.setX(desiredPosition.x() + intersectionRect.w);
 								}
+								if( (n == 0) || (n == 2) )
+								{
+									m_player->setJumping(false);
+								}
 							}
 						}
 					}
@@ -315,7 +320,7 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 	if(dt > 0)
 	{
 
-		if(dt > 0 && jump && m_player->isOnGroud())
+		if(dt > 0 && jump && m_player->onGround())
 		{
 			m_player->setJumping(true);
 		}
@@ -323,11 +328,11 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 		Vector2F d_gravity;
 		Vector2F d_move;
 
-		d_gravity = m_level->getPhysics().getGravity() * dt;
+		d_gravity = m_level->getPhysics().gravity() * dt;
 
 		if(move != 0)
 		{
-			d_move = (m_level->getPhysics().getMove() * dt) * move;
+			d_move = (m_level->getPhysics().move() * dt) * move;
 		}
 		else
 		{
@@ -335,71 +340,74 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 			d_move.setY(0);
 		}
 
-		m_player->getPphysicalProps().setVel(m_player->getPphysicalProps().getVel() + d_move + d_gravity);
+		// Update velocity
+		m_player->physics().setVelocity(m_player->physics().velocity() + d_move + d_gravity);
 
-		if(m_player->isJumping())
+		// Add jumping momentum
+		if(m_player->jumping())
 		{
+			m_player->physics().velocity().setY(
+					m_player->physics().velocity().y() + (m_level->getPhysics().jumpForce().y() * dt) );
+		}
 
-			m_player->getPphysicalProps().getVel().setY(
-					m_player->getPphysicalProps().getVel().y() + (m_level->getPhysics().getJump().y() * dt) );
+		// Damp velocity according to extrinsic level damping
+		m_player->physics().setVelocity(m_player->physics().velocity() * m_level->getPhysics().damping());
 
+		// Clamp velocities
+		if(m_player->physics().velocity().x() > m_level->getPhysics().maxVelocity() * dt)
+		{
+			m_player->physics().setVelocity(Vector2F(m_level->getPhysics().maxVelocity() * dt,
+													 m_player->physics().velocity().y()));
+		}
+
+		if(m_player->physics().velocity().x() < -m_level->getPhysics().maxVelocity() * dt)
+		{
+			m_player->physics().setVelocity(Vector2F(-m_level->getPhysics().maxVelocity() * dt,
+													 m_player->physics().velocity().y()));
+		}
+
+		if(m_player->physics().velocity().y() > m_level->getPhysics().maxFallVelocity() * dt)
+		{
+			m_player->physics().setVelocity(
+					Vector2F(m_player->physics().velocity().x(), m_level->getPhysics().maxFallVelocity() * dt));
+		}
+
+		if(m_player->physics().velocity().y() < -m_level->getPhysics().maxJumpVelocity() * dt)
+		{
+			m_player->physics().setVelocity(
+					Vector2F(m_player->physics().velocity().x(), -m_level->getPhysics().maxJumpVelocity() * dt));
+		}
+
+		// Set new player position
+		m_player->physics().setPosition(m_player->physics().position() + m_player->physics().velocity());
+
+
+		// Move camera if player position exceeds window with / 2
+		if(m_player->physics().position().x() + m_level->levelWidth() / 2 > m_width / 2)
+		{
+			m_camera.position().setX(m_player->physics().position().x() - m_height / 2 + m_level->levelWidth());
 
 		}
 
-
-		m_player->getPphysicalProps().setVel(
-				m_player->getPphysicalProps().getVel() * m_level->getPhysics().getDamping());
-
-		/* Clamp velocities */
-
-		if(m_player->getPphysicalProps().getVel().x() > m_level->getPhysics().getMaxVelRun() * dt)
+		if(m_player->physics().position().x() - m_level->levelWidth() / 2 < m_width / 2)
 		{
-			m_player->getPphysicalProps().setVel(Vector2F(m_level->getPhysics().getMaxVelRun() * dt,
-														  m_player->getPphysicalProps().getVel().y()));
-		}
-		if(m_player->getPphysicalProps().getVel().x() < -m_level->getPhysics().getMaxVelRun() * dt)
-		{
-			m_player->getPphysicalProps().setVel(Vector2F(-m_level->getPhysics().getMaxVelRun() * dt,
-														  m_player->getPphysicalProps().getVel().y()));
+			m_camera.position().setX(
+					m_player->physics().position().x() - m_width / 2 + m_level->levelWidth());
 		}
 
-		if(m_player->getPphysicalProps().getVel().y() > m_level->getPhysics().getMaxVelFall() * dt)
+		if(m_camera.position().x() < 0)
 		{
-			m_player->getPphysicalProps().setVel(
-					Vector2F(m_player->getPphysicalProps().getVel().x(), m_level->getPhysics().getMaxVelFall() * dt));
-		}
-		if(m_player->getPphysicalProps().getVel().y() < -m_level->getPhysics().getMaxVelJmp() * dt)
-		{
-			m_player->getPphysicalProps().setVel(
-					Vector2F(m_player->getPphysicalProps().getVel().x(), -m_level->getPhysics().getMaxVelJmp() * dt));
+			m_camera.position().setX(0);
 		}
 
-		m_player->getPphysicalProps().setPosition(
-				m_player->getPphysicalProps().getPosition() + m_player->getPphysicalProps().getVel());
-
-
-		if(m_player->getPphysicalProps().getPosition().x() + m_level->getLevelWidth() / 2 > m_width / 2)
-		{
-			m_camera.position().setX(m_player->getPphysicalProps().getPosition().x() - m_height / 2 +
-									 m_level->getLevelWidth());
-		}
-
-		if(m_player->getPphysicalProps().getPosition().x() - m_level->getLevelWidth() / 2 < m_width / 2)
-		{
-			m_camera.position().setX(m_player->getPphysicalProps().getPosition().x() - m_width / 2 +
-									 m_level->getLevelWidth());
-		}
-
-		if(m_camera.position().x() < 0) m_camera.position().setX(0);
-
-		if(fabs(m_player->getPphysicalProps().getPosition().y() - m_player->getJumpStart()) >=
-				m_level->getPhysics().getJumpHeight())
+		// Stop jumping at maximum jumping height
+		if(fabs(m_player->physics().position().y() - m_player->jumpStart()) >= m_level->getPhysics().jumpHeight())
 		{
 			m_player->setJumping(false);
 		}
 
 
-
+		std::cout << m_camera.position() << std::endl;
 	}
 }
 

@@ -37,7 +37,7 @@ namespace jumper
 
     }
 
-    const Vector2F & PhysicWorld::getGravity() const
+    const Vector2F & PhysicWorld::gravity() const
     {
         return m_gravity;
     }
@@ -47,17 +47,17 @@ namespace jumper
         PhysicWorld::m_gravity = m_gravity;
     }
 
-    const Vector2F & PhysicWorld::getJump() const
+    const Vector2F & PhysicWorld::jumpForce() const
     {
         return m_jump;
     }
 
-    void PhysicWorld::setJump(const Vector2F &m_jump)
+    void PhysicWorld::setJumpFore(const Vector2F &m_jump)
     {
         PhysicWorld::m_jump = m_jump;
     }
 
-    const Vector2F & PhysicWorld::getMove() const
+    const Vector2F & PhysicWorld::move() const
     {
         return m_move;
     }
@@ -67,7 +67,7 @@ namespace jumper
         PhysicWorld::m_move = m_move;
     }
 
-    const Vector2F & PhysicWorld::getDamping() const
+    const Vector2F & PhysicWorld::damping() const
     {
         return m_damping;
     }
@@ -77,37 +77,37 @@ namespace jumper
         PhysicWorld::m_damping = m_damping;
     }
 
-    double PhysicWorld::getMaxVelJmp() const
+    double PhysicWorld::maxJumpVelocity() const
     {
         return m_maxVelJmp;
     }
 
-    void PhysicWorld::setMaxVelJmp(double m_maxVelJmp)
+    void PhysicWorld::setMaxJumpVelocity(double m_maxVelJmp)
     {
         PhysicWorld::m_maxVelJmp = m_maxVelJmp;
     }
 
-    double PhysicWorld::getMaxVelRun() const
+    double PhysicWorld::maxVelocity() const
     {
         return m_maxVelRun;
     }
 
-    void PhysicWorld::setMaxVelRun(double m_maxVelRun)
+    void PhysicWorld::setMaxVelocity(double m_maxVelRun)
     {
         PhysicWorld::m_maxVelRun = m_maxVelRun;
     }
 
-    double PhysicWorld::getMaxVelFall() const
+    double PhysicWorld::maxFallVelocity() const
     {
         return m_maxVelFall;
     }
 
-    void PhysicWorld::setMaxVelFall(double m_maxVelFall)
+    void PhysicWorld::setMaxFallVelocity(double m_maxVelFall)
     {
         PhysicWorld::m_maxVelFall = m_maxVelFall;
     }
 
-    double PhysicWorld::getJumpHeight() const
+    double PhysicWorld::jumpHeight() const
     {
         return m_jumpHeight;
     }

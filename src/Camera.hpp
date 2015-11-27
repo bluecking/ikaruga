@@ -43,7 +43,7 @@ public:
 	int y();
 
 	/// Returns the current position
-	Pixel position() const;
+	Pixel& position();
 
 	/// Destructor
 	virtual ~Camera();

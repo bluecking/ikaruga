@@ -38,7 +38,7 @@ Camera::Camera(const Pixel& pixel)
 {
 }
 
-Pixel Camera::position() const
+Pixel& Camera::position()
 {
 	return m_position;
 }

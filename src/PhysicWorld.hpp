@@ -24,35 +24,35 @@ public:
                 double m_maxVelFall,
                 double m_jumpHeight);
 
-    const Vector2F &getGravity() const;
+    const Vector2F &gravity() const;
 
     void setGravity(const Vector2F &m_gravity);
 
-    const Vector2F &getJump() const;
+    const Vector2F &jumpForce() const;
 
-    void setJump(const Vector2F &m_jump);
+    void setJumpFore(const Vector2F &m_jump);
 
-    const Vector2F &getMove() const;
+    const Vector2F &move() const;
 
     void setMove(const Vector2F &m_move);
 
-    const Vector2F &getDamping() const;
+    const Vector2F &damping() const;
 
     void setDamping(const Vector2F &m_damping);
 
-    double getMaxVelJmp() const;
+    double maxJumpVelocity() const;
 
-    void setMaxVelJmp(double m_maxVelJmp);
+    void setMaxJumpVelocity(double m_maxVelJmp);
 
-    double getMaxVelRun() const;
+    double maxVelocity() const;
 
-    void setMaxVelRun(double m_maxVelRun);
+    void setMaxVelocity(double m_maxVelRun);
 
-    double getMaxVelFall() const;
+    double maxFallVelocity() const;
 
-    void setMaxVelFall(double m_maxVelFall);
+    void setMaxFallVelocity(double m_maxVelFall);
 
-    double getJumpHeight() const;
+    double jumpHeight() const;
 
     void setJumpHeight(double m_jumpHeight);
 

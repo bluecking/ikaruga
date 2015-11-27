@@ -21,20 +21,21 @@ public:
     void render();
     void move(int direction, int speed);
     void setPosition(Vector2F pos);
-    Vector2F getPosition();
-    int getWidth() const;
-    int getHeight() const;
+    Vector2F position();
+    int w() const;
+    int h() const;
     int getCurrentAnimation() const;
-    PhysicPlayer &getPphysicalProps();
+    PhysicPlayer &physics();
 
-    bool isOnGroud() const;
+    bool onGround() const;
     void setOnGround(bool m_onGround);
     enum direction {UP, DOWN, LEFT, RIGHT};
     void animate();
     void setJumping(bool jump);
-    bool isJumping();
-    int getJumpStart();
+    bool jumping();
+    int jumpStart();
 
+    friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2F& vec);
 private:
 
 
