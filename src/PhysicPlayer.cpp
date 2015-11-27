@@ -10,29 +10,29 @@ namespace jumper
 
     }
 
-    PhysicPlayer::PhysicPlayer(const Vector2F &m_pos, const Vector2F &m_acc, const Vector2F &m_vel) :
+    PhysicPlayer::PhysicPlayer(const Vector2f &m_pos, const Vector2f &m_acc, const Vector2f &m_vel) :
             m_pos(m_pos),  m_vel(m_vel)
     {
 
     }
 
-    Vector2F & PhysicPlayer::position()
+    Vector2f & PhysicPlayer::position()
     {
         return m_pos;
     }
 
-    void PhysicPlayer::setPosition(const Vector2F &m_pos)
+    void PhysicPlayer::setPosition(const Vector2f &m_pos)
     {
         PhysicPlayer::m_pos = m_pos;
     }
 
 
-    Vector2F & PhysicPlayer::velocity()
+    Vector2f & PhysicPlayer::velocity()
     {
         return m_vel;
     }
 
-    void PhysicPlayer::setVelocity(const Vector2F &m_vel)
+    void PhysicPlayer::setVelocity(const Vector2f &m_vel)
     {
         PhysicPlayer::m_vel = m_vel;
     }

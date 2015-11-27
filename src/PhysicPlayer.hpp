@@ -6,7 +6,7 @@
 #define JUMPER_PHYSICPLAYER_H
 
 #include "Pixel.hpp"
-#include "Vector2F.hpp"
+#include "Vector2f.hpp"
 
 namespace jumper
 {
@@ -15,19 +15,19 @@ class PhysicPlayer
 public:
     PhysicPlayer();
 
-    PhysicPlayer(const Vector2F &m_pos, const Vector2F &m_acc, const Vector2F &m_vel);
+    PhysicPlayer(const Vector2f &m_pos, const Vector2f &m_acc, const Vector2f &m_vel);
 
-    Vector2F &position();
+    Vector2f &position();
 
-    void setPosition(const Vector2F &m_pos);
+    void setPosition(const Vector2f &m_pos);
 
-    Vector2F &velocity();
+    Vector2f &velocity();
 
-    void setVelocity(const Vector2F &m_vel);
+    void setVelocity(const Vector2f &m_vel);
 
 private:
-    Vector2F    m_pos;
-    Vector2F    m_vel;
+    Vector2f m_pos;
+    Vector2f m_vel;
 
 };
 }

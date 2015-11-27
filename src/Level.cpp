@@ -6,7 +6,7 @@
  */
 
 #include "Level.hpp"
-#include "Vector2F.hpp"
+#include "Vector2f.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -112,8 +112,8 @@ void Level::render()
 				if(tile_index >= 0)
 				{
 					/* Compute the position of the target on the screen */
-					target.x = j * m_tileWidth + m_cam.x();
-					target.y = i * m_tileHeight + m_cam.y();
+					target.x = j * m_tileWidth - m_cam.x();
+					target.y = i * m_tileHeight - m_cam.y();
 
 					/* Compute the position of the source pixel data
 					 * within the texture (no offset for first tiles)
@@ -146,7 +146,7 @@ PhysicWorld Level::getPhysics() const
 	return m_levelPhysics;
 }
 
-void Level::surroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel *tiles)
+void Level::surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Pixel *tiles)
 {
     /* Determine x and y position of the sprite within the grid */
     Vector2I gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
@@ -155,7 +155,7 @@ void Level::surroundingTiles(Vector2F pos, int width, int height, Camera &cam, P
 
 
     /* Get the surrounding tiles in "priority" order, i.e., we want
-     * check some collisions like left befire we check the others
+     * check some collisions like left before we check the others
      */
     tiles[0].setX(gridPos.x() - 1);
     tiles[0].setY(gridPos.y() - 1);

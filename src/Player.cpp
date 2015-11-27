@@ -18,7 +18,7 @@ Player::Player(SDL_Renderer *renderer, std::string filename) : Renderable(render
         m_current_anim = 0;
         m_jumping = 0;
         m_jumpStart = 0;
-        m_physicalProps.setPosition(Vector2F(100, 0));
+        m_physicalProps.setPosition(Vector2f(100, 0));
     }
     else
     {
@@ -62,7 +62,7 @@ void Player::render()
     SDL_RenderCopyEx( getRenderer(), m_texture, &source, &target, 0, NULL, flip);
 }
 
-Vector2F Player::position()
+Vector2f Player::position()
 {
     return m_physicalProps.position();
 }
@@ -73,13 +73,13 @@ void Player::move(int direction, int speed)
     {
 
         case UP 	:
-            m_physicalProps.position()+=Vector2F(0, -speed);   break;
+            m_physicalProps.position()+= Vector2f(0, -speed);   break;
         case DOWN	:
-            m_physicalProps.position()+=Vector2F(0, speed);    break;
+            m_physicalProps.position()+= Vector2f(0, speed);    break;
         case LEFT	:
-            m_physicalProps.position()+=Vector2F(-speed, 0);   break;
+            m_physicalProps.position()+= Vector2f(-speed, 0);   break;
         case RIGHT  :
-            m_physicalProps.position()+=Vector2F(speed, 0);    break;
+            m_physicalProps.position()+= Vector2f(speed, 0);    break;
     }
     m_current_anim++;
 
@@ -89,7 +89,7 @@ void Player::move(int direction, int speed)
     }
 }
 
-void Player::setPosition(Vector2F pos)
+void Player::setPosition(Vector2f pos)
 {
     m_physicalProps.position() = pos;
 }

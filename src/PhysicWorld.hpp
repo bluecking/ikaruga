@@ -5,7 +5,7 @@
 #ifndef JUMPER_PHYSICWORLD_H
 #define JUMPER_PHYSICWORLD_H
 
-#include "Vector2F.hpp"
+#include "Vector2f.hpp"
 
 namespace jumper
 {
@@ -15,30 +15,30 @@ public:
 
 
     PhysicWorld();
-    PhysicWorld(const Vector2F &m_gravity,
-                const Vector2F &m_jump,
-                const Vector2F &m_move,
-                const Vector2F &m_damping,
+    PhysicWorld(const Vector2f &m_gravity,
+                const Vector2f &m_jump,
+                const Vector2f &m_move,
+                const Vector2f &m_damping,
                 double m_maxVelJmp,
                 double m_maxVelRun,
                 double m_maxVelFall,
                 double m_jumpHeight);
 
-    const Vector2F &gravity() const;
+    const Vector2f &gravity() const;
 
-    void setGravity(const Vector2F &m_gravity);
+    void setGravity(const Vector2f &m_gravity);
 
-    const Vector2F &jumpForce() const;
+    const Vector2f &jumpForce() const;
 
-    void setJumpFore(const Vector2F &m_jump);
+    void setJumpFore(const Vector2f &m_jump);
 
-    const Vector2F &move() const;
+    const Vector2f &move() const;
 
-    void setMove(const Vector2F &m_move);
+    void setMove(const Vector2f &m_move);
 
-    const Vector2F &damping() const;
+    const Vector2f &damping() const;
 
-    void setDamping(const Vector2F &m_damping);
+    void setDamping(const Vector2f &m_damping);
 
     double maxJumpVelocity() const;
 
@@ -57,10 +57,10 @@ public:
     void setJumpHeight(double m_jumpHeight);
 
 private:
-    Vector2F m_gravity;
-    Vector2F m_jump;
-    Vector2F m_move;
-    Vector2F m_damping;
+    Vector2f m_gravity;
+    Vector2f m_jump;
+    Vector2f m_move;
+    Vector2f m_damping;
     double m_maxVelJmp;
     double m_maxVelRun;
     double m_maxVelFall;

@@ -17,10 +17,10 @@ namespace jumper
 
     }
 
-    PhysicWorld::PhysicWorld(const Vector2F &gravity,
-                             const Vector2F &jump,
-                             const Vector2F &move,
-                             const Vector2F &damping,
+    PhysicWorld::PhysicWorld(const Vector2f &gravity,
+                             const Vector2f &jump,
+                             const Vector2f &move,
+                             const Vector2f &damping,
                              double maxVelJmp,
                              double maxVelRun,
                              double maxVelFall,
@@ -37,42 +37,42 @@ namespace jumper
 
     }
 
-    const Vector2F & PhysicWorld::gravity() const
+    const Vector2f & PhysicWorld::gravity() const
     {
         return m_gravity;
     }
 
-    void PhysicWorld::setGravity(const Vector2F &m_gravity)
+    void PhysicWorld::setGravity(const Vector2f &m_gravity)
     {
         PhysicWorld::m_gravity = m_gravity;
     }
 
-    const Vector2F & PhysicWorld::jumpForce() const
+    const Vector2f & PhysicWorld::jumpForce() const
     {
         return m_jump;
     }
 
-    void PhysicWorld::setJumpFore(const Vector2F &m_jump)
+    void PhysicWorld::setJumpFore(const Vector2f &m_jump)
     {
         PhysicWorld::m_jump = m_jump;
     }
 
-    const Vector2F & PhysicWorld::move() const
+    const Vector2f & PhysicWorld::move() const
     {
         return m_move;
     }
 
-    void PhysicWorld::setMove(const Vector2F &m_move)
+    void PhysicWorld::setMove(const Vector2f &m_move)
     {
         PhysicWorld::m_move = m_move;
     }
 
-    const Vector2F & PhysicWorld::damping() const
+    const Vector2f & PhysicWorld::damping() const
     {
         return m_damping;
     }
 
-    void PhysicWorld::setDamping(const Vector2F &m_damping)
+    void PhysicWorld::setDamping(const Vector2f &m_damping)
     {
         PhysicWorld::m_damping = m_damping;
     }

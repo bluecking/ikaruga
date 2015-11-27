@@ -178,12 +178,12 @@ void MainWindow::checkAndResolveCollision()
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
 	SDL_Rect intersectionRect;
-	Vector2F desiredPosition;
+	Vector2f desiredPosition;
 	Vector2I surroundingTiles[8];
 	int n, i ,j;
 
 	/* Convert the player sprite's screen position to global position */
-	Vector2F global_pos = m_player->position() + Vector2F(m_camera.position().x(), m_camera.position().y());
+	Vector2f global_pos = m_player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
 	/* Set desired position to new position */
 	desiredPosition = global_pos;
@@ -309,7 +309,7 @@ void MainWindow::checkAndResolveCollision()
 		}
 	}
 
-	m_player->setPosition(Vector2F(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+	m_player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 
 
 }
@@ -325,8 +325,8 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 			m_player->setJumping(true);
 		}
 
-		Vector2F d_gravity;
-		Vector2F d_move;
+		Vector2f d_gravity;
+		Vector2f d_move;
 
 		d_gravity = m_level->getPhysics().gravity() * dt;
 
@@ -356,26 +356,26 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 		// Clamp velocities
 		if(m_player->physics().velocity().x() > m_level->getPhysics().maxVelocity() * dt)
 		{
-			m_player->physics().setVelocity(Vector2F(m_level->getPhysics().maxVelocity() * dt,
+			m_player->physics().setVelocity(Vector2f(m_level->getPhysics().maxVelocity() * dt,
 													 m_player->physics().velocity().y()));
 		}
 
 		if(m_player->physics().velocity().x() < -m_level->getPhysics().maxVelocity() * dt)
 		{
-			m_player->physics().setVelocity(Vector2F(-m_level->getPhysics().maxVelocity() * dt,
+			m_player->physics().setVelocity(Vector2f(-m_level->getPhysics().maxVelocity() * dt,
 													 m_player->physics().velocity().y()));
 		}
 
 		if(m_player->physics().velocity().y() > m_level->getPhysics().maxFallVelocity() * dt)
 		{
 			m_player->physics().setVelocity(
-					Vector2F(m_player->physics().velocity().x(), m_level->getPhysics().maxFallVelocity() * dt));
+					Vector2f(m_player->physics().velocity().x(), m_level->getPhysics().maxFallVelocity() * dt));
 		}
 
 		if(m_player->physics().velocity().y() < -m_level->getPhysics().maxJumpVelocity() * dt)
 		{
 			m_player->physics().setVelocity(
-					Vector2F(m_player->physics().velocity().x(), -m_level->getPhysics().maxJumpVelocity() * dt));
+					Vector2f(m_player->physics().velocity().x(), -m_level->getPhysics().maxJumpVelocity() * dt));
 		}
 
 		// Set new player position
@@ -383,18 +383,7 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 
 
 		// Move camera if player position exceeds window with / 2
-		if(m_player->physics().position().x() + m_level->levelWidth() / 2 > m_width / 2)
-		{
-			m_camera.position().setX(m_player->physics().position().x() - m_height / 2 + m_level->levelWidth());
-
-		}
-
-		if(m_player->physics().position().x() - m_level->levelWidth() / 2 < m_width / 2)
-		{
-			m_camera.position().setX(
-					m_player->physics().position().x() - m_width / 2 + m_level->levelWidth());
-		}
-
+		m_camera.position().setX(m_player->position().x() - m_width / 2 + m_player->w());
 		if(m_camera.position().x() < 0)
 		{
 			m_camera.position().setX(0);
@@ -407,7 +396,8 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 		}
 
 
-		std::cout << m_camera.position() << std::endl;
+		//std::cout << m_camera.position() << std::endl;
+		//std::cout << m_camera.position() << std::endl;
 	}
 }
 

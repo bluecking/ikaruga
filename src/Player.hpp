@@ -20,8 +20,8 @@ public:
     Player(SDL_Renderer* renderer, std::string filename);
     void render();
     void move(int direction, int speed);
-    void setPosition(Vector2F pos);
-    Vector2F position();
+    void setPosition(Vector2f pos);
+    Vector2f position();
     int w() const;
     int h() const;
     int getCurrentAnimation() const;
@@ -35,7 +35,7 @@ public:
     bool jumping();
     int jumpStart();
 
-    friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2F& vec);
+    friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2f & vec);
 private:
 
 

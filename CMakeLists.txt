@@ -29,6 +29,6 @@ include_directories(${SDL2_IMG_INCLUDE_DIR})
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 # Build executable
-add_executable(jumper ${JUMPER_SOURCES} src/Player.cpp src/Player.hpp src/PhysicPlayer.cpp src/PhysicPlayer.hpp src/PhysicWorld.cpp src/PhysicWorld.hpp src/Vector2F.cpp src/Vector2F.hpp)
+add_executable(jumper ${JUMPER_SOURCES} src/Player.cpp src/Player.hpp src/PhysicPlayer.cpp src/PhysicPlayer.hpp src/PhysicWorld.cpp src/PhysicWorld.hpp src/Vector2f.cpp src/Vector2f.hpp)
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(jumper m)

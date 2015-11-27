@@ -13,7 +13,7 @@
 
 #include "Camera.hpp"
 #include "Renderable.hpp"
-#include "Vector2F.hpp"
+#include "Vector2f.hpp"
 #include "PhysicWorld.hpp"
 
 namespace jumper
@@ -39,7 +39,7 @@ public:
 	 */
 	virtual void render();
 
-	void surroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel *tiles);
+	void surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Pixel *tiles);
 
 	int levelHeight() const;
 
@@ -56,7 +56,7 @@ public:
 	 * Destructor
 	 */
 	virtual ~Level();
-	
+
 private:
 
 	typedef Pixel Vector2I;

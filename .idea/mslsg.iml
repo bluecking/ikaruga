@@ -22,8 +22,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Player.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Renderable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Renderable.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Vector2F.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Vector2F.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Vector2f.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Vector2f.hpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
