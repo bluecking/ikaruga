@@ -18,7 +18,7 @@ class Player : public Renderable
 {
 public:
     Player(SDL_Renderer* renderer, std::string filename);
-    void render(Camera &cam);
+    void render();
     void move(int direction, int speed);
     void setPosition(Vector2F pos);
     Vector2F getPosition();

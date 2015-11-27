@@ -30,26 +30,26 @@ public:
 	 *
 	 * @param filename
 	 */
-	Level(SDL_Renderer* renderer, std::string filename);
+	Level(SDL_Renderer* renderer, std::string filename, Camera & cam);
 
 	/***
 	 * Renders the level to the given renderer
 	 *
 	 * @param renderer		A SDL_Renderer to render the tiles
 	 */
-	void render(Camera& cam);
+	void render();
 
 	void getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam, Pixel tiles[]);
 
-	int getM_levelHeight() const;
+	int getLevelHeight() const;
 
-	int getM_levelWidth() const;
+	int getLevelWidth() const;
 
-	int getM_tileWidth() const;
+	int getTileWidth() const;
 
-	int getM_tileHeight() const;
+	int getTileHeight() const;
 
-	int** getM_tiles() const;
+	int** getTiles() const;
 
 	PhysicWorld getPhysics() const;
 	/***
@@ -102,6 +102,8 @@ private:
 
 	///Physical properties of level
 	PhysicWorld			m_levelPhysics;
+
+	Camera & 			m_cam;
 
 
 };

@@ -24,37 +24,37 @@ public:
                 double m_maxVelFall,
                 double m_jumpHeight);
 
-    const Vector2F &getM_gravity() const;
+    const Vector2F &getGravity() const;
 
-    void setM_gravity(const Vector2F &m_gravity);
+    void setGravity(const Vector2F &m_gravity);
 
-    const Vector2F &getM_jump() const;
+    const Vector2F &getJump() const;
 
-    void setM_jump(const Vector2F &m_jump);
+    void setJump(const Vector2F &m_jump);
 
-    const Vector2F &getM_move() const;
+    const Vector2F &getMove() const;
 
-    void setM_move(const Vector2F &m_move);
+    void setMove(const Vector2F &m_move);
 
-    const Vector2F &getM_damping() const;
+    const Vector2F &getDamping() const;
 
-    void setM_damping(const Vector2F &m_damping);
+    void setDamping(const Vector2F &m_damping);
 
-    double getM_maxVelJmp() const;
+    double getMaxVelJmp() const;
 
-    void setM_maxVelJmp(double m_maxVelJmp);
+    void setMaxVelJmp(double m_maxVelJmp);
 
-    double getM_maxVelRun() const;
+    double getMaxVelRun() const;
 
-    void setM_maxVelRun(double m_maxVelRun);
+    void setMaxVelRun(double m_maxVelRun);
 
-    double getM_maxVelFall() const;
+    double getMaxVelFall() const;
 
-    void setM_maxVelFall(double m_maxVelFall);
+    void setMaxVelFall(double m_maxVelFall);
 
-    double getM_jumpHeight() const;
+    double getJumpHeight() const;
 
-    void setM_jumpHeight(double m_jumpHeight);
+    void setJumpHeight(double m_jumpHeight);
 
 private:
     Vector2F m_gravity;

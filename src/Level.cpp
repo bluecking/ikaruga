@@ -16,7 +16,7 @@ namespace jumper
 {
 
 
-Level::Level(SDL_Renderer* renderer, std::string filename) : Renderable(renderer)
+Level::Level(SDL_Renderer* renderer, std::string filename, Camera & cam) : Renderable(renderer), m_cam(cam)
 {
 	// Set all default values
 	m_texture 		= 0;
@@ -83,7 +83,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : Renderable(renderer
 	in.close();
 }
 
-void Level::render(Camera& cam)
+void Level::render()
 {
 	if(getRenderer() && m_texture)
 	{
@@ -112,8 +112,8 @@ void Level::render(Camera& cam)
 				if(tile_index >= 0)
 				{
 					/* Compute the position of the target on the screen */
-					target.x = j * m_tileWidth + cam.x();
-					target.y = i * m_tileHeight + cam.y();
+					target.x = j * m_tileWidth + m_cam.x();
+					target.y = i * m_tileHeight + m_cam.y();
 
 					/* Compute the position of the source pixel data
 					 * within the texture (no offset for first tiles)
@@ -183,27 +183,27 @@ void Level::getSurroundingTiles(Vector2F pos, int width, int height, Camera &cam
 
 }
 
-int Level::getM_levelHeight() const
+int Level::getLevelHeight() const
 {
     return m_levelHeight;
 }
 
-int Level::getM_levelWidth() const
+int Level::getLevelWidth() const
 {
     return m_levelWidth;
 }
 
-int** Level::getM_tiles() const
+int** Level::getTiles() const
 {
     return m_tiles;
 }
 
-int Level::getM_tileWidth() const
+int Level::getTileWidth() const
 {
     return m_tileWidth;
 }
 
-int Level::getM_tileHeight() const
+int Level::getTileHeight() const
 {
     return m_tileHeight;
 }

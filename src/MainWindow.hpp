@@ -66,6 +66,8 @@ public:
 
 	void updatePlayerPosition(int move, bool jump, double dt);
 
+	Camera & getCam();
+
 private:
 
 	typedef Pixel Vector2I;

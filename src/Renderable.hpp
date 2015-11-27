@@ -32,7 +32,7 @@ public:
     /**
     * @brief   Renders the object.
     */
-    virtual void render(Camera& cam) = 0;
+    virtual void render() = 0;
 
     /**
      * @brief Generates a SDL_Texture struct from the given files.

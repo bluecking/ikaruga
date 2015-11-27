@@ -18,7 +18,7 @@ Player::Player(SDL_Renderer *renderer, std::string filename) : Renderable(render
         m_current_anim = 0;
         m_jumping = 0;
         m_jumpStart = 0;
-        m_physicalProps.setM_pos(Vector2F(100,0));
+        m_physicalProps.setPosition(Vector2F(100, 0));
     }
     else
     {
@@ -27,12 +27,12 @@ Player::Player(SDL_Renderer *renderer, std::string filename) : Renderable(render
 
 }
 
-void Player::render(Camera &cam)
+void Player::render()
 {
     SDL_Rect target;
     SDL_Rect source;
     SDL_RendererFlip flip;
-    if(m_physicalProps.getM_vel().x() > 0)
+    if(m_physicalProps.getVel().x() > 0)
     {
         flip = SDL_FLIP_HORIZONTAL;
     }
@@ -41,8 +41,8 @@ void Player::render(Camera &cam)
         flip = SDL_FLIP_NONE;
     }
 
-    target.x = m_physicalProps.getM_pos().x();
-    target.y = m_physicalProps.getM_pos().y();
+    target.x = m_physicalProps.getPosition().x();
+    target.y = m_physicalProps.getPosition().y();
     target.w = m_width;
     target.h = m_height;
 
@@ -64,7 +64,7 @@ void Player::render(Camera &cam)
 
 Vector2F Player::getPosition()
 {
-    return  m_physicalProps.getM_pos();
+    return m_physicalProps.getPosition();
 }
 
 void Player::move(int direction, int speed)
@@ -72,10 +72,14 @@ void Player::move(int direction, int speed)
     switch(direction)
     {
 
-        case UP 	: m_physicalProps.getM_pos()+=Vector2F(0,-speed);   break;
-        case DOWN	: m_physicalProps.getM_pos()+=Vector2F(0,speed);    break;
-        case LEFT	: m_physicalProps.getM_pos()+=Vector2F(-speed,0);   break;
-        case RIGHT  : m_physicalProps.getM_pos()+=Vector2F(speed,0);    break;
+        case UP 	:
+            m_physicalProps.getPosition()+=Vector2F(0, -speed);   break;
+        case DOWN	:
+            m_physicalProps.getPosition()+=Vector2F(0, speed);    break;
+        case LEFT	:
+            m_physicalProps.getPosition()+=Vector2F(-speed, 0);   break;
+        case RIGHT  :
+            m_physicalProps.getPosition()+=Vector2F(speed, 0);    break;
     }
     m_current_anim++;
 
@@ -87,7 +91,7 @@ void Player::move(int direction, int speed)
 
 void Player::setPosition(Vector2F pos)
 {
-    m_physicalProps.getM_pos() = pos;
+    m_physicalProps.getPosition() = pos;
 }
 
 int Player::getWidth() const
@@ -135,7 +139,7 @@ bool Player::isJumping()
 
 void Player::setJumping(bool jump)
 {
-    if(jump) m_jumpStart = m_physicalProps.getM_pos().y();
+    if(jump) m_jumpStart = m_physicalProps.getPosition().y();
     m_jumping = jump;
 }
 
