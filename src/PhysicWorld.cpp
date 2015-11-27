@@ -6,8 +6,8 @@
 namespace jumper
 {
     PhysicWorld::PhysicWorld() : m_gravity(0,400),
+                                 m_jump(0,-440),
                                  m_move(800,0),
-                                 m_jump(-440,0),
                                  m_damping(0.9,1.0),
                                  m_maxVelJmp(300),
                                  m_maxVelRun(120),
@@ -17,22 +17,22 @@ namespace jumper
 
     }
 
-    PhysicWorld::PhysicWorld(const Vector2F &m_gravity,
-                             const Vector2F &m_jump,
-                             const Vector2F &m_move,
-                             const Vector2F &m_damping,
-                             double m_maxVelJmp,
-                             double m_maxVelRun,
-                             double m_maxVelFall,
-                             double m_jumpHeight)
-                            : m_gravity(m_gravity),
-                              m_jump(m_jump),
-                              m_move(m_move),
-                              m_damping(m_damping),
-                              m_maxVelJmp(m_maxVelJmp),
-                              m_maxVelRun(m_maxVelRun),
-                              m_maxVelFall(m_maxVelFall),
-                              m_jumpHeight(m_jumpHeight)
+    PhysicWorld::PhysicWorld(const Vector2F &gravity,
+                             const Vector2F &jump,
+                             const Vector2F &move,
+                             const Vector2F &damping,
+                             double maxVelJmp,
+                             double maxVelRun,
+                             double maxVelFall,
+                             double jumpHeight)
+                            : m_gravity(gravity),
+                              m_jump(jump),
+                              m_move(move),
+                              m_damping(damping),
+                              m_maxVelJmp(maxVelJmp),
+                              m_maxVelRun(maxVelRun),
+                              m_maxVelFall(maxVelFall),
+                              m_jumpHeight(jumpHeight)
     {
 
     }

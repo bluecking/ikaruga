@@ -6,6 +6,8 @@
 #define JUMPER_VECTOR2F_H
 
 
+#include <iosfwd>
+
 namespace jumper
 {
 
@@ -105,6 +107,8 @@ public:
      * @param y 	A new y value
      */
     void setY(float y);
+
+    friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2F& vec);
 
 private:
 

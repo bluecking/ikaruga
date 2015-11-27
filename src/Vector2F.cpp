@@ -2,6 +2,7 @@
 // Created by isaak on 26.11.15.
 //
 
+#include <ostream>
 #include "Vector2F.hpp"
 
 namespace jumper
@@ -87,6 +88,12 @@ float Vector2F::y() const
 void Vector2F::setY(float y)
 {
     m_y = y;
+}
+
+std::ostream& operator<<(std::ostream& stream, const jumper::Vector2F& vec)
+{
+    stream << "[" <<vec.x() << "|" << vec.y() << "]" << std::endl;
+    return stream;
 }
 
 } /* namespace jumper */
