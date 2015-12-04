@@ -8,8 +8,7 @@
 #ifndef CAMERA_HPP_
 #define CAMERA_HPP_
 
-#include "Pixel.hpp"
-
+#include "Vector.hpp"
 namespace jumper
 {
 
@@ -28,13 +27,13 @@ public:
 	/***
 	 * Constructs a camera with the given pixel offsets
 	 */
-	Camera(const Pixel& pixel);
+	Camera(const Vector2i& pixel);
 
 	/***
 	 * Moves the camera according to the given offset
 	 * @param offset	A pixel offset for camera movement
 	 */
-	void move(const Pixel& offset);
+	void move(const Vector2i& offset);
 
 	/// Returns the current x-position
 	int x();
@@ -43,7 +42,7 @@ public:
 	int y();
 
 	/// Returns the current position
-	Pixel& position();
+	Vector2i& position();
 
 	/// Destructor
 	virtual ~Camera();
@@ -51,7 +50,7 @@ public:
 private:
 
 	/// Current camera position
-	Pixel	m_position;
+	Vector2i	m_position;
 
 };
 

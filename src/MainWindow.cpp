@@ -6,10 +6,9 @@
  */
 
 #include "MainWindow.hpp"
-#include "Pixel.hpp"
-
 #include <SDL_image.h>
 #include <iostream>
+#include "Vector.hpp"
 
 namespace jumper
 {
@@ -39,7 +38,7 @@ void MainWindow::run()
 	bool quit = false;
 	SDL_Event e;
 	const Uint8* currentKeyStates;
-	Pixel offset;
+	Vector2i offset;
 	int moveX;
 	int moveY;
 	bool jump;
@@ -179,7 +178,7 @@ void MainWindow::checkAndResolveCollision()
 	SDL_Rect spriteRect;
 	SDL_Rect intersectionRect;
 	Vector2f desiredPosition;
-	Vector2I surroundingTiles[8];
+	Vector2i surroundingTiles[8];
 	int n, i ,j;
 
 	//Convert the player sprite's screen position to global position

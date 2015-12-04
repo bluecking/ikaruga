@@ -140,13 +140,10 @@ PhysicWorld Level::getPhysics() const
 	return m_levelPhysics;
 }
 
-void Level::surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Pixel *tiles)
+void Level::surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles)
 {
     /* Determine x and y position of the sprite within the grid */
-    Vector2I gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
-
-
-
+    Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
 
     /* Get the surrounding tiles in "priority" order, i.e., we want
      * check some collisions like left before we check the others

@@ -28,17 +28,17 @@ Camera::Camera()
 	m_position.setY(0);
 }
 
-void Camera::move(const Pixel& p)
+void Camera::move(const Vector2i& p)
 {
 	m_position += p;
 }
 
-Camera::Camera(const Pixel& pixel)
-	: m_position(pixel)
+Camera::Camera(const Vector2i& Vector2i)
+	: m_position(Vector2i)
 {
 }
 
-Pixel& Camera::position()
+Vector2i& Camera::position()
 {
 	return m_position;
 }

@@ -13,7 +13,6 @@
 
 #include "Level.hpp"
 #include "Camera.hpp"
-#include "Pixel.hpp"
 #include "Player.hpp"
 #include "PhysicWorld.hpp"
 
@@ -70,7 +69,6 @@ public:
 
 private:
 
-	typedef Pixel Vector2I;
 
 	/// Initializes all needed SDL resources
 	void initSDL();

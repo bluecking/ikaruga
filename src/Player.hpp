@@ -13,7 +13,7 @@
 
 #include "AnimatedRenderable.hpp"
 #include "PhysicPlayer.hpp"
-#include "TVector.hpp"
+#include "Vector.hpp"
 
 
 namespace jumper

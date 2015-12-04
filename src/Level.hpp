@@ -13,9 +13,9 @@
 
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
-#include "TVector.hpp"
 #include "PhysicWorld.hpp"
 #include "SparseMatrix.hpp"
+#include "Vector.hpp"
 
 namespace jumper
 {
@@ -26,8 +26,6 @@ namespace jumper
 class Level : public StaticRenderable
 {
 public:
-	typedef Vector2<float> Vector2f;
-	typedef Vector2<int>   Vector2i;
 
 	/***
 	 * Loads a level from the given file
@@ -43,7 +41,7 @@ public:
 	 */
 	virtual void render();
 
-	void surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Pixel *tiles);
+	void surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles);
 
 	int levelHeight() const;
 
@@ -63,7 +61,6 @@ public:
 
 private:
 
-	typedef Pixel Vector2I;
 
 	/// Tile width
 	int					m_tileWidth;

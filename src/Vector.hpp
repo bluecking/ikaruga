@@ -5,8 +5,8 @@
  *      Author: twiemann
  */
 
-#ifndef SRC_TVECTOR_HPP_
-#define SRC_TVECTOR_HPP_
+#ifndef SRC_VECTOR_HPP_
+#define SRC_VECTOR_HPP_
 
 #include <ostream>
 
@@ -144,6 +144,6 @@ typedef Vector2<int> Vector2i;
 
 } /* namespace jumper */
 
-#include "TVector.tcc"
+#include "Vector.tcc"
 
-#endif /* SRC_TVECTOR_HPP_ */
+#endif /* SRC_VECTOR_HPP_ */

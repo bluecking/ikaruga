@@ -5,7 +5,7 @@
 #ifndef JUMPER_PHYSICWORLD_H
 #define JUMPER_PHYSICWORLD_H
 
-#include "TVector.hpp"
+#include "Vector.hpp"
 
 namespace jumper
 {

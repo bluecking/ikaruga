@@ -10,7 +10,6 @@ set(JUMPER_SOURCES
     src/MainWindow.cpp
     src/Level.cpp
     src/Camera.cpp
-    src/Pixel.cpp
     src/Renderable.cpp
     src/Renderable.hpp
     src/PhysicPlayer.cpp
@@ -19,8 +18,7 @@ set(JUMPER_SOURCES
     src/Renderable.cpp
     src/SparseMatrix.cpp
     src/SparseVector.cpp
-    src/StaticRenderable.cpp
-    src/Vector2f.cpp)
+    src/StaticRenderable.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
