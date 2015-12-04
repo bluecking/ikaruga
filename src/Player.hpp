@@ -5,18 +5,23 @@
 #ifndef JUMPER_PLAYER_H
 #define JUMPER_PLAYER_H
 
-#include <string>
-#include <SDL.h>
-#include "AnimatedRenderable.hpp"
-#include "PhysicPlayer.hpp"
 #include <fstream>
 #include <iostream>
+#include <string>
+
+#include <SDL.h>
+
+#include "AnimatedRenderable.hpp"
+#include "PhysicPlayer.hpp"
+#include "TVector.hpp"
+
 
 namespace jumper
 {
 class Player : public AnimatedRenderable
 {
 public:
+
     Player(SDL_Renderer* renderer, std::string filename);
     void render();
     void move(int direction, int speed);
@@ -32,7 +37,8 @@ public:
     bool jumping();
     int jumpStart();
 
-    friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2f & vec);
+    template<typename T>
+    friend std::ostream& operator<< (std::ostream& stream, const Vector2<T> & vec);
 private:
 
     int     		m_num_anim;

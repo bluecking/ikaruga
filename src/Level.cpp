@@ -6,7 +6,6 @@
  */
 
 #include "Level.hpp"
-#include "Vector2f.hpp"
 #include "StaticRenderable.hpp"
 
 #include <iostream>

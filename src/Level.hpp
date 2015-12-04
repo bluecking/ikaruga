@@ -13,7 +13,7 @@
 
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
-#include "Vector2f.hpp"
+#include "TVector.hpp"
 #include "PhysicWorld.hpp"
 #include "SparseMatrix.hpp"
 
@@ -26,6 +26,9 @@ namespace jumper
 class Level : public StaticRenderable
 {
 public:
+	typedef Vector2<float> Vector2f;
+	typedef Vector2<int>   Vector2i;
+
 	/***
 	 * Loads a level from the given file
 	 *

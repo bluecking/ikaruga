@@ -5,14 +5,14 @@
 #ifndef JUMPER_PHYSICWORLD_H
 #define JUMPER_PHYSICWORLD_H
 
-#include "Vector2f.hpp"
+#include "TVector.hpp"
 
 namespace jumper
 {
+
 class PhysicWorld
 {
 public:
-
 
     PhysicWorld();
     PhysicWorld(const Vector2f &m_gravity,
