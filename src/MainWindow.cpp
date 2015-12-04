@@ -315,7 +315,7 @@ void MainWindow::checkAndResolveCollision()
 
 void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 {
-	m_player->animate();
+	m_player->nextFrame();
 	if(dt > 0)
 	{
 
@@ -394,9 +394,6 @@ void MainWindow::updatePlayerPosition(int move, bool jump, double dt)
 			m_player->setJumping(false);
 		}
 
-
-		//std::cout << m_camera.position() << std::endl;
-		//std::cout << m_camera.position() << std::endl;
 	}
 }
 

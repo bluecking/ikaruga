@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.8)
  
 # Setup sources
 set(JUMPER_SOURCES
+    src/AnimatedRenderable.cpp
     src/Main.cpp
     src/MainWindow.cpp
     src/Level.cpp
@@ -18,6 +19,7 @@ set(JUMPER_SOURCES
     src/Renderable.cpp
     src/SparseMatrix.cpp
     src/SparseVector.cpp
+    src/StaticRenderable.cpp
     src/Vector2f.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the

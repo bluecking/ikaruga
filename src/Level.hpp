@@ -12,7 +12,7 @@
 #include <SDL.h>
 
 #include "Camera.hpp"
-#include "Renderable.hpp"
+#include "StaticRenderable.hpp"
 #include "Vector2f.hpp"
 #include "PhysicWorld.hpp"
 #include "SparseMatrix.hpp"
@@ -23,7 +23,7 @@ namespace jumper
 /***
  * Represents a level in the jumper game.
  */
-class Level : public Renderable
+class Level : public StaticRenderable
 {
 public:
 	/***
@@ -61,9 +61,6 @@ public:
 private:
 
 	typedef Pixel Vector2I;
-
-	/// A SDL texture for the tile sheet
-	SDL_Texture*		m_texture;
 
 	/// Tile width
 	int					m_tileWidth;

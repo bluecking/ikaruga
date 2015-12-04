@@ -7,14 +7,14 @@
 
 #include <string>
 #include <SDL.h>
-#include "Renderable.hpp"
+#include "AnimatedRenderable.hpp"
 #include "PhysicPlayer.hpp"
 #include <fstream>
 #include <iostream>
 
 namespace jumper
 {
-class Player : public Renderable
+class Player : public AnimatedRenderable
 {
 public:
     Player(SDL_Renderer* renderer, std::string filename);
@@ -22,15 +22,12 @@ public:
     void move(int direction, int speed);
     void setPosition(Vector2f pos);
     Vector2f position();
-    int w() const;
-    int h() const;
-    int getCurrentAnimation() const;
+
     PhysicPlayer &physics();
 
     bool onGround() const;
     void setOnGround(bool m_onGround);
     enum direction {UP, DOWN, LEFT, RIGHT};
-    void animate();
     void setJumping(bool jump);
     bool jumping();
     int jumpStart();
@@ -38,17 +35,12 @@ public:
     friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2f & vec);
 private:
 
+    int     		m_num_anim;
+    bool     		m_onGround;
+    bool     		m_jumping;
+    int     		m_jumpStart;
+    PhysicPlayer 	m_physicalProps;
 
-
-    int     m_width;
-    int     m_height;
-    int     m_current_anim;
-    int     m_num_anim;
-    bool     m_onGround;
-    bool     m_jumping;
-    int     m_jumpStart;
-    PhysicPlayer m_physicalProps;
-    SDL_Texture* m_texture;
 };
 
 }

@@ -7,16 +7,18 @@
 
 #include "Level.hpp"
 #include "Vector2f.hpp"
+#include "StaticRenderable.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <SDL_image.h>
 
+
 namespace jumper
 {
 
 
-Level::Level(SDL_Renderer* renderer, std::string filename, Camera & cam) : Renderable(renderer), m_cam(cam)
+Level::Level(SDL_Renderer* renderer, std::string filename, Camera & cam) : StaticRenderable(renderer), m_cam(cam)
 {
 	// Set all default values
 	m_texture 		= 0;
