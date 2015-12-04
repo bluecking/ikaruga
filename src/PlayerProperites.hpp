@@ -2,20 +2,20 @@
 // Created by isaak on 26.11.15.
 //
 
-#ifndef JUMPER_PHYSICPLAYER_H
-#define JUMPER_PHYSICPLAYER_H
+#ifndef PLAYER_PROPERTIES_H
+#define PLAYER_PROPERTIES_H
 
 #include "Vector.hpp"
 
 namespace jumper
 {
-class PhysicPlayer
+class PlayerProperties
 {
 public:
 
-    PhysicPlayer();
+    PlayerProperties();
 
-    PhysicPlayer(const Vector2f &m_pos, const Vector2f &m_acc, const Vector2f &m_vel);
+    PlayerProperties(const Vector2f &m_pos, const Vector2f &m_acc, const Vector2f &m_vel);
 
     Vector2f &position();
 

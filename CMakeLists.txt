@@ -12,9 +12,9 @@ set(JUMPER_SOURCES
     src/Camera.cpp
     src/Renderable.cpp
     src/Renderable.hpp
-    src/PhysicPlayer.cpp
     src/PhysicWorld.cpp
     src/Player.cpp
+    src/PlayerProperties.cpp
     src/Renderable.cpp
     src/SparseMatrix.cpp
     src/SparseVector.cpp

@@ -74,7 +74,7 @@ void Player::setOnGround(bool m_onGround)
     Player::m_onGround = m_onGround;
 }
 
-PhysicPlayer & Player::physics()
+PlayerProperties& Player::physics()
 {
     return m_physicalProps;
 }

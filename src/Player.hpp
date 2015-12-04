@@ -12,7 +12,7 @@
 #include <SDL.h>
 
 #include "AnimatedRenderable.hpp"
-#include "PhysicPlayer.hpp"
+#include "PlayerProperites.hpp"
 #include "Vector.hpp"
 
 
@@ -28,7 +28,7 @@ public:
     void setPosition(Vector2f pos);
     Vector2f position();
 
-    PhysicPlayer &physics();
+    PlayerProperties &physics();
 
     bool onGround() const;
     void setOnGround(bool m_onGround);
@@ -41,11 +41,11 @@ public:
     friend std::ostream& operator<< (std::ostream& stream, const Vector2<T> & vec);
 private:
 
-    int     		m_num_anim;
-    bool     		m_onGround;
-    bool     		m_jumping;
-    int     		m_jumpStart;
-    PhysicPlayer 	m_physicalProps;
+    int     			m_num_anim;
+    bool     			m_onGround;
+    bool     			m_jumping;
+    int     			m_jumpStart;
+    PlayerProperties 	m_physicalProps;
 
 };
 
