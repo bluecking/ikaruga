@@ -13,8 +13,9 @@
 
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
-#include "PhysicWorld.hpp"
 #include "SparseMatrix.hpp"
+#include "PhysicWorld.hpp"
+#include "Player.hpp"
 #include "Vector.hpp"
 
 namespace jumper
@@ -41,8 +42,6 @@ public:
 	 */
 	virtual void render();
 
-	void surroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles);
-
 	int levelHeight() const;
 
 	int levelWidth() const;
@@ -59,7 +58,15 @@ public:
 	 */
 	virtual ~Level();
 
+	void setPlayer(Player* player);
+
+	void checkAndResolveCollision();
+
+	void updatePlayerPosition(int move, bool jump, double dt);
+
 private:
+
+	void getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles);
 
 
 	/// Tile width
@@ -95,9 +102,11 @@ private:
 	///Physical properties of level
 	PhysicWorld			m_levelPhysics;
 
-	Camera  			m_cam;
+	Camera  			m_camera;
 
 	SparseMatrix		m_tiles;
+
+	Player*				m_player;
 
 };
 

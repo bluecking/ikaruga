@@ -51,19 +51,11 @@ public:
 	void setLevel(Level* level);
 
 	/***
-	 * Sets the player to render.
-	 */
-	void setPlayer(Player* player);
-
-
-	/***
 	 * Gets the current SDL renderer
 	 */
 	SDL_Renderer* getRenderer();
 
-	void checkAndResolveCollision();
 
-	void updatePlayerPosition(int move, bool jump, double dt);
 
 	Camera & getCam();
 
@@ -93,8 +85,6 @@ private:
 
 	/// A Camera object
 	Camera				m_camera;
-
-	Player*				m_player;
 
 	double				m_renderTime;
 
