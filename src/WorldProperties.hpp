@@ -2,20 +2,20 @@
 // Created by isaak on 26.11.15.
 //
 
-#ifndef JUMPER_PHYSICWORLD_H
-#define JUMPER_PHYSICWORLD_H
+#ifndef JUMPER_WorldProperties_H
+#define JUMPER_WorldProperties_H
 
 #include "Vector.hpp"
 
 namespace jumper
 {
 
-class PhysicWorld
+class WorldProperties
 {
 public:
 
-    PhysicWorld();
-    PhysicWorld(const Vector2f &m_gravity,
+    WorldProperties();
+    WorldProperties(const Vector2f &m_gravity,
                 const Vector2f &m_jump,
                 const Vector2f &m_move,
                 const Vector2f &m_damping,
@@ -68,4 +68,4 @@ private:
 };
 
 }
-#endif //JUMPER_PHYSICWORLD_H
+#endif //JUMPER_WorldProperties_H

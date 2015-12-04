@@ -14,9 +14,9 @@
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
 #include "SparseMatrix.hpp"
-#include "PhysicWorld.hpp"
 #include "Player.hpp"
 #include "Vector.hpp"
+#include "WorldProperties.hpp"
 
 namespace jumper
 {
@@ -52,7 +52,7 @@ public:
 
 	SparseMatrix& tiles();
 
-	PhysicWorld getPhysics() const;
+	WorldProperties getPhysics() const;
 	/***
 	 * Destructor
 	 */
@@ -100,7 +100,7 @@ private:
 	int					m_levelHeight;
 
 	///Physical properties of level
-	PhysicWorld			m_levelPhysics;
+	WorldProperties		m_levelPhysics;
 
 	Camera  			m_camera;
 

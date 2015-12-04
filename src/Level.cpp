@@ -145,7 +145,7 @@ void Level::render()
 	}
 }
 
-PhysicWorld Level::getPhysics() const
+WorldProperties Level::getPhysics() const
 {
 	return m_levelPhysics;
 }
