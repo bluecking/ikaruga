@@ -15,6 +15,7 @@
 #include "Renderable.hpp"
 #include "Vector2f.hpp"
 #include "PhysicWorld.hpp"
+#include "SparseMatrix.hpp"
 
 namespace jumper
 {
@@ -22,7 +23,7 @@ namespace jumper
 /***
  * Represents a level in the jumper game.
  */
-class Level : Renderable
+class Level : public Renderable
 {
 public:
 	/***
@@ -49,7 +50,7 @@ public:
 
 	int tileHeight() const;
 
-	int**tiles() const;
+	SparseMatrix& tiles();
 
 	PhysicWorld getPhysics() const;
 	/***
@@ -94,14 +95,12 @@ private:
 	/// Level height
 	int					m_levelHeight;
 
-	/// Array for tile definitions
-	int**				m_tiles;
-
 	///Physical properties of level
 	PhysicWorld			m_levelPhysics;
 
-	Camera & 			m_cam;
+	Camera  			m_cam;
 
+	SparseMatrix		m_tiles;
 
 };
 

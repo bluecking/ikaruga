@@ -49,24 +49,21 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & cam) : Rende
 		std::cout << "Unable to open file " << filename << std::endl;
 	}
 
+	SparseMatrix tiles(m_levelHeight, m_levelWidth);
+	m_tiles = tiles;
+
 	// Cast keying colors manually!
 	m_keyR = (unsigned char)ir;
 	m_keyG = (unsigned char)ib;
 	m_keyB = (unsigned char)ig;
 
 	// Load texture
+	std::cout << texFileName << std::endl;
 	m_texture = loadTexture(texFileName, m_keyR, m_keyG, m_keyB);
 
 	if(!m_texture)
 	{
 		std::cout << "Unable to load texture " << texFileName << std::endl;
-	}
-
-	// Alloc tile set memory
-	m_tiles = new int*[m_levelHeight];
-	for(int i = 0; i < m_levelHeight; i++)
-	{
-		m_tiles[i] = new int[m_levelWidth];
 	}
 
 	// Read tile indices
@@ -76,7 +73,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & cam) : Rende
 		{
 			int tileID;
 			in >> tileID;
-			m_tiles[i][j] = tileID;
+			m_tiles.insert(i, j, tileID);
 		}
 	}
 
@@ -94,9 +91,7 @@ void Level::render()
 		SDL_Rect target;
 		SDL_Rect source;
 
-		/* Set target / source width and height to tile size,
-		 * they never change
-		 */
+
 		target.w = m_tileWidth;
 		target.h = m_tileHeight;
 
@@ -111,13 +106,11 @@ void Level::render()
 				tile_index = m_tiles[i][j] - 1;
 				if(tile_index >= 0)
 				{
-					/* Compute the position of the target on the screen */
+					//Compute the position of the target on the screen
 					target.x = j * m_tileWidth - m_cam.x();
 					target.y = i * m_tileHeight - m_cam.y();
 
-					/* Compute the position of the source pixel data
-					 * within the texture (no offset for first tiles)
-					 */
+
 					row = tile_index / m_tilesPerRow;
 					col = tile_index % m_tilesPerRow;
 
@@ -133,7 +126,7 @@ void Level::render()
 						source.y += row * m_tileOffset;
 					}
 
-					/* Copy pixel date to correct position */
+					// Copy pixel date to correct position
 					SDL_RenderCopy(getRenderer(), m_texture, &source, &target);
 				}
 			}
@@ -193,7 +186,7 @@ int Level::levelWidth() const
     return m_levelWidth;
 }
 
-int** Level::tiles() const
+SparseMatrix& Level::tiles()
 {
     return m_tiles;
 }
@@ -210,16 +203,6 @@ int Level::tileHeight() const
 
 Level::~Level()
 {
-    // Free tile array
-    if(m_tiles)
-    {
-        for(int i = 0; i < m_levelHeight; i++)
-        {
-            delete[] m_tiles[i];
-        }
-    }
-    delete[] m_tiles;
-
     // Free texture resources
     SDL_DestroyTexture(m_texture);
 }

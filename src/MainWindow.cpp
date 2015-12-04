@@ -182,14 +182,14 @@ void MainWindow::checkAndResolveCollision()
 	Vector2I surroundingTiles[8];
 	int n, i ,j;
 
-	/* Convert the player sprite's screen position to global position */
+	//Convert the player sprite's screen position to global position
 	Vector2f global_pos = m_player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
-	/* Set desired position to new position */
+	// Set desired position to new position
 	desiredPosition = global_pos;
 
 
-	/* Check if sprite intersects with one of its surrounding tiles */
+	// Check if sprite intersects with one of its surrounding tiles
 	m_level->surroundingTiles(global_pos, m_player->w(), m_player->h(), m_camera, surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
@@ -225,7 +225,7 @@ void MainWindow::checkAndResolveCollision()
 		j = surroundingTiles[n].x();
 		i = surroundingTiles[n].y();
 
-		/* Check, if tile coordinates are valid */
+		// Check, if tile coordinates are valid
 		if((i >= 0) && (i < m_level->levelHeight()) && (j >= 0) && (j < m_level->levelWidth()) )
 		{
 
@@ -233,7 +233,7 @@ void MainWindow::checkAndResolveCollision()
 			if(m_level->tiles()[i][j] > 0)
 			{
 
-				/* Get SDL rect for current tile and sprite and check intersection */
+				// Get SDL rect for current tile and sprite and check intersection
 				tileRect.y = i * m_level->tileHeight();
 				tileRect.x = j * m_level->tileWidth();
 				tileRect.w = m_level->tileWidth();
@@ -254,7 +254,7 @@ void MainWindow::checkAndResolveCollision()
 						m_player->setOnGround(true);
 					}
 
-					/* Handle pose correction cases */
+					// Handle pose correction cases
 					if(n == 4)
 					{
 						desiredPosition.setX(desiredPosition.x() - intersectionRect.w);
@@ -310,7 +310,6 @@ void MainWindow::checkAndResolveCollision()
 	}
 
 	m_player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
-
 
 }
 

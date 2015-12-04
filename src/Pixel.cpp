@@ -27,13 +27,14 @@ Pixel::~Pixel()
 	// TODO Auto-generated destructor stub
 }
 
-Pixel Pixel::operator =(const Pixel& other)
+Pixel& Pixel::operator =(const Pixel& other)
 {
 	if(this != &other)
 	{
 		m_x = other.m_x;
 		m_y = other.m_y;
 	}
+	return *this;
 }
 
 Pixel Pixel::operator +(const Pixel& other) const

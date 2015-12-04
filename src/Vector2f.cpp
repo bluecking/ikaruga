@@ -31,6 +31,7 @@ Vector2f Vector2f::operator =(const Vector2f & other)
         m_x = other.m_x;
         m_y = other.m_y;
     }
+    return *this;
 }
 
 Vector2f Vector2f::operator +(const Vector2f & other) const

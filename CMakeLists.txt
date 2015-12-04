@@ -11,7 +11,14 @@ set(JUMPER_SOURCES
     src/Camera.cpp
     src/Pixel.cpp
     src/Renderable.cpp
-    src/Renderable.hpp)
+    src/Renderable.hpp
+    src/PhysicPlayer.cpp
+    src/PhysicWorld.cpp
+    src/Player.cpp
+    src/Renderable.cpp
+    src/SparseMatrix.cpp
+    src/SparseVector.cpp
+    src/Vector2f.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
@@ -29,6 +36,6 @@ include_directories(${SDL2_IMG_INCLUDE_DIR})
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 # Build executable
-add_executable(jumper ${JUMPER_SOURCES} src/Player.cpp src/Player.hpp src/PhysicPlayer.cpp src/PhysicPlayer.hpp src/PhysicWorld.cpp src/PhysicWorld.hpp src/Vector2f.cpp src/Vector2f.hpp)
+add_executable(jumper ${JUMPER_SOURCES})
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(jumper m)

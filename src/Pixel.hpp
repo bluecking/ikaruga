@@ -45,7 +45,7 @@ public:
 	 * @param other	The pixel that is copied into this pixel
 	 * @return		The modified instance.
 	 */
-	Pixel operator=(const Pixel& other);
+	Pixel& operator=(const Pixel& other);
 
 	/***
 	 * Adds an offset encoded in the other pixel
