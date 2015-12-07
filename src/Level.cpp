@@ -145,7 +145,7 @@ void Level::render()
 	}
 }
 
-WorldProperties Level::getPhysics() const
+WorldProperty Level::getPhysics() const
 {
 	return m_levelPhysics;
 }
@@ -373,7 +373,7 @@ void Level::updatePlayerPosition(int move, bool jump, double dt)
 
 		if(move != 0)
 		{
-			d_move = (m_levelPhysics.move() * dt) * move;
+			d_move = (m_player->physics().moveForce() * dt) * move;
 		}
 		else
 		{
@@ -388,35 +388,35 @@ void Level::updatePlayerPosition(int move, bool jump, double dt)
 		if(m_player->jumping())
 		{
 			m_player->physics().velocity().setY(
-					m_player->physics().velocity().y() + (m_levelPhysics.jumpForce().y() * dt) );
+					m_player->physics().velocity().y() + (m_player->physics().jumpForce().y() * dt) );
 		}
 
 		// Damp velocity according to extrinsic level damping
 		m_player->physics().setVelocity(m_player->physics().velocity() * m_levelPhysics.damping());
 
 		// Clamp velocities
-		if(m_player->physics().velocity().x() > m_levelPhysics.maxVelocity() * dt)
+		if(m_player->physics().velocity().x() > m_player->physics().maxRunVelocity() * dt)
 		{
-			m_player->physics().setVelocity(Vector2f(m_levelPhysics.maxVelocity() * dt,
+			m_player->physics().setVelocity(Vector2f(m_player->physics().maxRunVelocity() * dt,
 													 m_player->physics().velocity().y()));
 		}
 
-		if(m_player->physics().velocity().x() < -m_levelPhysics.maxVelocity() * dt)
+		if(m_player->physics().velocity().x() < -m_player->physics().maxRunVelocity() * dt)
 		{
-			m_player->physics().setVelocity(Vector2f(-m_levelPhysics.maxVelocity() * dt,
+			m_player->physics().setVelocity(Vector2f(-m_player->physics().maxRunVelocity() * dt,
 													 m_player->physics().velocity().y()));
 		}
 
-		if(m_player->physics().velocity().y() > m_levelPhysics.maxFallVelocity() * dt)
+		if(m_player->physics().velocity().y() > m_player->physics().maxFallVelocity() * dt)
 		{
 			m_player->physics().setVelocity(
-					Vector2f(m_player->physics().velocity().x(), m_levelPhysics.maxFallVelocity() * dt));
+					Vector2f(m_player->physics().velocity().x(), m_player->physics().maxFallVelocity() * dt));
 		}
 
-		if(m_player->physics().velocity().y() < -m_levelPhysics.maxJumpVelocity() * dt)
+		if(m_player->physics().velocity().y() < -m_player->physics().maxJumpVelocity() * dt)
 		{
 			m_player->physics().setVelocity(
-					Vector2f(m_player->physics().velocity().x(), -m_levelPhysics.maxJumpVelocity() * dt));
+					Vector2f(m_player->physics().velocity().x(), -m_player->physics().maxJumpVelocity() * dt));
 		}
 
 		// Set new player position
@@ -431,7 +431,7 @@ void Level::updatePlayerPosition(int move, bool jump, double dt)
 		}
 
 		// Stop jumping at maximum jumping height
-		if(fabs(m_player->physics().position().y() - m_player->jumpStart()) >= m_levelPhysics.jumpHeight())
+		if(fabs(m_player->physics().position().y() - m_player->jumpStart()) >= m_player->physics().maxJumpHeight())
 		{
 			m_player->setJumping(false);
 		}

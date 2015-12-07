@@ -12,7 +12,7 @@
 #include <SDL.h>
 
 #include "AnimatedRenderable.hpp"
-#include "PlayerProperites.hpp"
+#include "PlayerProperty.hpp"
 #include "Vector.hpp"
 
 
@@ -28,7 +28,7 @@ public:
     void setPosition(Vector2f pos);
     Vector2f position();
 
-    PlayerProperties &physics();
+    PlayerProperty &physics();
 
     bool onGround() const;
     void setOnGround(bool m_onGround);
@@ -45,7 +45,7 @@ private:
     bool     			m_onGround;
     bool     			m_jumping;
     int     			m_jumpStart;
-    PlayerProperties 	m_physicalProps;
+    PlayerProperty 	m_physicalProps;
 
 };
 

@@ -14,7 +14,7 @@
 #include "Level.hpp"
 #include "Camera.hpp"
 #include "Player.hpp"
-#include "WorldProperties.hpp"
+#include "WorldProperty.hpp"
 
 namespace jumper
 {
