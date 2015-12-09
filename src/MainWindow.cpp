@@ -85,22 +85,14 @@ void MainWindow::run()
 		}
 		//m_camera.move(offset);
 
-		m_player->move(m_level->physics());
-		//m_level->updatePlayerPosition(moveX, jump, m_renderTime);
-
-		m_level->checkAndResolveCollision(m_player);
-
+		m_player->move(*m_level);
 
 		// Clear screen
 		SDL_RenderClear(m_renderer);
 
-		// Render Level
-		if(m_level)
-		{
-			m_level->render();
-		}
-
+		m_level->render();
 		m_player->render();
+
 		//SDL_Delay(10);
 
 		// Update screen

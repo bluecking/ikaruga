@@ -210,7 +210,7 @@ Level::~Level()
     SDL_DestroyTexture(m_texture);
 }
 
-void Level::checkAndResolveCollision(Actor* player)
+Collision Level::resolveCollision(Actor* player)
 {
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
@@ -353,6 +353,11 @@ void Level::checkAndResolveCollision(Actor* player)
 	}
 
 	player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+
+	int dx = desiredPosition.x() - player->position().x();
+	int dy = desiredPosition.y() - player->position().y();
+
+	return Collision(Vector2i(dx, dy));
 
 }
 

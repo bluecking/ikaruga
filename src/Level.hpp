@@ -16,6 +16,7 @@
 #include "SparseMatrix.hpp"
 #include "Vector.hpp"
 #include "WorldProperty.hpp"
+#include "Collision.hpp"
 
 
 namespace jumper
@@ -61,7 +62,7 @@ public:
 	 */
 	virtual ~Level();
 
-	void checkAndResolveCollision(Actor* actor);
+	Collision resolveCollision(Actor* actor);
 
 	//void updatePlayerPosition(int move, bool jump, double dt);
 

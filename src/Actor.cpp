@@ -118,9 +118,4 @@ void Actor::getCollision(Actor& other)
 
 }
 
-void Actor::getCollision(Level& other)
-{
-
-}
-
 } /* namespace jumper */

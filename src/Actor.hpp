@@ -27,10 +27,8 @@ public:
 	Actor(SDL_Renderer* renderer, std::string filename);
 	virtual ~Actor();
 
-	virtual void move(WorldProperty& prop) = 0;
-
+	virtual void move(Level& level) = 0;
 	virtual void getCollision(Actor& other);
-	virtual void getCollision(Level& level);
 
 	virtual void render();
 

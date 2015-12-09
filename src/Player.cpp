@@ -19,7 +19,7 @@ Player::Player(SDL_Renderer *renderer, std::string filename)
 }
 
 
-void Player::move(WorldProperty& prop)
+void Player::move(Level& level)
 {
 	nextFrame();
 	float dt = getElapsedTime();
@@ -34,7 +34,7 @@ void Player::move(WorldProperty& prop)
 		Vector2f d_gravity;
 		Vector2f d_move;
 
-		d_gravity = prop.gravity() * dt;
+		d_gravity = level.physics().gravity() * dt;
 		d_move = (physics().moveForce() * dt);
 
 
@@ -49,7 +49,7 @@ void Player::move(WorldProperty& prop)
 		}
 
 		// Damp velocity according to extrinsic level damping
-		physics().setVelocity(physics().velocity() * prop.damping());
+		physics().setVelocity(physics().velocity() * level.physics().damping());
 
 		// Clamp velocities
 		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
@@ -92,6 +92,9 @@ void Player::move(WorldProperty& prop)
 		{
 			setJumping(false);
 		}
+
+		// Resolve collisions
+		level.resolveCollision(this);
 	}
 }
 

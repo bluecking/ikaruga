@@ -34,7 +34,7 @@ public:
 	 */
     Player(SDL_Renderer* renderer, std::string filename);
 
-    virtual void move(WorldProperty& prop);
+    virtual void move(Level& level);
 
     /// Prints the player's position to the given stream
     template<typename T>
