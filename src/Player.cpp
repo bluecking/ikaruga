@@ -4,95 +4,97 @@
 
 
 #include "Player.hpp"
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
 namespace jumper
 {
 
 Player::Player(SDL_Renderer *renderer, std::string filename)
-	: AnimatedRenderable(renderer, filename)
+	: Actor(renderer, filename)
 {
-	m_jumping = 0;
-	m_jumpStart = 0;
-	m_physicalProps.setPosition(Vector2f(100, 0));
 
 }
 
-void Player::render()
+
+void Player::move(WorldProperty& prop)
 {
-    SDL_Rect target;
-    SDL_RendererFlip flip;
-    if(m_physicalProps.velocity().x() > 0)
-    {
-        flip = SDL_FLIP_HORIZONTAL;
-    }
-    else
-    {
-        flip = SDL_FLIP_NONE;
-    }
+	nextFrame();
+	float dt = getElapsedTime();
+	cout << dt << endl;
+	if(dt > 0)
+	{
 
-    target.x = m_physicalProps.position().x();
-    target.y = m_physicalProps.position().y();
-    target.w = m_frameWidth;
-    target.h = m_frameHeight;
+		if(dt > 0 && m_wantsToJump && onGround())
+		{
+			setJumping(true);
+			m_wantsToJump = false;
+		}
 
-    /* Render current animation frame */
-    SDL_RenderCopyEx( getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, flip);
+		Vector2f d_gravity;
+		Vector2f d_move;
+
+		d_gravity = prop.gravity() * dt;
+		d_move = (physics().moveForce() * dt);
+
+
+		// Update velocity
+		physics().setVelocity(physics().velocity() + d_move + d_gravity);
+
+		// Add jumping momentum
+		if(jumping())
+		{
+			physics().velocity().setY(
+					physics().velocity().y() + (physics().jumpForce().y() * dt) );
+		}
+
+		// Damp velocity according to extrinsic level damping
+		physics().setVelocity(physics().velocity() * prop.damping());
+
+		// Clamp velocities
+		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
+		{
+			physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
+					physics().velocity().y()));
+		}
+
+		if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
+		{
+			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
+					physics().velocity().y()));
+		}
+
+		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
+		{
+			physics().setVelocity(
+					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
+		}
+
+		if(physics().velocity().y() < -physics().maxJumpVelocity() * dt)
+		{
+			physics().setVelocity(
+					Vector2f(physics().velocity().x(), -physics().maxJumpVelocity() * dt));
+		}
+
+		// Set new player position
+		physics().setPosition(physics().position() + physics().velocity());
+
+
+		/*	// Move camera if player position exceeds window with / 2
+		m_camera.position().setX(position().x() - m_levelWidth / 2 + w());
+		if(m_camera.position().x() < 0)
+		{
+			m_camera.position().setX(0);
+		}*/
+
+		// Stop jumping at maximum jumping height
+		if(fabs(physics().position().y() - jumpStart()) >= physics().maxJumpHeight())
+		{
+			setJumping(false);
+		}
+	}
 }
 
-Vector2f Player::position()
-{
-    return m_physicalProps.position();
-}
-
-void Player::move(int direction, int speed)
-{
-    switch(direction)
-    {
-
-        case UP 	:
-            m_physicalProps.position()+= Vector2f(0, -speed);   break;
-        case DOWN	:
-            m_physicalProps.position()+= Vector2f(0, speed);    break;
-        case LEFT	:
-            m_physicalProps.position()+= Vector2f(-speed, 0);   break;
-        case RIGHT  :
-            m_physicalProps.position()+= Vector2f(speed, 0);    break;
-    }
-    nextFrame();
-}
-
-void Player::setPosition(Vector2f pos)
-{
-    m_physicalProps.position() = pos;
-}
-
-bool Player::onGround() const
-{
-    return m_onGround;
-}
-void Player::setOnGround(bool m_onGround)
-{
-    Player::m_onGround = m_onGround;
-}
-
-PlayerProperty& Player::physics()
-{
-    return m_physicalProps;
-}
-
-
-bool Player::jumping()
-{
-    return m_jumping;
-}
-
-void Player::setJumping(bool jump)
-{
-    if(jump) m_jumpStart = m_physicalProps.position().y();
-    m_jumping = jump;
-}
-
-int Player::jumpStart()
-{
-    return m_jumpStart;
-}
 }

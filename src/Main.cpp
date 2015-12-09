@@ -16,7 +16,8 @@ int main(int argc, char** argv)
 	MainWindow window("Jumper", 800, 600);
 	Level level(window.getRenderer(), std::string(argv[1]), window.getCam());
 	Player player(window.getRenderer(), std::string(argv[2]));
-	level.setPlayer(&player);
+
 	window.setLevel(&level);
+	window.setPlayer(&player);
 	window.run();
 }

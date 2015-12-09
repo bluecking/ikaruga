@@ -51,6 +51,11 @@ public:
 	void setLevel(Level* level);
 
 	/***
+	 * Sets the player to control
+	 */
+	void setPlayer(Player* player);
+
+	/***
 	 * Gets the current SDL renderer
 	 */
 	SDL_Renderer* getRenderer();
@@ -82,6 +87,9 @@ private:
 
 	/// A pointer to a level object
 	Level*				m_level;
+
+	/// A pointer to a player object
+	Player*				m_player;
 
 	/// A Camera object
 	Camera				m_camera;

@@ -5,6 +5,7 @@
  *      Author: twiemann
  */
 
+#include "Actor.hpp"
 #include "Level.hpp"
 #include "StaticRenderable.hpp"
 
@@ -31,7 +32,6 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & camera) : St
 	m_tilesPerRow = 0;
 	m_levelWidth = 0;
 	m_levelHeight = 0;
-	m_player = 0;
 
 	// Read meta data from level file
 	std::ifstream in(filename.c_str());
@@ -82,10 +82,6 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & camera) : St
 	in.close();
 }
 
-void Level::setPlayer(Player* player)
-{
-	m_player = player;
-}
 
 void Level::render()
 {
@@ -139,13 +135,9 @@ void Level::render()
 			}
 		}
 	}
-	if(m_player)
-	{
-		m_player->render();
-	}
 }
 
-WorldProperty Level::getPhysics() const
+WorldProperty& Level::physics()
 {
 	return m_levelPhysics;
 }
@@ -215,7 +207,7 @@ Level::~Level()
     SDL_DestroyTexture(m_texture);
 }
 
-void Level::checkAndResolveCollision()
+void Level::checkAndResolveCollision(Actor* player)
 {
 	SDL_Rect tileRect;
 	SDL_Rect spriteRect;
@@ -225,21 +217,21 @@ void Level::checkAndResolveCollision()
 	int n, i ,j;
 
 	//Convert the player sprite's screen position to global position
-	Vector2f global_pos = m_player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
+	Vector2f global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
 	// Set desired position to new position
 	desiredPosition = global_pos;
 
 
 	// Check if sprite intersects with one of its surrounding tiles
-	getSurroundingTiles(global_pos, m_player->w(), m_player->h(), m_camera, surroundingTiles);
+	getSurroundingTiles(global_pos, player->w(), player->h(), m_camera, surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
-	m_player->setOnGround(false);
+	player->setOnGround(false);
 	f_i = surroundingTiles[6].y();
 	f_j = surroundingTiles[6].x();
 
-	if(m_player->physics().velocity().x() > 0)
+	if(player->physics().velocity().x() > 0)
 	{
 		d_i = surroundingTiles[7].y();
 		d_j = surroundingTiles[7].x();
@@ -252,13 +244,13 @@ void Level::checkAndResolveCollision()
 
 	if(f_i < m_levelHeight && f_j < m_levelWidth)
 	{
-		if(m_tiles[f_i][f_j] > 0) m_player->setOnGround(true);
+		if(m_tiles[f_i][f_j] > 0) player->setOnGround(true);
 	}
 
 
 	if(d_i < m_levelHeight && d_j < m_levelWidth )
 	{
-		if(m_tiles[d_i][d_j] > 0) m_player->setOnGround(true);
+		if(m_tiles[d_i][d_j] > 0) player->setOnGround(true);
 	}
 
 
@@ -283,8 +275,8 @@ void Level::checkAndResolveCollision()
 
 				spriteRect.x = desiredPosition.x();
 				spriteRect.y = desiredPosition.y();
-				spriteRect.w = m_player->w();
-				spriteRect.h = m_player->h();
+				spriteRect.w = player->w();
+				spriteRect.h = player->h();
 
 				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
 				{
@@ -293,7 +285,7 @@ void Level::checkAndResolveCollision()
 
 					if(n == 6)
 					{
-						m_player->setOnGround(true);
+						player->setOnGround(true);
 					}
 
 					// Handle pose correction cases
@@ -304,7 +296,7 @@ void Level::checkAndResolveCollision()
 					else if(n == 1)
 					{
 						desiredPosition.setY(desiredPosition.y() + intersectionRect.h);
-						m_player->setJumping(false);
+						player->setJumping(false);
 					}
 					else if(n == 3)
 					{
@@ -341,7 +333,7 @@ void Level::checkAndResolveCollision()
 								}
 								if( (n == 0) || (n == 2) )
 								{
-									m_player->setJumping(false);
+									player->setJumping(false);
 								}
 							}
 						}
@@ -351,11 +343,11 @@ void Level::checkAndResolveCollision()
 		}
 	}
 
-	m_player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+	player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 
 }
 
-void Level::updatePlayerPosition(int move, bool jump, double dt)
+/*void Level::updatePlayerPosition(int move, bool jump, double dt)
 {
 	m_player->nextFrame();
 	if(dt > 0)
@@ -437,7 +429,7 @@ void Level::updatePlayerPosition(int move, bool jump, double dt)
 		}
 
 	}
-}
+} */
 
 
 

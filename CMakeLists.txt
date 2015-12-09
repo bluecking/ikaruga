@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.8)
  
 # Setup sources
 set(JUMPER_SOURCES
+    src/Actor.cpp
     src/AnimatedRenderable.cpp
     src/Main.cpp
     src/MainWindow.cpp

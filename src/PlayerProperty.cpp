@@ -72,7 +72,7 @@ const Vector2f & PlayerProperty::moveForce() const
 
 void PlayerProperty::setMoveForce(const Vector2f &move)
 {
-	m_moveForce = m_moveForce;
+	m_moveForce = move;
 }
 
 

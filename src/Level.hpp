@@ -14,12 +14,15 @@
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
 #include "SparseMatrix.hpp"
-#include "Player.hpp"
 #include "Vector.hpp"
 #include "WorldProperty.hpp"
 
+
 namespace jumper
 {
+
+
+class Actor;
 
 /***
  * Represents a level in the jumper game.
@@ -52,17 +55,15 @@ public:
 
 	SparseMatrix& tiles();
 
-	WorldProperty getPhysics() const;
+	WorldProperty& physics();
 	/***
 	 * Destructor
 	 */
 	virtual ~Level();
 
-	void setPlayer(Player* player);
+	void checkAndResolveCollision(Actor* actor);
 
-	void checkAndResolveCollision();
-
-	void updatePlayerPosition(int move, bool jump, double dt);
+	//void updatePlayerPosition(int move, bool jump, double dt);
 
 private:
 
@@ -105,9 +106,6 @@ private:
 	Camera  			m_camera;
 
 	SparseMatrix		m_tiles;
-
-	Player*				m_player;
-
 };
 
 } /* namespace jumper */

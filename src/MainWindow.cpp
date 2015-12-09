@@ -23,6 +23,7 @@ MainWindow::MainWindow(std::string title, int w, int h)
 	/// Set pointer to NULL
 	m_renderer = 0;
 	m_level = 0;
+	m_player = 0;
 	m_renderTime = 0;
 	/// Initialize SDL stuff
 	initSDL();
@@ -39,8 +40,6 @@ void MainWindow::run()
 	SDL_Event e;
 	const Uint8* currentKeyStates;
 	Vector2i offset;
-	int moveX;
-	int moveY;
 	bool jump;
 	// Start main loop and event handling
 	while(!quit && m_renderer)
@@ -48,8 +47,6 @@ void MainWindow::run()
 		m_startTicks = SDL_GetTicks();
 		offset.setX(0);
 		offset.setY(0);
-		moveX = 0;
-		moveY = 0;
 		jump = false;
 		// Process events, detect quit signal for window closing
 		while(SDL_PollEvent(&e))
@@ -62,30 +59,34 @@ void MainWindow::run()
 
 		currentKeyStates = SDL_GetKeyboardState( NULL );
 
+		m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
-			moveY = -1;
+
 		}
 		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 		{
-			moveY = 1;
+
 		}
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
-			moveX = -1;
+			m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
-			moveX = 1;
+			m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
 		}
 		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
 		{
-			jump = true;
-			//std::cout << "jump!" << std::endl;
+			m_player->jump();
 		}
 		//m_camera.move(offset);
-		m_level->updatePlayerPosition(moveX, jump, m_renderTime);
-		m_level->checkAndResolveCollision();
+
+		m_player->move(m_level->physics());
+		//m_level->updatePlayerPosition(moveX, jump, m_renderTime);
+
+		m_level->checkAndResolveCollision(m_player);
+
 
 		// Clear screen
 		SDL_RenderClear(m_renderer);
@@ -95,6 +96,8 @@ void MainWindow::run()
 		{
 			m_level->render();
 		}
+
+		m_player->render();
 		//SDL_Delay(10);
 
 		// Update screen
@@ -166,8 +169,10 @@ void MainWindow::setLevel(Level* level)
 	m_level = level;
 }
 
-
-
+void MainWindow::setPlayer(Player* player)
+{
+	m_player = player;
+}
 
 void MainWindow::quitSDL()
 {
