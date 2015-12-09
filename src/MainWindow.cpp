@@ -86,12 +86,14 @@ void MainWindow::run()
 		//m_camera.move(offset);
 
 		m_player->move(*m_level);
+		m_bot->move(*m_level);
 
 		// Clear screen
 		SDL_RenderClear(m_renderer);
 
 		m_level->render();
 		m_player->render();
+		m_bot->render();
 
 		//SDL_Delay(10);
 

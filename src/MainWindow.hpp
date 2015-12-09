@@ -14,8 +14,8 @@
 #include "Level.hpp"
 #include "Camera.hpp"
 #include "Player.hpp"
+#include "Bot.hpp"
 #include "WorldProperty.hpp"
-
 namespace jumper
 {
 
@@ -55,6 +55,8 @@ public:
 	 */
 	void setPlayer(Player* player);
 
+	void setBot(Bot* bot) { m_bot = bot;}
+
 	/***
 	 * Gets the current SDL renderer
 	 */
@@ -90,6 +92,9 @@ private:
 
 	/// A pointer to a player object
 	Player*				m_player;
+
+	/// A pointer to a bot object
+	Bot*				m_bot;
 
 	/// A Camera object
 	Camera				m_camera;

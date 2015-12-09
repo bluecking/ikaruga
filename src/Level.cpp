@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cmath>
 using std::cout;
 using std::endl;
 
@@ -219,6 +220,9 @@ Collision Level::resolveCollision(Actor* player)
 	Vector2i surroundingTiles[8];
 	int n, i ,j;
 
+	int dx = 0;
+	int dy = 0;
+
 	//Convert the player sprite's screen position to global position
 	Vector2f global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
@@ -289,8 +293,8 @@ Collision Level::resolveCollision(Actor* player)
 
 				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
 				{
-
-
+					dx = std::max(intersectionRect.w, dx);
+					dy = std::max(intersectionRect.h, dy);
 
 					if(n == 6)
 					{
@@ -354,8 +358,7 @@ Collision Level::resolveCollision(Actor* player)
 
 	player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 
-	int dx = desiredPosition.x() - player->position().x();
-	int dy = desiredPosition.y() - player->position().y();
+
 
 	return Collision(Vector2i(dx, dy));
 
