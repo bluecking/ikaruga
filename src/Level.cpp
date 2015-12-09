@@ -11,6 +11,9 @@
 
 #include <iostream>
 #include <fstream>
+using std::cout;
+using std::endl;
+
 #include <SDL_image.h>
 
 
@@ -244,13 +247,19 @@ void Level::checkAndResolveCollision(Actor* player)
 
 	if(f_i < m_levelHeight && f_j < m_levelWidth)
 	{
-		if(m_tiles[f_i][f_j] > 0) player->setOnGround(true);
+		if(m_tiles[f_i][f_j] > 0)
+		{
+			player->setOnGround(true);
+		}
 	}
 
 
 	if(d_i < m_levelHeight && d_j < m_levelWidth )
 	{
-		if(m_tiles[d_i][d_j] > 0) player->setOnGround(true);
+		if(m_tiles[d_i][d_j] > 0)
+		{
+			player->setOnGround(true);
+		}
 	}
 
 

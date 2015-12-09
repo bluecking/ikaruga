@@ -74,7 +74,7 @@ public:
 	 */
 	int jumpStart();
 
-	void jump();
+	void wantsToJump(bool j);
 
 protected:
 

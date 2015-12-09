@@ -23,11 +23,9 @@ void Player::move(WorldProperty& prop)
 {
 	nextFrame();
 	float dt = getElapsedTime();
-	cout << dt << endl;
 	if(dt > 0)
 	{
-
-		if(dt > 0 && m_wantsToJump && onGround())
+		if(m_wantsToJump && onGround())
 		{
 			setJumping(true);
 			m_wantsToJump = false;

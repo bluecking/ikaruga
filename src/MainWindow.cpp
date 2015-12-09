@@ -40,14 +40,14 @@ void MainWindow::run()
 	SDL_Event e;
 	const Uint8* currentKeyStates;
 	Vector2i offset;
-	bool jump;
+
 	// Start main loop and event handling
 	while(!quit && m_renderer)
 	{
 		m_startTicks = SDL_GetTicks();
 		offset.setX(0);
 		offset.setY(0);
-		jump = false;
+
 		// Process events, detect quit signal for window closing
 		while(SDL_PollEvent(&e))
 		{
@@ -59,7 +59,10 @@ void MainWindow::run()
 
 		currentKeyStates = SDL_GetKeyboardState( NULL );
 
+		// Reset forces and jump flags
 		m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
+		m_player->wantsToJump(false);
+
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
 
@@ -78,7 +81,7 @@ void MainWindow::run()
 		}
 		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
 		{
-			m_player->jump();
+			m_player->wantsToJump(true);
 		}
 		//m_camera.move(offset);
 

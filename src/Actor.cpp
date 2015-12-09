@@ -32,9 +32,9 @@ Actor::~Actor()
 	// TODO Auto-generated destructor stub
 }
 
-void Actor::jump()
+void Actor::wantsToJump(bool j)
 {
-	m_wantsToJump = false;
+	m_wantsToJump = j;
 }
 
 float Actor::getElapsedTime()
@@ -68,8 +68,6 @@ void Actor::render()
     target.w = m_frameWidth;
     target.h = m_frameHeight;
 
-    cout << target.x << " " << target.y << endl;
-
     /* Render current animation frame */
     SDL_RenderCopyEx( getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, flip);
 }
@@ -84,9 +82,9 @@ bool Actor::onGround() const
     return m_onGround;
 }
 
-void Actor::setOnGround(bool m_onGround)
+void Actor::setOnGround(bool onGround)
 {
-    m_onGround = m_onGround;
+    m_onGround = onGround;
 }
 
 PlayerProperty& Actor::physics()
