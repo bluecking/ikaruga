@@ -6,11 +6,15 @@
  */
 
 #include <iostream>
+#include <cmath>
 #include "Vector.hpp"
 
 
 namespace jumper
 {
+
+template<typename T>
+const float Vector2<T>::m_epsilon = 0.001;
 
 template<typename T>
 Vector2<T>::Vector2(T x, T y)
@@ -29,6 +33,12 @@ template<typename T>
 Vector2<T>::~Vector2()
 {
     // TODO Auto-generated destructor stub
+}
+
+template<typename T>
+bool Vector2<T>::operator==(const Vector2<T>& other)
+{
+	return (fabs(other.m_x - m_x) < m_epsilon) && (fabs(other.m_y - m_y) < m_epsilon);
 }
 
 template<typename T>

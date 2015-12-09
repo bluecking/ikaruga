@@ -126,10 +126,15 @@ public:
      */
     void setY(T y);
 
+    /// Tests if two vectors are equivalent
+    bool operator==(const Vector2<T>& other);
+
     template<typename S>
     friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2<S> & vec);
 
 private:
+
+    const static float m_epsilon;
 
     /// x coordinate of the Vector2
     T m_x;

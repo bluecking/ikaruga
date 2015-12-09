@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 set(JUMPER_SOURCES
     src/Actor.cpp
     src/AnimatedRenderable.cpp
+    src/Collision.cpp
     src/Main.cpp
     src/MainWindow.cpp
     src/Level.cpp
