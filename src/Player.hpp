@@ -93,9 +93,6 @@ public:
     friend std::ostream& operator<< (std::ostream& stream, const Vector2<T> & vec);
 private:
 
-    /// Number of animation frames
-    int     			m_num_anim;
-
     /// True if the player touches ground
     bool     			m_onGround;
 
