@@ -21,6 +21,7 @@ set(JUMPER_SOURCES
     src/SparseMatrix.cpp
     src/SparseVector.cpp
     src/StaticRenderable.cpp
+    src/TextureFactory.cpp
     src/WorldProperty.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
@@ -42,3 +43,5 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 add_executable(jumper ${JUMPER_SOURCES})
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(jumper m)
+
+add_executable(xmltest src/XMLTest.cpp)
