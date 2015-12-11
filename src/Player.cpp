@@ -37,7 +37,6 @@ void Player::move(Level& level)
 		d_gravity = level.physics().gravity() * dt;
 		d_move = (physics().moveForce() * dt);
 
-
 		// Update velocity
 		physics().setVelocity(physics().velocity() + d_move + d_gravity);
 
@@ -79,7 +78,6 @@ void Player::move(Level& level)
 		// Set new player position
 		physics().setPosition(physics().position() + physics().velocity());
 
-
 		/*	// Move camera if player position exceeds window with / 2
 		m_camera.position().setX(position().x() - m_levelWidth / 2 + w());
 		if(m_camera.position().x() < 0)
@@ -93,8 +91,8 @@ void Player::move(Level& level)
 			setJumping(false);
 		}
 
-		// Resolve collisions
-		level.resolveCollision(this);
+		Collision c = level.resolveCollision(this);
+		//cout << c.delta() << endl;
 	}
 }
 

@@ -122,7 +122,7 @@ void Vector2<T>::setY(T y)
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, const jumper::Vector2<T> & vec)
 {
-    stream << "[" <<vec.x() << "|" << vec.y() << "]" << std::endl;
+    stream << "(" <<vec.x() << "|" << vec.y() << ")";
     return stream;
 }
 

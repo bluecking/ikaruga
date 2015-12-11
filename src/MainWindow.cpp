@@ -74,10 +74,12 @@ void MainWindow::run()
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
 			m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
+
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
 			m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
+			std::cout << "RIGHT" << std::endl;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
 		{

@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 	Player player(window.getRenderer(), std::string(argv[2]));
 	Bot bot(window.getRenderer(), std::string(argv[3]));
 	bot.physics().setPosition(Vector2f(400, 100));
-	bot.physics().setMaxFallVelocity(10);
+	bot.physics().setMaxFallVelocity(250);
 
 	window.setLevel(&level);
 	window.setBot(&bot);

@@ -15,9 +15,11 @@ namespace jumper
 {
 
 Bot::Bot(SDL_Renderer* renderer, std::string filename)
-	: Actor(renderer, filename)
+	: Actor(renderer, filename), m_bouncePos(0)
 {
 	m_physicalProps.setMoveForce(Vector2f(0,0));
+	m_physicalProps.setMaxRunVelocity(50);
+	physics().setMaxFallVelocity(2400);
 }
 
 Bot::~Bot()
@@ -27,21 +29,20 @@ Bot::~Bot()
 
 void Bot::move(Level& level)
 {
+
 	float dt = getElapsedTime();
 	if(dt > 0)
 	{
 		Collision c = level.resolveCollision(this);
-
-		//cout << c.delta() << endl;
-		if(onGround() && c.delta().x() < 5)
+		if(c.delta().x() > 5)
 		{
-			physics().setMoveForce(800);
-		}
-		else if (onGround() && c.delta().x() > c.delta().y())
-		{
-			physics().setMoveForce(physics().moveForce() * -1);
+			bounce();
 		}
 
+		if(onGround() && fabs(physics().moveForce().x()) < 2)
+		{
+			physics().setMoveForce(Vector2f(100, 0));
+		}
 
 		Vector2f d_gravity;
 		Vector2f d_move;
@@ -73,13 +74,19 @@ void Bot::move(Level& level)
 					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
 		}
 
-
-
 		// Set new player position
 		physics().setPosition(physics().position() + physics().velocity());
-
 	}
 
+}
+
+void Bot::bounce()
+{
+	if(fabs(physics().position().x() - m_bouncePos.x()) > 5)
+	{
+		physics().setMoveForce(physics().moveForce() * -1);
+		m_bouncePos = physics().position();
+	}
 }
 
 } /* namespace jumper */

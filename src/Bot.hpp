@@ -24,6 +24,11 @@ public:
 	virtual ~Bot();
 
 	virtual void move(Level& level);
+
+private:
+	void bounce();
+
+	Vector2f m_bouncePos;
 };
 
 } /* namespace jumper */

@@ -151,6 +151,10 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam
     /* Determine x and y position of the sprite within the grid */
     Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
 
+    SDL_Rect r = {pos.x(), pos.y(), width, height};
+    SDL_RenderDrawRect(m_renderer, &r);
+
+
     /* Get the surrounding tiles in "priority" order, i.e., we want
      * check some collisions like left before we check the others
      */
@@ -229,7 +233,6 @@ Collision Level::resolveCollision(Actor* player)
 	// Set desired position to new position
 	desiredPosition = global_pos;
 
-
 	// Check if sprite intersects with one of its surrounding tiles
 	getSurroundingTiles(global_pos, player->w(), player->h(), m_camera, surroundingTiles);
 	int d_i, d_j;
@@ -275,11 +278,8 @@ Collision Level::resolveCollision(Actor* player)
 		// Check, if tile coordinates are valid
 		if((i >= 0) && (i < m_levelHeight) && (j >= 0) && (j < m_levelWidth) )
 		{
-
-
 			if(m_tiles[i][j] > 0)
 			{
-
 				// Get SDL rect for current tile and sprite and check intersection
 				tileRect.y = i * m_tileHeight;
 				tileRect.x = j * m_tileWidth;
@@ -293,8 +293,10 @@ Collision Level::resolveCollision(Actor* player)
 
 				if(SDL_IntersectRect(&tileRect, &spriteRect, &intersectionRect))
 				{
-					dx = std::max(intersectionRect.w, dx);
-					dy = std::max(intersectionRect.h, dy);
+					if(n == 3)
+					{
+						dx = 100;
+					}
 
 					if(n == 6)
 					{
@@ -304,6 +306,7 @@ Collision Level::resolveCollision(Actor* player)
 					// Handle pose correction cases
 					if(n == 4)
 					{
+						dx = 100;
 						desiredPosition.setX(desiredPosition.x() - intersectionRect.w);
 					}
 					else if(n == 1)
@@ -356,10 +359,7 @@ Collision Level::resolveCollision(Actor* player)
 		}
 	}
 
-	player->setPosition(Vector2f(desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
-
-
-
+	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 	return Collision(Vector2i(dx, dy));
 
 }

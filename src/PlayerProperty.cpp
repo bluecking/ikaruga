@@ -83,7 +83,7 @@ double PlayerProperty::maxJumpVelocity() const
 
 void PlayerProperty::setMaxJumpVelocity(double maxVelJmp)
 {
-	maxVelJmp = m_maxVelJmp;
+	m_maxVelJmp = maxVelJmp;
 }
 
 double PlayerProperty::maxRunVelocity() const
@@ -93,7 +93,7 @@ double PlayerProperty::maxRunVelocity() const
 
 void PlayerProperty::setMaxRunVelocity(double maxVelRun)
 {
-	maxVelRun = m_maxVelRun;
+	m_maxVelRun = maxVelRun;
 }
 
 double PlayerProperty::maxFallVelocity() const
@@ -103,7 +103,7 @@ double PlayerProperty::maxFallVelocity() const
 
 void PlayerProperty::setMaxFallVelocity(double maxVelFall)
 {
-	maxVelFall = m_maxVelFall;
+	 m_maxVelFall = maxVelFall;
 }
 
 double PlayerProperty::maxJumpHeight() const
