@@ -22,7 +22,7 @@ namespace jumper
 {
 
 
-Level::Level(SDL_Renderer* renderer, std::string filename, Camera & camera) : StaticRenderable(renderer), m_camera(camera)
+Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(renderer)
 {
 	// Set all default values
 	m_texture 		= 0;
@@ -65,7 +65,11 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & camera) : St
 
 	// Load texture
 	std::cout << texFileName << std::endl;
-	m_texture = TextureFactory::instance(m_renderer).getTexture(texFileName, m_keyR, m_keyG, m_keyB);
+
+	std::size_t found = filename.find_last_of("/\\");
+	string path = filename.substr(0,found);
+
+	m_texture = TextureFactory::instance(m_renderer).getTexture(path + "/" + texFileName, m_keyR, m_keyG, m_keyB);
 
 	if(!m_texture)
 	{

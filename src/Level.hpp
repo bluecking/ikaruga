@@ -38,7 +38,7 @@ public:
 	 *
 	 * @param filename
 	 */
-	Level(SDL_Renderer* renderer, std::string filename, Camera & cam);
+	Level(SDL_Renderer* renderer, std::string filename);
 
 	/***
 	 * Renders the level to the given renderer

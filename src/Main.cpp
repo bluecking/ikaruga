@@ -22,7 +22,7 @@ void getPlayerProperty(const boost::property_tree::ptree::value_type& v, PlayerP
 	float moveForceX = v.second.get<float>("moveForceX", 0.0);
 	float moveForceY = v.second.get<float>("moveForceY", 0.0);
 	float maxVelRun = v.second.get<float>("maxVelRun", 0.0);
-	float maxVelFall = v.second.get<float>("maxVelRun", 0.0);
+	float maxVelFall = v.second.get<float>("maxVelFall", 0.0);
 	float maxJumpHeight = v.second.get<float>("maxJumpHeight", 0.0);
 
 	p.setPosition(Vector2f(pos_x, pos_y));
@@ -77,7 +77,8 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 if( v.first == "tileset")
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
-			 cout << filename << endl;
+			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
+			 game->setLevel(level);
 		 }
 
 	 }
@@ -96,8 +97,8 @@ int main(int argc, char** argv)
 	Game game(&window);
 	setupGame(argv[1], &window, &game);
 
-	//window.setGame(&game);
-	//window.run();
+	window.setGame(&game);
+	window.run();
 
 	// Free textures
 	TextureFactory::instance(window.getRenderer()).deleteAll();

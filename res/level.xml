@@ -1,6 +1,6 @@
 <level>
-  <tileset filename="test.lvl"/>
-  <player filename="mario.png">
+  <tileset filename="test1.lvl"/>
+  <player filename="mario1.png">
     <numFrames>2</numFrames>
     <frameWidth>18</frameWidth>
     <frameHeight>32</frameHeight>
@@ -16,10 +16,10 @@
     <numFrames>2</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>300</positionX>
+    <positionX>410</positionX>
     <positionY>100</positionY >
-    <moveForceX>800.0</moveForceX>
-    <maxVelRun>122.0</maxVelRun>
+    <moveForceX>0.0</moveForceX>
+    <maxVelRun>30.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
   </bot>
   <bot filename="koopa.png">
@@ -28,8 +28,8 @@
     <frameHeight>23</frameHeight>
     <positionX>400</positionX>
     <positionY>100</positionY>
-    <moveForceX>800.0</moveForceX>
-    <maxVelRun>122.0</maxVelRun>
+    <moveForceX>0.0</moveForceX>
+    <maxVelRun>20.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
   </bot>
 </level>
