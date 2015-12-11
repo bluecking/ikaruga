@@ -1,0 +1,24 @@
+<level>
+  <tileset filename="test.lvl"/>
+  <player filename="mario.png">
+    <numFrames>2</numFrames>
+    <frameWidth>18</frameWidth>
+    <frameHeight>32</frameHeight>
+    <position_x>100</position_x>
+    <position_y>100</position_y>
+  </player>
+  <bot filename="goomba.png">
+    <numFrames>2</numFrames>
+    <frameWidth>16</frameWidth>
+    <frameHeight>16</frameHeight>
+    <positionX>300</positionX>
+    <positionY>100</positionY > 
+  </bot>
+  <bot filename="turtle.png">
+    <numFrames>2</numFrames>
+    <frameWidth>16</frameWidth>
+    <frameHeight>16</frameHeight>
+    <positionX>400</positionX>
+    <positionY>100</positionY> 
+  </bot>
+</level>

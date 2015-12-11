@@ -22,9 +22,7 @@ MainWindow::MainWindow(std::string title, int w, int h)
 
 	/// Set pointer to NULL
 	m_renderer = 0;
-	m_level = 0;
-	m_player = 0;
-	m_renderTime = 0;
+
 	/// Initialize SDL stuff
 	initSDL();
 }
@@ -34,19 +32,26 @@ MainWindow::~MainWindow()
 	quitSDL();
 }
 
+SDL_Renderer* MainWindow::getRenderer()
+{
+	return m_renderer;
+}
+
+Camera& MainWindow::getCam()
+{
+	return m_camera;
+}
+
 void MainWindow::run()
 {
 	bool quit = false;
 	SDL_Event e;
 	const Uint8* currentKeyStates;
-	Vector2i offset;
 
 	// Start main loop and event handling
 	while(!quit && m_renderer)
 	{
-		m_startTicks = SDL_GetTicks();
-		offset.setX(0);
-		offset.setY(0);
+
 
 		// Process events, detect quit signal for window closing
 		while(SDL_PollEvent(&e))
@@ -58,62 +63,15 @@ void MainWindow::run()
 		}
 
 		currentKeyStates = SDL_GetKeyboardState( NULL );
+		m_game->update(currentKeyStates);
 
-		// Reset forces and jump flags
-		m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
-		m_player->wantsToJump(false);
-
-		if( currentKeyStates[ SDL_SCANCODE_UP ] )
-		{
-
-		}
-		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
-		{
-
-		}
-		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
-		{
-			m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
-
-		}
-		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
-		{
-			m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
-			std::cout << "RIGHT" << std::endl;
-		}
-		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
-		{
-			m_player->wantsToJump(true);
-		}
-		//m_camera.move(offset);
-
-		m_player->move(*m_level);
-		m_bot->move(*m_level);
-
-		// Clear screen
-		SDL_RenderClear(m_renderer);
-
-		m_level->render();
-		m_player->render();
-		m_bot->render();
-
-		//SDL_Delay(10);
-
-		// Update screen
-		SDL_RenderPresent(m_renderer);
-		m_renderTime = (SDL_GetTicks() - m_startTicks) / 1000.0;
 	}
 
 }
 
-Camera & MainWindow::getCam()
+void MainWindow::setGame(Game* game)
 {
-	return m_camera;
-}
-
-SDL_Renderer* MainWindow::getRenderer()
-{
-	return m_renderer;
+	m_game = game;
 }
 
 void MainWindow::initSDL()
@@ -163,15 +121,6 @@ void MainWindow::initSDL()
 	}
 }
 
-void MainWindow::setLevel(Level* level)
-{
-	m_level = level;
-}
-
-void MainWindow::setPlayer(Player* player)
-{
-	m_player = player;
-}
 
 void MainWindow::quitSDL()
 {

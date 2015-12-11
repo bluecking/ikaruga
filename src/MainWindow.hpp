@@ -11,13 +11,13 @@
 #include <string>
 #include <SDL.h>
 
-#include "Level.hpp"
 #include "Camera.hpp"
-#include "Player.hpp"
-#include "Bot.hpp"
+#include "Game.hpp"
 #include "WorldProperty.hpp"
 namespace jumper
 {
+
+class Game;
 
 /***
  *	Represents the main window of the game.
@@ -46,23 +46,11 @@ public:
 	void run();
 
 	/***
-	 * Sets the level to render.
-	 */
-	void setLevel(Level* level);
-
-	/***
-	 * Sets the player to control
-	 */
-	void setPlayer(Player* player);
-
-	void setBot(Bot* bot) { m_bot = bot;}
-
-	/***
 	 * Gets the current SDL renderer
 	 */
 	SDL_Renderer* getRenderer();
 
-
+	void setGame(Game* game);
 
 	Camera & getCam();
 
@@ -87,21 +75,11 @@ private:
 	/// Window height
 	int					m_height;
 
-	/// A pointer to a level object
-	Level*				m_level;
-
-	/// A pointer to a player object
-	Player*				m_player;
-
-	/// A pointer to a bot object
-	Bot*				m_bot;
-
 	/// A Camera object
 	Camera				m_camera;
 
-	double				m_renderTime;
+	Game*				m_game;
 
-	Uint32 				m_startTicks;
 };
 
 } /* namespace jumper */
