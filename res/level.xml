@@ -4,21 +4,32 @@
     <numFrames>2</numFrames>
     <frameWidth>18</frameWidth>
     <frameHeight>32</frameHeight>
-    <position_x>100</position_x>
-    <position_y>100</position_y>
+    <positionX>100</positionX>
+    <positionY>100</positionY>
+    <jumpForceY>-440.0</jumpForceY>
+    <moveForceX>800.0</moveForceX>
+    <maxVelRun>122.0</maxVelRun>
+    <maxVelFall>250.0</maxVelFall>
+    <maxJumpHeight>90</maxJumpHeight>
   </player>
   <bot filename="goomba.png">
     <numFrames>2</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>300</positionX>
-    <positionY>100</positionY > 
+    <positionY>100</positionY >
+    <moveForceX>800.0</moveForceX>
+    <maxVelRun>122.0</maxVelRun>
+    <maxVelFall>250.0</maxVelFall>
   </bot>
-  <bot filename="turtle.png">
+  <bot filename="koopa.png">
     <numFrames>2</numFrames>
     <frameWidth>16</frameWidth>
-    <frameHeight>16</frameHeight>
+    <frameHeight>23</frameHeight>
     <positionX>400</positionX>
-    <positionY>100</positionY> 
+    <positionY>100</positionY>
+    <moveForceX>800.0</moveForceX>
+    <maxVelRun>122.0</maxVelRun>
+    <maxVelFall>250.0</maxVelFall>
   </bot>
 </level>

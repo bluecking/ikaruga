@@ -32,7 +32,9 @@ public:
 	 * 					used for rendering
 	 * @param filename	The name of a file with sprite definitions
 	 */
-    Player(SDL_Renderer* renderer, std::string filename);
+	Player(SDL_Renderer* renderer, std::string filename);
+
+	Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
     virtual void move(Level& level);
 

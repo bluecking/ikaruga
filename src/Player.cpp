@@ -18,6 +18,12 @@ Player::Player(SDL_Renderer *renderer, std::string filename)
 
 }
 
+Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
+{
+
+}
+
 
 void Player::move(Level& level)
 {

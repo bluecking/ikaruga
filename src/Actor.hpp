@@ -33,6 +33,8 @@ public:
 
 	virtual void render();
 
+
+	void setPhysics(PlayerProperty p);
 	/**
 	 * Sets the player's position
 	 */

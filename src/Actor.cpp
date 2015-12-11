@@ -38,6 +38,11 @@ Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int f
 	m_startTicks = 0;
 }
 
+void Actor::setPhysics(PlayerProperty p)
+{
+	m_physicalProps = p;
+}
+
 Actor::~Actor()
 {
 	// TODO Auto-generated destructor stub
