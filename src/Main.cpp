@@ -1,6 +1,7 @@
 #include "MainWindow.hpp"
 #include "Level.hpp"
 #include "Bot.hpp"
+#include "TextureFactory.hpp"
 
 #include <iostream>
 
@@ -25,4 +26,7 @@ int main(int argc, char** argv)
 	window.setBot(&bot);
 	window.setPlayer(&player);
 	window.run();
+
+	// Free textures
+	TextureFactory::instance(window.getRenderer()).deleteAll();
 }
