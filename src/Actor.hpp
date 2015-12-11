@@ -25,6 +25,7 @@ class Actor : public AnimatedRenderable
 {
 public:
 	Actor(SDL_Renderer* renderer, std::string filename);
+	Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 	virtual ~Actor();
 
 	virtual void move(Level& level) = 0;

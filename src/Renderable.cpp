@@ -18,6 +18,18 @@ Renderable::Renderable(SDL_Renderer* renderer)
 	m_sourceRect.h = 0;
 }
 
+Renderable::Renderable(SDL_Renderer* renderer, SDL_Texture* texture)
+	: m_renderer(renderer), m_texture(texture)
+{
+	int w, h;
+	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
+
+	m_sourceRect.x = 0;
+	m_sourceRect.y = 0;
+	m_sourceRect.w = w;
+	m_sourceRect.h = h;
+}
+
 SDL_Renderer *Renderable::getRenderer() const
 {
     return m_renderer;

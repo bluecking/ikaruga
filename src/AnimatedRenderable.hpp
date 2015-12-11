@@ -24,12 +24,21 @@ class AnimatedRenderable: public Renderable
 public:
 
 	/***
-	 * Contructs an animated renderable from the given \ref filename
+	 * Constructs an animated renderable from the given \ref filename
 	 * for the internal \ref renderer
 	 * @param renderer		A pointer to a SDL renderer struct
 	 * @param filename		A filename with animation definitions
 	 */
 	AnimatedRenderable(SDL_Renderer* renderer, std::string filename);
+
+	/***
+	 * Constructs an animated renderable from given renderer, texture
+	 * and frame information.
+	 * @param renderer		A pointer to a SDL renderer struct
+	 * @param filename		A filename with animation definitions
+	 */
+	AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+
 
 	/**
 	 * Destructor.

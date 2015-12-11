@@ -21,6 +21,7 @@ class Bot : public Actor
 {
 public:
 	Bot(SDL_Renderer* renderer, std::string filename);
+	Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 	virtual ~Bot();
 
 	virtual void move(Level& level);

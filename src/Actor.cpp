@@ -27,6 +27,17 @@ Actor::Actor(SDL_Renderer* renderer, std::string filename)
 	m_startTicks = 0;
 }
 
+Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+	: AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames)
+{
+	m_jumping = 0;
+	m_wantsToJump = false;
+	m_onGround = false;
+	m_jumpStart = 0;
+	m_physicalProps.setPosition(Vector2f(100, 0));
+	m_startTicks = 0;
+}
+
 Actor::~Actor()
 {
 	// TODO Auto-generated destructor stub

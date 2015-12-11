@@ -17,11 +17,12 @@ class Renderable
 
 public:
 
-    /**
-     * @brief Custom constructor
-     * @param SDL_Renderer
-     */
     Renderable(SDL_Renderer *m_renderer);
+
+    /***
+     * Contructs a renderable from given texture and renderer.
+     */
+    Renderable(SDL_Renderer* renderer, SDL_Texture* texture);
 
     /**
      * @brief   Renderer getter

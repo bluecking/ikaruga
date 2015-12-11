@@ -22,6 +22,14 @@ Bot::Bot(SDL_Renderer* renderer, std::string filename)
 	physics().setMaxFallVelocity(2400);
 }
 
+Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+  	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
+{
+	m_physicalProps.setMoveForce(Vector2f(0,0));
+	m_physicalProps.setMaxRunVelocity(50);
+	physics().setMaxFallVelocity(2400);
+}
+
 Bot::~Bot()
 {
 	// TODO Auto-generated destructor stub

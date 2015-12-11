@@ -28,12 +28,26 @@ AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filen
 		std::cout << "Unable to open file " << filename << std::endl;
 	}
 
-	// Initialize source recnt
+	// Initialize source rect
 	m_sourceRect.x = 0;
 	m_sourceRect.y = 0;
 	m_sourceRect.w = m_frameWidth;
 	m_sourceRect.h = m_frameHeight;
 
+}
+
+AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+	: Renderable(renderer, texture),
+	  m_numFrames(numFrames),
+	  m_frameWidth(frameWidth),
+	  m_frameHeight(frameHeight),
+	  m_currentFrame(0)
+{
+	// Initialize source recnt
+	m_sourceRect.x = 0;
+	m_sourceRect.y = 0;
+	m_sourceRect.w = m_frameWidth;
+	m_sourceRect.h = m_frameHeight;
 }
 
 AnimatedRenderable::~AnimatedRenderable() {}
