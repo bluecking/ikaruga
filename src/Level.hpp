@@ -17,6 +17,7 @@
 #include "Vector.hpp"
 #include "WorldProperty.hpp"
 #include "Collision.hpp"
+#include "TextureFactory.hpp"
 
 
 namespace jumper
@@ -33,7 +34,7 @@ class Level : public StaticRenderable
 public:
 
 	/***
-	 * Loads a level from the given file
+	 * Loads a level from the given .lvl file
 	 *
 	 * @param filename
 	 */

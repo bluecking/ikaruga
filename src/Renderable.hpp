@@ -42,30 +42,6 @@ public:
 
 protected:
 
-    /**
-     * Generates a SDL_Texture struct from the given files.
-     *
-     * @param 	texFileName		An image file to load into the texture
-     * @param 	keyR			Red component of the key color
-     * @param 	keyG			Green component of the key color
-     * @param 	keyB			Blue component of the key color
-     *
-     * @return SDL_Textur or NULL if texture generation failed.
-     */
-    SDL_Texture* loadTexture(std::string texFileName,
-                             unsigned char keyR,
-                             unsigned char keyG,
-                             unsigned char keyB);
-
-    /**
-     * Generates a SDL_Texture struct from the given file
-     *
-     * @param 	texFileName		An image file to load into the texture
-     * @return SDL_Textur or NULL if texture generation failed.
-     */
-    SDL_Texture* loadTexture(std::string texFileName);
-
-
     /// Renderer
     SDL_Renderer*		m_renderer;
 

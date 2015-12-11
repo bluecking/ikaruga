@@ -65,7 +65,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename, Camera & camera) : St
 
 	// Load texture
 	std::cout << texFileName << std::endl;
-	m_texture = loadTexture(texFileName, m_keyR, m_keyG, m_keyB);
+	m_texture = TextureFactory::instance(m_renderer).getTexture(texFileName, m_keyR, m_keyG, m_keyB);
 
 	if(!m_texture)
 	{

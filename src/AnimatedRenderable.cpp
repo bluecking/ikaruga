@@ -6,6 +6,7 @@
  */
 
 #include "AnimatedRenderable.hpp"
+#include "TextureFactory.hpp"
 
 #include <fstream>
 
@@ -20,7 +21,7 @@ AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filen
 	if(ifs.good())
 	{
 		ifs >> textureFileName >> m_frameWidth >> m_frameHeight >> m_numFrames;
-		m_texture = loadTexture(textureFileName);
+		m_texture = TextureFactory::instance(m_renderer).getTexture(textureFileName);
 	}
 	else
 	{
