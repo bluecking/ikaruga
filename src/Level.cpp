@@ -155,7 +155,12 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam
     /* Determine x and y position of the sprite within the grid */
     Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
 
-    SDL_Rect r = {pos.x(), pos.y(), width, height};
+    SDL_Rect r;
+    r.x = (int)pos.x();
+    r.y = (int)pos.y();
+    r.w = width;
+    r.h = height;
+    
     SDL_RenderDrawRect(m_renderer, &r);
 
 

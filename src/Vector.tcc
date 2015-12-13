@@ -38,7 +38,7 @@ Vector2<T>::~Vector2()
 template<typename T>
 bool Vector2<T>::operator==(const Vector2<T>& other)
 {
-	return (fabs(other.m_x - m_x) < m_epsilon) && (fabs(other.m_y - m_y) < m_epsilon);
+	return (std::abs(other.m_x - m_x) < m_epsilon) && (std::abs(other.m_y - m_y) < m_epsilon);
 }
 
 template<typename T>
