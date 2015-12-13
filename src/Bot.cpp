@@ -82,8 +82,7 @@ void Bot::move(Level& level)
 					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
 		}
 
-		cout << physics().maxRunVelocity() << " " << physics().maxFallVelocity() << endl;
-
+		
 		// Set new player position
 		physics().setPosition(physics().position() + physics().velocity());
 	}
