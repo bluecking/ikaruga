@@ -47,6 +47,8 @@ public:
 	/// Updates the current state according to the given key states
 	void update(const Uint8* &currentKeyStates);
 
+	void start();
+
 private:
 
 	/// All renderables in the game

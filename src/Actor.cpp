@@ -45,12 +45,17 @@ void Actor::setPhysics(PlayerProperty p)
 
 Actor::~Actor()
 {
-	// TODO Auto-generated destructor stub
+	m_thread.join();
 }
 
 void Actor::wantsToJump(bool j)
 {
 	m_wantsToJump = j;
+}
+
+void Actor::start(Level& level)
+{
+	m_thread = std::thread(&Actor::move, this, std::ref(level));
 }
 
 float Actor::getElapsedTime()

@@ -69,11 +69,6 @@ void Game::update(const Uint8* &currentKeyStates)
 		m_player->wantsToJump(true);
 	}
 
-	for(size_t i = 0; i < m_actors.size(); i++)
-	{
-		m_actors[i]->move(*m_level);
-	}
-
 	SDL_RenderClear(m_renderer);
 	for(size_t i = 0; i < m_renderables.size(); i++)
 	{
@@ -83,6 +78,14 @@ void Game::update(const Uint8* &currentKeyStates)
 	// Update screen
 	SDL_RenderPresent(m_renderer);
 
+}
+
+void Game::start()
+{
+	for(size_t i = 0; i < m_actors.size(); i++)
+	{
+		m_actors[i]->start(*m_level);
+	}
 }
 
 } /* namespace jumper */

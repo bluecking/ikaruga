@@ -37,56 +37,60 @@ Bot::~Bot()
 
 void Bot::move(Level& level)
 {
-
-	float dt = getElapsedTime();
-	if(dt > 0)
+	while(true)
 	{
-		Collision c = level.resolveCollision(this);
-		if(c.delta().x() > 5)
+		float dt = getElapsedTime();
+		if(dt > 0)
 		{
-			bounce();
+			Collision c = level.resolveCollision(this);
+			if(c.delta().x() > 5)
+			{
+				bounce();
+			}
+
+			if(onGround() && fabs(physics().moveForce().x()) < 2)
+			{
+				physics().setMoveForce(Vector2f(100, 0));
+			}
+
+			Vector2f d_gravity;
+			Vector2f d_move;
+
+			d_gravity = level.physics().gravity() * dt;
+			d_move = (physics().moveForce() * dt);
+
+			// Update velocity
+			physics().setVelocity(physics().velocity() + d_move + d_gravity);
+
+			// Damp velocity according to extrinsic level damping
+			physics().setVelocity(physics().velocity() * level.physics().damping());
+
+			if(physics().velocity().x() > physics().maxRunVelocity() * dt)
+			{
+				physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
+						physics().velocity().y()));
+			}
+
+			if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
+			{
+				physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
+						physics().velocity().y()));
+			}
+
+			if(physics().velocity().y() > physics().maxFallVelocity() * dt)
+			{
+				physics().setVelocity(
+						Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
+			}
+
+
+			// Set new player position
+			physics().setPosition(physics().position() + physics().velocity());
+
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(2));
 		}
-
-		if(onGround() && fabs(physics().moveForce().x()) < 2)
-		{
-			physics().setMoveForce(Vector2f(100, 0));
-		}
-
-		Vector2f d_gravity;
-		Vector2f d_move;
-
-		d_gravity = level.physics().gravity() * dt;
-		d_move = (physics().moveForce() * dt);
-
-		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move + d_gravity);
-
-		// Damp velocity according to extrinsic level damping
-		physics().setVelocity(physics().velocity() * level.physics().damping());
-
-		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
-
-		if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
-
-		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
-		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
-		}
-
-		
-		// Set new player position
-		physics().setPosition(physics().position() + physics().velocity());
 	}
-
 }
 
 void Bot::bounce()

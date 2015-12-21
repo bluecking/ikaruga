@@ -14,6 +14,8 @@
 #include "Level.hpp"
 
 #include <string>
+#include <thread>
+#include <chrono>
 
 namespace jumper
 {
@@ -32,7 +34,6 @@ public:
 	virtual void getCollision(Actor& other);
 
 	virtual void render();
-
 
 	void setPhysics(PlayerProperty p);
 	/**
@@ -77,6 +78,8 @@ public:
 
 	void wantsToJump(bool j);
 
+	void start(Level& level);
+
 protected:
 
 	float getElapsedTime();
@@ -97,6 +100,8 @@ protected:
     PlayerProperty 		m_physicalProps;
 
     Uint32				m_startTicks;
+
+    std::thread			m_thread;
 };
 
 } /* namespace jumper */

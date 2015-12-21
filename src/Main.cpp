@@ -98,6 +98,7 @@ int main(int argc, char** argv)
 	setupGame(argv[1], &window, &game);
 
 	window.setGame(&game);
+	game.start();
 	window.run();
 
 	// Free textures
