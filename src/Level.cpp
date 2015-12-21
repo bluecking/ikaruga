@@ -60,8 +60,8 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 
 	// Cast keying colors manually!
 	m_keyR = (unsigned char)ir;
-	m_keyG = (unsigned char)ib;
-	m_keyB = (unsigned char)ig;
+	m_keyG = (unsigned char)ig;
+	m_keyB = (unsigned char)ib;
 
 	// Load texture
 	std::cout << texFileName << std::endl;
