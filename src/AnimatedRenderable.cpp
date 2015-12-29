@@ -9,6 +9,10 @@
 #include "TextureFactory.hpp"
 
 #include <fstream>
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 namespace jumper
 {
@@ -41,7 +45,9 @@ AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* text
 	  m_numFrames(numFrames),
 	  m_frameWidth(frameWidth),
 	  m_frameHeight(frameHeight),
-	  m_currentFrame(0)
+	  m_currentFrame(0),
+	  m_lastRenderTicks(0),
+	  m_frameTimeout(0)
 {
 	// Initialize source recnt
 	m_sourceRect.x = 0;
@@ -55,18 +61,34 @@ AnimatedRenderable::~AnimatedRenderable() {}
 
 void AnimatedRenderable::nextFrame()
 {
-	// Check and increase frame counter
-	if(m_currentFrame + 1 < m_numFrames)
-	{
-		m_currentFrame++;
-	}
-	else
-	{
-		m_currentFrame = 0;
-	}
+	Uint32 ticks = SDL_GetTicks();
+	float time =  (ticks - m_lastRenderTicks);
 
-	// Setup source rect
-	m_sourceRect.x = m_currentFrame * m_frameWidth;
+	if(time > m_frameTimeout)
+	{
+		// Check and increase frame counter
+		if(m_currentFrame + 1 < m_numFrames)
+		{
+			m_currentFrame++;
+		}
+		else
+		{
+			m_currentFrame = 0;
+		}
+
+		// Setup source rect
+		m_sourceRect.x = m_currentFrame * m_frameWidth;
+
+		// Save current tick count
+		m_lastRenderTicks = ticks;
+	}
+}
+
+void AnimatedRenderable::setFPS(int frames)
+{
+	m_frameTimeout = (Uint32)(1000.0 / frames);
 }
 
 } /* namespace jumper */
+
+

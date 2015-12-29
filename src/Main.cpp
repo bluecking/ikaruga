@@ -50,6 +50,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 int numFrames = v.second.get<int>("numFrames", 0);
 			 int frameWidth = v.second.get<int>("frameWidth", 0);
 			 int frameHeight = v.second.get<int>("frameHeight", 0);
+			 int fps = v.second.get<int>("fps", 14);
 
 			 // Get texture
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
@@ -72,6 +73,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 PlayerProperty p;
 			 getPlayerProperty(v, p);
 			 actor->setPhysics(p);
+			 actor->setFPS(fps);
 
 		 }
 		 if( v.first == "tileset")

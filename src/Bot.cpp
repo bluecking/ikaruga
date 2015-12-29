@@ -39,6 +39,7 @@ void Bot::move(Level& level)
 {
 	while(true)
 	{
+		nextFrame();
 		float dt = getElapsedTime();
 		if(dt > 0)
 		{

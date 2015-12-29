@@ -84,8 +84,8 @@ void Actor::render()
         flip = SDL_FLIP_NONE;
     }
 
-    target.x = m_physicalProps.position().x();
-    target.y = m_physicalProps.position().y();
+    target.x = floor(m_physicalProps.position().x());
+    target.y = floor(m_physicalProps.position().y());
     target.w = m_frameWidth;
     target.h = m_frameHeight;
 

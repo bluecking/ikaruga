@@ -55,6 +55,11 @@ public:
 	 */
 	void nextFrame();
 
+	/**
+	 * Sets frames per second for animation
+	 */
+	void setFPS(int frames);
+
 protected:
 
 	///	Number of frames in the animation
@@ -68,6 +73,12 @@ protected:
 
 	/// The height of a frame
 	int				m_frameHeight;
+
+	/// Ticks count when the last frame was rendered
+	Uint32			m_lastRenderTicks;
+
+	/// Timeout between frames
+	Uint32			m_frameTimeout;
 
 };
 

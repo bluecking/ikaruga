@@ -11,6 +11,7 @@
     <maxVelRun>122.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
     <maxJumpHeight>90</maxJumpHeight>
+    <fps>12</fps>
   </player>
   <bot filename="goomba.png">
     <numFrames>2</numFrames>
@@ -21,6 +22,7 @@
     <moveForceX>0.0</moveForceX>
     <maxVelRun>30.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
+    <fps>8</fps>
   </bot>
   <bot filename="koopa.png">
     <numFrames>2</numFrames>
@@ -31,5 +33,6 @@
     <moveForceX>0.0</moveForceX>
     <maxVelRun>20.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
+    <fps>8</fps>
   </bot>
 </level>
