@@ -22,6 +22,7 @@ Actor::Actor(SDL_Renderer* renderer, std::string filename)
 	m_jumping = 0;
 	m_wantsToJump = false;
 	m_onGround = false;
+	m_focus = false;
 	m_jumpStart = 0;
 	m_physicalProps.setPosition(Vector2f(100, 0));
 	m_startTicks = 0;
@@ -33,6 +34,7 @@ Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int f
 	m_jumping = 0;
 	m_wantsToJump = false;
 	m_onGround = false;
+	m_focus = false;
 	m_jumpStart = 0;
 	m_physicalProps.setPosition(Vector2f(100, 0));
 	m_startTicks = 0;
@@ -139,4 +141,16 @@ void Actor::getCollision(Actor& other)
 
 }
 
+void jumper::Actor::setFocus(bool focus)
+{
+	m_focus = focus;
+}
+
+bool jumper::Actor::hasFocus()
+{
+	return m_focus;
+}
+
+
 } /* namespace jumper */
+

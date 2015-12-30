@@ -80,6 +80,9 @@ public:
 
 	void start(Level& level);
 
+	void setFocus(bool focus);
+
+	bool hasFocus();
 protected:
 
 	float getElapsedTime();
@@ -102,6 +105,8 @@ protected:
     Uint32				m_startTicks;
 
     std::thread			m_thread;
+
+    bool				m_focus;
 };
 
 } /* namespace jumper */

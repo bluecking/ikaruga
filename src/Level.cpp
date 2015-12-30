@@ -359,6 +359,17 @@ Collision Level::resolveCollision(Actor* player)
 		}
 	}
 
+	// Move camera if player position exceeds window with / 2 --> TODO: Window width, not level width!!!
+	if(player->hasFocus())
+	{
+		m_camera.position().setX(player->position().x() - m_levelWidth / 2 + player->w());
+		if(m_camera.position().x() < 0)
+		{
+			m_camera.position().setX(0);
+		}
+	}
+
+
 	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 	return Collision(Vector2i(dx, dy));
 

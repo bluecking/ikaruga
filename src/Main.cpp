@@ -66,6 +66,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 {
 				 Player* player = new Player(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
 				 game->setPlayer(player);
+				 player->setFocus(true);
 				 actor = player;
 			 }
 
