@@ -231,6 +231,7 @@ Collision Level::resolveCollision(Actor* player)
 	Vector2f global_pos;
 	global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
+
 	// Set desired position to new position
 	desiredPosition = global_pos;
 
