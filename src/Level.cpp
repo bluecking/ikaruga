@@ -376,7 +376,7 @@ Collision Level::resolveCollision(Actor* player)
 			m_camera.position().setX(0);
 		}
 	}
-
+	cout << "POS: " << m_camera.position() << endl;
 	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 	return Collision(Vector2i(dx, dy));
 
