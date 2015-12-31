@@ -65,13 +65,9 @@ public:
 
 	Collision resolveCollision(Actor* actor);
 
-	//void updatePlayerPosition(int move, bool jump, double dt);
-
-	Vector2i camPosition();
-
 private:
 
-	void getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles);
+	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
 
 
 	/// Tile width
@@ -106,8 +102,6 @@ private:
 
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;
-
-	Camera  			m_camera;
 
 	SparseMatrix		m_tiles;
 };

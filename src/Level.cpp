@@ -118,8 +118,8 @@ void Level::render()
 				if(tile_index >= 0)
 				{
 					//Compute the position of the target on the screen
-					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y();
+					target.x = j * m_tileWidth;
+					target.y = i * m_tileHeight;
 
 
 					row = tile_index / m_tilesPerRow;
@@ -150,7 +150,7 @@ WorldProperty& Level::physics()
 	return m_levelPhysics;
 }
 
-void Level::getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles)
+void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles)
 {
     /* Determine x and y position of the sprite within the grid */
     Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
@@ -227,16 +227,11 @@ Collision Level::resolveCollision(Actor* player)
 	int dx = 0;
 	int dy = 0;
 
-	//Convert the player sprite's screen position to global position
-	Vector2f global_pos;
-	global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
-
-
 	// Set desired position to new position
-	desiredPosition = global_pos;
+	desiredPosition = player->position();
 
 	// Check if sprite intersects with one of its surrounding tiles
-	getSurroundingTiles(global_pos, player->w(), player->h(), m_camera, surroundingTiles);
+	getSurroundingTiles(desiredPosition, player->w(), player->h(), surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
 	player->setOnGround(false);
@@ -363,26 +358,9 @@ Collision Level::resolveCollision(Actor* player)
 
 
 
-	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
-
-	// Move camera if player position exceeds window with / 2 --> TODO: Window width, not level width!!!
-	if(player->hasFocus())
-	{
-		m_camera.position().setX(player->position().x() - m_levelWidth / 2 + player->w());
-		if(m_camera.position().x() < 0)
-		{
-			m_camera.position().setX(0);
-		}
-	}
+	player->setPosition(Vector2f(desiredPosition.x(), desiredPosition.y()));
 
 	return Collision(Vector2i(dx, dy));
-
-}
-
-
-Vector2i Level::camPosition()
-{
-	return m_camera.position();
 }
 
 

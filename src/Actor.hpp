@@ -108,7 +108,6 @@ protected:
 
     bool				m_focus;
 
-    Vector2i			m_camPosition;
 };
 
 } /* namespace jumper */

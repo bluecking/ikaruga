@@ -29,7 +29,6 @@ void Player::move(Level& level)
 {
 	while(true)
 	{
-		m_camPosition = level.camPosition();
 		nextFrame();
 		float dt = getElapsedTime();
 		if(dt > 0)
