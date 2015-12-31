@@ -41,6 +41,10 @@ public:
     /// Returns the height of the rendered object
     int h() const;
 
+	/// A global camera object that is used to determine
+	/// the offset wrt. the current camera position when
+	/// rendering
+	static Camera		m_camera;
 protected:
 
     /// Renderer
@@ -51,6 +55,7 @@ protected:
 
 	/// Source rect in the texture
 	SDL_Rect 			m_sourceRect;
+
 };
 
 } /* namespace jumper */

@@ -23,6 +23,7 @@ int Camera::y()
 }
 
 Camera::Camera()
+	: m_width(0), m_height(0)
 {
 	m_position.setX(0);
 	m_position.setY(0);
@@ -30,7 +31,7 @@ Camera::Camera()
 
 void Camera::move(const Vector2i& p)
 {
-	m_position += p;
+	m_position = p;
 }
 
 Camera::Camera(const Vector2i& Vector2i, int w, int h)

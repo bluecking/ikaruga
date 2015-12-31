@@ -9,6 +9,7 @@
 #define CAMERA_HPP_
 
 #include "Vector.hpp"
+
 namespace jumper
 {
 
@@ -30,10 +31,12 @@ public:
 	Camera(const Vector2i& pixel, int w, int h);
 
 	/***
-	 * Moves the camera according to the given offset
-	 * @param offset	A pixel offset for camera movement
+	 * Moves the camera to the given position. Reference point is the
+	 * middle of the represented frustrum
+	 *
+	 * @param position	The new camera position
 	 */
-	void move(const Vector2i& offset);
+	void move(const Vector2i& position);
 
 	/// Returns the current x-position
 	int x();
@@ -53,6 +56,7 @@ public:
 	/// Returns the camera height
 	int h();
 
+	friend class MainWindow;
 private:
 
 	/// Current camera position

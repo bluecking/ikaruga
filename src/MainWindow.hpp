@@ -11,7 +11,6 @@
 #include <string>
 #include <SDL.h>
 
-#include "Camera.hpp"
 #include "Game.hpp"
 #include "WorldProperty.hpp"
 namespace jumper
@@ -52,7 +51,11 @@ public:
 
 	void setGame(Game* game);
 
-	Camera & getCam();
+	/// Returns the window width
+	int w();
+
+	/// Retruns the window height
+	int h();
 
 private:
 
@@ -74,9 +77,6 @@ private:
 
 	/// Window height
 	int					m_height;
-
-	/// A Camera object
-	Camera				m_camera;
 
 	Game*				m_game;
 

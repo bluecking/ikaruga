@@ -51,6 +51,8 @@ public:
 
 private:
 
+	void updateCameraPosition();
+
 	/// All renderables in the game
 	vector<Renderable*> 	m_renderables;
 
@@ -65,6 +67,12 @@ private:
 
 	/// Pointer to the main window of the game
 	SDL_Renderer*			m_renderer;
+
+	/// Window width
+	int						m_windowWidth;
+
+	/// Window height
+	int						m_windowHeight;
 };
 
 } /* namespace jumper */

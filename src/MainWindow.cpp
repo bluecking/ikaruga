@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 #include <iostream>
 #include "Vector.hpp"
+#include "Renderable.hpp"
 
 namespace jumper
 {
@@ -23,6 +24,9 @@ MainWindow::MainWindow(std::string title, int w, int h)
 	/// Set pointer to NULL
 	m_renderer = 0;
 
+	/// Init the camera for all renderables
+	Renderable::m_camera.m_width = w;
+	Renderable::m_camera.m_height = h;
 	/// Initialize SDL stuff
 	initSDL();
 }
@@ -35,11 +39,6 @@ MainWindow::~MainWindow()
 SDL_Renderer* MainWindow::getRenderer()
 {
 	return m_renderer;
-}
-
-Camera& MainWindow::getCam()
-{
-	return m_camera;
 }
 
 void MainWindow::run()
@@ -142,4 +141,16 @@ void MainWindow::quitSDL()
 	SDL_Quit();
 }
 
+int jumper::MainWindow::w()
+{
+	return m_width;
+}
+
+int jumper::MainWindow::h()
+{
+	return m_height;
+}
+
 } /* namespace jumper */
+
+

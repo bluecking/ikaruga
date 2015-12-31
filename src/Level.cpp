@@ -118,8 +118,8 @@ void Level::render()
 				if(tile_index >= 0)
 				{
 					//Compute the position of the target on the screen
-					target.x = j * m_tileWidth;
-					target.y = i * m_tileHeight;
+					target.x = j * m_tileWidth - m_camera.x();
+					target.y = i * m_tileHeight - m_camera.y()	;
 
 
 					row = tile_index / m_tilesPerRow;

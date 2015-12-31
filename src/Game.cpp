@@ -7,6 +7,10 @@
 
 #include "Game.hpp"
 
+#include <iostream>
+using std::cout;
+using std::endl;
+
 namespace jumper
 {
 
@@ -15,6 +19,9 @@ Game::Game(MainWindow* mainWindow)
 	m_player = 0;
 	m_level = 0;
 	m_renderer = mainWindow->getRenderer();
+
+	m_windowWidth = mainWindow->w();
+	m_windowHeight = mainWindow->h();
 }
 
 Game::~Game()
@@ -75,6 +82,8 @@ void Game::update(const Uint8* &currentKeyStates)
 		m_renderables[i]->render();
 	}
 
+	updateCameraPosition();
+
 	// Update screen
 	SDL_RenderPresent(m_renderer);
 
@@ -85,6 +94,16 @@ void Game::start()
 	for(size_t i = 0; i < m_actors.size(); i++)
 	{
 		m_actors[i]->start(*m_level);
+	}
+}
+
+void Game::updateCameraPosition()
+{
+	if(m_player->position().x() > m_windowWidth / 2)
+	{
+		Vector2i position(m_player->position().x() - m_windowWidth / 2, 0);
+		Renderable::m_camera.move(position);
+		cout << Renderable::m_camera.position() << endl;
 	}
 }
 

@@ -8,6 +8,7 @@
 namespace jumper
 {
 
+Camera Renderable::m_camera;
 
 Renderable::Renderable(SDL_Renderer* renderer)
 	: m_renderer(renderer), m_texture(0)
@@ -45,6 +46,6 @@ int Renderable::h() const
 	return m_sourceRect.h;
 }
 
-
 } /* namespace jumper */
+
 
