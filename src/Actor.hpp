@@ -107,6 +107,8 @@ protected:
     std::thread			m_thread;
 
     bool				m_focus;
+
+    Vector2i			m_camPosition;
 };
 
 } /* namespace jumper */

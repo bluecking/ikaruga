@@ -229,14 +229,7 @@ Collision Level::resolveCollision(Actor* player)
 
 	//Convert the player sprite's screen position to global position
 	Vector2f global_pos;
-	if(player->hasFocus())
-	{
-		global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
-	}
-	else
-	{
-		global_pos = player->position();
-	}
+	global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
 
 	// Set desired position to new position
 	desiredPosition = global_pos;
@@ -367,6 +360,10 @@ Collision Level::resolveCollision(Actor* player)
 		}
 	}
 
+
+
+	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+
 	// Move camera if player position exceeds window with / 2 --> TODO: Window width, not level width!!!
 	if(player->hasFocus())
 	{
@@ -376,97 +373,17 @@ Collision Level::resolveCollision(Actor* player)
 			m_camera.position().setX(0);
 		}
 	}
-	cout << "POS: " << m_camera.position() << endl;
-	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
+
 	return Collision(Vector2i(dx, dy));
 
 }
 
-/*void Level::updatePlayerPosition(int move, bool jump, double dt)
+
+Vector2i Level::camPosition()
 {
-	m_player->nextFrame();
-	if(dt > 0)
-	{
-
-		if(dt > 0 && jump && m_player->onGround())
-		{
-			m_player->setJumping(true);
-		}
-
-		Vector2f d_gravity;
-		Vector2f d_move;
-
-		d_gravity = m_levelPhysics.gravity() * dt;
-
-		if(move != 0)
-		{
-			d_move = (m_player->physics().moveForce() * dt) * move;
-		}
-		else
-		{
-			d_move.setX(0);
-			d_move.setY(0);
-		}
-
-		// Update velocity
-		m_player->physics().setVelocity(m_player->physics().velocity() + d_move + d_gravity);
-
-		// Add jumping momentum
-		if(m_player->jumping())
-		{
-			m_player->physics().velocity().setY(
-					m_player->physics().velocity().y() + (m_player->physics().jumpForce().y() * dt) );
-		}
-
-		// Damp velocity according to extrinsic level damping
-		m_player->physics().setVelocity(m_player->physics().velocity() * m_levelPhysics.damping());
-
-		// Clamp velocities
-		if(m_player->physics().velocity().x() > m_player->physics().maxRunVelocity() * dt)
-		{
-			m_player->physics().setVelocity(Vector2f(m_player->physics().maxRunVelocity() * dt,
-													 m_player->physics().velocity().y()));
-		}
-
-		if(m_player->physics().velocity().x() < -m_player->physics().maxRunVelocity() * dt)
-		{
-			m_player->physics().setVelocity(Vector2f(-m_player->physics().maxRunVelocity() * dt,
-													 m_player->physics().velocity().y()));
-		}
-
-		if(m_player->physics().velocity().y() > m_player->physics().maxFallVelocity() * dt)
-		{
-			m_player->physics().setVelocity(
-					Vector2f(m_player->physics().velocity().x(), m_player->physics().maxFallVelocity() * dt));
-		}
-
-		if(m_player->physics().velocity().y() < -m_player->physics().maxJumpVelocity() * dt)
-		{
-			m_player->physics().setVelocity(
-					Vector2f(m_player->physics().velocity().x(), -m_player->physics().maxJumpVelocity() * dt));
-		}
-
-		// Set new player position
-		m_player->physics().setPosition(m_player->physics().position() + m_player->physics().velocity());
-
-
-		// Move camera if player position exceeds window with / 2
-		m_camera.position().setX(m_player->position().x() - m_levelWidth / 2 + m_player->w());
-		if(m_camera.position().x() < 0)
-		{
-			m_camera.position().setX(0);
-		}
-
-		// Stop jumping at maximum jumping height
-		if(fabs(m_player->physics().position().y() - m_player->jumpStart()) >= m_player->physics().maxJumpHeight())
-		{
-			m_player->setJumping(false);
-		}
-
-	}
-} */
-
-
+	return m_camera.position();
+}
 
 
 } /* namespace jumper */
+

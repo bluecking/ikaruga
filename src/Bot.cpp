@@ -39,6 +39,9 @@ void Bot::move(Level& level)
 {
 	while(true)
 	{
+		// Save current cam position
+		m_camPosition = level.camPosition();
+
 		nextFrame();
 		float dt = getElapsedTime();
 		if(dt > 0)

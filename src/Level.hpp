@@ -67,6 +67,8 @@ public:
 
 	//void updatePlayerPosition(int move, bool jump, double dt);
 
+	Vector2i camPosition();
+
 private:
 
 	void getSurroundingTiles(Vector2f pos, int width, int height, Camera &cam, Vector2i *tiles);
