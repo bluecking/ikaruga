@@ -76,23 +76,29 @@ float Actor::getElapsedTime()
 void Actor::render()
 {
     SDL_Rect target;
-    SDL_RendererFlip flip;
-    if(m_physicalProps.velocity().x() > 0)
-    {
-        flip = SDL_FLIP_HORIZONTAL;
-    }
-    else
-    {
-        flip = SDL_FLIP_NONE;
-    }
 
     target.x = floor(m_physicalProps.position().x()) - m_camera.x();
     target.y = floor(m_physicalProps.position().y()) - m_camera.y();
     target.w = m_frameWidth;
     target.h = m_frameHeight;
 
-    /* Render current animation frame */
-    SDL_RenderCopyEx( getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, flip);
+    // Do not render if actor is outside frustrum
+    if(target.x + target.h > 0 && target.x + target.h < m_camera.w())
+    {
+    	SDL_RendererFlip flip;
+    	if(m_physicalProps.velocity().x() > 0)
+    	{
+    		flip = SDL_FLIP_HORIZONTAL;
+    	}
+    	else
+    	{
+    		flip = SDL_FLIP_NONE;
+    	}
+
+    	// Render current animation frame
+    	SDL_RenderCopyEx( getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, flip);
+    }
+
 }
 
 void Actor::setPosition(Vector2f pos)

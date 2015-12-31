@@ -64,8 +64,6 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	m_keyB = (unsigned char)ib;
 
 	// Load texture
-	std::cout << texFileName << std::endl;
-
 	std::size_t found = filename.find_last_of("/\\");
 	string path = filename.substr(0,found);
 
@@ -121,24 +119,29 @@ void Level::render()
 					target.x = j * m_tileWidth - m_camera.x();
 					target.y = i * m_tileHeight - m_camera.y()	;
 
-
-					row = tile_index / m_tilesPerRow;
-					col = tile_index % m_tilesPerRow;
-
-					source.x = col * m_tileWidth;
-					if(col > 0)
+					// Don't render tiles outside the frustrum. To prevent popping,
+					// add some extra margin
+					if(target.x + target.h > -m_tileWidth && target.x + target.h < m_camera.w() + m_tileWidth)
 					{
-						source.x += col * m_tileOffset;
-					}
 
-					source.y = row * m_tileHeight;
-					if(row > 0)
-					{
-						source.y += row * m_tileOffset;
-					}
+						row = tile_index / m_tilesPerRow;
+						col = tile_index % m_tilesPerRow;
 
-					// Copy pixel date to correct position
-					SDL_RenderCopy(getRenderer(), m_texture, &source, &target);
+						source.x = col * m_tileWidth;
+						if(col > 0)
+						{
+							source.x += col * m_tileOffset;
+						}
+
+						source.y = row * m_tileHeight;
+						if(row > 0)
+						{
+							source.y += row * m_tileOffset;
+						}
+
+						// Copy pixel date to correct position
+						SDL_RenderCopy(getRenderer(), m_texture, &source, &target);
+					}
 				}
 			}
 		}

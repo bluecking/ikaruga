@@ -103,7 +103,6 @@ void Game::updateCameraPosition()
 	{
 		Vector2i position(m_player->position().x() - m_windowWidth / 2, 0);
 		Renderable::m_camera.move(position);
-		cout << Renderable::m_camera.position() << endl;
 	}
 }
 
