@@ -27,7 +27,7 @@ public:
 	/***
 	 * Constructs a camera with the given pixel offsets
 	 */
-	Camera(const Vector2i& pixel);
+	Camera(const Vector2i& pixel, int w, int h);
 
 	/***
 	 * Moves the camera according to the given offset
@@ -47,10 +47,22 @@ public:
 	/// Destructor
 	virtual ~Camera();
 
+	/// Returns the camera width
+	int w();
+
+	/// Returns the camera height
+	int h();
+
 private:
 
 	/// Current camera position
 	Vector2i	m_position;
+
+	/// Field of view width
+	int			m_width;
+
+	/// Field of view height
+	int			m_height;
 
 };
 

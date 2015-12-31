@@ -33,8 +33,8 @@ void Camera::move(const Vector2i& p)
 	m_position += p;
 }
 
-Camera::Camera(const Vector2i& Vector2i)
-	: m_position(Vector2i)
+Camera::Camera(const Vector2i& Vector2i, int w, int h)
+	: m_position(Vector2i), m_width(w), m_height(h)
 {
 }
 
@@ -46,6 +46,16 @@ Vector2i& Camera::position()
 Camera::~Camera()
 {
 	// Nothing to do yet
+}
+
+int Camera::w()
+{
+	return m_width;
+}
+
+int Camera::h()
+{
+	return m_height;
 }
 
 } /* namespace jumper */
