@@ -228,7 +228,15 @@ Collision Level::resolveCollision(Actor* player)
 	int dy = 0;
 
 	//Convert the player sprite's screen position to global position
-	Vector2f global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
+	Vector2f global_pos;
+	if(player->hasFocus())
+	{
+		global_pos = player->position() + Vector2f(m_camera.position().x(), m_camera.position().y());
+	}
+	else
+	{
+		global_pos = player->position();
+	}
 
 	// Set desired position to new position
 	desiredPosition = global_pos;
@@ -368,7 +376,6 @@ Collision Level::resolveCollision(Actor* player)
 			m_camera.position().setX(0);
 		}
 	}
-
 
 	player->setPosition(Vector2f( desiredPosition.x() - m_camera.position().x(), desiredPosition.y() - m_camera.position().y()));
 	return Collision(Vector2i(dx, dy));

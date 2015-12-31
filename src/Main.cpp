@@ -44,7 +44,8 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
 	 {
-		 if( v.first == "bot" || "player") {
+		 if( v.first == "bot" || v.first == "player")
+		 {
 			 // Get frame definitions
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 int numFrames = v.second.get<int>("numFrames", 0);
