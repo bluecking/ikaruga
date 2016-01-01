@@ -39,64 +39,64 @@
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>100</positionX>
-    <positionY>100</positionY>
+    <positionX>32</positionX>
+    <positionY>320</positionY>
     <fps>8</fps>
   </item>
   <item filename="coin.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>120</positionX>
-    <positionY>100</positionY>
+    <positionX>48</positionX>
+    <positionY>320</positionY>
     <fps>8</fps>
   </item>
  <item filename="coin.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>140</positionX>
-    <positionY>100</positionY>
+    <positionX>64</positionX>
+    <positionY>320</positionY>
     <fps>8</fps>
   </item>
   <item filename="coin.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>160</positionX>
-    <positionY>100</positionY>
+    <positionX>400</positionX>
+    <positionY>320</positionY>
     <fps>8</fps>  
   </item>
   <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>100</positionX>
-    <positionY>120</positionY>
+    <positionX>550</positionX>
+    <positionY>360</positionY>
     <fps>4</fps>
   </item>
   <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>120</positionX>
-    <positionY>120</positionY>
+    <positionX>566</positionX>
+    <positionY>360</positionY>
     <fps>4</fps>
   </item>
  <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>140</positionX>
-    <positionY>120</positionY>
+    <positionX>582</positionX>
+    <positionY>360</positionY>
     <fps>4</fps>
   </item>
   <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
-    <positionX>160</positionX>
-    <positionY>120</positionY>
+    <positionX>598</positionX>
+    <positionY>360</positionY>
     <fps>4</fps>
   </item>
 </level>
