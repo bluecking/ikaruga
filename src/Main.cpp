@@ -5,6 +5,7 @@
 #include "MainWindow.hpp"
 #include "Game.hpp"
 #include "TextureFactory.hpp"
+#include "Item.hpp"
 
 #include <iostream>
 
@@ -44,7 +45,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
 	 {
-		 if( v.first == "bot" || v.first == "player")
+		 if( v.first == "bot" || v.first == "player" || v.first == "item")
 		 {
 			 // Get frame definitions
 			 string filename = v.second.get("<xmlattr>.filename", "");
@@ -56,26 +57,35 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 // Get texture
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
 
-			 Actor* actor;
+			 Actor* actor = 0;
 			 if(v.first == "bot")
 			 {
 				 Bot* bot = new Bot(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
-				 game->addBot(bot);
+				 game->addActor(bot);
 				 actor = bot;
 			 }
-			 else
+			 else if(v.first == "player")
 			 {
 				 Player* player = new Player(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
 				 game->setPlayer(player);
 				 player->setFocus(true);
 				 actor = player;
 			 }
+			 else if(v.first == "item")
+			 {
+				 Item* item = new Item(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
+				 game->addActor(item);
+				 actor = item;
+			 }
 
-			 // Parse Properties and set'em
-			 PlayerProperty p;
-			 getPlayerProperty(v, p);
-			 actor->setPhysics(p);
-			 actor->setFPS(fps);
+			 // Setup actor properties
+			 if(actor)
+			 {
+				 PlayerProperty p;
+				 getPlayerProperty(v, p);
+				 actor->setPhysics(p);
+				 actor->setFPS(fps);
+			 }
 
 		 }
 		 if( v.first == "tileset")

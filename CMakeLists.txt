@@ -11,6 +11,7 @@ set(JUMPER_SOURCES
     src/Camera.cpp
     src/Collision.cpp
     src/Game.cpp
+    src/Item.cpp
     src/Level.cpp
     src/Main.cpp
     src/MainWindow.cpp

@@ -42,10 +42,10 @@ void Game::setLevel(Level* level)
 	m_renderables.push_back(level);
 }
 
-void Game::addBot(Bot* bot)
+void Game::addActor(Actor* actor)
 {
-	m_actors.push_back(bot);
-	m_renderables.push_back(bot);
+	m_actors.push_back(actor);
+	m_renderables.push_back(actor);
 }
 
 void Game::update(const Uint8* &currentKeyStates)

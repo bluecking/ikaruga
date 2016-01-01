@@ -42,7 +42,7 @@ public:
 	void setLevel(Level* level);
 
 	/// Adds a new bot to the scene
-	void addBot(Bot* bot);
+	void addActor(Actor* actor);
 
 	/// Updates the current state according to the given key states
 	void update(const Uint8* &currentKeyStates);
