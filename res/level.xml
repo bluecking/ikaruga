@@ -67,36 +67,36 @@
     <positionY>100</positionY>
     <fps>8</fps>  
   </item>
-  <item filename="coin.png">
+  <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>100</positionX>
     <positionY>120</positionY>
-    <fps>8</fps>
+    <fps>4</fps>
   </item>
-  <item filename="coin.png">
+  <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>120</positionX>
     <positionY>120</positionY>
-    <fps>8</fps>
+    <fps>4</fps>
   </item>
- <item filename="coin.png">
+ <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>140</positionX>
     <positionY>120</positionY>
-    <fps>8</fps>
+    <fps>4</fps>
   </item>
-  <item filename="coin.png">
+  <item filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>160</positionX>
     <positionY>120</positionY>
-    <fps>8</fps>
+    <fps>4</fps>
   </item>
 </level>
