@@ -32,31 +32,20 @@ void TexturedLayer::render()
 	SDL_Rect target;
 
 	// Determine x and y offset
-	int xOff = (std::abs(m_camera.x()) % m_sourceRect.w) * 1.2;
-	int yOff = (std::abs(m_camera.y()) % m_sourceRect.h) * 1.2;
+	int xOff = (std::abs(m_camera.x()) % m_sourceRect.w) * 1.1;
+	int yOff = (std::abs(m_camera.y()) % m_sourceRect.h) * 1.1;
 
 	// Handle sign (why is there no signum function in C++?
 	if(m_camera.x() > 0)
 	{
 		xOff = -xOff;
 	}
-	else
-	{
-		// Handle remainder of texture
-		xOff = -(m_sourceRect.w - xOff);
-	}
+
 
 	if(m_camera.y() > 0)
 	{
 		yOff = -yOff;
 	}
-	else
-	{
-		// Handle remainder of texture
-		yOff = -(m_sourceRect.h - yOff);
-	}
-
-	yOff = 0;
 
 	// Start rendering
 	target.x = xOff;
@@ -64,14 +53,19 @@ void TexturedLayer::render()
 	target.w = m_sourceRect.w;
 	target.h = m_sourceRect.h;
 
-	cout << target.x << " " << target.y << " " 	<< target.w << " " << target.h << endl;
-
-	while(target.x < m_camera.w())
+	while(target.y < m_camera.h())
 	{
-		cout << target.x << endl;
-		SDL_RenderCopy(m_renderer, m_texture, &m_sourceRect, &target);
-		target.x += m_sourceRect.w;
+		while(target.x < m_camera.w())
+		{
+
+			SDL_RenderCopy(m_renderer, m_texture, &m_sourceRect, &target);
+			target.x += m_sourceRect.w;
+		}
+		target.y += m_sourceRect.h;
+		target.x = xOff;
+		//cout << target.y << endl;
 	}
+
 
 
 }
