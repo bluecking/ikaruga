@@ -86,6 +86,12 @@ void Game::update(const Uint8* &currentKeyStates)
 		m_layer->render();
 	}
 
+	if(m_scoreBoard)
+	{
+		m_scoreBoard->setScore(m_player->position().x());
+		m_scoreBoard->render();
+	}
+
 	for(size_t i = 0; i < m_renderables.size(); i++)
 	{
 		m_renderables[i]->render();

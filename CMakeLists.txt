@@ -18,6 +18,7 @@ set(JUMPER_SOURCES
     src/Player.cpp
     src/PlayerProperty.cpp
     src/Renderable.cpp
+    src/ScoreBoard.cpp	
     src/SparseMatrix.cpp
     src/SparseVector.cpp
     src/StaticRenderable.cpp

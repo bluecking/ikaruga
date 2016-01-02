@@ -6,6 +6,7 @@
 #include "Game.hpp"
 #include "TextureFactory.hpp"
 #include "TexturedLayer.hpp"
+#include "ScoreBoard.hpp"
 #include "Item.hpp"
 
 #include <iostream>
@@ -104,6 +105,19 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 layer->setScrollSpeed(s);
 			 game->setLayer(layer);
 		 }
+		 if( v.first == "scoreBoard")
+		 {
+			 string filename = v.second.get("<xmlattr>.filename", "");
+			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			 int x = v.second.get<int>("xPos", 10);
+			 int y = v.second.get<int>("yPos", 10);
+			 int dw = v.second.get<int>("digitWidth", 10);
+			 int dh = v.second.get<int>("digitHeight", 10);
+			 ScoreBoard* board = new ScoreBoard(w->getRenderer(), texture, dw, dh);
+			 board->setPosition(Vector2i(x,y));
+			 game->setScoreBoard(board);
+		 }
+
 
 	 }
 

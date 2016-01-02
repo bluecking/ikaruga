@@ -14,6 +14,7 @@
 #include "Player.hpp"
 #include "Level.hpp"
 #include "TexturedLayer.hpp"
+#include "ScoreBoard.hpp"
 
 #include <vector>
 using std::vector;
@@ -52,6 +53,8 @@ public:
 
 	void setLayer(TexturedLayer* layer) { m_layer = layer;}	;
 
+	void setScoreBoard(ScoreBoard* b) { m_scoreBoard = b;};
+
 private:
 
 	void updateCameraPosition();
@@ -71,6 +74,9 @@ private:
 	/// A Layer
 	TexturedLayer*			m_layer;
 
+	/// A score board
+	ScoreBoard*				m_scoreBoard;
+
 	/// Pointer to the main window of the game
 	SDL_Renderer*			m_renderer;
 
@@ -79,6 +85,8 @@ private:
 
 	/// Window height
 	int						m_windowHeight;
+
+
 };
 
 } /* namespace jumper */
