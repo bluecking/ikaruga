@@ -13,6 +13,7 @@
 #include "Bot.hpp"
 #include "Player.hpp"
 #include "Level.hpp"
+#include "TexturedLayer.hpp"
 
 #include <vector>
 using std::vector;
@@ -49,6 +50,8 @@ public:
 
 	void start();
 
+	void setLayer(TexturedLayer* layer) { m_layer = layer;}	;
+
 private:
 
 	void updateCameraPosition();
@@ -64,6 +67,9 @@ private:
 
 	/// The current level
 	Level*					m_level;
+
+	/// A Layer
+	TexturedLayer*			m_layer;
 
 	/// Pointer to the main window of the game
 	SDL_Renderer*			m_renderer;

@@ -1,5 +1,6 @@
 <level>
   <tileset filename="test1.lvl"/>
+  <layer filename="clouds.png" />
   <player filename="mario1.png">
     <numFrames>2</numFrames>
     <frameWidth>18</frameWidth>

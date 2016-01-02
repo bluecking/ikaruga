@@ -5,6 +5,7 @@
 #include "MainWindow.hpp"
 #include "Game.hpp"
 #include "TextureFactory.hpp"
+#include "TexturedLayer.hpp"
 #include "Item.hpp"
 
 #include <iostream>
@@ -93,6 +94,13 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
 			 game->setLevel(level);
+		 }
+		 if( v.first == "layer")
+		 {
+			 string filename = v.second.get("<xmlattr>.filename", "");
+			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture);
+			 game->setLayer(layer);
 		 }
 
 	 }

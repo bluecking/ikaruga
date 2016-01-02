@@ -18,6 +18,7 @@ Game::Game(MainWindow* mainWindow)
 {
 	m_player = 0;
 	m_level = 0;
+	m_layer = 0;
 	m_renderer = mainWindow->getRenderer();
 
 	m_windowWidth = mainWindow->w();
@@ -76,7 +77,15 @@ void Game::update(const Uint8* &currentKeyStates)
 		m_player->wantsToJump(true);
 	}
 
+
+
 	SDL_RenderClear(m_renderer);
+
+	if(m_layer)
+	{
+		m_layer->render();
+	}
+
 	for(size_t i = 0; i < m_renderables.size(); i++)
 	{
 		m_renderables[i]->render();
