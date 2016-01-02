@@ -22,6 +22,11 @@ public:
 	virtual void render();
 
 	virtual ~TexturedLayer();
+
+	void setScrollSpeed(float speed);
+
+protected:
+	float		m_scrollSpeed;
 };
 
 } /* namespace jumper */

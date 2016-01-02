@@ -99,7 +99,9 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			 float s = v.second.get<float>("scrollSpeed", 1.0);
 			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture);
+			 layer->setScrollSpeed(s);
 			 game->setLayer(layer);
 		 }
 

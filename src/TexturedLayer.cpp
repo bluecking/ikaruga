@@ -20,11 +20,13 @@ namespace jumper
 TexturedLayer::TexturedLayer(SDL_Renderer* renderer)
 	: StaticRenderable(renderer)
 {
+	m_scrollSpeed = 1.0f;
 }
 
 TexturedLayer::TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture)
 	: StaticRenderable(renderer, texture)
 {
+	m_scrollSpeed = 1.0f;
 }
 
 void TexturedLayer::render()
@@ -32,8 +34,8 @@ void TexturedLayer::render()
 	SDL_Rect target;
 
 	// Determine x and y offset
-	int xOff = (std::abs(m_camera.x()) % m_sourceRect.w) * 1.1;
-	int yOff = (std::abs(m_camera.y()) % m_sourceRect.h) * 1.1;
+	int xOff = (std::abs(m_camera.x()) % m_sourceRect.w) * m_scrollSpeed;
+	int yOff = (std::abs(m_camera.y()) % m_sourceRect.h) * m_scrollSpeed;
 
 	// Handle sign (why is there no signum function in C++?
 	if(m_camera.x() > 0)
@@ -73,6 +75,11 @@ void TexturedLayer::render()
 TexturedLayer::~TexturedLayer()
 {
 	// TODO Auto-generated destructor stub
+}
+
+void TexturedLayer::setScrollSpeed(float speed)
+{
+	m_scrollSpeed = speed;
 }
 
 } /* namespace jumper */

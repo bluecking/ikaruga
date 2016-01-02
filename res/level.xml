@@ -1,6 +1,8 @@
 <level>
   <tileset filename="test1.lvl"/>
-  <layer filename="clouds.png" />
+  <layer filename="clouds.png">
+    <scrollSpeed>1.2</scrollSpeed>
+  </layer>
   <player filename="mario1.png">
     <numFrames>2</numFrames>
     <frameWidth>18</frameWidth>
