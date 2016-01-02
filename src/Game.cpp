@@ -25,7 +25,7 @@ Game::Game(MainWindow* mainWindow)
 	m_windowWidth = mainWindow->w();
 	m_windowHeight = mainWindow->h();
 
-	SDL_SetRenderDrawColor(m_renderer, 0, 0, 200, 255);
+	SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
 }
 
 Game::~Game()
