@@ -59,7 +59,6 @@ void TexturedLayer::render()
 	{
 		while(target.x < m_camera.w())
 		{
-
 			SDL_RenderCopy(m_renderer, m_texture, &m_sourceRect, &target);
 			target.x += m_sourceRect.w;
 		}

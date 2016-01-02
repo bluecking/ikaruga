@@ -20,6 +20,7 @@ Game::Game(MainWindow* mainWindow)
 	m_level = 0;
 	m_layer = 0;
 	m_renderer = mainWindow->getRenderer();
+	m_scoreBoard = 0;
 
 	m_windowWidth = mainWindow->w();
 	m_windowHeight = mainWindow->h();
@@ -88,7 +89,7 @@ void Game::update(const Uint8* &currentKeyStates)
 
 	if(m_scoreBoard)
 	{
-		m_scoreBoard->setScore(m_player->position().x());
+		m_scoreBoard->setScore(m_player->physics().position().x());
 		m_scoreBoard->render();
 	}
 

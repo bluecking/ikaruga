@@ -3,6 +3,12 @@
   <layer filename="clouds.png">
     <scrollSpeed>1.2</scrollSpeed>
   </layer>
+  <scoreBoard filename="numbers.png">
+    <xPos>20</xPos>
+    <yPos>20</yPos>
+    <digitWidth>10</digitWidth>
+    <digitHeight>10</digitHeight>
+  </scoreBoard>
   <player filename="mario1.png">
     <numFrames>2</numFrames>
     <frameWidth>18</frameWidth>
