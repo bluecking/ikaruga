@@ -12,6 +12,8 @@ namespace jumper
 
 StaticRenderable::StaticRenderable(SDL_Renderer* renderer) : Renderable(renderer) {}
 
+StaticRenderable::StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture) : Renderable(renderer, texture) {}
+
 StaticRenderable::~StaticRenderable() {}
 
 } /* namespace jumper */

@@ -26,6 +26,8 @@ public:
 	 */
 	StaticRenderable(SDL_Renderer* renderer);
 
+	StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture);
+
 	/**
 	 * Renders the object to its renderer
 	 */

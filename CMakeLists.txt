@@ -22,6 +22,7 @@ set(JUMPER_SOURCES
     src/SparseVector.cpp
     src/StaticRenderable.cpp
     src/TextureFactory.cpp
+    src/TexturedLayer.cpp
     src/WorldProperty.cpp)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
