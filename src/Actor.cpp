@@ -26,6 +26,7 @@ Actor::Actor(SDL_Renderer* renderer, std::string filename)
 	m_jumpStart = 0;
 	m_physicalProps.setPosition(Vector2f(100, 0));
 	m_startTicks = 0;
+	m_numFrames = 1;
 }
 
 Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)

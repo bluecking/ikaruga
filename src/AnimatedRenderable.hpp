@@ -35,7 +35,10 @@ public:
 	 * Constructs an animated renderable from given renderer, texture
 	 * and frame information.
 	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param filename		A filename with animation definitions
+	 * @param texture		A pointer to valid SDL_Texture struct
+	 * @param frameWidth	The width of the frames within the texture
+	 * @param frameHeight	The height of the frames within the texture
+	 * @param numFrames		The number of frames in the texture
 	 */
 	AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 

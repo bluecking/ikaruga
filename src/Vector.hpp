@@ -129,11 +129,13 @@ public:
     /// Tests if two vectors are equivalent
     bool operator==(const Vector2<T>& other);
 
+    /// Output operator
     template<typename S>
     friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2<S> & vec);
 
 private:
 
+    /// Epsilon value to check for equality
     const static float m_epsilon;
 
     /// x coordinate of the Vector2

@@ -26,6 +26,13 @@ public:
 	 */
 	StaticRenderable(SDL_Renderer* renderer);
 
+	/**
+	 * Constructs a static renderable for the given renderer
+	 * using the given texture
+	 *
+	 * @param renderer		A pointer to a valid SDL_Renderer struct
+	 * @param texture		A pointer to a valid SDL_Renderer struct
+	 */
 	StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture);
 
 	/**

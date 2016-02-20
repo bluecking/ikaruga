@@ -47,26 +47,35 @@ public:
 	 */
 	virtual void render();
 
+	/// Returns the number of tiles in a row
 	int levelHeight() const;
 
+	/// Returns the number of tile rows
 	int levelWidth() const;
 
+	/// Returns the tile width
 	int tileWidth() const;
 
+	/// Returns the tile height
 	int tileHeight() const;
 
+	/// Returns the matrix of tiles
 	SparseMatrix& tiles();
 
+	/// Returns the physical properties of the level
 	WorldProperty& physics();
+
 	/***
 	 * Destructor
 	 */
 	virtual ~Level();
 
+	/// Generates a collision object between the level and the actor
 	Collision resolveCollision(Actor* actor);
 
 private:
 
+	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
 
 
@@ -103,6 +112,7 @@ private:
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;
 
+	/// Tile matrix
 	SparseMatrix		m_tiles;
 };
 
