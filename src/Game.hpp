@@ -24,8 +24,8 @@ namespace jumper
 
 class MainWindow;
 
-/*
- *
+/**
+ * Represents a game instance.
  */
 class Game
 {
@@ -49,10 +49,13 @@ public:
 	/// Updates the current state according to the given key states
 	void update(const Uint8* &currentKeyStates);
 
+	/// Starts the game
 	void start();
 
+	/// Sets a layer for background rendering
 	void setLayer(TexturedLayer* layer) { m_layer = layer;}	;
 
+	/// Adds a score board
 	void setScoreBoard(ScoreBoard* b) { m_scoreBoard = b;};
 
 private:

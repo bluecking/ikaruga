@@ -12,11 +12,20 @@
 namespace jumper
 {
 
+
+/**
+ * Base class for all objects that can be rendered.
+ */
 class Renderable
 {
 
 public:
 
+	/**
+	 * Constructs a Renderable for the given renderer
+	 *
+	 * @param m_renderer			A pointer to a valid SDL_Renderer structure.
+	 */
     Renderable(SDL_Renderer *m_renderer);
 
     /***

@@ -18,7 +18,13 @@ namespace jumper
 {
 
 AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filename)
-	: Renderable(renderer), m_numFrames(0), m_currentFrame(0), m_frameWidth(0), m_frameHeight(0)
+	: Renderable(renderer),
+	  m_numFrames(0),
+	  m_currentFrame(0),
+	  m_frameWidth(0),
+	  m_frameHeight(0),
+	  m_lastRenderTicks(0),
+	  m_frameTimeout(0)
 {
 	std::ifstream ifs(filename.c_str());
 	std::string textureFileName;
