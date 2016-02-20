@@ -10,9 +10,9 @@
 namespace jumper
 {
 
-/***
- * A class that holds properties about the physical characteristics
- * of a level.
+/**
+ * @brief	A class that holds properties about the physical characteristics
+ * 			of a level.
  */
 class WorldProperty
 {

@@ -13,16 +13,16 @@
 namespace jumper
 {
 
-/***
- * An Item is a special actor that stays at it's given
- * position and performs an animation. In contrast to
- * an AnimatedRenderable it can perform collision tests.
+/**
+ * @brief 	An Item is a special actor that stays at it's given
+ * 			position and performs an animation. In contrast to
+ * 			an AnimatedRenderable it can perform collision tests.
  */
 class Item: public jumper::Actor
 {
 public:
 
-	/***
+	/**
 	 * Creates an Item for the given renderer from the given file
 	 *
 	 * @param renderer

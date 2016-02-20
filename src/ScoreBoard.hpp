@@ -14,13 +14,13 @@ namespace jumper
 {
 
 /**
- * A class to display points using a digit map for rendering
+ * @brief A class to display points using a digit map for rendering
  */
 class ScoreBoard : public StaticRenderable
 {
 public:
 
-	/***
+	/**
 	 * Constructs a scoreboard for the given renderer
 	 *
 	 * @param renderer			A valid SDL_Renderer structure

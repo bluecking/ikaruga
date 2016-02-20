@@ -25,7 +25,7 @@ namespace jumper
 class MainWindow;
 
 /**
- * Represents a game instance.
+ * @brief 	Represents a game instance.
  */
 class Game
 {

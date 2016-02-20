@@ -17,7 +17,7 @@ namespace jumper
 {
 
 /**
- * Base class of renderables with several animation frames
+ * @brief Base class of renderables with several animation frames
  */
 class AnimatedRenderable: public Renderable
 {

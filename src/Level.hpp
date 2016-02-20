@@ -26,21 +26,21 @@ namespace jumper
 
 class Actor;
 
-/***
- * Represents a level in the jumper game.
+/**
+ * @brief Represents a level in the jumper game.
  */
 class Level : public StaticRenderable
 {
 public:
 
-	/***
+	/**
 	 * Loads a level from the given .lvl file
 	 *
 	 * @param filename
 	 */
 	Level(SDL_Renderer* renderer, std::string filename);
 
-	/***
+	/**
 	 * Renders the level to the given renderer
 	 *
 	 * @param renderer		A SDL_Renderer to render the tiles
@@ -65,7 +65,7 @@ public:
 	/// Returns the physical properties of the level
 	WorldProperty& physics();
 
-	/***
+	/**
 	 * Destructor
 	 */
 	virtual ~Level();

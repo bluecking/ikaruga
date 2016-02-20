@@ -13,26 +13,26 @@
 namespace jumper
 {
 
-/***
- * A camera object to scroll within a level
+/**
+ * @brief A camera object to scroll within a level
  */
 class Camera
 {
 public:
 
-	/***
-	 * Constructs a camera at (0, 0)
+	/**
+	 * @brief Constructs a camera at (0, 0)
 	 */
 	Camera();
 
-	/***
-	 * Constructs a camera with the given pixel offsets
+	/**
+	 * @brief Constructs a camera with the given pixel offsets
 	 */
 	Camera(const Vector2i& pixel, int w, int h);
 
-	/***
-	 * Moves the camera to the given position. Reference point is the
-	 * middle of the represented frustrum
+	/**
+	 * @brief 	Moves the camera to the given position. Reference point is the
+	 * 			middle of the represented frustrum
 	 *
 	 * @param position	The new camera position
 	 */

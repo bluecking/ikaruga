@@ -17,15 +17,15 @@
 namespace jumper
 {
 
-/***
- * A class to represent an animated sprite controlled
- * by the user.
+/**
+ * @brief	A class to represent an animated sprite controlled
+ * 			by the user.
  */
 class Player : public Actor
 {
 public:
 
-	/***
+	/**
 	 * Constructor.
 	 *
 	 * @param renderer		A pointer to a valid SDL_Renderer struct that is
