@@ -36,8 +36,8 @@ typedef MutableGraph::vertex_descriptor VertexDescriptor;
 typedef MutableGraph::edge_descriptor EdgeDescriptor;
 
 
-/***
- * A class to plan shortest paths in a graph using the A* algorithm
+/**
+ * @brief A class to plan shortest paths in a graph using the A* algorithm
  */
 class PathPlanner
 {

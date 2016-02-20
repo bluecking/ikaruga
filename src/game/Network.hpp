@@ -46,24 +46,28 @@ public:
 	/// Returns the nodes
 	const vector<Vector2i>& getNodes() {return m_nodes;}
 
-	/// Retruns the edges
+	/// Returns the edges
 	const vector<pair<unsigned int, unsigned int> >& getEdges() { return m_edges;}
 
+	/// Returns the index of the goal node
 	unsigned int getGoal() const
 	{
 		return m_goal;
 	}
 
+	/// Sets the index of the goal node
 	void setGoal(unsigned int goal)
 	{
 		m_goal = goal;
 	}
 
+	/// Returns the index of the start node
 	unsigned int getStart() const
 	{
 		return m_start;
 	}
 
+	/// Sets the index of the start node
 	void setStart(unsigned int start)
 	{
 		m_start = start;

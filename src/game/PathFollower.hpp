@@ -15,8 +15,8 @@
 namespace jumper
 {
 
-/***
- * An actor class that follows a path within a graph / level
+/**
+ * @brief An actor class that follows a path within a graph / level
  */
 class PathFollower: public Actor
 {
