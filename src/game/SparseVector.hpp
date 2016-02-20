@@ -3,8 +3,11 @@
 
 #include <cassert>
 
-/***
- * A sparse vector representation for integer values
+namespace jumper
+{
+
+/**
+ * @brief A sparse vector representation for integer values
  */
 class SparseVector {
 
@@ -20,7 +23,7 @@ class SparseVector {
 		/// A pointer to the next node in the list
 		node *next; // A pointer to the next node in the linked-list.
 
-		/***
+		/**
 		 * Constructor
 		 *
 		 * @param idx	Index of the node
@@ -29,14 +32,14 @@ class SparseVector {
 		 */
 		node(int idx, int val, node *nxt) : index(idx), value(val), next(nxt) { }
 
-		/***
+		/**
 		 * Copy constructor
 		 */
 		node(const node &c) : index(c.index), value(c.value), next(c.next) { }
 	};
 
 public:
-	/***
+	/**
 	 * Constructs a sparse vector with given size
 	 * @param s 	Size of the vector
 	 */
@@ -108,5 +111,7 @@ private:
 	node *getPrevElem(int i) const;
 
 };
+
+} // namespace jumper
 
 #endif

@@ -18,14 +18,14 @@ namespace jumper
 
 class Game;
 
-/***
- *	Represents the main window of the game.
+/**
+ *	@brief Represents the main window of the game.
  */
 class MainWindow
 {
 public:
 
-	/***
+	/**
 	 * Creates a main window with given \ref title, width \ref w and height \ref h
 	 *
 	 * @param title		Title of the window
@@ -34,17 +34,17 @@ public:
 	 */
 	MainWindow(std::string title, int w, int h);
 
-	/***
+	/**
 	 * Destructor.
 	 */
 	~MainWindow();
 
-	/***
+	/**
 	 * Handles user events and renders the current level.
 	 */
 	void run();
 
-	/***
+	/**
 	 * Gets the current SDL renderer
 	 */
 	SDL_Renderer* getRenderer();

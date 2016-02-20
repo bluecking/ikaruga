@@ -20,13 +20,23 @@
 namespace jumper
 {
 
-/*
- *
+/**
+ * @brief A class the represents a sprite that is moving and implements
+ * collision detection.
  */
 class Actor : public AnimatedRenderable
 {
 public:
+
+	/**
+	 * Constructs an actor from the given \ref filename
+	 * for the internal \ref renderer
+	 * @param renderer		A pointer to a SDL renderer struct
+	 * @param filename		A filename with animation definitions
+	 */
 	Actor(SDL_Renderer* renderer, std::string filename);
+
+
 	Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 	virtual ~Actor();
 

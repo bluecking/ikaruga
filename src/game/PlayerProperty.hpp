@@ -11,8 +11,8 @@ namespace jumper
 {
 
 /**
- * A class to represent the physical properties of
- * a player.
+ * @brief		A class to represent the physical properties of
+ * 				a player.
  */
 class PlayerProperty
 {
@@ -23,7 +23,7 @@ public:
 	 */
     PlayerProperty();
 
-    /***
+    /**
      * Constructor
      *
      * @param position		Initial position
@@ -45,12 +45,12 @@ public:
 		    double maxFallVel
 			);
 
-    /***
+    /**
      * Gets the force for jumping
      */
     const Vector2f& jumpForce() const;
 
-    /***
+    /**
      * Sets the force for jumping
      */
     void setJumpForce(const Vector2f &jump);
@@ -65,17 +65,17 @@ public:
      */
     void setMoveForce(const Vector2f &move);
 
-    /***
+    /**
      * Returns the maximum velocity when jumping
      */
     double maxJumpVelocity() const;
 
-    /***
+    /**
      * Sets the maximum velocity when jumping
      */
     void setMaxJumpVelocity(double maxVelJmp);
 
-    /***
+    /**
      * Returns the maximum running velocity
      */
     double maxRunVelocity() const;
@@ -85,12 +85,12 @@ public:
      */
     void setMaxRunVelocity(double maxVelRun);
 
-    /***
+    /**
      * Returns the maximum falling velocity
      */
     double maxFallVelocity() const;
 
-    /***
+    /**
      * Sets the maximum falling velocity
      */
     void setMaxFallVelocity(double maxVelFall);
@@ -108,7 +108,7 @@ public:
     void setMaxJumpHeight(double jumpHeight);
 
 
-    /***
+    /**
      * Sets the player position
      */
     void setPosition(const Vector2f &m_pos);

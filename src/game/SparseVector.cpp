@@ -12,6 +12,9 @@
 using std::cout;
 using std::endl;
 
+namespace jumper
+{
+
 SparseVector::SparseVector(int s)
 {
 	m_size = s;
@@ -201,5 +204,7 @@ bool SparseVector::operator!=(const SparseVector &b) const
 {
 	return !(*this == b);
 }
+
+} // namespace jumper
 
 

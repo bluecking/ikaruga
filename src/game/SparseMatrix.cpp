@@ -1,5 +1,8 @@
 #include "SparseMatrix.hpp"
 
+namespace jumper
+{
+
 SparseMatrix::SparseMatrix(const int& rows, const int &cols)
 {
 	// Save width and height
@@ -86,3 +89,5 @@ void SparseMatrix::insert(const int& row, const int& col, const int& value)
 {
 	m_rows[row]->setElem(col, value);
 }
+
+} // namespace jumper

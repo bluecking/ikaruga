@@ -14,9 +14,9 @@ namespace jumper
 {
 
 /**
- * Class to represent collision between two objects. If two objects
- * intersect, the width and height of the intersection is represented
- * as delta() offset. Optionally, a damage value can be encoded.
+ * @brief 	Class to represent collision between two objects. If two objects
+ * 			intersect, the width and height of the intersection is represented
+ * 			as delta() offset. Optionally, a damage value can be encoded.
  */
 class Collision
 {

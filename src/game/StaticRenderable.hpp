@@ -13,8 +13,8 @@
 namespace jumper
 {
 
-/***
- * Marker interface for static objects to render
+/**
+ * @brief Marker interface for static objects to render
  */
 class StaticRenderable : public Renderable
 {

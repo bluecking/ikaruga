@@ -3,8 +3,11 @@
 
 #include "SparseVector.hpp"
 
-/***
- * Representation of a sparse matrix
+namespace jumper
+{
+
+/**
+ * @brief Representation of a sparse matrix
  */
 class SparseMatrix
 {
@@ -25,32 +28,32 @@ class SparseMatrix
 
 public:
 
-	/***
+	/**
 	 * Default constructor. Initializes all values with zero.
 	 */
 	SparseMatrix();
 
-	/***
+	/**
 	 * Copy constructor.
 	 */
 	SparseMatrix(const SparseMatrix& other);
 
-	/***
+	/**
 	 * Constructs a matrix with \ref rows rows and \ref columns columns
 	 */
 	SparseMatrix(const int &rows, const int& cols);
 
-	/***
+	/**
 	 * Destructor
 	 */
 	~SparseMatrix();
 
-	/***
+	/**
 	 * Assignment operator
 	 */
 	SparseMatrix& operator=(const SparseMatrix& other);
 
-	/***
+	/**
 	 * Inserts an integer \ref value at given \ref row and \ref column
 	 *
 	 * @param row
@@ -63,5 +66,7 @@ public:
 	SparseVector& operator[](int row) const;
 
 };
+
+} // namespace jumper
 
 #endif

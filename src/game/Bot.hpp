@@ -14,9 +14,9 @@
 namespace jumper
 {
 
-/***
- * An actor that moves in a level according to a predefined movement pattern.
- * The default implementation switches x-direction when it hits an object.
+/**
+ * @brief An actor that moves in a level according to a predefined movement pattern.
+ * 		  The default implementation switches x-direction when it hits an object.
  */
 class Bot : public Actor
 {
@@ -24,16 +24,16 @@ public:
 
 
 	/***
-	 * Constructs a bot from the given \ref filename
-	 * for the internal \ref renderer
+	 * @brief 	Constructs a bot from the given \ref filename
+	 * 			for the internal \ref renderer
 	 * @param renderer		A pointer to a SDL renderer struct
 	 * @param filename		A filename with animation definitions
 	 */
 	Bot(SDL_Renderer* renderer, std::string filename);
 
-	/***
-	 * Constructs a bot from given renderer, texture
-	 * and frame information.
+	/**
+	 * @brief	Constructs a bot from given renderer, texture
+	 * 			and frame information.
 	 * @param renderer		A pointer to a SDL renderer struct
 	 * @param texture		A pointer to valid SDL_Texture struct
 	 * @param frameWidth	The width of the frames within the texture

@@ -18,17 +18,17 @@ namespace jumper
 {
 
 /**
- * Factory class to generate and manage SDL_Texture* structs
- * from filenames. If a filename is given more than once,
- * already generated pointers are returned. Be careful not
- * to freem them in your code. Use deleteTexture(filename) or deleteTexture(SDL_Texture*)
- * instead. To free all resources uses deleteAll().
+ * @brief 	Factory class to generate and manage SDL_Texture* structs
+ * 			from filenames. If a filename is given more than once,
+ * 			already generated pointers are returned. Be careful not
+ * 			to free them in your code. Use deleteTexture(filename) or deleteTexture(SDL_Texture*)
+ * 			instead. To free all resources uses deleteAll().
  */
 class TextureFactory
 {
 public:
 
-	/***
+	/**
 	 * Returns the factory's instance.
 	 */
 	static TextureFactory& instance(SDL_Renderer* renderer);
