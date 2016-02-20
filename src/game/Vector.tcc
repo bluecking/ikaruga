@@ -36,9 +36,24 @@ Vector2<T>::~Vector2()
 }
 
 template<typename T>
+T Vector2<T>::distanceTo(const Vector2<T>& o)
+{
+	T diff_x = this->m_x - o.m_x;
+	T diff_y = this->m_y - o.m_y;
+
+	return sqrt(diff_x * diff_x + diff_y * diff_y);
+}
+
+template<typename T>
 bool Vector2<T>::operator==(const Vector2<T>& other)
 {
 	return (std::abs(other.m_x - m_x) < m_epsilon) && (std::abs(other.m_y - m_y) < m_epsilon);
+}
+
+template<typename T>
+bool Vector2<T>::operator!=(const Vector2<T>& other)
+{
+	return !(*this == other);
 }
 
 template<typename T>
