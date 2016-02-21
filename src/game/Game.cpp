@@ -7,6 +7,7 @@
 
 #include "Game.hpp"
 #include "PuzzleBox.hpp"
+#include "KillAnimation.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -128,6 +129,7 @@ void Game::removeActor(Actor* a)
 void Game::checkPlayerCollision()
 {
 	set<Actor*> to_remove;
+	KillAnimation* anim = 0;
 	for(auto it = m_actors.begin(); it != m_actors.end(); it++)
 	{
 		Actor* a = *it;
@@ -155,6 +157,7 @@ void Game::checkPlayerCollision()
 				else if(c.type() == DOWN)
 				{
 					to_remove.insert(a);
+					anim = new KillAnimation(a);
 				}
 			}
 
@@ -176,6 +179,11 @@ void Game::checkPlayerCollision()
 	for(auto i = to_remove.begin(); i != to_remove.end(); i++)
 	{
 		removeActor(*i);
+	}
+
+	if(anim)
+	{
+		m_renderables.push_back(anim);
 	}
 }
 

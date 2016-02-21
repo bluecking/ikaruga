@@ -8,6 +8,7 @@ set(JUMPER_SOURCES
     Collision.cpp
     Game.cpp
     Item.cpp
+    KillAnimation.cpp
     Level.cpp
     Main.cpp
     MainWindow.cpp

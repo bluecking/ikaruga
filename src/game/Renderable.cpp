@@ -36,6 +36,11 @@ SDL_Renderer *Renderable::getRenderer() const
     return m_renderer;
 }
 
+SDL_Texture *Renderable::getTexture() const
+{
+    return m_texture;
+}
+
 int Renderable::w() const
 {
 	return m_sourceRect.w;

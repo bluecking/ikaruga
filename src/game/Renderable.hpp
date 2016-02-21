@@ -39,6 +39,9 @@ public:
      */
     SDL_Renderer *getRenderer() const;
 
+    /// Retruns the texture pointer
+    SDL_Texture *getTexture() const;
+
     /**
     * @brief   Renders the object.
     */

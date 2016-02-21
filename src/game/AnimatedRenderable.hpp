@@ -63,6 +63,15 @@ public:
 	 */
 	void setFPS(int frames);
 
+	/// Returns the number of frames in the animation
+	int numFrames() const { return m_numFrames;}
+
+	/// Returns frame width
+	int frameWidth() const { return m_frameWidth;}
+
+	/// Returns the frame height
+	int frameHeight() const { return m_frameHeight;}
+
 protected:
 
 	///	Number of frames in the animation
