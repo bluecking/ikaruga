@@ -21,6 +21,14 @@
 namespace jumper
 {
 
+enum ActorType
+{
+	ENEMY,
+	PLATFORM,
+	ITEM,
+	ACTOR
+};
+
 /**
  * @brief A class the represents a sprite that is moving and implements
  * collision detection.
@@ -94,6 +102,10 @@ public:
 	void setFocus(bool focus);
 
 	bool hasFocus();
+
+	ActorType type() { return m_type;}
+
+	void setType(ActorType t) { m_type = t;}
 protected:
 
 	float getElapsedTime();
@@ -116,6 +128,8 @@ protected:
     Uint32				m_startTicks;
 
     bool				m_focus;
+
+    ActorType			m_type;
 
 };
 

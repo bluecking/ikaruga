@@ -65,6 +65,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 				 Bot* bot = new Bot(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
 				 game->addActor(bot);
 				 actor = bot;
+				 actor->setType(ENEMY);
 			 }
 			 else if(v.first == "player")
 			 {
@@ -78,6 +79,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 				 Item* item = new Item(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
 				 game->addActor(item);
 				 actor = item;
+				 actor->setType(ITEM);
 			 }
 
 			 // Setup actor properties
