@@ -11,18 +11,18 @@ namespace jumper
 {
 
 Collision::Collision()
-	: m_delta(0, 0), m_damage(0)
+	: m_delta(0, 0), m_damage(0), m_type(NONE)
 {
 
 }
 
 Collision::Collision(const Vector2i& delta)
-	: m_delta(delta), m_damage(0)
+	: m_delta(delta), m_damage(0), m_type(NONE)
 {
 }
 
 Collision::Collision(const Vector2i& delta, float damage)
-	: m_delta(delta), m_damage(damage)
+	: m_delta(delta), m_damage(damage), m_type(NONE)
 {
 }
 

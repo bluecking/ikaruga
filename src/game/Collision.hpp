@@ -13,6 +13,15 @@
 namespace jumper
 {
 
+enum CollisionType
+{
+	NONE,
+	LEVEL,
+	DOWN,
+	UP,
+	BOOM
+};
+
 /**
  * @brief 	Class to represent collision between two objects. If two objects
  * 			intersect, the width and height of the intersection is represented
@@ -57,6 +66,12 @@ public:
 	 */
 	bool collides();
 
+	/// Sets the type of the collision
+	void setType(CollisionType t) {m_type = t;}
+
+	/// Returns the type of the collision
+	CollisionType type() {return m_type;}
+
 private:
 
 	/// Intersection between to objects in pixel units
@@ -64,6 +79,9 @@ private:
 
 	/// Damage estimation
 	float 		m_damage;
+
+	/// Type of collision
+	CollisionType m_type;
 };
 
 } /* namespace jumper */

@@ -138,9 +138,55 @@ Vector2f Actor:: position()
 	return m_physicalProps.position();
 }
 
-Collision Actor::getCollision(Collidable& other)
+Collision Actor::getCollision(Actor& other)
 {
-	return Collision();
+	Collision c;
+
+	// Check for collision
+	Vector2f v = m_physicalProps.velocity();
+
+	SDL_Rect myRect;
+	myRect.x = position().x();
+	myRect.y = position().y();
+	myRect.w = w();
+	myRect.h = h();
+
+	SDL_Rect otherRect;
+	otherRect.x = other.position().x();
+	otherRect.y = other.position().y();
+	otherRect.w = other.w();
+	otherRect.h = other.h();
+
+	SDL_Rect intersection;
+	SDL_IntersectRect(&myRect, &otherRect, &intersection);
+
+	if(intersection.w > 0 && intersection.h > 0)
+	{
+		if(v.y() > 0)
+		{
+			if(intersection.h < otherRect.h / 2)
+			{
+				c.setType(DOWN);
+			}
+			else
+			{
+				c.setType(BOOM);
+			}
+		}
+		else
+		{
+			if(intersection.h < otherRect.h / 2)
+			{
+				c.setType(UP);
+			}
+			else
+			{
+				c.setType(BOOM);
+			}
+		}
+	}
+
+	return c;
 }
 
 void jumper::Actor::setFocus(bool focus)

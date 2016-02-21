@@ -25,7 +25,7 @@ namespace jumper
  * @brief A class the represents a sprite that is moving and implements
  * collision detection.
  */
-class Actor : public AnimatedRenderable, public Collidable
+class Actor : public AnimatedRenderable
 {
 public:
 
@@ -42,7 +42,7 @@ public:
 	virtual ~Actor();
 
 	virtual void move(Level& level) = 0;
-	virtual Collision getCollision(Collidable& other);
+	virtual Collision getCollision(Actor& other);
 
 	virtual void render();
 

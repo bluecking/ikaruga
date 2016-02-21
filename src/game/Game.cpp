@@ -85,6 +85,7 @@ void Game::update(const Uint8* &currentKeyStates)
 		}
 
 		moveActors();
+		checkPlayerCollision();
 
 		SDL_RenderClear(m_renderer);
 
@@ -108,6 +109,31 @@ void Game::update(const Uint8* &currentKeyStates)
 
 		// Update screen
 		SDL_RenderPresent(m_renderer);
+	}
+}
+
+void Game::checkPlayerCollision()
+{
+	for(auto it = m_actors.begin(); it != m_actors.end(); it++)
+	{
+		Actor* a = *it;
+
+		// Check for self collision
+		if(a != m_player)
+		{
+			Collision c = m_player->getCollision(*a);
+/*			if(c.type() == UP)
+			{
+				cout << "UP" << endl;
+			}
+			if(c.type() == DOWN)
+			{
+				cout << "DOWN" << endl;
+			}*/
+
+
+
+		}
 	}
 }
 

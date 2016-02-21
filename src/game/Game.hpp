@@ -63,6 +63,7 @@ private:
 
 	void updateCameraPosition();
 	void moveActors();
+	void checkPlayerCollision();
 
 	/// All renderables in the game
 	vector<Renderable*> 	m_renderables;
