@@ -140,6 +140,45 @@ Vector2f Actor:: position()
 	return m_physicalProps.position();
 }
 
+void Actor::resolveCollision(Actor& other)
+{
+	SDL_Rect myRect;
+	myRect.x = position().x();
+	myRect.y = position().y();
+	myRect.w = w();
+	myRect.h = h();
+
+	SDL_Rect otherRect;
+	otherRect.x = other.position().x();
+	otherRect.y = other.position().y();
+	otherRect.w = other.w();
+	otherRect.h = other.h();
+
+	SDL_Rect intersection;
+	SDL_IntersectRect(&myRect, &otherRect, &intersection);
+
+	//cout << intersection.w << endl;
+	if(intersection.h > 0 && intersection.w > 0)
+	{
+		Vector2f tmp = position();
+		Vector2f tmp_v = m_physicalProps.velocity();
+		tmp_v.setY(0);
+
+		if(m_physicalProps.velocity().y() > 0)
+		{
+			tmp.setY(position().y() - intersection.h);
+			setOnGround(true);
+		}
+		else
+		{
+			tmp.setY(position().y() + intersection.h);
+			setJumping(false);
+		}
+		setPosition(tmp);
+		m_physicalProps.setVelocity(tmp_v);
+	}
+}
+
 Collision Actor::getCollision(Actor& other)
 {
 	Collision c;
@@ -162,7 +201,7 @@ Collision Actor::getCollision(Actor& other)
 	SDL_Rect intersection;
 	SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
-	if(intersection.w > 0 && intersection.h > 0)
+	if(fabs(intersection.w) < otherRect.w && intersection.h > 0)
 	{
 		if(v.y() > 0)
 		{

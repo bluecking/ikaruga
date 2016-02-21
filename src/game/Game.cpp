@@ -158,10 +158,14 @@ void Game::checkPlayerCollision()
 				}
 			}
 
-			if(a->type() == PUZZLEBOX && c.type() == UP)
+			if(a->type() == PUZZLEBOX)
 			{
 				PuzzleBox* b = static_cast<PuzzleBox*>(a);
-				b->setHit(true);
+				m_player->resolveCollision(*a);
+				if(c.type() == UP)
+				{
+					b->setHit(true);
+				}
 			}
 		}
 	}
