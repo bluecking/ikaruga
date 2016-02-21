@@ -67,6 +67,7 @@
     <positionX>64</positionX>
     <positionY>320</positionY>
     <fps>8</fps>
+   	<score>100</score>
   </item>
   <item filename="coin.png">
     <numFrames>4</numFrames>
@@ -75,37 +76,39 @@
     <positionX>400</positionX>
     <positionY>320</positionY>
     <fps>8</fps>  
+    <score>100</score>
   </item>
-  <item filename="box.png">
+  <box filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>550</positionX>
     <positionY>360</positionY>
     <fps>4</fps>
-  </item>
-  <item filename="box.png">
+   	<score>100</score>
+  </box>
+  <box filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>566</positionX>
     <positionY>360</positionY>
     <fps>4</fps>
-  </item>
- <item filename="box.png">
+  </box>
+ <box filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>582</positionX>
     <positionY>360</positionY>
     <fps>4</fps>
-  </item>
-  <item filename="box.png">
+  </box>
+  <box filename="box.png">
     <numFrames>4</numFrames>
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>598</positionX>
     <positionY>360</positionY>
     <fps>4</fps>
-  </item>
+  </box>
 </level>

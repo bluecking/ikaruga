@@ -8,6 +8,7 @@
 #include "TexturedLayer.hpp"
 #include "ScoreBoard.hpp"
 #include "Item.hpp"
+#include "PuzzleBox.hpp"
 
 #include <iostream>
 
@@ -47,7 +48,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
 	 {
-		 if( v.first == "bot" || v.first == "player" || v.first == "item")
+		 if( v.first == "bot" || v.first == "player" || v.first == "item" || v.first == "box")
 		 {
 			 // Get frame definitions
 			 string filename = v.second.get("<xmlattr>.filename", "");
@@ -80,6 +81,13 @@ void setupGame(string filename, MainWindow* w, Game* game)
 				 game->addActor(item);
 				 actor = item;
 				 actor->setType(ITEM);
+			 }
+			 else if(v.first == "box")
+			 {
+				 PuzzleBox* item = new PuzzleBox(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
+				 game->addActor(item);
+				 actor = item;
+				 actor->setType(PUZZLEBOX);
 			 }
 
 			 // Setup actor properties

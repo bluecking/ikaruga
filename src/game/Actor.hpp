@@ -26,6 +26,7 @@ enum ActorType
 	ENEMY,
 	PLATFORM,
 	ITEM,
+	PUZZLEBOX,
 	ACTOR
 };
 

@@ -17,6 +17,7 @@ set(JUMPER_SOURCES
     Path.cpp
     PathPlanner.cpp
     PathFollower.cpp
+    PuzzleBox.cpp
     Renderable.cpp
     ScoreBoard.cpp	
     SparseMatrix.cpp

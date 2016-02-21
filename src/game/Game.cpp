@@ -6,6 +6,7 @@
  */
 
 #include "Game.hpp"
+#include "PuzzleBox.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -136,11 +137,15 @@ void Game::checkPlayerCollision()
 		{
 			Collision c = m_player->getCollision(*a);
 
+			// Simple items can be collected on the fly
 			if(a->type() == ITEM && c.type() != NONE)
 			{
 				to_remove.insert(a);
 			}
 
+			// If an collection with an enemy occured, check
+			// who killed whom (Player only can kill enemies
+			// when falling down.
 			if(a->type() == ENEMY  && c.type() != NONE)
 			{
 				if(c.type() == BOOM)
@@ -153,6 +158,11 @@ void Game::checkPlayerCollision()
 				}
 			}
 
+			if(a->type() == PUZZLEBOX && c.type() == UP)
+			{
+				PuzzleBox* b = static_cast<PuzzleBox*>(a);
+				b->setHit(true);
+			}
 		}
 	}
 
