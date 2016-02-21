@@ -25,6 +25,8 @@ Game::Game(MainWindow* mainWindow)
 	m_windowWidth = mainWindow->w();
 	m_windowHeight = mainWindow->h();
 
+	m_started = false;
+
 	SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
 }
 
@@ -54,63 +56,72 @@ void Game::addActor(Actor* actor)
 
 void Game::update(const Uint8* &currentKeyStates)
 {
-	// Reset forces and jump flags
-	m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
-	m_player->wantsToJump(false);
-
-	if( currentKeyStates[ SDL_SCANCODE_UP ] )
+	if(m_started)
 	{
+		// Reset forces and jump flags
+		m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
+		m_player->wantsToJump(false);
 
+		if( currentKeyStates[ SDL_SCANCODE_UP ] )
+		{
+
+		}
+		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
+		{
+
+		}
+		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
+		{
+			m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
+
+		}
+		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
+		{
+			m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
+		}
+		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
+		{
+			m_player->wantsToJump(true);
+		}
+
+		moveActors();
+
+		SDL_RenderClear(m_renderer);
+
+		if(m_layer)
+		{
+			m_layer->render();
+		}
+
+		if(m_scoreBoard)
+		{
+			m_scoreBoard->setScore(m_player->physics().position().x());
+			m_scoreBoard->render();
+		}
+
+		for(size_t i = 0; i < m_renderables.size(); i++)
+		{
+			m_renderables[i]->render();
+		}
+
+		updateCameraPosition();
+
+		// Update screen
+		SDL_RenderPresent(m_renderer);
 	}
-	if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
+}
+
+void Game::moveActors()
+{
+	for(auto it = m_actors.begin(); it != m_actors.end(); it++)
 	{
-
+		(*it)->move(*m_level);
 	}
-	if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
-	{
-		m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
-
-	}
-	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
-	{
-		m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
-	}
-	if( currentKeyStates[ SDL_SCANCODE_SPACE ])
-	{
-		m_player->wantsToJump(true);
-	}
-
-	SDL_RenderClear(m_renderer);
-
-	if(m_layer)
-	{
-		m_layer->render();
-	}
-
-	if(m_scoreBoard)
-	{
-		m_scoreBoard->setScore(m_player->physics().position().x());
-		m_scoreBoard->render();
-	}
-
-	for(size_t i = 0; i < m_renderables.size(); i++)
-	{
-		m_renderables[i]->render();
-	}
-
-	updateCameraPosition();
-
-	// Update screen
-	SDL_RenderPresent(m_renderer);
-
 }
 
 void Game::start()
 {
-	for(size_t i = 0; i < m_actors.size(); i++)
-	{
-		m_actors[i]->start(*m_level);
-	}
+	m_started = true;
 }
 
 void Game::updateCameraPosition()

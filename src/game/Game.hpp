@@ -15,6 +15,7 @@
 #include "Level.hpp"
 #include "TexturedLayer.hpp"
 #include "ScoreBoard.hpp"
+#include "Collidable.hpp"
 
 #include <vector>
 using std::vector;
@@ -61,6 +62,7 @@ public:
 private:
 
 	void updateCameraPosition();
+	void moveActors();
 
 	/// All renderables in the game
 	vector<Renderable*> 	m_renderables;
@@ -88,6 +90,8 @@ private:
 
 	/// Window height
 	int						m_windowHeight;
+
+	bool					m_started;
 
 
 };

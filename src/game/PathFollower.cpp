@@ -57,7 +57,7 @@ void PathFollower::move(Level& l)
 		Vector2f incl = getNormalDirection(next, current);
 		m_physicalProps.setPosition(*current);
 
-		while(next != m_path.end())
+		if(next != m_path.end())
 		{
 			nextFrame();
 			if(m_physicalProps.position().distanceTo(*next) < 3)
@@ -77,7 +77,6 @@ void PathFollower::move(Level& l)
 				m_physicalProps.velocity().setX(incl.x());
 			}
 			m_physicalProps.setPosition(m_physicalProps.position() + incl );
-			std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		}
 	}
 }

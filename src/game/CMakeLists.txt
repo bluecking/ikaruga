@@ -4,6 +4,7 @@ set(JUMPER_SOURCES
     AnimatedRenderable.cpp
     Bot.cpp
     Camera.cpp
+	Collidable.cpp
     Collision.cpp
     Game.cpp
     Item.cpp

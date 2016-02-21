@@ -12,6 +12,7 @@
 #include "PlayerProperty.hpp"
 #include "WorldProperty.hpp"
 #include "Level.hpp"
+#include "Collidable.hpp"
 
 #include <string>
 #include <thread>
@@ -24,7 +25,7 @@ namespace jumper
  * @brief A class the represents a sprite that is moving and implements
  * collision detection.
  */
-class Actor : public AnimatedRenderable
+class Actor : public AnimatedRenderable, public Collidable
 {
 public:
 
@@ -41,7 +42,7 @@ public:
 	virtual ~Actor();
 
 	virtual void move(Level& level) = 0;
-	virtual void getCollision(Actor& other);
+	virtual Collision getCollision(Collidable& other);
 
 	virtual void render();
 
@@ -113,8 +114,6 @@ protected:
     PlayerProperty 		m_physicalProps;
 
     Uint32				m_startTicks;
-
-    std::thread			m_thread;
 
     bool				m_focus;
 

@@ -48,17 +48,12 @@ void Actor::setPhysics(PlayerProperty p)
 
 Actor::~Actor()
 {
-	m_thread.join();
+
 }
 
 void Actor::wantsToJump(bool j)
 {
 	m_wantsToJump = j;
-}
-
-void Actor::start(Level& level)
-{
-	m_thread = std::thread(&Actor::move, this, std::ref(level));
 }
 
 float Actor::getElapsedTime()
@@ -143,9 +138,9 @@ Vector2f Actor:: position()
 	return m_physicalProps.position();
 }
 
-void Actor::getCollision(Actor& other)
+Collision Actor::getCollision(Collidable& other)
 {
-
+	return Collision();
 }
 
 void jumper::Actor::setFocus(bool focus)
