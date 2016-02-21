@@ -8,6 +8,9 @@
 #include "Game.hpp"
 
 #include <iostream>
+#include <algorithm>
+#include <set>
+using std::set;
 using std::cout;
 using std::endl;
 
@@ -112,8 +115,18 @@ void Game::update(const Uint8* &currentKeyStates)
 	}
 }
 
+void Game::removeActor(Actor* a)
+{
+	auto it = std::find(m_actors.begin(), m_actors.end(), a);
+	m_actors.erase(it);
+
+	auto it2 = std::find(m_renderables.begin(), m_renderables.end(), a);
+	m_renderables.erase(it2);
+}
+
 void Game::checkPlayerCollision()
 {
+	set<Actor*> to_remove;
 	for(auto it = m_actors.begin(); it != m_actors.end(); it++)
 	{
 		Actor* a = *it;
@@ -122,18 +135,33 @@ void Game::checkPlayerCollision()
 		if(a != m_player)
 		{
 			Collision c = m_player->getCollision(*a);
-/*			if(c.type() == UP)
+
+			if(a->type() == ITEM && c.type() != NONE)
 			{
-				cout << "UP" << endl;
+				to_remove.insert(a);
 			}
-			if(c.type() == DOWN)
+
+			if(a->type() == ENEMY  && c.type() != NONE)
 			{
-				cout << "DOWN" << endl;
-			}*/
-
-
+				if(c.type() == BOOM)
+				{
+					cout << "PLAYER KILLED" << endl;
+				}
+				else if(c.type() == DOWN)
+				{
+					to_remove.insert(a);
+				}
+			}
 
 		}
+	}
+
+	// Remove actors that were killed in this loop. We have to
+	// store them separately because otherwise we would corrupt
+	// to loop structure
+	for(auto i = to_remove.begin(); i != to_remove.end(); i++)
+	{
+		removeActor(*i);
 	}
 }
 
