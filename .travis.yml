@@ -1,24 +1,19 @@
 language: cpp
 
-install:
-  - pwd
-  - ls -lA
-  - cd ~
-  - mkdir sdl2install
-  - export SDL2DIR="`pwd`/sdl2install"
+sudo: required
 
-  - wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
-  - tar xzf SDL2-2.0.3.tar.gz
-  - wget http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
-  - tar xzf SDL2_image-2.0.0.tar.gz
-  - cd SDL2-2.0.3
-  - ./configure --prefix=$SDL2DIR
-  - make
-  - make install
-  - cd ../SDL2_image-2.0.0
-  - ./configure
-  - make
-  - make install
+install:
+  - cd ..
+  - time wget -q http://www.libsdl.org/release/SDL2-2.0.3.tar.gz
+  - time wget -q http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
+  - time tar xf SDL2-*.tar.gz
+  - time tar xf SDL2_image-*.tar.gz
+  - cd SDL2-*
+  - ./configure && make && sudo make install
+  - cd -
+  - cd SDL2_image-*
+  - ./configure && make && sudo make install
+  - cd -
 
 addons:
   apt:
@@ -31,4 +26,4 @@ addons:
     - cmake
     - make
 
-script: cd ~/build/UOSCPPASSIGNMENTS2015/praktikum1 && mkdir build && cd build && cmake ..
+script: mkdir build && cd build && cmake ..
