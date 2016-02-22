@@ -1,9 +1,18 @@
 language: cpp
 
-before_install:
-- sudo apt-get update -qq
-- sudo apt-get install -qq libsdl2-dev libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ocaml-dev libsdl-sge-dev libsdl-ttf2.0-dev libsmpeg-dev
+addons:
+  apt:
+    packages:
+    - libsdl2-dev
+    - libsdl-gfx1.2-dev
+    - libsdl-image1.2-dev
+    - libsdl-mixer1.2-dev
+    - libsdl-ocaml-dev
+    - libsdl-sge-dev
+    - libsdl-ttf2.0-dev
+    - libsmpeg-dev
 
-install: make get-deps cmake
+install: make get-deps
+
 
 script: mkdir build && cd build && cmake ..
