@@ -1,18 +1,30 @@
 language: cpp
 
+install:
+  - cd ..
+  - time wget -q http://www.libsdl.org/release/SDL2-2.0.3.tar.gz
+  - time wget -q http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
+  - time tar xf SDL2-*.tar.gz
+  - time tar xf SDL2_image-*.tar.gz
+  - cd SDL2-*
+  - ./configure && make && sudo make install
+  - cd -
+  - cd SDL2_image-*
+  - ./configure && make && sudo make install
+  - cd -
+  - cd praktikum1
+
 addons:
   apt:
     packages:
-    - libsdl2-dev
     - libsdl-gfx1.2-dev
     - libsdl-image1.2-dev
     - libsdl-mixer1.2-dev
-    - libsdl-ocaml-dev
-    - libsdl-sge-dev
     - libsdl-ttf2.0-dev
-    - libsmpeg-dev
-
-install: make get-deps
-
+    - libboost-dev
+    - cmake
+    - make
+    - libqtcore4
+    - qt4-qmake
 
 script: mkdir build && cd build && cmake ..
