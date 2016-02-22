@@ -1,18 +1,28 @@
 language: cpp
 
+install:
+  - pwd
+  - ls -lA
+  - cd ~
+  - mkdir sdl2install
+  - export SDL2DIR="`pwd`/sdl2install"
+
+  - wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
+  - tar xzf SDL2-2.0.3.tar.gz
+  - cd SDL2-2.0.3
+  - ./configure --prefix=$SDL2DIR
+  - make
+  - make install
+
 addons:
   apt:
     packages:
-    - libsdl2-dev
     - libsdl-gfx1.2-dev
     - libsdl-image1.2-dev
     - libsdl-mixer1.2-dev
-    - libsdl-ocaml-dev
-    - libsdl-sge-dev
     - libsdl-ttf2.0-dev
-    - libsmpeg-dev
+    - libboost-dev
+    - cmake
+    - make
 
-install: make get-deps
-
-
-script: mkdir build && cd build && cmake ..
+script: cd ~/build/UOSCPPASSIGNMENTS2015/praktikum1 && mkdir build && cd build && cmake ..
