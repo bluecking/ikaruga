@@ -1,0 +1,37 @@
+<level>
+  <id>"0"</id>
+  <name>"milky way"</name>
+  <tileset filename="test1.lvl"/>
+  <background filename="stars.png">
+    <scrollspeed>3</scrollspeed>
+  </background>
+  <player filename="player.png">
+    <frameWidth>18</frameWidth>
+    <frameHeight>32</frameHeight>
+    <positionY>40</positionY>
+    <stdWeapon>LaserGun<stdWeapon>
+  </player>
+  <bot filename="deathStar.png">
+    <frameWidth>18</frameWidth>
+    <frameHeight>32</frameHeight>
+    <positionX>410</positionX>
+    <positionY>40</positionY>
+    <typ>deathStar</typ>
+    <color>red</color>
+  </bot>
+  <bot filename="firefly.png">
+    <frameWidth>18</frameWidth>
+    <frameHeight>32</frameHeight>
+    <positionX>100</positionX>
+    <positionY>50</positionY>
+    <typ>firefly</typ>
+    <color>blue</color>
+  </bot>
+  <item filename="magerLaser.png">
+    <frameWidth>18</frameWidth>
+    <frameHeight>32</frameHeight>
+    <positionX>40</positionX>
+    <positionY>30</positionY>
+    <typ>laser</typ>
+  </item>
+</level>
