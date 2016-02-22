@@ -23,21 +23,9 @@ public:
     /**
      * Constructor.
      *
-     * @param gravity		Gravity in the Level
      * @param damping		Damping force on tiles
      */
-    WorldProperty(const Vector2f& gravity, const Vector2f& damping);
-
-    /***
-     * Returns the gravity
-     */
-    const Vector2f& gravity() const;
-
-    /***
-     * Sets the gravity
-     */
-    void setGravity(const Vector2f &gravity);
-
+    WorldProperty(const Vector2f& damping);
 
     /**
      * Returns the damping force
@@ -49,17 +37,10 @@ public:
      */
     void setDamping(const Vector2f &damping);
 
-
-
 private:
-
-    /// Gravitational force in the level
-    Vector2f m_gravity;
 
     /// Damping force. Currently for the whole level
     Vector2f m_damping;
-
-
 };
 
 }

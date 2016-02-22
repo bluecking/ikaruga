@@ -64,30 +64,26 @@ void Game::update(const Uint8* &currentKeyStates)
 	if(m_started)
 	{
 		// Reset forces and jump flags
-		m_player->physics().setMoveForce(Vector2f(0.0, 0.0));
-		m_player->wantsToJump(false);
+        Vector2f moveForce(0.0, 0.0);
 
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
-
+            moveForce.setY(-800.0);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 		{
-
+            moveForce.setY(800.0);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
-			m_player->physics().setMoveForce(Vector2f(-800.0, 0.0));
-
+            moveForce.setX(-800.0);
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
-			m_player->physics().setMoveForce(Vector2f(800.0, 0.0));
+            moveForce.setX(800.0);
 		}
-		if( currentKeyStates[ SDL_SCANCODE_SPACE ])
-		{
-			m_player->wantsToJump(true);
-		}
+
+        m_player->physics().setMoveForce(moveForce);
 
 		moveActors();
 		checkPlayerCollision();
