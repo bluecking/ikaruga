@@ -24,5 +24,7 @@ addons:
     - libboost-dev
     - cmake
     - make
+    - libqtcore4
+    - qt4-qmake
 
 script: mkdir build && cd build && cmake ..
