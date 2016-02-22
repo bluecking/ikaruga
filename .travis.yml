@@ -9,8 +9,14 @@ install:
 
   - wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
   - tar xzf SDL2-2.0.3.tar.gz
+  - wget http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
+  - tar xzf SDL2_image-2.0.0.tar.gz
   - cd SDL2-2.0.3
   - ./configure --prefix=$SDL2DIR
+  - make
+  - make install
+  - cd ../SDL2_image-2.0.0
+  - ./configure
   - make
   - make install
 
