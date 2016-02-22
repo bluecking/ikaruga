@@ -6,7 +6,7 @@ notifications:
 branches:
   only:
     - master
-		- develop
+    - develop
 
 install:
   - cd ..
