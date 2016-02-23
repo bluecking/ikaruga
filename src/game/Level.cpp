@@ -30,9 +30,6 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	m_tileHeight	= 0;
 	m_tileOffset 	= 0;
 	m_numRows = 0;
-	m_keyR = 0;
-	m_keyG = 0;
-	m_keyB = 0;
 	m_tilesPerRow = 0;
 	m_levelWidth = 0;
 	m_levelHeight = 0;
@@ -41,14 +38,13 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	std::ifstream in(filename.c_str());
 	std::string texFileName;
 
-	int ir, ig, ib;
-
 	if(in.good())
 	{
 		in >> texFileName;
 		in >> m_tileWidth >> m_tileHeight >> m_tilesPerRow >> m_numRows;
-		in >> m_tileOffset >> ir >> ig >> ib;
-		in >> m_levelWidth >> m_levelHeight;
+		in >> m_tileOffset;
+		in >> m_levelWidth;
+		m_levelHeight = 576 / m_tileHeight;
 	}
 	else
 	{
@@ -58,16 +54,11 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	SparseMatrix tiles(m_levelHeight, m_levelWidth);
 	m_tiles = tiles;
 
-	// Cast keying colors manually!
-	m_keyR = (unsigned char)ir;
-	m_keyG = (unsigned char)ig;
-	m_keyB = (unsigned char)ib;
-
 	// Load texture
 	std::size_t found = filename.find_last_of("/\\");
 	string path = filename.substr(0,found);
 
-	m_texture = TextureFactory::instance(m_renderer).getTexture(path + "/" + texFileName, m_keyR, m_keyG, m_keyB);
+	m_texture = TextureFactory::instance(m_renderer).getTexture(path + "/" + texFileName);
 
 	if(!m_texture)
 	{
@@ -117,7 +108,7 @@ void Level::render()
 				{
 					//Compute the position of the target on the screen
 					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y()	;
+					target.y = i * m_tileHeight - m_camera.y() + 576 % m_tileHeight;
 
 					// Don't render tiles outside the frustrum. To prevent popping,
 					// add some extra margin
