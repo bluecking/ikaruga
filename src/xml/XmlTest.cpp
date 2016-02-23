@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
         << "Player - positionY: " << m_xml.getPlayer().positionY << endl
         << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl << endl;
-    for(int i=0;i<m_xml.getBots().size();i++) {
+    for(int i=0;i<(int) m_xml.getBots().size();i++) {
         cout << "Bot - fileName: " << m_xml.getBots()[i].filename << endl
             << "Bot - frameWidth: " << m_xml.getBots()[i].frameWidth << endl
             << "Bot - frameHeight: " << m_xml.getBots()[i].frameHeight << endl
@@ -43,12 +43,12 @@ int main(int argc, char** argv)
             << "Bot - NPC - weapon_type: " << m_xml.getBots()[i].npc.weapon_type << endl
             << "Bot - NPC - weapon_level: " << m_xml.getBots()[i].npc.weapon_level << endl << endl;
     }
-    for(int i=0;i<m_xml.getItems().size();i++) {
+    for(int i=0;i<(int) m_xml.getItems().size();i++) {
         cout << "Item - fileName: " << m_xml.getItems()[i].filename << endl
             << "Item - frameWidth: " << m_xml.getItems()[i].frameWidth << endl
             << "Item - frameHeight: " << m_xml.getItems()[i].frameHeight << endl
             << "Item - positionX: " << m_xml.getItems()[i].positionX << endl
             << "Item - positionY: " << m_xml.getItems()[i].positionY << endl
-            << "Item - type: " << m_xml.getItems()[i].type << endl<< endl;
+            << "Item - type: " << m_xml.getItems()[i].type;
     }
 }

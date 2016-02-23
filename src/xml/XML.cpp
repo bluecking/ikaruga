@@ -41,7 +41,6 @@ void XML::load() {
             m_player.stdWeapon = v.second.get<string>("stdWeapon");
         }
         else if(v.first == "bot") {
-
             Bot bot;
             bot.filename = v.second.get<string>("<xmlattr>.filename");
             bot.frameWidth = v.second.get<int>("frameWidth");
@@ -62,7 +61,6 @@ void XML::load() {
             npc.weapon_level = v.second.get_child("npc").get<unsigned int>("weapon");
             bot.npc = npc;
             m_bots.push_back(bot);
-
         }
         else if(v.first == "item") {
             Item i;
