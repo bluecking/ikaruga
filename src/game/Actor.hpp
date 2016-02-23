@@ -125,8 +125,6 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-       // Game m_game123;
-
         int     m_health;
 
 

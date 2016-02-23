@@ -19,6 +19,8 @@ Bot::Bot(SDL_Renderer* renderer, std::string filename)
 {
 	m_physicalProps.setMoveForce(Vector2f(0,0));
 	m_physicalProps.setMaxRunVelocity(50);
+
+   //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
     m_health=10000;
 }
 
@@ -27,6 +29,8 @@ Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frame
 {
 	m_physicalProps.setMoveForce(Vector2f(0,0));
 	m_physicalProps.setMaxRunVelocity(50);
+
+    //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
     m_health=10000;
 }
 
@@ -40,7 +44,6 @@ Bot::~Bot()
 void Bot::move(Level& level)
 {
 
-    std::cout << m_health << std::endl;
     nextFrame();
 
 
