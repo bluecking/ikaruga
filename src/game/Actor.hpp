@@ -106,6 +106,8 @@ namespace jumper
 
         void takeDamage(int damage);
 
+        int getHealth();
+
     protected:
 
         float getElapsedTime();
@@ -122,6 +124,8 @@ namespace jumper
         ColorMode::ColorMode m_color;
 
         Vector2f m_colorOffset;
+
+       // Game m_game123;
 
         int     m_health;
 
