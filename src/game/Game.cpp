@@ -210,7 +210,7 @@ void Game::updateCameraPosition()
 
 }
 
-void Game::scrollHorizontal() const
+void Game::scrollHorizontal()
 {
     float dt = getElapsedTime();
 
@@ -223,7 +223,7 @@ void Game::scrollHorizontal() const
     }
 }
 
-float Game::getElapsedTime() const
+float Game::getElapsedTime()
 {
     if(m_startTicks == 0)
     {
