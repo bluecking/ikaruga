@@ -145,15 +145,15 @@ template<typename T>
 Vector2<T> Vector2<T>::operator-(const Vector2<T> &other) const
 {
     Vector2<T> p(*this);
-    p += other;
+    p -= other;
     return p;
 }
 
 template<typename T>
 void Vector2<T>::operator-=(const Vector2<T> &other)
 {
-    m_x += other.m_x;
-    m_y += other.m_y;
+    m_x -= other.m_x;
+    m_y -= other.m_y;
 }
 
 } /* namespace jumper */
