@@ -41,12 +41,8 @@ void Bot::move(Level& level)
 	float dt = getElapsedTime();
 	if(dt > 0)
 	{
-        Vector2f d_move(80.0,12.0);
+        Vector2f d_move(-50.0,12.0);
         physics().setPosition(physics().position() + d_move*dt);
-
 	}
 }
-
-
-
 } /* namespace jumper */
