@@ -10,6 +10,8 @@
 
 #include "Actor.hpp"
 #include "Level.hpp"
+#include <math.h>
+#include <time.h>
 
 namespace jumper
 {

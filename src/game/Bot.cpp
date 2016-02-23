@@ -7,6 +7,7 @@
 
 #include "Bot.hpp"
 
+
 #include <iostream>
 
 using std::cout;
@@ -51,7 +52,10 @@ namespace jumper
         float dt = getElapsedTime();
         if (dt > 0)
         {
-            Vector2f d_move(-50.0, 12.0);
+
+
+            std::cout << sin((clock()/CLOCKS_PER_SEC)*3.1415*15) << std::endl;
+            Vector2f d_move(100.0, sin(clock()/CLOCKS_PER_SEC)*3.1415*15);
             physics().setPosition(physics().position() + d_move * dt);
         }
     }
