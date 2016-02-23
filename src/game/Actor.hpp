@@ -106,6 +106,8 @@ namespace jumper
 
         void takeDamage(int damage);
 
+        int getHealth();
+
     protected:
 
         float getElapsedTime();

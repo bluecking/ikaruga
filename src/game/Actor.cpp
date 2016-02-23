@@ -25,6 +25,9 @@ namespace jumper
         m_startTicks = 0;
         m_numFrames = 1;
         m_type = ACTOR;
+
+         //THIS NEEDS TO BE CHANGED
+        m_health = 100;
     }
 
     Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
@@ -34,6 +37,9 @@ namespace jumper
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
         m_type = ACTOR;
+
+        //THIS NEEDS TO BE CHANGED
+        m_health = 100;
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -203,6 +209,16 @@ namespace jumper
     {
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
 
+    }
+
+    int Actor::getHealth()
+    {
+        return m_health;
+    }
+
+    void Actor::takeDamage(int damage)
+    {
+        this->m_health-=damage;
     }
 } /* namespace jumper */
 

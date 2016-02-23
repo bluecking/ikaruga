@@ -69,6 +69,7 @@ private:
     void checkCameraCollision();
 	void removeActor(Actor* a);
 
+
 	/**
 	 * Returns The time in seconds that has elapsed since the last frame.
 	 * @return The elapsed time.
