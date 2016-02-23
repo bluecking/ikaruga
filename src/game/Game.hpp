@@ -61,10 +61,9 @@ public:
 
 private:
 
-	void updateCameraPosition();
-
 	void moveActors();
 	void checkPlayerCollision();
+    void checkCameraCollision();
 	void removeActor(Actor* a);
 
 	/**
