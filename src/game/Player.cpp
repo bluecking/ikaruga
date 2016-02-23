@@ -20,8 +20,10 @@ namespace jumper
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
     { }
 
+    // XXX 2
     void Player::move(Level& level)
     {
+        // XXX 3
         nextFrame();
         float dt = getElapsedTime();
         if (dt > 0)
@@ -63,6 +65,29 @@ namespace jumper
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
+
+            // Checks if the player moves up or down and updates the source rect
+            if(m_moveDirection.y() < 0) {
+                if(m_currentTileRow == 0) {
+                    m_nextTileRow = 1;
+                }
+
+                if(m_currentTileRow == 1){
+                    m_nextTileRow = 2;
+                }
+            }
+            else if(m_moveDirection.y() > 0) {
+                if(m_currentTileRow == 0) {
+                    m_nextTileRow = 3;
+                }
+                if(m_currentTileRow == 3) {
+                    m_nextTileRow = 4;
+                }
+            }
+            else {
+                m_nextTileRow = 0;
+            }
+
 
             /*	// Move camera if player position exceeds window with / 2
             m_camera.position().setX(position().x() - m_levelWidth / 2 + w());

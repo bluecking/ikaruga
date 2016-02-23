@@ -66,6 +66,7 @@ namespace jumper
                 }
             }
 
+			// XXX 1
             m_game->update(currentKeyStates, keyDown);
 
             // reset key down

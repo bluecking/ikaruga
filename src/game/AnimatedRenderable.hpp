@@ -92,6 +92,8 @@ protected:
 	/// Timeout between frames
 	Uint32			m_frameTimeout;
 
+	int 			m_currentTileRow;
+    int             m_nextTileRow;
 };
 
 } /* namespace jumper */

@@ -68,6 +68,7 @@ namespace jumper
         m_renderables.push_back(actor);
     }
 
+    // XXX 1
     void Game::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
         if (m_started)
@@ -98,6 +99,7 @@ namespace jumper
             }
             m_player->setMoveDirection(moveDirection);
 
+            // XXX 2
             moveActors();
             scrollHorizontal();
             checkPlayerCollision();
@@ -234,6 +236,7 @@ namespace jumper
     {
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
+            /// XXX 2
             (*it)->move(*m_level);
         }
     }
