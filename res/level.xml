@@ -13,6 +13,8 @@
     <numFrames>1</numFrames>
     <frameWidth>40</frameWidth>
     <frameHeight>80</frameHeight>
+    <colorOffsetX>40</colorOffsetX>
+    <colorOffsetY>0</colorOffsetY>
     <positionX>100</positionX>
     <positionY>100</positionY>
     <moveForceX>200.0</moveForceX>

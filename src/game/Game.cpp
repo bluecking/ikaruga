@@ -65,9 +65,15 @@ namespace jumper
     {
         if (m_started)
         {
-            // Reset forces and jump flags
-            Vector2f moveDirection(0, 0);
+            // react to color change
+            if (currentKeyStates[SDL_SCANCODE_C])
+            {
+                cout << "PRESS!!!" << endl;
+                m_player->toggleColor();
+            }
 
+            // react to move input
+            Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
             {
                 moveDirection.setY(-1);
@@ -84,7 +90,6 @@ namespace jumper
             {
                 moveDirection.setX(1);
             }
-
             m_player->setMoveDirection(moveDirection);
 
             moveActors();

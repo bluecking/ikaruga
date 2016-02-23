@@ -90,6 +90,11 @@ void setupGame(string filename, MainWindow* w, Game* game)
 				 getPlayerProperty(v, p);
 				 actor->setPhysics(p);
 				 actor->setFPS(fps);
+
+                 float colorOffsetX = v.second.get<float>("colorOffsetX", 0.0);
+                 float colorOffsetY = v.second.get<float>("colorOffsetY", 0.0);
+                 Vector2f colorOffset(colorOffsetX, colorOffsetY);
+                 actor->setColorOffset(colorOffset);
 			 }
 
 		 }
