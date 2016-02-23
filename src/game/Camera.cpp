@@ -10,14 +10,12 @@
 namespace jumper
 {
 
-
-
-int Camera::x()
+float Camera::x()
 {
 	return m_position.x();
 }
 
-int Camera::y()
+float Camera::y()
 {
 	return m_position.y();
 }
@@ -29,17 +27,17 @@ Camera::Camera()
 	m_position.setY(0);
 }
 
-void Camera::move(const Vector2i& p)
+void Camera::move(const Vector2f& p)
 {
 	m_position = p;
 }
 
-Camera::Camera(const Vector2i& Vector2i, int w, int h)
-	: m_position(Vector2i), m_width(w), m_height(h)
+Camera::Camera(const Vector2f& Vector2f, int w, int h)
+	: m_position(Vector2f), m_width(w), m_height(h)
 {
 }
 
-Vector2i& Camera::position()
+Vector2f& Camera::position()
 {
 	return m_position;
 }

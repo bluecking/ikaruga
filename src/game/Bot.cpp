@@ -19,7 +19,6 @@ Bot::Bot(SDL_Renderer* renderer, std::string filename)
 {
 	m_physicalProps.setMoveForce(Vector2f(0,0));
 	m_physicalProps.setMaxRunVelocity(50);
-	physics().setMaxFallVelocity(2400);
 }
 
 Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
@@ -27,7 +26,6 @@ Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frame
 {
 	m_physicalProps.setMoveForce(Vector2f(0,0));
 	m_physicalProps.setMaxRunVelocity(50);
-	physics().setMaxFallVelocity(2400);
 }
 
 Bot::~Bot()
@@ -47,19 +45,17 @@ void Bot::move(Level& level)
 			bounce();
 		}
 
-		if(onGround() && fabs(physics().moveForce().x()) < 2)
+		if(fabs(physics().moveForce().x()) < 2)
 		{
 			physics().setMoveForce(Vector2f(100, 0));
 		}
 
-		Vector2f d_gravity;
 		Vector2f d_move;
 
-		d_gravity = level.physics().gravity() * dt;
 		d_move = (physics().moveForce() * dt);
 
 		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move + d_gravity);
+		physics().setVelocity(physics().velocity() + d_move);
 
 		// Damp velocity according to extrinsic level damping
 		physics().setVelocity(physics().velocity() * level.physics().damping());
@@ -75,13 +71,6 @@ void Bot::move(Level& level)
 			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
 					physics().velocity().y()));
 		}
-
-		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
-		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
-		}
-
 
 		// Set new player position
 		physics().setPosition(physics().position() + physics().velocity());
