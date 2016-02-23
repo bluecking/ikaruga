@@ -23,10 +23,12 @@ TexturedLayer::TexturedLayer(SDL_Renderer* renderer)
 	m_scrollSpeed = 1.0f;
 }
 
-TexturedLayer::TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture)
+TexturedLayer::TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture, int tileHeightLevel)
 	: StaticRenderable(renderer, texture)
 {
 	m_scrollSpeed = 1.0f;
+
+	m_tileHeightLevel = tileHeightLevel;
 }
 
 void TexturedLayer::render()
@@ -34,8 +36,8 @@ void TexturedLayer::render()
 	SDL_Rect target;
 
 	// Determine x and y offset
-	int xOff = ((int) std::abs(m_camera.x()) % m_sourceRect.w) * m_scrollSpeed;
-	int yOff = ((int) std::abs(m_camera.y()) % m_sourceRect.h) * m_scrollSpeed;
+	int xOff = ((int) std::abs(m_camera.x() * m_scrollSpeed)) % m_sourceRect.w;
+	int yOff = ((int) std::abs(m_camera.y() * m_scrollSpeed)) % m_sourceRect.h;
 
 	// Handle sign (why is there no signum function in C++?
 	if(m_camera.x() > 0)
@@ -51,7 +53,7 @@ void TexturedLayer::render()
 
 	// Start rendering
 	target.x = xOff;
-	target.y = yOff;
+	target.y = yOff + (576 % m_tileHeightLevel);
 	target.w = m_sourceRect.w;
 	target.h = m_sourceRect.h;
 
