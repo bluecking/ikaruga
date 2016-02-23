@@ -10,6 +10,16 @@
 
 class XML {
 public:
+    struct NPC{
+        std::string type;
+        std::string move_function;
+        signed int move_value;
+        unsigned int fireRate;
+        signed int speed;
+        std::string weapon_type;
+        unsigned int weapon_level;
+    };
+
     struct Player{
         std::string filename;
         int frameWidth;
@@ -39,17 +49,6 @@ public:
     struct Background{
         std::string filename;
         int scrollspeed;
-    };
-
-    struct NPC{
-        std::string type;
-        std::string move_function;
-        signed int move_value;
-        unsigned int fireRate;
-        signed int speed;
-        std::string weapon_type;
-        unsigned int weapon_level;
-
     };
 
     /**
