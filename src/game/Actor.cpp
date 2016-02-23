@@ -28,7 +28,7 @@ namespace jumper
     }
 
     Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames)
+            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
@@ -72,7 +72,16 @@ namespace jumper
         if (target.x + target.w > 0 && target.x + target.w < m_camera.w())
         {
             // Render current animation frame
-            SDL_RenderCopyEx(getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, SDL_FLIP_NONE);
+            SDL_Rect source = m_sourceRect;
+
+            // switch color
+            if (m_color == ColorMode::WHITE)
+            {
+                source.x = source.x + m_colorOffset.x();
+                source.y = source.y + m_colorOffset.y();
+            }
+
+            SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
         }
 
     }
@@ -190,6 +199,10 @@ namespace jumper
         return m_focus;
     }
 
+    void Actor::toggleColor()
+    {
+        m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
 
+    }
 } /* namespace jumper */
 
