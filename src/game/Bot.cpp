@@ -39,52 +39,11 @@ void Bot::move(Level& level)
 	float dt = getElapsedTime();
 	if(dt > 0)
 	{
-		Collision c = level.resolveCollision(this);
-		if(c.delta().x() > 5)
-		{
-			bounce();
-		}
-
-		if(fabs(physics().moveForce().x()) < 2)
-		{
-			physics().setMoveForce(Vector2f(100, 0));
-		}
-
-		Vector2f d_move;
-
-		d_move = (physics().moveForce() * dt);
-
-		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move);
-
-		// Damp velocity according to extrinsic level damping
-		physics().setVelocity(physics().velocity() * level.physics().damping());
-
-		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
-
-		if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
-
-		// Set new player position
-		physics().setPosition(physics().position() + physics().velocity());
-
+        Vector2f d_move(80.0,12.0);
+        physics().setPosition(physics().position() + d_move*dt);
 	}
 }
 
-void Bot::bounce()
-{
-	if(fabs(physics().position().x() - m_bouncePos.x()) > 5)
-	{
-		physics().setMoveForce(physics().moveForce() * -1);
-		m_bouncePos = physics().position();
-	}
-}
+
 
 } /* namespace jumper */
