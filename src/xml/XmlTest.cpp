@@ -27,14 +27,4 @@ int main(int argc, char** argv)
         << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
         << "Player - positionY: " << m_xml.getPlayer().positionY << endl
         << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl;
-//    for(int i=0;i<m_xml.getBots().size();i++) {
-//        cout << "Bot - fileName: " << m_xml.getBots(). << endl
-//            << "Bot - frameWidth: " << m_xml.getBots(). << endl
-//            << "Bot - frameHeight: " << m_xml.getBots(). << endl
-//            << "Bot - tileID: " << m_xml.getBots(). << endl
-//            << "Bot - positionX: " << m_xml.getBots(). << endl
-//            << "Bot - positionY: " << m_xml.getBots(). << endl
-//            << "Bot - npc: " << m_xml.getBots(). << endl
-//            << "Bot - color: " << m_xml.getBots(). << endl;
-//    }
 }
