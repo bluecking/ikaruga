@@ -96,7 +96,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 if( v.first == "tileset")
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
-			 Level* level = new Level(w->getRenderer(), "../res/test1.lvl"); // temp solution
+			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
 			 game->setLevel(level);
 		 }
 		 if( v.first == "layer")
