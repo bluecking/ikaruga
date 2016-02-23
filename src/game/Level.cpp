@@ -84,6 +84,43 @@ void Level::render()
 {
 	if(getRenderer() && m_texture)
 	{
+
+////////////////// for testing only dont forget to remove
+
+
+Vector2i temp[8];
+
+getSurroundingRelevantTiles(Vector2f(210, 210), TUP, 40, 40, temp);
+
+
+for (int temp2 = 0; temp2 < 8; temp2++)
+{
+
+SDL_Rect target_TEMP;
+                SDL_Rect source_TEMP;
+
+
+                target_TEMP.w = m_tileWidth;
+                target_TEMP.h = m_tileHeight;
+
+                source_TEMP.w = m_tileWidth;
+                source_TEMP.h = m_tileHeight;
+
+target_TEMP.x = temp[temp2].x();
+target_TEMP.y = temp[temp2].y();
+
+
+std::cout << temp[temp2] << std::endl;
+
+
+
+}
+std::cout << "====================" << std::endl;
+
+
+///////////////////////////
+
+
 		int i;
 		int j;
 		int tile_index;
