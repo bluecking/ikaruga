@@ -69,7 +69,7 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.h > 0 && target.x + target.h < m_camera.w())
+        if (target.x + target.w > 0 && target.x + target.w < m_camera.w())
         {
             // Render current animation frame
             SDL_RenderCopyEx(getRenderer(), m_texture, &m_sourceRect, &target, 0, NULL, SDL_FLIP_NONE);
