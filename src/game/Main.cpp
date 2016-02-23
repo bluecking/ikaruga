@@ -96,7 +96,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 if( v.first == "tileset")
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
-			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
+			 Level* level = new Level(w->getRenderer(), "../res/test1.lvl"); // temp solution
 			 game->setLevel(level);
 		 }
 		 if( v.first == "layer")
@@ -134,7 +134,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	MainWindow window("Jumper", 800, 600);
+	MainWindow window("Jumper", 625, 576);
 	Game game(&window);
 	setupGame(argv[1], &window, &game);
 
