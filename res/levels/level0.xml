@@ -1,5 +1,5 @@
 <level>
-    <id>0</id>
+    <id>145</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
     <background filename="background_40x40.png">
@@ -18,10 +18,10 @@
         <positionX>410</positionX>
         <positionY>40</positionY>
         <npc type="Bot">
-            <move funktion="sin">3</move>
+            <move function="sin">3</move>
             <fireRate>16</fireRate>
             <speed>-2</speed>
-            <weapon typ="laser">1</weapon>
+            <weapon type="laser">1</weapon>
         </npc>
         <color>red</color>
     </bot>
@@ -32,10 +32,10 @@
         <positionX>100</positionX>
         <positionY>50</positionY>
         <npc type="Boss">
-            <move funktion="sin">0</move>
+            <move function="sin">0</move>
             <fireRate>16</fireRate>
             <speed>-2</speed>
-            <weapon typ="laser">0</weapon>
+            <weapon type="laser">0</weapon>
         </npc>
         <color>blue</color>
     </bot>

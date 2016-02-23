@@ -11,27 +11,45 @@
 class XML {
 public:
     struct Player{
+        std::string filename;
         int frameWidth;
         int frameHeight;
-        int posY;
+        int positionY;
         std::string stdWeapon;
     };
 
     struct Bot{
         int frameWidth;
         int frameHeight;
-        int posX;
-        int posY;
-        std::string typ;
+        int tileID;
+        int positionX;
+        int positionY;
+        NPC type;
         std::string color;
     };
 
     struct Item{
         int frameWidth;
         int frameHeight;
-        int posX;
-        int posY;
+        int positionX;
+        int positionY;
         std::string typ;
+    };
+
+    struct Background{
+        std::string filename;
+        int scrollspeed;
+    };
+
+    struct NPC{
+        std::string type;
+        std::string move_function;
+        signed int move_value;
+        unsigned int fireRate;
+        signed int speed;
+        std::string weapon_type;
+        unsigned int weapon_level;
+
     };
 
     /**
@@ -58,15 +76,26 @@ public:
 
     std::string getLevelname() { return m_levelname;}
 
+    std::string getTileset() { return m_tileset;}
+
+    Background getBackground() { return m_background;}
+
+    Player getPlayer() { return m_player;}
+
     int getId() { return m_id;}
 
 
 
 private:
+    /* XML Filename */
     std::string m_filename;
-    std::string m_levelname;
-    int m_id;
 
+    /* XML Data Variables */
+    int m_id;
+    std::string m_levelname;
+    std::string m_tileset;
+    Background m_background;
+    Player m_player;
 };
 
 #endif //JUMPER_XML_HPP
