@@ -2,6 +2,9 @@
 #include <iostream>
 #include "XML.hpp"
 
+using std::cout;
+using std::endl;
+
 int main(int argc, char** argv)
 {
     if(argc != 2)
@@ -14,15 +17,24 @@ int main(int argc, char** argv)
     m_xml.setFilename(argv[1]);
     m_xml.load();
 
-    std::cout << "ID: " << m_xml.getId() << std::endl
-        << "Levelname: " << m_xml.getLevelname() << std::endl
-        << "Tileset: " << m_xml.getTileset() << std::endl
-        << "Background: " << m_xml.getBackground().filename << std::endl
-        << "Scrollspeed: " << m_xml.getBackground().scrollspeed << std::endl
-        << "Player: " << m_xml.getPlayer().filename << std::endl
-        << "Player - frameWidth: " << m_xml.getPlayer().frameWidth << std::endl
-        << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << std::endl
-        << "Player - positionY: " << m_xml.getPlayer().positionY << std::endl
-        << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << std::endl
-        ;
+    cout << "ID: " << m_xml.getId() << endl
+        << "Levelname: " << m_xml.getLevelname() << endl
+        << "Tileset: " << m_xml.getTileset() << endl
+        << "Background: " << m_xml.getBackground().filename << endl
+        << "Scrollspeed: " << m_xml.getBackground().scrollspeed << endl
+        << "Player - fileName: " << m_xml.getPlayer().filename << endl
+        << "Player - frameWidth: " << m_xml.getPlayer().frameWidth << endl
+        << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
+        << "Player - positionY: " << m_xml.getPlayer().positionY << endl
+        << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl;
+//    for(int i=0;i<m_xml.getBots().size();i++) {
+//        cout << "Bot - fileName: " << m_xml.getBots(). << endl
+//            << "Bot - frameWidth: " << m_xml.getBots(). << endl
+//            << "Bot - frameHeight: " << m_xml.getBots(). << endl
+//            << "Bot - tileID: " << m_xml.getBots(). << endl
+//            << "Bot - positionX: " << m_xml.getBots(). << endl
+//            << "Bot - positionY: " << m_xml.getBots(). << endl
+//            << "Bot - npc: " << m_xml.getBots(). << endl
+//            << "Bot - color: " << m_xml.getBots(). << endl;
+//    }
 }

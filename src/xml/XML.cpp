@@ -2,7 +2,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
-#include <vector>
 #include "XML.hpp"
 
 using std::string;
@@ -61,15 +60,27 @@ void XML::load() {
             m_player.stdWeapon = v.second.get<string>("stdWeapon");
         }
         else if(v.first == "bot") {
-            Bot b;
-            b.filename = v.second.get<string>("<xmlattr>.filename");
-            b.frameWidth = v.second.get<int>("frameWidth");
-            b.frameHeight = v.second.get<int>("frameHeight");
-            b.tileID = v.second.get<int>("tileID");
-            b.positionX = v.second.get<int>("positionX");
-            b.positionY = v.second.get<int>("positionY");
-            b.color = v.second.get<string>("color");
-            m_bots.push_back(b);
+            Bot bot;
+            bot.filename = v.second.get<string>("<xmlattr>.filename");
+            bot.frameWidth = v.second.get<int>("frameWidth");
+            bot.frameHeight = v.second.get<int>("frameHeight");
+            bot.tileID = v.second.get<int>("tileID");
+            bot.positionX = v.second.get<int>("positionX");
+            bot.positionY = v.second.get<int>("positionY");
+            bot.color = v.second.get<string>("color");
+
+            /* Get data from child node NPC */
+            NPC npc;
+            npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
+            npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
+            npc.move_value = v.second.get_child("npc").get<signed int>("move");
+            npc.fireRate = v.second.get_child("npc").get<unsigned int>("fireRate");
+            npc.speed = v.second.get_child("npc").get<signed int>("speed");
+            npc.weapon_type = v.second.get_child("npc").get_child("weapon").get<string>("<xmlattr>.type");
+            npc.weapon_level = v.second.get_child("npc").get<unsigned int>("weapon");
+
+            bot.npc = npc;
+            m_bots.push_back(bot);
         }
         else if(v.first == "item") {
             Item i;

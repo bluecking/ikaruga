@@ -5,6 +5,8 @@
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
 * @date 23 Feb 2016
 */
+#include <vector>
+
 #ifndef JUMPER_XML_HPP
 #define JUMPER_XML_HPP
 
@@ -35,7 +37,7 @@ public:
         int tileID;
         int positionX;
         int positionY;
-        NPC type;
+        NPC npc;
         std::string color;
     };
 
@@ -82,6 +84,8 @@ public:
     Background getBackground() { return m_background;}
 
     Player getPlayer() { return m_player;}
+
+    std::vector<Bot> getBots() { return m_bots;}
 
     int getId() { return m_id;}
 
