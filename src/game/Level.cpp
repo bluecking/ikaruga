@@ -108,7 +108,7 @@ void Level::render()
 				{
 					//Compute the position of the target on the screen
 					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y()	;
+					target.y = i * m_tileHeight - m_camera.y() + 576 % m_tileHeight;
 
 					// Don't render tiles outside the frustrum. To prevent popping,
 					// add some extra margin
