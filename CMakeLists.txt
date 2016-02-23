@@ -25,17 +25,36 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 add_subdirectory(src/game)
 
-set( QT_USE_QTOPENGL TRUE )
-set( QT_USE_XML TRUE)
-find_package( Qt4 )
-if( QT4_FOUND )
-    include_directories(${QT_INCLUDE_DIR})
-    include_directories(${QT_QTGUI_INCLUDE_DIR})
-    include_directories(${QT_QTOPENGL_INCLUDE_DIR})
-    include_directories(${QT_QTCORE_INCLUDE_DIR})
-    include_directories(${QT_QTXML_INCLUDE_DIR})
-    
-    add_subdirectory(src/editor)    
-endif(QT4_FOUND)
+cmake_minimum_required(VERSION 2.6)
+PROJECT(LevelView)
+ 
+set(JUMPER_SOURCES
+	src/editor/Main.cpp
+	src/editor/MainWindow.cpp
+	src/editor/LevelScene.cpp
+	src/editor/GraphicsTileItem.cpp
+	src/editor/TextureScene.cpp
+	src/editor/TextureScene.h
+	src/editor/Settings.cpp
+	src/editor/Settings.h)
+
+
+FIND_PACKAGE(Qt4 REQUIRED)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+INCLUDE(${QT_USE_FILE})
+
+
+QT4_WRAP_UI(UISrcs src/editor/LevelView.ui)
+QT4_WRAP_CPP(MOCSrcs build/ui_LevelView.h )
+
+set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
+ 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+
+ADD_EXECUTABLE(LevelView ${JUMPER_SOURCES} ${MOCSrcs} ${UISrcs})
+TARGET_LINK_LIBRARIES(LevelView ${QT_LIBRARIES})
+
 
 
