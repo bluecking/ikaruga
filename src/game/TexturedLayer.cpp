@@ -23,10 +23,12 @@ TexturedLayer::TexturedLayer(SDL_Renderer* renderer)
 	m_scrollSpeed = 1.0f;
 }
 
-TexturedLayer::TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture)
+TexturedLayer::TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture, int tileHeightLevel)
 	: StaticRenderable(renderer, texture)
 {
 	m_scrollSpeed = 1.0f;
+
+	m_tileHeightLevel = tileHeightLevel;
 }
 
 void TexturedLayer::render()
@@ -51,7 +53,7 @@ void TexturedLayer::render()
 
 	// Start rendering
 	target.x = xOff;
-	target.y = yOff;
+	target.y = yOff + (576 % m_tileHeightLevel);
 	target.w = m_sourceRect.w;
 	target.h = m_sourceRect.h;
 

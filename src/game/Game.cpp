@@ -55,6 +55,13 @@ namespace jumper
         m_renderables.push_back(level);
     }
 
+    Level* Game::getLevel()
+    {
+
+        return m_level;
+
+    }
+
     void Game::addActor(Actor* actor)
     {
         m_actors.push_back(actor);

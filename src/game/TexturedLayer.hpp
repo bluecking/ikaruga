@@ -32,8 +32,9 @@ public:
 	 *
 	 * @param renderer		The SDL-Renderer to render the layer
 	 * @param texture
+	 * @param tileHeightLevel
 	 */
-	TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture);
+	TexturedLayer(SDL_Renderer* renderer, SDL_Texture* texture, int tileHeightLevel);
 
 	/**
 	 * Renders the texture to the given layer
@@ -49,6 +50,12 @@ public:
 	 * @param speed
 	 */
 	void setScrollSpeed(float speed);
+
+
+	/**
+	 * Used to calc non render part at top
+	 */
+	int m_tileHeightLevel;
 
 protected:
 

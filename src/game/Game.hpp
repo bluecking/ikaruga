@@ -43,6 +43,9 @@ public:
 
 	/// Sets the current level
 	void setLevel(Level* level);
+	
+	/// Gets the current Level
+	Level* getLevel();
 
 	/// Adds a new bot to the scene
 	void addActor(Actor* actor);
