@@ -66,26 +66,26 @@ namespace jumper
         if (m_started)
         {
             // Reset forces and jump flags
-            Vector2f moveForce(0.0, 0.0);
+            Vector2f moveDirection(0, 0);
 
             if (currentKeyStates[SDL_SCANCODE_UP])
             {
-                moveForce.setY(-800.0);
+                moveDirection.setY(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_DOWN])
             {
-                moveForce.setY(800.0);
+                moveDirection.setY(1);
             }
             if (currentKeyStates[SDL_SCANCODE_LEFT])
             {
-                moveForce.setX(-800.0);
+                moveDirection.setX(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_RIGHT])
             {
-                moveForce.setX(800.0);
+                moveDirection.setX(1);
             }
 
-            m_player->physics().setMoveForce(moveForce);
+            m_player->setMoveDirection(moveDirection);
 
             moveActors();
             checkPlayerCollision();

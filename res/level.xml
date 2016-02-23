@@ -9,14 +9,15 @@
     <digitWidth>10</digitWidth>
     <digitHeight>10</digitHeight>
   </scoreBoard>
-  <player filename="images/player_combined_47x51.png">
+  <player filename="images/player.png">
     <numFrames>1</numFrames>
-    <frameWidth>47</frameWidth>
-    <frameHeight>51</frameHeight>
+    <frameWidth>40</frameWidth>
+    <frameHeight>80</frameHeight>
     <positionX>100</positionX>
     <positionY>100</positionY>
-    <moveForceX>800.0</moveForceX>
-    <maxVelRun>122.0</maxVelRun>
+    <moveForceX>200.0</moveForceX>
+    <moveForceY>200.0</moveForceY>
+    <maxVelRun>200.0</maxVelRun>
     <fps>12</fps>
   </player>
   <bot filename="goomba.png">
