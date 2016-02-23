@@ -24,6 +24,17 @@ namespace jumper
 {
 
 
+enum TilesDirection
+{
+
+	TUP,
+	TDOWN,
+	TLEFT,
+	TRIGHT
+
+};
+
+
 class Actor;
 
 /**
@@ -77,6 +88,7 @@ private:
 
 	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
+	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, Vector2i *tiles);
 
 
 	/// Tile width

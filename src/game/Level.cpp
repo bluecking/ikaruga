@@ -176,6 +176,107 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *t
     tiles[7].setX(gridPos.x() + 1);
     tiles[7].setY(gridPos.y() + 1);
 
+
+}
+
+void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, Vector2i *tiles)
+{
+    /* Determine x and y position of the sprite within the grid */
+    // Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
+
+    /* Get the surrounding tiles in "priority" order, i.e., we want
+     * check some collisions like left before we check the others
+     */
+    /*tiles[0].setX(gridPos.x() - 1);
+    tiles[0].setY(gridPos.y() - 1);
+
+    tiles[1].setX(gridPos.x());
+    tiles[1].setY(gridPos.y() - 1);
+
+    tiles[2].setX(gridPos.x() + 1);
+    tiles[2].setY(gridPos.y() - 1);
+
+    tiles[3].setX(gridPos.x() - 1);
+    tiles[3].setY(gridPos.y());
+
+    tiles[4].setX(gridPos.x() + 1);
+    tiles[4].setY(gridPos.y());
+
+    tiles[5].setX(gridPos.x() - 1);
+    tiles[5].setY(gridPos.y() + 1);
+
+    tiles[6].setX(gridPos.x());
+    tiles[6].setY(gridPos.y() + 1);
+
+    tiles[7].setX(gridPos.x() + 1);
+    tiles[7].setY(gridPos.y() + 1);*/
+
+	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
+
+	int cleanX = (( ((int) pos.x()) % ((int) m_tileWidth)) == 0) ? 1 : 0;
+	int cleanY = (( ((int) pos.y()) % ((int) m_tileHeight)) == 0) ? 1 : 0 ;
+	int sizeX = width / m_tileWidth + 1;
+	int sizeY = height / m_tileHeight + 1;
+
+	if (direction == TUP)
+	{
+
+		posInGrid -= Vector2i(0, 1);
+
+		for (int x = 0; x < sizeX + cleanX; x++)
+		{
+
+			tiles[x].setX(posInGrid.x() + x);
+			tiles[x].setY(posInGrid.y());
+
+		}
+
+	}
+	else if (direction == TDOWN)
+	{
+
+		posInGrid += Vector2i(0, sizeY + cleanY);
+
+		for (int x = 0; x < sizeX + cleanX; x++)
+		{
+
+			tiles[x].setX(posInGrid.x() + x);
+			tiles[x].setY(posInGrid.y());
+
+		}
+
+	}
+	else if (direction == TLEFT)
+	{
+
+		posInGrid -= Vector2i(1, 0);
+
+		for (int y = 0; y < sizeY + cleanY; y++)
+		{
+
+			tiles[y].setX(posInGrid.x());
+			tiles[y].setY(posInGrid.y() + y);
+
+		}
+
+	}
+	else if (direction == TRIGHT)
+	{
+
+		posInGrid += Vector2i(sizeX + cleanX, 0);
+
+		for (int y = 0; y < sizeY + cleanY; y++)
+		{
+
+			tiles[y].setX(posInGrid.x());
+			tiles[y].setY(posInGrid.y() + y);
+
+		}
+
+	}
+
+	
+
 }
 
 int Level::levelHeight() const
