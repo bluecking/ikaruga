@@ -38,9 +38,6 @@ namespace jumper
 
     Bot::~Bot()
     {
-        // TODO Auto-generated destructor stub
-
-
     }
 
     void Bot::move(Level &level)
