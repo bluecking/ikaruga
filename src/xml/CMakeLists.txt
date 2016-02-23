@@ -1,10 +1,13 @@
 # Setup sources
 set(XML_SOURCES
-        XML.cpp)
+        XML.cpp
+        XmlTest.cpp)
 
 
 # Build executable
-add_executable(xml ${XML_SOURCES})
-target_link_libraries(xml ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
-target_link_libraries(xml m)
-target_link_libraries(xml ${Boost_LIBRARIES})
+add_executable(xmlTest ${XML_SOURCES})
+target_link_libraries(xmlTest ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
+target_link_libraries(xmlTest m)
+target_link_libraries(xmlTest ${Boost_LIBRARIES})
+
+configure_file(level0.xml level0.xml)

@@ -44,8 +44,6 @@ public:
      */
     void save();
 
-    int main(int argc, char** argv);
-
     /**
      * Set XML filename.
      * @param filename XML file for game specification.
@@ -57,6 +55,12 @@ public:
      * @return XML filename
      */
     std::string getFilename() { return m_filename;}
+
+    std::string getLevelname() { return m_levelname;}
+
+    int getId() { return m_id;}
+
+
 
 private:
     std::string m_filename;

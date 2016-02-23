@@ -45,11 +45,6 @@ void XML::load()
 //         if(v.first == "id") {
 //             m_id = v.second.
 //         }
-
-
-
-
-
 /*
 
 
@@ -97,18 +92,3 @@ void XML::load()
 
 //}
 
-int XML::main(int argc, char** argv)
-{
-	if(argc != 2)
-	{
-		std::cout << "Please specify a level definition (xml)." << std::endl;
-		return -1;
-	}
-
-	XML m_xml;
-	m_xml.setFilename(argv[1]);
-	m_xml.load();
-
-    std::cout << "ID: " << m_id << std::endl << "Levelname: " << m_levelname << std::endl;
-
-}
