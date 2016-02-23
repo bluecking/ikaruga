@@ -49,7 +49,7 @@ namespace jumper
         void addActor(Actor* actor);
 
         /// Updates the current state according to the given key states
-        void update(const Uint8*& currentKeyStates);
+        void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
         /// Starts the game
         void start();
@@ -113,8 +113,6 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
-
-        Uint8*& m_lastKeyStates;
     };
 
 } /* namespace jumper */

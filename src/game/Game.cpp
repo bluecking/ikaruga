@@ -61,14 +61,13 @@ namespace jumper
         m_renderables.push_back(actor);
     }
 
-    void Game::update(const Uint8*& currentKeyStates)
+    void Game::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
         if (m_started)
         {
             // react to color change
-            if (currentKeyStates[SDL_SCANCODE_C])
+            if (keyDown[SDL_SCANCODE_C])
             {
-                cout << "PRESS!!!" << endl;
                 m_player->toggleColor();
             }
 
