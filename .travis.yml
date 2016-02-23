@@ -35,4 +35,4 @@ addons:
     - libqtcore4
     - qt4-qmake
 
-script: mkdir build && cd build && cmake ..
+script: mkdir build && cd build && cmake .. && make
