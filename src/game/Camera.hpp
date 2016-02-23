@@ -28,7 +28,7 @@ public:
 	/**
 	 * @brief Constructs a camera with the given pixel offsets
 	 */
-	Camera(const Vector2i& pixel, int w, int h);
+	Camera(const Vector2f& pixel, int w, int h);
 
 	/**
 	 * @brief 	Moves the camera to the given position. Reference point is the
@@ -36,16 +36,16 @@ public:
 	 *
 	 * @param position	The new camera position
 	 */
-	void move(const Vector2i& position);
+	void move(const Vector2f& position);
 
 	/// Returns the current x-position
-	int x();
+	float x();
 
 	/// Returns the current y-position
-	int y();
+	float y();
 
 	/// Returns the current position
-	Vector2i& position();
+	Vector2f& position();
 
 	/// Destructor
 	virtual ~Camera();
@@ -60,7 +60,7 @@ public:
 private:
 
 	/// Current camera position
-	Vector2i	m_position;
+	Vector2f	m_position;
 
 	/// Field of view width
 	int			m_width;

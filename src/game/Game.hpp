@@ -62,9 +62,23 @@ public:
 private:
 
 	void updateCameraPosition();
+
 	void moveActors();
 	void checkPlayerCollision();
 	void removeActor(Actor* a);
+
+	/**
+	 * Returns The time in seconds that has elapsed since the last frame.
+	 * @return The elapsed time.
+	 */
+	float getElapsedTime() const;
+
+	/**
+	 * Moves the player and camera for a given offset (m_scrollingSpeed)
+	 */
+	void scrollHorizontal() const;
+
+	float					m_startTicks;
 
 	/// All renderables in the game
 	vector<Renderable*> 	m_renderables;
@@ -94,8 +108,6 @@ private:
 	int						m_windowHeight;
 
 	bool					m_started;
-
-
 };
 
 } /* namespace jumper */

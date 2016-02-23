@@ -37,10 +37,31 @@ public:
      */
     void setDamping(const Vector2f &damping);
 
+    /**
+     * Getter for the scrolling speed
+     * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
+     */
+    const Vector2f& getScrollingSpeed() const
+    {
+        return m_scrollingSpeed;
+    }
+
+    /**
+     * Setter for the scrolling speed
+     * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
+     */
+    void setScrollingSpeed(const Vector2f& scrollingSpeed)
+    {
+        m_scrollingSpeed = scrollingSpeed;
+    }
+
 private:
 
     /// Damping force. Currently for the whole level
     Vector2f m_damping;
+
+    /** Sets the scrolling speed of camera and player. */
+    Vector2f m_scrollingSpeed;
 };
 
 }

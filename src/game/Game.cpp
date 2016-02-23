@@ -31,6 +31,7 @@ Game::Game(MainWindow* mainWindow)
 	m_windowHeight = mainWindow->h();
 
 	m_started = false;
+    m_startTicks = 0;
 
 	SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
 }
@@ -107,6 +108,8 @@ void Game::update(const Uint8* &currentKeyStates)
 		}
 
 		updateCameraPosition();
+
+        scrollHorizontal();
 
 		// Update screen
 		SDL_RenderPresent(m_renderer);
@@ -198,11 +201,39 @@ void Game::start()
 
 void Game::updateCameraPosition()
 {
-	if(m_player->position().x() > m_windowWidth / 2)
+	/*if(m_player->position().x() > m_windowWidth / 2)
 	{
 		Vector2i position(m_player->position().x() - m_windowWidth / 2, 0);
 		Renderable::m_camera.move(position);
-	}
+	}*/
+
+
+}
+
+void Game::scrollHorizontal() const
+{
+    float dt = getElapsedTime();
+
+    if(dt > 0)
+    {
+        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
+        m_player->setPosition(m_player->position() + scrollOffset);
+
+        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
+    }
+}
+
+float Game::getElapsedTime() const
+{
+    if(m_startTicks == 0)
+    {
+        m_startTicks = SDL_GetTicks();
+    }
+
+    Uint32 ticks = SDL_GetTicks();
+    float time =  (ticks - m_startTicks) / 1000.0;
+    m_startTicks = ticks;
+    return time;
 }
 
 } /* namespace jumper */

@@ -7,7 +7,7 @@ namespace jumper
 {
 
 WorldProperty::WorldProperty()
-	: m_damping(0.9,0.9)
+	: m_damping(0.9,0.9), m_scrollingSpeed(-100, 0)
 {
 
 }
@@ -29,5 +29,3 @@ void jumper::WorldProperty::setDamping(const Vector2f& damping)
 }
 
 }
-
-

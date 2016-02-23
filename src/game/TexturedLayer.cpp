@@ -34,8 +34,8 @@ void TexturedLayer::render()
 	SDL_Rect target;
 
 	// Determine x and y offset
-	int xOff = (std::abs(m_camera.x()) % m_sourceRect.w) * m_scrollSpeed;
-	int yOff = (std::abs(m_camera.y()) % m_sourceRect.h) * m_scrollSpeed;
+	int xOff = ((int) std::abs(m_camera.x()) % m_sourceRect.w) * m_scrollSpeed;
+	int yOff = ((int) std::abs(m_camera.y()) % m_sourceRect.h) * m_scrollSpeed;
 
 	// Handle sign (why is there no signum function in C++?
 	if(m_camera.x() > 0)
