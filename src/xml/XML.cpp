@@ -1,49 +1,60 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
-
+#include "XML.hpp"
 #include <iostream>
 
 using std::string;
 using std::cout;
 using std::endl;
+using boost::property_tree::ptree;
 
-
-struct Player{
-	int frameWidth;
-	int frameHeight;
-	int posY;
-	string stdWeapon;
-};
-
-struct Bot{
-	int frameWidth;
-	int frameHeight;
-	int posX;
-	int posY;
-	string typ;
-	string color;
-};
-
-struct Item{
-	int frameWidth;
-	int frameHeight;
-	int posX;
-	int posY;
-	string typ;
-};
-
-void parseLevel(string filename)
+void XML::load()
 {
-	 std::size_t found = filename.find_last_of("/\\");
-	 string path = filename.substr(0,found);
+	 std::size_t found = XML::getFilename().find_last_of("/\\");
+	 string path = XML::getFilename().substr(0,found);
 
-	 using boost::property_tree::ptree;
 	 ptree pt;
-	 read_xml(filename, pt);
+	 read_xml(XML::getFilename(), pt);
 
-	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
-	 {
+/*
+    BOOST_FOREACH( ptree::value_type const& v, pt.get_child("sked") ) {
+                    if( v.first == "flight" ) {
+                        Flight f;
+                        f.carrier = v.second.get<std::string>("carrier");
+                        f.number = v.second.get<unsigned>("number");
+                        f.date = v.second.get<Date>("date");
+                        f.cancelled = v.second.get("<xmlattr>.cancelled", false);
+                        ans.push_back(f);
+                    }
+                }
+
+
+*/
+
+
+
+
+    //-------------------------------
+
+    m_id = pt.get<int>("level.id");
+    m_levelname = pt.get<std::string>("level.name");
+
+//	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
+//	 {
+//         if(v.first == "id") {
+//             m_id = v.second.
+//         }
+
+
+
+
+
+/*
+
+
+
+
 		 if( v.first == "bot" || v.first == "player" || v.first == "item")
 		 {
 			 // Get frame definitions
@@ -79,19 +90,25 @@ void parseLevel(string filename)
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
 		 }
+*/
 
 
 	 }
 
-}
+//}
 
-int main(int argc, char** argv)
+int XML::main(int argc, char** argv)
 {
 	if(argc != 2)
 	{
-		std::cout << "Please specify a level to render" << std::endl;
-		//return -1;
+		std::cout << "Please specify a level definition (xml)." << std::endl;
+		return -1;
 	}
 
-	parseLevel(argv[1]);
+	XML m_xml;
+	m_xml.setFilename(argv[1]);
+	m_xml.load();
+
+    std::cout << "ID: " << m_id << std::endl << "Levelname: " << m_levelname << std::endl;
+
 }
