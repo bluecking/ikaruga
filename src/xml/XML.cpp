@@ -37,7 +37,8 @@ void XML::load()
 
     //-------------------------------
 
-    m_id = pt.get<int>("level.id", 1);
+    //TODO catch errors
+    m_id = pt.get<int>("level.id");
     m_levelname = pt.get<std::string>("level.name");
 
 //	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )

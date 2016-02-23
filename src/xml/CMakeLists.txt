@@ -10,4 +10,4 @@ target_link_libraries(xmlTest ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(xmlTest m)
 target_link_libraries(xmlTest ${Boost_LIBRARIES})
 
-configure_file(level0.xml level0.xml)
+configure_file(../../res/levels/level0.xml level0.xml)
