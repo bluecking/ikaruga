@@ -1,6 +1,6 @@
 <level>
-    <id>"0"</id>
-    <name>"milky way"</name>
+    <id>0</id>
+    <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
     <background filename="background_40x40.png">
         <scrollspeed>3</scrollspeed>
