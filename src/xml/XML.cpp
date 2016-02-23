@@ -60,40 +60,29 @@ void XML::load() {
             m_player.stdWeapon = v.second.get<string>("stdWeapon");
         }
         else if(v.first == "bot") {
-            Bot b;
-            b.filename = v.second.get<string>("<xmlattr>.filename");
-            b.frameWidth = v.second.get<int>("frameWidth");
-            b.frameHeight = v.second.get<int>("frameHeight");
-            b.tileID = v.second.get<int>("tileID");
-            b.positionX = v.second.get<int>("positionX");
-            b.positionY = v.second.get<int>("positionY");
-            b.type.type = v.second.get<string>("npc");
-            for(const auto& i : v.second.get_child("npc"))
-            {
-                std::string name;
-                ptree sub_pt;
-                std::tie(name, sub_pt) = i;
 
-                if (name == "move")
-                {
-                    b.type.move_function = sub_pt.get<std::string>("<xmlattr>.function");
-                }
+            Bot bot;
+            bot.filename = v.second.get<string>("<xmlattr>.filename");
+            bot.frameWidth = v.second.get<int>("frameWidth");
+            bot.frameHeight = v.second.get<int>("frameHeight");
+            bot.tileID = v.second.get<int>("tileID");
+            bot.positionX = v.second.get<int>("positionX");
+            bot.positionY = v.second.get<int>("positionY");
+            bot.color = v.second.get<string>("color");
 
-                if (name == "")
-                {
-                    b.type. = sub_pt.get<std::string>("<xmlattr>.function");
-                }
-                if (name == "move")
-                {
-                    b.type.move_function = sub_pt.get<std::string>("<xmlattr>.function");
-                }
-                if (name == "weapon")
-                {
-                    b.type.weapon_type = sub_pt.get<std::string>("<xmlattr>.type");
-                }
-            }
-            b.color = v.second.get<string>("color");
-            m_bots.push_back(b);
+            /* Get data from child node NPC */
+            NPC npc;
+            npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
+            npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
+            npc.move_value = v.second.get_child("npc").get<signed int>("move");
+            npc.fireRate = v.second.get_child("npc").get<unsigned int>("fireRate");
+            npc.speed = v.second.get_child("npc").get<signed int>("speed");
+            npc.weapon_type = v.second.get_child("npc").get_child("weapon").get<string>("<xmlattr>.type");
+            npc.weapon_level = v.second.get_child("npc").get<unsigned int>("weapon");
+
+            bot.npc = npc;
+            m_bots.push_back(bot);
+
         }
         else if(v.first == "item") {
             Item i;
