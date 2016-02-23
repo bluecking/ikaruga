@@ -87,6 +87,8 @@ public:
 
     std::vector<Bot> getBots() { return m_bots;}
 
+    std::vector<Item> getItems() { return m_items;}
+
     int getId() { return m_id;}
 
 
