@@ -71,12 +71,12 @@ private:
 	 * Returns The time in seconds that has elapsed since the last frame.
 	 * @return The elapsed time.
 	 */
-	float getElapsedTime() const;
+	float getElapsedTime();
 
 	/**
 	 * Moves the player and camera for a given offset (m_scrollingSpeed)
 	 */
-	void scrollHorizontal() const;
+	void scrollHorizontal();
 
 	float					m_startTicks;
 
