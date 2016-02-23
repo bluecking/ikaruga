@@ -9,7 +9,7 @@
     <frameWidth>18</frameWidth>
     <frameHeight>32</frameHeight>
     <positionY>40</positionY>
-    <stdWeapon>LaserGun<stdWeapon>
+    <stdWeapon>LaserGun</stdWeapon>
   </player>
   <bot filename="enemys_green_40x40.png">
     <frameWidth>18</frameWidth>
