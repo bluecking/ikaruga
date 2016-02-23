@@ -104,6 +104,8 @@ namespace jumper
 
         void toggleColor();
 
+        void takeDamage(int damage);
+
     protected:
 
         float getElapsedTime();
@@ -120,6 +122,10 @@ namespace jumper
         ColorMode::ColorMode m_color;
 
         Vector2f m_colorOffset;
+
+        int     m_health;
+
+
     };
 
 } /* namespace jumper */

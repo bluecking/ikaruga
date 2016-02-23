@@ -47,7 +47,7 @@ void Bot::move(Level& level)
 
 		if(fabs(physics().moveForce().x()) < 2)
 		{
-			physics().setMoveForce(Vector2f(100, 0));
+		physics().setMoveForce(Vector2f(100, 0));
 		}
 
 		Vector2f d_move;
