@@ -8,6 +8,8 @@
 #ifndef JUMPER_XML_HPP
 #define JUMPER_XML_HPP
 
+#include <vector>
+
 class XML {
 public:
     struct NPC{

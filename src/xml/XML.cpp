@@ -2,7 +2,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
-#include <vector>
 #include "XML.hpp"
 
 using std::string;
@@ -68,6 +67,31 @@ void XML::load() {
             b.tileID = v.second.get<int>("tileID");
             b.positionX = v.second.get<int>("positionX");
             b.positionY = v.second.get<int>("positionY");
+            b.type.type = v.second.get<string>("npc");
+            for(const auto& i : v.second.get_child("npc"))
+            {
+                std::string name;
+                ptree sub_pt;
+                std::tie(name, sub_pt) = i;
+
+                if (name == "move")
+                {
+                    b.type.move_function = sub_pt.get<std::string>("<xmlattr>.function");
+                }
+
+                if (name == "")
+                {
+                    b.type. = sub_pt.get<std::string>("<xmlattr>.function");
+                }
+                if (name == "move")
+                {
+                    b.type.move_function = sub_pt.get<std::string>("<xmlattr>.function");
+                }
+                if (name == "weapon")
+                {
+                    b.type.weapon_type = sub_pt.get<std::string>("<xmlattr>.type");
+                }
+            }
             b.color = v.second.get<string>("color");
             m_bots.push_back(b);
         }
