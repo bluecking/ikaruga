@@ -56,7 +56,17 @@ public:
 	/// Returns the camera height
 	int h();
 
-	friend class MainWindow;
+    float getBorderOffset() const
+    {
+        return m_borderOffset;
+    }
+
+    void setBorderOffset(float borderOffset)
+    {
+        m_borderOffset = borderOffset;
+    }
+
+    friend class MainWindow;
 private:
 
 	/// Current camera position
@@ -68,6 +78,8 @@ private:
 	/// Field of view height
 	int			m_height;
 
+	// Border offset of the camera (in pixels) which the player cannot cross
+	float 		m_borderOffset;
 };
 
 } /* namespace jumper */
