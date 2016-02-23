@@ -63,6 +63,7 @@ private:
 
 	void moveActors();
 	void checkPlayerCollision();
+    void checkCameraCollision();
 	void removeActor(Actor* a);
 
 	/**
