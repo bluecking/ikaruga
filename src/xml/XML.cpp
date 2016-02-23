@@ -16,26 +16,7 @@ void XML::load() {
     ptree pt;
     read_xml(XML::getFilename(), pt);
 
-/*
-    BOOST_FOREACH( ptree::value_type const& v, pt.get_child("sked") ) {
-                    if( v.first == "flight" ) {
-                        Flight f;
-                        f.carrier = v.second.get<std::string>("carrier");
-                        f.number = v.second.get<unsigned>("number");
-                        f.date = v.second.get<Date>("date");
-                        f.cancelled = v.second.get("<xmlattr>.cancelled", false);
-                        ans.push_back(f);
-                    }
-                }
-
-
-*/
-
-    //-------------------------------
-
     // TODO catch errors
-//    m_id = pt.get<int>("level.id");
-//    m_levelname = pt.get<std::string>("level.name");
 
 	BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
 	{
@@ -60,6 +41,7 @@ void XML::load() {
             m_player.stdWeapon = v.second.get<string>("stdWeapon");
         }
         else if(v.first == "bot") {
+
             Bot bot;
             bot.filename = v.second.get<string>("<xmlattr>.filename");
             bot.frameWidth = v.second.get<int>("frameWidth");
@@ -78,9 +60,9 @@ void XML::load() {
             npc.speed = v.second.get_child("npc").get<signed int>("speed");
             npc.weapon_type = v.second.get_child("npc").get_child("weapon").get<string>("<xmlattr>.type");
             npc.weapon_level = v.second.get_child("npc").get<unsigned int>("weapon");
-
             bot.npc = npc;
             m_bots.push_back(bot);
+
         }
         else if(v.first == "item") {
             Item i;
@@ -93,48 +75,5 @@ void XML::load() {
             m_items.push_back(i);
         }
     }
-/*
-
-
-
-
-         if( v.first == "bot" || v.first == "player" || v.first == "item")
-         {
-             // Get frame definitions
-             string filename = v.second.get("<xmlattr>.filename", "");
-             int numFrames = v.second.get<int>("numFrames", 0);
-             int frameWidth = v.second.get<int>("frameWidth", 0);
-             int frameHeight = v.second.get<int>("frameHeight", 0);
-             int fps = v.second.get<int>("fps", 14);
-
-
-             if(v.first == "bot")
-             {
-
-             }
-             else if(v.first == "player")
-             {
-
-             }
-             else if(v.first == "item")
-             {
-
-             }
-         }
-         if( v.first == "tileset")
-         {
-             string filename = v.second.get("<xmlattr>.filename", "");
-         }
-         if( v.first == "name")
-         {
-             string filename = v.second.get("<xmlattr>.filename", "");
-         }
-         if( v.first == "id")
-         {
-             string filename = v.second.get("<xmlattr>.filename", "");
-         }
-*/
 }
-
-//}
 
