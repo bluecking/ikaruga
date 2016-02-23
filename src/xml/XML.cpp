@@ -1,8 +1,9 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
-#include "XML.hpp"
 #include <iostream>
+#include <vector>
+#include "XML.hpp"
 
 using std::string;
 using std::cout;
@@ -58,6 +59,27 @@ void XML::load() {
             m_player.frameHeight = v.second.get<int>("frameHeight");
             m_player.positionY = v.second.get<int>("positionY");
             m_player.stdWeapon = v.second.get<string>("stdWeapon");
+        }
+        else if(v.first == "bot") {
+            Bot b;
+            b.filename = v.second.get<string>("<xmlattr>.filename");
+            b.frameWidth = v.second.get<int>("frameWidth");
+            b.frameHeight = v.second.get<int>("frameHeight");
+            b.tileID = v.second.get<int>("tileID");
+            b.positionX = v.second.get<int>("positionX");
+            b.positionY = v.second.get<int>("positionY");
+            b.color = v.second.get<string>("color");
+            m_bots.push_back(b);
+        }
+        else if(v.first == "item") {
+            Item i;
+            i.filename = v.second.get<string>("<xmlattr>.filename");
+            i.frameWidth = v.second.get<int>("frameWidth");
+            i.frameHeight = v.second.get<int>("frameHeight");
+            i.positionX = v.second.get<int>("positionX");
+            i.positionY = v.second.get<int>("positionY");
+            i.type = v.second.get<string>("type");
+            m_items.push_back(i);
         }
     }
 /*

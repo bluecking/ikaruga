@@ -29,6 +29,7 @@ public:
     };
 
     struct Bot{
+        std::string filename;
         int frameWidth;
         int frameHeight;
         int tileID;
@@ -39,11 +40,12 @@ public:
     };
 
     struct Item{
+        std::string filename;
         int frameWidth;
         int frameHeight;
         int positionX;
         int positionY;
-        std::string typ;
+        std::string type;
     };
 
     struct Background{
@@ -95,6 +97,8 @@ private:
     std::string m_tileset;
     Background m_background;
     Player m_player;
+    std::vector<XML::Bot> m_bots;
+    std::vector<XML::Item> m_items;
 };
 
 #endif //JUMPER_XML_HPP

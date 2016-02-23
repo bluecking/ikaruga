@@ -1,5 +1,5 @@
 <level>
-    <id>145</id>
+    <id>0</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
     <background filename="background_40x40.png">
@@ -44,6 +44,6 @@
         <frameHeight>32</frameHeight>
         <positionX>40</positionX>
         <positionY>30</positionY>
-        <typ>laser</typ>
+        <type>laser</type>
     </item>
 </level>
