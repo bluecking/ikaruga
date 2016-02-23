@@ -11,11 +11,11 @@ using boost::property_tree::ptree;
 
 void XML::load()
 {
-	 std::size_t found = XML::getFilename().find_last_of("/\\");
-	 string path = XML::getFilename().substr(0,found);
+    std::size_t found = XML::getFilename().find_last_of("/\\");
+	string path = XML::getFilename().substr(0,found);
 
-	 ptree pt;
-	 read_xml(XML::getFilename(), pt);
+	ptree pt;
+	read_xml(XML::getFilename(), pt);
 
 /*
     BOOST_FOREACH( ptree::value_type const& v, pt.get_child("sked") ) {
@@ -37,7 +37,7 @@ void XML::load()
 
     //-------------------------------
 
-    m_id = pt.get<int>("level.id");
+    m_id = pt.get<int>("level.id", 1);
     m_levelname = pt.get<std::string>("level.name");
 
 //	 BOOST_FOREACH(const ptree::value_type&  v, pt.get_child("level") )
@@ -86,9 +86,7 @@ void XML::load()
 			 string filename = v.second.get("<xmlattr>.filename", "");
 		 }
 */
-
-
-	 }
+}
 
 //}
 

@@ -16,5 +16,4 @@ int main(int argc, char** argv)
     m_xml.load();
 
     std::cout << "ID: " << m_xml.getId() << std::endl << "Levelname: " << m_xml.getLevelname() << std::endl;
-
 }
