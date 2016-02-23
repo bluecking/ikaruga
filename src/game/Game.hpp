@@ -43,7 +43,7 @@ public:
 
 	/// Sets the current level
 	void setLevel(Level* level);
-	
+
 	/// Gets the current Level
 	Level* getLevel();
 
@@ -51,7 +51,7 @@ public:
 	void addActor(Actor* actor);
 
 	/// Updates the current state according to the given key states
-	void update(const Uint8* &currentKeyStates);
+	void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
 	/// Starts the game
 	void start();

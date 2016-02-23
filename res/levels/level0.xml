@@ -14,6 +14,7 @@
     <bot filename="enemys_green_40x40.png">
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <tileID>1</tileID>
         <positionX>410</positionX>
         <positionY>40</positionY>
         <npc type="Bot">
@@ -27,6 +28,7 @@
     <bot filename="enemys_red_40x40.png">
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <tileID>5</tileID>
         <positionX>100</positionX>
         <positionY>50</positionY>
         <npc type="Boss">

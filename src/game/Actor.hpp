@@ -20,81 +20,107 @@
 
 namespace jumper
 {
+    enum ActorType
+    {
+        ENEMY,
+        PLATFORM,
+        ITEM,
+        PUZZLEBOX,
+        ACTOR
+    };
 
-enum ActorType
-{
-	ENEMY,
-	PLATFORM,
-	ITEM,
-	PUZZLEBOX,
-	ACTOR
-};
+    namespace ColorMode
+    {
+        enum ColorMode
+        {
+            NONE,
+            BLACK,
+            WHITE
+        };
+    }
 
-/**
- * @brief A class the represents a sprite that is moving and implements
- * collision detection.
- */
-class Actor : public AnimatedRenderable
-{
-public:
+    /**
+     * @brief A class the represents a sprite that is moving and implements
+     * collision detection.
+     */
+    class Actor : public AnimatedRenderable
+    {
+    public:
 
-	/**
-	 * Constructs an actor from the given \ref filename
-	 * for the internal \ref renderer
-	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param filename		A filename with animation definitions
-	 */
-	Actor(SDL_Renderer* renderer, std::string filename);
+        /**
+         * Constructs an actor from the given \ref filename
+         * for the internal \ref renderer
+         * @param renderer		A pointer to a SDL renderer struct
+         * @param filename		A filename with animation definitions
+         */
+        Actor(SDL_Renderer* renderer, std::string filename);
 
+        Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
-	Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
-	virtual ~Actor();
+        virtual ~Actor();
 
-	virtual void move(Level& level) = 0;
-	virtual Collision getCollision(Actor& other);
-	virtual void resolveCollision(Actor& other);
+        virtual void move(Level& level) = 0;
 
-	virtual void render();
+        virtual Collision getCollision(Actor& other);
 
-	void setPhysics(PlayerProperty p);
-	/**
-	 * Sets the player's position
-	 */
-	void setPosition(Vector2f pos);
+        virtual void resolveCollision(Actor& other);
 
-	/***
-	 * Returns the player's current position
-	 */
-	Vector2f position();
+        virtual void render();
 
-	/**
-	 * Returns the player's physical properties
-	 */
-	PlayerProperty &physics();
+        void setPhysics(PlayerProperty p);
 
-	void start(Level& level);
+        /**
+         * Sets the player's position
+         */
+        void setPosition(Vector2f pos);
 
-	void setFocus(bool focus);
+        /***
+         * Returns the player's current position
+         */
+        Vector2f position();
 
-	bool hasFocus();
+        /**
+         * Returns the player's physical properties
+         */
+        PlayerProperty& physics();
 
-	ActorType type() { return m_type;}
+        void start(Level& level);
 
-	void setType(ActorType t) { m_type = t;}
-protected:
+        void setFocus(bool focus);
 
-	float getElapsedTime();
+        bool hasFocus();
 
-    /// The physical properties of the player
-    PlayerProperty 		m_physicalProps;
+        ActorType type()
+        { return m_type; }
 
-    Uint32				m_startTicks;
+        void setType(ActorType t)
+        { m_type = t; }
 
-    bool				m_focus;
+        void setColorOffset(const Vector2f& colorOffset)
+        { m_colorOffset = colorOffset; }
 
-    ActorType			m_type;
+        const Vector2f& getColorOffset() const
+        { return m_colorOffset; }
 
-};
+        void toggleColor();
+
+    protected:
+
+        float getElapsedTime();
+
+        /// The physical properties of the player
+        PlayerProperty m_physicalProps;
+
+        Uint32 m_startTicks;
+
+        bool m_focus;
+
+        ActorType m_type;
+
+        ColorMode::ColorMode m_color;
+
+        Vector2f m_colorOffset;
+    };
 
 } /* namespace jumper */
 
