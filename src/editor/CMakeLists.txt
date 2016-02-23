@@ -1,52 +1,27 @@
-set(EDITOR_SOURCES 
-	app/Main.cpp 
-	app/EditorMainWindow.cpp
-	widgets/GraphicsTileItem.cpp
-	widgets/TilesetScene.cpp
-	widgets/LevelScene.cpp
-)
-
-#####################################################################################
-# Set uis
-#####################################################################################
-
-set(EDITOR_UIS
-   ui/MainWindow.ui
-)
-
-#####################################################################################
-# Set mocs
-#####################################################################################
-
-set(EDITOR_MOCS
-   app/EditorMainWindow.hpp
-)
-
-#####################################################################################
-# Setup dependencies
-#####################################################################################
-
-set(EDITOR_DEPENDENCIES
-	${QT_QTCORE_LIBRARIES} 
-	${QT_QTGUI_LIBRARIES}  
-	${QT_QTOPENGL_LIBRARIES} 
-	${QT_QTXML_LIBRARY}  
-)
+cmake_minimum_required(VERSION 2.6)
+PROJECT(LevelView)
+ 
+set(JUMPER_SOURCES
+	src/Main.cpp
+	src/MainWindow.cpp
+	src/LevelScene.cpp
+	src/GraphicsTileItem.cpp
+		src/TextureScene.cpp src/TextureScene.h src/Settings.cpp src/Settings.h)
 
 
-qt_wrap_ui(editor EDITOR_UI_HDRS EDITOR_UI_SRC ${EDITOR_UIS})
-qt_wrap_cpp(editor EDITOR_MOC_SRC ${EDITOR_MOCS})
-add_definitions(${QT_DEFINITIONS})
+FIND_PACKAGE(Qt4 REQUIRED)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+INCLUDE(${QT_USE_FILE})
 
-#####################################################################################
-# Add current binary dir to includes to find the generated header files
-#####################################################################################
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+QT4_WRAP_UI(UISrcs src/LevelView.ui)
+QT4_WRAP_CPP(MOCSrcs build/ui_LevelView.h )
 
-#####################################################################################
-# Add main executable
-#####################################################################################
+set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
+ 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
-target_link_libraries(editor ${EDITOR_DEPENDENCIES})
+ADD_EXECUTABLE(LevelView ${JUMPER_SOURCES} ${MOCSrcs} ${UISrcs})
+TARGET_LINK_LIBRARIES(LevelView ${QT_LIBRARIES})
