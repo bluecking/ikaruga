@@ -155,11 +155,9 @@ void TextureFactory::deleteTexture(string filename)
 void TextureFactory::deleteAll()
 {
 	texMapIt it;
-	for(it = m_textures.begin(); it != m_textures.end(); it++)
+	for(it = m_textures.begin(); it != m_textures.end(); )
 	{
-		SDL_Texture* texture = it->second;
-		m_textures.erase(it);
-		SDL_DestroyTexture(texture);
+		deleteTexture((it++)->first);
 	}
 }
 

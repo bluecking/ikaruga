@@ -31,27 +31,12 @@ void Player::move(Level& level)
 	float dt = getElapsedTime();
 	if(dt > 0)
 	{
-		if(m_wantsToJump && onGround())
-		{
-			setJumping(true);
-			m_wantsToJump = false;
-		}
-
-		Vector2f d_gravity;
 		Vector2f d_move;
 
-		d_gravity = level.physics().gravity() * dt;
 		d_move = (physics().moveForce() * dt);
 
 		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move + d_gravity);
-
-		// Add jumping momentum
-		if(jumping())
-		{
-			physics().velocity().setY(
-					physics().velocity().y() + (physics().jumpForce().y() * dt) );
-		}
+		physics().setVelocity(physics().velocity() + d_move);
 
 		// Damp velocity according to extrinsic level damping
 		physics().setVelocity(physics().velocity() * level.physics().damping());
@@ -69,16 +54,14 @@ void Player::move(Level& level)
 					physics().velocity().y()));
 		}
 
-		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
+		if(physics().velocity().y() > physics().maxRunVelocity() * dt)
 		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
+			physics().setVelocity(Vector2f(physics().velocity().x(), physics().maxRunVelocity() * dt));
 		}
 
-		if(physics().velocity().y() < -physics().maxJumpVelocity() * dt)
+		if(physics().velocity().y() < -physics().maxRunVelocity() * dt)
 		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), -physics().maxJumpVelocity() * dt));
+			physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
 		}
 
 		// Set new player position
@@ -90,12 +73,6 @@ void Player::move(Level& level)
 		{
 			m_camera.position().setX(0);
 		}*/
-
-		// Stop jumping at maximum jumping height
-		if(fabs(physics().position().y() - jumpStart()) >= physics().maxJumpHeight())
-		{
-			setJumping(false);
-		}
 
 		Collision c = level.resolveCollision(this);
 		//cout << c.delta() << endl;

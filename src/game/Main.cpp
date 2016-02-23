@@ -21,20 +21,13 @@ void getPlayerProperty(const boost::property_tree::ptree::value_type& v, PlayerP
 {
 	int pos_x = v.second.get<int>("positionX", 0);
 	int pos_y = v.second.get<int>("positionY", 0);
-	float jumpForceX = v.second.get<float>("jumpForceX", 0.0);
-	float jumpForceY = v.second.get<float>("jumpForceY", 0.0);
 	float moveForceX = v.second.get<float>("moveForceX", 0.0);
 	float moveForceY = v.second.get<float>("moveForceY", 0.0);
 	float maxVelRun = v.second.get<float>("maxVelRun", 0.0);
-	float maxVelFall = v.second.get<float>("maxVelFall", 0.0);
-	float maxJumpHeight = v.second.get<float>("maxJumpHeight", 0.0);
 
 	p.setPosition(Vector2f(pos_x, pos_y));
-	p.setJumpForce(Vector2f(jumpForceX, jumpForceY));
 	p.setMoveForce(Vector2f(moveForceX, moveForceY));
-	p.setMaxFallVelocity(maxVelFall);
 	p.setMaxRunVelocity(maxVelRun);
-	p.setMaxJumpHeight(maxJumpHeight);
 }
 
 void setupGame(string filename, MainWindow* w, Game* game)

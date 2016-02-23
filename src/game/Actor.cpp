@@ -19,11 +19,7 @@ namespace jumper
 Actor::Actor(SDL_Renderer* renderer, std::string filename)
 	: AnimatedRenderable(renderer, filename)
 {
-	m_jumping = 0;
-	m_wantsToJump = false;
-	m_onGround = false;
 	m_focus = false;
-	m_jumpStart = 0;
 	m_physicalProps.setPosition(Vector2f(100, 0));
 	m_startTicks = 0;
 	m_numFrames = 1;
@@ -33,11 +29,7 @@ Actor::Actor(SDL_Renderer* renderer, std::string filename)
 Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
 	: AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames)
 {
-	m_jumping = 0;
-	m_wantsToJump = false;
-	m_onGround = false;
 	m_focus = false;
-	m_jumpStart = 0;
 	m_physicalProps.setPosition(Vector2f(100, 0));
 	m_startTicks = 0;
 	m_type = ACTOR;
@@ -51,11 +43,6 @@ void Actor::setPhysics(PlayerProperty p)
 Actor::~Actor()
 {
 
-}
-
-void Actor::wantsToJump(bool j)
-{
-	m_wantsToJump = j;
 }
 
 float Actor::getElapsedTime()
@@ -104,35 +91,9 @@ void Actor::setPosition(Vector2f pos)
     m_physicalProps.position() = pos;
 }
 
-bool Actor::onGround() const
-{
-    return m_onGround;
-}
-
-void Actor::setOnGround(bool onGround)
-{
-    m_onGround = onGround;
-}
-
 PlayerProperty& Actor::physics()
 {
     return m_physicalProps;
-}
-
-bool Actor::jumping()
-{
-    return m_jumping;
-}
-
-void Actor::setJumping(bool jump)
-{
-    if(jump) m_jumpStart = m_physicalProps.position().y();
-    m_jumping = jump;
-}
-
-int Actor::jumpStart()
-{
-    return m_jumpStart;
 }
 
 Vector2f Actor:: position()
@@ -167,12 +128,10 @@ void Actor::resolveCollision(Actor& other)
 		if(m_physicalProps.velocity().y() > 0)
 		{
 			tmp.setY(position().y() - intersection.h);
-			setOnGround(true);
 		}
 		else
 		{
 			tmp.setY(position().y() + intersection.h);
-			setJumping(false);
 		}
 		setPosition(tmp);
 		m_physicalProps.setVelocity(tmp_v);

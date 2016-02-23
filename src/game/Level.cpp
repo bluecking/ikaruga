@@ -237,7 +237,6 @@ Collision Level::resolveCollision(Actor* player)
 	getSurroundingTiles(desiredPosition, player->w(), player->h(), surroundingTiles);
 	int d_i, d_j;
 	int f_i, f_j;
-	player->setOnGround(false);
 	f_i = surroundingTiles[6].y();
 	f_j = surroundingTiles[6].x();
 
@@ -251,24 +250,6 @@ Collision Level::resolveCollision(Actor* player)
 		d_i = surroundingTiles[5].y();
 		d_j = surroundingTiles[5].x();
 	}
-
-	if(f_i < m_levelHeight && f_j < m_levelWidth)
-	{
-		if(m_tiles[f_i][f_j] > 0)
-		{
-			player->setOnGround(true);
-		}
-	}
-
-
-	if(d_i < m_levelHeight && d_j < m_levelWidth )
-	{
-		if(m_tiles[d_i][d_j] > 0)
-		{
-			player->setOnGround(true);
-		}
-	}
-
 
 	for(n = 0; n < 8; n++)
 	{
@@ -298,11 +279,6 @@ Collision Level::resolveCollision(Actor* player)
 						dx = 100;
 					}
 
-					if(n == 6)
-					{
-						player->setOnGround(true);
-					}
-
 					// Handle pose correction cases
 					if(n == 4)
 					{
@@ -312,7 +288,6 @@ Collision Level::resolveCollision(Actor* player)
 					else if(n == 1)
 					{
 						desiredPosition.setY(desiredPosition.y() + intersectionRect.h);
-						player->setJumping(false);
 					}
 					else if(n == 3)
 					{
@@ -346,10 +321,6 @@ Collision Level::resolveCollision(Actor* player)
 								else
 								{
 									desiredPosition.setX(desiredPosition.x() + intersectionRect.w);
-								}
-								if( (n == 0) || (n == 2) )
-								{
-									player->setJumping(false);
 								}
 							}
 						}
