@@ -24,6 +24,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 add_subdirectory(src/game)
+add_subdirectory(src/xml)
 
 set( QT_USE_QTOPENGL TRUE )
 set( QT_USE_XML TRUE)
