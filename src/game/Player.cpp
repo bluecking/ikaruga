@@ -61,11 +61,7 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
-		std::cout << physics().velocity() << " -> ";
-
             physics().setVelocity(level.collide(position(), 40, 80, physics().velocity()));
-
-		std::cout << physics().velocity() << std::endl;
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());

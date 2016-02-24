@@ -126,42 +126,6 @@ void Level::render()
 	if(getRenderer() && m_texture)
 	{
 
-////////////////// for testing only dont forget to remove
-
-
-std::vector<Vector2i> temp;
-
-getSurroundingRelevantTiles(Vector2f(210, 210), TUP, 40, 40, &temp);
-
-
-for (Vector2i & temp2 : temp)
-{
-
-SDL_Rect target_TEMP;
-                SDL_Rect source_TEMP;
-
-
-                target_TEMP.w = m_tileWidth;
-                target_TEMP.h = m_tileHeight;
-
-                source_TEMP.w = m_tileWidth;
-                source_TEMP.h = m_tileHeight;
-
-target_TEMP.x = temp2.x();
-target_TEMP.y = temp2.y();
-
-
-std::cout << temp2 << std::endl;
-
-
-
-}
-std::cout << "====================" << std::endl;
-
-
-///////////////////////////
-
-
 		int i;
 		int j;
 		int tile_index;
@@ -261,11 +225,10 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 {
 
 	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
+	Vector2i posInGridEnd(floor((pos.x() - 1 + width) / m_tileWidth), floor((pos.y() - 1 + height) / m_tileHeight));
 
-	int cleanX = (( ((int) pos.x()) % ((int) m_tileWidth)) == 0) ? 1 : 0;
-	int cleanY = (( ((int) pos.y()) % ((int) m_tileHeight)) == 0) ? 1 : 0 ;
-	int sizeX = width / m_tileWidth + 1;
-	int sizeY = height / m_tileHeight + 1;
+	int sizeX = posInGridEnd.x() - posInGrid.x() + 1;
+	int sizeY = posInGridEnd.y() - posInGrid.y() + 1;
 
 	Vector2i tile;
 
@@ -274,7 +237,7 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 
 		posInGrid -= Vector2i(0, 1);
 
-		for (int x = 0; x < sizeX + cleanX; x++)
+		for (int x = 0; x < sizeX; x++)
 		{
 
 			tile.setX(posInGrid.x() + x);
@@ -288,9 +251,9 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 	else if (direction == TDOWN)
 	{
 
-		posInGrid += Vector2i(0, sizeY + cleanY);
+		posInGrid += Vector2i(0, sizeY);
 
-		for (int x = 0; x < sizeX + cleanX; x++)
+		for (int x = 0; x < sizeX; x++)
 		{
 
 			tile.setX(posInGrid.x() + x);
@@ -306,7 +269,7 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 
 		posInGrid -= Vector2i(1, 0);
 
-		for (int y = 0; y < sizeY + cleanY; y++)
+		for (int y = 0; y < sizeY; y++)
 		{
 
 			tile.setX(posInGrid.x());
@@ -320,9 +283,9 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 	else if (direction == TRIGHT)
 	{
 
-		posInGrid += Vector2i(sizeX + cleanX, 0);
+		posInGrid += Vector2i(sizeX, 0);
 
-		for (int y = 0; y < sizeY + cleanY; y++)
+		for (int y = 0; y < sizeY; y++)
 		{
 
 			tile.setX(posInGrid.x());
@@ -411,6 +374,8 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 
 	tiles.clear();
+	pos += Vector2f(x, 0);
+
 
 	if (y != 0)
 	{
@@ -457,8 +422,6 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 					{
 
 						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
-
-						std::cout << "pos: " << pos << std::endl;
 
 						y = std::max(y, maxMov);
 
