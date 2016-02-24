@@ -125,9 +125,10 @@ public:
     Player getPlayer() { return m_player;}
 
     std::vector<Bot> getBots() { return m_bots;} //TODO Do not use in productive environment it maybe will be changed.
+    Bot getBot(int number){ return m_bots[number]; }
 
     std::vector<Item> getItems() { return m_items;} // TODO Do not use in productive environment it maybe will be changed.
-
+    Item getItem(int number){ return m_items[number]; }
 
 private:
     /* XML Filename */

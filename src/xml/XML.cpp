@@ -158,6 +158,26 @@ void XML::load()
 void XML::save()
 {
     //TODO implement and exception handling
+    ptree root;
+    ptree level;
+    ptree player;
+    ptree player_infos;
 
+//    player.add_child("frameWidth", m_player.frameWidth);
+//    player.add_child("frameHeight", m_player.frameHeight);
+//    player.add_child("positionY", m_player.positionY);
+//    player.add_child("stdWeapon", m_player.stdWeapon);
+    player_infos.put("frameWidth", m_player.frameWidth);
+    player_infos.put("frameHeight", m_player.frameHeight);
+    player_infos.put("positionY", m_player.positionY);
+    player_infos.put("stdWeapon", m_player.stdWeapon);
+
+    player.put("<xmlattr>.filename", m_player.filename);
+    player.add_child("", player_infos);
+
+
+    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", player_infos, std::locale());
+//    player.add_child(player_infos)
 }
+
 
