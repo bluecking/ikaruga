@@ -297,6 +297,70 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 
 }
 
+
+void Level::collide(Actor* a, Vector2f move)
+{
+
+
+	float x = move.x();
+	float y = move.y();
+
+	std::vector<Vector2i> tiles;
+
+	if (x != 0)
+	{
+
+		if (x > 0)
+		{
+
+			getSurroundingRelevantTiles(a->position(), TRIGHT, 0, 0, &tiles);
+
+		}
+		else
+		{
+
+			getSurroundingRelevantTiles(a->position(), TLEFT, 0, 0, &tiles);
+ 
+		}
+
+		for(Vector2i& tPos : tiles)
+		{
+
+			/*if (m_tiles[tPos.x()][tPos.y()] != 0)
+			{
+
+				
+
+				break;
+
+			}*/
+
+		}
+
+	}
+
+
+	if (y != 0)
+	{
+
+		if (y> 0)
+		{
+
+			getSurroundingRelevantTiles(a->position(), TDOWN, 0, 0, &tiles);
+
+		}
+		else
+		{
+
+			getSurroundingRelevantTiles(a->position(), TUP, 0, 0, &tiles);
+
+		}
+
+	}
+
+}
+
+
 int Level::levelHeight() const
 {
     return m_levelHeight;
