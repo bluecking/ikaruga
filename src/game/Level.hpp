@@ -27,26 +27,20 @@ namespace jumper
 
 enum TilesDirection
 {
-
 	TUP,
 	TDOWN,
 	TLEFT,
 	TRIGHT
-
 };
-
 
 enum TileType
 {
-
 	SOLID = 1,
 	NONSOLID = 2,
 	EDGETOPLEFT = 3,
 	EDGETOPRIGHT = 4,
 	EDGEDOWNLEFT = 5,
 	EDGEDOWNRIGHT = 6
-	
-
 };
 
 

@@ -45,7 +45,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 		in >> m_tileWidth >> m_tileHeight >> m_tilesPerRow >> m_numRows;
 		in >> m_tileOffset;
 		in >> m_levelWidth;
-		m_levelHeight = 576 / m_tileHeight;
+		m_levelHeight = m_camera.h() / m_tileHeight;
 	}
 	else
 	{
@@ -91,25 +91,15 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 
 	if (inTileInfo.good())
 	{
-
-	for(int i = 0; i < m_numRows; i++)
-	{
-		for(int j = 0; j < m_tilesPerRow; j++)
+		for(int i = 0; i < m_numRows; i++)
 		{
-
-			int tileType = 0;
-
-			inTileInfo >> tileType;
-
-			m_tileTypes.push_back((TileType) tileType);
-
+			for(int j = 0; j < m_tilesPerRow; j++)
+			{
+				int tileType = 0;
+				inTileInfo >> tileType;
+				m_tileTypes.push_back((TileType) tileType);
+			}
 		}
-
-	}
-		
-
-
-
 	}
 	else
 	{
@@ -150,7 +140,7 @@ void Level::render()
 				{
 					//Compute the position of the target on the screen
 					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y() + 576 % m_tileHeight;
+					target.y = i * m_tileHeight - m_camera.y() + m_camera.h() % m_tileHeight;
 
 					// Don't render tiles outside the frustrum. To prevent popping,
 					// add some extra margin
@@ -285,7 +275,7 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 
 Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 {
-	pos -= Vector2f(0,  576 % m_tileHeight);
+	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
 
 	float x = move.x();
 	float y = move.y();
