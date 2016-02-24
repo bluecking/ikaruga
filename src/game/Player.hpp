@@ -13,6 +13,7 @@
 
 #include "Actor.hpp"
 #include "Vector.hpp"
+#include "Armed.hpp"
 
 namespace jumper
 {
@@ -20,18 +21,9 @@ namespace jumper
      * @brief	A class to represent an animated sprite controlled
      * 			by the user.
      */
-    class Player : public Actor
+    class Player : public Actor, public Armed
     {
     public:
-
-        /**
-         * Constructor.
-         *
-         * @param renderer		A pointer to a valid SDL_Renderer struct that is
-         * 						used for rendering
-         * @param filename		The name of a file with sprite definitions
-         */
-        Player(SDL_Renderer* renderer, std::string filename);
 
         /**
          * Constructs a player.
@@ -68,6 +60,8 @@ namespace jumper
 
     private:
         Vector2f m_moveDirection;
+    public:
+        virtual void shoot();
         void updateMoveAnimation();
     };
 }

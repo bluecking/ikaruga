@@ -9,6 +9,7 @@
 #include "ScoreBoard.hpp"
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
+#include "LaserWeapon.hpp"
 
 #include <iostream>
 
@@ -64,6 +65,17 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 else if(v.first == "player")
 			 {
 				 Player* player = new Player(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
+
+                 // set weapon
+
+                 // TODO dynamic weapon attributes
+                 Vector2i* textureSize = new Vector2i(6, 6);
+                 Vector2f* weaponOffset = new Vector2f(25, 22);
+                 Vector2f* projectileColorOffset = new Vector2f(6, 0);
+                 float coolDown = 0.2f;
+                 SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/laser_shot.png");
+                 player->setWeapon(new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset, coolDown));
+
 				 game->setPlayer(player);
 				 player->setFocus(true);
 				 actor = player;
