@@ -172,9 +172,13 @@ void XML::save()
     /* Adding Tileset */
     tileset.put("<xmlattr>.filename", m_tileset);
 
+    level.add_child("tileset", tileset);
+
     /* Adding Background */
     background.put("<xmlattr>.filename", m_background.filename);
     background.put("scrollspeed", m_background.scrollspeed);
+
+    level.add_child("background", background);
 
     /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
@@ -182,6 +186,8 @@ void XML::save()
     player.put("frameHeight", m_player.frameHeight);
     player.put("positionY", m_player.positionY);
     player.put("stdWeapon", m_player.stdWeapon);
+
+    level.add_child("player", player);
 
     /* Adding Bots */
     for(int i=0;i<(int) m_bots.size();i++) {
@@ -192,17 +198,20 @@ void XML::save()
         bot.put("tileID", m_bots[i].tileID);
         bot.put("positionX", m_bots[i].positionX);
         bot.put("positionY", m_bots[i].positionY);
-        bot.put("color", m_bots[i].color);
+
 
         npc.put("<xmlattr>.type", m_bots[i].npc.type);
         move.put("<xmlattr>.function", m_bots[i].npc.move_function);
-//        move.put("function", m_bots[i].npc.move_function);
+        npc.add_child("move", move);
+        npc.put("move", m_bots[i].npc.move_value);
         npc.put("fireRate", m_bots[i].npc.fireRate);
         npc.put("speed", m_bots[i].npc.speed);
-        move.put("<xmlattr>.function", m_bots[i].npc.move_function);
+        weapon.put("<xmlattr>.type", m_bots[i].npc.weapon_type);
+        npc.add_child("weapon", weapon);
+        npc.put("weapon", m_bots[i].npc.weapon_level);
 
-        npc.add_child("move", move);
         bot.add_child("npc", npc);
+        bot.put("color", m_bots[i].color);
         level.add_child("bot", bot);
     }
 
@@ -219,14 +228,9 @@ void XML::save()
         level.add_child("item", item);
     }
 
-    /* Creating XML-Tree */
-    level.add_child("tileset", tileset);
-    level.add_child("background", background);
-    level.add_child("player", player);
-
     /* Setting up XML-Tree with root-Node */
     root.add_child("level", level);
-    write_xml("/home/patrick/Git-Repositories/uni_hausaufgaben/praktikum1/res/levels/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 1u));
+    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>('    ', 4u));
 }
 
 
