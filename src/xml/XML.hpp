@@ -89,47 +89,87 @@ public:
      */
     std::string getFilename() { return m_filename;}
 
-    //TODO add doxygen
+    /**
+     * Set level id.
+     * @param id Unique level id.
+     */
     void setId(int id)
     {
         m_id = id;
     }
 
+    /**
+     * Set level name.
+     * @param levelname Name of level.
+     */
     void setLevelname(const std::string& levelname)
     {
         m_levelname = levelname;
     }
 
+    /**
+     * Set tileset.
+     * @param tileset The tileset.
+     */
     void setTileset(const std::string& tileset)
     {
         m_tileset = tileset;
     }
 
+    /**
+     * Set background.
+     * @param background The background.
+     */
     void setBackground(const Background& background)
     {
         m_background = background;
     }
 
+    /**
+     * Set Player.
+     * @param The player.
+     */
     void setPlayer(const Player& player)
     {
         m_player = player;
     }
 
+    /**
+     * Get level id.
+     * @return level id.
+     */
     int getId() { return m_id;}
 
-
+    /**
+     * Set all bots at a time.
+     * @param bots vector of bots.
+     */
     void setBots(const std::vector<Bot>& bots)
     {
         m_bots = bots;
     }
 
+    /**
+     * Set single bot.
+     * @param Number of the bot.
+     * @param bot The bot.
+     */
     void setBot(int position, Bot bot);
 
+    /**
+     * Set all bots at a time.
+     * @param items Vector of items
+     */
     void setItems(const std::vector<Item>& items)
     {
         m_items = items;
     }
 
+    /**
+     * Set single item.
+     * @param position Number of the bot.
+     * @param item The item.
+     */
     void setItem(int position, Item item);
 
     std::string getLevelname() { return m_levelname;}
@@ -142,11 +182,53 @@ public:
 
     std::vector<Bot> getBots() { return m_bots;}
 
-    Bot getBot(int number){ return m_bots[number]; }
+    Bot getBot(unsigned int number){ return m_bots[number]; }
 
     std::vector<Item> getItems() { return m_items;}
 
-    Item getItem(int number){ return m_items[number]; }
+    Item getItem(unsigned int number){ return m_items[number]; }
+
+    /**
+     * Add an additional item.
+     * @param item The new item.
+     */
+    void addItem(Item item) {m_items.push_back(item);}
+
+    /**
+     * Add additional bot.
+     * @param bot The new bot.
+     */
+    void addBot(Bot bot) {m_bots.push_back(bot);}
+
+    /**
+     * Remove an item.
+     * @param position The number of the item.
+     * @throw range_error If no item is available with the given number.
+     */
+    void removeItem(unsigned int position) {
+        if(position >= itemSize()) {throw std::range_error("Index out of range.");}
+        m_items.erase(m_items.begin() + position);}
+
+    /**
+     * Remove a bot.
+     * @param position Number of the bot.
+     * * @throw range_error If no bot is available with the given number.
+     */
+    void removeBot(unsigned int position) {
+        if(position >= botSize()) {throw std::range_error("Index out of range.");}
+        m_bots.erase(m_bots.begin() + position);}
+
+    /**
+     * Returns the total number of bots.
+     * @return Total number of bots.
+     */
+    unsigned int botSize() {return m_bots.size();}
+
+    /**
+ *  Returns the total number of bots.
+ * @return Total number of bots.
+ */
+    unsigned int itemSize() {return m_items.size();}
 
 private:
     /* XML Filename */
