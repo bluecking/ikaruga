@@ -230,7 +230,23 @@ void XML::save()
 
     /* Setting up XML-Tree with root-Node */
     root.add_child("level", level);
-    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>('    ', 4u));
+
+    try
+    {
+        write_xml("/tmp/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::ios_base::failure("Cannot write file. Is it readonly?");
+    }
 }
 
+void XML::setItem(int position, XML::Item item)
+{
+    m_items[position] = item;
+}
 
+void XML::setBot(int position, XML::Bot bot)
+{
+    m_bots[position] = bot;
+}

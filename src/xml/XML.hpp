@@ -73,6 +73,7 @@ public:
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
      * another location by the setFilename method.
+     * @throw std::ios_base::failure If file could not be saved.
      */
     void save();
 
@@ -116,6 +117,21 @@ public:
 
     int getId() { return m_id;}
 
+
+    void setBots(const std::vector<Bot>& bots)
+    {
+        m_bots = bots;
+    }
+
+    void setBot(int position, Bot bot);
+
+    void setItems(const std::vector<Item>& items)
+    {
+        m_items = items;
+    }
+
+    void setItem(int position, Item item);
+
     std::string getLevelname() { return m_levelname;}
 
     std::string getTileset() { return m_tileset;}
@@ -124,10 +140,12 @@ public:
 
     Player getPlayer() { return m_player;}
 
-    std::vector<Bot> getBots() { return m_bots;} //TODO Do not use in productive environment it maybe will be changed.
+    std::vector<Bot> getBots() { return m_bots;}
+
     Bot getBot(int number){ return m_bots[number]; }
 
-    std::vector<Item> getItems() { return m_items;} // TODO Do not use in productive environment it maybe will be changed.
+    std::vector<Item> getItems() { return m_items;}
+
     Item getItem(int number){ return m_items[number]; }
 
 private:
