@@ -14,7 +14,7 @@ using namespace std;
 
 #include <QtGui>
 
-#include "../app/EditorMainWindow.hpp"
+#include "EditorMainWindow.hpp"
 
 class LevelScene : public QGraphicsScene
 {
