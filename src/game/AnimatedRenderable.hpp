@@ -92,6 +92,11 @@ protected:
 	/// Timeout between frames
 	Uint32			m_frameTimeout;
 
+	/** The tile row that is rendered in the current frame */
+	char 			m_currentTileRow;
+
+	/** The tile row that should be rendered in the next frame */
+    char             m_nextTileRow;
 };
 
 } /* namespace jumper */

@@ -25,6 +25,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 #REPLACES ADDING SOURCES
 add_subdirectory(src/game)
+add_subdirectory(src/xml)
+
 
 ################## EDITOR ################
 PROJECT(EDITOR)
@@ -37,7 +39,15 @@ set(EDITOR_SOURCES
 	src/editor/TextureScene.cpp
 	src/editor/TextureScene.h
 	src/editor/Settings.cpp
-	src/editor/Settings.h)
+        src/editor/Settings.h
+        src/editor/itemsettingsgui.h
+        src/editor/itemsettingsgui.cpp
+	src/editor/bot.h
+	src/editor/bot.cpp
+	src/editor/player.h
+        src/editor/player.cpp
+        src/editor/item.h
+        src/editor/item.cpp)
 
 FIND_PACKAGE(Qt4 REQUIRED)
 set(CMAKE_AUTOMOC ON)
@@ -46,6 +56,8 @@ INCLUDE(${QT_USE_FILE})
 
 QT4_WRAP_UI(UISrcs src/editor/LevelView.ui)
 QT4_WRAP_CPP(MOCSrcs build/ui_LevelView.h )
+QT4_WRAP_UI(UISrcs src/editor/itemsettingsgui.ui)
+QT4_WRAP_CPP(MOCSrcs build/ui_itemsettingsgui.h )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
@@ -54,4 +66,3 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CM
 
 ADD_EXECUTABLE(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
 TARGET_LINK_LIBRARIES(editor ${QT_LIBRARIES})
-
