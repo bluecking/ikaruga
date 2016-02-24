@@ -17,13 +17,13 @@ namespace jumper
     class Weapon
     {
     public:
-        Weapon(Game* game, Actor* actor);
+        Weapon(Game& game, Actor& actor);
         virtual ~Weapon();
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition) = 0;
 
     protected:
-        Game* m_game;
-        Actor* m_actor;
+        Game& m_game;
+        Actor& m_actor;
     };
 } /* namespace jumper */
 

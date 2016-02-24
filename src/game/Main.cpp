@@ -65,7 +65,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 else if(v.first == "player")
 			 {
 				 Player* player = new Player(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
-                 player->setWeapon(new LaserWeapon(game, player));
+                 player->setWeapon(new LaserWeapon(*game, *player));
 				 game->setPlayer(player);
 				 player->setFocus(true);
 				 actor = player;

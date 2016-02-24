@@ -11,18 +11,18 @@ namespace jumper
 {
     void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
-        Projectile* projectile = new Projectile(m_actor->getRenderer(), m_actor->getTexture(), m_actor->frameWidth(),
-                              m_actor->frameHeight(), m_actor->numFrames());
+        Projectile* projectile = new Projectile(m_actor.getRenderer(), m_actor.getTexture(), m_actor.frameWidth(),
+                              m_actor.frameHeight(), m_actor.numFrames());
 
         projectile->setDirection(direction);
         projectile->setPosition(spawnPosition);
-        projectile->setColor(m_actor->getColor());
+        projectile->setColor(m_actor.getColor());
         projectile->launch();
 
-        m_game->addActor(projectile);
+        m_game.addActor(projectile);
     }
 
-    LaserWeapon::LaserWeapon(Game* game, Actor* actor)
+    LaserWeapon::LaserWeapon(Game& game, Actor& actor)
             : Weapon(game, actor)
     {
 
