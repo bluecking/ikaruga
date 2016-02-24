@@ -35,8 +35,8 @@ namespace jumper
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
         m_health = 10000;
 
-        m_move_type = BotType::SIN;
-        m_move_type_speed = 50;
+        m_move_type = BotType::SIN_UP;
+        m_move_type_height = 25;
         m_speed = 100;
     }
 
@@ -53,11 +53,24 @@ namespace jumper
             case BotType::NO_MOVE:
                 break;
             case BotType::SIN:
+            case BotType::SIN_UP:
+            case BotType::SIN_DOWN:
                 float dt = getElapsedTime();
                 if (dt > 0)
                 {
                     Vector2f d_move;
-                    d_move.setY(m_move_type_speed * sin(1.5 * clock() / CLOCKS_PER_SEC) * 3.1415);
+                    switch (m_move_type)
+                    {
+                        case BotType::SIN:
+                            d_move.setY(-cos(getLiveTime()) * m_move_type_height*2.6);
+                            break;
+                        case BotType::SIN_UP:
+                            d_move.setY(-cos(3.1415/2+getLiveTime()) * m_move_type_height*2.6);
+                            break;
+                        case BotType::SIN_DOWN:
+                            d_move.setY(-cos(-3.1415/2+getLiveTime()) * m_move_type_height*2.6);
+                            break;
+                    }
                     d_move.setX(m_speed);
                     physics().setPosition(physics().position() + d_move * dt);
                 }

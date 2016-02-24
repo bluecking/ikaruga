@@ -28,6 +28,8 @@ namespace jumper
 
          //THIS NEEDS TO BE CHANGED
         m_health = 100;
+
+        m_spawnTime = SDL_GetTicks();
     }
 
     Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
@@ -40,6 +42,8 @@ namespace jumper
 
         //THIS NEEDS TO BE CHANGED
         m_health = 100;
+
+        m_spawnTime = SDL_GetTicks();
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -62,6 +66,13 @@ namespace jumper
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
+        return time;
+    }
+
+    float Actor::getLiveTime()
+    {
+        Uint32 ticks = SDL_GetTicks();
+        float time = (ticks - m_spawnTime) / 1000.0;
         return time;
     }
 

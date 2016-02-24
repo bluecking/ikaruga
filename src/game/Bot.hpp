@@ -21,6 +21,8 @@ namespace jumper
         {
             NO_MOVE,
             SIN,
+            SIN_UP,
+            SIN_DOWN
         };
     }
 /**
@@ -58,7 +60,7 @@ namespace jumper
 
     private:
         int m_move_type;
-        int m_move_type_speed;
+        int m_move_type_height;
         int m_speed;
     };
 

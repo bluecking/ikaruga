@@ -112,10 +112,14 @@ namespace jumper
 
         float getElapsedTime();
 
+        float getLiveTime();
+
         /// The physical properties of the player
         PlayerProperty m_physicalProps;
 
         Uint32 m_startTicks;
+
+        Uint32 m_spawnTime;
 
         bool m_focus;
 
