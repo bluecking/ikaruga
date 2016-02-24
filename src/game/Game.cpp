@@ -79,7 +79,7 @@ namespace jumper
             }
 
             // react to shoot
-            if (keyDown[SDL_SCANCODE_SPACE])
+            if (currentKeyStates[SDL_SCANCODE_SPACE])
             {
                 m_player->shoot();
             }
