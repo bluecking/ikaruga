@@ -25,15 +25,6 @@ namespace jumper
     public:
 
         /**
-         * Constructor.
-         *
-         * @param renderer		A pointer to a valid SDL_Renderer struct that is
-         * 						used for rendering
-         * @param filename		The name of a file with sprite definitions
-         */
-        Player(SDL_Renderer* renderer, std::string filename);
-
-        /**
          * Constructs a player.
          *
          * @param renderer		A pointer to a valid SDL_Renderer struct that is

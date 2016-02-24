@@ -16,17 +16,6 @@ using std::endl;
 
 namespace jumper
 {
-
-    Actor::Actor(SDL_Renderer* renderer, std::string filename)
-            : AnimatedRenderable(renderer, filename)
-    {
-        m_focus = false;
-        m_physicalProps.setPosition(Vector2f(100, 0));
-        m_startTicks = 0;
-        m_numFrames = 1;
-        m_type = ACTOR;
-    }
-
     Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {

@@ -12,10 +12,6 @@ using std::endl;
 
 namespace jumper
 {
-    Player::Player(SDL_Renderer* renderer, std::string filename)
-            : Actor(renderer, filename), m_moveDirection(0, 0)
-    { }
-
     Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
     { }
@@ -27,8 +23,6 @@ namespace jumper
         if (dt > 0)
         {
             Vector2f d_move;
-
-            Vector2f test = physics().moveForce();
 
             d_move = (physics().moveForce() * m_moveDirection * dt);
 
