@@ -25,6 +25,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 #REPLACES ADDING SOURCES
 add_subdirectory(src/game)
+add_subdirectory(src/xml)
+
 
 ################## EDITOR ################
 PROJECT(EDITOR)
@@ -64,4 +66,3 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CM
 
 ADD_EXECUTABLE(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
 TARGET_LINK_LIBRARIES(editor ${QT_LIBRARIES})
-

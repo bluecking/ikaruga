@@ -83,8 +83,12 @@ namespace jumper
                 m_currentFrame = 0;
             }
 
+            // Render next tile row
+            m_currentTileRow = m_nextTileRow;
+
             // Setup source rect
             m_sourceRect.x = m_currentFrame * m_frameWidth;
+            m_sourceRect.y = m_currentTileRow * m_frameHeight;
 
             // Save current tick count
             m_lastRenderTicks = ticks;
@@ -97,5 +101,3 @@ namespace jumper
     }
 
 } /* namespace jumper */
-
-
