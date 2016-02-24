@@ -90,6 +90,11 @@ void setupGame(string filename, MainWindow* w, Game* game)
 				 getPlayerProperty(v, p);
 				 actor->setPhysics(p);
 				 actor->setFPS(fps);
+
+                 float colorOffsetX = v.second.get<float>("colorOffsetX", 0.0);
+                 float colorOffsetY = v.second.get<float>("colorOffsetY", 0.0);
+                 Vector2f colorOffset(colorOffsetX, colorOffsetY);
+                 actor->setColorOffset(colorOffset);
 			 }
 
 		 }
@@ -104,7 +109,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
 			 float s = v.second.get<float>("scrollSpeed", 1.0);
-			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture);
+			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
 			 layer->setScrollSpeed(s);
 			 game->setLayer(layer);
 		 }
@@ -134,7 +139,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	MainWindow window("Jumper", 800, 600);
+	MainWindow window("Jumper", 625, 576);
 	Game game(&window);
 	setupGame(argv[1], &window, &game);
 

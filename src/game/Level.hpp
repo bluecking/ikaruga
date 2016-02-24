@@ -91,15 +91,6 @@ private:
 	/// Number of rows in the tile sheet
 	int 				m_numRows;
 
-	/// Key color red component
-	unsigned char	 	m_keyR;
-
-	/// Key color green component
-	unsigned char		m_keyG;
-
-	/// Key color blue component
-	unsigned char		m_keyB;
-
 	/// Number of tiles per row
 	int					m_tilesPerRow;
 

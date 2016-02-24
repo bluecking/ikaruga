@@ -21,7 +21,7 @@ float Camera::y()
 }
 
 Camera::Camera()
-	: m_width(0), m_height(0)
+	: m_width(0), m_height(0), m_borderOffset(5)
 {
 	m_position.setX(0);
 	m_position.setY(0);
@@ -33,7 +33,7 @@ void Camera::move(const Vector2f& p)
 }
 
 Camera::Camera(const Vector2f& Vector2f, int w, int h)
-	: m_position(Vector2f), m_width(w), m_height(h)
+	: m_position(Vector2f), m_width(w), m_height(h), m_borderOffset(5)
 {
 }
 

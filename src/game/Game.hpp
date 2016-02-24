@@ -44,11 +44,14 @@ public:
 	/// Sets the current level
 	void setLevel(Level* level);
 
+	/// Gets the current Level
+	Level* getLevel();
+
 	/// Adds a new bot to the scene
 	void addActor(Actor* actor);
 
 	/// Updates the current state according to the given key states
-	void update(const Uint8* &currentKeyStates);
+	void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
 	/// Starts the game
 	void start();
@@ -61,10 +64,9 @@ public:
 
 private:
 
-	void updateCameraPosition();
-
 	void moveActors();
 	void checkPlayerCollision();
+    void checkCameraCollision();
 	void removeActor(Actor* a);
 
 	/**
