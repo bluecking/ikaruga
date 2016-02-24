@@ -13,48 +13,39 @@
 
 namespace jumper
 {
+    /**
+     * @brief An actor that moves in a level according to a predefined movement pattern.
+     * 		  The default implementation switches x-direction when it hits an object.
+     */
+    class Bot : public Actor
+    {
+    public:
 
-/**
- * @brief An actor that moves in a level according to a predefined movement pattern.
- * 		  The default implementation switches x-direction when it hits an object.
- */
-class Bot : public Actor
-{
-public:
+        /**
+         * @brief	Constructs a bot from given renderer, texture
+         * 			and frame information.
+         * @param renderer		A pointer to a SDL renderer struct
+         * @param texture		A pointer to valid SDL_Texture struct
+         * @param frameWidth	The width of the frames within the texture
+         * @param frameHeight	The height of the frames within the texture
+         * @param numFrames		The number of frames in the texture
+         */
+        Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
+        virtual ~Bot();
 
-	/***
-	 * @brief 	Constructs a bot from the given \ref filename
-	 * 			for the internal \ref renderer
-	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param filename		A filename with animation definitions
-	 */
-	Bot(SDL_Renderer* renderer, std::string filename);
+        /// Moves the bot in the given \ref level
+        virtual void move(Level& level);
 
-	/**
-	 * @brief	Constructs a bot from given renderer, texture
-	 * 			and frame information.
-	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param texture		A pointer to valid SDL_Texture struct
-	 * @param frameWidth	The width of the frames within the texture
-	 * @param frameHeight	The height of the frames within the texture
-	 * @param numFrames		The number of frames in the texture
-	 */
-	Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
-	virtual ~Bot();
+    private:
 
-	/// Moves the bot in the given \ref level
-	virtual void move(Level& level);
+        /// Changes x-direction when it hits an object
+        void bounce();
 
-private:
-
-	/// Changes x-direction when it hits an object
-	void bounce();
-
-	/// The last position where a collision occured.
-	/// Used the prevent continuous flipping.
-	Vector2f m_bouncePos;
-};
+        /// The last position where a collision occured.
+        /// Used the prevent continuous flipping.
+        Vector2f m_bouncePos;
+    };
 
 } /* namespace jumper */
 
