@@ -233,7 +233,15 @@ void XML::save()
 
     try
     {
-        write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        //Automatic indents of the xml file does not work on the same way with different versions because of a bug in
+        //the boost library.
+        //The following line works in boost 1.60, 1.58:
+        //write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        //The following line works in boost 1.54:
+        //boost::property_tree::xml_writer_settings<char> settings (' ', 4u); write_xml(getFilename(), root, std::locale(), settings);
+        //Without pretty format (all XML tags in one line) it works in all boost versions
+        //write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        write_xml(getFilename(), root, std::locale());
     }
     catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
         std::cerr << boost::diagnostic_information(e);
