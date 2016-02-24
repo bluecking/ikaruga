@@ -13,11 +13,10 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    XML m_xml;
-    m_xml.setFilename(argv[1]);
-    m_xml.load();
+    XML m_xml(argv[1]);
 
-    cout << "ID: " << m_xml.getId() << endl
+    cout << "Parsing level defintion (xml):" << endl
+        << "ID: " << m_xml.getId() << endl
         << "Levelname: " << m_xml.getLevelname() << endl
         << "Tileset: " << m_xml.getTileset() << endl
         << "Background - filename: " << m_xml.getBackground().filename << endl
