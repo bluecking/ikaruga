@@ -8,6 +8,7 @@ using std::string;
 using std::cout;
 using std::endl;
 using boost::property_tree::ptree;
+using boost::property_tree::xml_writer_make_settings;
 
 XML::XML(std::string xmlFilename)
 {
@@ -225,7 +226,7 @@ void XML::save()
 
     /* Setting up XML-Tree with root-Node */
     root.add_child("level", level);
-    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", root, std::locale());
+    write_xml("/home/patrick/Git-Repositories/uni_hausaufgaben/praktikum1/res/levels/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 1u));
 }
 
 
