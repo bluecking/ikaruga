@@ -20,22 +20,28 @@ class MainWindow;
 class LevelScene : public QGraphicsScene
 {
 public:
+
     /// Loads des Level with the given filenale nad
     /// Stores a pointer to it's main window in a
     /// class valiable.
     LevelScene(QString filename, MainWindow* window);
 	void setTileSettings(int index,int type, QRect rect);
+	QPixmap** getPixmap();
+
 protected:
+
     /// Is called whenever the mouse is pressend within
     /// the scene
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
-private:  
-  	int** m_tiles;        // The 2D tile array
-	int m_index=0;
-	int m_type=0;
-	GraphicsTileItem* textureItem;
-	QRect m_rect;
-  	QPixmap** m_pixmap;    // A QPixmap to store the tile bitmap
+
+private:
+
+    GraphicsTileItem* textureItem;
+    QRect m_rect;
+    QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
+	int** m_tiles;        // The 2D tile array
+	int m_index=0;        // Tile id
+	int m_type=0;         // texture type
 	int m_tileWidth;      // Width of the tiles
 	int m_tileHeight;     // Height of the tiles
 	int m_tilesPerRow;    // Tiles per row in the tile bitmap

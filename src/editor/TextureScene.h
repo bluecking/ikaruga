@@ -33,13 +33,15 @@ public:
     QGraphicsScene* getScene();
 
 protected:
+
     /// Is called whenever the mouse is pressend within
     /// the scene
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
+
 private:
-    int** m_tiles;        // The 2D tile array
-    QPixmap* m_pixmap;    // A QPixmap to store the tile bitmap
+
     LevelScene* m_levelScene;
+    int** m_tiles;        // The 2D tile array
     int m_tileWidth;      // Width of the tiles
     int m_tileHeight;     // Height of the tiles
     int m_tilesPerRow;    // Tiles per row in the tile bitmap
