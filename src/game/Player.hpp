@@ -62,6 +62,7 @@ namespace jumper
         Vector2f m_moveDirection;
     public:
         virtual void shoot();
+        void updateMoveAnimation();
     };
 }
 

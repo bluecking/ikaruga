@@ -112,14 +112,22 @@ namespace jumper
          */
         bool visible();
 
+        void takeDamage(int damage);
+
+        int getHealth();
+
     protected:
 
         float getElapsedTime();
+
+        float getLiveTime();
 
         /// The physical properties of the player
         PlayerProperty m_physicalProps;
 
         Uint32 m_startTicks;
+
+        Uint32 m_spawnTime;
 
         bool m_focus;
 
@@ -128,6 +136,10 @@ namespace jumper
         ColorMode::ColorMode m_color;
 
         Vector2f m_colorOffset;
+
+        int     m_health;
+
+
     };
 
 } /* namespace jumper */

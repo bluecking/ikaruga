@@ -10,9 +10,22 @@
 
 #include "Actor.hpp"
 #include "Level.hpp"
+#include <math.h>
+#include <time.h>
 
 namespace jumper
 {
+    namespace BotType
+    {
+        enum BotMoveType
+        {
+            NO_MOVE,
+            SIN,
+            SIN_UP,
+            SIN_DOWN
+        };
+    }
+
     /**
      * @brief An actor that moves in a level according to a predefined movement pattern.
      * 		  The default implementation switches x-direction when it hits an object.
@@ -38,13 +51,9 @@ namespace jumper
         virtual void move(Level& level);
 
     private:
-
-        /// Changes x-direction when it hits an object
-        void bounce();
-
-        /// The last position where a collision occured.
-        /// Used the prevent continuous flipping.
-        Vector2f m_bouncePos;
+        int m_move_type;
+        int m_move_type_height;
+        int m_speed;
     };
 
 } /* namespace jumper */

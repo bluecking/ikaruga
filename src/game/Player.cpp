@@ -5,8 +5,6 @@
 
 #include "Player.hpp"
 
-#include <iostream>
-
 using std::cout;
 using std::endl;
 
@@ -58,15 +56,10 @@ namespace jumper
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
 
-            /*	// Move camera if player position exceeds window with / 2
-            m_camera.position().setX(position().x() - m_levelWidth / 2 + w());
-            if(m_camera.position().x() < 0)
-            {
-                m_camera.position().setX(0);
-            }*/
+            // Checks if the player moves up or down and updates the source rect
+            updateMoveAnimation();
 
             Collision c = level.resolveCollision(this);
-            //cout << c.delta() << endl;
         }
 
     }
@@ -81,5 +74,42 @@ namespace jumper
 
         Vector2f direction(1, 0);
         m_weapon->shoot(direction, position());
+    }
+
+    void Player::updateMoveAnimation()
+    {
+        const char NORMAL = 0;
+        const char UPHALF = 1;
+        const char UPFULL = 2;
+        const char DOHALF = 3;
+        const char DOFULL = 4;
+
+        // Player moves up
+        if (getMoveDirection().y() < 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = UPHALF; break;
+                case DOHALF:     m_nextTileRow = NORMAL; break;
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                default:         m_nextTileRow = UPFULL;
+            }
+        } // Player moves down
+        else if (getMoveDirection().y() > 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = DOHALF; break;
+                case UPHALF:     m_nextTileRow = NORMAL; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = DOFULL;
+            }
+        } // Player does not move
+        else
+        {
+            switch(m_currentTileRow) {
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = NORMAL;
+            }
+        }
     }
 }

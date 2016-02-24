@@ -18,10 +18,10 @@
         <positionX>410</positionX>
         <positionY>40</positionY>
         <npc type="Bot">
-            <move funktion="sin">3</move>
+            <move function="sin">3</move>
             <fireRate>16</fireRate>
             <speed>-2</speed>
-            <weapon typ="laser">1</weapon>
+            <weapon type="laser">1</weapon>
         </npc>
         <color>red</color>
     </bot>
@@ -32,10 +32,10 @@
         <positionX>100</positionX>
         <positionY>50</positionY>
         <npc type="Boss">
-            <move funktion="sin">0</move>
+            <move function="sin">0</move>
             <fireRate>16</fireRate>
             <speed>-2</speed>
-            <weapon typ="laser">0</weapon>
+            <weapon type="laser">0</weapon>
         </npc>
         <color>blue</color>
     </bot>
@@ -44,6 +44,6 @@
         <frameHeight>32</frameHeight>
         <positionX>40</positionX>
         <positionY>30</positionY>
-        <typ>laser</typ>
+        <type>laser</type>
     </item>
 </level>

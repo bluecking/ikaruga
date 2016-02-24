@@ -150,6 +150,10 @@ namespace jumper
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
             Actor* a = *it;
+            if(a->getHealth() <= 0 )
+            {
+                to_remove.insert(a);
+            }
 
             // Check for self collision
             if (a != m_player)
@@ -292,7 +296,6 @@ namespace jumper
                 if (!a->visible())
                 {
                     to_remove.insert(a);
-                    cout << "REMOVE" << endl;
                 }
             }
         }

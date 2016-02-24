@@ -23,6 +23,11 @@ namespace jumper
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
         m_type = ACTOR;
+
+        //TODO: this should not be hardcoded
+        m_health = 100;
+
+        m_spawnTime = SDL_GetTicks();
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -45,6 +50,13 @@ namespace jumper
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
+        return time;
+    }
+
+    float Actor::getLiveTime()
+    {
+        Uint32 ticks = SDL_GetTicks();
+        float time = (ticks - m_spawnTime) / 1000.0;
         return time;
     }
 
@@ -212,6 +224,16 @@ namespace jumper
         SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
         return intersection.w > 0 && intersection.h > 0;
+    }
+
+    int Actor::getHealth()
+    {
+        return m_health;
+    }
+
+    void Actor::takeDamage(int damage)
+    {
+        this->m_health-=damage;
     }
 } /* namespace jumper */
 

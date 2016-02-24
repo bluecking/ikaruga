@@ -7,8 +7,6 @@
 
 #include "Bot.hpp"
 
-#include <iostream>
-
 using std::cout;
 using std::endl;
 
@@ -19,6 +17,14 @@ namespace jumper
     {
         m_physicalProps.setMoveForce(Vector2f(0, 0));
         m_physicalProps.setMaxRunVelocity(50);
+
+        //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
+        m_health = 2000;
+
+
+        m_move_type = BotType::SIN_UP;
+        m_move_type_height = 25;
+        m_speed = 100;
     }
 
     Bot::~Bot()
@@ -29,54 +35,34 @@ namespace jumper
     void Bot::move(Level& level)
     {
         nextFrame();
-        float dt = getElapsedTime();
-        if (dt > 0)
+        switch (m_move_type)
         {
-            Collision c = level.resolveCollision(this);
-            if (c.delta().x() > 5)
-            {
-                bounce();
-            }
-
-            if (fabs(physics().moveForce().x()) < 2)
-            {
-                physics().setMoveForce(Vector2f(100, 0));
-            }
-
-            Vector2f d_move;
-
-            d_move = (physics().moveForce() * dt);
-
-            // Update velocity
-            physics().setVelocity(physics().velocity() + d_move);
-
-            // Damp velocity according to extrinsic level damping
-            physics().setVelocity(physics().velocity() * level.physics().damping());
-
-            if (physics().velocity().x() > physics().maxRunVelocity() * dt)
-            {
-                physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-                                               physics().velocity().y()));
-            }
-
-            if (physics().velocity().x() < -physics().maxRunVelocity() * dt)
-            {
-                physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-                                               physics().velocity().y()));
-            }
-
-            // Set new player position
-            physics().setPosition(physics().position() + physics().velocity());
-
+            case BotType::NO_MOVE:
+                break;
+            case BotType::SIN:
+            case BotType::SIN_UP:
+            case BotType::SIN_DOWN:
+                float dt = getElapsedTime();
+                if (dt > 0)
+                {
+                    Vector2f d_move;
+                    switch (m_move_type)
+                    {
+                        case BotType::SIN:
+                            d_move.setY(-cos(getLiveTime()) * m_move_type_height * 2.6);
+                            break;
+                        case BotType::SIN_UP:
+                            d_move.setY(-cos(3.1415 / 2 + getLiveTime()) * m_move_type_height * 2.6);
+                            break;
+                        case BotType::SIN_DOWN:
+                            d_move.setY(-cos(-3.1415 / 2 + getLiveTime()) * m_move_type_height * 2.6);
+                            break;
+                    }
+                    d_move.setX(m_speed);
+                    physics().setPosition(physics().position() + d_move * dt);
+                }
+                break;
         }
     }
 
-    void Bot::bounce()
-    {
-        if (fabs(physics().position().x() - m_bouncePos.x()) > 5)
-        {
-            physics().setMoveForce(physics().moveForce() * -1);
-            m_bouncePos = physics().position();
-        }
-    }
 } /* namespace jumper */
