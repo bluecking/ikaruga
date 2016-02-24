@@ -93,10 +93,7 @@ public:
      * Set level id.
      * @param id Unique level id.
      */
-    void setId(int id)
-    {
-        m_id = id;
-    }
+    void setId(int id) {m_id = id;}
 
     /**
      * Set level name.
@@ -153,8 +150,9 @@ public:
      * Set single bot.
      * @param Number of the bot.
      * @param bot The bot.
+     * @throw range_error If no bot is available with the given number.
      */
-    void setBot(int position, Bot bot);
+    void setBot(unsigned int position, Bot bot);
 
     /**
      * Set all bots at a time.
@@ -169,8 +167,9 @@ public:
      * Set single item.
      * @param position Number of the bot.
      * @param item The item.
+     * @throw range_error If no item is available with the given number.
      */
-    void setItem(int position, Item item);
+    void setItem(unsigned int position, Item item);
 
     /**
      * Get the current Levelname
@@ -206,8 +205,9 @@ public:
      * Get the Bot at given number
      * @param number Position of Bot
      * @return Bot at position number
+     * @throw range_error If no bot is available with the given number.
      */
-    Bot getBot(unsigned int number){ return m_bots[number]; }
+    Bot getBot(unsigned int number);
 
     /**
      * Get all Items
@@ -219,8 +219,9 @@ public:
  * Get the Item at given number
  * @param number Position of Item
  * @return Item at position number
+     * @throw range_error If no item is available with the given number.
  */
-    Item getItem(unsigned int number){ return m_items[number]; }
+    Item getItem(unsigned int number);
 
     /**
      * Add an additional item.
@@ -239,18 +240,14 @@ public:
      * @param position The number of the item.
      * @throw range_error If no item is available with the given number.
      */
-    void removeItem(unsigned int position) {
-        if(position >= itemSize()) {throw std::range_error("Index out of range.");}
-        m_items.erase(m_items.begin() + position);}
+    void removeItem(unsigned int position);
 
     /**
      * Remove a bot.
      * @param position Number of the bot.
      * * @throw range_error If no bot is available with the given number.
      */
-    void removeBot(unsigned int position) {
-        if(position >= botSize()) {throw std::range_error("Index out of range.");}
-        m_bots.erase(m_bots.begin() + position);}
+    void removeBot(unsigned int position);
 
     /**
      * Returns the total number of bots.

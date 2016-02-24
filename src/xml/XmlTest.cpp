@@ -69,5 +69,6 @@ int main(int argc, char** argv)
         << "Bot - NPC - weapon_type: " << b1.npc.weapon_type << endl
         << "Bot - NPC - weapon_level: " << b1.npc.weapon_level;
 
+    m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
 }

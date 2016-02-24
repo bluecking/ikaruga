@@ -233,7 +233,7 @@ void XML::save()
 
     try
     {
-        write_xml("/tmp/testXml.xml", root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
     }
     catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
         std::cerr << boost::diagnostic_information(e);
@@ -241,12 +241,38 @@ void XML::save()
     }
 }
 
-void XML::setItem(int position, XML::Item item)
+void XML::setItem(unsigned int position, XML::Item item)
 {
+    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
     m_items[position] = item;
 }
 
-void XML::setBot(int position, XML::Bot bot)
+void XML::setBot(unsigned int position, XML::Bot bot)
 {
+    if(position >= botSize()) {throw std::range_error("Index out of range.");}
     m_bots[position] = bot;
+}
+
+XML::Bot XML::getBot(unsigned int number)
+{
+    if(number >= botSize()) {throw std::range_error("Index out of range.");}
+    return m_bots[number];
+}
+
+XML::Item XML::getItem(unsigned int number)
+{
+    if(number >= itemSize()) {throw std::range_error("Index out of range.");}
+    return m_items[number];
+}
+
+void XML::removeItem(unsigned int position)
+{
+    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
+    m_items.erase(m_items.begin() + position);
+}
+
+void XML::removeBot(unsigned int position)
+{
+    if(position >= botSize()) {throw std::range_error("Index out of range.");}
+    m_bots.erase(m_bots.begin() + position);
 }
