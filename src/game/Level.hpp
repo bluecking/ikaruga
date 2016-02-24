@@ -36,6 +36,20 @@ enum TilesDirection
 };
 
 
+enum TileType
+{
+
+	SOLID = 1,
+	NONSOLID = 2,
+	EDGETOPLEFT = 3,
+	EDGETOPRIGHT = 4,
+	EDGEDOWNLEFT = 5,
+	EDGEDOWNRIGHT = 6
+	
+
+};
+
+
 class Actor;
 
 /**
@@ -113,6 +127,9 @@ private:
 
 	/// Level height
 	int					m_levelHeight;
+
+
+	std::vector<TileType>			m_TileTypes;
 
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;
