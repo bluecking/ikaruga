@@ -3,14 +3,15 @@
 //
 #include "TextureScene.h"
 
-TextureScene::TextureScene(Settings setting,QPixmap** pixmap, QGraphicsView* View, MainWindow* window) : QGraphicsScene(window) {
-
-    int type=0;
+TextureScene::TextureScene(Settings setting,QGraphicsView* View, MainWindow* window) : QGraphicsScene(window) {
 
 
-    if (View->objectName().toStdString() == "EnemyView")
+
+
+
+    if (View->objectName().toStdString() == "EnemieView")
     {
-        type = 1;
+        m_pixmap=new QPixmap("../res/images/enemys.png");
         m_tilesPerRow = 2;
         m_numRows = 10;
         m_tileWidth = 40;
@@ -19,7 +20,7 @@ TextureScene::TextureScene(Settings setting,QPixmap** pixmap, QGraphicsView* Vie
     }
     else if(View->objectName().toStdString() == "TextureView")
     {
-        type = 0;
+        m_pixmap=new QPixmap("../res/images/rocks.png");
         m_tilesPerRow = 10;
         m_numRows = 4;
         m_tileWidth = 40;
@@ -28,7 +29,7 @@ TextureScene::TextureScene(Settings setting,QPixmap** pixmap, QGraphicsView* Vie
     }
     else if(View->objectName().toStdString() == "PlayerView")
     {
-        type = 2;
+        m_pixmap=new QPixmap("../res/images/player.png");
         m_tilesPerRow = 2;
         m_numRows = 1;
         m_tileWidth = 40;
@@ -36,12 +37,11 @@ TextureScene::TextureScene(Settings setting,QPixmap** pixmap, QGraphicsView* Vie
         std::cout<<"player"<<std::endl;
     }
 
+
     int count = 1;
     int max = m_tilesPerRow * m_numRows;
     m_textureWidth = (int) (View->geometry().width() / m_tileWidth);
     m_textureHeight = (int) ((max) / m_textureWidth + ((View->geometry().width() % m_tileWidth) > 0 ? 0 : 1));
-
-    std::cout<<m_textureWidth<<" "<<m_textureHeight<<std::endl;
 
 
    for(int i = 0; i < m_textureHeight; i++)
@@ -54,20 +54,26 @@ TextureScene::TextureScene(Settings setting,QPixmap** pixmap, QGraphicsView* Vie
 
             ///creates Qrect if m_tiles >=0
             if(tile_id>=0){
-                QRect rect((m_tileWidth)*(tile_id%m_tilesPerRow),(m_tileHeight)*((int)(tile_id/m_tilesPerRow)),m_tileWidth,m_tileHeight);
+                QRect rect(0,0,m_tileWidth,m_tileHeight);
                 ///creates new GraphicsTileItem
 
-                GraphicsTileItem *item = new GraphicsTileItem(pixmap,rect,tile_id, type);
+                GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,tile_id);
                 ///sets Position of the rect and adds it to the scene
-                item->setPos(m_tileWidth*j,m_tileHeight*i);
+                item->setPos(0,0);
 
+                std::cout<<count<<std::endl;
                 this->addItem(item);
             }
             count++;
         }}
-    View->setScene(this);
 
 
+
+}
+
+QGraphicsScene* TextureScene::getScene()
+{
+    return this;
 }
 
 

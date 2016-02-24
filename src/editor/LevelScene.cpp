@@ -42,13 +42,13 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 		m_pixmap=new QPixmap*[5];
 
-		m_pixmap[0]= new QPixmap("../res/images/rocks.png");
-		m_pixmap[1]= new QPixmap("../res/images/enemys.png");
-		m_pixmap[2]= new QPixmap("../res/images/player.png");
 
-		TextureScene m_textureView(m_setting,m_pixmap,window->TextureView, window);
-		TextureScene m_enemyView(m_setting,m_pixmap,window->EnemieView, window);
-		TextureScene m_playerView(m_setting,m_pixmap,window->PlayerView, window);
+		m_pixmap[0]= new QPixmap(filename.mid(0,last+1)+line);
+		/**m_pixmap[1]= new QPixmap("../res/images/rocks.png");
+		m_pixmap[2]= new QPixmap("../res/images/enemys.png");
+		m_pixmap[3]= new QPixmap("../res/images/player.png");*/
+
+
 
 
 	  QStringList list;
@@ -73,38 +73,38 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	window->level_width->setText(QString::number(m_levelWidth));
 	window->level_height->setText(QString::number(m_levelHeight));
 
-	  
-	  
-	  // Alloc tile set memory
-	 /** m_tiles = new int*[m_levelHeight];
-	  for(int i = 0; i < m_levelHeight; i++)
-	    {
-		m_tiles[i] = new int[m_levelWidth];
-	    }
 
-	  
-	  int count=0;
-	  line = in.readLine();
-	  list = line.split(" ");
-	  // Read tile indices
-	  for(int i = 0; i < m_levelHeight; i++)
-	    {
-		for(int j = 0; j < m_levelWidth; j++)
+
+		// Alloc tile set memory
+		m_tiles = new int*[m_levelHeight];
+		for(int i = 0; i < m_levelHeight; i++)
 		{
-		  ///puts tile_id in m_tiles
-		  m_tiles[i][j] = list[count].toInt()-1;
-		  ///creates Qrect if m_tiles >=0
-		  if(m_tiles[i][j]>=0){
-		  QRect rect((m_tileOffset+m_tileWidth)*(m_tiles[i][j]%m_tilesPerRow),(m_tileOffset+m_tileHeight)*((int)(m_tiles[i][j]/m_tilesPerRow)),m_tileWidth,m_tileHeight);
-		  ///creates new GraphicsTileItem
-		  GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,m_tiles[i][j],0);
-		  ///sets Position of the rect and adds it to the scene
-		  item->setPos(m_tileWidth*j,m_tileHeight*i);
-		  this->addItem(item);
-		  }
-			count++;
+			m_tiles[i] = new int[m_levelWidth];
 		}
-	    }*/
+
+
+		int count=0;
+		line = in.readLine();
+		list = line.split(" ");
+		// Read tile indices
+		for(int i = 0; i < m_levelHeight; i++)
+		{
+			for(int j = 0; j < m_levelWidth; j++)
+			{
+				///puts tile_id in m_tiles
+				m_tiles[i][j] = list[count].toInt()-1;
+				///creates Qrect if m_tiles >=0
+				if(m_tiles[i][j]>=0){
+					QRect rect((m_tileWidth)*(m_tiles[i][j]%m_tilesPerRow),(m_tileHeight)*((int)(m_tiles[i][j]/m_tilesPerRow)),m_tileWidth,m_tileHeight);
+					///creates new GraphicsTileItem
+					GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,m_tiles[i][j],0);
+					///sets Position of the rect and adds it to the scene
+					item->setPos(m_tileWidth*j,m_tileHeight*i);
+					this->addItem(item);
+				}
+				count++;
+			}
+		}
 
 
 	}
@@ -123,6 +123,15 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	file.close();
 	///sets Scene
 	window->MainView->setScene(this);
+
+	TextureScene* m_textureView= new TextureScene(m_setting,window->TextureView, window);
+	TextureScene* m_enemyView= new TextureScene(m_setting,window->EnemieView, window);
+    TextureScene* m_playerView= new TextureScene(m_setting,window->PlayerView, window);
+	window->TextureView->setScene(m_textureView);
+	window->EnemieView->setScene(m_enemyView);
+	window->PlayerView->setScene(m_playerView);
+
+
 
 
 

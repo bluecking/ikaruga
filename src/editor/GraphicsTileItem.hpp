@@ -11,6 +11,7 @@ public:
     /// Constructor. Creates a sub-pixmap from tileset at position rect
     /// and stores the given index
 	GraphicsTileItem(QPixmap** tileset, const QRect& rect, int index,int type);
+	GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index);
     
     /// Constructor. Creartes an item with given color, width w and height h.
 	GraphicsTileItem(QColor* color, int w, int h);

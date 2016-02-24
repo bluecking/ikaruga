@@ -6,8 +6,14 @@
     /// and stores the given index
 GraphicsTileItem::GraphicsTileItem(QPixmap** tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
 {
-  this->setPixmap(tileset[type]->copy(rect));
-  m_index=index;
+    this->setPixmap(tileset[type]->copy(rect));
+    m_index=index;
+}
+
+GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index):QGraphicsPixmapItem()
+{
+    this->setPixmap(tileset->copy(rect));
+    m_index=index;
 }
     
     /// Constructor. Creartes an item with given color, width w and height h.

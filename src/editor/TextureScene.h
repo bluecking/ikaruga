@@ -25,10 +25,11 @@ public:
     /// Loads des Level with the given filenale nad
     /// Stores a pointer to it's main window in a
     /// class valiable.
-    TextureScene(Settings setting, QPixmap** pixmap, QGraphicsView* View, MainWindow* window);
+    TextureScene(Settings setting, QGraphicsView* View, MainWindow* window);
     TextureScene(){};
 
-    TextureScene operator=(TextureScene& other);
+    QGraphicsScene* getScene();
+
 protected:
     /// Is called whenever the mouse is pressend within
     /// the scene
