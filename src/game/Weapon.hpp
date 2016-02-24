@@ -7,6 +7,7 @@
 #ifndef JUMPER_WEAPON_HPP
 #define JUMPER_WEAPON_HPP
 
+#include <SDL_stdinc.h>
 #include "Vector.hpp"
 
 namespace jumper
@@ -27,6 +28,10 @@ namespace jumper
     protected:
         Game& m_game;
         Actor& m_actor;
+        Uint32 m_lastShoot;
+        float m_coolDown;
+
+        bool weaponReady();
     };
 } /* namespace jumper */
 

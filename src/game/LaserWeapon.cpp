@@ -11,6 +11,11 @@ namespace jumper
 {
     void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
+        if (!weaponReady())
+        {
+            return;
+        }
+
         Projectile* projectile = new Projectile(m_actor.getRenderer(), m_actor.getTexture(), m_actor.frameWidth(),
                                                 m_actor.frameHeight(), m_actor.numFrames());
 
