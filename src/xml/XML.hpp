@@ -132,20 +132,54 @@ public:
 
     void setItem(int position, Item item);
 
+    /**
+     * Get the current Levelname
+     * @return m_levelname
+     */
     std::string getLevelname() { return m_levelname;}
 
+    /**
+     * Get the current tileset
+     * @return m_tileset
+     */
     std::string getTileset() { return m_tileset;}
 
+    /**
+     * Get the current Background
+     * @return m_background
+     */
     Background getBackground() { return m_background;}
 
+    /**
+     * Get the Player
+     * @return m_player
+     */
     Player getPlayer() { return m_player;}
 
+    /**
+     * Get all Bots
+     * @return Vector wit all Bots
+     */
     std::vector<Bot> getBots() { return m_bots;}
 
+    /**
+     * Get the Bot at given number
+     * @param number Position of Bot
+     * @return Bot at position number
+     */
     Bot getBot(int number){ return m_bots[number]; }
 
+    /**
+     * Get all Items
+     * @return Vector with all Items
+     */
     std::vector<Item> getItems() { return m_items;}
 
+    /**
+     * Get the Item at given number
+     * @param number Position of Item
+     * @return Item at position number
+     */
     Item getItem(int number){ return m_items[number]; }
 
 private:
@@ -163,10 +197,10 @@ private:
     std::map<std::string, int> m_requiredAttributes;
 
     /**
- * Load XML game information into several structures.
- * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
- * @throw invalid_argument If xml file could not be accessed.
- */
+     * Load XML game information into several structures.
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
     void load();
 
     /**
