@@ -11,7 +11,7 @@
 #include <QGraphicsScene>
 
 #include "GraphicsTileItem.hpp"
-#include "../app/EditorMainWindow.hpp"
+#include "EditorMainWindow.hpp"
 
 class TilesetScene : public QGraphicsScene
 {

@@ -68,6 +68,7 @@ namespace jumper
 
     private:
         Vector2f m_moveDirection;
+        void updateMoveAnimation();
     };
 }
 
