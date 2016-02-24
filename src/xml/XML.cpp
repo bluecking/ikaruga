@@ -8,6 +8,7 @@ using std::string;
 using std::cout;
 using std::endl;
 using boost::property_tree::ptree;
+using boost::property_tree::xml_writer_make_settings;
 
 XML::XML(std::string xmlFilename)
 {
@@ -173,10 +174,10 @@ void XML::save()
     player_infos.put("stdWeapon", m_player.stdWeapon);
 
     player.put("<xmlattr>.filename", m_player.filename);
-    player.add_child("", player_infos);
+    //player.add_child("", player_infos);
 
-
-    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", player_infos, std::locale());
+    //boost::property_tree::xml_writer_settings< char > settings('\t', 1);
+    write_xml("/home/patrick/Git-Repositories/uni_hausaufgaben/praktikum1/res/levels/testXml.xml", player_infos, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 1u));
 //    player.add_child(player_infos)
 }
 
