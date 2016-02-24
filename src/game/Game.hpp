@@ -18,100 +18,110 @@
 #include "Collidable.hpp"
 
 #include <vector>
+
 using std::vector;
 
 namespace jumper
 {
 
-class MainWindow;
+    class MainWindow;
 
 /**
  * @brief 	Represents a game instance.
  */
-class Game
-{
-public:
+    class Game
+    {
+    public:
 
-	/// Constructor
-	Game(MainWindow* window);
+        /// Constructor
+        Game(MainWindow* window);
 
-	/// Destructor
-	virtual ~Game();
+        /// Destructor
+        virtual ~Game();
 
-	/// Sets the player object
-	void setPlayer(Player* player);
+        /// Sets the player object
+        void setPlayer(Player* player);
 
-	/// Sets the current level
-	void setLevel(Level* level);
+        /// Sets the current level
+        void setLevel(Level* level);
 
-	/// Gets the current Level
-	Level* getLevel();
+        /// Gets the current Level
+        Level* getLevel();
 
-	/// Adds a new bot to the scene
-	void addActor(Actor* actor);
+        /// Adds a new bot to the scene
+        void addActor(Actor* actor);
 
-	/// Updates the current state according to the given key states
-	void update(const Uint8*& currentKeyStates, const bool* keyDown);
+        /// Updates the current state according to the given key states
+        void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
-	/// Starts the game
-	void start();
+        /// Starts the game
+        void start();
 
-	/// Sets a layer for background rendering
-	void setLayer(TexturedLayer* layer) { m_layer = layer;}	;
+        /// Sets a layer for background rendering
+        void setLayer(TexturedLayer* layer)
+        { m_layer = layer; };
 
-	/// Adds a score board
-	void setScoreBoard(ScoreBoard* b) { m_scoreBoard = b;};
+        /// Adds a score board
+        void setScoreBoard(ScoreBoard* b)
+        { m_scoreBoard = b; };
 
-private:
+    private:
 
-	void moveActors();
-	void checkPlayerCollision();
-    void checkCameraCollision();
-	void removeActor(Actor* a);
+        void moveActors();
 
+        void checkPlayerCollision();
 
-	/**
-	 * Returns The time in seconds that has elapsed since the last frame.
-	 * @return The elapsed time.
-	 */
-	float getElapsedTime();
+        void checkCameraCollision();
 
-	/**
-	 * Moves the player and camera for a given offset (m_scrollingSpeed)
-	 */
-	void scrollHorizontal();
+        void removeActor(Actor* a);
 
-	float					m_startTicks;
+        /**
+         * Removes projectiles which are out of view.
+         */
+        void removeProjectiles();
 
-	/// All renderables in the game
-	vector<Renderable*> 	m_renderables;
+        /**
+         * Returns The time in seconds that has elapsed since the last frame.
+         * @return The elapsed time.
+         */
+        float getElapsedTime();
 
-	/// All actors
-	vector<Actor*>			m_actors;
+        /**
+         * Moves the player and camera for a given offset (m_scrollingSpeed)
+         */
+        void scrollHorizontal();
 
-	/// The user controlled player
-	Player*					m_player;
+        float m_startTicks;
 
-	/// The current level
-	Level*					m_level;
+        /// All renderables in the game
+        vector<Renderable*> m_renderables;
 
-	/// A Layer
-	TexturedLayer*			m_layer;
+        /// All actors
+        vector<Actor*> m_actors;
 
-	/// A score board
-	ScoreBoard*				m_scoreBoard;
+        /// The user controlled player
+        Player* m_player;
 
-	/// Pointer to the main window of the game
-	SDL_Renderer*			m_renderer;
+        /// The current level
+        Level* m_level;
 
-	/// Window width
-	int						m_windowWidth;
+        /// A Layer
+        TexturedLayer* m_layer;
 
-	/// Window height
-	int						m_windowHeight;
+        /// A score board
+        ScoreBoard* m_scoreBoard;
 
-	bool					m_started;
-};
+        /// Pointer to the main window of the game
+        SDL_Renderer* m_renderer;
+
+        /// Window width
+        int m_windowWidth;
+
+        /// Window height
+        int m_windowHeight;
+
+        bool m_started;
+    };
 
 } /* namespace jumper */
 

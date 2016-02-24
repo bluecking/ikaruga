@@ -19,18 +19,9 @@ namespace jumper
  * 			position and performs an animation. In contrast to
  * 			an AnimatedRenderable it can perform collision tests.
  */
-class Item: public jumper::Actor
+class Item: public Actor
 {
 public:
-
-
-	/**
-	 * Creates an Item for the given renderer from the given file
-	 *
-	 * @param renderer
-	 * @param filename
-	 */
-	Item(SDL_Renderer* renderer, std::string filename);
 
 	/**
 	 * Creates an Item.
