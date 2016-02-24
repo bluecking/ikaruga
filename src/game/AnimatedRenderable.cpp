@@ -66,7 +66,6 @@ namespace jumper
     AnimatedRenderable::~AnimatedRenderable()
     { }
 
-// XXX 3
     void AnimatedRenderable::nextFrame()
     {
         Uint32 ticks = SDL_GetTicks();
@@ -74,8 +73,6 @@ namespace jumper
 
         if (time > m_frameTimeout)
         {
-            m_currentTileRow = m_nextTileRow;
-
             // Check and increase frame counter
             if (m_currentFrame + 1 < m_numFrames)
             {
@@ -85,6 +82,9 @@ namespace jumper
             {
                 m_currentFrame = 0;
             }
+
+            // Render next tile row
+            m_currentTileRow = m_nextTileRow;
 
             // Setup source rect
             m_sourceRect.x = m_currentFrame * m_frameWidth;
@@ -101,5 +101,3 @@ namespace jumper
     }
 
 } /* namespace jumper */
-
-

@@ -5,25 +5,19 @@
 
 #include "Player.hpp"
 
-#include <iostream>
-
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
     Player::Player(SDL_Renderer* renderer, std::string filename)
-            : Actor(renderer, filename), m_moveDirection(0, 0)
-    { }
+            : Actor(renderer, filename), m_moveDirection(0, 0) { }
 
     Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
-    { }
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0) { }
 
-    // XXX 2
     void Player::move(Level& level)
     {
-        // XXX 3
         nextFrame();
         float dt = getElapsedTime();
         if (dt > 0)
@@ -44,13 +38,13 @@ namespace jumper
             if (physics().velocity().x() > physics().maxRunVelocity() * dt)
             {
                 physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-                                               physics().velocity().y()));
+                        physics().velocity().y()));
             }
 
             if (physics().velocity().x() < -physics().maxRunVelocity() * dt)
             {
                 physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-                                               physics().velocity().y()));
+                        physics().velocity().y()));
             }
 
             if (physics().velocity().y() > physics().maxRunVelocity() * dt)
@@ -67,39 +61,47 @@ namespace jumper
             physics().setPosition(physics().position() + physics().velocity());
 
             // Checks if the player moves up or down and updates the source rect
-            if(m_moveDirection.y() < 0) {
-                if(m_currentTileRow == 0) {
-                    m_nextTileRow = 1;
-                }
-
-                if(m_currentTileRow == 1){
-                    m_nextTileRow = 2;
-                }
-            }
-            else if(m_moveDirection.y() > 0) {
-                if(m_currentTileRow == 0) {
-                    m_nextTileRow = 3;
-                }
-                if(m_currentTileRow == 3) {
-                    m_nextTileRow = 4;
-                }
-            }
-            else {
-                m_nextTileRow = 0;
-            }
-
-
-            /*	// Move camera if player position exceeds window with / 2
-            m_camera.position().setX(position().x() - m_levelWidth / 2 + w());
-            if(m_camera.position().x() < 0)
-            {
-                m_camera.position().setX(0);
-            }*/
+            updateMoveAnimation();
 
             Collision c = level.resolveCollision(this);
-            //cout << c.delta() << endl;
         }
 
     }
 
+    void Player::updateMoveAnimation()
+    {
+        const char NORMAL = 0;
+        const char UPHALF = 1;
+        const char UPFULL = 2;
+        const char DOHALF = 3;
+        const char DOFULL = 4;
+
+        // Player moves up
+        if (getMoveDirection().y() < 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = UPHALF; break;
+                case DOHALF:     m_nextTileRow = NORMAL; break;
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                default:         m_nextTileRow = UPFULL;
+            }
+        } // Player moves down
+        else if (getMoveDirection().y() > 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = DOHALF; break;
+                case UPHALF:     m_nextTileRow = NORMAL; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = DOFULL;
+            }
+        } // Player does not move
+        else
+        {
+            switch(m_currentTileRow) {
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = NORMAL;
+            }
+        }
+    }
 }

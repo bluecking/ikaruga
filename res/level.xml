@@ -9,7 +9,7 @@
     <digitWidth>10</digitWidth>
     <digitHeight>10</digitHeight>
   </scoreBoard>
-  <player filename="images/player_combined_transparent_ordered_42x49.png">
+  <player filename="images/player_animated_42x49.png">
     <numFrames>1</numFrames>
     <frameWidth>42</frameWidth>
     <frameHeight>49</frameHeight>
