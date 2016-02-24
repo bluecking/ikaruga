@@ -108,6 +108,7 @@ namespace jumper
             scrollHorizontal();
             checkPlayerCollision();
             checkCameraCollision();
+            removeProjectiles();
 
             SDL_RenderClear(m_renderer);
 
@@ -277,5 +278,31 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
         return time;
+    }
+
+    void Game::removeProjectiles()
+    {
+        set<Actor*> to_remove;
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+        {
+            Actor* a = *it;
+
+            if (a->type() == PROJECTILE)
+            {
+                if (!a->visible())
+                {
+                    to_remove.insert(a);
+                    cout << "REMOVE" << endl;
+                }
+            }
+        }
+
+        // Remove actors that were killed in this loop. We have to
+        // store them separately because otherwise we would corrupt
+        // to loop structure
+        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+        {
+            removeActor(*i);
+        }
     }
 } /* namespace jumper */

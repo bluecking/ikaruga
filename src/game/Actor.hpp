@@ -26,7 +26,8 @@ namespace jumper
         PLATFORM,
         ITEM,
         PUZZLEBOX,
-        ACTOR
+        ACTOR,
+        PROJECTILE
     };
 
     namespace ColorMode
@@ -105,6 +106,11 @@ namespace jumper
 
         void setColor(const ColorMode::ColorMode& m_color)
         { Actor::m_color = m_color; }
+
+        /**
+         * Returns true, if the actor is visible (in camera rect)
+         */
+        bool visible();
 
     protected:
 

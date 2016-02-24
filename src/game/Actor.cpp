@@ -193,5 +193,25 @@ namespace jumper
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
 
     }
+
+    bool Actor::visible()
+    {
+        SDL_Rect myRect;
+        myRect.x = (int) position().x();
+        myRect.y = (int) position().y();
+        myRect.w = w();
+        myRect.h = h();
+
+        SDL_Rect otherRect;
+        otherRect.x = (int) m_camera.x();
+        otherRect.y = (int) m_camera.y();
+        otherRect.w = m_camera.w();
+        otherRect.h = m_camera.h();
+
+        SDL_Rect intersection;
+        SDL_IntersectRect(&myRect, &otherRect, &intersection);
+
+        return intersection.w > 0 && intersection.h > 0;
+    }
 } /* namespace jumper */
 
