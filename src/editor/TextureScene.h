@@ -46,6 +46,7 @@ private:
     int m_keyR;           // Key color r component
     int m_keyG;           // Key color g component
     int m_keyB;           // Key color b component
+    int m_type=0;
     std::string m_texFileName; // File name of the tile bitmap
     MainWindow* m_mainWindow; // Pointer to a main window
 

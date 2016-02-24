@@ -16,6 +16,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View, MainWindow* win
         m_numRows = 10;
         m_tileWidth = 40;
         m_tileHeight = 40;
+        m_type=2;
         std::cout<<"enemy"<<std::endl;
     }
     else if(View->objectName().toStdString() == "TextureView")
@@ -25,6 +26,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View, MainWindow* win
         m_numRows = 4;
         m_tileWidth = 40;
         m_tileHeight = 40;
+        m_type=1;
         std::cout<<"texture"<<std::endl;
     }
     else if(View->objectName().toStdString() == "PlayerView")
@@ -34,6 +36,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View, MainWindow* win
         m_numRows = 1;
         m_tileWidth = 40;
         m_tileHeight = 80;
+        m_type=3;
         std::cout<<"player"<<std::endl;
     }
 
@@ -54,12 +57,12 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View, MainWindow* win
 
             ///creates Qrect if m_tiles >=0
             if(tile_id>=0){
-                QRect rect(0,0,m_tileWidth,m_tileHeight);
+                QRect rect((m_tileWidth)*(tile_id%m_tilesPerRow),(m_tileHeight)*((int)(tile_id/m_tilesPerRow)),m_tileWidth,m_tileHeight);
                 ///creates new GraphicsTileItem
 
-                GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,tile_id);
+                GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,tile_id,m_type);
                 ///sets Position of the rect and adds it to the scene
-                item->setPos(0,0);
+                item->setPos(m_tileWidth*j,m_tileHeight*i);
 
                 std::cout<<count<<std::endl;
                 this->addItem(item);

@@ -30,6 +30,9 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
 private:  
   	int** m_tiles;        // The 2D tile array
+	int m_index=0;
+	int m_type=0;
+	QRect m_rect;
   	QPixmap** m_pixmap;    // A QPixmap to store the tile bitmap
 	int m_tileWidth;      // Width of the tiles
 	int m_tileHeight;     // Height of the tiles

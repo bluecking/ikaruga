@@ -44,9 +44,9 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 
 		m_pixmap[0]= new QPixmap(filename.mid(0,last+1)+line);
-		/**m_pixmap[1]= new QPixmap("../res/images/rocks.png");
-		m_pixmap[2]= new QPixmap("../res/images/enemys.png");
-		m_pixmap[3]= new QPixmap("../res/images/player.png");*/
+		m_pixmap[1]= new QPixmap(filename.mid(0,last+1)+"rocks.png");
+		m_pixmap[2]= new QPixmap(filename.mid(0,last+1)+"enemys.png");
+		m_pixmap[3]= new QPixmap(filename.mid(0,last+1)+"player.png");
 
 
 
@@ -140,11 +140,26 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
+
+
+
 	QGraphicsItem *item;
 	item = itemAt(event->scenePos()); //Get the item at the position
 	GraphicsTileItem *gItem=dynamic_cast<GraphicsTileItem*>(item);
-	if (item) //If there is an item at that position
+
+	if(gItem->getWindowType())
 	{
-		std::cout<<gItem->getIndex()<<std::endl;
+		if (item) //If there is an item at that position
+		{
+			gItem->changeItem(m_type,m_rect,m_index);
+			m_mainWindow->MainView->setScene(this);
+		}
 	}
+	else if(item) //If there is an item at that position
+	{
+		m_index = gItem->getIndex();
+		m_type  = gItem->getType();
+		m_rect	= gItem->getRect();
+	}
+
 }
