@@ -129,7 +129,7 @@ private:
 	int					m_levelHeight;
 
 
-	std::vector<TileType>			m_TileTypes;
+	std::vector<TileType>			m_tileTypes;
 
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;

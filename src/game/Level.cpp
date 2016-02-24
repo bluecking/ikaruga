@@ -77,6 +77,44 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	}
 
 	in.close();
+
+	string texFileTileInfo = texFileName.substr(0, texFileName.find_last_of("."));
+
+	texFileTileInfo += ".ti";
+
+	texFileTileInfo = path + "/" + texFileTileInfo;
+	
+	std::ifstream inTileInfo(texFileTileInfo.c_str());
+
+	if (inTileInfo.good())
+	{
+
+	for(int i = 0; i < m_numRows; i++)
+	{
+		for(int j = 0; j < m_tilesPerRow; j++)
+		{
+
+			int tileType = 0;
+
+			inTileInfo >> tileType;
+
+			m_tileTypes.push_back((TileType) tileType);
+
+		}
+
+	}
+		
+
+
+
+	}
+	else
+	{
+		std::cout << "Unable to open file " << texFileTileInfo << std::endl;
+	}
+
+	inTileInfo.close();
+
 }
 
 
