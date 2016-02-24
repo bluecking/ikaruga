@@ -216,22 +216,26 @@ namespace jumper
         bottomBorder = Renderable::m_camera.y() + Renderable::m_camera.h() - borderOffsetInPixel;
 
         // Player leaves top border of the camera
-        if(m_player->position().y() <= topBorder) {
+        if (m_player->position().y() <= topBorder)
+        {
             m_player->setPosition(Vector2f(m_player->position().x(), topBorder));
         }
 
         // Player leaves left border of the camera
-        if(m_player->position().x() <= leftBorder) {
+        if (m_player->position().x() <= leftBorder)
+        {
             m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
         }
 
         // Player leaves right border of the camera
-        if(m_player->position().x() + m_player->w() >= rightBorder) {
+        if (m_player->position().x() + m_player->w() >= rightBorder)
+        {
             m_player->setPosition(Vector2f(rightBorder - m_player->w(), m_player->position().y()));
         }
 
         // Player leaves bottom border of the camera
-        if(m_player->position().y() + m_player->h() >= bottomBorder) {
+        if (m_player->position().y() + m_player->h() >= bottomBorder)
+        {
             m_player->setPosition(Vector2f(m_player->position().x(), bottomBorder - m_player->h()));
         }
     }

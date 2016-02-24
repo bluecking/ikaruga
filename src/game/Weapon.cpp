@@ -9,7 +9,7 @@
 namespace jumper
 {
     Weapon::Weapon(Game& game, Actor& actor)
-    : m_game(game), m_actor(actor)
+            : m_game(game), m_actor(actor)
     {
 
     }
