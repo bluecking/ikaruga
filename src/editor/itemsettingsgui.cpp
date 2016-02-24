@@ -50,37 +50,17 @@ ItemSettingsGui::ItemSettingsGui(Player *player,QWidget *parent) : ItemSettingsG
 }
 ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(parent)
 {
-    /*
-    class NPC{
-        public:
-            std::string type;
-            std::string move_function;
-            signed int move_value;
-            unsigned int fireRate;
-            signed int speed;
-            std::string weapon_type;
-            unsigned int weapon_level;
-    };
-    Bot();
-    std::string filename;
-    int frameWidth;
-    int frameHeight;
-    int tileID;
-    int positionX;
-    int positionY;
-    NPC npc;
-    std::string color;*/
     this->bot=bot;
     QHBoxLayout *filename=new QHBoxLayout();
     QHBoxLayout *frame=new QHBoxLayout();
     QHBoxLayout *tile=new QHBoxLayout();
     QHBoxLayout *position=new QHBoxLayout();
     QHBoxLayout *color=new QHBoxLayout();
-    QHBoxLayout *npc_type=new QHBoxLayout();
-    QHBoxLayout *npc_move_function=new QHBoxLayout();
-    QHBoxLayout *npc_move_value=new QHBoxLayout();
-    QHBoxLayout *npc_fireRate=new QHBoxLayout();
-    QHBoxLayout *npc_speed=new QHBoxLayout();
+    QHBoxLayout *npc_type=new QHBoxLayout(); //NORMAL,BOSS
+    QHBoxLayout *npc_move_function=new QHBoxLayout(); //NO_MOVE,SIN,SIN_UP,SIN_DOWN
+    QHBoxLayout *npc_move_value=new QHBoxLayout();//0-100 QSpinBox setMaximum/setMinimum/value
+    QHBoxLayout *npc_fireRate=new QHBoxLayout();//?
+    QHBoxLayout *npc_speed=new QHBoxLayout();//0=Mit Karte -x=entgegen 100=gleichschnell (max)
     QHBoxLayout *npc_weapon_type=new QHBoxLayout();
     QHBoxLayout *npc_weapon_level=new QHBoxLayout();
     QLabel *x=new QLabel("Filename:");
@@ -113,11 +93,68 @@ ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(par
     color->addWidget(x);
     x=new QLabel(QString::fromUtf8(bot->color.c_str()));
     color->addWidget(x);
+    x=new QLabel("BotType:");
+    npc_type->addWidget(x);
+    QComboBox *types=new QComboBox();
+    types->addItem(QString::fromUtf8(bot->npc->type.c_str()));
+    types->addItem("Normal");
+    types->addItem("Boss");
+    npc_type->addWidget(types);
+    x=new QLabel("Move Function:");
+    npc_move_function->addWidget(x);
+    QComboBox *move_func=new QComboBox();
+    move_func->addItem(QString::fromUtf8(bot->npc->type.c_str()));
+    move_func->addItem("NO_MOVE");
+    move_func->addItem("SIN");
+    move_func->addItem("SIN_UP");
+    move_func->addItem("SIN_DOWN");
+    npc_move_function->addWidget(move_func);
+    x=new QLabel("Move Value:");
+    npc_move_value->addWidget(x);
+    QSpinBox *move_value=new QSpinBox();
+    move_value->setMinimum(0);
+    move_value->setMaximum(100);
+    move_value->setValue(bot->npc->move_value);
+    npc_move_value->addWidget(move_value);
+    x=new QLabel("Firerate:");
+    npc_fireRate->addWidget(x);
+    QSpinBox *firerate=new QSpinBox();
+    firerate->setMinimum(0.2);
+    firerate->setMaximum(10);
+    firerate->setValue(bot->npc->fireRate);
+    npc_fireRate->addWidget(firerate);
+    x=new QLabel("Movespeed:");
+    npc_speed->addWidget(x);
+    QSpinBox *speed=new QSpinBox();
+    speed->setMinimum(-100);
+    speed->setMaximum(100);
+    speed->setValue(bot->npc->speed);
+    npc_speed->addWidget(speed);
+    x=new QLabel("Weapon Type:");
+    npc_weapon_type->addWidget(x);
+    QComboBox *weapon_type=new QComboBox();
+    weapon_type->addItem(QString::fromUtf8(bot->npc->weapon_type.c_str()));
+    weapon_type->addItem("LaserWeapon");
+    npc_weapon_type->addWidget(weapon_type);
+    x=new QLabel("Weapon Level:");
+    npc_weapon_level->addWidget(x);
+    QSpinBox *level=new QSpinBox();
+    level->setMinimum(1);
+    level->setMaximum(1);
+    level->setValue(QString::number(bot->npc->weapon_level));
+    npc_weapon_level->addWidget(level);
     ui->VertOptions->addItem(filename);
     ui->VertOptions->addItem(frame);
     ui->VertOptions->addItem(tile);
     ui->VertOptions->addItem(position);
     ui->VertOptions->addItem(color);
+    ui->VertOptions->addItem(npc_fireRate);
+    ui->VertOptions->addItem(npc_move_function);
+    ui->VertOptions->addItem(npc_move_value);
+    ui->VertOptions->addItem(npc_speed);
+    ui->VertOptions->addItem(npc_type);
+    ui->VertOptions->addItem(npc_weapon_level);
+    ui->VertOptions->addItem(npc_weapon_type);
 }
 ItemSettingsGui::ItemSettingsGui(Item *item,QWidget *parent) : ItemSettingsGui(parent)
 {
