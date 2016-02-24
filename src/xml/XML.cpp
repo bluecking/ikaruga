@@ -160,24 +160,69 @@ void XML::save()
     //TODO implement and exception handling
     ptree root;
     ptree level;
+    ptree tileset;
+    ptree background;
     ptree player;
-    ptree player_infos;
 
-//    player.add_child("frameWidth", m_player.frameWidth);
-//    player.add_child("frameHeight", m_player.frameHeight);
-//    player.add_child("positionY", m_player.positionY);
-//    player.add_child("stdWeapon", m_player.stdWeapon);
-    player_infos.put("frameWidth", m_player.frameWidth);
-    player_infos.put("frameHeight", m_player.frameHeight);
-    player_infos.put("positionY", m_player.positionY);
-    player_infos.put("stdWeapon", m_player.stdWeapon);
+    /* Adding Level Information */
+    level.put("id", m_id);
+    level.put("name", m_levelname);
 
+    /* Adding Tileset */
+    tileset.put("<xmlattr>.filename", m_tileset);
+
+    /* Adding Background */
+    background.put("<xmlattr>.filename", m_background.filename);
+    background.put("scrollspeed", m_background.scrollspeed);
+
+    /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
-    player.add_child("", player_infos);
+    player.put("frameWidth", m_player.frameWidth);
+    player.put("frameHeight", m_player.frameHeight);
+    player.put("positionY", m_player.positionY);
+    player.put("stdWeapon", m_player.stdWeapon);
 
+    /* Adding Bots */
+    for(int i=0;i<(int) m_bots.size();i++) {
+        ptree bot, npc, move, weapon;
+        bot.put("<xmlattr>.filename", m_bots[i].filename);
+        bot.put("frameWidth", m_bots[i].frameWidth);
+        bot.put("frameHeight", m_bots[i].frameHeight);
+        bot.put("tileID", m_bots[i].tileID);
+        bot.put("positionX", m_bots[i].positionX);
+        bot.put("positionY", m_bots[i].positionY);
+        bot.put("color", m_bots[i].color);
 
-    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", player_infos, std::locale());
-//    player.add_child(player_infos)
+        npc.put("<xmlattr>.type", m_bots[i].npc.type);
+//        npc.put("frameWidth", m_bots[i].frameWidth);
+//        npc.put("frameHeight", m_bots[i].frameHeight);
+//        npc.put("tileID", m_bots[i].tileID);
+
+        bot.add_child("npc", npc);
+        level.add_child("bot", bot);
+    }
+
+    /* Adding Items */
+    for(int i=0;i<(int) m_items.size();i++) {
+        ptree item;
+        item.put("<xmlattr>.filename", m_items[i].filename);
+        item.put("frameWidth", m_items[i].frameWidth);
+        item.put("frameHeight", m_items[i].frameHeight);
+        item.put("positionX", m_items[i].positionX);
+        item.put("positionY", m_items[i].positionY);
+        item.put("type", m_items[i].type);
+
+        level.add_child("item", item);
+    }
+
+    /* Creating XML-Tree */
+    level.add_child("tileset", tileset);
+    level.add_child("background", background);
+    level.add_child("player", player);
+
+    /* Setting up XML-Tree with root-Node */
+    root.add_child("level", level);
+    write_xml("/home/skalbers/Studium/GITHUB_Praktikum/res/levels/testXml.xml", root, std::locale());
 }
 
 
