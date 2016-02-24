@@ -2,6 +2,8 @@
 #define ITEMSETTINGSGUI_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QComboBox>
 #include "bot.h"
 #include "item.h"
 #include "player.h"
@@ -26,9 +28,9 @@ private slots:
 
 private:
     Ui::ItemSettingsGui *ui;
-    //Player* player;
-    //Bot* bot;
-    //Item* item;
+    Player* player;
+    Bot* bot;
+    Item* item;
 };
 
 #endif // ITEMSETTINGSGUI_H

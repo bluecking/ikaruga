@@ -22,15 +22,15 @@
      <height>281</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="VertMain">
     <property name="sizeConstraint">
      <enum>QLayout::SetMaximumSize</enum>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     <layout class="QVBoxLayout" name="VertOptions"/>
     </item>
     <item>
-     <spacer name="verticalSpacer">
+     <spacer name="VertSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -43,7 +43,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QDialogButtonBox" name="buttonBox">
+     <widget class="QDialogButtonBox" name="ButtonOption">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
