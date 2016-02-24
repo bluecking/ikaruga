@@ -48,7 +48,6 @@ namespace jumper
     void Bot::move(Level &level)
     {
         nextFrame();
-        this->takeDamage(1);
         switch (m_move_type)
         {
             case BotType::NO_MOVE:
