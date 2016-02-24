@@ -194,10 +194,13 @@ void XML::save()
         bot.put("color", m_bots[i].color);
 
         npc.put("<xmlattr>.type", m_bots[i].npc.type);
-//        npc.put("frameWidth", m_bots[i].frameWidth);
-//        npc.put("frameHeight", m_bots[i].frameHeight);
-//        npc.put("tileID", m_bots[i].tileID);
+        move.put("<xmlattr>.function", m_bots[i].npc.move_function);
+//        move.put("function", m_bots[i].npc.move_function);
+        npc.put("fireRate", m_bots[i].npc.fireRate);
+        npc.put("speed", m_bots[i].npc.speed);
+        move.put("<xmlattr>.function", m_bots[i].npc.move_function);
 
+        npc.add_child("move", move);
         bot.add_child("npc", npc);
         level.add_child("bot", bot);
     }
