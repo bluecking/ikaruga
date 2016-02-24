@@ -16,17 +16,6 @@ using std::endl;
 
 namespace jumper
 {
-
-    Actor::Actor(SDL_Renderer* renderer, std::string filename)
-            : AnimatedRenderable(renderer, filename)
-    {
-        m_focus = false;
-        m_physicalProps.setPosition(Vector2f(100, 0));
-        m_startTicks = 0;
-        m_numFrames = 1;
-        m_type = ACTOR;
-    }
-
     Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {
@@ -34,6 +23,11 @@ namespace jumper
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
         m_type = ACTOR;
+
+        //TODO: this should not be hardcoded
+        m_health = 100;
+
+        m_spawnTime = SDL_GetTicks();
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -56,6 +50,13 @@ namespace jumper
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
+        return time;
+    }
+
+    float Actor::getLiveTime()
+    {
+        Uint32 ticks = SDL_GetTicks();
+        float time = (ticks - m_spawnTime) / 1000.0;
         return time;
     }
 
@@ -203,6 +204,36 @@ namespace jumper
     {
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
 
+    }
+
+    bool Actor::visible()
+    {
+        SDL_Rect myRect;
+        myRect.x = (int) position().x();
+        myRect.y = (int) position().y();
+        myRect.w = w();
+        myRect.h = h();
+
+        SDL_Rect otherRect;
+        otherRect.x = (int) m_camera.x();
+        otherRect.y = (int) m_camera.y();
+        otherRect.w = m_camera.w();
+        otherRect.h = m_camera.h();
+
+        SDL_Rect intersection;
+        SDL_IntersectRect(&myRect, &otherRect, &intersection);
+
+        return intersection.w > 0 && intersection.h > 0;
+    }
+
+    int Actor::getHealth()
+    {
+        return m_health;
+    }
+
+    void Actor::takeDamage(int damage)
+    {
+        this->m_health-=damage;
     }
 } /* namespace jumper */
 

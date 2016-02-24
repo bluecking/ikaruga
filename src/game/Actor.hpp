@@ -26,7 +26,8 @@ namespace jumper
         PLATFORM,
         ITEM,
         PUZZLEBOX,
-        ACTOR
+        ACTOR,
+        PROJECTILE
     };
 
     namespace ColorMode
@@ -53,8 +54,6 @@ namespace jumper
          * @param renderer		A pointer to a SDL renderer struct
          * @param filename		A filename with animation definitions
          */
-        Actor(SDL_Renderer* renderer, std::string filename);
-
         Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         virtual ~Actor();
@@ -84,8 +83,6 @@ namespace jumper
          */
         PlayerProperty& physics();
 
-        void start(Level& level);
-
         void setFocus(bool focus);
 
         bool hasFocus();
@@ -104,14 +101,33 @@ namespace jumper
 
         void toggleColor();
 
+        const ColorMode::ColorMode& getColor() const
+        { return m_color; }
+
+        void setColor(const ColorMode::ColorMode& m_color)
+        { Actor::m_color = m_color; }
+
+        /**
+         * Returns true, if the actor is visible (in camera rect)
+         */
+        bool visible();
+
+        void takeDamage(int damage);
+
+        int getHealth();
+
     protected:
 
         float getElapsedTime();
+
+        float getLiveTime();
 
         /// The physical properties of the player
         PlayerProperty m_physicalProps;
 
         Uint32 m_startTicks;
+
+        Uint32 m_spawnTime;
 
         bool m_focus;
 
@@ -120,6 +136,10 @@ namespace jumper
         ColorMode::ColorMode m_color;
 
         Vector2f m_colorOffset;
+
+        int     m_health;
+
+
     };
 
 } /* namespace jumper */

@@ -78,6 +78,12 @@ namespace jumper
                 m_player->toggleColor();
             }
 
+            // react to shoot
+            if (currentKeyStates[SDL_SCANCODE_SPACE])
+            {
+                m_player->shoot();
+            }
+
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
@@ -102,6 +108,7 @@ namespace jumper
             scrollHorizontal();
             checkPlayerCollision();
             checkCameraCollision();
+            removeProjectiles();
 
             SDL_RenderClear(m_renderer);
 
@@ -143,6 +150,10 @@ namespace jumper
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
             Actor* a = *it;
+            if(a->getHealth() <= 0 )
+            {
+                to_remove.insert(a);
+            }
 
             // Check for self collision
             if (a != m_player)
@@ -210,22 +221,26 @@ namespace jumper
         bottomBorder = Renderable::m_camera.y() + Renderable::m_camera.h() - borderOffsetInPixel;
 
         // Player leaves top border of the camera
-        if(m_player->position().y() <= topBorder) {
+        if (m_player->position().y() <= topBorder)
+        {
             m_player->setPosition(Vector2f(m_player->position().x(), topBorder));
         }
 
         // Player leaves left border of the camera
-        if(m_player->position().x() <= leftBorder) {
+        if (m_player->position().x() <= leftBorder)
+        {
             m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
         }
 
         // Player leaves right border of the camera
-        if(m_player->position().x() + m_player->w() >= rightBorder) {
+        if (m_player->position().x() + m_player->w() >= rightBorder)
+        {
             m_player->setPosition(Vector2f(rightBorder - m_player->w(), m_player->position().y()));
         }
 
         // Player leaves bottom border of the camera
-        if(m_player->position().y() + m_player->h() >= bottomBorder) {
+        if (m_player->position().y() + m_player->h() >= bottomBorder)
+        {
             m_player->setPosition(Vector2f(m_player->position().x(), bottomBorder - m_player->h()));
         }
     }
@@ -267,5 +282,30 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
         return time;
+    }
+
+    void Game::removeProjectiles()
+    {
+        set<Actor*> to_remove;
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+        {
+            Actor* a = *it;
+
+            if (a->type() == PROJECTILE)
+            {
+                if (!a->visible())
+                {
+                    to_remove.insert(a);
+                }
+            }
+        }
+
+        // Remove actors that were killed in this loop. We have to
+        // store them separately because otherwise we would corrupt
+        // to loop structure
+        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+        {
+            removeActor(*i);
+        }
     }
 } /* namespace jumper */
