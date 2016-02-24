@@ -11,6 +11,7 @@
 #include <string>
 #include <SDL.h>
 
+#include <vector>
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
 #include "SparseMatrix.hpp"
@@ -88,7 +89,8 @@ private:
 
 	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
-	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, Vector2i *tiles);
+	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles);
+	void collide(Actor* a, Vector2f move);
 
 
 	/// Tile width

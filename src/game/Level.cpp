@@ -88,12 +88,12 @@ void Level::render()
 ////////////////// for testing only dont forget to remove
 
 
-Vector2i temp[8];
+std::vector<Vector2i> temp;
 
-getSurroundingRelevantTiles(Vector2f(210, 210), TUP, 40, 40, temp);
+getSurroundingRelevantTiles(Vector2f(210, 210), TUP, 40, 40, &temp);
 
 
-for (int temp2 = 0; temp2 < 8; temp2++)
+for (Vector2i & temp2 : temp)
 {
 
 SDL_Rect target_TEMP;
@@ -106,11 +106,11 @@ SDL_Rect target_TEMP;
                 source_TEMP.w = m_tileWidth;
                 source_TEMP.h = m_tileHeight;
 
-target_TEMP.x = temp[temp2].x();
-target_TEMP.y = temp[temp2].y();
+target_TEMP.x = temp2.x();
+target_TEMP.y = temp2.y();
 
 
-std::cout << temp[temp2] << std::endl;
+std::cout << temp2 << std::endl;
 
 
 
@@ -216,37 +216,8 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *t
 
 }
 
-void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, Vector2i *tiles)
+void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles)
 {
-    /* Determine x and y position of the sprite within the grid */
-    // Vector2i gridPos(floor((pos.x() + 0.5 * width) / m_tileWidth), floor((pos.y() + 0.5 * height) / m_tileHeight));
-
-    /* Get the surrounding tiles in "priority" order, i.e., we want
-     * check some collisions like left before we check the others
-     */
-    /*tiles[0].setX(gridPos.x() - 1);
-    tiles[0].setY(gridPos.y() - 1);
-
-    tiles[1].setX(gridPos.x());
-    tiles[1].setY(gridPos.y() - 1);
-
-    tiles[2].setX(gridPos.x() + 1);
-    tiles[2].setY(gridPos.y() - 1);
-
-    tiles[3].setX(gridPos.x() - 1);
-    tiles[3].setY(gridPos.y());
-
-    tiles[4].setX(gridPos.x() + 1);
-    tiles[4].setY(gridPos.y());
-
-    tiles[5].setX(gridPos.x() - 1);
-    tiles[5].setY(gridPos.y() + 1);
-
-    tiles[6].setX(gridPos.x());
-    tiles[6].setY(gridPos.y() + 1);
-
-    tiles[7].setX(gridPos.x() + 1);
-    tiles[7].setY(gridPos.y() + 1);*/
 
 	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
 
@@ -254,6 +225,8 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 	int cleanY = (( ((int) pos.y()) % ((int) m_tileHeight)) == 0) ? 1 : 0 ;
 	int sizeX = width / m_tileWidth + 1;
 	int sizeY = height / m_tileHeight + 1;
+
+	Vector2i tile;
 
 	if (direction == TUP)
 	{
@@ -263,8 +236,10 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 		for (int x = 0; x < sizeX + cleanX; x++)
 		{
 
-			tiles[x].setX(posInGrid.x() + x);
-			tiles[x].setY(posInGrid.y());
+			tile.setX(posInGrid.x() + x);
+			tile.setY(posInGrid.y());
+
+			tiles->push_back(tile);
 
 		}
 
@@ -277,8 +252,10 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 		for (int x = 0; x < sizeX + cleanX; x++)
 		{
 
-			tiles[x].setX(posInGrid.x() + x);
-			tiles[x].setY(posInGrid.y());
+			tile.setX(posInGrid.x() + x);
+			tile.setY(posInGrid.y());
+
+			tiles->push_back(tile);
 
 		}
 
@@ -291,8 +268,10 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 		for (int y = 0; y < sizeY + cleanY; y++)
 		{
 
-			tiles[y].setX(posInGrid.x());
-			tiles[y].setY(posInGrid.y() + y);
+			tile.setX(posInGrid.x());
+			tile.setY(posInGrid.y() + y);
+
+			tiles->push_back(tile);
 
 		}
 
@@ -305,8 +284,10 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 		for (int y = 0; y < sizeY + cleanY; y++)
 		{
 
-			tiles[y].setX(posInGrid.x());
-			tiles[y].setY(posInGrid.y() + y);
+			tile.setX(posInGrid.x());
+			tile.setY(posInGrid.y() + y);
+
+			tiles->push_back(tile);
 
 		}
 
