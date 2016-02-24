@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <algorithm>
 using std::cout;
 using std::endl;
 
@@ -44,7 +45,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 		in >> m_tileWidth >> m_tileHeight >> m_tilesPerRow >> m_numRows;
 		in >> m_tileOffset;
 		in >> m_levelWidth;
-		m_levelHeight = 576 / m_tileHeight;
+		m_levelHeight = m_camera.h() / m_tileHeight;
 	}
 	else
 	{
@@ -77,6 +78,36 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	}
 
 	in.close();
+
+	string texFileTileInfo = texFileName.substr(0, texFileName.find_last_of("."));
+
+	texFileTileInfo += ".ti";
+
+	texFileTileInfo = path + "/" + texFileTileInfo;
+	
+	std::ifstream inTileInfo(texFileTileInfo.c_str());
+
+	m_tileTypes.push_back(NONSOLID); // for id=0
+
+	if (inTileInfo.good())
+	{
+		for(int i = 0; i < m_numRows; i++)
+		{
+			for(int j = 0; j < m_tilesPerRow; j++)
+			{
+				int tileType = 0;
+				inTileInfo >> tileType;
+				m_tileTypes.push_back((TileType) tileType);
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Unable to open file " << texFileTileInfo << std::endl;
+	}
+
+	inTileInfo.close();
+
 }
 
 
@@ -84,6 +115,7 @@ void Level::render()
 {
 	if(getRenderer() && m_texture)
 	{
+
 		int i;
 		int j;
 		int tile_index;
@@ -108,7 +140,7 @@ void Level::render()
 				{
 					//Compute the position of the target on the screen
 					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y() + 576 % m_tileHeight;
+					target.y = i * m_tileHeight - m_camera.y() + m_camera.h() % m_tileHeight;
 
 					// Don't render tiles outside the frustrum. To prevent popping,
 					// add some extra margin
@@ -176,7 +208,168 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *t
     tiles[7].setX(gridPos.x() + 1);
     tiles[7].setY(gridPos.y() + 1);
 
+
 }
+
+void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles)
+{
+
+	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
+	Vector2i posInGridEnd(floor((pos.x() - 1 + width) / m_tileWidth), floor((pos.y() - 1 + height) / m_tileHeight));
+
+	int sizeX = posInGridEnd.x() - posInGrid.x() + 1;
+	int sizeY = posInGridEnd.y() - posInGrid.y() + 1;
+
+	Vector2i tile;
+
+	if (direction == TUP)
+	{
+		posInGrid -= Vector2i(0, 1);
+
+		for (int x = 0; x < sizeX; x++)
+		{
+			tile.setX(posInGrid.x() + x);
+			tile.setY(posInGrid.y());
+
+			tiles->push_back(tile);
+		}
+	}
+	else if (direction == TDOWN)
+	{
+		posInGrid += Vector2i(0, sizeY);
+
+		for (int x = 0; x < sizeX; x++)
+		{
+			tile.setX(posInGrid.x() + x);
+			tile.setY(posInGrid.y());
+
+			tiles->push_back(tile);
+		}
+	}
+	else if (direction == TLEFT)
+	{
+		posInGrid -= Vector2i(1, 0);
+
+		for (int y = 0; y < sizeY; y++)
+		{
+			tile.setX(posInGrid.x());
+			tile.setY(posInGrid.y() + y);
+
+			tiles->push_back(tile);
+		}
+	}
+	else if (direction == TRIGHT)
+	{
+		posInGrid += Vector2i(sizeX, 0);
+
+		for (int y = 0; y < sizeY; y++)
+		{
+			tile.setX(posInGrid.x());
+			tile.setY(posInGrid.y() + y);
+
+			tiles->push_back(tile);
+		}
+	}
+}
+
+
+Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
+{
+	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
+
+	float x = move.x();
+	float y = move.y();
+
+	std::vector<Vector2i> tiles;
+
+	if (x != 0)
+	{
+		if (x > 0)
+		{
+			getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
+						x = std::min(x, maxMov);
+
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			getSurroundingRelevantTiles(pos, TLEFT, width, height, &tiles);
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
+						x = std::max(x, maxMov);
+
+						break;
+					}
+				}
+			}
+		}
+	}
+
+
+	tiles.clear();
+	pos += Vector2f(x, 0);
+
+
+	if (y != 0)
+	{
+		if (y> 0)
+		{
+			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
+						y = std::min(y, maxMov);
+
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
+						y = std::max(y, maxMov);
+
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	return Vector2f(x, y);
+}
+
 
 int Level::levelHeight() const
 {
