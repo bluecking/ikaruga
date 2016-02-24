@@ -86,6 +86,8 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	
 	std::ifstream inTileInfo(texFileTileInfo.c_str());
 
+	m_tileTypes.push_back(NONSOLID); // for id=0
+
 	if (inTileInfo.good())
 	{
 
