@@ -97,7 +97,10 @@ ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(par
     frame->addWidget(x);
     x=new QLabel(QString::number(bot->frameHeight));
     frame->addWidget(x);
-    //
+    x=new QLabel("TileID:");
+    tile->addWidget(x);
+    x=new QLabel(QString::number(bot->tileID));
+    tile->addWidget(x);
     x=new QLabel("Position:");
     position->addWidget(x);
     x=new QLabel(QString::number(item->positionX));
@@ -106,18 +109,15 @@ ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(par
     frame->addWidget(x);
     x=new QLabel(QString::number(item->positionY));
     frame->addWidget(x);
-    x=new QLabel("Type:");
-    type->addWidget(x);
-    QComboBox *types=new QComboBox();
-    types->addItem(QString::fromUtf8(player->stdWeapon.c_str()));
-    types->addItem("Waffe 1");
-    types->addItem("Waffe 2");
-    types->addItem("Waffe 3");
-    type->addWidget(types);
+    x=new QLabel("Color:");
+    color->addWidget(x);
+    x=new QLabel(QString::fromUtf8(bot->color.c_str()));
+    color->addWidget(x);
     ui->VertOptions->addItem(filename);
     ui->VertOptions->addItem(frame);
+    ui->VertOptions->addItem(tile);
     ui->VertOptions->addItem(position);
-    ui->VertOptions->addItem(type);
+    ui->VertOptions->addItem(color);
 }
 ItemSettingsGui::ItemSettingsGui(Item *item,QWidget *parent) : ItemSettingsGui(parent)
 {
@@ -193,6 +193,7 @@ void ItemSettingsGui::on_ButtonOption_accepted()
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(3));
         item->type=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
     }
+    this->~ItemSettingsGui();
 }
 
 void ItemSettingsGui::on_ButtonOption_rejected()
