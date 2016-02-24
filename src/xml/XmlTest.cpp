@@ -69,6 +69,14 @@ int main(int argc, char** argv)
         << "Bot - NPC - weapon_type: " << b1.npc.weapon_type << endl
         << "Bot - NPC - weapon_level: " << b1.npc.weapon_level;
 
+    XML::Player player = m_xml.getPlayer();
+    std::cout << std::endl << std::endl << "Change players stdWeapon from " << player.stdWeapon << " to sword." << std::endl;
+    player.stdWeapon = "sword";
+    m_xml.setPlayer(player);
+    XML::Bot bot = m_xml.getBot(0);
+    std::cout << std::endl << "Change bot[0] color from " << bot.color << " to magenta." << std::endl;
+    bot.color = "magenta";
+    m_xml.setBot(0, bot);
     m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
 }
