@@ -9,8 +9,12 @@
 
 namespace jumper
 {
-    Weapon::Weapon(Game& game, Actor& actor)
-            : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(0.2f)
+    Weapon::Weapon(Game& game, Actor& actor, SDL_Texture* projectileTexture, const Vector2i& projectileTextureSize,
+                   const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown)
+            : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
+              m_projectileTexture(projectileTexture),
+              m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
+              m_projectileColorOffset(projectileColorOffset)
     {
 
     }

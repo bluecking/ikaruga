@@ -11,18 +11,27 @@
 
 namespace jumper
 {
+    /**
+     * @brief Represents an armed object which has a weapon. With the weapon it's able to shoot projectiles to
+     * a configured direction.
+     */
     class Armed
     {
     public:
         Armed();
+
         virtual ~Armed();
 
+        /**
+         * Shoots projectiles
+         */
         virtual void shoot() = 0;
 
         void setWeapon(Weapon* weapon)
         { m_weapon = weapon; }
 
     protected:
+        // The weapon
         Weapon* m_weapon;
     };
 }

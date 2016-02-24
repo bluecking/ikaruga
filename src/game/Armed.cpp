@@ -10,12 +10,8 @@ namespace jumper
 {
     Armed::Armed()
             : m_weapon(0)
-    {
-
-    }
+    { }
 
     Armed::~Armed()
-    {
-
-    }
+    { }
 }
