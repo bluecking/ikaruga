@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QLabel>
 #include <QComboBox>
+#include <QSpinBox>
 #include "bot.h"
 #include "item.h"
 #include "player.h"
