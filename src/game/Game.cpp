@@ -143,7 +143,10 @@ namespace jumper
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
             Actor* a = *it;
-
+            if(a->getHealth() <= 0 )
+            {
+                to_remove.insert(a);
+            }
             // Check for self collision
             if (a != m_player)
             {
@@ -232,9 +235,20 @@ namespace jumper
 
     void Game::moveActors()
     {
+
+
+
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
-            (*it)->move(*m_level);
+          //  if((*it)->getHealth() <= 0)
+          //  {
+          //      removeActor((*it));
+            // (*it)->~AnimatedRenderable();
+         //   }
+         //   else
+         //   {
+                (*it)->move(*m_level);
+        //    }
         }
     }
 
@@ -268,4 +282,5 @@ namespace jumper
         m_startTicks = ticks;
         return time;
     }
+
 } /* namespace jumper */
