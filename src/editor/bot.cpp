@@ -2,5 +2,6 @@
 
 Bot::Bot()
 {
-
+    NPC *npc=new NPC();
+    this->npc=npc;
 }

@@ -22,7 +22,7 @@ public:
     int tileID;
     int positionX;
     int positionY;
-    NPC npc;
+    NPC *npc;
     std::string color;
 };
 
