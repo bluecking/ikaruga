@@ -9,6 +9,7 @@
 #include "ScoreBoard.hpp"
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
+#include "LaserWeapon.hpp"
 
 #include <iostream>
 
@@ -64,6 +65,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 else if(v.first == "player")
 			 {
 				 Player* player = new Player(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
+//                 player->setWeapon(new LaserWeapon(*player));
 				 game->setPlayer(player);
 				 player->setFocus(true);
 				 actor = player;

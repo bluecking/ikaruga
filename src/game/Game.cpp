@@ -78,6 +78,12 @@ namespace jumper
                 m_player->toggleColor();
             }
 
+            // react to shoot
+            if (keyDown[SDL_SCANCODE_SPACE])
+            {
+                m_player->shoot();
+            }
+
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])

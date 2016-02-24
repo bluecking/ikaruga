@@ -71,4 +71,15 @@ namespace jumper
 
     }
 
+    void Player::shoot()
+    {
+        // skip if no weapon is set
+//        if (m_weapon == 0)
+//        {
+//            return;
+//        }
+
+        Vector2f direction(1, 0);
+//        m_weapon->shoot(direction, position());
+    }
 }
