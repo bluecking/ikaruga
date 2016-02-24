@@ -26,7 +26,7 @@ namespace jumper
         m_numFrames = 1;
         m_type = ACTOR;
 
-         //THIS NEEDS TO BE CHANGED
+         //TODO: this should not be hardcoded
         m_health = 100;
     }
 
@@ -38,7 +38,7 @@ namespace jumper
         m_startTicks = 0;
         m_type = ACTOR;
 
-        //THIS NEEDS TO BE CHANGED
+        //TODO: this should not be hardcoded
         m_health = 100;
     }
 
