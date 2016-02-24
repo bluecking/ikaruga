@@ -14,7 +14,7 @@ namespace jumper
     class LaserWeapon : public Weapon
     {
     public:
-        LaserWeapon();
+        LaserWeapon(Game* game, Actor* actor);
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
     };
 } /* namespace jumper */
