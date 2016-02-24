@@ -57,7 +57,6 @@ namespace jumper
                 float dt = getElapsedTime();
                 if (dt > 0)
                 {
-
                     Vector2f d_move;
                     d_move.setY(m_move_type_speed * sin(1.5 * clock() / CLOCKS_PER_SEC) * 3.1415);
                     d_move.setX(m_speed);
