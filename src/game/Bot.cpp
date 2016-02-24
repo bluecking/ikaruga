@@ -23,7 +23,7 @@ namespace jumper
         m_physicalProps.setMaxRunVelocity(50);
 
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-        m_health = 10000;
+        m_health = 2000;
     }
 
     Bot::Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames)
@@ -33,7 +33,8 @@ namespace jumper
         m_physicalProps.setMaxRunVelocity(50);
 
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-        m_health = 10000;
+        m_health = 2000;
+
 
         m_move_type = BotType::SIN_UP;
         m_move_type_height = 25;
@@ -47,7 +48,6 @@ namespace jumper
     void Bot::move(Level &level)
     {
         nextFrame();
-
         switch (m_move_type)
         {
             case BotType::NO_MOVE:
