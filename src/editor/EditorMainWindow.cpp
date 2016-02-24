@@ -6,8 +6,8 @@
  */
 
 #include "EditorMainWindow.hpp"
-#include "../widgets/TilesetScene.hpp"
-#include "../widgets/LevelScene.hpp"
+#include "TilesetScene.hpp"
+#include "LevelScene.hpp"
 
 MainWindow::MainWindow()
 {
