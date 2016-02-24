@@ -234,77 +234,57 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 
 	if (direction == TUP)
 	{
-
 		posInGrid -= Vector2i(0, 1);
 
 		for (int x = 0; x < sizeX; x++)
 		{
-
 			tile.setX(posInGrid.x() + x);
 			tile.setY(posInGrid.y());
 
 			tiles->push_back(tile);
-
 		}
-
 	}
 	else if (direction == TDOWN)
 	{
-
 		posInGrid += Vector2i(0, sizeY);
 
 		for (int x = 0; x < sizeX; x++)
 		{
-
 			tile.setX(posInGrid.x() + x);
 			tile.setY(posInGrid.y());
 
 			tiles->push_back(tile);
-
 		}
-
 	}
 	else if (direction == TLEFT)
 	{
-
 		posInGrid -= Vector2i(1, 0);
 
 		for (int y = 0; y < sizeY; y++)
 		{
-
 			tile.setX(posInGrid.x());
 			tile.setY(posInGrid.y() + y);
 
 			tiles->push_back(tile);
-
 		}
-
 	}
 	else if (direction == TRIGHT)
 	{
-
 		posInGrid += Vector2i(sizeX, 0);
 
 		for (int y = 0; y < sizeY; y++)
 		{
-
 			tile.setX(posInGrid.x());
 			tile.setY(posInGrid.y() + y);
 
 			tiles->push_back(tile);
-
 		}
-
 	}
-
-	
-
 }
 
 
 Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 {
-
 	pos -= Vector2f(0,  576 % m_tileHeight);
 
 	float x = move.x();
@@ -314,62 +294,42 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 	if (x != 0)
 	{
-
 		if (x > 0)
 		{
-
 			getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
 
 			for(Vector2i& tPos : tiles)
 			{
-
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-
 					if (m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]] == SOLID)
 					{
-
 						float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
-
 						x = std::min(x, maxMov);
 
 						break;
-
 					}
-
 				}
-
 			}
-
 		}
 		else
 		{
-
 			getSurroundingRelevantTiles(pos, TLEFT, width, height, &tiles);
 
 			for(Vector2i& tPos : tiles)
 			{
-
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-
 					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
 					{
-
 						float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
-
 						x = std::max(x, maxMov);
 
 						break;
-
 					}
-
 				}
-
 			}
-
 		}
-
 	}
 
 
@@ -379,67 +339,45 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 	if (y != 0)
 	{
-
 		if (y> 0)
 		{
-
 			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
 
 			for(Vector2i& tPos : tiles)
 			{
-
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-
 					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
 					{
-
 						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
-
 						y = std::min(y, maxMov);
 
 						break;
-
 					}
-
 				}
-
 			}
-
 		}
 		else
 		{
-
 			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
 
 			for(Vector2i& tPos : tiles)
 			{
-
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-
 					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
 					{
-
 						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
-
 						y = std::max(y, maxMov);
 
 						break;
-
 					}
-
 				}
-
 			}
-
 		}
-
 	}
 
-
 	return Vector2f(x, y);
-
 }
 
 
