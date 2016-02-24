@@ -1,13 +1,9 @@
-# Setup sources
-set(XML_SOURCES
-        XML.cpp
-        XmlTest.cpp)
+cmake_minimum_required(VERSION 2.8)
 
+project(xml)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
-# Build executable
-add_executable(xmlTest ${XML_SOURCES})
-target_link_libraries(xmlTest ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
-target_link_libraries(xmlTest m)
-target_link_libraries(xmlTest ${Boost_LIBRARIES})
-
-configure_file(../../res/levels/level0.xml level0.xml)
+# Build library
+add_library(xml SHARED XML.cpp)
+target_link_libraries(xml ${Boost_LIBRARIES})
