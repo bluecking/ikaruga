@@ -25,7 +25,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 #REPLACES ADDING SOURCES
 add_subdirectory(src/game)
-add_subdirectory(src/xml)
 
 
 ################## EDITOR ################
