@@ -1,0 +1,62 @@
+<bots>
+    <bot type="BOT_SIN">
+        <filename>enemys_green_40x40.png</filename>
+        <numFrames>2</numFrames>
+        <frameWidth>18</frameWidth>
+        <frameHeight>32</frameHeight>
+        <tileID>1</tileID>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>8</fps>
+        <npc type="NORMAL">
+            <move function="SIN">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <filename>enemys_green_40x40.png</filename>
+        <numFrames>2</numFrames>
+        <frameWidth>18</frameWidth>
+        <frameHeight>32</frameHeight>
+        <tileID>1</tileID>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>8</fps>
+        <npc type="NORMAL">
+            <move function="SIN_UP">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SIN_DOWN">
+        <filename>enemys_green_40x40.png</filename>
+        <numFrames>2</numFrames>
+        <frameWidth>18</frameWidth>
+        <frameHeight>32</frameHeight>
+        <tileID>1</tileID>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>8</fps>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_NO_MOVE">
+        <filename>enemys_green_40x40.png</filename>
+        <numFrames>2</numFrames>
+        <frameWidth>18</frameWidth>
+        <frameHeight>32</frameHeight>
+        <tileID>1</tileID>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>8</fps>
+        <npc type="NORMAL">
+            <move function="NO_MOVE">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+</bots>
