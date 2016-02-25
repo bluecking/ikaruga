@@ -32,8 +32,11 @@ set(JUMPER_SOURCES
         LaserWeapon.cpp
         Armed.cpp)
 
+set(JUMPER_LIBS ${JUMPER_LIBS} xml)
+
 # Build executable
 add_executable(jumper ${JUMPER_SOURCES})
 target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
 target_link_libraries(jumper m)
 target_link_libraries(jumper ${Boost_LIBRARIES})
+target_link_libraries(jumper ${JUMPER_LIBS})
