@@ -20,43 +20,75 @@ public:
         std::string type;
         std::string move_function;
         signed int move_value;
-        unsigned int fireRate;
+//        unsigned int fireRate;
         signed int speed;
-        std::string weapon_type;
-        unsigned int weapon_level;
+//        std::string weapon_type;
+//        unsigned int weapon_level;
+        std::string stdWeapon;
     };
 
     struct Player{
         std::string filename;
+        int numFrames;
         int frameWidth;
         int frameHeight;
+        int positionX;
         int positionY;
         std::string stdWeapon;
+        int colorOffsetX;
+        int colorOffsetY;
+        float moveForceX;
+        float moveForceY;
+        float maxVel;
+        int fps;
     };
 
     struct Bot{
+        std::string type;
         std::string filename;
+        int numFrames;
         int frameWidth;
         int frameHeight;
         int tileID;
+        int colorOffsetX;
+        int colorOffsetY;
+        int fps;
+        NPC npc;
+    };
+
+    struct LevelBot{
+        std::string type;
         int positionX;
         int positionY;
-        NPC npc;
         std::string color;
+        int powerUpProb;
+        std::string powerUpName;
     };
 
     struct Item{
+        std::string type;
         std::string filename;
         int frameWidth;
         int frameHeight;
+    };
+
+    struct LevelItem{
+        std::string type;
         int positionX;
         int positionY;
-        std::string type;
+        int value;
     };
 
     struct Background{
         std::string filename;
         int scrollspeed;
+    };
+
+    struct Weapon{
+        std::string type;
+        std::string filename;
+        int colorOffsetX;
+        int colorOffsetY;
     };
 
     /**
