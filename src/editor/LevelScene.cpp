@@ -19,8 +19,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 
 	// Read meta data from level file
-	QFile file(m_fileName);
-	
+	QFile file(filename);
 
 	///int for rgb colors
 
@@ -38,12 +37,17 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	  	m_texFileName=m_pfad+line;
         m_enemyFileName=m_pfad+"images/enemys.png";
 
-	  	std::cout<<(filename.mid(0,last+1)+line).toStdString()<<std::endl;
+	  ///	std::cout<<(filename.mid(0,last+1)+line).toStdString()<<std::endl;
 
 
 		m_pixmap=new QPixmap*[6];
 
 		m_pixmap[0]= new QPixmap(m_pfad+"../images/rocks.png");
+        m_pixmap[1]= new QPixmap(m_pfad+"../images/Bot_1.png");
+        m_pixmap[2]= new QPixmap(m_pfad+"../images/Bot_2.png");
+        m_pixmap[3]= new QPixmap(m_pfad+"../images/Bot_3.png");
+        m_pixmap[4]= new QPixmap(m_pfad+"../images/Bot_4.png");
+        m_pixmap[5]= new QPixmap(m_pfad+"../images/Bot_5.png");
 		///m_pixmap[1]= new QPixmap(m_pfad+"../images/bot_1");
 
 
@@ -63,6 +67,9 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 		m_levelHeight  =14;
 
 
+        setTileSettings(0,0,QRect(0,0,40,40));
+
+
 
 		///sets Labels of the Gui
 		///window->level_width->setText(QString::number(m_levelWidth));
@@ -78,10 +85,9 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 		}
 
 
-
-
 		// Read tile indices
 		for(int i = 0; i < m_levelHeight; i++) {
+
             line = in.readLine();
             list = line.split(" ");
             if (list.length() == m_levelWidth)
@@ -122,15 +128,14 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///Create TextureViews
 	TextureScene* m_textureView= new TextureScene(m_setting,window->TextureView,this, window);
-	///TextureScene* m_enemyView= new TextureScene(m_setting,window->EnemieView,this, window);
-    ///TextureScene* m_playerView= new TextureScene(m_setting,window->PlayerView,this, window);
+	TextureScene* m_enemyView= new TextureScene(m_setting,window->EnemieView,this, window);
 
 	///sets MainViewScene
 	window->MainView->setScene(this);
 
 	///set the TextureViews to Visible
 	window->TextureView->setScene(m_textureView);
-	///window->EnemieView->setScene(m_enemyView);
+	window->EnemieView->setScene(m_enemyView);
 	///window->PlayerView->setScene(m_playerView);
 
 }
@@ -193,7 +198,8 @@ void LevelScene::saveLevel(QString fileName)
                 for (int j = 0; j < m_levelWidth; j++) {
 
                     ///puts tile_id in m_tiles
-                    write<<m_tiles[i][j]+1<<" ";
+                    if(j!=m_levelWidth) write<<m_tiles[i][j]+1<<" ";
+                    else write<<m_tiles[i][j]+1;
 
                 }
             write<<"\n";

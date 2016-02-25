@@ -6,6 +6,7 @@
 GraphicsTileItem::GraphicsTileItem(QPixmap** tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
 {
     mainWindow=true;
+    m_type=type;
     m_pixmap=tileset;
     this->setPixmap(m_pixmap[type]->copy(rect));
     m_index=index;
