@@ -107,12 +107,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
-ADD_EXECUTABLE(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
-TARGET_LINK_LIBRARIES(editor ${QT_LIBRARIES})
-
-<<<<<<< HEAD
-=======
 add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
 target_link_libraries(editor ${EDITOR_DEPENDENCIES})
 set(EDITOR_LIBS ${EDITOR_LIBS} xml)
->>>>>>> edb931692681cfc59bdaf821faa81a2f2ccb59b0
