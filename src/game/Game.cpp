@@ -42,6 +42,27 @@ namespace jumper
         // TODO Auto-generated destructor stub
     }
 
+    void Game::addBots(vector<XML::Bot> bots)
+    {
+        m_bots = bots;
+    }
+
+    void Game::spawnBots()
+    {
+
+        int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
+        for (auto it = begin (m_bots); it != end (m_bots); ++it) {
+            if(it->positionX<curPos+40)
+            {
+                Bot bot(m_renderer, m_level->getTexture(), it->frameWidth, it->frameHeight, 2, it->npc);
+                addActor(&bot);
+                m_bots.erase(it);
+            }
+
+
+        }
+    }
+
     void Game::setPlayer(Player* player)
     {
         m_player = player;
