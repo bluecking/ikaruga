@@ -42,7 +42,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
     //<mein teil>
-
+//    Actor* actor1 =  0;
     //open xml file
     XML xml = XML(filename);
 
@@ -60,6 +60,9 @@ void setupGame(string filename, MainWindow* w, Game* game)
     layer1->setScrollSpeed(scrollspeed);
     game->setLayer(layer1);
 
+
+
+/*
     //add bots to level
     vector<XML::Bot>bots = xml.getBots();
     game->addBots(bots);
@@ -72,14 +75,31 @@ void setupGame(string filename, MainWindow* w, Game* game)
         texture1    = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
         Item* item  = new Item(w->getRenderer(), texture1,(*it).frameWidth,(*it).frameHeight, 1);
         game->addActor(item);
+
+        actor1 = item;
+
     }
 
     XML::Player xplayer =  xml.getPlayer();
-    
-
+    xpath               = xplayer.filename;
+    texture1            = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
+    //TODO: dynamic frame number insted of 13
+    Player* player = new Player(w->getRenderer(), texture1, xplayer.frameWidth, xplayer.frameHeight, 13);
+    // set weapon
+    // TODO dynamic weapon attributes
+    Vector2i* textureSize = new Vector2i(6, 6);
+    Vector2f* weaponOffset = new Vector2f(25, 18.5f);
+    Vector2f* projectileColorOffset = new Vector2f(6, 0);
+    float coolDown = 0.2f;
+    SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/laser_shot.png");
+    player->setWeapon(new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset, coolDown));
+    game->setPlayer(player);
+    player->setFocus(true);
+    actor1 = player;
+*/
     //</mein teil>
 
-
+/*
     //<alter Teil>
 	 using boost::property_tree::ptree;
 	 ptree pt;
@@ -157,18 +177,18 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 }
 		 if( v.first == "tileset")
 		 {
-			// string filename = v.second.get("<xmlattr>.filename", "");
-			// Level* level = new Level(w->getRenderer(), path + "/" + filename);
-			// game->setLevel(level);
+			 string filename = v.second.get("<xmlattr>.filename", "");
+			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
+			 game->setLevel(level);
 		 }
 		 if( v.first == "layer")
 		 {
-			// string filename = v.second.get("<xmlattr>.filename", "");
-			// SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
-			// float s = v.second.get<float>("scrollSpeed", 1.0);
-			// TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
-			// layer->setScrollSpeed(s);
-			// game->setLayer(layer);
+			 string filename = v.second.get("<xmlattr>.filename", "");
+			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			 float s = v.second.get<float>("scrollSpeed", 1.0);
+			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+			 layer->setScrollSpeed(s);
+			 game->setLayer(layer);
 		 }
 		 if( v.first == "scoreBoard")
 		 {
@@ -182,9 +202,9 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 board->setPosition(Vector2i(x,y));
 			 game->setScoreBoard(board);
 		 }
+ }
+*/
 
-
-	 }
     //</alter Teil>
 }
 
