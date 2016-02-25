@@ -219,23 +219,23 @@ void Level::getInnerTiles(Vector2f pos, TilesDirection direction, int width, int
 
 	if (direction == TUP)
 	{
-		tiles->pushback(posInGrid);
-		tiles->pushback(Vector2i(posInGridEnd.x(), posInGrid.y()));
+		tiles->push_back(posInGrid);
+		tiles->push_back(Vector2i(posInGridEnd.x(), posInGrid.y()));
 	}
 	else if (direction == TDOWN)
 	{
-		tiles->pushback(Vector2i(posInGrid.x(), posInGridEnd.y()));
-		tiles->pushback(posInGridEnd);
+		tiles->push_back(Vector2i(posInGrid.x(), posInGridEnd.y()));
+		tiles->push_back(posInGridEnd);
 	}
 	else if (direction == TLEFT)
 	{
-		tiles->pushback(posInGrid);
-		tiles->pushback(Vector2i(posInGrid.x(), posInGridEnd.y()));
+		tiles->push_back(posInGrid);
+		tiles->push_back(Vector2i(posInGrid.x(), posInGridEnd.y()));
 	}
 	else if (direction == TRIGHT)
 	{
-		tiles->pushback(Vector2i(posInGridEnd.x(), posInGrid.y()));
-		tiles->pushback(posInGridEnd);
+		tiles->push_back(Vector2i(posInGridEnd.x(), posInGrid.y()));
+		tiles->push_back(posInGridEnd);
 	}
 
 	return;
