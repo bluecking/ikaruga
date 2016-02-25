@@ -300,50 +300,45 @@ void XML::save()
 
     /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
+    player.put("numFrames", m_player.frameWidth);
     player.put("frameWidth", m_player.frameWidth);
     player.put("frameHeight", m_player.frameHeight);
+    player.put("positionX", m_player.positionX);
     player.put("positionY", m_player.positionY);
     player.put("stdWeapon", m_player.stdWeapon);
+    player.put("colorOffsetX", m_player.colorOffsetX);
+    player.put("colorOffsetY", m_player.colorOffsetY);
+    player.put("moveForceX", m_player.moveForceX);
+    player.put("moveForceY", m_player.moveForceY);
+    player.put("maxVel", m_player.maxVel);
+    player.put("fps", m_player.fps);
 
     level.add_child("player", player);
 
-    /* Adding Bots */
-    for(int i=0;i<(int) m_bots.size();i++) {
-        ptree bot, npc, move, weapon;
-        bot.put("<xmlattr>.filename", m_bots[i].filename);
-        bot.put("frameWidth", m_bots[i].frameWidth);
-        bot.put("frameHeight", m_bots[i].frameHeight);
-        bot.put("tileID", m_bots[i].tileID);
-        bot.put("positionX", m_bots[i].positionX);
-        bot.put("positionY", m_bots[i].positionY);
+    /* Adding Level_Bots */
+    for(int i=0;i<(int) m_level_bots.size();i++) {
+        ptree level_bot, powerUp;
+        level_bot.put("<xmlattr>.type", m_level_bots[i].type);
+        level_bot.put("positionX", m_level_bots[i].positionX);
+        level_bot.put("positionY", m_level_bots[i].positionY);
+        level_bot.put("color", m_level_bots[i].color);
 
+        powerUp.put("<xmlattr>.probability", m_level_bots[i].powerUpProb);
+        level_bot.add_child("powerUp", powerUp);
+        level_bot.put("powerUp", m_level_bots[i].powerUpName);
 
-        npc.put("<xmlattr>.type", m_bots[i].npc.type);
-        move.put("<xmlattr>.function", m_bots[i].npc.move_function);
-        npc.add_child("move", move);
-        npc.put("move", m_bots[i].npc.move_value);
-        npc.put("fireRate", m_bots[i].npc.fireRate);
-        npc.put("speed", m_bots[i].npc.speed);
-        weapon.put("<xmlattr>.type", m_bots[i].npc.weapon_type);
-        npc.add_child("weapon", weapon);
-        npc.put("weapon", m_bots[i].npc.weapon_level);
-
-        bot.add_child("npc", npc);
-        bot.put("color", m_bots[i].color);
-        level.add_child("bot", bot);
+        level.add_child("bot", level_bot);
     }
 
-    /* Adding Items */
-    for(int i=0;i<(int) m_items.size();i++) {
-        ptree item;
-        item.put("<xmlattr>.filename", m_items[i].filename);
-        item.put("frameWidth", m_items[i].frameWidth);
-        item.put("frameHeight", m_items[i].frameHeight);
-        item.put("positionX", m_items[i].positionX);
-        item.put("positionY", m_items[i].positionY);
-        item.put("type", m_items[i].type);
+    /* Adding Level_Items */
+    for(int i=0;i<(int) m_level_items.size();i++) {
+        ptree level_item;
+        level_item.put("<xmlattr>.type", m_level_items[i].type);
+        level_item.put("positionX", m_level_items[i].positionX);
+        level_item.put("positionY", m_level_items[i].positionY);
+        level_item.put("value", m_level_items[i].value);
 
-        level.add_child("item", item);
+        level.add_child("item", level_item);
     }
 
     /* Setting up XML-Tree with root-Node */
