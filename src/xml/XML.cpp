@@ -183,11 +183,8 @@ void XML::loadBots(std::string filename){
                 npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
                 npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
                 npc.move_value = v.second.get_child("npc").get <signed(int)> ("move");
-//                npc.fireRate = v.second.get_child("npc").get <unsigned(int)> ("fireRate");
                 npc.speed = v.second.get_child("npc").get <signed(int)> ("speed");
                 npc.stdWeapon = v.second.get_child("npc").get <string> ("stdWeapon");
-//                npc.weapon_type = v.second.get_child("npc").get_child("weapon").get<string>("<xmlattr>.type");
-//                npc.weapon_level = v.second.get_child("npc").get <unsigned(int)> ("weapon");
                 bot.npc = npc;
                 m_bots.push_back(bot);
             }
@@ -370,18 +367,44 @@ void XML::save()
     }
 }
 
-void XML::setItem(unsigned int position, XML::Item item)
+/* Level Bots/Items - Getter/Setter */
+void XML::setLevelItem(unsigned int position, XML::LevelItem lItem)
 {
-    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
-    m_items[position] = item;
+    if(position >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    m_level_items[position] = lItem;
 }
 
-void XML::setBot(unsigned int position, XML::Bot bot)
+void XML::setLevelBot(unsigned int position, XML::LevelBot lBot)
 {
-    if(position >= botSize()) {throw std::range_error("Index out of range.");}
-    m_bots[position] = bot;
+    if(position >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    m_level_bots[position] = lBot;
 }
 
+XML::LevelBot XML::getLevelBot(unsigned int number)
+{
+    if(number >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    return m_level_bots[number];
+}
+
+XML::LevelItem XML::getLevelItem(unsigned int number)
+{
+    if(number >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    return m_level_items[number];
+}
+
+void XML::removeLevelItem(unsigned int position)
+{
+    if(position >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    m_level_items.erase(m_level_items.begin() + position);
+}
+
+void XML::removeLevelBot(unsigned int position)
+{
+    if(position >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    m_level_bots.erase(m_level_bots.begin() + position);
+}
+
+/* Definition Getter */
 XML::Bot XML::getBot(unsigned int number)
 {
     if(number >= botSize()) {throw std::range_error("Index out of range.");}
@@ -394,14 +417,8 @@ XML::Item XML::getItem(unsigned int number)
     return m_items[number];
 }
 
-void XML::removeItem(unsigned int position)
+XML::Weapon XML::getWeapon(unsigned int number)
 {
-    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
-    m_items.erase(m_items.begin() + position);
-}
-
-void XML::removeBot(unsigned int position)
-{
-    if(position >= botSize()) {throw std::range_error("Index out of range.");}
-    m_bots.erase(m_bots.begin() + position);
+    if(number >= weaponSize()) {throw std::range_error("Index out of range.");}
+    return m_weapons[number];
 }
