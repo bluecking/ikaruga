@@ -6,7 +6,6 @@
 #include "Game.hpp"
 #include "TextureFactory.hpp"
 #include "TexturedLayer.hpp"
-#include "ScoreBoard.hpp"
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
 #include "LaserWeapon.hpp"
@@ -133,9 +132,9 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 int y = v.second.get<int>("yPos", 10);
 			 int dw = v.second.get<int>("digitWidth", 10);
 			 int dh = v.second.get<int>("digitHeight", 10);
-			 ScoreBoard* board = new ScoreBoard(w->getRenderer(), texture, dw, dh);
-			 board->setPosition(Vector2i(x,y));
-			 game->setScoreBoard(board);
+			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, dw, dh);
+			 bar->setPosition(Vector2i(x,y));
+			 game->setStatusBar(bar);
 		 }
 
 

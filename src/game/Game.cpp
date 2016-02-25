@@ -26,7 +26,7 @@ namespace jumper
         m_level = 0;
         m_layer = 0;
         m_renderer = mainWindow->getRenderer();
-        m_scoreBoard = 0;
+        m_statusBar = 0;
 
         m_windowWidth = mainWindow->w();
         m_windowHeight = mainWindow->h();
@@ -117,10 +117,10 @@ namespace jumper
                 m_layer->render();
             }
 
-            if (m_scoreBoard)
+            if (m_statusBar)
             {
-                m_scoreBoard->setScore(m_player->physics().position().x());
-                m_scoreBoard->render();
+                m_statusBar->setScore(m_player->physics().position().x());
+                m_statusBar->render();
             }
 
             for (size_t i = 0; i < m_renderables.size(); i++)

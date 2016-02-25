@@ -5,7 +5,7 @@
  *      Author: twiemann
  */
 
-#include "ScoreBoard.hpp"
+#include "StatusBar.hpp"
 
 #include <iostream>
 #include <list>
@@ -16,10 +16,10 @@ using std::list;
 namespace jumper
 {
 
-const int ScoreBoard::m_maxScore = 1000000;
+const int StatusBar::m_maxScore = 1000000;
 
 
-ScoreBoard::ScoreBoard(SDL_Renderer* renderer, SDL_Texture* texture, int digitWidth, int digitHeight)
+StatusBar::StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int digitWidth, int digitHeight)
 	: StaticRenderable(renderer, texture)
 {
 	m_score			= 0;
@@ -27,15 +27,16 @@ ScoreBoard::ScoreBoard(SDL_Renderer* renderer, SDL_Texture* texture, int digitWi
 	m_digitHeight 	= digitHeight;
 }
 
-ScoreBoard::ScoreBoard(SDL_Renderer* renderer)
+StatusBar::StatusBar(SDL_Renderer* renderer)
 	: StaticRenderable(renderer)
 {
 	m_score = 0;
 	m_digitWidth 	= 0;
 	m_digitHeight 	= 0;
+
 }
 
-void ScoreBoard::setScore(int score)
+void StatusBar::setScore(int score)
 {
 	if(score < m_maxScore)
 	{
@@ -47,12 +48,12 @@ void ScoreBoard::setScore(int score)
 	}
 }
 
-int ScoreBoard::getScore() const
+int StatusBar::getScore() const
 {
 	return m_score;
 }
 
-void ScoreBoard::render()
+void StatusBar::render()
 {
 	SDL_Rect target;
 	SDL_Rect source;
@@ -95,12 +96,12 @@ void ScoreBoard::render()
 
 }
 
-void ScoreBoard::setPosition(const Vector2i& position)
+void StatusBar::setPosition(const Vector2i& position)
 {
 	m_position = position;
 }
 
-ScoreBoard::~ScoreBoard()
+StatusBar::~StatusBar()
 {
 	// TODO Auto-generated destructor stub
 }

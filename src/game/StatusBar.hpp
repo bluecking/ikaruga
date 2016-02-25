@@ -16,7 +16,7 @@ namespace jumper
 /**
  * @brief A class to display points using a digit map for rendering
  */
-class ScoreBoard : public StaticRenderable
+class StatusBar : public StaticRenderable
 {
 public:
 
@@ -30,14 +30,14 @@ public:
 	 * @param digitWidth		The width of a digit within the texture
 	 * @param digitHeight		The height of a digit within the texture
 	 */
-	ScoreBoard(SDL_Renderer* renderer, SDL_Texture* texture, int digitWidth, int digitHeight);
+	StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int digitWidth, int digitHeight);
 
 	/**
 	 * Constructs an empty scoreboard for the renderer
 	 *
 	 * @param renderer			A valid SDL_Renderer structure
 	 */
-	ScoreBoard(SDL_Renderer* renderer);
+	StatusBar(SDL_Renderer* renderer);
 
 	/// Sets the displayed score value
 	void setScore(int score);
@@ -53,7 +53,7 @@ public:
 	virtual void render();
 
 	/// Destructor
-	virtual ~ScoreBoard();
+	virtual ~StatusBar();
 
 private:
 

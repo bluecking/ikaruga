@@ -14,8 +14,9 @@
 #include "Player.hpp"
 #include "Level.hpp"
 #include "TexturedLayer.hpp"
-#include "ScoreBoard.hpp"
+#include "StatusBar.hpp"
 #include "Collidable.hpp"
+#include "StatusBar.hpp"
 
 #include <vector>
 
@@ -62,8 +63,8 @@ namespace jumper
         { m_layer = layer; };
 
         /// Adds a score board
-        void setScoreBoard(ScoreBoard* b)
-        { m_scoreBoard = b; };
+        void setStatusBar(StatusBar * b)
+        { m_statusBar = b; };
 
     private:
 
@@ -109,7 +110,7 @@ namespace jumper
         TexturedLayer* m_layer;
 
         /// A score board
-        ScoreBoard* m_scoreBoard;
+        StatusBar * m_statusBar;
 
         /// Pointer to the main window of the game
         SDL_Renderer* m_renderer;
@@ -121,6 +122,7 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+
     };
 
 } /* namespace jumper */
