@@ -63,8 +63,7 @@ void MainWindow::openFile(QString sFile){
             }while(true);
         }
         int last=(sFile.lastIndexOf("/"))+1;
-        //std::cout<<last<<sFile.mid(last).toStdString()<<std::endl;
-        //this->bitmap_path->setText(sFile.mid(last));
+        ui->bitmap_path->setText(sFile.mid(last));
         scene=new LevelScene(sFile,this);
         ui->actionSpeichern->setEnabled(true);
         ui->actionSpeichern_unter->setEnabled(true);
@@ -74,7 +73,7 @@ void MainWindow::openFile(QString sFile){
 void MainWindow::saveFile(QString sFile){
     if(this->openedFile!=""){
         std::cout<<"Save: "<<sFile.toStdString()<<std::endl;
-        //scene->saveXml(sFile);
+        scene->saveXml(sFile);
     }
 }
 
