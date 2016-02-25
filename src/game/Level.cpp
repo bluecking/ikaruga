@@ -288,11 +288,16 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 		{
 			getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
 
+			int round = 0;
+
 			for(Vector2i& tPos : tiles)
 			{
+
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-					if (m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]] == SOLID)
+					TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
+
+					if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) // collide with something solid
 					{
 						float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
 						x = std::min(x, maxMov);
@@ -300,17 +305,48 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 						break;
 					}
 				}
+
+				round++;
 			}
+
+			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+			if (t1 == EDGETOPRIGHT && t2 == EDGEDOWNRIGHT)
+			{
+				if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
+				{
+
+				}
+				else
+				{
+					float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
+					x = std::min(x, maxMov);
+				}
+			}
+			else if (t1 == EDGETOPRIGHT)
+			{
+				// TODO
+			}
+			else if (t2 == EDGEDOWNRIGHT)
+			{
+				// TODO
+			}
+
 		}
 		else
 		{
 			getSurroundingRelevantTiles(pos, TLEFT, width, height, &tiles);
 
+			int round = 0;
+
 			for(Vector2i& tPos : tiles)
 			{
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 				{
-					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
+
+					if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) // collide with something solid
 					{
 						float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
 						x = std::max(x, maxMov);
@@ -318,6 +354,24 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 						break;
 					}
 				}
+
+				round++;
+			}
+
+			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+			if (t1 == EDGETOPLEFT && t2 == EDGEDOWNLEFT)
+			{
+				// TODO
+			}
+			else if (t1 == EDGETOPLEFT)
+			{
+				// TODO
+			}
+			else if (t2 == EDGEDOWNLEFT)
+			{
+				// TODO
 			}
 		}
 	}
@@ -333,6 +387,8 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 		{
 			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
 
+			int round = 0;
+
 			for(Vector2i& tPos : tiles)
 			{
 				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -345,11 +401,15 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 						break;
 					}
 				}
+
+				round++;
 			}
 		}
 		else
 		{
 			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+
+			int round = 0;
 
 			for(Vector2i& tPos : tiles)
 			{
@@ -363,6 +423,8 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 						break;
 					}
 				}
+
+				round++;
 			}
 		}
 	}
