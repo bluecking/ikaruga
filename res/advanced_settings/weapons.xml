@@ -1,0 +1,7 @@
+<weapons>
+    <weapon type="LASER_GUN">
+        <filename>laser_shot.png</filename>
+        <colorOffsetX>6</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+    </weapon>
+</weapons>
