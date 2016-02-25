@@ -17,6 +17,8 @@
 #include "ScoreBoard.hpp"
 #include "Collidable.hpp"
 
+#include "../xml/XML.hpp"
+
 #include <vector>
 
 using std::vector;
@@ -65,6 +67,9 @@ namespace jumper
         void setScoreBoard(ScoreBoard* b)
         { m_scoreBoard = b; };
 
+        /// set bots
+        void addBots(vector<XML::Bot> bots);
+
     private:
 
         void moveActors();
@@ -90,6 +95,8 @@ namespace jumper
          * Moves the player and camera for a given offset (m_scrollingSpeed)
          */
         void scrollHorizontal();
+
+        void spawnBots();
 
         float m_startTicks;
 
@@ -121,6 +128,8 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+
+        vector<XML::Bot>        m_bots;
     };
 
 } /* namespace jumper */

@@ -12,7 +12,8 @@ using std::endl;
 
 namespace jumper
 {
-    Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+
+    Bot::Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
     {
         m_physicalProps.setMoveForce(Vector2f(0, 0));
@@ -21,18 +22,29 @@ namespace jumper
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
         m_health = 2000;
 
-
-        m_move_type = BotType::SIN_UP;
-        m_move_type_height = 25;
-        m_speed = 100;
+        m_npc = npc;
+        if (npc.move_function == "SIN")
+        {
+            m_move_type=BotType::SIN;
+        }
+        else if (npc.move_function == "SIN_UP")
+        {
+            m_move_type=BotType::SIN_UP;
+        }
+        else if (npc.move_function == "SIN_DOWN")
+        {
+            m_move_type=BotType::SIN_DOWN;
+        }
+        else
+        {
+            m_move_type=BotType::NO_MOVE;
+        }
     }
 
-    Bot::~Bot()
-    {
-        // TODO Auto-generated destructor stub
-    }
 
-    void Bot::move(Level& level)
+
+
+    void Bot::move(Level &level)
     {
         nextFrame();
         switch (m_move_type)
@@ -49,20 +61,28 @@ namespace jumper
                     switch (m_move_type)
                     {
                         case BotType::SIN:
-                            d_move.setY(-cos(getLiveTime()) * m_move_type_height * 2.6);
+                            d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_UP:
-                            d_move.setY(-cos(3.1415 / 2 + getLiveTime()) * m_move_type_height * 2.6);
+                            d_move.setY(-cos(3.1415 / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_DOWN:
-                            d_move.setY(-cos(-3.1415 / 2 + getLiveTime()) * m_move_type_height * 2.6);
+                            d_move.setY(-cos(-3.1415 / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                     }
-                    d_move.setX(m_speed);
+                    d_move.setX(m_npc.speed);
                     physics().setPosition(physics().position() + d_move * dt);
                 }
                 break;
         }
     }
+
+
+    Bot::~Bot()
+    {
+        // TODO Auto-generated destructor stub
+    }
+
+
 
 } /* namespace jumper */
