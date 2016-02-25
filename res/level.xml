@@ -4,10 +4,8 @@
     <scrollSpeed>1.2</scrollSpeed>
   </layer>
   <statusBar filename="numbers.png">
-    <xPos>20</xPos>
-    <yPos>20</yPos>
-    <digitWidth>10</digitWidth>
-    <digitHeight>10</digitHeight>
+    <xPos>10</xPos>
+    <yPos>4</yPos>
   </statusBar>
   <player filename="images/player_animated_55x43_transparent.png">
     <numFrames>24</numFrames>

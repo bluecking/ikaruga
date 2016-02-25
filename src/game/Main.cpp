@@ -126,13 +126,14 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 }
 		 if( v.first == "statusBar")
 		 {
-			 //TODO ~ Set the position of the Statusbar relative to the tilehight, so it fits completely in the top row
 			 string filename = v.second.get("<xmlattr>.filename", "");
+             //TODO ~ choose sexy font to replace numbers only
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+             //TODO ~ Set the position of the Statusbar relative to the tilehight, so it fits completely in the top row
 			 int x = v.second.get<int>("xPos", 10);
 			 int y = v.second.get<int>("yPos", 10);
-			 int dw = v.second.get<int>("digitWidth", 10);
-			 int dh = v.second.get<int>("digitHeight", 10);
+			 int dw = 10;
+			 int dh = 10;
 			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, dw, dh);
 			 bar->setPosition(Vector2i(x,y));
 			 game->setStatusBar(bar);
