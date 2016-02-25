@@ -23,25 +23,25 @@
         <positionX>400</positionX>
         <positionY>40</positionY>
         <color>black</color>
-        <powerUp probability="100">LaserGun</powerUp>
+        <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN">
         <positionX>500</positionX>
         <positionY>40</positionY>
         <color>black</color>
-        <powerUp probability="100">LaserGun</powerUp>
+        <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN">
         <positionX>5000</positionX>
         <positionY>40</positionY>
         <color>black</color>
-        <powerUp probability="100">LaserGun</powerUp>
+        <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN">
         <positionX>10000</positionX>
         <positionY>40</positionY>
         <color>black</color>
-        <powerUp probability="100">LaserGun</powerUp>
+        <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <item type="RESTORE_HEALTH">
         <positionX>400</positionX>
