@@ -26,7 +26,8 @@ public:
     /// class valiable.
     LevelScene(QString filename, MainWindow* window);
 	void setTileSettings(int index,int type, QRect rect);
-	void saveLevel();
+	void saveLevel(QString fileName);
+	void saveXml(QString fileName);
 	QPixmap** getPixmap();
 
 protected:
@@ -40,6 +41,8 @@ private:
     GraphicsTileItem* textureItem;
     QRect m_rect;
     QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
+	QString	m_fileName;
+	QString m_pfad;
 	int** m_tiles;        // The 2D tile array
 	int m_index=0;        // Tile id
 	int m_type=0;         // texture type
@@ -53,9 +56,9 @@ private:
 	int m_keyR;           // Key color r component
 	int m_keyG;           // Key color g component
 	int m_keyB;           // Key color b component
-	std::string m_texFileName; // File name of the tile bitmap
-	std::string m_enemyFileName;
-	std::string m_playerFileName;
+	QString m_texFileName; // File name of the tile bitmap
+	QString m_enemyFileName;
+	QString m_playerFileName;
 	Settings m_setting;
 
 	MainWindow* m_mainWindow; // Pointer to a main window

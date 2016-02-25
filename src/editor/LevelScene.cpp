@@ -9,22 +9,21 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	m_tileHeight	= 0;
 	m_tileOffset 	= 0;
 	m_numRows = 0;
-	m_keyR = 0;
-	m_keyG = 0;
-	m_keyB = 0;
 	m_tilesPerRow = 0;
 	m_levelWidth = 0;
 	m_levelHeight = 0;
 	m_mainWindow=window;
 	m_setting=Settings();
+    m_fileName=filename;
+
 
 
 	// Read meta data from level file
-	QFile file(filename);
+	QFile file(m_fileName);
 	
 
 	///int for rgb colors
-	int ir, ig, ib;
+
 
 	///readonly file open
 	if(file.open(QIODevice::ReadOnly))
@@ -35,16 +34,18 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     	///Filename
 		QString line = in.readLine();
 	  	int last=(filename.lastIndexOf("/"));
-	  	QString tmp;
-	  	tmp=filename.mid(0,last)+line;
-	  	m_texFileName=tmp.toStdString();
+	  	m_pfad=filename.mid(0,last+1);
+	  	m_texFileName=m_pfad+line;
+        m_enemyFileName=m_pfad+"images/enemys.png";
+
 	  	std::cout<<(filename.mid(0,last+1)+line).toStdString()<<std::endl;
 
-		m_pixmap=new QPixmap*[3];
 
-		m_pixmap[0]= new QPixmap(filename.mid(0,last+1)+line);
-		m_pixmap[1]= new QPixmap(filename.mid(0,last+1)+"images/enemys.png");
-		m_pixmap[2]= new QPixmap(filename.mid(0,last+1)+"images/player.png");
+		m_pixmap=new QPixmap*[6];
+
+		m_pixmap[0]= new QPixmap(m_pfad+"../images/rocks.png");
+		///m_pixmap[1]= new QPixmap(m_pfad+"../images/bot_1");
+
 
 
 		///list that contains all values
@@ -121,16 +122,16 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///Create TextureViews
 	TextureScene* m_textureView= new TextureScene(m_setting,window->TextureView,this, window);
-	TextureScene* m_enemyView= new TextureScene(m_setting,window->EnemieView,this, window);
-    TextureScene* m_playerView= new TextureScene(m_setting,window->PlayerView,this, window);
+	///TextureScene* m_enemyView= new TextureScene(m_setting,window->EnemieView,this, window);
+    ///TextureScene* m_playerView= new TextureScene(m_setting,window->PlayerView,this, window);
 
 	///sets MainViewScene
 	window->MainView->setScene(this);
 
 	///set the TextureViews to Visible
 	window->TextureView->setScene(m_textureView);
-	window->EnemieView->setScene(m_enemyView);
-	window->PlayerView->setScene(m_playerView);
+	///window->EnemieView->setScene(m_enemyView);
+	///window->PlayerView->setScene(m_playerView);
 
 }
 
@@ -171,7 +172,38 @@ void LevelScene::setTileSettings(int index,int type, QRect rect)
 	m_rect =rect;
 }
 
-void LevelScene::saveLevel()
+void LevelScene::saveLevel(QString fileName)
 {
-    
+
+    QFile readfile(fileName+"editor.lvl");
+    QTextStream write(&readfile);
+    if(readfile.open(QFile::WriteOnly  | QFile::Text))
+    {
+            write<<"../images/rocks.png"<<"\n";
+
+            write<<m_tileWidth<<" ";
+            write<< m_tileHeight<<" ";
+            write<<m_tilesPerRow<<" ";
+            write<<m_numRows<<" ";
+            write<<m_tileOffset<<" ";
+            write<<m_levelWidth<<"\n";
+
+        for(int i = 0; i < m_levelHeight; i++)
+        {
+                for (int j = 0; j < m_levelWidth; j++) {
+
+                    ///puts tile_id in m_tiles
+                    write<<m_tiles[i][j]+1<<" ";
+
+                }
+            write<<"\n";
+        }
+
+        readfile.close();
+    }
+}
+
+void LevelScene::saveXml(QString fileName)
+{
+
 }
