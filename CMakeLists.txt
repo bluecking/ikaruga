@@ -26,7 +26,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 #REPLACES ADDING SOURCES
 add_subdirectory(src/game)
 
-
 ############ EDITOR ##########
 
 PROJECT(EDITOR)
@@ -65,3 +64,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
 target_link_libraries(editor ${EDITOR_DEPENDENCIES})
+
+############ XML Lib ##########
+PROJECT(XML)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+add_subdirectory(src/xml)
