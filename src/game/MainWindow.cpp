@@ -73,6 +73,8 @@ namespace jumper
             {
                 keyDown[i] = false;
             }
+
+            SDL_Delay(16);
         }
     }
 
