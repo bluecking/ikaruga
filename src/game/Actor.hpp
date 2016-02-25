@@ -87,25 +87,19 @@ namespace jumper
 
         bool hasFocus();
 
-        ActorType type()
-        { return m_type; }
+        ActorType type() { return m_type; }
 
-        void setType(ActorType t)
-        { m_type = t; }
+        void setType(ActorType t) { m_type = t; }
 
-        void setColorOffset(const Vector2f& colorOffset)
-        { m_colorOffset = colorOffset; }
+        void setColorOffset(const Vector2f& colorOffset) { m_colorOffset = colorOffset; }
 
-        const Vector2f& getColorOffset() const
-        { return m_colorOffset; }
+        const Vector2f& getColorOffset() const { return m_colorOffset; }
 
         void toggleColor();
 
-        const ColorMode::ColorMode& getColor() const
-        { return m_color; }
+        const ColorMode::ColorMode& getColor() const { return m_color; }
 
-        void setColor(const ColorMode::ColorMode& m_color)
-        { Actor::m_color = m_color; }
+        void setColor(const ColorMode::ColorMode& m_color) { Actor::m_color = m_color; }
 
         /**
          * Returns true, if the actor is visible (in camera rect)
@@ -115,6 +109,8 @@ namespace jumper
         void takeDamage(int damage);
 
         int getHealth();
+
+        SDL_Rect* getHitbox();
 
     protected:
 
@@ -137,9 +133,9 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-        int     m_health;
+        int m_health;
 
-
+        SDL_Rect m_hitbox;
     };
 
 } /* namespace jumper */

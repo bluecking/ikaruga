@@ -24,6 +24,11 @@ namespace jumper
         m_startTicks = 0;
         m_type = ACTOR;
 
+
+        const float HITBOXFACTOR = 0.8;
+        m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
+        m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
+
         //TODO: this should not be hardcoded
         m_health = 100;
 
@@ -63,6 +68,11 @@ namespace jumper
     void Actor::render()
     {
         SDL_Rect target;
+        SDL_Rect* hitbox = getHitbox();
+
+        SDL_RenderDrawRect(getRenderer(), hitbox);
+
+        delete hitbox;
 
         target.x = floor(m_physicalProps.position().x()) - m_camera.x();
         target.y = floor(m_physicalProps.position().y()) - m_camera.y();
@@ -85,6 +95,17 @@ namespace jumper
             SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
         }
 
+    }
+
+    SDL_Rect* Actor::getHitbox()
+    {
+        SDL_Rect* hitbox = new SDL_Rect;
+        hitbox->w = m_hitbox.w;
+        hitbox->h = m_hitbox.h;
+
+        hitbox->x = (int) std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x();
+        hitbox->y = (int) std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y();
+        return hitbox;
     }
 
     void Actor::setPosition(Vector2f pos)
