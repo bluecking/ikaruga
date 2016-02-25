@@ -43,8 +43,8 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 		m_pixmap=new QPixmap*[3];
 
 		m_pixmap[0]= new QPixmap(filename.mid(0,last+1)+line);
-		m_pixmap[1]= new QPixmap(filename.mid(0,last+1)+"enemys.png");
-		m_pixmap[2]= new QPixmap(filename.mid(0,last+1)+"player.png");
+		m_pixmap[1]= new QPixmap(filename.mid(0,last+1)+"images/enemys.png");
+		m_pixmap[2]= new QPixmap(filename.mid(0,last+1)+"images/player.png");
 
 
 		///list that contains all values
@@ -58,17 +58,14 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
         m_tilesPerRow  =list[2].toInt();
         m_numRows      =list[3].toInt();
         m_tileOffset   =list[4].toInt();
-        ir             =list[5].toInt();
-        ig             =list[6].toInt();
-        ib             =list[7].toInt();
-        m_levelWidth   =list[8].toInt();
-        m_levelHeight  =list[9].toInt();
+        m_levelWidth   =list[5].toInt();
+		m_levelHeight  =14;
 
 
 
 		///sets Labels of the Gui
-		window->level_width->setText(QString::number(m_levelWidth));
-		window->level_height->setText(QString::number(m_levelHeight));
+		///window->level_width->setText(QString::number(m_levelWidth));
+		///window->level_height->setText(QString::number(m_levelHeight));
 
 
 
@@ -80,35 +77,36 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 		}
 
 
-		int count=0;
-		line = in.readLine();
-		list = line.split(" ");
+
 
 		// Read tile indices
-		for(int i = 0; i < m_levelHeight; i++)
-		{
-			for(int j = 0; j < m_levelWidth; j++)
-			{
-				///puts tile_id in m_tiles
-				m_tiles[i][j] = list[count].toInt()-1;
+		for(int i = 0; i < m_levelHeight; i++) {
+            line = in.readLine();
+            list = line.split(" ");
+            if (list.length() == m_levelWidth)
+            {
+                for (int j = 0; j < m_levelWidth; j++) {
 
-				///creates Qrect if m_tiles >=0
-				if(m_tiles[i][j]>=0)
-				{
-					///Creates Rect for GraphicsTileItem
-					QRect rect((m_tileWidth)*(m_tiles[i][j]%m_tilesPerRow),(m_tileHeight)*((int)(m_tiles[i][j]/m_tilesPerRow)),m_tileWidth,m_tileHeight);
 
-					///creates new GraphicsTileItem
-					GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,rect,m_tiles[i][j],0);
+                    ///puts tile_id in m_tiles
+                    m_tiles[i][j] = list[j].toInt() - 1;
 
-					///sets Position of the rect and adds it to the scene
-					item->setPos(m_tileWidth*j,m_tileHeight*i);
-					this->addItem(item);
-				}
-				count++;
-			}
-		}
+                    ///creates Qrect if m_tiles >=0
+                    if (m_tiles[i][j] >= 0) {
+                        ///Creates Rect for GraphicsTileItem
+                        QRect rect((m_tileWidth) * (m_tiles[i][j] % m_tilesPerRow),
+                                   (m_tileHeight) * ((int) (m_tiles[i][j] / m_tilesPerRow)), m_tileWidth, m_tileHeight);
 
+                        ///creates new GraphicsTileItem
+                        GraphicsTileItem *item = new GraphicsTileItem(m_pixmap, rect, m_tiles[i][j], 0);
+
+                        ///sets Position of the rect and adds it to the scene
+                        item->setPos(m_tileWidth * j, m_tileHeight * i);
+                        this->addItem(item);
+                    }
+                }
+            }
+        }
 
 	}
 
@@ -116,11 +114,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	{
 		std::cout << "Unable to open file " << std::endl;
 	}
-	
-	//Cast keying colors manually!
-	m_keyR = (unsigned char)ir;
-	m_keyG = (unsigned char)ib;
-	m_keyB = (unsigned char)ig;
+
 
 	///file close
 	file.close();
@@ -175,4 +169,9 @@ void LevelScene::setTileSettings(int index,int type, QRect rect)
 	m_index=index;
 	m_type =type;
 	m_rect =rect;
+}
+
+void LevelScene::saveLevel()
+{
+    
 }

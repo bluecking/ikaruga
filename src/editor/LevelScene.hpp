@@ -26,6 +26,7 @@ public:
     /// class valiable.
     LevelScene(QString filename, MainWindow* window);
 	void setTileSettings(int index,int type, QRect rect);
+	void saveLevel();
 	QPixmap** getPixmap();
 
 protected:
