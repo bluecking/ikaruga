@@ -52,5 +52,8 @@ QRect GraphicsTileItem::getRect()
 void GraphicsTileItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
 	std::cout<<"Doubleclicked: ";
+    Item* x=new Item();
+    ItemSettingsGui* gui=new ItemSettingsGui(x);
+    gui->show();
 	std::cout<<m_index<<std::endl;
 }
