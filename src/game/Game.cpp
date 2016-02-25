@@ -150,7 +150,7 @@ namespace jumper
         for (auto it = m_actors.begin(); it != m_actors.end(); it++)
         {
             Actor* a = *it;
-            if(a->getHealth() <= 0 )
+            if (a->getHealth() <= 0)
             {
                 to_remove.insert(a);
             }
@@ -265,7 +265,8 @@ namespace jumper
         if (dt > 0)
         {
             Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-            m_player->setPosition(m_player->position() + m_level->collide(m_player->position(), 55, 43, scrollOffset));
+            m_player->setPosition(m_player->position() +
+                                  m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
             Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
         }
     }
