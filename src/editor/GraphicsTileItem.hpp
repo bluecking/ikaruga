@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_TILE_ITEM_HPP
 #define GRAPHICS_TILE_ITEM_HPP
-#include"QGraphicsPixmapItem"
-
+#include "QGraphicsPixmapItem"
+#include "itemsettingsgui.h"
 
 class GraphicsTileItem : public QGraphicsPixmapItem
 {

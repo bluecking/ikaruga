@@ -10,7 +10,7 @@ public:
             std::string type;
             std::string move_function;
             signed int move_value;
-            unsigned int fireRate;
+            float fireRate;
             signed int speed;
             std::string weapon_type;
             unsigned int weapon_level;

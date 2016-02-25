@@ -6,6 +6,9 @@ ItemSettingsGui::ItemSettingsGui(QWidget *parent) :
     ui(new Ui::ItemSettingsGui)
 {
     ui->setupUi(this);
+    this->player=NULL;
+    this->bot=NULL;
+    this->item=NULL;
 }
 
 ItemSettingsGui::ItemSettingsGui(Player *player,QWidget *parent) : ItemSettingsGui(parent)
@@ -43,10 +46,10 @@ ItemSettingsGui::ItemSettingsGui(Player *player,QWidget *parent) : ItemSettingsG
     weapons->addItem("Waffe 2");
     weapons->addItem("Waffe 3");
     weapon->addWidget(weapons);
-    ui->VertOptions->addItem(filename);
-    ui->VertOptions->addItem(frame);
-    ui->VertOptions->addItem(position);
-    ui->VertOptions->addItem(weapon);
+    ui->VertOptions->addLayout(filename);
+    ui->VertOptions->addLayout(frame);
+    ui->VertOptions->addLayout(position);
+    ui->VertOptions->addLayout(weapon);
 }
 ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(parent)
 {
@@ -83,12 +86,12 @@ ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(par
     tile->addWidget(x);
     x=new QLabel("Position:");
     position->addWidget(x);
-    x=new QLabel(QString::number(item->positionX));
+    x=new QLabel(QString::number(bot->positionX));
     position->addWidget(x);
     x=new QLabel(" x ");
-    frame->addWidget(x);
-    x=new QLabel(QString::number(item->positionY));
-    frame->addWidget(x);
+    position->addWidget(x);
+    x=new QLabel(QString::number(bot->positionY));
+    position->addWidget(x);
     x=new QLabel("Color:");
     color->addWidget(x);
     x=new QLabel(QString::fromUtf8(bot->color.c_str()));
@@ -141,20 +144,20 @@ ItemSettingsGui::ItemSettingsGui(Bot *bot,QWidget *parent) : ItemSettingsGui(par
     QSpinBox *level=new QSpinBox();
     level->setMinimum(1);
     level->setMaximum(1);
-    level->setValue(QString::number(bot->npc->weapon_level));
+    level->setValue(bot->npc->weapon_level);
     npc_weapon_level->addWidget(level);
-    ui->VertOptions->addItem(filename);
-    ui->VertOptions->addItem(frame);
-    ui->VertOptions->addItem(tile);
-    ui->VertOptions->addItem(position);
-    ui->VertOptions->addItem(color);
-    ui->VertOptions->addItem(npc_fireRate);
-    ui->VertOptions->addItem(npc_move_function);
-    ui->VertOptions->addItem(npc_move_value);
-    ui->VertOptions->addItem(npc_speed);
-    ui->VertOptions->addItem(npc_type);
-    ui->VertOptions->addItem(npc_weapon_level);
-    ui->VertOptions->addItem(npc_weapon_type);
+    ui->VertOptions->addLayout(filename);
+    ui->VertOptions->addLayout(frame);
+    ui->VertOptions->addLayout(tile);
+    ui->VertOptions->addLayout(position);
+    ui->VertOptions->addLayout(color);
+    ui->VertOptions->addLayout(npc_fireRate);
+    ui->VertOptions->addLayout(npc_move_function);
+    ui->VertOptions->addLayout(npc_move_value);
+    ui->VertOptions->addLayout(npc_speed);
+    ui->VertOptions->addLayout(npc_type);
+    ui->VertOptions->addLayout(npc_weapon_level);
+    ui->VertOptions->addLayout(npc_weapon_type);
 }
 ItemSettingsGui::ItemSettingsGui(Item *item,QWidget *parent) : ItemSettingsGui(parent)
 {
@@ -182,21 +185,19 @@ ItemSettingsGui::ItemSettingsGui(Item *item,QWidget *parent) : ItemSettingsGui(p
     x=new QLabel(QString::number(item->positionX));
     position->addWidget(x);
     x=new QLabel(" x ");
-    frame->addWidget(x);
+    position->addWidget(x);
     x=new QLabel(QString::number(item->positionY));
-    frame->addWidget(x);
+    position->addWidget(x);
     x=new QLabel("Type:");
     type->addWidget(x);
     QComboBox *types=new QComboBox();
-    types->addItem(QString::fromUtf8(player->stdWeapon.c_str()));
-    types->addItem("Waffe 1");
-    types->addItem("Waffe 2");
-    types->addItem("Waffe 3");
+    types->addItem(QString::fromUtf8(item->type.c_str()));
+    types->addItem("PowerUp");
     type->addWidget(types);
-    ui->VertOptions->addItem(filename);
-    ui->VertOptions->addItem(frame);
-    ui->VertOptions->addItem(position);
-    ui->VertOptions->addItem(type);
+    ui->VertOptions->addLayout(filename);
+    ui->VertOptions->addLayout(frame);
+    ui->VertOptions->addLayout(position);
+    ui->VertOptions->addLayout(type);
 }
 
 ItemSettingsGui::~ItemSettingsGui()
@@ -217,7 +218,32 @@ void ItemSettingsGui::on_ButtonOption_accepted()
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(3));
         player->stdWeapon=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
     }else if(this->bot!=NULL){
-
+        QHBoxLayout *hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(0));
+        bot->filename=((QLabel*)hbox->itemAt(1))->text().toStdString();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(1));
+        bot->frameWidth=((QLabel*)hbox->itemAt(1))->text().toInt();
+        bot->frameHeight=((QLabel*)hbox->itemAt(3))->text().toInt();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(2));
+        bot->tileID=((QLabel*)hbox->itemAt(1))->text().toInt();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(3));
+        bot->positionX=((QLabel*)hbox->itemAt(1))->text().toInt();
+        bot->positionY=((QLabel*)hbox->itemAt(3))->text().toInt();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(4));
+        bot->color=((QLabel*)hbox->itemAt(1))->text().toStdString();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(5));
+        bot->npc->fireRate=((QSpinBox*)hbox->itemAt(1))->value();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(6));
+        bot->npc->move_function=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(7));
+        bot->npc->move_value=((QSpinBox*)hbox->itemAt(1))->value();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(8));
+        bot->npc->speed=((QSpinBox*)hbox->itemAt(1))->value();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(9));
+        bot->npc->type=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(10));
+        bot->npc->weapon_level=((QSpinBox*)hbox->itemAt(1))->value();
+        hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(11));
+        bot->npc->weapon_type=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
     }else if(this->item!=NULL){
         QHBoxLayout *hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(0));
         item->filename=((QLabel*)hbox->itemAt(1))->text().toStdString();
