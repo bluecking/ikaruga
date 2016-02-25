@@ -2,7 +2,6 @@
 PROJECT(XML)
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
-#add_subdirectory(src/xml)
 add_library(xml SHARED src/xml/XML.cpp)
 target_link_libraries(xml ${Boost_LIBRARIES})
 
@@ -10,6 +9,16 @@ set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+enable_testing()
+set(XMLTEST_DEPENDENCIES
+    xml
+    )
+set(params /home/patrick/Git-Repositories/uni_hausaufgaben/praktikum1/res/levels/level0.xml)
+add_executable(xmlTest src/xml/XmlTest.cpp src/xml/XML.hpp)
+target_link_libraries(xmlTest ${XMLTEST_DEPENDENCIES})
+configure_file(res/levels/level0.xml level0.xml COPYONLY)
+add_test(NAME ScrollerTest COMMAND xmlTest level0.xml)
 
 ################### GAME #################
 project(SCROLLER)
@@ -89,11 +98,11 @@ FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE(${QT_USE_FILE})
 
 set(EDITOR_SOURCES 
-	src/editor/Main.cpp 
-	src/editor/EditorMainWindow.cpp
-	src/editor/GraphicsTileItem.cpp
-	src/editor/TilesetScene.cpp
-	src/editor/LevelScene.cpp
+    src/editor/Main.cpp
+    src/editor/EditorMainWindow.cpp
+    src/editor/GraphicsTileItem.cpp
+    src/editor/TilesetScene.cpp
+    src/editor/LevelScene.cpp
 )
 
 set(EDITOR_UIS
@@ -105,10 +114,10 @@ set(EDITOR_MOCS
 )
 
 set(EDITOR_DEPENDENCIES
-	${QT_QTCORE_LIBRARIES} 
-	${QT_QTGUI_LIBRARIES}  
-	${QT_QTOPENGL_LIBRARIES} 
-	${QT_QTXML_LIBRARY}  
+    ${QT_QTCORE_LIBRARIES}
+    ${QT_QTGUI_LIBRARIES}
+    ${QT_QTOPENGL_LIBRARIES}
+    ${QT_QTXML_LIBRARY}
 )
 
 
@@ -119,4 +128,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
 target_link_libraries(editor ${EDITOR_DEPENDENCIES})
-set(EDITOR_LIBS ${EDITOR_LIBS} xml)
+#set(EDITOR_LIBS ${EDITOR_LIBS} xml)
