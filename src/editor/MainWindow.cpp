@@ -8,6 +8,18 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent)
     ui->actionSpeichern->setEnabled(false);
     ui->actionSpeichern_unter->setEnabled(false);
     connect(ui->menuZuletzt_geoeffnet, SIGNAL(triggered(QAction*)), this, SLOT(openLast(QAction*)));
+    QPixmap pixmap("../src/editor/refresh.png");
+    QIcon ButtonIcon(pixmap);
+    ui->pushButton->setIcon(ButtonIcon);
+    QRect buttonSize=ui->pushButton->geometry();
+    buttonSize.setWidth(buttonSize.height());
+    ui->pushButton->setGeometry(buttonSize);
+    buttonSize.setX(0);
+    buttonSize.setY(0);
+    ui->pushButton->setIconSize(buttonSize.size());
+    ui->spinBox->setMinimum(10);
+    ui->spinBox->setMaximum(10000);
+    ui->spinBox->setValue(300);
 }
 
 MainWindow::~MainWindow(){
@@ -108,4 +120,9 @@ void MainWindow::on_actionNeu_triggered()
         }
         this->openFile(QDir::currentPath()+"/"+result);
     }
+}
+
+void MainWindow::on_pushButton_released()
+{
+    scene->setSize(ui->spinBox->value());
 }

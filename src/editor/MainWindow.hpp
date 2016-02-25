@@ -20,6 +20,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         void on_actionSpeichern_unter_triggered();
         void on_actionNeu_triggered();
         void openLast(QAction *action);
+        void on_pushButton_released();
+
 private:
 	LevelScene* scene;
     QString openedFile;
