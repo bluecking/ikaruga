@@ -11,6 +11,7 @@
 #include <string>
 #include <SDL.h>
 
+#include <vector>
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
 #include "SparseMatrix.hpp"
@@ -22,6 +23,25 @@
 
 namespace jumper
 {
+
+
+enum TilesDirection
+{
+	TUP,
+	TDOWN,
+	TLEFT,
+	TRIGHT
+};
+
+enum TileType
+{
+	SOLID = 1,
+	NONSOLID = 2,
+	EDGETOPLEFT = 3,
+	EDGETOPRIGHT = 4,
+	EDGEDOWNLEFT = 5,
+	EDGEDOWNRIGHT = 6
+};
 
 
 class Actor;
@@ -72,11 +92,13 @@ public:
 
 	/// Generates a collision object between the level and the actor
 	Collision resolveCollision(Actor* actor);
+	Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
 
 private:
 
 	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
+	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles);
 
 
 	/// Tile width
@@ -99,6 +121,9 @@ private:
 
 	/// Level height
 	int					m_levelHeight;
+
+
+	std::vector<TileType>			m_tileTypes;
 
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;

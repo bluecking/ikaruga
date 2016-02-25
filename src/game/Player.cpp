@@ -53,13 +53,16 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
+            physics().setVelocity(level.collide(position(), 55, 43, physics().velocity()));
+
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
 
             // Checks if the player moves up or down and updates the source rect
             updateMoveAnimation();
 
-            Collision c = level.resolveCollision(this);
+            //Collision c = level.resolveCollision(this);
+            //cout << c.delta() << endl;
         }
 
     }

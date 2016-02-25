@@ -9,11 +9,11 @@
     <digitWidth>10</digitWidth>
     <digitHeight>10</digitHeight>
   </scoreBoard>
-  <player filename="images/player_animated_42x49.png">
-    <numFrames>1</numFrames>
-    <frameWidth>42</frameWidth>
-    <frameHeight>49</frameHeight>
-    <colorOffsetX>252</colorOffsetX>
+  <player filename="images/player_animated_55x43_transparent.png">
+    <numFrames>24</numFrames>
+    <frameWidth>55</frameWidth>
+    <frameHeight>43</frameHeight>
+    <colorOffsetX>1320</colorOffsetX>
     <colorOffsetY>0</colorOffsetY>
     <positionX>100</positionX>
     <positionY>100</positionY>
