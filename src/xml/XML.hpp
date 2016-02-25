@@ -102,6 +102,10 @@ public:
      */
     XML();
 
+    void loadBots(std::string filename);
+    void loadItems(std::string filename);
+    void loadWeapon(std::string filename);
+
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
      * another location by the setFilename method.
@@ -248,11 +252,17 @@ public:
     std::vector<Item> getItems() { return m_items;}
 
     /**
- * Get the Item at given number
- * @param number Position of Item
- * @return Item at position number
+     * Get all Weapons
+     * @return Vector with all Weapons
+     */
+    std::vector<Weapon> getWeapons() { return m_weapons;}
+
+    /**
+     * Get the Item at given number
+     * @param number Position of Item
+     * @return Item at position number
      * @throw range_error If no item is available with the given number.
- */
+     */
     Item getItem(unsigned int number);
 
     /**
@@ -277,7 +287,7 @@ public:
     /**
      * Remove a bot.
      * @param position Number of the bot.
-     * * @throw range_error If no bot is available with the given number.
+     * @throw range_error If no bot is available with the given number.
      */
     void removeBot(unsigned int position);
 
@@ -288,10 +298,16 @@ public:
     unsigned int botSize() {return m_bots.size();}
 
     /**
- *  Returns the total number of bots.
- * @return Total number of bots.
- */
+     * Returns the total number of items.
+     * @return Total number of items.
+     */
     unsigned int itemSize() {return m_items.size();}
+
+    /**
+     * Returns the total number of weapons.
+     * @return Total number of weapons.
+     */
+    unsigned int weaponSize() {return m_weapons.size();}
 
 private:
     /* XML Filename */
@@ -304,7 +320,10 @@ private:
     Background m_background;
     Player m_player;
     std::vector<XML::Bot> m_bots;
+    std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::Item> m_items;
+    std::vector<XML::LevelItem> m_level_items;
+    std::vector<XML::Weapons> m_weapons;
     std::map<std::string, int> m_requiredAttributes;
 
     /**
