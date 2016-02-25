@@ -110,7 +110,7 @@ void XML::load()
                 lBot.positionX = v.second.get<int>("positionX");
                 lBot.positionY = v.second.get<int>("positionY");
                 lBot.color = v.second.get<string>("color");
-                lBot.powerUpProb = v.second.get_child("powerUp").get<string>("<xmlattr>.probability");
+                lBot.powerUpProb = v.second.get_child("powerUp").get<int>("<xmlattr>.probability");
                 lBot.powerUpName = v.second.get<string>("powerUp");
 
                 m_level_bots.push_back(lBot);
@@ -170,20 +170,20 @@ void XML::loadBots(std::string filename){
                 Bot bot;
                 bot.type = v.second.get<string>("<xmlattr>.tpye");
                 bot.filename = v.second.get<string>("filename");
-                bot.numFrames = v.second.get<string>("numFrames");
+                bot.numFrames = v.second.get<int>("numFrames");
                 bot.frameWidth = v.second.get<int>("frameWidth");
                 bot.frameHeight = v.second.get<int>("frameHeight");
                 bot.tileID = v.second.get<int>("tileID");
                 bot.colorOffsetX = v.second.get<int>("colorOffsetX");
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
-                bot.fps = v.second.get<string>("fps");
+                bot.fps = v.second.get<int>("fps");
 
                 /* Get data from child node NPC */
                 NPC npc;
                 npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
                 npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
-                npc.move_value = v.second.get_child("npc").get <signed(int)> ("move");
-                npc.speed = v.second.get_child("npc").get <signed(int)> ("speed");
+                npc.move_value = v.second.get_child("npc").get <signed int> ("move");
+                npc.speed = v.second.get_child("npc").get <signed int> ("speed");
                 npc.stdWeapon = v.second.get_child("npc").get <string> ("stdWeapon");
                 bot.npc = npc;
                 m_bots.push_back(bot);
@@ -260,7 +260,7 @@ void XML::loadWeapons(std::string filename){
                 w.filename = v.second.get<string>("filename");
                 w.colorOffsetX = v.second.get<int>("colorOffsetX");
                 w.colorOffsetY = v.second.get<int>("colorOffsetY");
-                m_items.push_back(i);
+                m_weapons.push_back(w);
             }
             else
             {

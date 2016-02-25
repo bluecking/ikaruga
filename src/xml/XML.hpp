@@ -102,7 +102,7 @@ public:
 
     void loadBots(std::string filename);
     void loadItems(std::string filename);
-    void loadWeapon(std::string filename);
+    void loadWeapons(std::string filename);
 
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
@@ -240,12 +240,24 @@ public:
     LevelBot getLevelBot(unsigned int number);
 
     /**
+     * Get all LevelBots
+     * @return Vector with all LevelBots
+     */
+    std::vector<LevelBot> getLevelBots() { return m_level_bots;}
+
+    /**
      * Get the LevelItem at given number
      * @param number Position of LevelItem
      * @return LevelItem at position number
      * @throw range_error If no LevelItem is available with the given number.
      */
     LevelItem getLevelItem(unsigned int number);
+
+    /**
+     * Get all LevelItems
+     * @return Vector with all LevelItems
+     */
+    std::vector<LevelItem> getLevelItems() { return m_level_items;}
 
     /**
      * Add additional LevelBot.
@@ -363,7 +375,7 @@ private:
 
     std::vector<XML::Bot> m_bots;
     std::vector<XML::Item> m_items;
-    std::vector<XML::Weapons> m_weapons;
+    std::vector<XML::Weapon> m_weapons;
     std::map<std::string, int> m_requiredAttributes;
 
     /**
