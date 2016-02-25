@@ -11,6 +11,8 @@
 #include "PuzzleBox.hpp"
 #include "LaserWeapon.hpp"
 
+#include "../xml/XML.hpp"
+
 #include <iostream>
 
 using namespace jumper;
@@ -33,9 +35,35 @@ void getPlayerProperty(const boost::property_tree::ptree::value_type& v, PlayerP
 
 void setupGame(string filename, MainWindow* w, Game* game)
 {
+	//<alter Teil>
 	 std::size_t found = filename.find_last_of("/\\");
 	 string path = filename.substr(0,found);
+	//</alter Teil>
 
+
+    //<mein teil>
+
+    //open xml file
+    XML xml = XML(filename);
+
+    //create Level
+    string xpath = xml.getTileset();
+    Level* level1 = new Level(w->getRenderer(),path +"/" + xpath);
+    game->setLevel(level1);
+
+    //create Background layer
+    XML::Background background  = xml.getBackground();
+    xpath                       = background.filename;
+    SDL_Texture* texture1       = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
+    float scrollspeed           = background.scrollspeed * 1.0;
+    TexturedLayer* layer1       = new TexturedLayer(w->getRenderer(), texture1, game->getLevel()->tileHeight());
+    layer1->setScrollSpeed(scrollspeed);
+    game->setLayer(layer1);
+
+    //</mein teil>
+
+
+    //<alter Teil>
 	 using boost::property_tree::ptree;
 	 ptree pt;
 	 read_xml(filename, pt);
@@ -140,7 +168,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
 	 }
-
+    //</alter Teil>
 }
 
 int main(int argc, char** argv)
