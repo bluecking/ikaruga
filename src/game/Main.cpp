@@ -60,6 +60,23 @@ void setupGame(string filename, MainWindow* w, Game* game)
     layer1->setScrollSpeed(scrollspeed);
     game->setLayer(layer1);
 
+    //add bots to level
+    vector<XML::Bot>bots = xml.getBots();
+    game->addBots(bots);
+
+    //add items
+    vector<XML::Item>items = xml.getItems();
+    for (auto it = items.begin(); it != items.end(); it++)
+    {
+        xpath       = (*it).filename;
+        texture1    = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
+        Item* item  = new Item(w->getRenderer(), texture1,(*it).frameWidth,(*it).frameHeight, 1);
+        game->addActor(item);
+    }
+
+    XML::Player xplayer =  xml.getPlayer();
+    
+
     //</mein teil>
 
 
@@ -85,10 +102,10 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 Actor* actor = 0;
 			 if(v.first == "bot")
 			 {
-				 Bot* bot = new Bot(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
-				 game->addActor(bot);
-				 actor = bot;
-				 actor->setType(ENEMY);
+				// Bot* bot = new Bot(w->getRenderer(), texture, frameWidth, frameHeight, numFrames);
+				// game->addActor(bot);
+				// actor = bot;
+				// actor->setType(ENEMY);
 			 }
 			 else if(v.first == "player")
 			 {
@@ -140,18 +157,18 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 }
 		 if( v.first == "tileset")
 		 {
-			 string filename = v.second.get("<xmlattr>.filename", "");
-			 Level* level = new Level(w->getRenderer(), path + "/" + filename);
-			 game->setLevel(level);
+			// string filename = v.second.get("<xmlattr>.filename", "");
+			// Level* level = new Level(w->getRenderer(), path + "/" + filename);
+			// game->setLevel(level);
 		 }
 		 if( v.first == "layer")
 		 {
-			 string filename = v.second.get("<xmlattr>.filename", "");
-			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
-			 float s = v.second.get<float>("scrollSpeed", 1.0);
-			 TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
-			 layer->setScrollSpeed(s);
-			 game->setLayer(layer);
+			// string filename = v.second.get("<xmlattr>.filename", "");
+			// SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			// float s = v.second.get<float>("scrollSpeed", 1.0);
+			// TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+			// layer->setScrollSpeed(s);
+			// game->setLayer(layer);
 		 }
 		 if( v.first == "scoreBoard")
 		 {
