@@ -53,7 +53,7 @@ void MainWindow::openFile(QString sFile){
         int last=(sFile.lastIndexOf("/"))+1;
         //std::cout<<last<<sFile.mid(last).toStdString()<<std::endl;
         //this->bitmap_path->setText(sFile.mid(last));
-        //scene=new LevelScene(sFile,this);
+        scene=new LevelScene(sFile,this);
         ui->actionSpeichern->setEnabled(true);
         ui->actionSpeichern_unter->setEnabled(true);
     //}
