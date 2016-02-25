@@ -265,8 +265,7 @@ namespace jumper
         if (dt > 0)
         {
             Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-            m_player->setPosition(m_player->position() + scrollOffset);
-
+            m_player->setPosition(m_player->position() + m_level->collide(m_player->position(), 55, 43, scrollOffset));
             Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
         }
     }
