@@ -110,7 +110,7 @@ namespace jumper
 
         int getHealth();
 
-        SDL_Rect* getHitbox();
+        const SDL_Rect& getHitbox();
 
     protected:
 
@@ -136,6 +136,9 @@ namespace jumper
         int m_health;
 
         SDL_Rect m_hitbox;
+
+    private:
+        void renderHitbox();
     };
 
 } /* namespace jumper */
