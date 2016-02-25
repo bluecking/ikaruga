@@ -277,6 +277,8 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 {
 	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
 
+	bool checkY = true;
+
 	float x = move.x();
 	float y = move.y();
 
@@ -316,9 +318,43 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 			{
 				if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
 				{
+					int tHeight = height - (tiles.size() - 2) * m_tileHeight;
+					tHeight /= 2;
 
+					float maxMov = m_tileHeight - tHeight;
+
+					if (0 < x - ((tiles[0].x() * m_tileWidth) - pos.x() - width)) // you move into the edge
+					{
+						x = std::min(x - ((tiles[0].x() * m_tileWidth) - pos.x() - width), maxMov);
+
+						int upY = tiles[0].y() * m_tileHeight;
+						int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+						int pUp = pos.y();
+						int pDown = pos.y() + height;
+
+						if (pUp - upY <= downY - pDown)
+						{
+							if (pos.y() < upY + x)
+							{
+								y = x + upY - pos.y();
+							}
+						}
+						else
+						{
+							if (pos.y() + height > downY - x)
+							{
+								y = downY - x - pos.y() - height;
+							}
+						}
+
+						x += ((tiles[0].x() * m_tileWidth) - pos.x() - width);
+
+						checkY = false;
+
+					}
 				}
-				else
+				else // you can't move into the edge
 				{
 					float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
 					x = std::min(x, maxMov);
@@ -380,54 +416,58 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 	tiles.clear();
 	pos += Vector2f(x, 0);
 
-
-	if (y != 0)
+	if (checkY)
 	{
-		if (y> 0)
+
+		if (y != 0)
 		{
-			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
-
-			int round = 0;
-
-			for(Vector2i& tPos : tiles)
+			if (y> 0)
 			{
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
+
+				int round = 0;
+
+				for(Vector2i& tPos : tiles)
 				{
-					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 					{
-						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
-						y = std::min(y, maxMov);
+						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+						{
+							float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
+							y = std::min(y, maxMov);
 
-						break;
+							break;
+						}
 					}
-				}
 
-				round++;
+					round++;
+				}
+			}
+			else
+			{
+				getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+
+				int round = 0;
+
+				for(Vector2i& tPos : tiles)
+				{
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+					{
+						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+						{
+							float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
+							y = std::max(y, maxMov);
+
+							break;
+						}
+					}
+
+					round++;
+				}
 			}
 		}
-		else
-		{
-			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
 
-			int round = 0;
-
-			for(Vector2i& tPos : tiles)
-			{
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
-				{
-					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
-					{
-						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
-						y = std::max(y, maxMov);
-
-						break;
-					}
-				}
-
-				round++;
-			}
 		}
-	}
 
 	return Vector2f(x, y);
 }
