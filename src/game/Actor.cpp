@@ -88,7 +88,7 @@ namespace jumper
             }
 
             SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
-            renderHitbox();
+//            renderHitbox();
         }
 
     }
@@ -207,6 +207,23 @@ namespace jumper
         return c;
     }
 
+    Collision Actor::getHitboxCollision(Actor& other)
+    {
+        Collision c;
+
+        SDL_Rect myRect = getHitbox();
+        SDL_Rect otherRect = other.getHitbox();
+
+        SDL_Rect intersection;
+        SDL_IntersectRect(&myRect, &otherRect, &intersection);
+
+        if(intersection.h > 0 && intersection.w > 0) {
+            c.setType(BOOM);
+        }
+
+        return c;
+    }
+
     void jumper::Actor::setFocus(bool focus)
     {
         m_focus = focus;
@@ -259,6 +276,11 @@ namespace jumper
         hitbox.x -= m_camera.x();
         hitbox.y -= m_camera.y();
         SDL_RenderDrawRect(getRenderer(), &hitbox);
+    }
+
+    bool Actor::is_hit()
+    {
+        return m_hit;
     }
 } /* namespace jumper */
 

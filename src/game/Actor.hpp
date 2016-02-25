@@ -110,7 +110,11 @@ namespace jumper
 
         int getHealth();
 
-        const SDL_Rect& getHitbox();
+        virtual const SDL_Rect& getHitbox();
+
+        bool is_hit();
+
+        Collision getHitboxCollision(Actor& other);
 
     protected:
 
@@ -137,6 +141,7 @@ namespace jumper
 
         SDL_Rect m_hitbox;
 
+        bool m_hit = false;
     private:
         void renderHitbox();
     };

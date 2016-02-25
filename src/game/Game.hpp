@@ -121,6 +121,7 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+        void checkProjectileCollision();
     };
 
 } /* namespace jumper */

@@ -107,6 +107,7 @@ namespace jumper
             moveActors();
             scrollHorizontal();
             checkPlayerCollision();
+            checkProjectileCollision();
             checkCameraCollision();
             removeProjectiles();
 
@@ -127,7 +128,6 @@ namespace jumper
             {
                 m_renderables[i]->render();
             }
-
 
             // Update screen
             SDL_RenderPresent(m_renderer);
@@ -293,7 +293,7 @@ namespace jumper
 
             if (a->type() == PROJECTILE)
             {
-                if (!a->visible())
+                if (!a->visible() || a->is_hit())
                 {
                     to_remove.insert(a);
                 }
@@ -303,6 +303,45 @@ namespace jumper
         // Remove actors that were killed in this loop. We have to
         // store them separately because otherwise we would corrupt
         // to loop structure
+        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+        {
+            removeActor(*i);
+        }
+    }
+
+    void Game::checkProjectileCollision()
+    {
+        set<Actor*> to_remove;
+        KillAnimation* anim = 0;
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+        {
+            Actor* a = *it;
+            if(a->type() == PROJECTILE) {
+                for (auto it2 = m_actors.begin(); it2 != m_actors.end(); it2++) {
+
+                    Actor* b = *it2;
+
+                    if(b == m_player || b->type() == PROJECTILE) {
+                        continue;
+                    }
+
+                    Collision c = a->getHitboxCollision(*b);
+
+                    if(c.type() != NONE) {
+                        to_remove.insert(a);
+                        to_remove.insert(b);
+                        anim = new KillAnimation(b);
+                        break;
+                    }
+
+                }
+            }
+
+            if(anim) {
+                m_renderables.push_back(anim);
+            }
+        }
+
         for (auto i = to_remove.begin(); i != to_remove.end(); i++)
         {
             removeActor(*i);
