@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <iostream>
+#include "ui_itemsettingsgui.h"
 #include "bot.h"
 #include "item.h"
 #include "player.h"
@@ -33,6 +34,7 @@ private:
     Player* player;
     Bot* bot;
     Item* item;
+    QHBoxLayout* getQLabelLayout(QString name,std::string& value);
 };
 
 #endif // ITEMSETTINGSGUI_H

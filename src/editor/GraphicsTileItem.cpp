@@ -1,5 +1,4 @@
 #include"GraphicsTileItem.hpp"
-#include<iostream>
 
 
 /// Constructor. Creates a sub-pixmap from tileset at position rect
@@ -52,8 +51,8 @@ QRect GraphicsTileItem::getRect()
 void GraphicsTileItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
 	std::cout<<"Doubleclicked: ";
-    Item* x=new Item();
-    ItemSettingsGui* gui=new ItemSettingsGui(x);
-    gui->show();
+    //Player* x=new Player();
+    //ItemSettingsGui* gui=new ItemSettingsGui(x);
+    //gui->show();
 	std::cout<<m_index<<std::endl;
 }

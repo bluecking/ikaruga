@@ -1,5 +1,5 @@
 #include "itemsettingsgui.h"
-#include "ui_itemsettingsgui.h"
+//#include "ui_itemsettingsgui.h"
 
 ItemSettingsGui::ItemSettingsGui(QWidget *parent) :
     QDialog(parent),
@@ -11,17 +11,28 @@ ItemSettingsGui::ItemSettingsGui(QWidget *parent) :
     this->item=NULL;
 }
 
+QHBoxLayout* ItemSettingsGui::getQLabelLayout(QString name,std::string& value){
+    QHBoxLayout *layout=new QHBoxLayout();
+    QLabel *x=new QLabel(name);
+    layout->addWidget(x);
+    x=new QLabel(QString::fromUtf8(value.c_str()));
+    layout->addWidget(x);
+    return layout;
+}
+
 ItemSettingsGui::ItemSettingsGui(Player *player,QWidget *parent) : ItemSettingsGui(parent)
 {
     this->player=player;
-    QHBoxLayout *filename=new QHBoxLayout();
+    QHBoxLayout *filename;//=new QHBoxLayout();
     QHBoxLayout *frame=new QHBoxLayout();
     QHBoxLayout *position=new QHBoxLayout();
     QHBoxLayout *weapon=new QHBoxLayout();
-    QLabel *x=new QLabel("Filename:");
+    QLabel *x;
+    filename=this->getQLabelLayout(QString("Filename:"),player->filename);
+    /*QLabel *x=new QLabel("Filename:");
     filename->addWidget(x);
     x=new QLabel(QString::fromUtf8(player->filename.c_str()));
-    filename->addWidget(x);
+    filename->addWidget(x);*/
     x=new QLabel("Frame:");
     frame->addWidget(x);
     QSpacerItem *s=new QSpacerItem(20,40,QSizePolicy::Maximum);
@@ -207,14 +218,21 @@ ItemSettingsGui::~ItemSettingsGui()
 
 void ItemSettingsGui::on_ButtonOption_accepted()
 {
+    std::cout<<"save1"<<std::endl;
     if(this->player!=NULL){
+        std::cout<<"save2"<<std::endl;
         QHBoxLayout *hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(0));
+        std::cout<<"save3"<<std::endl;
         player->filename=((QLabel*)hbox->itemAt(1))->text().toStdString();
+        std::cout<<"save3.1"<<std::endl;
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(1));
-        player->frameWidth=((QLabel*)hbox->itemAt(1))->text().toInt();
-        player->frameHeight=((QLabel*)hbox->itemAt(3))->text().toInt();
+        std::cout<<"save4"<<std::endl;
+        player->frameWidth=((QLabel*)hbox->itemAt(2))->text().toInt();
+        player->frameHeight=((QLabel*)hbox->itemAt(4))->text().toInt();
+        std::cout<<"save5"<<std::endl;
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(2));
         player->positionY=((QLabel*)hbox->itemAt(1))->text().toInt();
+        std::cout<<"save6"<<std::endl;
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(3));
         player->stdWeapon=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
     }else if(this->bot!=NULL){
