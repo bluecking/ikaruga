@@ -117,17 +117,19 @@ namespace jumper
                 m_layer->render();
             }
 
-            if (m_statusBar)
-            {
-                m_statusBar->setScore(m_player->physics().position().x());
-                m_statusBar->render();
-            }
-
+            /*
+             * You have to render the Statusbar AFTER the tiles, so the thing is always on Top
+             */
             for (size_t i = 0; i < m_renderables.size(); i++)
             {
                 m_renderables[i]->render();
             }
 
+            if (m_statusBar)
+            {
+                m_statusBar->setScore(m_player->physics().position().x());
+                m_statusBar->render();
+            }
 
             // Update screen
             SDL_RenderPresent(m_renderer);

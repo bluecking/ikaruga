@@ -124,8 +124,9 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 layer->setScrollSpeed(s);
 			 game->setLayer(layer);
 		 }
-		 if( v.first == "scoreBoard")
+		 if( v.first == "statusBar")
 		 {
+			 //TODO ~ Set the position of the Statusbar relative to the tilehight, so it fits completely in the top row
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
 			 int x = v.second.get<int>("xPos", 10);
