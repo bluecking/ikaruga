@@ -211,7 +211,37 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *t
 
 }
 
-void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles)
+void Level::getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles)
+{
+
+	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
+	Vector2i posInGridEnd(floor((pos.x() - 1 + width) / m_tileWidth), floor((pos.y() - 1 + height) / m_tileHeight));
+
+	if (direction == TUP)
+	{
+		tiles->pushback(posInGrid);
+		tiles->pushback(Vector2i(posInGridEnd.x(), posInGrid.y()));
+	}
+	else if (direction == TDOWN)
+	{
+		tiles->pushback(Vector2i(posInGrid.x(), posInGridEnd.y()));
+		tiles->pushback(posInGridEnd);
+	}
+	else if (direction == TLEFT)
+	{
+		tiles->pushback(posInGrid);
+		tiles->pushback(Vector2i(posInGrid.x(), posInGridEnd.y()));
+	}
+	else if (direction == TRIGHT)
+	{
+		tiles->pushback(Vector2i(posInGridEnd.x(), posInGrid.y()));
+		tiles->pushback(posInGridEnd);
+	}
+
+	return;
+}
+
+void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles)
 {
 
 	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
