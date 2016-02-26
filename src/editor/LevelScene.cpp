@@ -1,194 +1,299 @@
-/*
- * LevelScene.cpp
- *
- *  Created on: Jul 23, 2015
- *      Author: twiemann
- */
-
-#include "LevelScene.hpp"
-#include "TilesetScene.hpp"
-#include "GraphicsTileItem.hpp"
+#include"LevelScene.hpp"
 
 
 
-LevelScene::LevelScene(QString filename, MainWindow* window)
-	: m_mainWindow(window)
+
+LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(window)
 {
-	string fn = filename.toStdString();
 
-	int viewWidth = window->graphicsViewTiles->width();
-
-	ifstream in(fn.c_str());
-
-	if(in.good())
-	{
-		in >> m_texFileName;
-		in >> m_tileWidth >> m_tileHeight >> m_tilesPerRow >> m_numRows
-		   >> m_tileOffset >> m_keyR >> m_keyG >> m_keyB >> m_levelWidth >> m_levelHeight;
-	}
-
-	m_pixmap = new QPixmap(QString(m_texFileName.c_str()));
-	if(m_pixmap == 0)
-	{
-		cout << "Error: Unable to load pixmap from file " << m_texFileName << endl;
-	}
-
-	window->spinBoxX->setValue(m_levelWidth);
-	window->spinBoxY->setValue(m_levelHeight);
-
-	m_tiles = new int*[m_levelHeight];
-	for(int i = 0; i < m_levelHeight; i++)
-	{
-		m_tiles[i] = new int[m_levelWidth];
-		for(int j = 0; j < m_levelWidth; j++)
-		{
-			m_tiles[i][j] = 0;
-		}
-	}
+	//Set all default values
+	m_tileWidth 	= 40;
+	m_tileHeight	= 40;
+	m_tileOffset 	= 0;
+	m_numRows = 4;
+	m_tilesPerRow = 10;
+	m_levelWidth = 400;
+	m_levelHeight = 14;
+    m_texFileName="../images/rocks.png";
+	m_mainWindow=window;
+	m_setting=Settings();
+    m_fileName=filename;
 
 
-	for(int i = 0; i < m_levelHeight; i++)
-	{
-		for(int j = 0; j < m_levelWidth; j++)
-		{
-			in >> m_tiles[i][j];
 
-			int tileIndex = m_tiles[i][j] -1;
-			int row = tileIndex / m_tilesPerRow;
-			int col = tileIndex % m_tilesPerRow;
 
-			int x, y;
-			x = col * m_tileWidth;
-			if(col > 0)
-			{
-				x += col * m_tileOffset;
-			}
+    loadXml(filename);
 
-			y = row * m_tileHeight;
-			if(row > 0)
-			{
-				y += row * m_tileOffset;
-			}
+    loadLevel(m_levelName);
 
-			QRect rect(x, y, m_tileWidth, m_tileHeight);
+	///Create TextureViews
+	TextureScene* m_textureView= new TextureScene(m_setting,window->ui->TextureView,this, window);
+	TextureScene* m_enemyView= new TextureScene(m_setting,window->ui->EnemieView,this, window);
 
-			GraphicsTileItem* item;
-			if(tileIndex >= 0)
-			{
-				item = new GraphicsTileItem(m_pixmap, rect, tileIndex);
-			}
-			else
-			{
-				QColor color(m_keyR, m_keyG, m_keyB);
-				item = new GraphicsTileItem(&color, m_tileWidth, m_tileHeight);
-			}
+	///sets MainViewScene
+    window->ui->MainView->setScene(this);
 
-			item->setPos(j * m_tileWidth, i * m_tileHeight);
-			addItem(item);
-		}
-	}
+	///set the TextureViews to VisibleS
+	window->ui->TextureView->setScene(m_textureView);
+	window->ui->EnemieView->setScene(m_enemyView);
+
+    saveXml(filename);
+
 
 }
 
-void LevelScene::save(string filename)
-{
-	ofstream out(filename.c_str());
-	out << m_texFileName << endl;
-	out << m_tileWidth  << " " << m_tileHeight << " " << m_tilesPerRow << " " << m_numRows << " "
-		<< m_tileOffset << " " << m_keyR       << " " << m_keyG        << " " << m_keyB  << " " << m_levelWidth << " " << m_levelHeight << endl;
+void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
+	///Calculates Clickposition and the containing Items
+	int x = event->scenePos().x()/m_tileWidth;
+	int y = event->scenePos().y()/m_tileHeight;
+	QList<QGraphicsItem*> item_list = items(x*m_tileWidth,y*m_tileHeight,m_tileWidth,m_tileHeight);
 
-	for(int i = 0; i < m_levelHeight; i++)
+	///if there is an item write new rect to that Item else create a new Item and set rect
+	if (!item_list.isEmpty())
 	{
-		for(int j = 0; j < m_levelWidth; j++)
-		{
-			out << m_tiles[i][j] << " ";
-		}
-		cout << endl;
-	}
-}
-
-void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
-{
-	QGraphicsScene::mousePressEvent(event);
-	QPointF p = event->scenePos();
-	GraphicsTileItem* item = static_cast<GraphicsTileItem*>(itemAt(event->scenePos()));
-
-	if(event->button() == Qt::LeftButton)
-	{
-
-		if(item)
-		{
-			TilesetScene* scene = static_cast<TilesetScene*>(m_mainWindow->graphicsViewTiles->scene());
-
-			if(scene->m_selectedItem)
-			{
-				item->setIndex(scene->m_selectedItem->getIndex());
-
-				int tileIndex = scene->m_selectedItem->getIndex() -1;
-				int row = tileIndex / m_tilesPerRow;
-				int col = tileIndex % m_tilesPerRow;
-
-				int x, y;
-				x = col * m_tileWidth;
-				if(col > 0)
-				{
-					x += col * m_tileOffset;
-				}
-
-				y = row * m_tileHeight;
-				if(row > 0)
-				{
-					y += row * m_tileOffset;
-				}
-
-				QRect rect(x, y, m_tileWidth, m_tileHeight);
-
-				QPixmap pm = m_pixmap->copy(rect);
-				item->setPixmap(pm);
-			}
-			else
-			{
-				item->setIndex(0);
-
-				QPixmap pm(m_tileWidth, m_tileHeight);
-				pm.fill(QColor(m_keyR, m_keyG, m_keyB));
-				item->setPixmap(pm);
-			}
-
-			// Update tile array
-			int i = p.y() / m_tileHeight;
-			int j = p.x() / m_tileWidth;
-
-			//cout << i << " " << j << endl;
-
-			if(scene->m_selectedItem)
-			{
-				m_tiles[i][j] = scene->m_selectedItem->getIndex();
-			}
-			else
-			{
-				m_tiles[i][j] = 0;
-			}
-
-		}
+		(dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(m_type, m_rect, m_index);
+        if(m_type==0)
+        {
+            m_tiles[y][x]=m_index;
+        }
+		m_mainWindow->ui->MainView->setScene(this);
 	}
 	else
 	{
-		if(item->getIndex() > 0)
-		{
-			TilesetScene* scene = static_cast<TilesetScene*>(m_mainWindow->graphicsViewTiles->scene());
-			if(item && scene)
-			{
-				scene->m_selectedItem = item;
-			}
-		}
+		///creates a new Item and update View
+		GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,m_rect,m_index,m_type);
+		m_tiles[y][x]=m_index;
+		item->setPos(m_tileWidth*x,m_tileHeight*y);
+		this->addItem(item);
+		m_mainWindow->ui->MainView->setScene(this);
 	}
 }
 
-
-LevelScene::~LevelScene()
+QPixmap** LevelScene::getPixmap()
 {
-	// TODO Auto-generated destructor stub
+	return m_pixmap;
 }
+
+void LevelScene::setTileSettings(int index,int type, QRect rect)
+{
+	///sets textureType
+	m_index=index;
+	m_type =type;
+	m_rect =rect;
+}
+
+void LevelScene::loadXml(QString fileName)
+{
+
+    m_xml = new XML(fileName.toStdString());
+
+
+    int last=(fileName.lastIndexOf("/"));
+    m_path=fileName.mid(0,last+1);
+
+    m_levelName     = toQString(m_xml->getTileset());
+    m_levelName     =m_path+m_levelName;
+    m_xmlFileName   =toQString(m_xml->getFilename());
+    m_levelId       =m_xml->getId();
+
+    std::vector<XML::LevelBot>  bots = m_xml->getLevelBots();
+
+
+}
+
+QString LevelScene::toQString(std::string string)
+{
+    return QString::fromUtf8(string.c_str());
+}
+
+void LevelScene::saveXml(QString fileName)
+{
+
+
+    m_xml = new XML();
+
+    m_xml->setFilename(m_path.toStdString()+"testFile.xml");
+    m_xml->setTileset(m_levelName.toStdString());
+    m_xml->setLevelname("Milky test");
+    m_xml->setId(1);
+   /// m_xml->setLevelBots();
+   /// m_xml->save();
+
+    /**m_xml->setLevelBot();
+    m_xml->setTileset()
+    m_xml->setBackground();
+    m_xml->setFilename();
+    m_xml->setId();
+    m_xml->setLevelBots();
+    m_xml->setLevelItems():
+    m_xml->setLevelItem();
+    m_xml->setLevelname();
+    m_xml->setPlayer();
+    m_xml->setLevelname();*/
+
+}
+
+
+
+void LevelScene::loadLevel(QString fileName )
+{
+    // Read meta data from level file
+    QFile file(fileName);
+    ///readonly file open
+    if(file.open(QIODevice::ReadOnly))
+    {
+        std::cout<<"hallo"<<std::endl;
+
+        QTextStream in(&file);
+
+        ///Filename
+        QString line = in.readLine();
+
+
+
+        m_pixmap=new QPixmap*[6];
+        std::cout<<m_path.toStdString()<<"../images/rocks.png"<<std::endl;
+
+        m_pixmap[0]= new QPixmap(m_path+m_texFileName);
+        m_pixmap[1]= new QPixmap(m_path+"../images/Bot_1.png");
+        m_pixmap[2]= new QPixmap(m_path+"../images/Bot_2.png");
+        m_pixmap[3]= new QPixmap(m_path+"../images/Bot_3.png");
+        m_pixmap[4]= new QPixmap(m_path+"../images/Bot_4.png");
+        m_pixmap[5]= new QPixmap(m_path+"../images/Bot_5.png");
+        ///m_pixmap[1]= new QPixmap(m_path+"../images/bot_1");
+
+
+
+        ///list that contains all values
+        QStringList list;
+
+        ///lvl properties
+        line           =in.readLine();
+        list           =line.split(" ");
+        m_tileWidth    =list[0].toInt();
+        m_tileHeight   =list[1].toInt();
+        m_tilesPerRow  =list[2].toInt();
+        m_numRows      =list[3].toInt();
+        m_tileOffset   =list[4].toInt();
+        m_levelWidth   =list[5].toInt();
+        m_levelHeight  =14;
+
+
+        setTileSettings(0,0,QRect(0,0,40,40));
+
+
+
+        ///sets Labels of the Gui
+        m_mainWindow->ui->spinBox->setValue(m_levelWidth);
+
+
+
+
+        // Alloc tile set memory
+        m_tiles = new int*[m_levelHeight];
+        for(int i = 0; i < m_levelHeight; i++)
+        {
+            m_tiles[i] = new int[m_levelWidth];
+        }
+
+
+        // Read tile indices
+        for(int i = 0; i < m_levelHeight; i++) {
+
+            line = in.readLine();
+            list = line.split(" ");
+            if (list.length() == m_levelWidth)
+            {
+                for (int j = 0; j < m_levelWidth; j++) {
+
+
+                    ///puts tile_id in m_tiles
+                    m_tiles[i][j] = list[j].toInt() - 1;
+
+                    ///creates Qrect if m_tiles >=0
+                    if (m_tiles[i][j] >= 0) {
+                        ///Creates Rect for GraphicsTileItem
+                        QRect rect((m_tileWidth) * (m_tiles[i][j] % m_tilesPerRow),
+                                   (m_tileHeight) * ((int) (m_tiles[i][j] / m_tilesPerRow)), m_tileWidth, m_tileHeight);
+
+                        ///creates new GraphicsTileItem
+                        GraphicsTileItem *item = new GraphicsTileItem(m_pixmap, rect, m_tiles[i][j], 0);
+
+                        ///sets Position of the rect and adds it to the scene
+                        item->setPos(m_tileWidth * j, m_tileHeight * i);
+                        this->addItem(item);
+                    }
+                }
+            }
+        }
+        ///file close
+        file.close();
+
+
+    }
+
+    else
+    {
+        m_tiles = new int*[m_levelHeight];
+        for(int i = 0; i < m_levelHeight; i++)
+        {
+            m_tiles[i] = new int[m_levelWidth];
+        }
+
+        for(int i=0;i<m_levelHeight;i++)
+        {
+            for(int j=0;j<m_levelWidth;j++)
+            {
+                if(i==0)m_tiles[i][j]=7;
+                else if(i<m_levelHeight-1)m_tiles[i][j]=-1;
+                if(i==m_levelHeight-1)m_tiles[i][j]=0;
+            }
+        }
+        ///file close
+        file.close();
+        saveLevel(m_levelName);
+        loadLevel(fileName);
+
+    }
+
+
+
+
+}
+
+
+
+void LevelScene::saveLevel(QString fileName)
+{
+
+    QFile readfile(fileName);
+    QTextStream write(&readfile);
+    if(readfile.open(QFile::WriteOnly  | QFile::Text))
+    {
+            write<<m_texFileName<<"\n";
+
+            write<<m_tileWidth<<" ";
+            write<< m_tileHeight<<" ";
+            write<<m_tilesPerRow<<" ";
+            write<<m_numRows<<" ";
+            write<<m_tileOffset<<" ";
+            write<<m_levelWidth<<"\n";
+
+        for(int i = 0; i < m_levelHeight; i++)
+        {
+                for (int j = 0; j < m_levelWidth; j++) {
+
+                    ///puts tile_id in m_tiles
+                    if(j!=m_levelWidth-1) write<<m_tiles[i][j]+1<<" ";
+                    else write<<m_tiles[i][j]+1;
+
+                }
+            write<<"\n";
+        }
+
+        readfile.close();
+    }
+}
+
 
