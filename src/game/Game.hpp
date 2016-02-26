@@ -68,7 +68,7 @@ namespace jumper
         { m_scoreBoard = b; };
 
         /// set bots
-        void addBots(vector<XML::Bot> bots);
+        void addBots(vector<XML::LevelBot> bots);
 
     private:
 
@@ -129,7 +129,7 @@ namespace jumper
 
         bool m_started;
 
-        vector<XML::Bot>        m_bots;
+        vector<XML::LevelBot>        m_bots;
     };
 
 } /* namespace jumper */
