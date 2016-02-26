@@ -8,7 +8,7 @@
       <frameHeight>10</frameHeight>
       <letterCount>26</letterCount>
       <capitalOffset>1</capitalOffset>
-      <minusculeOffset>3</minusculeOffset>
+      <minusculeOffset>2</minusculeOffset>
       <numberOffset>0</numberOffset>
       <offsetToMid>1</offsetToMid>
   </statusBar>

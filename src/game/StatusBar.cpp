@@ -127,25 +127,43 @@ void StatusBar::render()
     //Render Weapon
     if(m_weaponChanged)
     {
-        std::cout << m_weaponName;
+        for(int i = 0; i < m_weaponName.length(); i++)
+        {
+            string weaponLetter = string(1, m_weaponName[i]);
+            string weaponLetterToUpper = weaponLetter;
+            bool upperCase = false;
+            int height_offset = 0;
+            //check for casing
+            std::transform(weaponLetterToUpper.begin(),
+                           weaponLetterToUpper.end(),
+                           weaponLetterToUpper.begin(),
+                           ::toupper);
+            if(weaponLetterToUpper == weaponLetter)
+            {
+                upperCase = true;
+                height_offset = m_capitalOffset;
+            } else
+            {
+                upperCase = false;
+                height_offset = m_minusculeOffset;
+            }
+            int character = 0;
+            const char* cha = weaponLetter.c_str();
+            if(upperCase)
+            {
+                character = int(*cha) - 48 - 17;
+            } else
+            {
+                character = int(*cha) - 48 - 23 - m_letterCount;
+            }
+            source.x = character * m_tileWidth;
+            source.y = height_offset * m_tileHeight;
+
+            target.x = m_weaponPosition.x() + (i * m_tileWidth) + i;
+            target.y = m_weaponPosition.y();
+            SDL_RenderCopy(m_renderer, m_texture, &source, &target);
+        }
     }
-    //std::list<int> capitals;
-
-    /*
-    for(std::list<int>::iterator it = digits.begin(); it != digits.end(); it++)
-    {
-        int digit = *it;
-        source.x = digit * m_tileWidth;
-        source.y = 0;
-
-        target.x = m_weaponPosition.x() + (c * m_tileWidth) + c;
-        target.y = m_weaponPosition.y();
-
-        SDL_RenderCopy(m_renderer, m_texture, &source, &target);
-        c++;
-    }
-    */
-
 }
 void StatusBar::setPosition(const Vector2i &positionStart, const Vector2i &positionEnd)
 {
