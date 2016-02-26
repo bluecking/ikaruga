@@ -6,13 +6,11 @@
  */
 
 #include <SDL.h>
-
 #include <iostream>
+#include "Actor.hpp"
 
 using std::cout;
 using std::endl;
-
-#include "Actor.hpp"
 
 namespace jumper
 {
@@ -64,8 +62,8 @@ namespace jumper
     {
         SDL_Rect target;
 
-        target.x = floor(m_physicalProps.position().x()) - m_camera.x();
-        target.y = floor(m_physicalProps.position().y()) - m_camera.y();
+        target.x = (int) floor(m_physicalProps.position().x() - m_camera.x());
+        target.y = (int) floor(m_physicalProps.position().y() - m_camera.y());
         target.w = m_frameWidth;
         target.h = m_frameHeight;
 
@@ -78,8 +76,8 @@ namespace jumper
             // switch color
             if (m_color == ColorMode::WHITE)
             {
-                source.x = source.x + m_colorOffset.x();
-                source.y = source.y + m_colorOffset.y();
+                source.x = source.x + (int) m_colorOffset.x();
+                source.y = source.y + (int) m_colorOffset.y();
             }
 
             SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
