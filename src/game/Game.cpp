@@ -42,13 +42,31 @@ namespace jumper
         // TODO Auto-generated destructor stub
     }
 
-    void Game::addBots(vector<XML::LevelBot> bots)
+    void Game::addBot(Bot  bot)
     {
-        m_bots = bots;
+        m_bots.push_back(bot);
     }
 
     void Game::spawnBots()
     {
+        int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
+
+        vector<Bot> erease_bots;
+
+        for (auto it = begin (m_bots); it != end (m_bots)&& it->position().x()<curPos; it++)
+        {
+            it->setLiveTime();
+            erease_bots.push_back(*it);
+            addBot(*it);
+        }
+
+        for (auto it = begin (erease_bots); it != end (erease_bots)&& it->position().x()<curPos; it++)
+        {
+            m_bots.erase(it);
+        }
+
+
+        /*
 
         int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
         for (auto it = begin (m_bots); it != end (m_bots); it++) {
@@ -72,6 +90,8 @@ namespace jumper
                 m_bots.erase(it);
             }
         }
+
+         */
     }
 
     void Game::setPlayer(Player* player)
