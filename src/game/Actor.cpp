@@ -25,6 +25,8 @@ namespace jumper
         //TODO: this should not be hardcoded
         m_health = 100;
 
+        setLiveTime();
+
     }
 
     void Actor::setPhysics(PlayerProperty p)
