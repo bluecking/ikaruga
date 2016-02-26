@@ -269,13 +269,10 @@ namespace jumper
     {
         float dt = getElapsedTime();
 
-        if (dt > 0)
-        {
-            Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-            m_player->setPosition(m_player->position() +
-                                  m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
-            Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
-        }
+        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
+        m_player->setPosition(m_player->position() +
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
+        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
     float Game::getElapsedTime()
@@ -286,7 +283,7 @@ namespace jumper
         }
 
         Uint32 ticks = SDL_GetTicks();
-        float time = (ticks - m_startTicks) / 1000.0;
+        float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
     }
