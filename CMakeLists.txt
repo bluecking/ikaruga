@@ -58,5 +58,18 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CM
 add_executable(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
 target_link_libraries(editor ${QT_LIBRARIES} xml)
 
-############ XML Lib ##########
+############ XML ##########
+enable_testing()
 add_subdirectory(src/xml)
+
+############ COPY CONFIG FILES ##########
+file(GLOB ConfigFiles
+        #${CMAKE_SOURCE_DIR}/res/levels/level0.xml
+        #${CMAKE_SOURCE_DIR}/config/*.conf
+        )
+add_custom_target(copy)
+foreach(ConfigFile ${ConfigFiles})
+    add_custom_command(TARGET copy PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E
+            copy ${ConfigFile} ${CMAKE_BINARY_DIR}) #alternative copy hole directory: copy_directory ${CMAKE_SOURCE_DIR}/res ${CMAKE_BINARY_DIR})
+endforeach()
