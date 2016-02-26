@@ -24,6 +24,7 @@ int main(int argc, char** argv)
         << "Player - fileName: " << m_xml.getPlayer().filename << endl
         << "Player - frameWidth: " << m_xml.getPlayer().frameWidth << endl
         << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
+        << "Player - positionX: " << m_xml.getPlayer().positionX << endl
         << "Player - positionY: " << m_xml.getPlayer().positionY << endl
         << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl << endl;
 
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
         cout << "Bot - positionY: " << lBot.positionY << endl
             << "Bot - positionX: " << lBot.positionX << endl
             << "Bot - color: " << lBot.color << endl
-            << "Bot - type: " << lBot.type << endl
+            << "Bot - type: " << lBot.type.type << endl
             << "Bot - powerUpName: " << lBot.powerUpName << endl
             << "Bot - powerUpProb: " << lBot.powerUpProb << endl;
     }
@@ -43,6 +44,15 @@ int main(int argc, char** argv)
             << "Item - value: " << m_xml.getLevelItem(i).value << endl;
     }
 
+    m_xml.loadItems("/home/skalbers/Studium/GITHUB_Praktikum/res/advanced_settings/items.xml");
+
+    /** SETTING FILES **/
+    for(int i=0;i<(int) m_xml.itemSize();i++) {
+        cout << "Item - type: " << m_xml.getItem(i).type << endl
+        << "Item - filename: " << m_xml.getItem(i).filename << endl
+        << "Item - frameHeight: " << m_xml.getItem(i).frameHeight << endl
+        << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl;
+    }
     m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
 
