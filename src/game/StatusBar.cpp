@@ -12,6 +12,7 @@
 using std::cout;
 using std::endl;
 using std::list;
+using std::string;
 
 namespace jumper
 {
@@ -90,6 +91,7 @@ void StatusBar::render()
 	source.w = target.w;
 	source.h = target.h;
 
+    //Render Score
 	std::list<int> digits;
 	int number = m_score;
 
@@ -120,6 +122,11 @@ void StatusBar::render()
 		SDL_RenderCopy(m_renderer, m_texture, &source, &target);
 		c++;
 	}
+
+    //Render Weapon
+    std::list<int> capitals;
+
+    /*
     for(std::list<int>::iterator it = digits.begin(); it != digits.end(); it++)
     {
         int digit = *it;
@@ -132,6 +139,7 @@ void StatusBar::render()
         SDL_RenderCopy(m_renderer, m_texture, &source, &target);
         c++;
     }
+    */
 
 }
 void StatusBar::setPosition(const Vector2i &positionStart, const Vector2i &positionEnd)
@@ -153,6 +161,11 @@ void StatusBar::setScorePosition(const Vector2i &position)
 void StatusBar::setWeaponPosition(const Vector2i &position)
 {
     m_weaponPosition = position;
+}
+
+void StatusBar::setWeaponName(string weaponName)
+{
+    cout << weaponName + "\n";
 }
 
 StatusBar::~StatusBar()

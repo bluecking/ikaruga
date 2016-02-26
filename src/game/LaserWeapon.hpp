@@ -26,6 +26,7 @@ namespace jumper
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
     };
+
 } /* namespace jumper */
 
 

@@ -30,6 +30,9 @@ namespace jumper
         void setWeapon(Weapon* weapon)
         { m_weapon = weapon; }
 
+        Weapon* getWeapon(void)
+        { return m_weapon; }
+
     protected:
         // The weapon
         Weapon* m_weapon;

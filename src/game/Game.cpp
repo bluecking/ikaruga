@@ -83,7 +83,7 @@ namespace jumper
             {
                 m_player->shoot();
             }
-
+            m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])

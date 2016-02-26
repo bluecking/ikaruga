@@ -10,6 +10,7 @@
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
 #include "Vector.hpp"
+using std::string;
 
 namespace jumper
 {
@@ -35,7 +36,7 @@ namespace jumper
          * @param coolDown Cool down for the weapon (time between shoots)
          */
         Weapon(Game& game, Actor& actor, SDL_Texture* projectileTexture, const Vector2i& projectileTextureSize,
-               const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown);
+               const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown, string name);
 
         virtual ~Weapon();
 
@@ -46,6 +47,9 @@ namespace jumper
          * @param spawnPosition Position where the projectiles should spawn
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition) = 0;
+
+        string getWeaponName(void)
+        { return m_name;}
 
     protected:
         // Game where to add the projectiles
@@ -78,6 +82,8 @@ namespace jumper
          * @return True if the weapon can be fired, false else
          */
         bool weaponReady();
+
+        string m_name;
     };
 } /* namespace jumper */
 

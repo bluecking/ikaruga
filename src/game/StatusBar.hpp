@@ -10,6 +10,8 @@
 
 #include "StaticRenderable.hpp"
 
+using std::string;
+
 namespace jumper
 {
 
@@ -67,6 +69,8 @@ public:
 
     void setWeaponPosition(const Vector2i &position);
 
+    void setWeaponName(string weaponName);
+
 private:
 
 	/// Current score
@@ -89,6 +93,8 @@ private:
     int m_offsetMiddle;
 
     int m_horziontalAlignemnt;
+
+    string m_weaponName;
 
 	/// Scoreboard position
 	Vector2i m_scorePosition;
