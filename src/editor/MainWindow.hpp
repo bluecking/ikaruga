@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
 	public:
 		MainWindow (QMainWindow *parent = 0);
         virtual ~MainWindow();
+		Ui::MainWindow *ui;
 	private slots:
         void on_action_oeffnen_triggered();
         void on_actionSpeichern_triggered();
@@ -26,7 +27,6 @@ private:
 	LevelScene* scene;
     QString openedFile;
     QMap<QString,QString> lastOpenedFiles;
-    Ui::MainWindow *ui;
     void openFile(QString sFile);
     void saveFile(QString sFile);
 };

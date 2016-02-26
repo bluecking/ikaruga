@@ -13,6 +13,7 @@
 #include<QGraphicsSceneMouseEvent>
 #include<iostream>
 #include "TextureScene.h"
+#include"../xml/XML.hpp"
 
 
 class MainWindow;
@@ -28,6 +29,9 @@ public:
 	void setTileSettings(int index,int type, QRect rect);
 	void saveLevel(QString fileName);
 	void saveXml(QString fileName);
+	void loadXml(QString fileName);
+	void loadLevel(QString fileName);
+
 	QPixmap** getPixmap();
 
 protected:
@@ -43,6 +47,7 @@ private:
     QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
 	QString	m_fileName;
 	QString m_pfad;
+	XML* m_xml;
 	int** m_tiles;        // The 2D tile array
 	int m_index=0;        // Tile id
 	int m_type=0;         // texture type
@@ -53,9 +58,7 @@ private:
 	int m_tileOffset;     // Offset between the tiles
 	int m_levelWidth;     // Level width (in tiles)
 	int m_levelHeight;    // Level height in tiles
-	int m_keyR;           // Key color r component
-	int m_keyG;           // Key color g component
-	int m_keyB;           // Key color b component
+	QString m_levelName;
 	QString m_texFileName; // File name of the tile bitmap
 	QString m_enemyFileName;
 	QString m_playerFileName;

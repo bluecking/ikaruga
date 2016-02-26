@@ -52,7 +52,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
-target_link_libraries(editor ${QT_LIBRARIES})
+target_link_libraries(editor ${QT_LIBRARIES} xml)
 
 ############ XML Lib ##########
 add_subdirectory(src/xml)
