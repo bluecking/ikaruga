@@ -10,6 +10,7 @@
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
 #include "Vector.hpp"
+using std::string;
 
 namespace jumper
 {
@@ -33,9 +34,18 @@ namespace jumper
          * @param weaponOffset Offset for the weapon from the top left cornor of the player
          * @param projectileColorOffset Offset for the second color in the projectile texture
          * @param coolDown Cool down for the weapon (time between shoots)
+         * @param name Name of the weapon
+         * @param evolution Evolution Stage of the Weapon
          */
-        Weapon(Game& game, Actor& actor, SDL_Texture* projectileTexture, const Vector2i& projectileTextureSize,
-               const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown);
+        Weapon(Game& game,
+               Actor& actor,
+               SDL_Texture* projectileTexture,
+               const Vector2i& projectileTextureSize,
+               const Vector2f& weaponOffset,
+               const Vector2f& projectileColorOffset,
+               float coolDown,
+               string name,
+               int evolution);
 
         virtual ~Weapon();
 
@@ -46,6 +56,22 @@ namespace jumper
          * @param spawnPosition Position where the projectiles should spawn
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition) = 0;
+
+        /**
+         * Returns the Weapon Name
+         *
+         * @returns: Weapon Name
+         */
+        string getWeaponName(void)
+        { return m_name;}
+
+        /**
+         * Returns the Weapon Evolution Stage
+         *
+         * @returns: Weapon Evolution Stage
+         */
+        int getEvolutionStage(void)
+        { return m_evolution; }
 
     protected:
         // Game where to add the projectiles
@@ -78,6 +104,12 @@ namespace jumper
          * @return True if the weapon can be fired, false else
          */
         bool weaponReady();
+
+        //Name of the Weapon
+        string m_name;
+
+        //Evlolution Stage of Weapon
+        int m_evolution;
     };
 } /* namespace jumper */
 
