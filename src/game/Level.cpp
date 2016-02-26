@@ -501,7 +501,7 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 		}
 		else
 		{
-			getInnerTiles(pos, TRIGHT, width, height, &tiles);
+			getInnerTiles(pos, TLEFT, width, height, &tiles);
 
 			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
 			TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
@@ -553,27 +553,27 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 			{
 				checkY = false;
 
-				float maxMovEdge = nextEdge(pos.x(), width, tiles[0].x(), 1);
+				float maxMovEdge = nextEdge(pos.x(), 0, tiles[0].x(), 0);
 
 				float movRec = x - maxMovEdge;
 
-				x = std::min(x, maxMovEdge);
+				x = std::max(x, maxMovEdge);
 
 				int upY = gridToPos(tiles[0].y());
 
-				if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
+				if (pos.y() + y < upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1) // check if we would collide in next step
 				{
-					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+					y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
 				bool same = (y == y2);
 
-				x -= y - y2;
+				x += y - y2;
 				y = y2;
 
-				if (movRec > 0 && !same)
+				if (movRec < 0 && !same)
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
@@ -587,27 +587,27 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 			{
 				checkY = false;
 
-				float maxMovEdge = nextEdge(pos.x(), width, tiles[1].x(), 1);
+				float maxMovEdge = nextEdge(pos.x(), 0, tiles[1].x(), 0);
 
 				float movRec = x - maxMovEdge;
 
-				x = std::min(x, maxMovEdge);
+				x = std::max(x, maxMovEdge);
 
 				int downY = gridToPos(tiles[1].y() + 1);
 
-				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
+				if (pos.y() + y + height > downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1)) // check if we would collide in next step
 				{
-					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+					y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
 				bool same = (y == y2);
 
-				x -= y2 - y;
+				x += y2 - y;
 				y = y2;
 
-				if (movRec > 0 && !same)
+				if (movRec < 0 && !same)
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
