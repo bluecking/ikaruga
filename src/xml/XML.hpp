@@ -90,6 +90,17 @@ public:
         int colorOffsetY;
     };
 
+    struct Statusbar{
+        std::string filename;
+        int frameWidth;
+        int frameHeight;
+        int letterCount;
+        int capitalOffset;
+        int minusculeOffset;
+        int numberOffset;
+        int offsetToMid;
+    };
+
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.
      * @param xmlFilename Name of xmlFile with level information.
@@ -100,10 +111,6 @@ public:
      * This constructor generates a minimal level specification with default values.
      */
     XML();
-
-    void loadBots(std::string filename);
-    void loadItems(std::string filename);
-    void loadWeapons(std::string filename);
 
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
@@ -167,6 +174,15 @@ public:
     }
 
     /**
+     * Set Statusbar.
+     * @param The statusbar.
+     */
+    void setStatusbar(const Statusbar& statusbar)
+    {
+        m_statusbar = statusbar;
+    }
+
+    /**
      * Get level id.
      * @return level id.
      */
@@ -195,6 +211,12 @@ public:
      * @return m_player
      */
     Player getPlayer() { return m_player;}
+
+    /**
+     * Get the Statusbar
+     * @return m_statusbar
+     */
+    Statusbar getStatusbar() { return m_statusbar;}
 
     /************************************** LEVEL STRUCT METHODS **************************************/
 
@@ -370,6 +392,7 @@ private:
     std::string m_tileset;
     Background m_background;
     Player m_player;
+    Statusbar m_statusbar;
 
     std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::LevelItem> m_level_items;
@@ -390,6 +413,30 @@ private:
      * Initialize some variables with default values. Required by the constructors.
      */
     void init();
+
+    /**
+     * Load XML game bots into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadBots(std::string filename);
+
+    /**
+     * Load XML game items into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadItems(std::string filename);
+
+    /**
+     * Load XML game weapons into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadWeapons(std::string filename);
 };
 
 #endif //XML_HPP
