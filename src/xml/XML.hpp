@@ -47,6 +47,7 @@ public:
         int numFrames;
         int frameWidth;
         int frameHeight;
+        int health;
         int tileID;
         int colorOffsetX;
         int colorOffsetY;

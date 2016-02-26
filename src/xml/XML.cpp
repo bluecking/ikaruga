@@ -223,6 +223,7 @@ void XML::loadBots(std::string filename){
                 bot.numFrames = v.second.get<int>("numFrames");
                 bot.frameWidth = v.second.get<int>("frameWidth");
                 bot.frameHeight = v.second.get<int>("frameHeight");
+                bot.health = v.second.get<int>("health");
                 bot.tileID = v.second.get<int>("tileID");
                 bot.colorOffsetX = v.second.get<int>("colorOffsetX");
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
