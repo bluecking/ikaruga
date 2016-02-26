@@ -17,6 +17,6 @@ namespace jumper
 
     void Projectile::move(Level& level)
     {
-        setPosition(position() + m_direction * 2);
+        setPosition(position() + (m_direction * 1000 * getElapsedTime()));
     }
 }
