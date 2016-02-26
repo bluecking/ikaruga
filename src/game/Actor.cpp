@@ -159,7 +159,7 @@ namespace jumper
         SDL_Rect intersection;
         SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
-        if (fabs(intersection.w) < otherRect.w && intersection.h > 0)
+        if (std::abs(intersection.w) < otherRect.w && intersection.h > 0)
         {
             if (v.y() > 0)
             {

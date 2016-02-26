@@ -1,8 +1,9 @@
 /**
-* @file XML.h
+* @file XML.hpp
 * @brief Imports a xml file with game specifications
 *
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
+* @author Sven Kleine-Albers (skleinealber@uni-osnabrueck.de)
 * @date 23 Feb 2016
 */
 
@@ -20,43 +21,72 @@ public:
         std::string type;
         std::string move_function;
         signed int move_value;
-        unsigned int fireRate;
         signed int speed;
-        std::string weapon_type;
-        unsigned int weapon_level;
+        std::string stdWeapon;
     };
 
     struct Player{
         std::string filename;
+        int numFrames;
         int frameWidth;
         int frameHeight;
+        int positionX;
         int positionY;
         std::string stdWeapon;
+        int colorOffsetX;
+        int colorOffsetY;
+        float moveForceX;
+        float moveForceY;
+        float maxVel;
+        int fps;
     };
 
     struct Bot{
+        std::string type;
         std::string filename;
+        int numFrames;
         int frameWidth;
         int frameHeight;
         int tileID;
+        int colorOffsetX;
+        int colorOffsetY;
+        int fps;
+        NPC npc;
+    };
+
+    struct LevelBot{
+        Bot type;
         int positionX;
         int positionY;
-        NPC npc;
         std::string color;
+        int powerUpProb;
+        std::string powerUpName;
     };
 
     struct Item{
+        std::string type;
         std::string filename;
         int frameWidth;
         int frameHeight;
+    };
+
+    struct LevelItem{
+        std::string type;
         int positionX;
         int positionY;
-        std::string type;
+        int value;
     };
 
     struct Background{
         std::string filename;
         int scrollspeed;
+    };
+
+    struct Weapon{
+        std::string type;
+        std::string filename;
+        int colorOffsetX;
+        int colorOffsetY;
     };
 
     /**
@@ -69,6 +99,10 @@ public:
      * This constructor generates a minimal level specification with default values.
      */
     XML();
+
+    void loadBots(std::string filename);
+    void loadItems(std::string filename);
+    void loadWeapons(std::string filename);
 
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
@@ -138,40 +172,6 @@ public:
     int getId() { return m_id;}
 
     /**
-     * Set all bots at a time.
-     * @param bots vector of bots.
-     */
-    void setBots(const std::vector<Bot>& bots)
-    {
-        m_bots = bots;
-    }
-
-    /**
-     * Set single bot.
-     * @param Number of the bot.
-     * @param bot The bot.
-     * @throw range_error If no bot is available with the given number.
-     */
-    void setBot(unsigned int position, Bot bot);
-
-    /**
-     * Set all bots at a time.
-     * @param items Vector of items
-     */
-    void setItems(const std::vector<Item>& items)
-    {
-        m_items = items;
-    }
-
-    /**
-     * Set single item.
-     * @param position Number of the bot.
-     * @param item The item.
-     * @throw range_error If no item is available with the given number.
-     */
-    void setItem(unsigned int position, Item item);
-
-    /**
      * Get the current Levelname
      * @return m_levelname
      */
@@ -195,11 +195,109 @@ public:
      */
     Player getPlayer() { return m_player;}
 
+    /************************************** LEVEL STRUCT METHODS **************************************/
+
     /**
-     * Get all Bots
-     * @return Vector wit all Bots
+     * Set single level bot.
+     * @param Number of the level bot.
+     * @param lBot The level bot.
+     * @throw range_error If no level bot is available with the given number.
      */
-    std::vector<Bot> getBots() { return m_bots;}
+    void setLevelBot(unsigned int position, LevelBot lBot);
+
+    /**
+     * Set all level bots at a time.
+     * @param levelBots vector of level bots.
+     */
+    void setLevelBots(const std::vector<LevelBot>& levelBots)
+    {
+        m_level_bots = levelBots;
+    }
+
+    /**
+     * Set single level item.
+     * @param position Number of the level item.
+     * @param lItem The level item.
+     * @throw range_error If no level item is available with the given number.
+     */
+    void setLevelItem(unsigned int position, LevelItem lItem);
+
+    /**
+     * Set all level items at a time.
+     * @param lItems Vector of level items
+     */
+    void setLevelItems(const std::vector<LevelItem>& lItems)
+    {
+        m_level_items = lItems;
+    }
+
+    /**
+     * Get the LevelBot at given number
+     * @param number Position of LevelBot
+     * @return LevelBot at position number
+     * @throw range_error If no LevelBot is available with the given number.
+     */
+    LevelBot getLevelBot(unsigned int number);
+
+    /**
+     * Get all LevelBots
+     * @return Vector with all LevelBots
+     */
+    std::vector<LevelBot> getLevelBots() { return m_level_bots;}
+
+    /**
+     * Get the LevelItem at given number
+     * @param number Position of LevelItem
+     * @return LevelItem at position number
+     * @throw range_error If no LevelItem is available with the given number.
+     */
+    LevelItem getLevelItem(unsigned int number);
+
+    /**
+     * Get all LevelItems
+     * @return Vector with all LevelItems
+     */
+    std::vector<LevelItem> getLevelItems() { return m_level_items;}
+
+    /**
+     * Add additional LevelBot.
+     * @param lBot The new LevelBot.
+     */
+    void addLevelBot(LevelBot lBot) {m_level_bots.push_back(lBot);}
+
+    /**
+     * Add an additional LevelItem.
+     * @param lItem The new LevelItem.
+     */
+    void addLevelItem(LevelItem lItem) {m_level_items.push_back(lItem);}
+
+    /**
+     * Remove a LevelBot.
+     * @param position Number of the LevelBot.
+     * @throw range_error If no LevelBot is available with the given number.
+     */
+    void removeLevelBot(unsigned int position);
+
+    /**
+     * Remove a LevelItem.
+     * @param position The number of the LevelItem.
+     * @throw range_error If no LevelItem is available with the given number.
+     */
+    void removeLevelItem(unsigned int position);
+
+    /**
+     * Returns the total number of LevelBots.
+     * @return Total number of LevelBots.
+     */
+    unsigned int levelBotSize() {return m_level_bots.size();}
+
+    /**
+     * Returns the total number of LevelItems.
+     * @return Total number of LevelItems.
+     */
+    unsigned int levelItemSize() {return m_level_items.size();}
+
+    /************************************** SETTING STRUCT METHODS **************************************/
 
     /**
      * Get the Bot at given number
@@ -210,44 +308,38 @@ public:
     Bot getBot(unsigned int number);
 
     /**
+     * Get all Bots
+     * @return Vector with all Bots
+     */
+    std::vector<Bot> getBots() { return m_bots;}
+
+    /**
+     * Get the Item at given number
+     * @param number Position of Item
+     * @return Item at position number
+     * @throw range_error If no item is available with the given number.
+     */
+    Item getItem(unsigned int number);
+
+    /**
      * Get all Items
      * @return Vector with all Items
      */
     std::vector<Item> getItems() { return m_items;}
 
     /**
- * Get the Item at given number
- * @param number Position of Item
- * @return Item at position number
-     * @throw range_error If no item is available with the given number.
- */
-    Item getItem(unsigned int number);
+     * Get the Weapon at given number
+     * @param number Position of Weapon
+     * @return Weapon at position number
+     * @throw range_error If no weapon is available with the given number.
+     */
+    Weapon getWeapon(unsigned int number);
 
     /**
-     * Add an additional item.
-     * @param item The new item.
+     * Get all Weapons
+     * @return Vector with all Weapons
      */
-    void addItem(Item item) {m_items.push_back(item);}
-
-    /**
-     * Add additional bot.
-     * @param bot The new bot.
-     */
-    void addBot(Bot bot) {m_bots.push_back(bot);}
-
-    /**
-     * Remove an item.
-     * @param position The number of the item.
-     * @throw range_error If no item is available with the given number.
-     */
-    void removeItem(unsigned int position);
-
-    /**
-     * Remove a bot.
-     * @param position Number of the bot.
-     * * @throw range_error If no bot is available with the given number.
-     */
-    void removeBot(unsigned int position);
+    std::vector<Weapon> getWeapons() { return m_weapons;}
 
     /**
      * Returns the total number of bots.
@@ -256,10 +348,16 @@ public:
     unsigned int botSize() {return m_bots.size();}
 
     /**
- *  Returns the total number of bots.
- * @return Total number of bots.
- */
+     * Returns the total number of items.
+     * @return Total number of items.
+     */
     unsigned int itemSize() {return m_items.size();}
+
+    /**
+     * Returns the total number of weapons.
+     * @return Total number of weapons.
+     */
+    unsigned int weaponSize() {return m_weapons.size();}
 
 private:
     /* XML Filename */
@@ -271,8 +369,13 @@ private:
     std::string m_tileset;
     Background m_background;
     Player m_player;
+
+    std::vector<XML::LevelBot> m_level_bots;
+    std::vector<XML::LevelItem> m_level_items;
+
     std::vector<XML::Bot> m_bots;
     std::vector<XML::Item> m_items;
+    std::vector<XML::Weapon> m_weapons;
     std::map<std::string, int> m_requiredAttributes;
 
     /**

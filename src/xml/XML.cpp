@@ -64,78 +64,83 @@ void XML::load()
     try
     {
         BOOST_FOREACH(const ptree::value_type& v, pt.get_child("level"))
+        {
+            if (v.first == "id")
+            {
+                m_id = v.second.get<int>("");
+                m_requiredAttributes["id"]++;
+            }
+            else if (v.first == "name")
+            {
+                m_levelname = v.second.get<string>("");
+                m_requiredAttributes["name"]++;
+            }
+            else if (v.first == "tileset")
+            {
+                m_tileset = v.second.get<string>("<xmlattr>.filename");
+                m_requiredAttributes["tileset"]++;
+            }
+            else if (v.first == "background")
+            {
+                m_background.filename = v.second.get<string>("<xmlattr>.filename");
+                m_background.scrollspeed = v.second.get<int>("scrollspeed");
+                m_requiredAttributes["background"]++;
+            }
+            else if (v.first == "player")
+            {
+                m_player.filename = v.second.get<string>("<xmlattr>.filename");
+                m_player.numFrames = v.second.get<int>("numFrames");
+                m_player.frameWidth = v.second.get<int>("frameWidth");
+                m_player.frameHeight = v.second.get<int>("frameHeight");
+                m_player.positionX = v.second.get<int>("positionX");
+                m_player.positionY = v.second.get<int>("positionY");
+                m_player.stdWeapon = v.second.get<string>("stdWeapon");
+                m_player.colorOffsetX = v.second.get<int>("colorOffsetX");
+                m_player.colorOffsetY = v.second.get<int>("colorOffsetY");
+                m_player.moveForceX = v.second.get<float>("moveForceX");
+                m_player.moveForceY = v.second.get<float>("moveForceY");
+                m_player.maxVel = v.second.get<float>("maxVel");
+                m_player.fps = v.second.get<int>("fps");
+                m_requiredAttributes["player"]++;
+            }
+            else if (v.first == "bot")
+            {
+                LevelBot lBot;
+                std::string type_tmp = v.second.get<string>("<xmlattr>.type");
+                for (auto it = begin(m_bots); it != end(m_bots); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
                     {
-
-                        if (v.first == "id")
-                        {
-                            m_id = v.second.get<int>("");
-                            m_requiredAttributes["id"]++;
-                        }
-                        else if (v.first == "name")
-                        {
-                            m_levelname = v.second.get<string>("");
-                            m_requiredAttributes["name"]++;
-                        }
-                        else if (v.first == "tileset")
-                        {
-                            m_tileset = v.second.get<string>("<xmlattr>.filename");
-                            m_requiredAttributes["tileset"]++;
-                        }
-                        else if (v.first == "background")
-                        {
-                            m_background.filename = v.second.get<string>("<xmlattr>.filename");
-                            m_background.scrollspeed = v.second.get<int>("scrollspeed");
-                            m_requiredAttributes["background"]++;
-                        }
-                        else if (v.first == "player")
-                        {
-                            m_player.filename = v.second.get<string>("<xmlattr>.filename");
-                            m_player.frameWidth = v.second.get<int>("frameWidth");
-                            m_player.frameHeight = v.second.get<int>("frameHeight");
-                            m_player.positionY = v.second.get<int>("positionY");
-                            m_player.stdWeapon = v.second.get<string>("stdWeapon");
-                            m_requiredAttributes["player"]++;
-                        }
-                        else if (v.first == "bot")
-                        {
-                            Bot bot;
-                            bot.filename = v.second.get<string>("<xmlattr>.filename");
-                            bot.frameWidth = v.second.get<int>("frameWidth");
-                            bot.frameHeight = v.second.get<int>("frameHeight");
-                            bot.tileID = v.second.get<int>("tileID");
-                            bot.positionX = v.second.get<int>("positionX");
-                            bot.positionY = v.second.get<int>("positionY");
-                            bot.color = v.second.get<string>("color");
-
-                            /* Get data from child node NPC */
-                            NPC npc;
-                            npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
-                            npc.move_function = v.second.get_child("npc").get_child("move").get<string>(
-                                    "<xmlattr>.function");
-                            npc.move_value = v.second.get_child("npc").get < signed int > ("move");
-                            npc.fireRate = v.second.get_child("npc").get < unsigned int > ("fireRate");
-                            npc.speed = v.second.get_child("npc").get < signed int > ("speed");
-                            npc.weapon_type = v.second.get_child("npc").get_child("weapon").get<string>("<xmlattr>.type");
-                            npc.weapon_level = v.second.get_child("npc").get < unsigned int > ("weapon");
-                            bot.npc = npc;
-                            m_bots.push_back(bot);
-                        }
-                        else if (v.first == "item")
-                        {
-                            Item i;
-                            i.filename = v.second.get<string>("<xmlattr>.filename");
-                            i.frameWidth = v.second.get<int>("frameWidth");
-                            i.frameHeight = v.second.get<int>("frameHeight");
-                            i.positionX = v.second.get<int>("positionX");
-                            i.positionY = v.second.get<int>("positionY");
-                            i.type = v.second.get<string>("type");
-                            m_items.push_back(i);
-                        }
-                        else
-                        {
-                            throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below level.");
-                        }
+                        lBot.type = *it;
                     }
+                    else
+                    {
+                        throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
+                    }
+                }
+                lBot.positionX = v.second.get<int>("positionX");
+                lBot.positionY = v.second.get<int>("positionY");
+                lBot.color = v.second.get<string>("color");
+                lBot.powerUpProb = v.second.get_child("powerUp").get<int>("<xmlattr>.probability");
+                lBot.powerUpName = v.second.get<string>("powerUp");
+
+                m_level_bots.push_back(lBot);
+            }
+            else if (v.first == "item")
+            {
+                LevelItem lItem;
+                lItem.type = v.second.get<string>("<xmlattr>.type");
+                lItem.positionX = v.second.get<int>("positionX");
+                lItem.positionY = v.second.get<int>("positionY");
+                lItem.value = v.second.get<int>("value");
+
+                m_level_items.push_back(lItem);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below level.");
+            }
+        }
     }
     catch (boost::exception const& e)
     {
@@ -156,9 +161,133 @@ void XML::load()
     { throw std::domain_error("Required attribute player not available."); }
 }
 
+void XML::loadBots(std::string filename){
+    ptree pt;
+    try
+    {
+        read_xml(filename, pt);
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::invalid_argument("Invalid path or filename.");
+    }
+
+    try
+    {
+        BOOST_FOREACH(const ptree::value_type& v, pt.get_child("bots"))
+        {
+            if (v.first == "bot")
+            {
+                Bot bot;
+                bot.type = v.second.get<string>("<xmlattr>.tpye");
+                bot.filename = v.second.get<string>("filename");
+                bot.numFrames = v.second.get<int>("numFrames");
+                bot.frameWidth = v.second.get<int>("frameWidth");
+                bot.frameHeight = v.second.get<int>("frameHeight");
+                bot.tileID = v.second.get<int>("tileID");
+                bot.colorOffsetX = v.second.get<int>("colorOffsetX");
+                bot.colorOffsetY = v.second.get<int>("colorOffsetY");
+                bot.fps = v.second.get<int>("fps");
+
+                /* Get data from child node NPC */
+                NPC npc;
+                npc.type = v.second.get_child("npc").get<string>("<xmlattr>.type");
+                npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
+                npc.move_value = v.second.get_child("npc").get <signed int> ("move");
+                npc.speed = v.second.get_child("npc").get <signed int> ("speed");
+                npc.stdWeapon = v.second.get_child("npc").get <string> ("stdWeapon");
+                bot.npc = npc;
+                m_bots.push_back(bot);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below bots.");
+            }
+        }
+    }
+    catch (boost::exception const& e)
+    {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::domain_error("XML parsing failed. Did you use an invalid tag or attribute?");
+    }
+}
+
+void XML::loadItems(std::string filename){
+    ptree pt;
+    try
+    {
+        read_xml(filename, pt);
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::invalid_argument("Invalid path or filename.");
+    }
+
+    try
+    {
+        BOOST_FOREACH(const ptree::value_type& v, pt.get_child("items"))
+        {
+            if (v.first == "item")
+            {
+                Item i;
+                i.type = v.second.get<string>("<xmlattr>.type");
+                i.filename = v.second.get<string>("filename");
+                i.frameWidth = v.second.get<int>("frameWidth");
+                i.frameHeight = v.second.get<int>("frameHeight");
+                m_items.push_back(i);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below items.");
+            }
+        }
+    }
+    catch (boost::exception const& e)
+    {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::domain_error("XML parsing failed. Did you use an invalid tag or attribute?");
+    }
+}
+
+void XML::loadWeapons(std::string filename){
+    ptree pt;
+    try
+    {
+        read_xml(filename, pt);
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::invalid_argument("Invalid path or filename.");
+    }
+
+    try
+    {
+        BOOST_FOREACH(const ptree::value_type& v, pt.get_child("weapons"))
+        {
+            if (v.first == "weapon")
+            {
+                Weapon w;
+                w.type = v.second.get<string>("<xmlattr>.type");
+                w.filename = v.second.get<string>("filename");
+                w.colorOffsetX = v.second.get<int>("colorOffsetX");
+                w.colorOffsetY = v.second.get<int>("colorOffsetY");
+                m_weapons.push_back(w);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below weapons.");
+            }
+        }
+    }
+    catch (boost::exception const& e)
+    {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::domain_error("XML parsing failed. Did you use an invalid tag or attribute?");
+    }
+}
+
 void XML::save()
 {
-    //TODO implement and exception handling
     ptree root;
     ptree level;
     ptree tileset;
@@ -182,50 +311,45 @@ void XML::save()
 
     /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
+    player.put("numFrames", m_player.numFrames);
     player.put("frameWidth", m_player.frameWidth);
     player.put("frameHeight", m_player.frameHeight);
+    player.put("positionX", m_player.positionX);
     player.put("positionY", m_player.positionY);
     player.put("stdWeapon", m_player.stdWeapon);
+    player.put("colorOffsetX", m_player.colorOffsetX);
+    player.put("colorOffsetY", m_player.colorOffsetY);
+    player.put("moveForceX", m_player.moveForceX);
+    player.put("moveForceY", m_player.moveForceY);
+    player.put("maxVel", m_player.maxVel);
+    player.put("fps", m_player.fps);
 
     level.add_child("player", player);
 
-    /* Adding Bots */
-    for(int i=0;i<(int) m_bots.size();i++) {
-        ptree bot, npc, move, weapon;
-        bot.put("<xmlattr>.filename", m_bots[i].filename);
-        bot.put("frameWidth", m_bots[i].frameWidth);
-        bot.put("frameHeight", m_bots[i].frameHeight);
-        bot.put("tileID", m_bots[i].tileID);
-        bot.put("positionX", m_bots[i].positionX);
-        bot.put("positionY", m_bots[i].positionY);
+    /* Adding Level_Bots */
+    for(int i=0;i<(int) m_level_bots.size();i++) {
+        ptree level_bot, powerUp;
+        level_bot.put("<xmlattr>.type", m_level_bots[i].type.type);
+        level_bot.put("positionX", m_level_bots[i].positionX);
+        level_bot.put("positionY", m_level_bots[i].positionY);
+        level_bot.put("color", m_level_bots[i].color);
 
+        powerUp.put("<xmlattr>.probability", m_level_bots[i].powerUpProb);
+        level_bot.add_child("powerUp", powerUp);
+        level_bot.put("powerUp", m_level_bots[i].powerUpName);
 
-        npc.put("<xmlattr>.type", m_bots[i].npc.type);
-        move.put("<xmlattr>.function", m_bots[i].npc.move_function);
-        npc.add_child("move", move);
-        npc.put("move", m_bots[i].npc.move_value);
-        npc.put("fireRate", m_bots[i].npc.fireRate);
-        npc.put("speed", m_bots[i].npc.speed);
-        weapon.put("<xmlattr>.type", m_bots[i].npc.weapon_type);
-        npc.add_child("weapon", weapon);
-        npc.put("weapon", m_bots[i].npc.weapon_level);
-
-        bot.add_child("npc", npc);
-        bot.put("color", m_bots[i].color);
-        level.add_child("bot", bot);
+        level.add_child("bot", level_bot);
     }
 
-    /* Adding Items */
-    for(int i=0;i<(int) m_items.size();i++) {
-        ptree item;
-        item.put("<xmlattr>.filename", m_items[i].filename);
-        item.put("frameWidth", m_items[i].frameWidth);
-        item.put("frameHeight", m_items[i].frameHeight);
-        item.put("positionX", m_items[i].positionX);
-        item.put("positionY", m_items[i].positionY);
-        item.put("type", m_items[i].type);
+    /* Adding Level_Items */
+    for(int i=0;i<(int) m_level_items.size();i++) {
+        ptree level_item;
+        level_item.put("<xmlattr>.type", m_level_items[i].type);
+        level_item.put("positionX", m_level_items[i].positionX);
+        level_item.put("positionY", m_level_items[i].positionY);
+        level_item.put("value", m_level_items[i].value);
 
-        level.add_child("item", item);
+        level.add_child("item", level_item);
     }
 
     /* Setting up XML-Tree with root-Node */
@@ -249,18 +373,44 @@ void XML::save()
     }
 }
 
-void XML::setItem(unsigned int position, XML::Item item)
+/* Level Bots/Items - Getter/Setter */
+void XML::setLevelItem(unsigned int position, XML::LevelItem lItem)
 {
-    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
-    m_items[position] = item;
+    if(position >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    m_level_items[position] = lItem;
 }
 
-void XML::setBot(unsigned int position, XML::Bot bot)
+void XML::setLevelBot(unsigned int position, XML::LevelBot lBot)
 {
-    if(position >= botSize()) {throw std::range_error("Index out of range.");}
-    m_bots[position] = bot;
+    if(position >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    m_level_bots[position] = lBot;
 }
 
+XML::LevelBot XML::getLevelBot(unsigned int number)
+{
+    if(number >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    return m_level_bots[number];
+}
+
+XML::LevelItem XML::getLevelItem(unsigned int number)
+{
+    if(number >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    return m_level_items[number];
+}
+
+void XML::removeLevelItem(unsigned int position)
+{
+    if(position >= levelItemSize()) {throw std::range_error("Index out of range.");}
+    m_level_items.erase(m_level_items.begin() + position);
+}
+
+void XML::removeLevelBot(unsigned int position)
+{
+    if(position >= levelBotSize()) {throw std::range_error("Index out of range.");}
+    m_level_bots.erase(m_level_bots.begin() + position);
+}
+
+/* Definition Getter */
 XML::Bot XML::getBot(unsigned int number)
 {
     if(number >= botSize()) {throw std::range_error("Index out of range.");}
@@ -273,14 +423,8 @@ XML::Item XML::getItem(unsigned int number)
     return m_items[number];
 }
 
-void XML::removeItem(unsigned int position)
+XML::Weapon XML::getWeapon(unsigned int number)
 {
-    if(position >= itemSize()) {throw std::range_error("Index out of range.");}
-    m_items.erase(m_items.begin() + position);
-}
-
-void XML::removeBot(unsigned int position)
-{
-    if(position >= botSize()) {throw std::range_error("Index out of range.");}
-    m_bots.erase(m_bots.begin() + position);
+    if(number >= weaponSize()) {throw std::range_error("Index out of range.");}
+    return m_weapons[number];
 }
