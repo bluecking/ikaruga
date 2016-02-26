@@ -95,8 +95,17 @@ void setupGame(string filename, MainWindow* w, Game* game)
     Vector2f colorOffset(colorOffsetX, colorOffsetY);
     player->setColorOffset(colorOffset);
 
+
+
+
+    vector<XML::LevelBot> bots = xml.getLevelBots();
+
     //add bots to level
     game->addBots(xml.getLevelBots());
+
+
+
+
 /*
     //add items
     vector<XML::Item>items = xml.getItems();
