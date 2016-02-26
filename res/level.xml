@@ -3,9 +3,13 @@
   <layer filename="images/background_40x40.png">
     <scrollSpeed>1.2</scrollSpeed>
   </layer>
-  <statusBar filename="numbers.png">
-    <xPos>10</xPos>
-    <yPos>4</yPos>
+  <statusBar filename="statusbar_font_10x10.png">
+      <frameWidth>10</frameWidth>
+      <frameHeight>10</frameHeight>
+      <letterCount>26</letterCount>
+      <capitalOffset>0</capitalOffset>
+      <minusculeOffset>20</minusculeOffset>
+      <numberOffset>40</numberOffset>
   </statusBar>
   <player filename="images/player_animated_55x43_transparent.png">
     <numFrames>24</numFrames>

@@ -30,7 +30,7 @@ public:
 	 * @param digitWidth		The width of a digit within the texture
 	 * @param digitHeight		The height of a digit within the texture
 	 */
-	StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int digitWidth, int digitHeight);
+	StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int tileWidth, int tileHeight, int capitalOffset, int minusculeOffset, int numberOffset, int letterCount);
 
 	/**
 	 * Constructs an empty scoreboard for the renderer
@@ -47,7 +47,7 @@ public:
 
 	/// Sets the screen position of the scoreboard. The digits are rendered
 	/// to the right.
-	void setPosition(const Vector2i& position);
+	void setScorePosition(const Vector2i &position);
 
 	/// Renders the scoreboard
 	virtual void render();
@@ -55,22 +55,39 @@ public:
 	/// Destructor
 	virtual ~StatusBar();
 
+    void setPosition(const Vector2i &positionStart, const Vector2i &positionEnd);
+
+    void setWeaponPosition(const Vector2i &position);
+
 private:
 
 	/// Current score
-	int 					m_score;
+	int m_score;
 
 	/// Digit width
-	int						m_digitWidth;
+	int m_tileWidth;
 
 	/// Digit height
-	int						m_digitHeight;
+	int m_tileHeight;
+
+	int m_capitalOffset;
+
+	int m_minusculeOffset;
+
+	int m_numberOffset;
+
+    int m_letterCount;
 
 	/// Scoreboard position
-	Vector2i				m_position;
+	Vector2i m_scorePosition;
 
 	/// Maxim score that can be displayed
 	const static int 		m_maxScore;
+
+    Vector2i m_startPosition;
+    Vector2i m_endPosition;
+
+    Vector2i m_weaponPosition;
 };
 
 } /* namespace jumper */

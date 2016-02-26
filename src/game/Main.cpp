@@ -127,15 +127,24 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 if( v.first == "statusBar")
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
-             //TODO ~ choose sexy font to replace numbers only
-			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
+			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/" + filename);
              //TODO ~ Set the position of the Statusbar relative to the tilehight, so it fits completely in the top row
-			 int x = v.second.get<int>("xPos", 10);
-			 int y = v.second.get<int>("yPos", 10);
-			 int dw = 10;
-			 int dh = 10;
-			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, dw, dh);
-			 bar->setPosition(Vector2i(x,y));
+             //We got 16 free pixels to work with
+
+             //TODO ~ Relocate the dw and dh to the statusbar itself and manage the widths of the sections there
+			 int tw = v.second.get<int>("frameWidth", 10);
+			 int th = v.second.get<int>("frameHeight", 10);
+             int co = v.second.get<int>("capitalOffset", 10);
+             int mo = v.second.get<int>("minusculeOffset", 10);
+             int no = v.second.get<int>("numberOffset", 10);
+             int lc = v.second.get<int>("letterCount", 10);
+			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, tw, th, co, mo ,no, lc);
+             //TODO ~ Read Values from constants
+             int xStart = 0;
+             int yStart = 15;
+             int xEnd = 575;
+             int yEnd = 0;
+             bar->setPosition(Vector2i(xStart, yStart), Vector2i(xEnd, yEnd));
 			 game->setStatusBar(bar);
 		 }
 
