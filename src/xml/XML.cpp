@@ -311,7 +311,7 @@ void XML::save()
 
     /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
-    player.put("numFrames", m_player.frameWidth);
+    player.put("numFrames", m_player.numFrames);
     player.put("frameWidth", m_player.frameWidth);
     player.put("frameHeight", m_player.frameHeight);
     player.put("positionX", m_player.positionX);
