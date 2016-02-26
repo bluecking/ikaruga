@@ -12,6 +12,7 @@
 #include <iostream>
 #include <algorithm>
 #include <set>
+#include <string>
 
 using std::set;
 using std::cout;
@@ -26,7 +27,7 @@ namespace jumper
         m_level = 0;
         m_layer = 0;
         m_renderer = mainWindow->getRenderer();
-        m_scoreBoard = 0;
+        m_statusBar = 0;
 
         m_windowWidth = mainWindow->w();
         m_windowHeight = mainWindow->h();
@@ -84,6 +85,10 @@ namespace jumper
                 m_player->shoot();
             }
 
+            //Update Statusbar \o/
+            m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
+            m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
+            m_statusBar->setHealth(m_player->getHealth());
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
@@ -117,17 +122,19 @@ namespace jumper
                 m_layer->render();
             }
 
-            if (m_scoreBoard)
-            {
-                m_scoreBoard->setScore(m_player->physics().position().x());
-                m_scoreBoard->render();
-            }
-
+            /*
+             * You have to render the Statusbar AFTER the tiles, so the thing is always on Top
+             */
             for (size_t i = 0; i < m_renderables.size(); i++)
             {
                 m_renderables[i]->render();
             }
 
+            if (m_statusBar)
+            {
+                m_statusBar->setScore(m_player->physics().position().x());
+                m_statusBar->render();
+            }
 
             // Update screen
             SDL_RenderPresent(m_renderer);
@@ -262,13 +269,10 @@ namespace jumper
     {
         float dt = getElapsedTime();
 
-        if (dt > 0)
-        {
-            Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-            m_player->setPosition(m_player->position() +
-                                  m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
-            Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
-        }
+        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
+        m_player->setPosition(m_player->position() +
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
+        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
     float Game::getElapsedTime()
@@ -279,7 +283,7 @@ namespace jumper
         }
 
         Uint32 ticks = SDL_GetTicks();
-        float time = (ticks - m_startTicks) / 1000.0;
+        float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
     }
