@@ -128,10 +128,6 @@ void setupGame(string filename, MainWindow* w, Game* game)
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
 			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/" + filename);
-             //TODO ~ Set the position of the Statusbar relative to the tilehight, so it fits completely in the top row
-             //We got 16 free pixels to work with
-
-             //TODO ~ Relocate the dw and dh to the statusbar itself and manage the widths of the sections there
 			 int tw = v.second.get<int>("frameWidth", 10);
 			 int th = v.second.get<int>("frameHeight", 10);
              int co = v.second.get<int>("capitalOffset", 10);
@@ -139,18 +135,12 @@ void setupGame(string filename, MainWindow* w, Game* game)
              int no = v.second.get<int>("numberOffset", 10);
              int lc = v.second.get<int>("letterCount", 10);
 			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, tw, th, co, mo ,no, lc);
-             //TODO ~ Read Values from constants
-             int xStart = 0;
-             int yStart = 15;
-             int xEnd = 575;
-             int yEnd = 0;
-             bar->setPosition(Vector2i(xStart, yStart), Vector2i(xEnd, yEnd));
+             int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
+             int xEnd = w->w();
+             bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
 			 game->setStatusBar(bar);
 		 }
-
-
 	 }
-
 }
 
 int main(int argc, char** argv)
