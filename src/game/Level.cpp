@@ -318,10 +318,18 @@ float Level::gridToPos(int grid)
 	return grid * m_tileWidth;
 }
 
+int Level::posToGrid(float pos)
+{
+	return floor(pos / m_tileWidth);
+}
+
 
 Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 {
 	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
+
+	pos.setY(pos.y() < 0 ? 0 : pos.y());
+	pos.setY(pos.y() + height > m_levelHeight * m_tileHeight ? m_levelHeight * m_tileHeight - height : pos.y());
 
 	bool checkY = true;
 
@@ -334,87 +342,139 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 	{
 		if (x > 0)
 		{
-			getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
-
-			int round = 0;
-
-			for(Vector2i& tPos : tiles)
-			{
-
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
-				{
-					TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
-
-					if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) // collide with something solid
-					{
-						float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
-						x = std::min(x, maxMov);
-
-						break;
-					}
-				}
-
-				round++;
-			}
+			getInnerTiles(pos, TRIGHT, width, height, &tiles);
 
 			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-			TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
-			if (t1 == EDGETOPRIGHT && t2 == EDGEDOWNRIGHT)
+			if (t1 != EDGETOPRIGHT && t2 != EDGEDOWNRIGHT)
 			{
-				if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
+
+				tiles.clear();
+
+				getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
+
+				int round = 0;
+
+				for(Vector2i& tPos : tiles)
 				{
-					int tHeight = height - (tiles.size() - 2) * m_tileHeight;
-					tHeight /= 2;
 
-					float maxMov = m_tileHeight - tHeight;
-
-					if (0 < x - ((tiles[0].x() * m_tileWidth) - pos.x() - width)) // you move into the edge
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0) // movement out of map boundary
 					{
-						x = std::min(x - ((tiles[0].x() * m_tileWidth) - pos.x() - width), maxMov);
+						TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-						int upY = tiles[0].y() * m_tileHeight;
-						int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
-
-						int pUp = pos.y();
-						int pDown = pos.y() + height;
-
-						if (pUp - upY <= downY - pDown)
+						if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) // collide with something solid
 						{
-							if (pos.y() < upY + x)
-							{
-								y = x + upY - pos.y();
-							}
+							float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
+							x = std::min(x, maxMov);
+
+							break;
 						}
-						else
+					}
+
+					round++;
+				}
+
+				TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+				TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+				if (t1 == EDGETOPRIGHT && t2 == EDGEDOWNRIGHT)
+				{
+					if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
+					{
+						int tHeight = height - (tiles.size() - 2) * m_tileHeight;
+						tHeight /= 2;
+
+						float maxMov = m_tileHeight - tHeight;
+
+						if (0 < x - ((tiles[0].x() * m_tileWidth) - pos.x() - width)) // you move into the edge
 						{
-							if (pos.y() + height > downY - x)
+							x = std::min(x - ((tiles[0].x() * m_tileWidth) - pos.x() - width), maxMov);
+
+							int upY = tiles[0].y() * m_tileHeight;
+							int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+							int pUp = pos.y();
+							int pDown = pos.y() + height;
+
+							if (pUp - upY <= downY - pDown)
 							{
-								y = downY - x - pos.y() - height;
+								if (pos.y() + y < upY + x)
+								{
+									y = x + upY - pos.y();
+								}
 							}
+							else
+							{
+								if (pos.y() + y + height > downY - x)
+								{
+									y = downY - x - pos.y() - height;
+								}
+							}
+
+							x += ((tiles[0].x() * m_tileWidth) - pos.x() - width);
+
+							checkY = false;
+
 						}
-
-						x += ((tiles[0].x() * m_tileWidth) - pos.x() - width);
-
-						checkY = false;
-
+					}
+					else // you can't move into the edge
+					{
+						float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
+						x = std::min(x, maxMov);
 					}
 				}
-				else // you can't move into the edge
+				else if (t1 == EDGETOPRIGHT)
 				{
-					float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
-					x = std::min(x, maxMov);
+					// TODO
+				}
+				else if (t2 == EDGEDOWNRIGHT)
+				{
+					// TODO
 				}
 			}
-			else if (t1 == EDGETOPRIGHT)
+			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check
 			{
-				// TODO
-			}
-			else if (t2 == EDGEDOWNRIGHT)
-			{
-				// TODO
-			}
+				checkY = false;
 
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[0].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int upY = gridToPos(tiles[0].y());
+
+				if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
+				{
+					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+
+				bool same = (y == y2);
+
+				x -= y - y2;
+				y = y2;
+
+				if (movRec > 0 && !same)
+				{
+					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+
+				// TODO
+			}
+			else if (t1 != EDGETOPRIGHT) // t2 == EDGEDOWNRIGHT
+			{
+				// TODO
+			}
+			else // t1 and t2 EDGEs
+			{
+				// TODO
+			}
 		}
 		else
 		{

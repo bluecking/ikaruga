@@ -105,6 +105,7 @@ private:
 	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
 	float posRelativToGrid(float pos, int grid);
 	float gridToPos(int grid);
+	int posToGrid(float pos);
 
 	/// Tile width
 	int					m_tileWidth;

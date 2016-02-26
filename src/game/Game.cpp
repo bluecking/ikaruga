@@ -106,7 +106,7 @@ namespace jumper
 
             moveActors();
             scrollHorizontal();
-            checkPlayerCollision();
+            // checkPlayerCollision();
             checkCameraCollision();
             removeProjectiles();
 
