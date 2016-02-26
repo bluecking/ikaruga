@@ -115,7 +115,6 @@ void Level::render()
 {
 	if(getRenderer() && m_texture)
 	{
-
 		int i;
 		int j;
 		int tile_index;
@@ -123,13 +122,11 @@ void Level::render()
 		SDL_Rect target;
 		SDL_Rect source;
 
-
 		target.w = m_tileWidth;
 		target.h = m_tileHeight;
 
 		source.w = m_tileWidth;
 		source.h = m_tileHeight;
-
 
 		for(i = 0; i < m_levelHeight; i++)
 		{
@@ -139,8 +136,8 @@ void Level::render()
 				if(tile_index >= 0)
 				{
 					//Compute the position of the target on the screen
-					target.x = j * m_tileWidth - m_camera.x();
-					target.y = i * m_tileHeight - m_camera.y() + m_camera.h() % m_tileHeight;
+					target.x = (int) floor(j * m_tileWidth - m_camera.x());
+					target.y = (int) floor(i * m_tileHeight - m_camera.y() + m_camera.h() % m_tileHeight);
 
 					// Don't render tiles outside the frustrum. To prevent popping,
 					// add some extra margin

@@ -6,7 +6,6 @@
 #include "Game.hpp"
 #include "TextureFactory.hpp"
 #include "TexturedLayer.hpp"
-#include "ScoreBoard.hpp"
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
 #include "LaserWeapon.hpp"
@@ -74,7 +73,13 @@ void setupGame(string filename, MainWindow* w, Game* game)
                  Vector2f* projectileColorOffset = new Vector2f(6, 0);
                  float coolDown = 0.2f;
                  SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/laser_shot.png");
-                 player->setWeapon(new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset, coolDown));
+                 player->setWeapon(new LaserWeapon(*game,
+                                                   *player,
+                                                   weaponTexture,
+                                                   *textureSize,
+                                                   *weaponOffset,
+                                                   *projectileColorOffset,
+                                                   coolDown));
 
 				 game->setPlayer(player);
 				 player->setFocus(true);
@@ -125,22 +130,25 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 layer->setScrollSpeed(s);
 			 game->setLayer(layer);
 		 }
-		 if( v.first == "scoreBoard")
+		 if( v.first == "statusBar")
 		 {
 			 string filename = v.second.get("<xmlattr>.filename", "");
-			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + filename);
-			 int x = v.second.get<int>("xPos", 10);
-			 int y = v.second.get<int>("yPos", 10);
-			 int dw = v.second.get<int>("digitWidth", 10);
-			 int dh = v.second.get<int>("digitHeight", 10);
-			 ScoreBoard* board = new ScoreBoard(w->getRenderer(), texture, dw, dh);
-			 board->setPosition(Vector2i(x,y));
-			 game->setScoreBoard(board);
+			 SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/images/" + filename);
+			 int tw = v.second.get<int>("frameWidth", 10);
+			 int th = v.second.get<int>("frameHeight", 10);
+             int co = v.second.get<int>("capitalOffset", 10);
+             int mo = v.second.get<int>("minusculeOffset", 10);
+             int no = v.second.get<int>("numberOffset", 10);
+             int lc = v.second.get<int>("letterCount", 10);
+             int om = v.second.get<int>("offsetToMid", 10);
+			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, tw, th, co, mo ,no, lc, om);
+             int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
+             //Substract 1, because we start at 0, not at 1
+             int xEnd = w->w()-1;
+             bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
+			 game->setStatusBar(bar);
 		 }
-
-
 	 }
-
 }
 
 int main(int argc, char** argv)

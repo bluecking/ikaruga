@@ -16,67 +16,86 @@ int main(int argc, char** argv)
     XML m_xml(argv[1]);
 
     cout << "Parsing level defintion (xml):" << endl
-        << "ID: " << m_xml.getId() << endl
-        << "Levelname: " << m_xml.getLevelname() << endl
-        << "Tileset: " << m_xml.getTileset() << endl
-        << "Background - filename: " << m_xml.getBackground().filename << endl
-        << "Background - Scrollspeed: " << m_xml.getBackground().scrollspeed << endl
-        << "Player - fileName: " << m_xml.getPlayer().filename << endl
-        << "Player - frameWidth: " << m_xml.getPlayer().frameWidth << endl
-        << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
-        << "Player - positionY: " << m_xml.getPlayer().positionY << endl
+    << "ID: " << m_xml.getId() << endl
+    << "Levelname: " << m_xml.getLevelname() << endl
+    << "Tileset: " << m_xml.getTileset() << endl
+    << "Background - filename: " << m_xml.getBackground().filename << endl
+    << "Background - Scrollspeed: " << m_xml.getBackground().scrollspeed << endl
 
-        << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl << endl;
-    for(int i=0;i<(int) m_xml.getBots().size();i++) {
-        cout << "Bot - fileName: " << m_xml.getBots()[i].filename << endl
-            << "Bot - frameWidth: " << m_xml.getBots()[i].frameWidth << endl
-            << "Bot - frameHeight: " << m_xml.getBots()[i].frameHeight << endl
-            << "Bot - tileID: " << m_xml.getBots()[i].tileID << endl
-            << "Bot - positionX: " << m_xml.getBots()[i].positionX << endl
-            << "Bot - positionY: " << m_xml.getBots()[i].positionY << endl
-            << "Bot - color: " << m_xml.getBots()[i].color << endl
-            << "Bot - NPC - type: " << m_xml.getBots()[i].npc.type << endl
-            << "Bot - NPC - move_function: " << m_xml.getBots()[i].npc.move_function << endl
-            << "Bot - NPC - move_value: " << m_xml.getBots()[i].npc.move_value << endl
-            << "Bot - NPC - fireRate: " << m_xml.getBots()[i].npc.fireRate << endl
-            << "Bot - NPC - speed: " << m_xml.getBots()[i].npc.speed << endl
-            << "Bot - NPC - weapon_type: " << m_xml.getBots()[i].npc.weapon_type << endl
-            << "Bot - NPC - weapon_level: " << m_xml.getBots()[i].npc.weapon_level << endl << endl;
+    << "Statusbar - filename: " << m_xml.getStatusbar().filename << endl
+    << "Statusbar - frameWidth: " << m_xml.getStatusbar().frameWidth << endl
+    << "Statusbar - frameHeight: " << m_xml.getStatusbar().frameHeight << endl
+    << "Statusbar - letterCount: " << m_xml.getStatusbar().letterCount << endl
+    << "Statusbar - capitalOffset: " << m_xml.getStatusbar().capitalOffset << endl
+    << "Statusbar - minusculeOffset: " << m_xml.getStatusbar().minusculeOffset << endl
+    << "Statusbar - numberOffset: " << m_xml.getStatusbar().numberOffset << endl
+    << "Statusbar - offsetToMid: " << m_xml.getStatusbar().offsetToMid << endl
+
+    << "Player - fileName: " << m_xml.getPlayer().filename << endl
+    << "Player - numFrames: " << m_xml.getPlayer().numFrames << endl
+    << "Player - frameWidth: " << m_xml.getPlayer().frameWidth << endl
+    << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
+    << "Player - positionX: " << m_xml.getPlayer().positionX << endl
+    << "Player - positionY: " << m_xml.getPlayer().positionY << endl
+    << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl
+    << "Player - colorOffsetX: " << m_xml.getPlayer().colorOffsetX << endl
+    << "Player - colorOffsetY: " << m_xml.getPlayer().colorOffsetY << endl
+    << "Player - moveForceX: " << m_xml.getPlayer().moveForceX << endl
+    << "Player - moveForceY: " << m_xml.getPlayer().moveForceY << endl
+    << "Player - maxVel: " << m_xml.getPlayer().maxVel << endl
+    << "Player - fps: " << m_xml.getPlayer().fps << endl << endl;
+
+    for(int i=0;i<(int) m_xml.levelBotSize();i++) {
+        XML::LevelBot lBot = m_xml.getLevelBot((unsigned int) i);
+        cout << "LevelBot - positionY: " << lBot.positionY << endl
+        << "LevelBot - positionX: " << lBot.positionX << endl
+        << "LevelBot - color: " << lBot.color << endl
+        << "LevelBot - type: " << lBot.type.type << endl
+        << "LevelBot - powerUpName: " << lBot.powerUpName << endl
+        << "LevelBot - powerUpProb: " << lBot.powerUpProb << endl << endl;
     }
-    for(int i=0;i<(int) m_xml.getItems().size();i++) {
-        cout << "Item - fileName: " << m_xml.getItems()[i].filename << endl
-            << "Item - frameWidth: " << m_xml.getItems()[i].frameWidth << endl
-            << "Item - frameHeight: " << m_xml.getItems()[i].frameHeight << endl
-            << "Item - positionX: " << m_xml.getItems()[i].positionX << endl
-            << "Item - positionY: " << m_xml.getItems()[i].positionY << endl
-            << "Item - type: " << m_xml.getItems()[i].type;
+    for(int i=0;i<(int) m_xml.levelItemSize();i++) {
+        cout << "LevelItem - type: " << m_xml.getLevelItem(i).type << endl
+        << "LevelItem - positionY: " << m_xml.getLevelItem(i).positionY << endl
+        << "LevelItem - positionX: " << m_xml.getLevelItem(i).positionX << endl
+        << "LevelItem - value: " << m_xml.getLevelItem(i).value << endl << endl;
     }
 
-    cout << endl << "Bot 1 : " << endl;
-    XML::Bot b1 = m_xml.getBot(1);
-    cout << "Bot - fileName: " << b1.filename << endl
-        << "Bot - frameWidth: " << b1.frameWidth << endl
-        << "Bot - frameHeight: " << b1.frameHeight << endl
-        << "Bot - tileID: " << b1.tileID << endl
-        << "Bot - positionX: " << b1.positionX << endl
-        << "Bot - positionY: " << b1.positionY << endl
-        << "Bot - color: " << b1.color << endl
-        << "Bot - NPC - type: " << b1.npc.type << endl
-        << "Bot - NPC - move_function: " << b1.npc.move_function << endl
-        << "Bot - NPC - move_value: " << b1.npc.move_value << endl
-        << "Bot - NPC - fireRate: " << b1.npc.fireRate << endl
-        << "Bot - NPC - speed: " << b1.npc.speed << endl
-        << "Bot - NPC - weapon_type: " << b1.npc.weapon_type << endl
-        << "Bot - NPC - weapon_level: " << b1.npc.weapon_level;
+    /** SETTING FILES **/
+    for(int i=0;i<(int) m_xml.itemSize();i++) {
+        cout << "Item - type: " << m_xml.getItem(i).type << endl
+        << "Item - filename: " << m_xml.getItem(i).filename << endl
+        << "Item - frameHeight: " << m_xml.getItem(i).frameHeight << endl
+        << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl << endl;
+    }
 
-    XML::Player player = m_xml.getPlayer();
-    std::cout << std::endl << std::endl << "Change players stdWeapon from " << player.stdWeapon << " to sword." << std::endl;
-    player.stdWeapon = "sword";
-    m_xml.setPlayer(player);
-    XML::Bot bot = m_xml.getBot(0);
-    std::cout << std::endl << "Change bot[0] color from " << bot.color << " to magenta." << std::endl;
-    bot.color = "magenta";
-    m_xml.setBot(0, bot);
+    for(int i=0;i<(int) m_xml.botSize();i++) {
+        cout << "Bot - type: " << m_xml.getBot(i).type << endl
+        << "Bot - filename: " << m_xml.getBot(i).filename << endl
+        << "Bot - numFrames: " << m_xml.getBot(i).numFrames << endl
+        << "Bot - frameWidth: " << m_xml.getBot(i).frameWidth << endl
+        << "Bot - frameHeight: " << m_xml.getBot(i).frameHeight << endl
+        << "Bot - health: " << m_xml.getBot(i).health << endl
+        << "Bot - tileID: " << m_xml.getBot(i).tileID << endl
+        << "Bot - colorOffsetX: " << m_xml.getBot(i).colorOffsetX << endl
+        << "Bot - colorOffsetY: " << m_xml.getBot(i).colorOffsetY << endl
+        << "Bot - fps: " << m_xml.getBot(i).fps << endl
+        << "Bot - NPC - type: " << m_xml.getBot(i).npc.type << endl
+        << "Bot - NPC - move_function: " << m_xml.getBot(i).npc.move_function << endl
+        << "Bot - NPC - move_value: " << m_xml.getBot(i).npc.move_value << endl
+        << "Bot - NPC - speed: " << m_xml.getBot(i).npc.speed << endl
+        << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon << endl << endl;
+    }
+
+    for(int i=0;i<(int) m_xml.weaponSize();i++) {
+        cout << "Weapon - type: " << m_xml.getWeapon(i).type << endl
+        << "Weapon - filename: " << m_xml.getWeapon(i).filename << endl
+        << "Weapon - colorOffsetX: " << m_xml.getWeapon(i).colorOffsetX << endl
+        << "Weapon - colorOffsetY: " << m_xml.getWeapon(i).colorOffsetY << endl;
+    }
+
     m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
+
+    return 0;
 }
