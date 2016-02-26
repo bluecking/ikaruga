@@ -57,7 +57,6 @@ namespace jumper
         {
             it->setLiveTime();
             erease_bots.push_back(*it);
-            addBot(*it);
         }
 
         for (auto it = begin (erease_bots); it != end (erease_bots)&& it->position().x()<curPos; it++)
