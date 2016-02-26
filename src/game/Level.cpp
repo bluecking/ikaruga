@@ -504,40 +504,123 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 		}
 		else
 		{
-			getSurroundingRelevantTiles(pos, TLEFT, width, height, &tiles);
-
-			int round = 0;
-
-			for(Vector2i& tPos : tiles)
-			{
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
-				{
-					TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
-
-					if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) // collide with something solid
-					{
-						float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
-						x = std::max(x, maxMov);
-
-						break;
-					}
-				}
-
-				round++;
-			}
+			getInnerTiles(pos, TRIGHT, width, height, &tiles);
 
 			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-			TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
-			if (t1 == EDGETOPLEFT && t2 == EDGEDOWNLEFT)
+			if (t1 != EDGETOPLEFT && t2 != EDGEDOWNLEFT)
 			{
+
+				tiles.clear();
+
+				getSurroundingRelevantTiles(pos, TLEFT, width, height, &tiles);
+
+				int round = 0;
+
+				for(Vector2i& tPos : tiles)
+				{
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+					{
+						TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
+
+						if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) // collide with something solid
+						{
+							float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
+							x = std::max(x, maxMov);
+
+							break;
+						}
+					}
+
+					round++;
+				}
+
+				TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+				TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+				if (t1 == EDGETOPLEFT && t2 == EDGEDOWNLEFT)
+				{
+					// TODO
+				}
+				else if (t1 == EDGETOPLEFT)
+				{
+					// TODO
+				}
+				else if (t2 == EDGEDOWNLEFT)
+				{
+					// TODO
+				}
+			}
+			else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check
+			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[0].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int upY = gridToPos(tiles[0].y());
+
+				if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
+				{
+					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+
+				bool same = (y == y2);
+
+				x -= y - y2;
+				y = y2;
+
+				if (movRec > 0 && !same)
+				{
+					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+
 				// TODO
 			}
-			else if (t1 == EDGETOPLEFT)
+			else if (t1 != EDGETOPLEFT) // t2 == EDGEDOWNLEFT
 			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[1].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int downY = gridToPos(tiles[1].y() + 1);
+
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
+				{
+					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+
+				bool same = (y == y2);
+
+				x -= y2 - y;
+				y = y2;
+
+				if (movRec > 0 && !same)
+				{
+					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+
 				// TODO
 			}
-			else if (t2 == EDGEDOWNLEFT)
+			else // t1 and t2 EDGEs
 			{
 				// TODO
 			}
