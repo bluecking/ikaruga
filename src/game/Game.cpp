@@ -51,12 +51,13 @@ namespace jumper
     {
 
         int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
-        for (auto it = begin (m_bots); it != end (m_bots); ++it) {
+        for (auto it = begin (m_bots); it != end (m_bots); it++) {
             if(it->positionX<curPos+40)
             {
                 Bot bot(m_renderer, m_level->getTexture(), it->type.frameWidth, it->type.frameHeight, 2, it->type.npc);
                 addActor(&bot);
-                m_bots.erase(it);
+                //m_bots.erase(it);
+                cout<<"woop"<<endl;
             }
         }
     }
@@ -124,7 +125,7 @@ namespace jumper
             m_player->setMoveDirection(moveDirection);
 
             moveActors();
-
+            //added spawn bots
             spawnBots();
 
             scrollHorizontal();
