@@ -84,7 +84,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
     xpath               = xplayer.filename;
     texture1            = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
     //TODO: dynamic frame number insted of 13
-    Player* player = new Player(w->getRenderer(), texture1, xplayer.frameWidth, xplayer.frameHeight, 13);
+    Player* player = new Player(w->getRenderer(), texture1, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
     // set weapon
     // TODO dynamic weapon attributes
     Vector2i* textureSize = new Vector2i(6, 6);
