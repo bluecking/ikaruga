@@ -42,7 +42,7 @@ namespace jumper
         // TODO Auto-generated destructor stub
     }
 
-    void Game::addBots(vector<XML::Bot> bots)
+    void Game::addBots(vector<XML::LevelBot> bots)
     {
         m_bots = bots;
     }
@@ -54,12 +54,10 @@ namespace jumper
         for (auto it = begin (m_bots); it != end (m_bots); ++it) {
             if(it->positionX<curPos+40)
             {
-                Bot bot(m_renderer, m_level->getTexture(), it->frameWidth, it->frameHeight, 2, it->npc);
+                Bot bot(m_renderer, m_level->getTexture(), it->type.frameWidth, it->type.frameHeight, 2, it->type.npc);
                 addActor(&bot);
                 m_bots.erase(it);
             }
-
-
         }
     }
 
