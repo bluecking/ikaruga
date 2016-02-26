@@ -36,7 +36,7 @@ private:
     Item* item;
     QHBoxLayout* getQLabelLayout(QString name,std::string& value);
     QHBoxLayout* getQSpinLayout(QString name,int value,int min,int max);
-    QHBoxLayout* getQComboLayout(QString name,std::string& value...);
+    QHBoxLayout* getQComboLayout(QString name,std::string value[]);
 };
 
 #endif // ITEMSETTINGSGUI_H

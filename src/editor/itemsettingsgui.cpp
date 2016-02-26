@@ -20,12 +20,12 @@ QHBoxLayout* ItemSettingsGui::getQLabelLayout(QString name,std::string& value){
     return layout;
 }
 
-QHBoxLayout* ItemSettingsGui::getQComboLayout(QString name,std::string& value...){
+QHBoxLayout* ItemSettingsGui::getQComboLayout(QString name,std::string value[]){
     QHBoxLayout *layout=new QHBoxLayout();
     QLabel *x=new QLabel(name);
     layout->addWidget(x);
     QComboBox *combo=new QComboBox();
-    for(int i=0;i<value.length();i++)
+    for(int i=0;i<value->length();i++)
         combo->addItem(QString::fromUtf8(value[i].c_str()));
     layout->addWidget(combo);
     return layout;
