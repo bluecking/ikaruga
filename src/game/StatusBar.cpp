@@ -6,7 +6,7 @@
  */
 
 #include "StatusBar.hpp"
-
+#include <SDL.h>
 #include <iostream>
 #include <list>
 using std::cout;
@@ -19,7 +19,15 @@ namespace jumper
 const int StatusBar::m_maxScore = 1000000;
 
 
-StatusBar::StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int tileWidth, int tileHeight, int capitalOffset, int minusculeOffset, int numberOffset, int letterCount)
+StatusBar::StatusBar(SDL_Renderer* renderer,
+                     SDL_Texture* texture,
+                     int tileWidth,
+                     int tileHeight,
+                     int capitalOffset,
+                     int minusculeOffset,
+                     int numberOffset,
+                     int letterCount,
+                     int offsetMiddle)
 	: StaticRenderable(renderer, texture)
 {
 	m_score		= 0;
@@ -29,6 +37,7 @@ StatusBar::StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int tileWidth
     m_minusculeOffset = minusculeOffset;
     m_numberOffset = numberOffset;
     m_letterCount = letterCount;
+    m_offsetMiddle = offsetMiddle;
 }
 
 StatusBar::StatusBar(SDL_Renderer* renderer)
@@ -62,6 +71,20 @@ void StatusBar::render()
 	SDL_Rect target;
 	SDL_Rect source;
 
+
+    //Paint the Border in Red
+    SDL_SetRenderDrawColor(m_renderer,255,0,0,1);
+    //left line
+    SDL_RenderDrawLine(m_renderer, m_startPosition.x(), m_startPosition.y(), m_startPosition.x(), m_startPosition.y()-m_startPosition.y());
+    //Buttom line
+    SDL_RenderDrawLine(m_renderer, m_endPosition.x(), m_startPosition.y(), m_startPosition.x(), m_startPosition.y());
+    //Top line
+    SDL_RenderDrawLine(m_renderer, m_endPosition.x(), m_endPosition.y(), m_startPosition.x(), m_endPosition.y());
+    //Right line
+    SDL_RenderDrawLine(m_renderer, m_endPosition.x(), m_endPosition.y(), m_endPosition.x(), m_startPosition.y());
+
+    //Make the Background black
+    SDL_SetRenderDrawColor(m_renderer,0,0,0,1);
 	target.w = m_tileWidth;
 	target.h = m_tileHeight;
 	source.w = target.w;
@@ -115,11 +138,12 @@ void StatusBar::setPosition(const Vector2i &positionStart, const Vector2i &posit
 {
     m_startPosition = positionStart;
     m_endPosition = positionEnd;
-    int startx = m_startPosition.x() + 10;
-    int y = (m_startPosition.y()/2) - 3;
-    setScorePosition(Vector2i(startx, y));
-    //TODO ~ Update Waepon Position, so its always in the middle.
-    setWeaponPosition(Vector2i(m_endPosition.x()/2, y));
+    //to get the vertical alignment straight, we need to substract our tileheight from the middle of our statusbar
+    //and substract to offset to get it perfectly horizontally aligned
+    m_horziontalAlignemnt = (m_startPosition.y()/2) - ((m_tileHeight/2)-m_offsetMiddle);
+    setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
+    //TODO ~ Update Weapon Position, so its always in the middle.
+    setWeaponPosition(Vector2i(m_endPosition.x()/2, m_horziontalAlignemnt));
 }
 void StatusBar::setScorePosition(const Vector2i &position)
 {

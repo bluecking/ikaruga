@@ -134,9 +134,11 @@ void setupGame(string filename, MainWindow* w, Game* game)
              int mo = v.second.get<int>("minusculeOffset", 10);
              int no = v.second.get<int>("numberOffset", 10);
              int lc = v.second.get<int>("letterCount", 10);
-			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, tw, th, co, mo ,no, lc);
+             int om = v.second.get<int>("offsetToMid", 10);
+			 StatusBar * bar = new StatusBar(w->getRenderer(), texture, tw, th, co, mo ,no, lc, om);
              int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
-             int xEnd = w->w();
+             //Substract 1, because we start at 0, not at 1
+             int xEnd = w->w()-1;
              bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
 			 game->setStatusBar(bar);
 		 }

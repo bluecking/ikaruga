@@ -10,6 +10,7 @@
       <capitalOffset>0</capitalOffset>
       <minusculeOffset>20</minusculeOffset>
       <numberOffset>40</numberOffset>
+      <offsetToMid>1</offsetToMid>
   </statusBar>
   <player filename="images/player_animated_55x43_transparent.png">
     <numFrames>24</numFrames>

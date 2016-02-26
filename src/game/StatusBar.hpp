@@ -30,7 +30,15 @@ public:
 	 * @param digitWidth		The width of a digit within the texture
 	 * @param digitHeight		The height of a digit within the texture
 	 */
-	StatusBar(SDL_Renderer* renderer, SDL_Texture* texture, int tileWidth, int tileHeight, int capitalOffset, int minusculeOffset, int numberOffset, int letterCount);
+	StatusBar(SDL_Renderer* renderer,
+              SDL_Texture* texture,
+              int tileWidth,
+              int tileHeight,
+              int capitalOffset,
+              int minusculeOffset,
+              int numberOffset,
+              int letterCount,
+              int offsetMiddle);
 
 	/**
 	 * Constructs an empty scoreboard for the renderer
@@ -77,6 +85,10 @@ private:
 	int m_numberOffset;
 
     int m_letterCount;
+
+    int m_offsetMiddle;
+
+    int m_horziontalAlignemnt;
 
 	/// Scoreboard position
 	Vector2i m_scorePosition;
