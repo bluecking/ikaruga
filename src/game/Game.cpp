@@ -54,9 +54,9 @@ namespace jumper
         for (auto it = begin (m_bots); it != end (m_bots); it++) {
             if(it->positionX<curPos+40)
             {
-                Bot bot(m_renderer, m_level->getTexture(), it->type.frameWidth, it->type.frameHeight, 2, it->type.npc);
-                addActor(&bot);
-                //m_bots.erase(it);
+                Bot* bot = new Bot(m_renderer, m_level->getTexture(), it->type.frameWidth, it->type.frameHeight, 2, it->type.npc);
+                addActor(bot);
+                m_bots.erase(it);
                 cout<<"woop"<<endl;
             }
         }
