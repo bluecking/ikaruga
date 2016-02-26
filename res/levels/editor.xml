@@ -1,19 +1,10 @@
 <level>
     <id>0</id>
     <name>Milky Way</name>
-    <tileset filename="test1.lvl"/>
+    <tileset filename="milkyway.lvl"/>
     <background filename="background_40x40.png">
         <scrollspeed>3</scrollspeed>
     </background>
-    <statusBar filename="statusbar_font_10x10.png">
-        <frameWidth>10</frameWidth>
-        <frameHeight>10</frameHeight>
-        <letterCount>26</letterCount>
-        <capitalOffset>1</capitalOffset>
-        <minusculeOffset>3</minusculeOffset>
-        <numberOffset>0</numberOffset>
-        <offsetToMid>1</offsetToMid>
-    </statusBar>
     <player filename="player_combined_47x51.png">
         <numFrames>24</numFrames>
         <frameWidth>18</frameWidth>
