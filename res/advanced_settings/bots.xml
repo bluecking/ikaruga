@@ -4,6 +4,7 @@
         <numFrames>2</numFrames>
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <health>100</health>
         <tileID>1</tileID>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -19,6 +20,7 @@
         <numFrames>2</numFrames>
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <health>100</health>
         <tileID>1</tileID>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -34,6 +36,7 @@
         <numFrames>2</numFrames>
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <health>100</health>
         <tileID>1</tileID>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -49,6 +52,7 @@
         <numFrames>2</numFrames>
         <frameWidth>18</frameWidth>
         <frameHeight>32</frameHeight>
+        <health>100</health>
         <tileID>1</tileID>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
