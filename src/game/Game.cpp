@@ -53,16 +53,20 @@ namespace jumper
 
         vector<Bot*> erease_bots;
 
-        for (auto it = begin (m_bots); it != end (m_bots)&& (*it)->position().x()<curPos; it++)
+        for (auto it = m_bots.begin(); it != m_bots.end(); it++)
         {
-            (*it)->setLiveTime();
-            erease_bots.push_back(*it);
-            addActor(*it);
+            if ((*it)->position().x() < curPos)
+            {
+                (*it)->setLiveTime();
+                erease_bots.push_back(*it);
+                addActor(*it);
+            }
         }
 
-        for (auto it = begin (erease_bots); it != end (erease_bots)&& (*it)->position().x()<curPos; it++)
+        for (auto it = erease_bots.begin(); it != erease_bots.end(); it++)
         {
-            m_bots.erase(it);
+            auto it1 = std::find(m_bots.begin(), m_bots.end(), *it);
+            m_bots.erase(it1);
         }
 
 

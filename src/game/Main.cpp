@@ -118,7 +118,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
     for (auto it = begin (bots); it != end (bots); it++)
     {
-        texture       = TextureFactory::instance(w->getRenderer()).getTexture((*it).type.filename);
+        texture       = TextureFactory::instance(w->getRenderer()).getTexture("/home/marius/git/CPPP/praktikum1/res/images/enemys_green_40x40.png");
 
         Bot* bot = new Bot(w->getRenderer(), texture,(*it).type.frameWidth, (*it).type.frameHeight, (*it).type.numFrames, (*it).type.npc);
 
@@ -126,7 +126,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
 
-        game->addBot(*bot);
+        game->addBot(bot);
     }
 
 
