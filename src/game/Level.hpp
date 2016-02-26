@@ -101,6 +101,9 @@ private:
 	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
 	void getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
 
+	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
+	float posRelativToGrid(float pos, int grid);
+	float gridToPos(int grid);
 
 	/// Tile width
 	int					m_tileWidth;

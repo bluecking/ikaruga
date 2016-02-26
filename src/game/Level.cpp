@@ -303,6 +303,22 @@ void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, 
 }
 
 
+float Level::nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus)
+{
+	return ((tileGridPos + edgeBonus) * m_tileWidth) - (playerPos + playerSize);
+}
+
+float Level::posRelativToGrid(float pos, int grid)
+{
+	return pos - grid * m_tileWidth;
+}
+
+float Level::gridToPos(int grid)
+{
+	return grid * m_tileWidth;
+}
+
+
 Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 {
 	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
