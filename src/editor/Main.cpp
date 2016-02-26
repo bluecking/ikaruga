@@ -1,22 +1,10 @@
-/*
- * Main.cpp
- *
- *  Created on: Jul 23, 2015
- *      Author: twiemann
- */
+#include "MainWindow.hpp"
+#include <QApplication>
 
-#include <QtGui>
 
-#include "EditorMainWindow.hpp"
-
-int main(int argc, char** argv)
-{
-    QApplication app(argc, argv);
-
-    MainWindow mainWindow;
-    mainWindow.show();
-
-    return app.exec();
+int main( int argc, char* argv[]){
+	QApplication a(argc, argv);
+	MainWindow w;
+	w.show();
+	return a.exec();
 }
-
-

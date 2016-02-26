@@ -33,30 +33,40 @@ XML::XML(std::string xmlFilename)
 XML::XML()
 {
     init();
+
     setId(0);
+    std::string relativePath = "../images/";
     setLevelname("Levelname");
     setTileset("tileset.lvl");
     Background b;
-    b.filename = "background.png";
-    b.scrollspeed = 0;
+    b.filename = relativePath + "background.png";
+    b.scrollspeed = 3;
     setBackground(b);
-    Player p;
-    p.filename = "player.png";
-    p.frameWidth = 1;
-    p.frameHeight = 1;
-    p.positionY = 0;
-    p.stdWeapon = "pitchfork";
-    setPlayer(p);
     Statusbar sb;
-    sb.filename = "statusbar.png";
-    sb.frameWidth = 1;
-    sb.frameHeight = 1;
+    sb.filename = relativePath + "statusbar.png";
+    sb.frameWidth = 10;
+    sb.frameHeight = 10;
     sb.letterCount = 26;
     sb.capitalOffset = 1;
     sb.minusculeOffset = 3;
     sb.numberOffset = 0;
     sb.offsetToMid = 1;
     setStatusbar(sb);
+    Player p;
+    p.filename = relativePath + "player.png";
+    p.numFrames = 24;
+    p.frameWidth = 18;
+    p.frameHeight = 32;
+    p.positionX = 100;
+    p.positionY = 40;
+    p.stdWeapon = "LASER_GUN";
+    p.colorOffsetX = 1320;
+    p.colorOffsetY = 0;
+    p.moveForceX = 100.0;
+    p.moveForceY = 100.0;
+    p.maxVel = 100.0;
+    p.fps = 12;
+    setPlayer(p);
 }
 
 void XML::init()
