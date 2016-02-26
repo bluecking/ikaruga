@@ -20,6 +20,29 @@ QHBoxLayout* ItemSettingsGui::getQLabelLayout(QString name,std::string& value){
     return layout;
 }
 
+QHBoxLayout* ItemSettingsGui::getQComboLayout(QString name,std::string& value...){
+    QHBoxLayout *layout=new QHBoxLayout();
+    QLabel *x=new QLabel(name);
+    layout->addWidget(x);
+    QComboBox *combo=new QComboBox();
+    for(int i=0;i<value.length();i++)
+        combo->addItem(QString::fromUtf8(value[i].c_str()));
+    layout->addWidget(combo);
+    return layout;
+}
+
+QHBoxLayout* ItemSettingsGui::getQSpinLayout(QString name,int value,int min,int max){
+    QHBoxLayout *layout=new QHBoxLayout();
+    QLabel *x=new QLabel(name);
+    layout->addWidget(x);
+    QSpinBox *spin=new QSpinBox();
+    spin->setValue(value);
+    spin->setMinimum(min);
+    spin->setMaximum(max);
+    layout->addWidget(spin);
+    return layout;
+}
+
 ItemSettingsGui::ItemSettingsGui(Player *player,QWidget *parent) : ItemSettingsGui(parent)
 {
     this->player=player;
@@ -273,6 +296,8 @@ void ItemSettingsGui::on_ButtonOption_accepted()
         item->positionY=((QLabel*)hbox->itemAt(3))->text().toInt();
         hbox=(QHBoxLayout*)(ui->VertOptions->itemAt(3));
         item->type=((QComboBox*)hbox->itemAt(1))->currentText().toStdString();
+    }else{
+
     }
     this->~ItemSettingsGui();
 }

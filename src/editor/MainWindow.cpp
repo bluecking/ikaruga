@@ -123,5 +123,5 @@ void MainWindow::on_actionNeu_triggered()
 
 void MainWindow::on_pushButton_released()
 {
-   /// scene->setSize(ui->spinBox->value());
+    //scene->setSize(ui->spinBox->value());
 }
