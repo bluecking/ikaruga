@@ -124,6 +124,9 @@ namespace jumper
             m_player->setMoveDirection(moveDirection);
 
             moveActors();
+
+            spawnBots();
+
             scrollHorizontal();
             checkPlayerCollision();
             checkCameraCollision();
