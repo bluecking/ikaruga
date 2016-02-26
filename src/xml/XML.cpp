@@ -20,19 +20,21 @@ XML::XML(std::string xmlFilename)
 XML::XML()
 {
     init();
+
     setId(0);
+    std::string relativePath = "../images/";
     setLevelname("Levelname");
     setTileset("tileset.lvl");
     Background b;
-    b.filename = "background.png";
+    b.filename = relativePath + "background.png";
     b.scrollspeed = 0;
     setBackground(b);
     Player p;
-    p.filename = "player.png";
+    p.filename = relativePath + "player.png";
     p.frameWidth = 1;
     p.frameHeight = 1;
     p.positionY = 0;
-    p.stdWeapon = "pitchfork";
+    p.stdWeapon = "LASER_GUN";
     setPlayer(p);
 }
 
