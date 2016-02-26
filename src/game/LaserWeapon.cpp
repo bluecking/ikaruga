@@ -31,10 +31,22 @@ namespace jumper
         m_game.addActor(projectile);
     }
 
-    //TODO ~ Set Weapon Name from XML
-    LaserWeapon::LaserWeapon(Game& game, Actor& actor, SDL_Texture* projectileTexture,
+    //TODO ~ Set Weapon Name and Evolution Stage from XML
+    LaserWeapon::LaserWeapon(Game& game,
+                             Actor& actor,
+                             SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,
-                             const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown)
-            : Weapon(game, actor, projectileTexture, projectileTextureSize, weaponOffset, projectileColorOffset, coolDown, "LaserGun")
+                             const Vector2f& weaponOffset,
+                             const Vector2f& projectileColorOffset,
+                             float coolDown)
+            : Weapon(game,
+                     actor,
+                     projectileTexture,
+                     projectileTextureSize,
+                     weaponOffset,
+                     projectileColorOffset,
+                     coolDown,
+                     "LaserGun",
+                     1)
     { }
 }

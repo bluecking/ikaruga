@@ -12,6 +12,7 @@
 #include <iostream>
 #include <algorithm>
 #include <set>
+#include <string>
 
 using std::set;
 using std::cout;
@@ -83,7 +84,11 @@ namespace jumper
             {
                 m_player->shoot();
             }
+
+            //Update Statusbar \o/
             m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
+            m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
+            m_statusBar->setHealth(m_player->getHealth());
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])

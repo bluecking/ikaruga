@@ -18,11 +18,12 @@ namespace jumper
                    const Vector2f& weaponOffset,
                    const Vector2f& projectileColorOffset,
                    float coolDown,
-                   string name)
+                   string name,
+                   int evolution)
             : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
-              m_projectileColorOffset(projectileColorOffset), m_name(name)
+              m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution)
     {
 
     }
