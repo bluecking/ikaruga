@@ -14,6 +14,18 @@ XML::XML(std::string xmlFilename)
 {
     setFilename(xmlFilename);
     init();
+
+    std::string advanced_settings;
+    advanced_settings = xmlFilename;
+    advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
+    advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
+    advanced_settings = advanced_settings + "/advanced_settings/";
+    cout << "SETTINGS FILE : " << advanced_settings << endl;
+
+    loadBots(advanced_settings + "bots.xml");
+    loadItems(advanced_settings + "items.xml");
+    loadWeapons(advanced_settings + "weapons.xml");
+
     load();
 }
 
@@ -130,16 +142,18 @@ void XML::load()
             {
                 LevelBot lBot;
                 std::string type_tmp = v.second.get<string>("<xmlattr>.type");
+                bool foundType = false;
                 for (auto it = begin(m_bots); it != end(m_bots); it++)
                 {
                     if(type_tmp.compare(it->type)==0)
                     {
                         lBot.type = *it;
+                        foundType = true;
                     }
-                    else
-                    {
-                        throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
-                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
                 }
                 lBot.positionX = v.second.get<int>("positionX");
                 lBot.positionY = v.second.get<int>("positionY");

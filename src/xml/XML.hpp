@@ -111,10 +111,6 @@ public:
      */
     XML();
 
-    void loadBots(std::string filename);
-    void loadItems(std::string filename);
-    void loadWeapons(std::string filename);
-
     /**
      * Stores game information into XML file. By default it overwrites the original file. If desired you can specify
      * another location by the setFilename method.
@@ -416,6 +412,30 @@ private:
      * Initialize some variables with default values. Required by the constructors.
      */
     void init();
+
+    /**
+     * Load XML game bots into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadBots(std::string filename);
+
+    /**
+     * Load XML game items into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadItems(std::string filename);
+
+    /**
+     * Load XML game weapons into several structures.
+     * @param filename location of the settings file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadWeapons(std::string filename);
 };
 
 #endif //XML_HPP

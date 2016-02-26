@@ -61,10 +61,6 @@ int main(int argc, char** argv)
             << "LevelItem - value: " << m_xml.getLevelItem(i).value << endl << endl;
     }
 
-    m_xml.loadBots("/home/skalbers/Studium/GITHUB_Praktikum/res/advanced_settings/bots.xml");
-    m_xml.loadItems("/home/skalbers/Studium/GITHUB_Praktikum/res/advanced_settings/items.xml");
-    m_xml.loadWeapons("/home/skalbers/Studium/GITHUB_Praktikum/res/advanced_settings/weapons.xml");
-
     /** SETTING FILES **/
     for(int i=0;i<(int) m_xml.itemSize();i++) {
         cout << "Item - type: " << m_xml.getItem(i).type << endl
