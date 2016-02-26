@@ -39,6 +39,7 @@ StatusBar::StatusBar(SDL_Renderer* renderer,
     m_numberOffset = numberOffset;
     m_letterCount = letterCount;
     m_offsetMiddle = offsetMiddle;
+    m_weaponChanged = false;
 }
 
 StatusBar::StatusBar(SDL_Renderer* renderer)
@@ -124,7 +125,11 @@ void StatusBar::render()
 	}
 
     //Render Weapon
-    std::list<int> capitals;
+    if(m_weaponChanged)
+    {
+        std::cout << m_weaponName;
+    }
+    //std::list<int> capitals;
 
     /*
     for(std::list<int>::iterator it = digits.begin(); it != digits.end(); it++)
@@ -165,7 +170,13 @@ void StatusBar::setWeaponPosition(const Vector2i &position)
 
 void StatusBar::setWeaponName(string weaponName)
 {
-    cout << weaponName + "\n";
+    m_weaponChanged = false;
+    if (weaponName != m_weaponName)
+    {
+        m_weaponChanged = true;
+        m_weaponName = weaponName;
+    }
+    //cout << weaponName + "\n";
 }
 
 StatusBar::~StatusBar()

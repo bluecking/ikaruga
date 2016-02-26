@@ -96,6 +96,8 @@ private:
 
     string m_weaponName;
 
+    bool m_weaponChanged;
+
 	/// Scoreboard position
 	Vector2i m_scorePosition;
 
