@@ -55,7 +55,7 @@ public:
     };
 
     struct LevelBot{
-        std::string type;
+        Bot type;
         int positionX;
         int positionY;
         std::string color;

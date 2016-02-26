@@ -106,7 +106,18 @@ void XML::load()
             else if (v.first == "bot")
             {
                 LevelBot lBot;
-                lBot.type = v.second.get<string>("<xmlattr>.type");
+                std::string type_tmp = v.second.get<string>("<xmlattr>.type");
+                for (auto it = begin(m_bots); it != end(m_bots); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        lBot.type = *it;
+                    }
+                    else
+                    {
+                        throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
+                    }
+                }
                 lBot.positionX = v.second.get<int>("positionX");
                 lBot.positionY = v.second.get<int>("positionY");
                 lBot.color = v.second.get<string>("color");
@@ -318,7 +329,7 @@ void XML::save()
     /* Adding Level_Bots */
     for(int i=0;i<(int) m_level_bots.size();i++) {
         ptree level_bot, powerUp;
-        level_bot.put("<xmlattr>.type", m_level_bots[i].type);
+        level_bot.put("<xmlattr>.type", m_level_bots[i].type.type);
         level_bot.put("positionX", m_level_bots[i].positionX);
         level_bot.put("positionY", m_level_bots[i].positionY);
         level_bot.put("color", m_level_bots[i].color);
