@@ -33,6 +33,22 @@ void getPlayerProperty(XML::Player player, PlayerProperty& p)
 	p.setMaxRunVelocity(maxVelRun);
 }
 
+
+void getBotProperty(XML::LevelBot bot, PlayerProperty& p)
+{
+    int pos_x = bot.positionX;
+    int pos_y = bot.positionY;
+    float moveForceX =  1.0;
+    float moveForceY = 1.0;
+    float maxVelRun = 1.0;
+
+    p.setPosition(Vector2f(pos_x, pos_y));
+    p.setMoveForce(Vector2f(moveForceX, moveForceY));
+    p.setMaxRunVelocity(maxVelRun);
+}
+
+
+
 void setupGame(string filename, MainWindow* w, Game* game)
 {
 	//<alter Teil>
@@ -100,10 +116,32 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
     vector<XML::LevelBot> bots = xml.getLevelBots();
 
-    //add bots to level
-    game->addBots(xml.getLevelBots());
+    for (auto it = begin (bots); it != end (bots); it++)
+    {
+        texture       = TextureFactory::instance(w->getRenderer()).getTexture("/home/marius/git/CPPP/praktikum1/res/images/enemys_green_40x40.png");
+        texture       = TextureFactory::instance(w->getRenderer()).getTexture((*it).type.filename);
 
 
+        XML::NPC karl;
+        karl.type="SIN_UP";
+        karl.move_function="SIN_UP";
+        karl.move_value= 50;
+        karl.speed=100;
+
+
+        Bot* bot = new Bot(w->getRenderer(), texture, 40, 40, 2, karl);
+        bot->position().setY(40);
+        bot->position().setX(400);
+
+        PlayerProperty& p;
+        getBotProperty(*it, p);
+        bot->setPhysics(p);
+        bot->setFPS((*it).type.fps);
+
+
+        game.addActor(bot);
+
+    }
 
 
 /*
