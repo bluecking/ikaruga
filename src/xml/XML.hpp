@@ -89,6 +89,17 @@ public:
         int colorOffsetY;
     };
 
+    struct Statusbar{
+        std::string filename;
+        int frameWidth;
+        int frameHeight;
+        int letterCount;
+        int capitalOffset;
+        int minusculeOffset;
+        int numberOffset;
+        int offsetToMid;
+    };
+
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.
      * @param xmlFilename Name of xmlFile with level information.
@@ -166,6 +177,15 @@ public:
     }
 
     /**
+     * Set Statusbar.
+     * @param The statusbar.
+     */
+    void setStatusbar(const Statusbar& statusbar)
+    {
+        m_statusbar = statusbar;
+    }
+
+    /**
      * Get level id.
      * @return level id.
      */
@@ -194,6 +214,12 @@ public:
      * @return m_player
      */
     Player getPlayer() { return m_player;}
+
+    /**
+     * Get the Statusbar
+     * @return m_statusbar
+     */
+    Statusbar getStatusbar() { return m_statusbar;}
 
     /************************************** LEVEL STRUCT METHODS **************************************/
 
@@ -369,6 +395,7 @@ private:
     std::string m_tileset;
     Background m_background;
     Player m_player;
+    Statusbar m_statusbar;
 
     std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::LevelItem> m_level_items;

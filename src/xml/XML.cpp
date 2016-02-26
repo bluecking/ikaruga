@@ -34,6 +34,16 @@ XML::XML()
     p.positionY = 0;
     p.stdWeapon = "pitchfork";
     setPlayer(p);
+    Statusbar sb;
+    sb.filename = "statusbar.png";
+    sb.frameWidth = 1;
+    sb.frameHeight = 1;
+    sb.letterCount = 26;
+    sb.capitalOffset = 1;
+    sb.minusculeOffset = 3;
+    sb.numberOffset = 0;
+    sb.offsetToMid = 1;
+    setStatusbar(sb);
 }
 
 void XML::init()
@@ -44,6 +54,7 @@ void XML::init()
     m_requiredAttributes.insert(std::pair<string, int>("tileset", 0));
     m_requiredAttributes.insert(std::pair<string, int>("background", 0));
     m_requiredAttributes.insert(std::pair<string, int>("player", 0));
+    m_requiredAttributes.insert(std::pair<string, int>("statusbar", 0));
 }
 
 void XML::load()
@@ -103,6 +114,18 @@ void XML::load()
                 m_player.fps = v.second.get<int>("fps");
                 m_requiredAttributes["player"]++;
             }
+            else if (v.first == "statusBar")
+            {
+                m_statusbar.filename = v.second.get<string>("<xmlattr>.filename");
+                m_statusbar.frameWidth = v.second.get<int>("frameWidth");
+                m_statusbar.frameHeight = v.second.get<int>("frameHeight");
+                m_statusbar.letterCount = v.second.get<int>("letterCount");
+                m_statusbar.capitalOffset = v.second.get<int>("capitalOffset");
+                m_statusbar.minusculeOffset = v.second.get<int>("minusculeOffset");
+                m_statusbar.numberOffset = v.second.get<int>("numberOffset");
+                m_statusbar.offsetToMid = v.second.get<int>("offsetToMid");
+                m_requiredAttributes["statusbar"]++;
+            }
             else if (v.first == "bot")
             {
                 LevelBot lBot;
@@ -159,6 +182,8 @@ void XML::load()
     { throw std::domain_error("Required attribute background not available."); }
     if (m_requiredAttributes["player"] != 1)
     { throw std::domain_error("Required attribute player not available."); }
+    if (m_requiredAttributes["statusbar"] != 1)
+    { throw std::domain_error("Required attribute statusbar not available."); }
 }
 
 void XML::loadBots(std::string filename){
@@ -179,7 +204,7 @@ void XML::loadBots(std::string filename){
             if (v.first == "bot")
             {
                 Bot bot;
-                bot.type = v.second.get<string>("<xmlattr>.tpye");
+                bot.type = v.second.get<string>("<xmlattr>.type");
                 bot.filename = v.second.get<string>("filename");
                 bot.numFrames = v.second.get<int>("numFrames");
                 bot.frameWidth = v.second.get<int>("frameWidth");
@@ -293,6 +318,7 @@ void XML::save()
     ptree tileset;
     ptree background;
     ptree player;
+    ptree statusbar;
 
     /* Adding Level Information */
     level.put("id", m_id);
@@ -308,6 +334,18 @@ void XML::save()
     background.put("scrollspeed", m_background.scrollspeed);
 
     level.add_child("background", background);
+
+    /* Adding Statusbar */
+    statusbar.put("<xmlattr>.filename", m_statusbar.filename);
+    statusbar.put("frameWidth", m_statusbar.frameWidth);
+    statusbar.put("frameHeight", m_statusbar.frameHeight);
+    statusbar.put("letterCount", m_statusbar.letterCount);
+    statusbar.put("capitalOffset", m_statusbar.capitalOffset);
+    statusbar.put("minusculeOffset", m_statusbar.minusculeOffset);
+    statusbar.put("numberOffset", m_statusbar.numberOffset);
+    statusbar.put("offsetToMid", m_statusbar.offsetToMid);
+
+    level.add_child("statusBar", statusbar);
 
     /* Adding Player */
     player.put("<xmlattr>.filename", m_player.filename);
