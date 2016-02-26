@@ -15,11 +15,12 @@ XML::XML(std::string xmlFilename)
     setFilename(xmlFilename);
     init();
 
+    /* Temporary hotfix for loading issue */
     std::string advanced_settings;
     advanced_settings = xmlFilename;
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
-    advanced_settings = advanced_settings + "/advanced_settings/";
+    advanced_settings = advanced_settings.append("/advanced_settings/");
     cout << "SETTINGS FILE : " << advanced_settings << endl;
 
     loadBots(advanced_settings + "bots.xml");
