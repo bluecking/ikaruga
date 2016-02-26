@@ -459,63 +459,70 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 	}
 
 
-	tiles.clear();
 	pos += Vector2f(x, 0);
 
 	if (checkY)
 	{
-
-		if (y != 0)
-		{
-			if (y> 0)
-			{
-				getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
-
-				int round = 0;
-
-				for(Vector2i& tPos : tiles)
-				{
-					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
-					{
-						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
-						{
-							float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
-							y = std::min(y, maxMov);
-
-							break;
-						}
-					}
-
-					round++;
-				}
-			}
-			else
-			{
-				getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
-
-				int round = 0;
-
-				for(Vector2i& tPos : tiles)
-				{
-					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
-					{
-						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
-						{
-							float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
-							y = std::max(y, maxMov);
-
-							break;
-						}
-					}
-
-					round++;
-				}
-			}
-		}
-
-		}
+		y = collideY(pos, width, height, y);
+	}
 
 	return Vector2f(x, y);
+}
+
+float Level::collideY(Vector2f pos, int width, int height, float y)
+{
+
+	std::vector<Vector2i> tiles;
+
+	if (y != 0)
+	{
+		if (y> 0)
+		{
+			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
+
+			int round = 0;
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
+						y = std::min(y, maxMov);
+
+						break;
+					}
+				}
+
+				round++;
+			}
+		}
+		else
+		{
+			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+
+			int round = 0;
+
+			for(Vector2i& tPos : tiles)
+			{
+				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				{
+					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					{
+						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
+						y = std::max(y, maxMov);
+
+						break;
+					}
+				}
+
+				round++;
+			}
+		}
+	}
+
+	return y;
 }
 
 
