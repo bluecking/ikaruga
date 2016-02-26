@@ -7,6 +7,8 @@
 
 #include "StatusBar.hpp"
 #include <list>
+//needed for gcc
+#include <algorithm>
 
 
 using std::cout;
