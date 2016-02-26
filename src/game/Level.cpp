@@ -464,12 +464,38 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 					x += newMov.x();
 					y += newMov.y();
 				}
-
-				// TODO
 			}
 			else if (t1 != EDGETOPRIGHT) // t2 == EDGEDOWNRIGHT
 			{
-				// TODO
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[1].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int downY = gridToPos(tiles[1].y() + 1);
+
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
+				{
+					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+
+				bool same = (y == y2);
+
+				x -= y2 - y;
+				y = y2;
+
+				if (movRec > 0 && !same)
+				{
+					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+
+					x += newMov.x();
+					y += newMov.y();
+				}
 			}
 			else // t1 and t2 EDGEs
 			{
