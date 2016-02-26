@@ -13,9 +13,10 @@
 
 namespace jumper
 {
-
+    const int MainWindow::MAX_FPS = 60;
 
     MainWindow::MainWindow(std::string title, int w, int h)
+            : m_startLoopTicks(0)
     {
         /// Init width and height
         m_width = w;
@@ -47,6 +48,7 @@ namespace jumper
         SDL_Event e;
         const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
         bool* keyDown = new bool[SDL_NUM_SCANCODES];
+        m_startLoopTicks = SDL_GetTicks();
 
         // Start main loop and event handling
         while (!quit && m_renderer)
@@ -74,7 +76,8 @@ namespace jumper
                 keyDown[i] = false;
             }
 
-            SDL_Delay(16);
+            // sleep not needed time
+            limitFPS();
         }
     }
 
@@ -151,6 +154,14 @@ namespace jumper
         SDL_Quit();
     }
 
+    float MainWindow::getLoopTime()
+    {
+        Uint32 ticks = SDL_GetTicks();
+        float time = (ticks - m_startLoopTicks) / 1000.0f;
+        m_startLoopTicks = ticks;
+        return time;
+    }
+
     int jumper::MainWindow::w()
     {
         return m_width;
@@ -161,6 +172,22 @@ namespace jumper
         return m_height;
     }
 
+    void MainWindow::limitFPS()
+    {
+        // calc used time in loop
+        float loopTime = getLoopTime();
+        float maxLoopTime = 1.0f / MAX_FPS;
+
+        // calc sleep time
+        int sleepTime = (int) floor((maxLoopTime - loopTime) * 1000.0f);
+
+        // sleep not used time
+        if (sleepTime > 0)
+        {
+            Uint32 sleepTimeUint = (Uint32) sleepTime;
+            SDL_Delay(sleepTimeUint);
+        }
+    }
 } /* namespace jumper */
 
 

@@ -1,7 +1,7 @@
 <level>
   <tileset filename="test1.lvl"/>
   <layer filename="images/star_background_576x576.png">
-    <scrollSpeed>1.2</scrollSpeed>
+    <scrollSpeed>0.9</scrollSpeed>
   </layer>
   <scoreBoard filename="numbers.png">
     <xPos>20</xPos>
