@@ -32,7 +32,7 @@ int main(int argc, char** argv)
         cout << "Bot - positionY: " << lBot.positionY << endl
             << "Bot - positionX: " << lBot.positionX << endl
             << "Bot - color: " << lBot.color << endl
-            << "Bot - type: " << lBot.type << endl
+            << "Bot - type: " << lBot.type.type << endl
             << "Bot - powerUpName: " << lBot.powerUpName << endl
             << "Bot - powerUpProb: " << lBot.powerUpProb << endl;
     }
