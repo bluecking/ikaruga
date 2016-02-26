@@ -1,0 +1,56 @@
+<level>
+    <id>0</id>
+    <name>Milky Way</name>
+    <tileset filename="milkyway.lvl"/>
+    <background filename="background_40x40.png">
+        <scrollspeed>3</scrollspeed>
+    </background>
+    <player filename="player_combined_47x51.png">
+        <numFrames>24</numFrames>
+        <frameWidth>18</frameWidth>
+        <frameHeight>32</frameHeight>
+        <positionX>100</positionX>
+        <positionY>40</positionY>
+        <stdWeapon>LASER_GUN</stdWeapon>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <moveForceX>200.0</moveForceX>
+        <moveForceY>200.0</moveForceY>
+        <maxVel>200.0</maxVel>
+        <fps>12</fps>
+    </player>
+    <bot type="BOT_SIN">
+        <positionX>400</positionX>
+        <positionY>40</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN">
+        <positionX>500</positionX>
+        <positionY>40</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN">
+        <positionX>5000</positionX>
+        <positionY>40</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN">
+        <positionX>10000</positionX>
+        <positionY>40</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <item type="RESTORE_HEALTH">
+        <positionX>400</positionX>
+        <positionY>30</positionY>
+        <value>50</value>
+    </item>
+    <item type="RESTORE_HEALTH">
+        <positionX>4000</positionX>
+        <positionY>30</positionY>
+        <value>50</value>
+    </item>
+</level>
