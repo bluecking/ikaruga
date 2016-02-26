@@ -1,25 +1,3 @@
-############ XML Lib ##########
-PROJECT(XML)
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-add_library(xml SHARED src/xml/XML.cpp)
-target_link_libraries(xml ${Boost_LIBRARIES})
-
-set(CMAKE_SKIP_BUILD_RPATH FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-enable_testing()
-set(XMLTEST_DEPENDENCIES
-    xml
-    )
-set(params /home/patrick/Git-Repositories/uni_hausaufgaben/praktikum1/res/levels/level0.xml)
-add_executable(xmlTest src/xml/XmlTest.cpp src/xml/XML.hpp)
-target_link_libraries(xmlTest ${XMLTEST_DEPENDENCIES})
-configure_file(res/levels/level0.xml level0.xml COPYONLY)
-add_test(NAME ScrollerTest COMMAND xmlTest level0.xml)
-
 ################### GAME #################
 project(SCROLLER)
 
@@ -46,49 +24,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 
 #REPLACES ADDING SOURCES
-#add_subdirectory(src/game)
-
-set(SCROLLER_SOURCES
-        src/game/Actor.cpp
-        src/game/AnimatedRenderable.cpp
-        src/game/Bot.cpp
-        src/game/Camera.cpp
-        src/game/Collidable.cpp
-        src/game/Collision.cpp
-        src/game/Game.cpp
-        src/game/Item.cpp
-        src/game/KillAnimation.cpp
-        src/game/Level.cpp
-        src/game/Main.cpp
-        src/game/MainWindow.cpp
-        src/game/Network.cpp
-        src/game/Player.cpp
-        src/game/PlayerProperty.cpp
-        src/game/Path.cpp
-        src/game/PathPlanner.cpp
-        src/game/PathFollower.cpp
-        src/game/PuzzleBox.cpp
-        src/game/Renderable.cpp
-        src/game/ScoreBoard.cpp
-        src/game/SparseMatrix.cpp
-        src/game/SparseVector.cpp
-        src/game/StaticRenderable.cpp
-        src/game/TextureFactory.cpp
-        src/game/TexturedLayer.cpp
-        src/game/WorldProperty.cpp
-        src/game/Weapon.cpp
-        src/game/Projectile.cpp
-        src/game/LaserWeapon.cpp
-        src/game/Armed.cpp)
-
-set(SCROLLER_LIBS ${SCROLLER_LIBS} xml)
-
-# Build executable
-add_executable(scroller ${SCROLLER_SOURCES})
-target_link_libraries(scroller ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
-target_link_libraries(scroller m)
-target_link_libraries(scroller ${Boost_LIBRARIES})
-target_link_libraries(scroller ${SCROLLER_LIBS})
+add_subdirectory(src/game)
 
 ############ EDITOR ##########
 
@@ -128,4 +64,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
 target_link_libraries(editor ${EDITOR_DEPENDENCIES})
-#set(EDITOR_LIBS ${EDITOR_LIBS} xml)
+
+enable_testing()
+add_subdirectory(src/xml)
