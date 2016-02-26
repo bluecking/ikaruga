@@ -42,7 +42,7 @@ namespace jumper
         // TODO Auto-generated destructor stub
     }
 
-    void Game::addBot(Bot  bot)
+    void Game::addBot(Bot bot)
     {
         m_bots.push_back(bot);
     }
