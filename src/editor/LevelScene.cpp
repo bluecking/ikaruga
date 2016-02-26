@@ -21,8 +21,8 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 
 
+
     loadXml(filename);
-    std::cout<<m_levelName.toStdString()<<std::endl;
 
     loadLevel(m_levelName);
 
@@ -36,6 +36,8 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
 	window->ui->EnemieView->setScene(m_enemyView);
+
+    saveXml(filename);
 
 
 }
@@ -51,6 +53,10 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 	if (!item_list.isEmpty())
 	{
 		(dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(m_type, m_rect, m_index);
+        if(m_type==0)
+        {
+            m_tiles[y][x]=m_index;
+        }
 		m_mainWindow->ui->MainView->setScene(this);
 	}
 	else
@@ -79,21 +85,52 @@ void LevelScene::setTileSettings(int index,int type, QRect rect)
 
 void LevelScene::loadXml(QString fileName)
 {
-    m_xml= new XML(fileName.toStdString());
+
+    m_xml = new XML(fileName.toStdString());
+
 
     int last=(fileName.lastIndexOf("/"));
-    m_pfad=fileName.mid(0,last+1);
+    m_path=fileName.mid(0,last+1);
 
-    m_levelName = QString::fromUtf8(m_xml->getTileset().c_str());
-    m_levelName=m_pfad+m_levelName;
+    m_levelName     = toQString(m_xml->getTileset());
+    m_levelName     =m_path+m_levelName;
+    m_xmlFileName   =toQString(m_xml->getFilename());
+    m_levelId       =m_xml->getId();
 
     std::vector<XML::LevelBot>  bots = m_xml->getLevelBots();
 
 
 }
 
+QString LevelScene::toQString(std::string string)
+{
+    return QString::fromUtf8(string.c_str());
+}
+
 void LevelScene::saveXml(QString fileName)
 {
+
+
+    m_xml = new XML();
+
+    m_xml->setFilename(m_path.toStdString()+"testFile.xml");
+    m_xml->setTileset(m_levelName.toStdString());
+    m_xml->setLevelname("Milky test");
+    m_xml->setId(1);
+   /// m_xml->setLevelBots();
+   /// m_xml->save();
+
+    /**m_xml->setLevelBot();
+    m_xml->setTileset()
+    m_xml->setBackground();
+    m_xml->setFilename();
+    m_xml->setId();
+    m_xml->setLevelBots();
+    m_xml->setLevelItems():
+    m_xml->setLevelItem();
+    m_xml->setLevelname();
+    m_xml->setPlayer();
+    m_xml->setLevelname();*/
 
 }
 
@@ -112,22 +149,19 @@ void LevelScene::loadLevel(QString fileName )
 
         ///Filename
         QString line = in.readLine();
-        m_texFileName=m_pfad+line;
-        m_enemyFileName=m_pfad+"images/enemys.png";
 
-        ///	std::cout<<(filename.mid(0,last+1)+line).toStdString()<<std::endl;
 
 
         m_pixmap=new QPixmap*[6];
-        std::cout<<m_pfad.toStdString()<<"../images/rocks.png"<<std::endl;
+        std::cout<<m_path.toStdString()<<"../images/rocks.png"<<std::endl;
 
-        m_pixmap[0]= new QPixmap(m_pfad+m_texFileName);
-        m_pixmap[1]= new QPixmap(m_pfad+"../images/Bot_1.png");
-        m_pixmap[2]= new QPixmap(m_pfad+"../images/Bot_2.png");
-        m_pixmap[3]= new QPixmap(m_pfad+"../images/Bot_3.png");
-        m_pixmap[4]= new QPixmap(m_pfad+"../images/Bot_4.png");
-        m_pixmap[5]= new QPixmap(m_pfad+"../images/Bot_5.png");
-        ///m_pixmap[1]= new QPixmap(m_pfad+"../images/bot_1");
+        m_pixmap[0]= new QPixmap(m_path+m_texFileName);
+        m_pixmap[1]= new QPixmap(m_path+"../images/Bot_1.png");
+        m_pixmap[2]= new QPixmap(m_path+"../images/Bot_2.png");
+        m_pixmap[3]= new QPixmap(m_path+"../images/Bot_3.png");
+        m_pixmap[4]= new QPixmap(m_path+"../images/Bot_4.png");
+        m_pixmap[5]= new QPixmap(m_path+"../images/Bot_5.png");
+        ///m_pixmap[1]= new QPixmap(m_path+"../images/bot_1");
 
 
 

@@ -31,6 +31,7 @@ public:
 	void saveXml(QString fileName);
 	void loadXml(QString fileName);
 	void loadLevel(QString fileName);
+	QString toQString(std::string string);
 
 	QPixmap** getPixmap();
 
@@ -46,8 +47,31 @@ private:
     QRect m_rect;
     QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
 	QString	m_fileName;
-	QString m_pfad;
+	QString m_path;
 	XML* m_xml;
+	XML::Player m_player;
+	QString m_xmlFileName;
+	QString m_levelId;
+	QString m_levelName;
+	QString m_texFileName; // File name of the tile bitmap
+	QString m_enemyFileName;
+	QString m_playerFileName;
+	Settings m_setting;
+
+	/**=m_xml->getLevelBot();
+	=m_xml->getLevelBots();
+	=m_xml->getBot();
+	=m_xml->getItem();
+	=m_xml->getItems();
+	=m_xml->getLevelItem();
+	=m_xml->getWeapon();
+	=m_xml->getWeapons();
+	=m_xml->getBackground();
+	=m_xml->getBots();
+	=m_xml->getLevelItems();
+	=m_xml->getLevelname();
+	=m_xml->getPlayer();*/
+
 	int** m_tiles;        // The 2D tile array
 	int m_index=0;        // Tile id
 	int m_type=0;         // texture type
@@ -58,11 +82,7 @@ private:
 	int m_tileOffset;     // Offset between the tiles
 	int m_levelWidth;     // Level width (in tiles)
 	int m_levelHeight;    // Level height in tiles
-	QString m_levelName;
-	QString m_texFileName; // File name of the tile bitmap
-	QString m_enemyFileName;
-	QString m_playerFileName;
-	Settings m_setting;
+
 
 	MainWindow* m_mainWindow; // Pointer to a main window
         

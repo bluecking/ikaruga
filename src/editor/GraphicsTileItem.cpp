@@ -30,6 +30,7 @@ GraphicsTileItem::GraphicsTileItem(QColor* color, int w, int h):QGraphicsPixmapI
 void GraphicsTileItem::changeItem(int tileset_id,QRect& rect,int index)
 {
     this->setPixmap(m_pixmap[tileset_id]->copy(rect));
+    m_type=tileset_id;
     m_index=index;
 }
 
