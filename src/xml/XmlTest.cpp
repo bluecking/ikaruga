@@ -73,8 +73,9 @@ int main(int argc, char** argv)
         cout << "Bot - type: " << m_xml.getBot(i).type << endl
             << "Bot - filename: " << m_xml.getBot(i).filename << endl
             << "Bot - numFrames: " << m_xml.getBot(i).numFrames << endl
-            << "Bot - frameHeight: " << m_xml.getBot(i).frameHeight << endl
             << "Bot - frameWidth: " << m_xml.getBot(i).frameWidth << endl
+            << "Bot - frameHeight: " << m_xml.getBot(i).frameHeight << endl
+            << "Bot - health: " << m_xml.getBot(i).health << endl
             << "Bot - tileID: " << m_xml.getBot(i).tileID << endl
             << "Bot - colorOffsetX: " << m_xml.getBot(i).colorOffsetX << endl
             << "Bot - colorOffsetY: " << m_xml.getBot(i).colorOffsetY << endl
