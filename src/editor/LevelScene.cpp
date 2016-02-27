@@ -20,8 +20,6 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_fileName=filename;
 
 
-
-
     loadXml(filename);
 
     loadLevel(m_levelName);
@@ -32,7 +30,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
-
+    
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
 	window->ui->EnemieView->setScene(m_enemyView);
@@ -66,7 +64,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
         {
 
             XML::LevelBot bot;
-            bot.type=m_type;
 
             if(m_index<1)bot.color=1;
             else bot.color=2;
@@ -124,14 +121,15 @@ void LevelScene::loadXml(QString fileName)
 
     m_xml = new XML(fileName.toStdString());
 
-
     int last=(fileName.lastIndexOf("/"));
+
     m_path=fileName.mid(0,last+1);
 
     m_levelName     = toQString(m_xml->getTileset());
     m_levelName     =m_path+m_levelName;
     m_xmlFileName   =toQString(m_xml->getFilename());
     m_levelId       =m_xml->getId();
+    std::cout<<"foo"<<std::endl;
 
     std::vector<XML::LevelBot>  bots = m_xml->getLevelBots();
 
@@ -181,7 +179,6 @@ void LevelScene::loadLevel(QString fileName )
     ///readonly file open
     if(file.open(QIODevice::ReadOnly))
     {
-        std::cout<<"hallo"<<std::endl;
 
         QTextStream in(&file);
 
