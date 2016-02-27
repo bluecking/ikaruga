@@ -8,14 +8,18 @@
 using std::cout;
 using std::endl;
 
-namespace jumper {
-    Player::Player(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0) { }
+namespace jumper
+{
+    Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
+    { }
 
-    void Player::move(Level &level) {
+    void Player::move(Level& level)
+    {
         nextFrame();
         float dt = getElapsedTime();
-        if (dt > 0) {
+        if (dt > 0)
+        {
             Vector2f d_move;
 
             d_move = (physics().moveForce() * m_moveDirection * dt);
@@ -27,21 +31,25 @@ namespace jumper {
             physics().setVelocity(physics().velocity() * level.physics().damping());
 
             // Clamp velocities
-            if (physics().velocity().x() > physics().maxRunVelocity() * dt) {
+            if (physics().velocity().x() > physics().maxRunVelocity() * dt)
+            {
                 physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
                                                physics().velocity().y()));
             }
 
-            if (physics().velocity().x() < -physics().maxRunVelocity() * dt) {
+            if (physics().velocity().x() < -physics().maxRunVelocity() * dt)
+            {
                 physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
                                                physics().velocity().y()));
             }
 
-            if (physics().velocity().y() > physics().maxRunVelocity() * dt) {
+            if (physics().velocity().y() > physics().maxRunVelocity() * dt)
+            {
                 physics().setVelocity(Vector2f(physics().velocity().x(), physics().maxRunVelocity() * dt));
             }
 
-            if (physics().velocity().y() < -physics().maxRunVelocity() * dt) {
+            if (physics().velocity().y() < -physics().maxRunVelocity() * dt)
+            {
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
@@ -59,9 +67,11 @@ namespace jumper {
 
     }
 
-    void Player::shoot() {
+    void Player::shoot()
+    {
         // skip if no weapon is set
-        if (m_weapon == 0) {
+        if (m_weapon == 0)
+        {
             return;
         }
 
@@ -69,7 +79,8 @@ namespace jumper {
         m_weapon->shoot(direction, position());
     }
 
-    void Player::updateMoveAnimation() {
+    void Player::updateMoveAnimation()
+    {
         const char NORMAL = 0;
         const char UPHALF = 1;
         const char UPFULL = 2;
@@ -77,46 +88,30 @@ namespace jumper {
         const char DOFULL = 4;
 
         // Player moves up
-        if (getMoveDirection().y() < 0) {
-            switch (m_currentTileRow) {
-                case NORMAL:
-                    m_nextTileRow = UPHALF;
-                    break;
-                case DOHALF:
-                    m_nextTileRow = NORMAL;
-                    break;
-                case DOFULL:
-                    m_nextTileRow = DOHALF;
-                    break;
-                default:
-                    m_nextTileRow = UPFULL;
+        if (getMoveDirection().y() < 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = UPHALF; break;
+                case DOHALF:     m_nextTileRow = NORMAL; break;
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                default:         m_nextTileRow = UPFULL;
             }
         } // Player moves down
-        else if (getMoveDirection().y() > 0) {
-            switch (m_currentTileRow) {
-                case NORMAL:
-                    m_nextTileRow = DOHALF;
-                    break;
-                case UPHALF:
-                    m_nextTileRow = NORMAL;
-                    break;
-                case UPFULL:
-                    m_nextTileRow = UPHALF;
-                    break;
-                default:
-                    m_nextTileRow = DOFULL;
+        else if (getMoveDirection().y() > 0)
+        {
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = DOHALF; break;
+                case UPHALF:     m_nextTileRow = NORMAL; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = DOFULL;
             }
         } // Player does not move
-        else {
-            switch (m_currentTileRow) {
-                case DOFULL:
-                    m_nextTileRow = DOHALF;
-                    break;
-                case UPFULL:
-                    m_nextTileRow = UPHALF;
-                    break;
-                default:
-                    m_nextTileRow = NORMAL;
+        else
+        {
+            switch(m_currentTileRow) {
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = NORMAL;
             }
         }
     }

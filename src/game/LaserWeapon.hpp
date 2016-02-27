@@ -12,23 +12,9 @@
 
 namespace jumper
 {
-    /**
-     * @brief representation of the weapon Type 'LaserWeapon'
-     */
     class LaserWeapon : public Weapon
     {
     public:
-        /**
-         * Constructor
-         *
-         * @param game the game
-         * @param actor the actor
-         * @param projectileTexture projectile texture
-         * @param projectileTextureSize projectile texture size
-         * @param weaponOffset weapon offset in texture
-         * @param projectileColorOffset projectile offset in texture
-         * @param coolDown cooldown
-         */
         LaserWeapon(Game& game,
                     Actor& actor,
                     SDL_Texture* projectileTexture,

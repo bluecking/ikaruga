@@ -1,5 +1,5 @@
 # Setup sources
-set(SCROLLER_SOURCES
+set(JUMPER_SOURCES
         Actor.cpp
         AnimatedRenderable.cpp
         Bot.cpp
@@ -34,11 +34,11 @@ set(SCROLLER_SOURCES
         StatusBar.cpp
         FontRender.cpp)
 
-set(SCROLLER_LIBS ${SCROLLER_LIBS} xml)
+set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 
 # Build executable
-add_executable(scroller ${SCROLLER_SOURCES})
-target_link_libraries(scroller ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
-target_link_libraries(scroller m)
-target_link_libraries(scroller ${Boost_LIBRARIES})
-target_link_libraries(scroller ${SCROLLER_LIBS})
+add_executable(jumper ${JUMPER_SOURCES})
+target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY})
+target_link_libraries(jumper m)
+target_link_libraries(jumper ${Boost_LIBRARIES})
+target_link_libraries(jumper ${JUMPER_LIBS})

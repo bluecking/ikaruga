@@ -1,10 +1,9 @@
-/**
-* @file StatusBar.hpp
-* @brief Creates a Statusbar
-*
-* @author Jochen Saalfeld (jsaalfeld@uni-osnabrueck.de)
-* @date 26 Feb 2016
-*/
+/*
+ * ScoreBoard.hpp
+ *
+ *  Created on: Jan 2, 2016
+ *      Author: twiemann
+ */
 
 #ifndef SRC_SCOREBOARD_HPP_
 #define SRC_SCOREBOARD_HPP_
@@ -16,190 +15,192 @@
 
 using std::string;
 
-namespace jumper {
+namespace jumper
+{
+
+/**
+ * @brief A class to display points using a digit map for rendering
+ */
+class StatusBar : public FontRender
+{
+public:
+
+
+	/**
+	 * Constructs a scoreboard for the given renderer
+	 *
+	 * @param renderer			A valid SDL_Renderer structure
+	 * @param texture			A texture that contains the 10 digits (from 0 to 9 in
+	 * 							that order)
+	 * @param digitWidth		The width of a digit within the texture
+	 * @param digitHeight		The height of a digit within the texture
+	 * @param capitalOffset     The Offset for Capital Letters
+	 * @param minusculeOffset   The Offset for lower Case Letters
+	 * @param numberOffset      The Offset for numbers
+	 * @param letterCount       The numbers of Lettrs
+	 * @param offsetMiddle      Offset to get everything perfectly to the midle
+	 */
+	StatusBar(SDL_Renderer* renderer,
+              SDL_Texture* texture,
+              int tileWidth,
+              int tileHeight,
+              int capitalOffset,
+              int minusculeOffset,
+              int numberOffset,
+              int letterCount,
+              int offsetMiddle);
 
     /**
-     * @brief Class to render a Statusbar
+     * Sets the current Score
+     *
+     * @param score			Sets the Current Score
      */
-    class StatusBar : public FontRender {
-    public:
+	void setScore(int score);
+
+    /**
+     * Gets the current Score
+     *
+     * @returns currentScore
+     */
+	int getScore(void) const;
 
 
-        /**
-         * Constructs a scoreboard for the given renderer
-         *
-         * @param renderer			A valid SDL_Renderer structure
-         * @param texture			A texture that contains the 10 digits (from 0 to 9 in
-         * 							that order)
-         * @param digitWidth		The width of a digit within the texture
-         * @param digitHeight		The height of a digit within the texture
-         * @param capitalOffset     The Offset for Capital Letters
-         * @param minusculeOffset   The Offset for lower Case Letters
-         * @param numberOffset      The Offset for numbers
-         * @param letterCount       The numbers of Lettrs
-         * @param offsetMiddle      Offset to get everything perfectly to the midle
-         */
-        StatusBar(SDL_Renderer *renderer,
-                  SDL_Texture *texture,
-                  int tileWidth,
-                  int tileHeight,
-                  int capitalOffset,
-                  int minusculeOffset,
-                  int numberOffset,
-                  int letterCount,
-                  int offsetMiddle);
+    /**
+     * Renders the Scoreboard
+     */
+	virtual void render();
 
-        /**
-         * Sets the current Score
-         *
-         * @param score			Sets the Current Score
-         */
-        void setScore(int score);
+    /**
+     * Destructor
+     */
+	virtual ~StatusBar();
 
-        /**
-         * Gets the current Score
-         *
-         * @returns currentScore
-         */
-        int getScore(void) const;
+    /**
+     * Sets the StatusBar Position
+     *
+     * @param positionStart the lower left corner of the StatusBar
+     * @param positionEnd the upper right corner of the StatusBar
+     */
+    void setPosition(const Vector2i &positionStart, const Vector2i &positionEnd);
 
+    /**
+     * Sets the weapon name
+     *
+     * @param weaponName name of the waepon
+     */
+    void setWeaponName(string weaponName);
 
-        /**
-         * Renders the Scoreboard
-         */
-        virtual void render();
+    /**
+     * Sets the evolution Stage of the weapon
+     *
+     * @param evolutionStage evolution Stage of the waepon
+     */
+    void setEvolutionStage(string evolutionStage);
 
-        /**
-         * Destructor
-         */
-        virtual ~StatusBar();
+    /**
+     * Sets the health of the Player
+     *
+     * @param health health of the player
+     */
+    void setHealth(int health);
 
-        /**
-         * Sets the StatusBar Position
-         *
-         * @param positionStart the lower left corner of the StatusBar
-         * @param positionEnd the upper right corner of the StatusBar
-         */
-        void setPosition(const Vector2i &positionStart, const Vector2i &positionEnd);
+private:
 
-        /**
-         * Sets the weapon name
-         *
-         * @param weaponName name of the waepon
-         */
-        void setWeaponName(string weaponName);
+    /**
+     * Sets the Score Position in the bar
+     *
+     * @param position the position of the score
+     */
+    void setScorePosition(const Vector2i &position);
 
-        /**
-         * Sets the evolution Stage of the weapon
-         *
-         * @param evolutionStage evolution Stage of the waepon
-         */
-        void setEvolutionStage(string evolutionStage);
+    /**
+     * Sets the Weapon Position
+     *
+     * @param position position of the Weapon String
+     */
+    void setWeaponPosition(const Vector2i &position);
 
-        /**
-         * Sets the health of the Player
-         *
-         * @param health health of the player
-         */
-        void setHealth(int health);
+    /**
+     * Sets the Health Position
+     *
+     * @param position position of the players health
+     */
+    void setHealthPosition(const Vector2i &position);
 
-    private:
+	/// Current score
+	int m_score;
 
-        /**
-         * Sets the Score Position in the bar
-         *
-         * @param position the position of the score
-         */
-        void setScorePosition(const Vector2i &position);
+	/// Digit width
+	int m_tileWidth;
 
-        /**
-         * Sets the Weapon Position
-         *
-         * @param position position of the Weapon String
-         */
-        void setWeaponPosition(const Vector2i &position);
+	/// Digit height
+	int m_tileHeight;
 
-        /**
-         * Sets the Health Position
-         *
-         * @param position position of the players health
-         */
-        void setHealthPosition(const Vector2i &position);
+    //Offset for Capital Letters
+	int m_capitalOffset;
 
-        /// Current score
-        int m_score;
+    //Offset for Minuscule Letters
+	int m_minusculeOffset;
 
-        /// Digit width
-        int m_tileWidth;
+    //Offset for NUmbers
+	int m_numberOffset;
 
-        /// Digit height
-        int m_tileHeight;
+    //Number of Letters in Tilesheet
+    int m_letterCount;
 
-        //Offset for Capital Letters
-        int m_capitalOffset;
+    //Number to get it exaclty in the middle of the statusbar
+    int m_offsetMiddle;
 
-        //Offset for Minuscule Letters
-        int m_minusculeOffset;
+    //y-Axis so its in the middle of the Statusbar
+    int m_horziontalAlignemnt;
 
-        //Offset for NUmbers
-        int m_numberOffset;
+    //WeaponName
+    string m_weaponName;
 
-        //Number of Letters in Tilesheet
-        int m_letterCount;
+    //look, if the weapon changed
+    bool m_weaponChanged;
 
-        //Number to get it exaclty in the middle of the statusbar
-        int m_offsetMiddle;
-
-        //y-Axis so its in the middle of the Statusbar
-        int m_horziontalAlignemnt;
-
-        //WeaponName
-        string m_weaponName;
-
-        //look, if the weapon changed
-        bool m_weaponChanged;
-
-        //EvolutionStage
-        string m_evolutionStage;
+    //EvolutionStage
+    string m_evolutionStage;
 
 
-        //the Weapon Source in the tilesheet
-        std::vector<SDL_Rect> m_weaponSource;
+    //the Weapon Source in the tilesheet
+    std::vector<SDL_Rect> m_weaponSource;
 
-        //the Weapon Target in the Window
-        std::vector<SDL_Rect> m_weaponTarget;
+    //the Weapon Target in the Window
+    std::vector<SDL_Rect> m_weaponTarget;
 
-        /// Scoreboard position
-        Vector2i m_scorePosition;
+	/// Scoreboard position
+	Vector2i m_scorePosition;
 
-        /// Maxim score that can be displayed
-        const static int m_maxScore;
+	/// Maxim score that can be displayed
+	const static int 		m_maxScore;
 
-        //lower left corner of the StatusBar
-        Vector2i m_startPosition;
+    //lower left corner of the StatusBar
+    Vector2i m_startPosition;
 
-        //upper Right corner of the Statusbar
-        Vector2i m_endPosition;
+    //upper Right corner of the Statusbar
+    Vector2i m_endPosition;
 
-        //Position of the weapon String
-        Vector2i m_weaponPosition;
+    //Position of the weapon String
+    Vector2i m_weaponPosition;
 
-        //Poistion of the Players Health
-        Vector2i m_healthPosition;
+    //Poistion of the Players Health
+    Vector2i m_healthPosition;
 
-        //Players Health
-        int m_health;
+    //Players Health
+    int m_health;
 
-        /**
-         * Renders a Number at a given Position
-         *
-         * @param number number to render
-         * @param position position where to render the number
-         * @param source the sdl_rect source
-         * @param target the sdl_rect target
-         */
-        void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
-    };
+    /**
+     * Renders a Number at a given Position
+     *
+     * @param number number to render
+     * @param position position where to render the number
+     * @param source the sdl_rect source
+     * @param target the sdl_rect target
+     */
+    void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
+};
 
 } /* namespace jumper */
 

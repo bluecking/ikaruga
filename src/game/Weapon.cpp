@@ -9,36 +9,42 @@
 
 using std::string;
 
-namespace jumper {
-    Weapon::Weapon(Game &game,
-                   Actor &actor,
-                   SDL_Texture *projectileTexture,
-                   const Vector2i &projectileTextureSize,
-                   const Vector2f &weaponOffset,
-                   const Vector2f &projectileColorOffset,
+namespace jumper
+{
+    Weapon::Weapon(Game& game,
+                   Actor& actor,
+                   SDL_Texture* projectileTexture,
+                   const Vector2i& projectileTextureSize,
+                   const Vector2f& weaponOffset,
+                   const Vector2f& projectileColorOffset,
                    float coolDown,
                    string name,
                    int evolution)
             : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
-              m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution) {
+              m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution)
+    {
 
     }
 
-    Weapon::~Weapon() {
+    Weapon::~Weapon()
+    {
 
     }
 
-    bool Weapon::weaponReady() {
-        if (m_lastShoot == 0) {
+    bool Weapon::weaponReady()
+    {
+        if (m_lastShoot == 0)
+        {
             m_lastShoot = SDL_GetTicks();
             return true;
         }
 
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_lastShoot) / 1000.0f;
-        if (time > m_coolDown) {
+        if (time > m_coolDown)
+        {
             m_lastShoot = ticks;
             return true;
         }
