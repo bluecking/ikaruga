@@ -87,6 +87,9 @@ namespace jumper
         /// Window height
         int m_height;
 
+        /// Window title
+        std::string m_title;
+
         // Pointer to game
         Game* m_game;
 
