@@ -14,13 +14,15 @@
 #include "Game.hpp"
 #include "WorldProperty.hpp"
 
-namespace jumper {
+namespace jumper
+{
     class Game;
 
     /**
      *	@brief Represents the main window of the game.
      */
-    class MainWindow {
+    class MainWindow
+    {
     public:
 
         /**
@@ -45,14 +47,9 @@ namespace jumper {
         /**
          * Gets the current SDL renderer
          */
-        SDL_Renderer *getRenderer();
+        SDL_Renderer* getRenderer();
 
-        /**
-         * sets the game
-         *
-         * @param game the game to set
-         */
-        void setGame(Game *game);
+        void setGame(Game* game);
 
         /// Returns the window width
         int w();
@@ -79,10 +76,10 @@ namespace jumper {
         void limitFPS();
 
         /// SDL renderer struct
-        SDL_Renderer *m_renderer;
+        SDL_Renderer* m_renderer;
 
         /// SDL main window struct
-        SDL_Window *m_window;
+        SDL_Window* m_window;
 
         /// Window width
         int m_width;
@@ -94,7 +91,7 @@ namespace jumper {
         std::string m_title;
 
         // Pointer to game
-        Game *m_game;
+        Game* m_game;
 
         // Timestamp from the start of the main loop
         Uint32 m_startLoopTicks;

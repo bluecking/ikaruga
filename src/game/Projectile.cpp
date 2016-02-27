@@ -6,13 +6,17 @@
  */
 #include "Projectile.hpp"
 
-namespace jumper {
-    Projectile::Projectile(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_launched(false) { }
+namespace jumper
+{
+    Projectile::Projectile(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_launched(false)
+    { }
 
-    Projectile::~Projectile() { }
+    Projectile::~Projectile()
+    { }
 
-    void Projectile::move(Level &level) {
+    void Projectile::move(Level& level)
+    {
         setPosition(position() + (m_direction * 1000 * getElapsedTime()));
     }
 }

@@ -1,3 +1,10 @@
+/*
+ * ScoreBoard.cpp
+ *
+ *  Created on: Jan 2, 2016
+ *      Author: twiemann
+ */
+
 #include "StatusBar.hpp"
 #include <list>
 //needed for gcc
@@ -101,7 +108,8 @@ namespace jumper {
                                                           m_numberOffset);
             setWeaponPosition(Vector2i(m_weaponPosition.x() - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
                                        m_horziontalAlignemnt));
-            for (int i = 0; i < weapon_source.size(); i++) {
+            for(int i = 0; i < weapon_source.size(); i++)
+            {
                 source.x = weapon_source[i].x();
                 source.y = weapon_source[i].y();
                 m_weaponSource.push_back(source);
@@ -121,15 +129,16 @@ namespace jumper {
         Vector2i evolutionPosition;
         evolutionPosition.setX(m_weaponPosition.x() + (m_weaponName.length() * m_tileWidth) + 2 * m_tileWidth);
         evolutionPosition.setY(m_horziontalAlignemnt);
-        displayNumber(std::stoi(m_evolutionStage) - 1, evolutionPosition, source, target);
+        displayNumber(std::stoi(m_evolutionStage)-1,evolutionPosition,source,target);
 
         //Rendering of Health Display
         displayNumber(m_health, m_healthPosition, source, target);
     }
 
-    void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target) {
-        vector<Vector2i> vec_source = renderNumber(number, m_numberOffset);
-        for (int i = 0; i < vec_source.size(); i++) {
+    void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
+    {
+        vector<Vector2i> vec_source = renderNumber(number ,m_numberOffset);
+        for(int i = 0; i < vec_source.size(); i++){
             source.x = vec_source[i].x();
             source.y = vec_source[i].y();
 
@@ -138,7 +147,6 @@ namespace jumper {
             SDL_RenderCopy(m_renderer, m_texture, &source, &target);
         }
     }
-
     void StatusBar::setPosition(const Vector2i &positionStart, const Vector2i &positionEnd) {
         m_startPosition = positionStart;
         m_endPosition = positionEnd;

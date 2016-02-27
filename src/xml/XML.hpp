@@ -14,13 +14,10 @@
 #include <map>
 #include <boost/exception/all.hpp>
 
-/**
- * @brief a representation of the level file
- */
 class XML {
 public:
     //Public structs for xml nodes
-    struct NPC {
+    struct NPC{
         std::string type;
         std::string move_function;
         signed int move_value;
@@ -28,7 +25,7 @@ public:
         std::string stdWeapon;
     };
 
-    struct Player {
+    struct Player{
         std::string filename;
         int numFrames;
         int frameWidth;
@@ -44,7 +41,7 @@ public:
         int fps;
     };
 
-    struct Bot {
+    struct Bot{
         std::string type;
         std::string filename;
         int numFrames;
@@ -58,7 +55,7 @@ public:
         NPC npc;
     };
 
-    struct LevelBot {
+    struct LevelBot{
         Bot type;
         int positionX;
         int positionY;
@@ -67,33 +64,33 @@ public:
         std::string powerUpName;
     };
 
-    struct Item {
+    struct Item{
         std::string type;
         std::string filename;
         int frameWidth;
         int frameHeight;
     };
 
-    struct LevelItem {
+    struct LevelItem{
         std::string type;
         int positionX;
         int positionY;
         int value;
     };
 
-    struct Background {
+    struct Background{
         std::string filename;
         int scrollspeed;
     };
 
-    struct Weapon {
+    struct Weapon{
         std::string type;
         std::string filename;
         int colorOffsetX;
         int colorOffsetY;
     };
 
-    struct Statusbar {
+    struct Statusbar{
         std::string filename;
         int frameWidth;
         int frameHeight;
@@ -126,25 +123,26 @@ public:
      * Set XML filename.
      * @param filename XML file for game specification.
      */
-    void setFilename(std::string filename) { m_filename = filename; }
+    void setFilename(std::string filename) {m_filename = filename;}
 
     /**
      * Get current name of XML file for level specification.
      * @return XML filename
      */
-    std::string getFilename() { return m_filename; }
+    std::string getFilename() { return m_filename;}
 
     /**
      * Set level id.
      * @param id Unique level id.
      */
-    void setId(int id) { m_id = id; }
+    void setId(int id) {m_id = id;}
 
     /**
      * Set level name.
      * @param levelname Name of level.
      */
-    void setLevelname(const std::string &levelname) {
+    void setLevelname(const std::string& levelname)
+    {
         m_levelname = levelname;
     }
 
@@ -152,7 +150,8 @@ public:
      * Set tileset.
      * @param tileset The tileset.
      */
-    void setTileset(const std::string &tileset) {
+    void setTileset(const std::string& tileset)
+    {
         m_tileset = tileset;
     }
 
@@ -160,7 +159,8 @@ public:
      * Set background.
      * @param background The background.
      */
-    void setBackground(const Background &background) {
+    void setBackground(const Background& background)
+    {
         m_background = background;
     }
 
@@ -168,7 +168,8 @@ public:
      * Set Player.
      * @param The player.
      */
-    void setPlayer(const Player &player) {
+    void setPlayer(const Player& player)
+    {
         m_player = player;
     }
 
@@ -176,7 +177,8 @@ public:
      * Set Statusbar.
      * @param The statusbar.
      */
-    void setStatusbar(const Statusbar &statusbar) {
+    void setStatusbar(const Statusbar& statusbar)
+    {
         m_statusbar = statusbar;
     }
 
@@ -184,37 +186,37 @@ public:
      * Get level id.
      * @return level id.
      */
-    int getId() { return m_id; }
+    int getId() { return m_id;}
 
     /**
      * Get the current Levelname
      * @return m_levelname
      */
-    std::string getLevelname() { return m_levelname; }
+    std::string getLevelname() { return m_levelname;}
 
     /**
      * Get the current tileset
      * @return m_tileset
      */
-    std::string getTileset() { return m_tileset; }
+    std::string getTileset() { return m_tileset;}
 
     /**
      * Get the current Background
      * @return m_background
      */
-    Background getBackground() { return m_background; }
+    Background getBackground() { return m_background;}
 
     /**
      * Get the Player
      * @return m_player
      */
-    Player getPlayer() { return m_player; }
+    Player getPlayer() { return m_player;}
 
     /**
      * Get the Statusbar
      * @return m_statusbar
      */
-    Statusbar getStatusbar() { return m_statusbar; }
+    Statusbar getStatusbar() { return m_statusbar;}
 
     /************************************** LEVEL STRUCT METHODS **************************************/
 
@@ -230,7 +232,8 @@ public:
      * Set all level bots at a time.
      * @param levelBots vector of level bots.
      */
-    void setLevelBots(const std::vector<LevelBot> &levelBots) {
+    void setLevelBots(const std::vector<LevelBot>& levelBots)
+    {
         m_level_bots = levelBots;
     }
 
@@ -246,7 +249,8 @@ public:
      * Set all level items at a time.
      * @param lItems Vector of level items
      */
-    void setLevelItems(const std::vector<LevelItem> &lItems) {
+    void setLevelItems(const std::vector<LevelItem>& lItems)
+    {
         m_level_items = lItems;
     }
 
@@ -262,7 +266,7 @@ public:
      * Get all LevelBots
      * @return Vector with all LevelBots
      */
-    std::vector<LevelBot> getLevelBots() { return m_level_bots; }
+    std::vector<LevelBot> getLevelBots() { return m_level_bots;}
 
     /**
      * Get the LevelItem at given number
@@ -276,19 +280,19 @@ public:
      * Get all LevelItems
      * @return Vector with all LevelItems
      */
-    std::vector<LevelItem> getLevelItems() { return m_level_items; }
+    std::vector<LevelItem> getLevelItems() { return m_level_items;}
 
     /**
      * Add additional LevelBot.
      * @param lBot The new LevelBot.
      */
-    void addLevelBot(LevelBot lBot) { m_level_bots.push_back(lBot); }
+    void addLevelBot(LevelBot lBot) {m_level_bots.push_back(lBot);}
 
     /**
      * Add an additional LevelItem.
      * @param lItem The new LevelItem.
      */
-    void addLevelItem(LevelItem lItem) { m_level_items.push_back(lItem); }
+    void addLevelItem(LevelItem lItem) {m_level_items.push_back(lItem);}
 
     /**
      * Remove a LevelBot.
@@ -308,13 +312,13 @@ public:
      * Returns the total number of LevelBots.
      * @return Total number of LevelBots.
      */
-    unsigned int levelBotSize() { return m_level_bots.size(); }
+    unsigned int levelBotSize() {return m_level_bots.size();}
 
     /**
      * Returns the total number of LevelItems.
      * @return Total number of LevelItems.
      */
-    unsigned int levelItemSize() { return m_level_items.size(); }
+    unsigned int levelItemSize() {return m_level_items.size();}
 
     /************************************** SETTING STRUCT METHODS **************************************/
 
@@ -330,7 +334,7 @@ public:
      * Get all Bots
      * @return Vector with all Bots
      */
-    std::vector<Bot> getBots() { return m_bots; }
+    std::vector<Bot> getBots() { return m_bots;}
 
     /**
      * Get the Item at given number
@@ -344,7 +348,7 @@ public:
      * Get all Items
      * @return Vector with all Items
      */
-    std::vector<Item> getItems() { return m_items; }
+    std::vector<Item> getItems() { return m_items;}
 
     /**
      * Get the Weapon at given number
@@ -358,25 +362,25 @@ public:
      * Get all Weapons
      * @return Vector with all Weapons
      */
-    std::vector<Weapon> getWeapons() { return m_weapons; }
+    std::vector<Weapon> getWeapons() { return m_weapons;}
 
     /**
      * Returns the total number of bots.
      * @return Total number of bots.
      */
-    unsigned int botSize() { return m_bots.size(); }
+    unsigned int botSize() {return m_bots.size();}
 
     /**
      * Returns the total number of items.
      * @return Total number of items.
      */
-    unsigned int itemSize() { return m_items.size(); }
+    unsigned int itemSize() {return m_items.size();}
 
     /**
      * Returns the total number of weapons.
      * @return Total number of weapons.
      */
-    unsigned int weaponSize() { return m_weapons.size(); }
+    unsigned int weaponSize() {return m_weapons.size();}
 
 private:
     /* XML Filename */

@@ -14,23 +14,27 @@
 using std::cout;
 using std::endl;
 
-namespace jumper {
+namespace jumper
+{
 
-    AnimatedRenderable::AnimatedRenderable(SDL_Renderer *renderer, std::string filename)
+    AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filename)
             : Renderable(renderer),
               m_numFrames(0),
               m_currentFrame(0),
               m_frameWidth(0),
               m_frameHeight(0),
               m_lastRenderTicks(0),
-              m_frameTimeout(0) {
+              m_frameTimeout(0)
+    {
         std::ifstream ifs(filename.c_str());
         std::string textureFileName;
-        if (ifs.good()) {
+        if (ifs.good())
+        {
             ifs >> textureFileName >> m_frameWidth >> m_frameHeight >> m_numFrames;
             m_texture = TextureFactory::instance(m_renderer).getTexture(textureFileName);
         }
-        else {
+        else
+        {
             std::cout << "Unable to open file " << filename << std::endl;
         }
 
@@ -42,7 +46,7 @@ namespace jumper {
 
     }
 
-    AnimatedRenderable::AnimatedRenderable(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth,
+    AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth,
                                            int frameHeight, int numFrames)
             : Renderable(renderer, texture),
               m_numFrames(numFrames),
@@ -50,7 +54,8 @@ namespace jumper {
               m_frameHeight(frameHeight),
               m_currentFrame(0),
               m_lastRenderTicks(0),
-              m_frameTimeout(0) {
+              m_frameTimeout(0)
+    {
         // Initialize source recnt
         m_sourceRect.x = 0;
         m_sourceRect.y = 0;
@@ -58,18 +63,23 @@ namespace jumper {
         m_sourceRect.h = m_frameHeight;
     }
 
-    AnimatedRenderable::~AnimatedRenderable() { }
+    AnimatedRenderable::~AnimatedRenderable()
+    { }
 
-    void AnimatedRenderable::nextFrame() {
+    void AnimatedRenderable::nextFrame()
+    {
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_lastRenderTicks);
 
-        if (time > m_frameTimeout) {
+        if (time > m_frameTimeout)
+        {
             // Check and increase frame counter
-            if (m_currentFrame + 1 < m_numFrames) {
+            if (m_currentFrame + 1 < m_numFrames)
+            {
                 m_currentFrame++;
             }
-            else {
+            else
+            {
                 m_currentFrame = 0;
             }
 
@@ -85,7 +95,8 @@ namespace jumper {
         }
     }
 
-    void AnimatedRenderable::setFPS(int frames) {
+    void AnimatedRenderable::setFPS(int frames)
+    {
         m_frameTimeout = (Uint32) (1000.0 / frames);
     }
 

@@ -9,12 +9,14 @@
 
 #include "Weapon.hpp"
 
-namespace jumper {
+namespace jumper
+{
     /**
      * @brief Represents an armed object which has a weapon. With the weapon it's able to shoot projectiles to
      * a configured direction.
      */
-    class Armed {
+    class Armed
+    {
     public:
         Armed();
 
@@ -25,23 +27,15 @@ namespace jumper {
          */
         virtual void shoot() = 0;
 
-        /**
-         * sets the weapon
-         *
-         * @param weapon the weapon
-         */
-        void setWeapon(Weapon *weapon) { m_weapon = weapon; }
+        void setWeapon(Weapon* weapon)
+        { m_weapon = weapon; }
 
-        /**
-         * gets the weapon
-         *
-         * @returns the weapon
-         */
-        Weapon *getWeapon(void) { return m_weapon; }
+        Weapon* getWeapon(void)
+        { return m_weapon; }
 
     protected:
         // The weapon
-        Weapon *m_weapon;
+        Weapon* m_weapon;
     };
 }
 
