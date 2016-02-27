@@ -30,7 +30,9 @@ set(JUMPER_SOURCES
         Weapon.cpp
         Projectile.cpp
         LaserWeapon.cpp
-        Armed.cpp StatusBar.cpp StatusBar.hpp)
+        Armed.cpp
+        StatusBar.cpp
+        FontRender.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 
