@@ -320,11 +320,15 @@ int Level::posToGrid(float pos)
 	return floor(pos / m_tileWidth);
 }
 
+	Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
+	{
+		pos -= Vector2f(0, m_camera.h() % m_tileHeight);
 
-Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
+		return collideRC(pos, width, height, move);
+	}
+
+Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 {
-	pos -= Vector2f(0, m_camera.h() % m_tileHeight);
-
 	pos.setY(pos.y() < 0 ? 0 : pos.y());
 	pos.setY(pos.y() + height > m_levelHeight * m_tileHeight ? m_levelHeight * m_tileHeight - height : pos.y());
 
@@ -452,9 +456,9 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 				x -= y - y2;
 				y = y2;
 
-				if (movRec > 0 && posToGrid(y) != posToGrid(y2))
+				if (movRec > 0 && posToGrid(pos.y() + y) != tiles[0].y())
 				{
-					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
 					x += newMov.x();
 					y += newMov.y();
@@ -482,9 +486,9 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 				x -= y2 - y;
 				y = y2;
 
-				if (movRec > 0 && posToGrid(y) != posToGrid(y2))
+				if (movRec > 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
 				{
-					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
 					x += newMov.x();
 					y += newMov.y();
@@ -567,9 +571,9 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 				x += y - y2;
 				y = y2;
 
-				if (movRec < 0 && posToGrid(y) != posToGrid(y2))
+				if (movRec < 0 && posToGrid(pos.y() + y) != tiles[0].y())
 				{
-					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
 					x += newMov.x();
 					y += newMov.y();
@@ -597,9 +601,9 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 				x += y2 - y;
 				y = y2;
 
-				if (movRec < 0 && posToGrid(y) != posToGrid(y2))
+				if (movRec < 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
 				{
-					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
 					x += newMov.x();
 					y += newMov.y();
