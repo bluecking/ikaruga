@@ -98,66 +98,25 @@ namespace jumper {
 
         //Render Score
         displayNumber(m_score, m_scorePosition, source, target);
-        /*
-        vector<Vector2i> score_source = renderNumber(m_score,m_numberOffset);
-        for(int i = 0; i < score_source.size(); i++){
-            source.x = score_source[i].x();
-            source.y = score_source[i].y();
-
-            target.x = m_scorePosition.x() + (i * m_tileWidth) + i;
-            target.y = m_scorePosition.y();
-            SDL_RenderCopy(m_renderer, m_texture, &source, &target);
-        }
-         */
 
         //Render Weapon
         if (m_weaponChanged) {
             m_weaponSource.clear();
-            m_weaponTarget.clear();
-            setWeaponPosition(Vector2i(m_weaponPosition.x() - ((m_weaponName.length() / 2) * m_tileWidth),
+            vector<Vector2i> weapon_source = renderString(m_weaponName,
+                                                          m_minusculeOffset,
+                                                          m_capitalOffset,
+                                                          m_numberOffset);
+            setWeaponPosition(Vector2i(m_weaponPosition.x() - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
                                        m_horziontalAlignemnt));
-            //Iterate over every character
-            for (int i = 0; i < m_weaponName.length(); i++) {
-                string weaponLetter = string(1, m_weaponName[i]);
-                string weaponLetterToUpper = weaponLetter;
-                bool upperCase = false;
-                int height_offset = 0;
-                //check for whitespace
-                if (weaponLetter == " ") {
-                    //We don't ever have the 10 as a number, so 10 should be a Whitespace
-                    source.x = 10 * m_tileWidth;
-                    source.y = m_numberOffset * m_tileHeight;
-                } else {
-                    //check for casing
-                    std::transform(weaponLetterToUpper.begin(),
-                                   weaponLetterToUpper.end(),
-                                   weaponLetterToUpper.begin(),
-                                   ::toupper);
-                    if (weaponLetterToUpper == weaponLetter) {
-                        upperCase = true;
-                        height_offset = m_capitalOffset;
-                    } else {
-                        upperCase = false;
-                        height_offset = m_minusculeOffset;
-                    }
-                    int character_index = 0;
-                    //calculate letter number in the alphabet, minus 1, because offset
-                    const char *cha = weaponLetter.c_str();
-                    if (upperCase) {
-                        character_index = int(*cha) - 48 - 17;
-                    } else {
-                        character_index = int(*cha) - 48 - 23 - m_letterCount;
-                    }
-                    source.x = character_index * m_tileWidth;
-                    source.y = height_offset * m_tileHeight;
-                }
+            for(int i = 0; i < weapon_source.size(); i++)
+            {
+                source.x = weapon_source[i].x();
+                source.y = weapon_source[i].y();
+                m_weaponSource.push_back(source);
 
                 target.x = m_weaponPosition.x() + (i * m_tileWidth) + i;
                 target.y = m_weaponPosition.y();
-
-                m_weaponSource.push_back(source);
                 m_weaponTarget.push_back(target);
-
                 SDL_RenderCopy(m_renderer, m_texture, &source, &target);
             }
         } else {
@@ -168,7 +127,6 @@ namespace jumper {
 
         //Rendering of the Evolution Stage
         Vector2i evolutionPosition;
-
         evolutionPosition.setX(m_weaponPosition.x() + (m_weaponName.length() * m_tileWidth) + 2 * m_tileWidth);
         evolutionPosition.setY(m_horziontalAlignemnt);
         displayNumber(std::stoi(m_evolutionStage)-1,evolutionPosition,source,target);

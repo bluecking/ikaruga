@@ -191,6 +191,14 @@ private:
     //Players Health
     int m_health;
 
+    /**
+     * Renders a Number at a given Position
+     *
+     * @param number number to render
+     * @param position position where to render the number
+     * @param source the sdl_rect source
+     * @param target the sdl_rect target
+     */
     void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
 };
 
