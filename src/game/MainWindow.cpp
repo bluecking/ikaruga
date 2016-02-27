@@ -21,6 +21,7 @@ namespace jumper
         /// Init width and height
         m_width = w;
         m_height = h;
+        m_title = title;
 
         /// Set pointer to NULL
         m_renderer = 0;
@@ -97,7 +98,7 @@ namespace jumper
 
         // Generate SDL main window
         m_window = SDL_CreateWindow(
-                "Jumper Main Window",
+                m_title.c_str(),
                 SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,
                 m_width,
