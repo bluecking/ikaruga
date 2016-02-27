@@ -5,10 +5,8 @@
 using std::cout;
 using std::endl;
 
-int main(int argc, char** argv)
-{
-    if(argc != 2)
-    {
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Please specify a level definition (xml)." << std::endl;
         return -1;
     }
@@ -45,7 +43,7 @@ int main(int argc, char** argv)
     << "Player - maxVel: " << m_xml.getPlayer().maxVel << endl
     << "Player - fps: " << m_xml.getPlayer().fps << endl << endl;
 
-    for(int i=0;i<(int) m_xml.levelBotSize();i++) {
+    for (int i = 0; i < (int) m_xml.levelBotSize(); i++) {
         XML::LevelBot lBot = m_xml.getLevelBot((unsigned int) i);
         cout << "LevelBot - positionY: " << lBot.positionY << endl
         << "LevelBot - positionX: " << lBot.positionX << endl
@@ -54,7 +52,7 @@ int main(int argc, char** argv)
         << "LevelBot - powerUpName: " << lBot.powerUpName << endl
         << "LevelBot - powerUpProb: " << lBot.powerUpProb << endl << endl;
     }
-    for(int i=0;i<(int) m_xml.levelItemSize();i++) {
+    for (int i = 0; i < (int) m_xml.levelItemSize(); i++) {
         cout << "LevelItem - type: " << m_xml.getLevelItem(i).type << endl
         << "LevelItem - positionY: " << m_xml.getLevelItem(i).positionY << endl
         << "LevelItem - positionX: " << m_xml.getLevelItem(i).positionX << endl
@@ -62,14 +60,14 @@ int main(int argc, char** argv)
     }
 
     /** SETTING FILES **/
-    for(int i=0;i<(int) m_xml.itemSize();i++) {
+    for (int i = 0; i < (int) m_xml.itemSize(); i++) {
         cout << "Item - type: " << m_xml.getItem(i).type << endl
         << "Item - filename: " << m_xml.getItem(i).filename << endl
         << "Item - frameHeight: " << m_xml.getItem(i).frameHeight << endl
         << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl << endl;
     }
 
-    for(int i=0;i<(int) m_xml.botSize();i++) {
+    for (int i = 0; i < (int) m_xml.botSize(); i++) {
         cout << "Bot - type: " << m_xml.getBot(i).type << endl
         << "Bot - filename: " << m_xml.getBot(i).filename << endl
         << "Bot - numFrames: " << m_xml.getBot(i).numFrames << endl
@@ -87,7 +85,7 @@ int main(int argc, char** argv)
         << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon << endl << endl;
     }
 
-    for(int i=0;i<(int) m_xml.weaponSize();i++) {
+    for (int i = 0; i < (int) m_xml.weaponSize(); i++) {
         cout << "Weapon - type: " << m_xml.getWeapon(i).type << endl
         << "Weapon - filename: " << m_xml.getWeapon(i).filename << endl
         << "Weapon - colorOffsetX: " << m_xml.getWeapon(i).colorOffsetX << endl

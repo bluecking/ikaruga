@@ -56,11 +56,21 @@ public:
 	/// Returns the camera height
 	int h();
 
+	/**
+	 * get the offset to the border
+	 *
+	 * @returns the offset to the border
+	 */
     float getBorderOffset() const
     {
         return m_borderOffset;
     }
 
+    /**
+     * set the offset to the border
+     *
+     * @param borderOffset offset to the border
+     */
     void setBorderOffset(float borderOffset)
     {
         m_borderOffset = borderOffset;

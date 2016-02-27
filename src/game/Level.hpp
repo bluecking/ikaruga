@@ -21,116 +21,144 @@
 #include "TextureFactory.hpp"
 
 
-namespace jumper
-{
+namespace jumper {
+
+    enum TilesDirection {
+        TUP,
+        TDOWN,
+        TLEFT,
+        TRIGHT
+    };
+
+    enum TileType {
+        SOLID = 1,
+        NONSOLID = 2,
+        EDGETOPLEFT = 3,
+        EDGETOPRIGHT = 4,
+        EDGEDOWNLEFT = 5,
+        EDGEDOWNRIGHT = 6
+    };
+
+    class Actor;
+
+    /**
+     * @brief Represents a level in the jumper game.
+     */
+    class Level : public StaticRenderable {
+    public:
+
+        /**
+         * Loads a level from the given .lvl file
+         *
+         * @param filename
+         */
+        Level(SDL_Renderer *renderer, std::string filename);
+
+        /**
+         * Renders the level to the given renderer
+         *
+         * @param renderer		A SDL_Renderer to render the tiles
+         */
+        virtual void render();
+
+        /// Returns the number of tiles in a row
+        int levelHeight() const;
+
+        /// Returns the number of tile rows
+        int levelWidth() const;
+
+        /// Returns the tile width
+        int tileWidth() const;
+
+        /// Returns the tile height
+        int tileHeight() const;
+
+        /// Returns the matrix of tiles
+        SparseMatrix &tiles();
+
+        /// Returns the physical properties of the level
+        WorldProperty &physics();
+
+        /**
+         * Destructor
+         */
+        virtual ~Level();
+
+        /**
+         * generetes collision between actor and level
+         *
+         * @param actor the actor
+         */
+        Collision resolveCollision(Actor *actor);
+
+        /**
+         * moves the actor an the collision
+         *
+         * @param pos position
+         * @param width the heigth
+         * @param height the width
+         * @param move move to this position
+         */
+        Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
+
+    private:
+
+        /**
+         * Returns the surrounding tiles of the given position
+         *
+         * @param pos the initial position
+         * @param width the width
+         * @param height the height
+         * @param tiles the surrounding tiles
+         */
+        void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
+
+        /**
+         * Returns the surrounding relevant tiles of the given position
+         *
+         * @param pos the initial position
+         * @param direction the direction of checking
+         * @param width the width
+         * @param height the height
+         * @param tiles the surrounding tiles
+         */
+        void getSurroundingRelevantTiles(Vector2f pos,
+                                         TilesDirection direction,
+                                         int width,
+                                         int height,
+                                         std::vector<Vector2i> *tiles);
 
 
-enum TilesDirection
-{
-	TUP,
-	TDOWN,
-	TLEFT,
-	TRIGHT
-};
+        /// Tile width
+        int m_tileWidth;
 
-enum TileType
-{
-	SOLID = 1,
-	NONSOLID = 2,
-	EDGETOPLEFT = 3,
-	EDGETOPRIGHT = 4,
-	EDGEDOWNLEFT = 5,
-	EDGEDOWNRIGHT = 6
-};
+        /// Tile height
+        int m_tileHeight;
 
+        /// Offset between the tiles in the tile sheet
+        int m_tileOffset;
 
-class Actor;
+        /// Number of rows in the tile sheet
+        int m_numRows;
 
-/**
- * @brief Represents a level in the jumper game.
- */
-class Level : public StaticRenderable
-{
-public:
+        /// Number of tiles per row
+        int m_tilesPerRow;
 
-	/**
-	 * Loads a level from the given .lvl file
-	 *
-	 * @param filename
-	 */
-	Level(SDL_Renderer* renderer, std::string filename);
+        /// Level width
+        int m_levelWidth;
 
-	/**
-	 * Renders the level to the given renderer
-	 *
-	 * @param renderer		A SDL_Renderer to render the tiles
-	 */
-	virtual void render();
+        /// Level height
+        int m_levelHeight;
 
-	/// Returns the number of tiles in a row
-	int levelHeight() const;
+        //the Tiletypes
+        std::vector<TileType> m_tileTypes;
 
-	/// Returns the number of tile rows
-	int levelWidth() const;
+        ///Physical properties of level
+        WorldProperty m_levelPhysics;
 
-	/// Returns the tile width
-	int tileWidth() const;
-
-	/// Returns the tile height
-	int tileHeight() const;
-
-	/// Returns the matrix of tiles
-	SparseMatrix& tiles();
-
-	/// Returns the physical properties of the level
-	WorldProperty& physics();
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Level();
-
-	/// Generates a collision object between the level and the actor
-	Collision resolveCollision(Actor* actor);
-	Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
-
-private:
-
-	/// Returns the surrounding tiles of the given position
-	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
-	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles);
-
-
-	/// Tile width
-	int					m_tileWidth;
-
-	/// Tile height
-	int					m_tileHeight;
-
-	/// Offset between the tiles in the tile sheet
-	int					m_tileOffset;
-
-	/// Number of rows in the tile sheet
-	int 				m_numRows;
-
-	/// Number of tiles per row
-	int					m_tilesPerRow;
-
-	/// Level width
-	int					m_levelWidth;
-
-	/// Level height
-	int					m_levelHeight;
-
-
-	std::vector<TileType>			m_tileTypes;
-
-	///Physical properties of level
-	WorldProperty		m_levelPhysics;
-
-	/// Tile matrix
-	SparseMatrix		m_tiles;
-};
+        /// Tile matrix
+        SparseMatrix m_tiles;
+    };
 
 } /* namespace jumper */
 

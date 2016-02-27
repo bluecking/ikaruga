@@ -6,12 +6,9 @@
  */
 #include "Armed.hpp"
 
-namespace jumper
-{
+namespace jumper {
     Armed::Armed()
-            : m_weapon(0)
-    { }
+            : m_weapon(0) { }
 
-    Armed::~Armed()
-    { }
+    Armed::~Armed() { }
 }

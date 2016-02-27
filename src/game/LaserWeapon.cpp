@@ -7,19 +7,19 @@
 #include "LaserWeapon.hpp"
 #include "Projectile.hpp"
 
-namespace jumper
-{
-    void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
-    {
+namespace jumper {
+    void LaserWeapon::shoot(const Vector2f &direction, const Vector2f &spawnPosition) {
         // Ignore shoots when weapon is not ready
-        if (!weaponReady())
-        {
+        if (!weaponReady()) {
             return;
         }
 
         // spawn projectile
-        Projectile* projectile = new Projectile(m_actor.getRenderer(), m_projectileTexture, m_projectileTextureSize.x(),
-                                                m_projectileTextureSize.y(), 1);
+        Projectile *projectile = new Projectile(m_actor.getRenderer(),
+                                                m_projectileTexture,
+                                                m_projectileTextureSize.x(),
+                                                m_projectileTextureSize.y(),
+                                                1);
 
         projectile->setColorOffset(m_projectileColorOffset);
         projectile->setDirection(direction);
@@ -32,12 +32,12 @@ namespace jumper
     }
 
     //TODO ~ Set Weapon Name and Evolution Stage from XML
-    LaserWeapon::LaserWeapon(Game& game,
-                             Actor& actor,
-                             SDL_Texture* projectileTexture,
-                             const Vector2i& projectileTextureSize,
-                             const Vector2f& weaponOffset,
-                             const Vector2f& projectileColorOffset,
+    LaserWeapon::LaserWeapon(Game &game,
+                             Actor &actor,
+                             SDL_Texture *projectileTexture,
+                             const Vector2i &projectileTextureSize,
+                             const Vector2f &weaponOffset,
+                             const Vector2f &projectileColorOffset,
                              float coolDown)
             : Weapon(game,
                      actor,
@@ -47,6 +47,5 @@ namespace jumper
                      projectileColorOffset,
                      coolDown,
                      "LaserGun",
-                     1)
-    { }
+                     1) { }
 }

@@ -7,18 +7,15 @@
 
 #include "Collidable.hpp"
 
-namespace jumper
-{
+namespace jumper {
 
-Collidable::Collidable()
-{
-	// TODO Auto-generated constructor stub
+    Collidable::Collidable() {
+        // TODO Auto-generated constructor stub
 
-}
+    }
 
-Collidable::~Collidable()
-{
-	// TODO Auto-generated destructor stub
-}
+    Collidable::~Collidable() {
+        // TODO Auto-generated destructor stub
+    }
 
 } /* namespace jumper */

@@ -15,14 +15,12 @@
 #include "Vector.hpp"
 #include "Armed.hpp"
 
-namespace jumper
-{
+namespace jumper {
     /**
      * @brief	A class to represent an animated sprite controlled
      * 			by the user.
      */
-    class Player : public Actor, public Armed
-    {
+    class Player : public Actor, public Armed {
     public:
 
         /**
@@ -35,33 +33,45 @@ namespace jumper
          * @param frameHeight	Frame height of the animation frames
          * @param numFrames		Number of frames
          */
-        Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Player(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames);
 
         /**
          * Moves the player in the given level.
          *
          * @param level			A level object
          */
-        virtual void move(Level& level);
+        virtual void move(Level &level);
 
-        const Vector2f& getMoveDirection() const
-        {
+        /**
+         * returns the moving direction of the player
+         *
+         * @returns the moving direction of the player
+         */
+        const Vector2f &getMoveDirection() const {
             return m_moveDirection;
         }
 
-        void setMoveDirection(const Vector2f& moveDirection)
-        {
+        /**
+         * sets the moving direction of the player
+         *
+         * @param moveDirection the direction
+         */
+        void setMoveDirection(const Vector2f &moveDirection) {
             m_moveDirection = moveDirection;
         }
 
         /// Prints the player's position to the given stream
         template<typename T>
-        friend std::ostream& operator<<(std::ostream& stream, const Vector2<T>& vec);
+        friend std::ostream &operator<<(std::ostream &stream, const Vector2<T> &vec);
 
     private:
+        //the moving direction
         Vector2f m_moveDirection;
     public:
+        //let one shoot
         virtual void shoot();
+
+        //update the move animation
         void updateMoveAnimation();
     };
 }

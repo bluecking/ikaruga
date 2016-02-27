@@ -1,6 +1,10 @@
-//
-// Created by Jochen Saalfeld on 27.02.16.
-//
+/**
+* @file FontRender.hpp
+* @brief Class for rendering fonts
+*
+* @author Jochen Saalfeld (jsaalfeld@uni-osnabrueck.de)
+* @date 27 Feb 2016
+*/
 
 #ifndef SCROLLER_FONTRENDER_H
 #define SCROLLER_FONTRENDER_H
@@ -12,6 +16,9 @@ using std::string;
 using std::vector;
 
 namespace jumper {
+    /**
+     * @brief rendering fonts from a given tilesheet
+     */
     class FontRender : public StaticRenderable {
     public:
         /**
@@ -24,8 +31,8 @@ namespace jumper {
          */
         FontRender(int tileHeight,
                    int tileWidth,
-                   SDL_Renderer* renderer,
-                   SDL_Texture* texture);
+                   SDL_Renderer *renderer,
+                   SDL_Texture *texture);
 
         /**
          * Returns the x and y coordinates of a number on a tilesheet
@@ -46,6 +53,7 @@ namespace jumper {
          * @returns the x and y coordinates of the given string on the tileseet
          */
         vector<Vector2i> renderString(string str, int minusculeOffset, int capitalOffset, int numberOffset);
+
     private:
 
         //the heigth of the letters on the tilesheet
