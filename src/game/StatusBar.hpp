@@ -8,9 +8,10 @@
 #ifndef SRC_SCOREBOARD_HPP_
 #define SRC_SCOREBOARD_HPP_
 
-#include "StaticRenderable.hpp"
+
 #include <SDL.h>
 #include <vector>
+#include "FontRender.hpp"
 
 using std::string;
 
@@ -20,7 +21,7 @@ namespace jumper
 /**
  * @brief A class to display points using a digit map for rendering
  */
-class StatusBar : public StaticRenderable
+class StatusBar : public FontRender
 {
 public:
 
@@ -48,13 +49,6 @@ public:
               int numberOffset,
               int letterCount,
               int offsetMiddle);
-
-	/**
-	 * Constructs an empty scoreboard for the renderer
-	 *
-	 * @param renderer			A valid SDL_Renderer structure
-	 */
-	StatusBar(SDL_Renderer* renderer);
 
     /**
      * Sets the current Score
@@ -197,15 +191,7 @@ private:
     //Players Health
     int m_health;
 
-    /**
-     * Renders a Number
-     *
-     * @param position position of the players health
-     * @param number the number to be rendered
-     * @param source the sdl_rect of the source
-     * @param target the sdl_rect of the target
-     */
-    void renderNumber(Vector2i position, int number, SDL_Rect source, SDL_Rect target);
+    void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
 };
 
 } /* namespace jumper */
