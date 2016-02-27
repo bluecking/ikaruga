@@ -10,10 +10,10 @@
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
 #include "Vector.hpp"
+
 using std::string;
 
-namespace jumper
-{
+namespace jumper {
     class Game;
 
     class Actor;
@@ -21,8 +21,7 @@ namespace jumper
     /**
      * @brief Absract class for weapons. Handles basic functionality like weapon cool down.
      */
-    class Weapon
-    {
+    class Weapon {
     public:
         /**
          * Creates a weapon
@@ -37,12 +36,12 @@ namespace jumper
          * @param name Name of the weapon
          * @param evolution Evolution Stage of the Weapon
          */
-        Weapon(Game& game,
-               Actor& actor,
-               SDL_Texture* projectileTexture,
-               const Vector2i& projectileTextureSize,
-               const Vector2f& weaponOffset,
-               const Vector2f& projectileColorOffset,
+        Weapon(Game &game,
+               Actor &actor,
+               SDL_Texture *projectileTexture,
+               const Vector2i &projectileTextureSize,
+               const Vector2f &weaponOffset,
+               const Vector2f &projectileColorOffset,
                float coolDown,
                string name,
                int evolution);
@@ -55,30 +54,28 @@ namespace jumper
          * @param direction Direction in which the projectile should move
          * @param spawnPosition Position where the projectiles should spawn
          */
-        virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition) = 0;
+        virtual void shoot(const Vector2f &direction, const Vector2f &spawnPosition) = 0;
 
         /**
          * Returns the Weapon Name
          *
          * @returns: Weapon Name
          */
-        string getWeaponName(void)
-        { return m_name;}
+        string getWeaponName(void) { return m_name; }
 
         /**
          * Returns the Weapon Evolution Stage
          *
          * @returns: Weapon Evolution Stage
          */
-        int getEvolutionStage(void)
-        { return m_evolution; }
+        int getEvolutionStage(void) { return m_evolution; }
 
     protected:
         // Game where to add the projectiles
-        Game& m_game;
+        Game &m_game;
 
         // Actor which shoots the projectiles
-        Actor& m_actor;
+        Actor &m_actor;
 
         // Timestamp of the last shoot
         Uint32 m_lastShoot;
@@ -87,16 +84,16 @@ namespace jumper
         float m_coolDown;
 
         // Texture for the projectile
-        SDL_Texture* m_projectileTexture;
+        SDL_Texture *m_projectileTexture;
 
         // Size of the projectile texture
-        const Vector2i& m_projectileTextureSize;
+        const Vector2i &m_projectileTextureSize;
 
         // Offset for the weapon from the top left cornor of the actor
-        const Vector2f& m_weaponOffset;
+        const Vector2f &m_weaponOffset;
 
         // Offset for the second color in the projectile texture
-        const Vector2f& m_projectileColorOffset;
+        const Vector2f &m_projectileColorOffset;
 
         /**
          * Checks if the weapon is ready to fire (waits for weapon cool down)

@@ -11,21 +11,34 @@
 #include "Level.hpp"
 #include "Collision.hpp"
 
-namespace jumper
-{
+namespace jumper {
 
+/**
+ * @brief virtual representation of collisions
+ */
+    class Collidable {
+    public:
+        /**
+         * the standard constructor
+         */
+        Collidable();
 
-class Collidable
-{
-public:
-	Collidable();
-	virtual ~Collidable();
+        /**
+         * the standard destructor
+         */
+        virtual ~Collidable();
 
-	virtual Collision getCollision(Collidable& other) = 0;
+        /**
+         * get the Collission of two collidables
+         *
+         * @param other the collidable
+         * @returns the collision
+         */
+        virtual Collision getCollision(Collidable &other) = 0;
 
-protected:
+    protected:
 
-};
+    };
 
 } /* namespace jumper */
 

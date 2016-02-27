@@ -3,114 +3,113 @@
 
 #include <cassert>
 
-namespace jumper
-{
+namespace jumper {
 
-/**
- * @brief A sparse vector representation for integer values
- */
-class SparseVector {
+    /**
+     * @brief A sparse vector representation for integer values
+     */
+    class SparseVector {
 
-	/// Inner struct to represent a node in the sparse vector
-	struct node
-	{
-		/// Element number, must be smaller than the vector's size
-		int index;
+        /// Inner struct to represent a node in the sparse vector
+        struct node {
+            /// Element number, must be smaller than the vector's size
+            int index;
 
-		/// The value of this element
-		int value; // The value of this element.
+            /// The value of this element
+            int value; // The value of this element.
 
-		/// A pointer to the next node in the list
-		node *next; // A pointer to the next node in the linked-list.
+            /// A pointer to the next node in the list
+            node *next; // A pointer to the next node in the linked-list.
 
-		/**
-		 * Constructor
-		 *
-		 * @param idx	Index of the node
-		 * @param val	Value of the node
-		 * @param nxt	Pointer to next node in list
-		 */
-		node(int idx, int val, node *nxt) : index(idx), value(val), next(nxt) { }
+            /**
+             * Constructor
+             *
+             * @param idx	Index of the node
+             * @param val	Value of the node
+             * @param nxt	Pointer to next node in list
+             */
+            node(int idx, int val, node *nxt) : index(idx), value(val), next(nxt) { }
 
-		/**
-		 * Copy constructor
-		 */
-		node(const node &c) : index(c.index), value(c.value), next(c.next) { }
-	};
+            /**
+             * Copy constructor
+             */
+            node(const node &c) : index(c.index), value(c.value), next(c.next) { }
+        };
 
-public:
-	/**
-	 * Constructs a sparse vector with given size
-	 * @param s 	Size of the vector
-	 */
-	SparseVector(int s);
+    public:
+        /**
+         * Constructs a sparse vector with given size
+         * @param s 	Size of the vector
+         */
+        SparseVector(int s);
 
-	/**
-	 * Copy constructor
-	 */
-	SparseVector(const SparseVector &c);
-	~SparseVector();
+        /**
+         * Copy constructor
+         */
+        SparseVector(const SparseVector &c);
 
-	/**
-	 * Assigns the given value the the ith component.
-	 */
-	void setElem(int i, int value);
+        ~SparseVector();
 
-	/**
-	 * Returns the value of component i
-	 */
-	int getElem(int i) const;
+        /**
+         * Assigns the given value the the ith component.
+         */
+        void setElem(int i, int value);
 
-	/**
-	 * Returns the size of the vector
-	 */
-	int getSize() const;
+        /**
+         * Returns the value of component i
+         */
+        int getElem(int i) const;
 
-	/**
-	 * Assignment operator
-	 */
-	SparseVector& operator=(const SparseVector &b);
+        /**
+         * Returns the size of the vector
+         */
+        int getSize() const;
 
-	/**
-	 * Checks if two vectors are equal
-	 */
-	bool operator==(const SparseVector &b) const;
+        /**
+         * Assignment operator
+         */
+        SparseVector &operator=(const SparseVector &b);
 
-	/**
-	 * Checks for inequality
-	 */
-	bool operator!=(const SparseVector &b) const;
+        /**
+         * Checks if two vectors are equal
+         */
+        bool operator==(const SparseVector &b) const;
 
-	/**
-	 * Returns the value of the ith component
-	 */
-	int operator[](int i) const {return getElem(i);}
+        /**
+         * Checks for inequality
+         */
+        bool operator!=(const SparseVector &b) const;
 
-private:
+        /**
+         * Returns the value of the ith component
+         */
+        int operator[](int i) const { return getElem(i); }
 
-	/// List anchor
-	node 		*m_start;
+    private:
 
-	/// Size of the vector
-	int 		m_size;
+        /// List anchor
+        node *m_start;
 
-	/// Removes all non-zero elements
-	void clear();
+        /// Size of the vector
+        int m_size;
 
-	/// Copies the contends of the other vector
-	void copy(const SparseVector &other);
+        /// Removes all non-zero elements
+        void clear();
 
-	/// Sets a value of an non-zero element, i.e., inserts a new
-	/// node in the list
-	void setNonzeroElem(int index, int value);
+        /// Copies the contends of the other vector
+        void copy(const SparseVector &other);
 
-	/// Removes the element at given index
-	void removeElem(int index);
+        /// Sets a value of an non-zero element, i.e., inserts a new
+        /// node in the list
+        void setNonzeroElem(int index, int value);
 
-	/// Returns a pointer to node in the list before \ref i
-	node *getPrevElem(int i) const;
+        /// Removes the element at given index
+        void removeElem(int index);
 
-};
+        /// Returns a pointer to node in the list before \ref i
+        node *getPrevElem(int i) const;
+
+    };
 
 } // namespace jumper
 

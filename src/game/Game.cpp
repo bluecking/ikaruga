@@ -18,11 +18,9 @@ using std::set;
 using std::cout;
 using std::endl;
 
-namespace jumper
-{
+namespace jumper {
 
-    Game::Game(MainWindow* mainWindow)
-    {
+    Game::Game(MainWindow *mainWindow) {
         m_player = 0;
         m_level = 0;
         m_layer = 0;
@@ -38,50 +36,41 @@ namespace jumper
         SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
     }
 
-    Game::~Game()
-    {
+    Game::~Game() {
         // TODO Auto-generated destructor stub
     }
 
-    void Game::setPlayer(Player* player)
-    {
+    void Game::setPlayer(Player *player) {
         m_player = player;
         m_actors.push_back(player);
         m_renderables.push_back(player);
     }
 
-    void Game::setLevel(Level* level)
-    {
+    void Game::setLevel(Level *level) {
         m_level = level;
         m_renderables.push_back(level);
     }
 
-    Level* Game::getLevel()
-    {
+    Level *Game::getLevel() {
 
         return m_level;
 
     }
 
-    void Game::addActor(Actor* actor)
-    {
+    void Game::addActor(Actor *actor) {
         m_actors.push_back(actor);
         m_renderables.push_back(actor);
     }
 
-    void Game::update(const Uint8*& currentKeyStates, const bool* keyDown)
-    {
-        if (m_started)
-        {
+    void Game::update(const Uint8 *&currentKeyStates, const bool *keyDown) {
+        if (m_started) {
             // react to color change
-            if (keyDown[SDL_SCANCODE_C])
-            {
+            if (keyDown[SDL_SCANCODE_C]) {
                 m_player->toggleColor();
             }
 
             // react to shoot
-            if (currentKeyStates[SDL_SCANCODE_SPACE])
-            {
+            if (currentKeyStates[SDL_SCANCODE_SPACE]) {
                 m_player->shoot();
             }
 
@@ -91,20 +80,16 @@ namespace jumper
             m_statusBar->setHealth(m_player->getHealth());
             // react to move input
             Vector2f moveDirection(0, 0);
-            if (currentKeyStates[SDL_SCANCODE_UP])
-            {
+            if (currentKeyStates[SDL_SCANCODE_UP]) {
                 moveDirection.setY(-1);
             }
-            if (currentKeyStates[SDL_SCANCODE_DOWN])
-            {
+            if (currentKeyStates[SDL_SCANCODE_DOWN]) {
                 moveDirection.setY(1);
             }
-            if (currentKeyStates[SDL_SCANCODE_LEFT])
-            {
+            if (currentKeyStates[SDL_SCANCODE_LEFT]) {
                 moveDirection.setX(-1);
             }
-            if (currentKeyStates[SDL_SCANCODE_RIGHT])
-            {
+            if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
                 moveDirection.setX(1);
             }
             m_player->setMoveDirection(moveDirection);
@@ -117,21 +102,18 @@ namespace jumper
 
             SDL_RenderClear(m_renderer);
 
-            if (m_layer)
-            {
+            if (m_layer) {
                 m_layer->render();
             }
 
             /*
              * You have to render the Statusbar AFTER the tiles, so the thing is always on Top
              */
-            for (size_t i = 0; i < m_renderables.size(); i++)
-            {
+            for (size_t i = 0; i < m_renderables.size(); i++) {
                 m_renderables[i]->render();
             }
 
-            if (m_statusBar)
-            {
+            if (m_statusBar) {
                 m_statusBar->setScore(m_player->physics().position().x());
                 m_statusBar->render();
             }
@@ -141,8 +123,7 @@ namespace jumper
         }
     }
 
-    void Game::removeActor(Actor* a)
-    {
+    void Game::removeActor(Actor *a) {
         auto it = std::find(m_actors.begin(), m_actors.end(), a);
         m_actors.erase(it);
 
@@ -150,51 +131,41 @@ namespace jumper
         m_renderables.erase(it2);
     }
 
-    void Game::checkPlayerCollision()
-    {
-        set<Actor*> to_remove;
-        KillAnimation* anim = 0;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
-            if (a->getHealth() <= 0)
-            {
+    void Game::checkPlayerCollision() {
+        set<Actor *> to_remove;
+        KillAnimation *anim = 0;
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++) {
+            Actor *a = *it;
+            if (a->getHealth() <= 0) {
                 to_remove.insert(a);
             }
 
             // Check for self collision
-            if (a != m_player)
-            {
+            if (a != m_player) {
                 Collision c = m_player->getCollision(*a);
 
                 // Simple items can be collected on the fly
-                if (a->type() == ITEM && c.type() != NONE)
-                {
+                if (a->type() == ITEM && c.type() != NONE) {
                     to_remove.insert(a);
                 }
 
                 // If an collection with an enemy occured, check
                 // who killed whom (Player only can kill enemies
                 // when falling down.
-                if (a->type() == ENEMY && c.type() != NONE)
-                {
-                    if (c.type() == BOOM)
-                    {
+                if (a->type() == ENEMY && c.type() != NONE) {
+                    if (c.type() == BOOM) {
                         cout << "PLAYER KILLED" << endl;
                     }
-                    else if (c.type() == DOWN)
-                    {
+                    else if (c.type() == DOWN) {
                         to_remove.insert(a);
                         anim = new KillAnimation(a);
                     }
                 }
 
-                if (a->type() == PUZZLEBOX)
-                {
-                    PuzzleBox* b = static_cast<PuzzleBox*>(a);
+                if (a->type() == PUZZLEBOX) {
+                    PuzzleBox *b = static_cast<PuzzleBox *>(a);
                     m_player->resolveCollision(*a);
-                    if (c.type() == UP)
-                    {
+                    if (c.type() == UP) {
                         b->setHit(true);
                     }
                 }
@@ -204,21 +175,18 @@ namespace jumper
         // Remove actors that were killed in this loop. We have to
         // store them separately because otherwise we would corrupt
         // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
+        for (auto i = to_remove.begin(); i != to_remove.end(); i++) {
             removeActor(*i);
         }
 
-        if (anim)
-        {
+        if (anim) {
             m_renderables.push_back(anim);
         }
     }
 
     // This method corrects the position of the player, if its leaving the borders of the camera.
     // It is invoked by Game::update()
-    void Game::checkCameraCollision()
-    {
+    void Game::checkCameraCollision() {
         float leftBorder, topBorder, rightBorder, bottomBorder = 0;
         float borderOffsetInPixel = Renderable::m_camera.getBorderOffset();
 
@@ -228,45 +196,37 @@ namespace jumper
         bottomBorder = Renderable::m_camera.y() + Renderable::m_camera.h() - borderOffsetInPixel;
 
         // Player leaves top border of the camera
-        if (m_player->position().y() <= topBorder)
-        {
+        if (m_player->position().y() <= topBorder) {
             m_player->setPosition(Vector2f(m_player->position().x(), topBorder));
         }
 
         // Player leaves left border of the camera
-        if (m_player->position().x() <= leftBorder)
-        {
+        if (m_player->position().x() <= leftBorder) {
             m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
         }
 
         // Player leaves right border of the camera
-        if (m_player->position().x() + m_player->w() >= rightBorder)
-        {
+        if (m_player->position().x() + m_player->w() >= rightBorder) {
             m_player->setPosition(Vector2f(rightBorder - m_player->w(), m_player->position().y()));
         }
 
         // Player leaves bottom border of the camera
-        if (m_player->position().y() + m_player->h() >= bottomBorder)
-        {
+        if (m_player->position().y() + m_player->h() >= bottomBorder) {
             m_player->setPosition(Vector2f(m_player->position().x(), bottomBorder - m_player->h()));
         }
     }
 
-    void Game::moveActors()
-    {
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
+    void Game::moveActors() {
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++) {
             (*it)->move(*m_level);
         }
     }
 
-    void Game::start()
-    {
+    void Game::start() {
         m_started = true;
     }
 
-    void Game::scrollHorizontal()
-    {
+    void Game::scrollHorizontal() {
         float dt = getElapsedTime();
 
         Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
@@ -275,10 +235,8 @@ namespace jumper
         Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
-    float Game::getElapsedTime()
-    {
-        if (m_startTicks == 0)
-        {
+    float Game::getElapsedTime() {
+        if (m_startTicks == 0) {
             m_startTicks = SDL_GetTicks();
         }
 
@@ -288,17 +246,13 @@ namespace jumper
         return time;
     }
 
-    void Game::removeProjectiles()
-    {
-        set<Actor*> to_remove;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
+    void Game::removeProjectiles() {
+        set<Actor *> to_remove;
+        for (auto it = m_actors.begin(); it != m_actors.end(); it++) {
+            Actor *a = *it;
 
-            if (a->type() == PROJECTILE)
-            {
-                if (!a->visible())
-                {
+            if (a->type() == PROJECTILE) {
+                if (!a->visible()) {
                     to_remove.insert(a);
                 }
             }
@@ -307,8 +261,7 @@ namespace jumper
         // Remove actors that were killed in this loop. We have to
         // store them separately because otherwise we would corrupt
         // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
+        for (auto i = to_remove.begin(); i != to_remove.end(); i++) {
             removeActor(*i);
         }
     }

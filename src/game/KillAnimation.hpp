@@ -10,22 +10,35 @@
 
 #include "Item.hpp"
 
-namespace jumper
-{
+namespace jumper {
+    /**
+     * @brief represents kill animations
+     */
+    class KillAnimation : public Item {
+    public:
+        /**
+        * constructor
+        *
+        * @param actor the actor
+        */
+        KillAnimation(Actor *actor);
 
-class KillAnimation : public Item
-{
-public:
-	KillAnimation(Actor* actor);
-	virtual ~KillAnimation();
 
-	virtual void render();
+        virtual ~KillAnimation();
 
-private:
-	float 		m_rotAngle;
-	int			m_yPos;
+        /**
+         * renders the kill animation
+         */
+        virtual void render();
 
-};
+    private:
+        //the rotation angle
+        float m_rotAngle;
+
+        //the y position
+        int m_yPos;
+
+    };
 
 } /* namespace jumper */
 

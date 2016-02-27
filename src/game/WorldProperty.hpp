@@ -7,62 +7,58 @@
 
 #include "Vector.hpp"
 
-namespace jumper
-{
+namespace jumper {
 
 /**
  * @brief	A class that holds properties about the physical characteristics
  * 			of a level.
  */
-class WorldProperty
-{
-public:
+    class WorldProperty {
+    public:
 
-    WorldProperty();
+        WorldProperty();
 
-    /**
-     * Constructor.
-     *
-     * @param damping		Damping force on tiles
-     */
-    WorldProperty(const Vector2f& damping);
+        /**
+         * Constructor.
+         *
+         * @param damping		Damping force on tiles
+         */
+        WorldProperty(const Vector2f &damping);
 
-    /**
-     * Returns the damping force
-     */
-    const Vector2f &damping() const;
+        /**
+         * Returns the damping force
+         */
+        const Vector2f &damping() const;
 
-    /**
-     * Sets the damping force
-     */
-    void setDamping(const Vector2f &damping);
+        /**
+         * Sets the damping force
+         */
+        void setDamping(const Vector2f &damping);
 
-    /**
-     * Getter for the scrolling speed
-     * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
-     */
-    const Vector2f& getScrollingSpeed() const
-    {
-        return m_scrollingSpeed;
-    }
+        /**
+         * Getter for the scrolling speed
+         * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
+         */
+        const Vector2f &getScrollingSpeed() const {
+            return m_scrollingSpeed;
+        }
 
-    /**
-     * Setter for the scrolling speed
-     * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
-     */
-    void setScrollingSpeed(const Vector2f& scrollingSpeed)
-    {
-        m_scrollingSpeed = scrollingSpeed;
-    }
+        /**
+         * Setter for the scrolling speed
+         * @param scrollingSpeed Takes an Vector2f for setting the scrolling speed
+         */
+        void setScrollingSpeed(const Vector2f &scrollingSpeed) {
+            m_scrollingSpeed = scrollingSpeed;
+        }
 
-private:
+    private:
 
-    /// Damping force. Currently for the whole level
-    Vector2f m_damping;
+        /// Damping force. Currently for the whole level
+        Vector2f m_damping;
 
-    /** Sets the scrolling speed of camera and player. */
-    Vector2f m_scrollingSpeed;
-};
+        /** Sets the scrolling speed of camera and player. */
+        Vector2f m_scrollingSpeed;
+    };
 
 }
 #endif //JUMPER_WorldProperties_H

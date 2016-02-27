@@ -5,51 +5,45 @@
 #include <SDL_image.h>
 #include <iostream>
 #include "Renderable.hpp"
-namespace jumper
-{
 
-Camera Renderable::m_camera;
+namespace jumper {
 
-Renderable::Renderable(SDL_Renderer* renderer)
-	: m_renderer(renderer), m_texture(0)
-{
-	m_sourceRect.x = 0;
-	m_sourceRect.y = 0;
-	m_sourceRect.w = 0;
-	m_sourceRect.h = 0;
-}
+    Camera Renderable::m_camera;
 
-Renderable::Renderable(SDL_Renderer* renderer, SDL_Texture* texture)
-	: m_renderer(renderer), m_texture(texture)
-{
-	int w, h;
-	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
+    Renderable::Renderable(SDL_Renderer *renderer)
+            : m_renderer(renderer), m_texture(0) {
+        m_sourceRect.x = 0;
+        m_sourceRect.y = 0;
+        m_sourceRect.w = 0;
+        m_sourceRect.h = 0;
+    }
 
-	m_sourceRect.x = 0;
-	m_sourceRect.y = 0;
-	m_sourceRect.w = w;
-	m_sourceRect.h = h;
-}
+    Renderable::Renderable(SDL_Renderer *renderer, SDL_Texture *texture)
+            : m_renderer(renderer), m_texture(texture) {
+        int w, h;
+        SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
 
-SDL_Renderer *Renderable::getRenderer() const
-{
-    return m_renderer;
-}
+        m_sourceRect.x = 0;
+        m_sourceRect.y = 0;
+        m_sourceRect.w = w;
+        m_sourceRect.h = h;
+    }
 
-SDL_Texture *Renderable::getTexture() const
-{
-    return m_texture;
-}
+    SDL_Renderer *Renderable::getRenderer() const {
+        return m_renderer;
+    }
 
-int Renderable::w() const
-{
-	return m_sourceRect.w;
-}
+    SDL_Texture *Renderable::getTexture() const {
+        return m_texture;
+    }
 
-int Renderable::h() const
-{
-	return m_sourceRect.h;
-}
+    int Renderable::w() const {
+        return m_sourceRect.w;
+    }
+
+    int Renderable::h() const {
+        return m_sourceRect.h;
+    }
 
 } /* namespace jumper */
 

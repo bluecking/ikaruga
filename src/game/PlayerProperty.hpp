@@ -7,15 +7,13 @@
 
 #include "Vector.hpp"
 
-namespace jumper
-{
+namespace jumper {
 
-/**
- * @brief		A class to represent the physical properties of
- * 				a player.
- */
-    class PlayerProperty
-    {
+    /**
+     * @brief		A class to represent the physical properties of
+     * 				a player.
+     */
+    class PlayerProperty {
     public:
 
         /**
@@ -36,21 +34,21 @@ namespace jumper
          * @param maxFallVel	Maximum fall velocity
          */
         PlayerProperty(
-                const Vector2f& position,
-                const Vector2f& moveForce,
-                const Vector2f& velocity,
+                const Vector2f &position,
+                const Vector2f &moveForce,
+                const Vector2f &velocity,
                 double maxVel
         );
 
         /**
          * Returns the move force to push the player
          */
-        const Vector2f& moveForce() const;
+        const Vector2f &moveForce() const;
 
         /**
          * Sets the move force to push the player
          */
-        void setMoveForce(const Vector2f& move);
+        void setMoveForce(const Vector2f &move);
 
         /**
          * Returns the maximum running velocity
@@ -65,22 +63,22 @@ namespace jumper
         /**
          * Sets the player position
          */
-        void setPosition(const Vector2f& m_pos);
+        void setPosition(const Vector2f &m_pos);
 
         /**
          * Sets the player's velocity
          */
-        void setVelocity(const Vector2f& m_vel);
+        void setVelocity(const Vector2f &m_vel);
 
         /**
          * Returns the player's velocity
          */
-        Vector2f& velocity();
+        Vector2f &velocity();
 
         /**
          * Returns the player's position
          */
-        Vector2f& position();
+        Vector2f &position();
 
     private:
 
