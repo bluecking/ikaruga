@@ -4,6 +4,7 @@
 
 #include "FontRender.hpp"
 #include <list>
+#include <algorithm>
 
 using std::string;
 using std::vector;
