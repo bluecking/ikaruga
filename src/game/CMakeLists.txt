@@ -31,7 +31,8 @@ set(SCROLLER_SOURCES
         Projectile.cpp
         LaserWeapon.cpp
         Armed.cpp
-        StatusBar.cpp)
+        StatusBar.cpp
+        FontRender.cpp)
 
 set(SCROLLER_LIBS ${SCROLLER_LIBS} xml)
 
