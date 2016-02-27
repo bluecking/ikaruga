@@ -30,7 +30,7 @@ set(JUMPER_SOURCES
         Weapon.cpp
         Projectile.cpp
         LaserWeapon.cpp
-        Armed.cpp)
+        Armed.cpp CollisionManager.cpp CollisionManager.hpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 

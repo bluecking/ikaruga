@@ -25,7 +25,7 @@ namespace jumper
         m_type = ACTOR;
 
 
-        const float HITBOXFACTOR = 0.8;
+        const float HITBOXFACTOR = 0.85;
         m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
         m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
@@ -88,7 +88,7 @@ namespace jumper
             }
 
             SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
-//            renderHitbox();
+            renderHitbox();
         }
 
     }
@@ -101,6 +101,7 @@ namespace jumper
 
         hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
         hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
+
         return hitbox;
     }
 
@@ -121,39 +122,7 @@ namespace jumper
 
     void Actor::resolveCollision(Actor& other)
     {
-        SDL_Rect myRect;
-        myRect.x = position().x();
-        myRect.y = position().y();
-        myRect.w = w();
-        myRect.h = h();
-
-        SDL_Rect otherRect;
-        otherRect.x = other.position().x();
-        otherRect.y = other.position().y();
-        otherRect.w = other.w();
-        otherRect.h = other.h();
-
-        SDL_Rect intersection;
-        SDL_IntersectRect(&myRect, &otherRect, &intersection);
-
-        //cout << intersection.w << endl;
-        if (intersection.h > 0 && intersection.w > 0)
-        {
-            Vector2f tmp = position();
-            Vector2f tmp_v = m_physicalProps.velocity();
-            tmp_v.setY(0);
-
-            if (m_physicalProps.velocity().y() > 0)
-            {
-                tmp.setY(position().y() - intersection.h);
-            }
-            else
-            {
-                tmp.setY(position().y() + intersection.h);
-            }
-            setPosition(tmp);
-            m_physicalProps.setVelocity(tmp_v);
-        }
+//        cout << type() << " with " << other.type() << endl;
     }
 
     Collision Actor::getCollision(Actor& other)

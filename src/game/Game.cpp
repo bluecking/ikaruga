@@ -8,6 +8,7 @@
 #include "Game.hpp"
 #include "PuzzleBox.hpp"
 #include "KillAnimation.hpp"
+#include "CollisionManager.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -106,13 +107,17 @@ namespace jumper
 
             moveActors();
             scrollHorizontal();
+
             checkPlayerCollision();
-            checkProjectileCollision();
             checkCameraCollision();
-            removeProjectiles();
+            checkActorCollision();
+
+            removeAllHitActors();
+            // removeProjectiles();
 
             SDL_RenderClear(m_renderer);
 
+            // Start rendering
             if (m_layer)
             {
                 m_layer->render();
@@ -309,42 +314,54 @@ namespace jumper
         }
     }
 
-    void Game::checkProjectileCollision()
+    void Game::checkActorCollision()
     {
-        set<Actor*> to_remove;
-        KillAnimation* anim = 0;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
-            if(a->type() == PROJECTILE) {
-                for (auto it2 = m_actors.begin(); it2 != m_actors.end(); it2++) {
+        CollisionManager cm;
 
-                    Actor* b = *it2;
+        cm.checkCollision(m_actors);
+//        set<Actor*> to_remove;
+//        KillAnimation* anim = 0;
+//        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+//        {
+//            Actor* a = *it;
+//            if(a->type() == PROJECTILE) {
+//                for (auto it2 = m_actors.begin(); it2 != m_actors.end(); it2++) {
+//
+//                    Actor* b = *it2;
+//
+//                    if(b == m_player || b->type() == PROJECTILE) {
+//                        continue;
+//                    }
+//
+//                    Collision c = a->getHitboxCollision(*b);
+//
+//                    if(c.type() != NONE) {
+//                        to_remove.insert(a);
+//                        to_remove.insert(b);
+//                        anim = new KillAnimation(b);
+//                        break;
+//                    }
+//
+//                }
+//            }
+//
+//            if(anim) {
+//                m_renderables.push_back(anim);
+//            }
+//        }
+//
+//        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+//        {
+//            removeActor(*i);
+//        }
+    }
 
-                    if(b == m_player || b->type() == PROJECTILE) {
-                        continue;
-                    }
-
-                    Collision c = a->getHitboxCollision(*b);
-
-                    if(c.type() != NONE) {
-                        to_remove.insert(a);
-                        to_remove.insert(b);
-                        anim = new KillAnimation(b);
-                        break;
-                    }
-
-                }
+    void Game::removeAllHitActors()
+    {
+        for(auto it = m_actors.begin(); it != m_actors.end(); ++it) {
+            if((*it)->is_hit()) {
+                removeActor(*it);
             }
-
-            if(anim) {
-                m_renderables.push_back(anim);
-            }
-        }
-
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
-            removeActor(*i);
         }
     }
 } /* namespace jumper */

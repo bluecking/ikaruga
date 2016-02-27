@@ -65,4 +65,16 @@ namespace jumper
         }
     }
 
+    void Bot::resolveCollision(Actor& other)
+    {
+        switch(other.type()) {
+            case ActorType::PROJECTILE:
+                this->m_hit = true;
+                cout << "Ouch" << endl;
+                break;
+            case ActorType::ACTOR:
+                cout << "hehe" << endl;
+                break;
+        }
+    }
 } /* namespace jumper */

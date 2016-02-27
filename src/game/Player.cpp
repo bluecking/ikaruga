@@ -90,6 +90,8 @@ namespace jumper
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
+            m_hitbox.h = 25;
+            m_hitbox.y -= 40;
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = UPHALF; break;
                 case DOHALF:     m_nextTileRow = NORMAL; break;
@@ -99,6 +101,8 @@ namespace jumper
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
+            m_hitbox.h = 25;
+            m_hitbox.y -= 40;
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = DOHALF; break;
                 case UPHALF:     m_nextTileRow = NORMAL; break;
@@ -108,6 +112,7 @@ namespace jumper
         } // Player does not move
         else
         {
+            m_hitbox.h = frameHeight();
             switch(m_currentTileRow) {
                 case DOFULL:     m_nextTileRow = DOHALF; break;
                 case UPFULL:     m_nextTileRow = UPHALF; break;

@@ -30,13 +30,13 @@ namespace jumper
         void launch()
         { m_launched = true; }
 
-        void onCollide();
-
+        virtual void resolveCollision(Actor& other) override;
+        virtual const SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;
         bool m_launched;
-    public:
-        virtual const SDL_Rect& getHitbox() override;
+    private:
+        Vector2f m_lastPosition = 0;
     };
 }
 

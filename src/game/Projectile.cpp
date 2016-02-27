@@ -20,13 +20,23 @@ namespace jumper
     const SDL_Rect& Projectile::getHitbox()
     {
         SDL_Rect hitbox = Actor::getHitbox();
-        hitbox.w *= 2;
-
+        hitbox.w = (int) fabs(m_lastPosition.x() - position().x());
+//        std::cout << hitbox.x << "+" << hitbox.w << "=" << hitbox.x + hitbox.w << std::endl;
         return hitbox;
     }
 
     void Projectile::move(Level& level)
     {
+        m_lastPosition = position();
         setPosition(position() + m_direction * 1000 * getElapsedTime());
+    }
+
+    void Projectile::resolveCollision(Actor& other)
+    {
+        switch(other.type()) {
+            case ACTOR:
+                return;
+        }
+        this->m_hit = true;
     }
 }

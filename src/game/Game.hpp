@@ -122,6 +122,8 @@ namespace jumper
 
         bool m_started;
         void checkProjectileCollision();
+        void checkActorCollision();
+        void removeAllHitActors();
     };
 
 } /* namespace jumper */
