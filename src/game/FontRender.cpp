@@ -1,7 +1,3 @@
-//
-// Created by Jochen Saalfeld on 27.02.16.
-//
-
 #include "FontRender.hpp"
 #include <list>
 #include <algorithm>
@@ -9,19 +5,17 @@
 using std::string;
 using std::vector;
 
-namespace jumper{
+namespace jumper {
 
     FontRender::FontRender(int tileHeight,
                            int tileWidth,
-                           SDL_Renderer* renderer,
-                           SDL_Texture* texture ):StaticRenderable(renderer, texture)
-    {
+                           SDL_Renderer *renderer,
+                           SDL_Texture *texture) : StaticRenderable(renderer, texture) {
         m_tileHeight = tileHeight;
         m_tileWidth = tileWidth;
     }
 
-    vector<Vector2i> FontRender::renderNumber(int number, int numberOffset)
-    {
+    vector<Vector2i> FontRender::renderNumber(int number, int numberOffset) {
         vector<Vector2i> retVal;
         std::list<int> digits;
 
@@ -46,8 +40,7 @@ namespace jumper{
         return retVal;
     }
 
-    vector<Vector2i> FontRender::renderString(string str, int minusculeOffset, int capitalOffset, int numberOffset)
-    {
+    vector<Vector2i> FontRender::renderString(string str, int minusculeOffset, int capitalOffset, int numberOffset) {
         vector<Vector2i> retVal;
         for (int i = 0; i < str.length(); i++) {
             Vector2i source_vec;
