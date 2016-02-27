@@ -449,12 +449,10 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
-				bool same = (y == y2);
-
 				x -= y - y2;
 				y = y2;
 
-				if (movRec > 0 && !same)
+				if (movRec > 0 && posToGrid(y) != posToGrid(y2))
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
@@ -481,12 +479,10 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
-				bool same = (y == y2);
-
 				x -= y2 - y;
 				y = y2;
 
-				if (movRec > 0 && !same)
+				if (movRec > 0 && posToGrid(y) != posToGrid(y2))
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
@@ -568,12 +564,10 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
-				bool same = (y == y2);
-
 				x += y - y2;
 				y = y2;
 
-				if (movRec < 0 && !same)
+				if (movRec < 0 && posToGrid(y) != posToGrid(y2))
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
@@ -602,12 +596,10 @@ Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
 
-				bool same = (y == y2);
-
 				x += y2 - y;
 				y = y2;
 
-				if (movRec < 0 && !same)
+				if (movRec < 0 && posToGrid(y) != posToGrid(y2))
 				{
 					Vector2f newMov = collide(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
 
