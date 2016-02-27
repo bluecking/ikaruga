@@ -51,8 +51,13 @@ namespace jumper
         virtual void move(Level& level);
 
     private:
+        //the type of movement
         int m_move_type;
+
+        //the heigth of the movement
         int m_move_type_height;
+
+        //the speed of the movement
         int m_speed;
     };
 

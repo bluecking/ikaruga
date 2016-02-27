@@ -12,11 +12,9 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
-{
-    Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
-    {
+namespace jumper {
+    Actor::Actor(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames)
+            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK) {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
@@ -28,20 +26,16 @@ namespace jumper
         m_spawnTime = SDL_GetTicks();
     }
 
-    void Actor::setPhysics(PlayerProperty p)
-    {
+    void Actor::setPhysics(PlayerProperty p) {
         m_physicalProps = p;
     }
 
-    Actor::~Actor()
-    {
+    Actor::~Actor() {
 
     }
 
-    float Actor::getElapsedTime()
-    {
-        if (m_startTicks == 0)
-        {
+    float Actor::getElapsedTime() {
+        if (m_startTicks == 0) {
             m_startTicks = SDL_GetTicks();
         }
 
@@ -51,15 +45,13 @@ namespace jumper
         return time;
     }
 
-    float Actor::getLiveTime()
-    {
+    float Actor::getLiveTime() {
         Uint32 ticks = SDL_GetTicks();
         float time = (ticks - m_spawnTime) / 1000.0;
         return time;
     }
 
-    void Actor::render()
-    {
+    void Actor::render() {
         SDL_Rect target;
 
         target.x = (int) floor(m_physicalProps.position().x() - m_camera.x());
@@ -68,14 +60,12 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.w > 0 && target.x + target.w < m_camera.w())
-        {
+        if (target.x + target.w > 0 && target.x + target.w < m_camera.w()) {
             // Render current animation frame
             SDL_Rect source = m_sourceRect;
 
             // switch color
-            if (m_color == ColorMode::WHITE)
-            {
+            if (m_color == ColorMode::WHITE) {
                 source.x = source.x + (int) m_colorOffset.x();
                 source.y = source.y + (int) m_colorOffset.y();
             }
@@ -85,23 +75,19 @@ namespace jumper
 
     }
 
-    void Actor::setPosition(Vector2f pos)
-    {
+    void Actor::setPosition(Vector2f pos) {
         m_physicalProps.position() = pos;
     }
 
-    PlayerProperty& Actor::physics()
-    {
+    PlayerProperty &Actor::physics() {
         return m_physicalProps;
     }
 
-    Vector2f Actor::position()
-    {
+    Vector2f Actor::position() {
         return m_physicalProps.position();
     }
 
-    void Actor::resolveCollision(Actor& other)
-    {
+    void Actor::resolveCollision(Actor &other) {
         SDL_Rect myRect;
         myRect.x = position().x();
         myRect.y = position().y();
@@ -118,18 +104,15 @@ namespace jumper
         SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
         //cout << intersection.w << endl;
-        if (intersection.h > 0 && intersection.w > 0)
-        {
+        if (intersection.h > 0 && intersection.w > 0) {
             Vector2f tmp = position();
             Vector2f tmp_v = m_physicalProps.velocity();
             tmp_v.setY(0);
 
-            if (m_physicalProps.velocity().y() > 0)
-            {
+            if (m_physicalProps.velocity().y() > 0) {
                 tmp.setY(position().y() - intersection.h);
             }
-            else
-            {
+            else {
                 tmp.setY(position().y() + intersection.h);
             }
             setPosition(tmp);
@@ -137,8 +120,7 @@ namespace jumper
         }
     }
 
-    Collision Actor::getCollision(Actor& other)
-    {
+    Collision Actor::getCollision(Actor &other) {
         Collision c;
 
         // Check for collision
@@ -159,27 +141,20 @@ namespace jumper
         SDL_Rect intersection;
         SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
-        if (std::abs(intersection.w) < otherRect.w && intersection.h > 0)
-        {
-            if (v.y() > 0)
-            {
-                if (intersection.h < otherRect.h / 2)
-                {
+        if (std::abs(intersection.w) < otherRect.w && intersection.h > 0) {
+            if (v.y() > 0) {
+                if (intersection.h < otherRect.h / 2) {
                     c.setType(DOWN);
                 }
-                else
-                {
+                else {
                     c.setType(BOOM);
                 }
             }
-            else
-            {
-                if (intersection.h < otherRect.h / 2)
-                {
+            else {
+                if (intersection.h < otherRect.h / 2) {
                     c.setType(UP);
                 }
-                else
-                {
+                else {
                     c.setType(BOOM);
                 }
             }
@@ -188,24 +163,20 @@ namespace jumper
         return c;
     }
 
-    void jumper::Actor::setFocus(bool focus)
-    {
+    void jumper::Actor::setFocus(bool focus) {
         m_focus = focus;
     }
 
-    bool jumper::Actor::hasFocus()
-    {
+    bool jumper::Actor::hasFocus() {
         return m_focus;
     }
 
-    void Actor::toggleColor()
-    {
+    void Actor::toggleColor() {
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
 
     }
 
-    bool Actor::visible()
-    {
+    bool Actor::visible() {
         SDL_Rect myRect;
         myRect.x = (int) position().x();
         myRect.y = (int) position().y();
@@ -224,14 +195,12 @@ namespace jumper
         return intersection.w > 0 && intersection.h > 0;
     }
 
-    int Actor::getHealth()
-    {
+    int Actor::getHealth() {
         return m_health;
     }
 
-    void Actor::takeDamage(int damage)
-    {
-        this->m_health-=damage;
+    void Actor::takeDamage(int damage) {
+        this->m_health -= damage;
     }
 } /* namespace jumper */
 

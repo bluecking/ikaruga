@@ -13,91 +13,90 @@
 #include <string>
 #include <iostream>
 
-namespace jumper
-{
+namespace jumper {
 
 /**
  * @brief Base class of renderables with several animation frames
  */
-class AnimatedRenderable: public Renderable
-{
-public:
+    class AnimatedRenderable : public Renderable {
+    public:
 
-	/***
-	 * Constructs an animated renderable from the given \ref filename
-	 * for the internal \ref renderer
-	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param filename		A filename with animation definitions
-	 */
-	AnimatedRenderable(SDL_Renderer* renderer, std::string filename);
+        /***
+         * Constructs an animated renderable from the given \ref filename
+         * for the internal \ref renderer
+         * @param renderer		A pointer to a SDL renderer struct
+         * @param filename		A filename with animation definitions
+         */
+        AnimatedRenderable(SDL_Renderer *renderer, std::string filename);
 
-	/***
-	 * Constructs an animated renderable from given renderer, texture
-	 * and frame information.
-	 * @param renderer		A pointer to a SDL renderer struct
-	 * @param texture		A pointer to valid SDL_Texture struct
-	 * @param frameWidth	The width of the frames within the texture
-	 * @param frameHeight	The height of the frames within the texture
-	 * @param numFrames		The number of frames in the texture
-	 */
-	AnimatedRenderable(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        /***
+         * Constructs an animated renderable from given renderer, texture
+         * and frame information.
+         * @param renderer		A pointer to a SDL renderer struct
+         * @param texture		A pointer to valid SDL_Texture struct
+         * @param frameWidth	The width of the frames within the texture
+         * @param frameHeight	The height of the frames within the texture
+         * @param numFrames		The number of frames in the texture
+         */
+        AnimatedRenderable(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight,
+                           int numFrames);
 
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~AnimatedRenderable();
+        /**
+         * Destructor.
+         */
+        virtual ~AnimatedRenderable();
 
-	/**
-	 * Renders the current frame
-	 */
-	virtual void render() = 0;
+        /**
+         * Renders the current frame
+         */
+        virtual void render() = 0;
 
-	/**
-	 * Moves the source rect to the next frame
-	 */
-	void nextFrame();
+        /**
+         * Moves the source rect to the next frame
+         */
+        void nextFrame();
 
-	/**
-	 * Sets frames per second for animation
-	 */
-	void setFPS(int frames);
+        /**
+         * Sets frames per second for animation
+         */
+        void setFPS(int frames);
 
-	/// Returns the number of frames in the animation
-	int numFrames() const { return m_numFrames;}
+        /// Returns the number of frames in the animation
+        int numFrames() const { return m_numFrames; }
 
-	/// Returns frame width
-	int frameWidth() const { return m_frameWidth;}
+        /// Returns frame width
+        int frameWidth() const { return m_frameWidth; }
 
-	/// Returns the frame height
-	int frameHeight() const { return m_frameHeight;}
+        /// Returns the frame height
+        int frameHeight() const { return m_frameHeight; }
 
-protected:
+    protected:
 
-	///	Number of frames in the animation
-	int				m_numFrames;
+        ///	Number of frames in the animation
+        int m_numFrames;
 
-	/// Current frame number
-	int				m_currentFrame;
+        /// Current frame number
+        int m_currentFrame;
 
-	/// The width of a frame
-	int 			m_frameWidth;
+        /// The width of a frame
+        int m_frameWidth;
 
-	/// The height of a frame
-	int				m_frameHeight;
+        /// The height of a frame
+        int m_frameHeight;
 
-	/// Ticks count when the last frame was rendered
-	Uint32			m_lastRenderTicks;
+        /// Ticks count when the last frame was rendered
+        Uint32 m_lastRenderTicks;
 
-	/// Timeout between frames
-	Uint32			m_frameTimeout;
+        /// Timeout between frames
+        Uint32 m_frameTimeout;
 
-	/** The tile row that is rendered in the current frame */
-	char 			m_currentTileRow;
+        /** The tile row that is rendered in the current frame */
+        char m_currentTileRow;
 
-	/** The tile row that should be rendered in the next frame */
-    char             m_nextTileRow;
-};
+        /** The tile row that should be rendered in the next frame */
+        char m_nextTileRow;
+    };
 
 } /* namespace jumper */
 
