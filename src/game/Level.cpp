@@ -369,6 +369,11 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 							float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
 							x = std::min(x, maxMov);
 
+							if (x == maxMov)
+							{
+								actor->onCollide();
+							}
+
 							break;
 						}
 					}
@@ -424,6 +429,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
 						x = std::min(x, maxMov);
 					}
+
+					// TODO
 				}
 				else if (t1 == EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
 				{
@@ -449,6 +456,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
 				{
 					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+
+					actor->onCollide();
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -479,6 +488,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
 				{
 					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+
+					actor->onCollide();
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -526,6 +537,11 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 							float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
 							x = std::max(x, maxMov);
 
+							if (x == maxMov)
+							{
+								actor->onCollide();
+							}
+
 							break;
 						}
 					}
@@ -564,6 +580,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				if (pos.y() + y < upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1) // check if we would collide in next step
 				{
 					y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+
+					actor->onCollide();
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -594,6 +612,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				if (pos.y() + y + height > downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1)) // check if we would collide in next step
 				{
 					y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+
+					actor->onCollide();
 				}
 
 				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -649,6 +669,11 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
 						y = std::min(y, maxMov);
 
+						if (y == maxMov)
+						{
+							actor->onCollide();
+						}
+
 						break;
 					}
 				}
@@ -670,6 +695,11 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
 						y = std::max(y, maxMov);
+
+						if (y == maxMov)
+						{
+							actor->onCollide();
+						}
 
 						break;
 					}
