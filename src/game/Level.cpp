@@ -320,14 +320,14 @@ int Level::posToGrid(float pos)
 	return floor(pos / m_tileWidth);
 }
 
-	Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move)
+	Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move, Actor* actor)
 	{
 		pos -= Vector2f(0, m_camera.h() % m_tileHeight);
 
-		return collideRC(pos, width, height, move);
+		return collideRC(pos, width, height, move, actor);
 	}
 
-Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
+Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor)
 {
 	pos.setY(pos.y() < 0 ? 0 : pos.y());
 	pos.setY(pos.y() + height > m_levelHeight * m_tileHeight ? m_levelHeight * m_tileHeight - height : pos.y());
@@ -451,14 +451,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
 				}
 
-				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 				x -= y - y2;
 				y = y2;
 
 				if (movRec > 0 && posToGrid(pos.y() + y) != tiles[0].y())
 				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
 
 					x += newMov.x();
 					y += newMov.y();
@@ -481,14 +481,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
 				}
 
-				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 				x -= y2 - y;
 				y = y2;
 
 				if (movRec > 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
 				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
 
 					x += newMov.x();
 					y += newMov.y();
@@ -566,14 +566,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 					y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
 				}
 
-				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 				x += y - y2;
 				y = y2;
 
 				if (movRec < 0 && posToGrid(pos.y() + y) != tiles[0].y())
 				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
 
 					x += newMov.x();
 					y += newMov.y();
@@ -596,14 +596,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 					y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
 				}
 
-				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y); // repeation
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 				x += y2 - y;
 				y = y2;
 
 				if (movRec < 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
 				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0));
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
 
 					x += newMov.x();
 					y += newMov.y();
@@ -621,13 +621,13 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move)
 
 	if (checkY)
 	{
-		y = collideY(pos, width, height, y);
+		y = collideY(pos, width, height, y, actor);
 	}
 
 	return Vector2f(x, y);
 }
 
-float Level::collideY(Vector2f pos, int width, int height, float y)
+float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor)
 {
 
 	std::vector<Vector2i> tiles;

@@ -20,6 +20,11 @@ void Item::move(Level& level)
 	nextFrame();
 }
 
+	void Item::onCollide()
+	{
+		return;
+	}
+
 Item::~Item()
 {
 	// TODO Auto-generated destructor stub

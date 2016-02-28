@@ -19,4 +19,9 @@ namespace jumper
     {
         setPosition(position() + (m_direction * 1000 * getElapsedTime()));
     }
+
+        void Projectile::onCollide()
+        {
+            return;
+        }
 }

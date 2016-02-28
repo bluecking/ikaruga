@@ -60,6 +60,8 @@ namespace jumper
 
         virtual void move(Level& level) = 0;
 
+        virtual void onCollide() = 0;
+
         virtual Collision getCollision(Actor& other);
 
         virtual void resolveCollision(Actor& other);

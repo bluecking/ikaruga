@@ -65,4 +65,9 @@ namespace jumper
         }
     }
 
+    void Bot::onCollide()
+    {
+        return;
+    }
+
 } /* namespace jumper */

@@ -92,7 +92,7 @@ public:
 
 	/// Generates a collision object between the level and the actor
 	Collision resolveCollision(Actor* actor);
-	Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
+	Vector2f collide(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
 
 private:
 
@@ -100,8 +100,8 @@ private:
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
 	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
 	void getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
-	Vector2f collideRC(Vector2f pos, int width, int height, Vector2f move);
-	float collideY(Vector2f pos, int width, int height, float y);
+	Vector2f collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
+	float collideY(Vector2f pos, int width, int height, float y, Actor* actor);
 
 	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
 	float posRelativToGrid(float pos, int grid);

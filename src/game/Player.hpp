@@ -44,6 +44,8 @@ namespace jumper
          */
         virtual void move(Level& level);
 
+        virtual void onCollide();
+
         const Vector2f& getMoveDirection() const
         {
             return m_moveDirection;

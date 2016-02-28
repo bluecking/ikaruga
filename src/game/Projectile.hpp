@@ -21,6 +21,8 @@ namespace jumper
 
         virtual void move(Level& level);
 
+        virtual void onCollide();
+
         const Vector2f& getDirection() const
         { return m_direction; }
 

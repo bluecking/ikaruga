@@ -50,6 +50,8 @@ namespace jumper
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);
 
+        virtual void onCollide();
+
     private:
         int m_move_type;
         int m_move_type_height;
