@@ -56,7 +56,6 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
     //<mein teil>
-//    Actor* actor1 =  0;
     //open xml file
     XML xml = XML(filename);
 
@@ -65,9 +64,6 @@ void setupGame(string filename, MainWindow* w, Game* game)
     string xpath = xml.getTileset();
     Level* level = new Level(w->getRenderer(), path + "/" + xpath);
     game->setLevel(level);
-
-
-
 
 
 
@@ -97,7 +93,10 @@ void setupGame(string filename, MainWindow* w, Game* game)
             path + "/../images/laser_shot.png");
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
+
                             coolDown));
+
+    cout<<"wname: "<<player->getWeapon()->getWeaponName()<<endl;
 
     game->setPlayer(player);
     player->setFocus(true);
@@ -263,7 +262,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 			 game->setStatusBar(bar);
 		 }
 
- }
+ }0
 */
 
     //</alter Teil>

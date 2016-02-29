@@ -159,7 +159,7 @@ namespace jumper {
     }
 
     void StatusBar::setWeaponName(string weaponName) {
-        m_weaponChanged = false;
+//        m_weaponChanged = false;
         if (weaponName != m_weaponName) {
             m_weaponChanged = true;
             m_weaponName = weaponName;
