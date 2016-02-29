@@ -143,6 +143,10 @@ namespace jumper
          */
         void setExplosionVolume(int volume);
 
+        void setScoreValue(int value);
+
+        int m_scoreValue = 0;
+
     protected:
 
         //the explosion sound

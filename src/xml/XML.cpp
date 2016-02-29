@@ -264,6 +264,7 @@ void XML::loadBots(std::string filename){
                 bot.fps = v.second.get<int>("fps");
                 bot.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
                 bot.explosionVolume = v.second.get<int>("explosionVolume");
+                bot.scorevalue = v.second.get<int long>("scoreValue");
 
                 /* Get data from child node NPC */
                 NPC npc;

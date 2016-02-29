@@ -53,14 +53,14 @@ namespace jumper {
          *
          * @param score			Sets the Current Score
          */
-        void setScore(int score);
+        void setScore(int long score);
 
         /**
          * Gets the current Score
          *
          * @returns currentScore
          */
-        int getScore(void) const;
+        int long getScore(void) const;
 
 
         /**
@@ -126,7 +126,7 @@ namespace jumper {
         void setHealthPosition(const Vector2i &position);
 
         /// Current score
-        int m_score;
+        int long m_score;
 
         /// Digit width
         int m_tileWidth;
