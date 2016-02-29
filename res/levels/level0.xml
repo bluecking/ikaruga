@@ -2,22 +2,13 @@
     <id>0</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
-    <background filename="background_40x40.png">
-        <scrollspeed>3</scrollspeed>
+    <background filename="../images/star_background_2_200x200.png">
+        <scrollspeed>1</scrollspeed>
     </background>
-    <statusBar filename="statusbar_font_10x10.png">
-        <frameWidth>10</frameWidth>
-        <frameHeight>10</frameHeight>
-        <letterCount>26</letterCount>
-        <capitalOffset>1</capitalOffset>
-        <minusculeOffset>3</minusculeOffset>
-        <numberOffset>0</numberOffset>
-        <offsetToMid>1</offsetToMid>
-    </statusBar>
-    <player filename="player_combined_47x51.png">
+    <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
-        <frameWidth>18</frameWidth>
-        <frameHeight>32</frameHeight>
+        <frameWidth>55</frameWidth>
+        <frameHeight>43</frameHeight>
         <positionX>100</positionX>
         <positionY>40</positionY>
         <stdWeapon>LASER_GUN</stdWeapon>
@@ -28,27 +19,54 @@
         <maxVel>200.0</maxVel>
         <fps>12</fps>
     </player>
-    <bot type="BOT_SIN">
-        <positionX>400</positionX>
-        <positionY>40</positionY>
+ <statusBar filename="../images/statusbar_font_10x10.png">
+      <frameWidth>10</frameWidth>
+      <frameHeight>10</frameHeight>
+      <letterCount>26</letterCount>
+      <capitalOffset>1</capitalOffset>
+      <minusculeOffset>2</minusculeOffset>
+      <numberOffset>0</numberOffset>
+      <offsetToMid>1</offsetToMid>
+  </statusBar>
+    <bot type="BOT_SIN_UP">
+        <positionX>1400</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1500</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1600</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1700</positionX>
+        <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN">
-        <positionX>500</positionX>
-        <positionY>40</positionY>
+        <positionX>2000</positionX>
+        <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN">
-        <positionX>5000</positionX>
-        <positionY>40</positionY>
+    <bot type="BOT_SIN_DOWN">
+        <positionX>2200</positionX>
+        <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN">
-        <positionX>10000</positionX>
-        <positionY>40</positionY>
+    <bot type="BOT_NO_MOVE">
+        <positionX>3000</positionX>
+        <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>

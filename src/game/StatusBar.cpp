@@ -163,7 +163,8 @@ namespace jumper {
         if (weaponName != m_weaponName) {
             m_weaponChanged = true;
             m_weaponName = weaponName;
-        }
+   }
+
     }
 
     void StatusBar::setEvolutionStage(string evolutionStage) {
