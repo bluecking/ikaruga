@@ -73,6 +73,8 @@ namespace jumper
 
     private:
 
+        const int PIXELS_OFFSET_SPAWN_BOTS = 40;
+
         void moveActors();
 
         void checkPlayerCollision();

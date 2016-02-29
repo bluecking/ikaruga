@@ -56,7 +56,7 @@ namespace jumper
 
         for (auto it = m_bots.begin(); it != m_bots.end(); it++)
         {
-            if ((*it)->position().x() < curPos+40)
+            if ((*it)->position().x() < curPos+PIXELS_OFFSET_SPAWN_BOTS)
             {
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
