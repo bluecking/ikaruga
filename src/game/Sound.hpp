@@ -57,6 +57,11 @@ namespace jumper {
         void play();
 
         /**
+         * Plays the sound
+         */
+        void play(int channel, int volume);
+
+        /**
          * stops Playing
          */
         void stop();

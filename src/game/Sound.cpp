@@ -51,6 +51,27 @@ namespace jumper {
         }
     }
 
+    void Sound::play(int channel, int volume){
+        if(m_type == SoundType::SONG && !Mix_PlayingMusic()) {
+            Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
+
+            if(song == NULL ){
+                std::cout << "Couldnt open " + m_soundFile + "\n";
+            }
+            Mix_PlayMusic( song, 0);
+            Mix_VolumeMusic(volume);
+        } else if(m_type == SoundType::SOUND) {
+            Mix_HaltChannel(-1);
+            Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
+
+            if(sound == NULL ){
+                std::cout << "Couldnt open " + m_soundFile + "\n";
+            }
+            Mix_PlayChannel( channel, sound, 0 );
+            Mix_Volume(channel, volume);
+        }
+    }
+
     void Sound::stop(){
         Mix_HaltMusic();
     }

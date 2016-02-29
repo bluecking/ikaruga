@@ -96,9 +96,7 @@ namespace jumper
     }
     void Bot::play()
     {
-
-        m_explosionSound.play();
-
+        m_explosionSound.play(0, 150);
     }
     Bot::~Bot()
     {
