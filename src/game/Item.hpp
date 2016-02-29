@@ -44,6 +44,11 @@ public:
 
 	/// Destructor.
 	virtual ~Item();
+
+    /**
+     * @see Actor::resolveCollision(Actor& other)
+     */
+	virtual void resolveCollision(Actor& other);
 };
 
 } // namespace jumper

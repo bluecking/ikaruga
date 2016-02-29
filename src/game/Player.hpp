@@ -62,7 +62,18 @@ namespace jumper
         Vector2f m_moveDirection;
     public:
         virtual void shoot();
+
+        /**
+         * Gets invoked when the player moves up or down.
+         * So the player gets rendered with a different texture,
+         * and the hitbox is updated to a proper size and position.
+         */
         void updateMoveAnimation();
+
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
     };
 }
 

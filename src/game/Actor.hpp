@@ -26,7 +26,7 @@ namespace jumper
         PLATFORM,
         ITEM,
         PUZZLEBOX,
-        ACTOR,
+        PLAYER,
         PROJECTILE
     };
 
@@ -62,7 +62,14 @@ namespace jumper
 
         virtual Collision getCollision(Actor& other);
 
-        virtual void resolveCollision(Actor& other);
+        /**
+         * Is invoked if the actor collides with another actor
+         * It is pure virtual, since the subclasses react differently on
+         * collisions with different actors.
+         *
+         * @parameter other The actor instance which collided with this instance
+         */
+        virtual void resolveCollision(Actor& other) = 0;
 
         virtual void render();
 
@@ -87,25 +94,19 @@ namespace jumper
 
         bool hasFocus();
 
-        ActorType type()
-        { return m_type; }
+        const ActorType& type() { return m_type; }
 
-        void setType(ActorType t)
-        { m_type = t; }
+        void setType(ActorType t) { m_type = t; }
 
-        void setColorOffset(const Vector2f& colorOffset)
-        { m_colorOffset = colorOffset; }
+        void setColorOffset(const Vector2f& colorOffset) { m_colorOffset = colorOffset; }
 
-        const Vector2f& getColorOffset() const
-        { return m_colorOffset; }
+        const Vector2f& getColorOffset() const { return m_colorOffset; }
 
         void toggleColor();
 
-        const ColorMode::ColorMode& getColor() const
-        { return m_color; }
+        const ColorMode::ColorMode& getColor() const { return m_color; }
 
-        void setColor(const ColorMode::ColorMode& m_color)
-        { Actor::m_color = m_color; }
+        void setColor(const ColorMode::ColorMode& m_color) { Actor::m_color = m_color; }
 
         /**
          * Returns true, if the actor is visible (in camera rect)
@@ -115,6 +116,15 @@ namespace jumper
         void takeDamage(int damage);
 
         int getHealth();
+
+        virtual SDL_Rect& getHitbox();
+
+        void setHit(bool hit)
+        {
+            m_hit = hit;
+        }
+
+        const bool& is_hit() const;
 
         void setLiveTime();
 
@@ -139,9 +149,19 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-        int     m_health;
+        int m_health;
 
+        SDL_Rect m_hitbox;
 
+        bool m_hit = false;
+    private:
+        /** The hitbox size is reduced to this factor */
+        const float HITBOXFACTOR = 0.8;
+
+        /** The opacity level that is rendered, when an actor was hit */
+        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
+
+        void renderHitbox();
     };
 
 } /* namespace jumper */
