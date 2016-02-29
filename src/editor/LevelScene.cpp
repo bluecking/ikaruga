@@ -122,6 +122,33 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     QList<QGraphicsItem*> item_list = items(x*m_tileWidth,y*m_tileHeight,m_tileWidth,m_tileHeight);
 
 
+    if(!item_list.empty()) {
+        if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 1) {
+            std::cout << "remove Bot" << std::endl;
+            m_tiles[y][x] = -1;
+            for (unsigned int i = 0; i < m_levelBots.size(); i++) {
+                if (m_levelBots[i].positionX == x * m_tileWidth && m_levelBots[i].positionY == y * m_tileWidth) {
+                    if (event->buttons() == Qt::LeftButton) {
+                        m_color = m_levelBots[i].color;
+                        if (m_color == "black")m_color = "white";
+                        else m_color = "black";
+
+                    }
+                    m_levelBots.erase(m_levelBots.begin() + i);
+                }
+            }
+        }
+
+        if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 2) {
+            std::cout << "remove Item" << std::endl;
+            m_tiles[y][x] = -1;
+            for (unsigned int i = 0; i < m_levelItems.size(); i++) {
+                if (m_levelItems[i].positionX == x * m_tileWidth && m_levelItems[i].positionY == y * m_tileWidth) {
+                    m_levelItems.erase(m_levelItems.begin() + i);
+                }
+            }
+        }
+    }
 
 
     if(event->buttons() == Qt::LeftButton)
@@ -131,40 +158,11 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 	if (!item_list.isEmpty())
 	{
 
-        if((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType()==1 )
-        {
-            std::cout<<"remove Bot"<<std::endl;
-            m_tiles[y][x]=-1;
-            for(unsigned int i=0;i<m_levelBots.size();i++)
-            {
-                if(m_levelBots[i].positionX==x*m_tileWidth && m_levelBots[i].positionY==y*m_tileWidth)
-                {
-                    m_levelBots.erase(m_levelBots.begin()+i);
-                    if(event->buttons()==Qt::LeftButton){
-                        if(m_color=="black")m_color="white";
-                        else  m_color="black";
 
-                    }
-                }
-            }
-        }
-
-        if((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType()==2)
-        {
-            std::cout<<"remove Item"<<std::endl;
-            m_tiles[y][x]=-1;
-            for(unsigned int i=0;i<m_levelItems.size();i++)
-            {
-                if(m_levelItems[i].positionX==x*m_tileWidth && m_levelItems[i].positionY==y*m_tileWidth)
-                {
-                    m_levelItems.erase(m_levelItems.begin()+i);
-                }
-            }
-        }
 
         if(!m_bot.filename.empty())
         {
-            if(m_color=="black")
+            if(m_color=="white")
             {
                 QRect rect(0,0, m_bot.frameWidth, m_bot.frameHeight);
                 m_rect=rect;
@@ -183,8 +181,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
             std::cout<<"bot added"<<std::endl;
             XML::LevelBot bot;
 
-            if(m_index<1)bot.color="black";
-            else bot.color="white";
+            bot.color=m_color;
             bot.positionX = x*m_tileWidth;
             bot.positionY = y*m_tileHeight;
             bot.powerUpName="HealtBoost";
@@ -226,7 +223,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
         if(!m_bot.filename.empty())
         {
             m_item.filename.clear();
-            if(m_color=="black")
+            if(m_color=="white")
             {
                 QRect rect(0,0, m_bot.frameWidth, m_bot.frameHeight);
                 m_rect=rect;
@@ -245,8 +242,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
             std::cout<<"bot added"<<std::endl;
             XML::LevelBot bot;
 
-            if(m_index<1)bot.color="black";
-            else bot.color="white";
+            bot.color = m_color;
             bot.positionX = x*m_tileWidth;
             bot.positionY = y*m_tileHeight;
             bot.powerUpName="HealtBoost";
@@ -386,8 +382,7 @@ void LevelScene::loadLevel(QString fileName )
 
     std::cout<<m_path.toStdString()+fileName.toStdString()<<std::endl;
     ///readonly file open
-    if(file.open(QIODevice::ReadOnly))
-    {
+    if(file.open(QIODevice::ReadOnly)) {
 
         QTextStream in(&file);
 
@@ -395,16 +390,15 @@ void LevelScene::loadLevel(QString fileName )
         QString line = in.readLine();
 
 
+        m_pixmap = new QPixmap *[6];
+        std::cout << m_path.toStdString() << "../images/rocks.png" << std::endl;
 
-        m_pixmap=new QPixmap*[6];
-        std::cout<<m_path.toStdString()<<"../images/rocks.png"<<std::endl;
-
-        m_pixmap[0]= new QPixmap(m_path+m_imgTexture);
-        m_pixmap[1]= new QPixmap(m_path+"../images/Bot_1.png");
-        m_pixmap[2]= new QPixmap(m_path+"../images/Bot_2.png");
-        m_pixmap[3]= new QPixmap(m_path+"../images/Bot_3.png");
-        m_pixmap[4]= new QPixmap(m_path+"../images/Bot_4.png");
-        m_pixmap[5]= new QPixmap(m_path+"../images/Bot_5.png");
+        m_pixmap[0] = new QPixmap(m_path + m_imgTexture);
+        m_pixmap[1] = new QPixmap(m_path + "../images/Bot_1.png");
+        m_pixmap[2] = new QPixmap(m_path + "../images/Bot_2.png");
+        m_pixmap[3] = new QPixmap(m_path + "../images/Bot_3.png");
+        m_pixmap[4] = new QPixmap(m_path + "../images/Bot_4.png");
+        m_pixmap[5] = new QPixmap(m_path + "../images/Bot_5.png");
         ///m_pixmap[1]= new QPixmap(m_path+"../images/bot_1");
 
 
@@ -413,18 +407,18 @@ void LevelScene::loadLevel(QString fileName )
         QStringList list;
 
         ///lvl properties
-        line           =in.readLine();
-        list           =line.split(" ");
-        m_tileWidth    =list[0].toInt();
-        m_tileHeight   =list[1].toInt();
-        m_tilesPerRow  =list[2].toInt();
-        m_numRows      =list[3].toInt();
-        m_tileOffset   =list[4].toInt();
-        m_levelWidth   =list[5].toInt();
-        m_levelHeight  =14;
+        line = in.readLine();
+        list = line.split(" ");
+        m_tileWidth = list[0].toInt();
+        m_tileHeight = list[1].toInt();
+        m_tilesPerRow = list[2].toInt();
+        m_numRows = list[3].toInt();
+        m_tileOffset = list[4].toInt();
+        m_levelWidth = list[5].toInt();
+        m_levelHeight = 14;
 
 
-        setTileSettings(0,0,QRect(0,0,40,40));
+        setTileSettings(0, 0, QRect(0, 0, 40, 40));
 
 
 
@@ -440,12 +434,11 @@ void LevelScene::loadLevel(QString fileName )
 
 
         // Read tile indices
-        for(int i = 0; i < m_levelHeight; i++) {
+        for (int i = 0; i < m_levelHeight; i++) {
 
             line = in.readLine();
             list = line.split(" ");
-            if (list.length() == m_levelWidth)
-            {
+            if (list.length() == m_levelWidth) {
                 for (int j = 0; j < m_levelWidth; j++) {
 
 
@@ -470,6 +463,36 @@ void LevelScene::loadLevel(QString fileName )
         }
         ///file close
         file.close();
+
+        for (int i = 0; i < m_levelBots.size(); i++) {
+
+            QList<QGraphicsItem*> item_list = items(m_levelBots[i].positionX,m_levelBots[i].positionY,
+                                                    m_levelBots[i].type.frameWidth,m_levelBots[i].type.frameHeight);
+            if(item_list.empty())
+            {
+            if (m_levelBots[i].color == "white")
+            {
+                QRect rect(0, 0, m_levelBots[i].type.frameWidth, m_levelBots[i].type.frameHeight);
+                m_rect = rect;
+
+            }
+            else {
+                QRect rect(m_levelBots[i].type.colorOffsetX, m_levelBots[i].type.colorOffsetY, m_levelBots[i].type.frameWidth, m_levelBots[i].type.frameHeight);
+                m_rect = rect;
+            }
+
+                QPixmap* map = new QPixmap(toQString(m_path.toStdString() + m_levelBots[i].type.filename));
+                GraphicsTileItem *item = new GraphicsTileItem(map, m_rect, 0, m_typeBot);
+                item->setPos(m_levelBots[i].positionX, m_levelBots[i].positionY);
+                this->addItem(item);
+
+
+            }
+            else
+            {
+                std::cout<<"Failed to load bot"<<std::endl;
+            }
+        }
 
 
     }
@@ -595,17 +618,19 @@ void LevelScene::setBot(QString botName)
             m_bot=m_bots[i];
         }
     }
+    m_item.filename.clear();
 }
 
 void LevelScene::setPower(QString powerName)
 {
-    for(unsigned int i=0;i<m_bots.size();i++)
+    for(unsigned int i=0;i<m_items.size();i++)
     {
         if(m_items[i].type==powerName.toStdString())
         {
             m_item=m_items[i];
         }
     }
+    m_bot.filename.clear();
 }
 
 void LevelScene::setNull()
