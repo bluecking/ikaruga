@@ -20,7 +20,7 @@ namespace jumper
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
-        m_type = ACTOR;
+        m_type = PLAYER;
 
         const float HITBOXFACTOR = 0.8;
         m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
@@ -64,6 +64,7 @@ namespace jumper
 
     void Actor::render()
     {
+        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
         SDL_Rect target;
 
         target.x = (int) floor(m_physicalProps.position().x() - m_camera.x());
@@ -84,9 +85,10 @@ namespace jumper
                 source.y = source.y + (int) m_colorOffset.y();
             }
 
+            // Make the texture opaque
             if (m_hit)
             {
-                SDL_SetTextureAlphaMod(m_texture, 50);
+                SDL_SetTextureAlphaMod(m_texture, OPACITY_LEVEL_WHEN_HIT);
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
                 SDL_SetTextureAlphaMod(m_texture, 255);
             }
@@ -223,7 +225,7 @@ namespace jumper
 
     void Actor::takeDamage(int damage)
     {
-        this->m_health -= damage;
+        m_health -= damage;
     }
 
     void Actor::renderHitbox()
@@ -232,6 +234,7 @@ namespace jumper
         hitbox.x -= m_camera.x();
         hitbox.y -= m_camera.y();
 
+        // Color hitbox depending on the current color state
         if (m_color == ColorMode::BLACK)
         {
             SDL_SetRenderDrawColor(getRenderer(), 255, 0, 0, 0);

@@ -21,7 +21,6 @@ namespace jumper
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
         m_health = 2000;
 
-
         // TODO: Delete before pushing
         if((float) rand() / RAND_MAX <= 0.5) {
             m_color = ColorMode::WHITE;
@@ -79,11 +78,10 @@ namespace jumper
         if(other.type() == PROJECTILE && getColor() == other.getColor()) {
             setHit(true);
             takeDamage(500);
-            cout << m_health << endl;
         }
 
         // Hit by actor
-        if(other.type() == ACTOR) {
+        if(other.type() == PLAYER) {
             m_health = 0;
         }
     }

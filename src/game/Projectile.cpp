@@ -32,7 +32,6 @@ namespace jumper
         // if the projectile exceeds camera boundary, then kill it
         if(!visible()) {
             m_health = 0;
-            std::cout << "Outside camera" << std::endl;
         }
     }
 
@@ -41,7 +40,7 @@ namespace jumper
         // TODO: Check if this projectile was shot by player or enemy
 
         // Hit with player
-        if(other.type() == ACTOR) {
+        if(other.type() == PLAYER) {
             return;
         }
 

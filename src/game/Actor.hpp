@@ -26,7 +26,7 @@ namespace jumper
         PLATFORM,
         ITEM,
         PUZZLEBOX,
-        ACTOR,
+        PLAYER,
         PROJECTILE
     };
 
@@ -67,7 +67,10 @@ namespace jumper
             m_hit = hit;
         }
 
-        virtual void resolveCollision(Actor& other);
+        /** Is invoked if the actor collides with another actor
+         * It is pure virtual, since the subclasses react differently on
+         * collisions with different actors. */
+        virtual void resolveCollision(Actor& other) = 0;
 
         virtual void render();
 
@@ -119,8 +122,6 @@ namespace jumper
 
         bool is_hit();
 
-        Collision getHitboxCollision(Actor& other);
-
     protected:
 
         float getElapsedTime();
@@ -149,7 +150,6 @@ namespace jumper
         bool m_hit = false;
     private:
         void renderHitbox();
-        void renderHitAnimation();
     };
 
 } /* namespace jumper */

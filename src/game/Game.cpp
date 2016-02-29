@@ -114,12 +114,10 @@ namespace jumper
             moveActors();
             scrollHorizontal();
 
-//            checkPlayerCollision();
             checkCameraCollision();
             checkActorCollision();
 
             removeDeadActors();
-            removeProjectiles();
 
             SDL_RenderClear(m_renderer);
 
@@ -155,71 +153,6 @@ namespace jumper
         auto it2 = std::find(m_renderables.begin(), m_renderables.end(), a);
         m_renderables.erase(it2);
     }
-
-//    void Game::checkPlayerCollision()
-//    {
-//        set<Actor*> to_remove;
-//        KillAnimation* anim = 0;
-//        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-//        {
-//            Actor* a = *it;
-//            if (a->getHealth() <= 0)
-//            {
-//                to_remove.insert(a);
-//            }
-//
-//            // Check for self collision
-//            if (a != m_player)
-//            {
-//                Collision c = m_player->getCollision(*a);
-//
-//                // Simple items can be collected on the fly
-//                if (a->type() == ITEM && c.type() != NONE)
-//                {
-//                    to_remove.insert(a);
-//                }
-//
-//                // If an collection with an enemy occured, check
-//                // who killed whom (Player only can kill enemies
-//                // when falling down.
-//                if (a->type() == ENEMY && c.type() != NONE)
-//                {
-//                    if (c.type() == BOOM)
-//                    {
-//                        cout << "PLAYER KILLED" << endl;
-//                    }
-//                    else if (c.type() == DOWN)
-//                    {
-//                        to_remove.insert(a);
-//                        anim = new KillAnimation(a);
-//                    }
-//                }
-//
-//                if (a->type() == PUZZLEBOX)
-//                {
-//                    PuzzleBox* b = static_cast<PuzzleBox*>(a);
-//                    m_player->resolveCollision(*a);
-//                    if (c.type() == UP)
-//                    {
-//                        b->setHit(true);
-//                    }
-//                }
-//            }
-//        }
-//
-//        // Remove actors that were killed in this loop. We have to
-//        // store them separately because otherwise we would corrupt
-//        // to loop structure
-//        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-//        {
-//            removeActor(*i);
-//        }
-//
-//        if (anim)
-//        {
-//            m_renderables.push_back(anim);
-//        }
-//    }
 
     // This method corrects the position of the player, if its leaving the borders of the camera.
     // It is invoked by Game::update()
@@ -292,31 +225,6 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
-    }
-
-    void Game::removeProjectiles()
-    {
-        set<Actor*> to_remove;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
-
-            if (a->type() == PROJECTILE)
-            {
-                if (!a->visible() || a->is_hit())
-                {
-                    to_remove.insert(a);
-                }
-            }
-        }
-
-        // Remove actors that were killed in this loop. We have to
-        // store them separately because otherwise we would corrupt
-        // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
-            removeActor(*i);
-        }
     }
 
     void Game::checkActorCollision()

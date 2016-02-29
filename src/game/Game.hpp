@@ -70,16 +70,9 @@ namespace jumper
 
         void moveActors();
 
-//        void checkPlayerCollision();
-
         void checkCameraCollision();
 
         void removeActor(Actor* a);
-
-        /**
-         * Removes projectiles which are out of view.
-         */
-        void removeProjectiles();
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.

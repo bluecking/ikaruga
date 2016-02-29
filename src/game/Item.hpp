@@ -44,6 +44,7 @@ public:
 
 	/// Destructor.
 	virtual ~Item();
+	virtual void resolveCollision(Actor& other);
 };
 
 } // namespace jumper
