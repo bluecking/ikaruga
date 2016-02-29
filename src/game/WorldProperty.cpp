@@ -7,7 +7,7 @@ namespace jumper
 {
 
 WorldProperty::WorldProperty()
-	: m_damping(0.95,0.95), m_scrollingSpeed(100, 0)
+	: m_damping(0.95,0.95), m_scrollingSpeed(0, 0)
 {
 
 }
