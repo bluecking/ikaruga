@@ -31,6 +31,7 @@ namespace jumper
         Renderable::m_camera.m_height = h;
         /// Initialize SDL stuff
         initSDL();
+        this->actRenderID=0;
     }
 
     MainWindow::~MainWindow()
@@ -69,7 +70,17 @@ namespace jumper
                 }
             }
 
-            m_game->update(currentKeyStates, keyDown);
+            switch(this->actRenderID){
+                case MainWindow::RENDER_MAINMENU:
+                    break;
+                case MainWindow::RENDER_GAME:
+                    m_game->update(currentKeyStates, keyDown);
+                    break;
+                case MainWindow::RENDER_ITEMSHOP:
+                    break;
+                case MainWindow::RENDER_CREDITS:
+                    break;
+            }
 
             // reset key down
             for (int i = 0; i < SDL_NUM_SCANCODES; i++)
@@ -80,6 +91,10 @@ namespace jumper
             // sleep not needed time
             limitFPS();
         }
+    }
+
+    void MainWindow::setActualScreen(int ID){
+        this->actRenderID=ID;
     }
 
     void MainWindow::setGame(Game* game)
