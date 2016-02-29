@@ -108,6 +108,7 @@ private:
 	float posRelativToGrid(float pos, int grid);
 	float gridToPos(int grid);
 	int posToGrid(float pos);
+	bool tileInRange(Vector2i& tile);
 
 	/// Tile width
 	int					m_tileWidth;
