@@ -53,7 +53,7 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
-            physics().setVelocity(level.collide(position(), w(), h(), d_move, this));
+            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity(), this));
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
