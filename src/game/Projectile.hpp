@@ -32,9 +32,17 @@ namespace jumper
         void launch()
         { m_launched = true; }
 
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        void resolveCollision(Actor& other);
+
+        virtual SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;
         bool m_launched;
+    private:
+        Vector2f m_lastPosition = 0;
     };
 }
 

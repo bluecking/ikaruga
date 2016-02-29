@@ -14,6 +14,7 @@
 #include "Actor.hpp"
 #include "Vector.hpp"
 #include "Armed.hpp"
+#include "Sound.hpp"
 
 namespace jumper
 {
@@ -60,11 +61,32 @@ namespace jumper
         template<typename T>
         friend std::ostream& operator<<(std::ostream& stream, const Vector2<T>& vec);
 
+        /**
+         * Sets the sound the player should make, when hit
+         *
+         * @param soundfile the path to the sound
+         */
+        void setHitMarkSound(std::string soundfile);
+
     private:
         Vector2f m_moveDirection;
+
+        //the sound file
+        Sound m_hitMarkSound;
     public:
         virtual void shoot();
+
+        /**
+         * Gets invoked when the player moves up or down.
+         * So the player gets rendered with a different texture,
+         * and the hitbox is updated to a proper size and position.
+         */
         void updateMoveAnimation();
+
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
     };
 }
 
