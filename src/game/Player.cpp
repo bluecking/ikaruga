@@ -81,8 +81,6 @@ namespace jumper
 
     void Player::onCollide()
     {
-        std::cout << "CRASH!" << std::endl;
-
         return;
     }
 
