@@ -129,11 +129,22 @@ namespace jumper
     {
         m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
     }
+
+    void Player::setHitMarkVolume(int volume)
+    {
+        m_hitMarkVolume = volume;
+    }
+
+
     void Player::resolveCollision(Actor& other)
     {
         if(other.type() == ENEMY) {
             setHit(true);
             takeDamage(500);
         }
+    }
+
+    void Player::playHitMark() {
+        m_hitMarkSound.play(m_hitMarkVolume);
     }
 }

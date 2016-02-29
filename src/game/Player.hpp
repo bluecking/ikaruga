@@ -66,11 +66,25 @@ namespace jumper
          */
         void setHitMarkSound(std::string soundfile);
 
+        /**
+         * Sets the volume the hitmarksound should be played with
+         *
+         * @param volume the volume
+         */
+        void setHitMarkVolume(int volume);
+
+        /**
+         * plays the hitmarksound
+         */
+        void playHitMark();
     private:
         Vector2f m_moveDirection;
 
         //the sound file
         Sound m_hitMarkSound;
+
+        //the volume of the hitmarksound
+        int m_hitMarkVolume;
     public:
         virtual void shoot();
 

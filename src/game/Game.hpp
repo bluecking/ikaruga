@@ -73,6 +73,9 @@ namespace jumper
         /// set bots
         void addBot(Bot* bot);
 
+
+        void setSound(std::string soundFile, int volume);
+
         Vector2f getPlayerPosition();
 
         void setSound(std::string soundFile);
@@ -132,6 +135,8 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+
+        int m_volume;
 
         /**
          * Is invoked by Game::update() and checks if an Actor collides with another Actor.

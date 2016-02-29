@@ -51,10 +51,13 @@ namespace jumper {
          */
         Sound(string filename, int type);
 
+
         /**
          * Plays the sound
+         *
+         * @param volume the volume the sound should be played with
          */
-        void play();
+        void play(int volume);
 
         /**
          * stops Playing
@@ -77,6 +80,8 @@ namespace jumper {
 
         //The Type of the Sound
         int m_type;
+
+        int m_channel;
     };
 };
 

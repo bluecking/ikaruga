@@ -32,22 +32,24 @@ namespace jumper {
         }
     }
 
-    void Sound::play(){
+    void Sound::play(int volume){
         if(m_type == SoundType::SONG && !Mix_PlayingMusic()) {
             Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
 
             if(song == NULL ){
                 std::cout << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayMusic( song, 0);
+            Mix_VolumeMusic(volume);
+            Mix_PlayMusic(song, 0);
         } else if(m_type == SoundType::SOUND) {
-            Mix_HaltChannel(-1);
             Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
 
             if(sound == NULL ){
                 std::cout << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayChannel( -1, sound, 0 );
+            Mix_Volume(-1, volume);
+            Mix_PlayChannel(-1, sound, 0 );
+            Mix_FadeOutChannel(-1,sound->alen/9*10);
         }
     }
 
