@@ -16,6 +16,7 @@ namespace jumper
     Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
     {
+        m_type=ActorType::ENEMY;
         m_physicalProps.setMoveForce(Vector2f(0, 0));
         m_physicalProps.setMaxRunVelocity(50);
 

@@ -136,7 +136,7 @@ namespace jumper
          */
         void removeDeadActors();
         vector<Bot*> m_bots;
-        //
+
         Sound m_sound;
 
     };
