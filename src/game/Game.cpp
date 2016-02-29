@@ -8,7 +8,6 @@
 #include "Game.hpp"
 #include "CollisionManager.hpp"
 
-#include <algorithm>
 #include <set>
 
 using std::set;
@@ -54,7 +53,7 @@ namespace jumper
 
         for (auto it = m_bots.begin(); it != m_bots.end(); it++)
         {
-            if ((*it)->position().x() < curPos+PIXELS_OFFSET_SPAWN_BOTS)
+            if ((*it)->position().x() < curPos + PIXELS_OFFSET_SPAWN_BOTS)
             {
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
@@ -275,12 +274,19 @@ namespace jumper
 
     void Game::removeDeadActors()
     {
+        vector<Actor*> to_remove;
+
         for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
         {
             if ((*it)->getHealth() <= 0)
             {
-                removeActor(*it);
+                to_remove.push_back(*it);
             }
+        }
+
+        for (auto actor : to_remove)
+        {
+            removeActor(actor);
         }
     }
 } /* namespace jumper */

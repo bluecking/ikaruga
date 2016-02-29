@@ -119,6 +119,11 @@ namespace jumper
 
         virtual SDL_Rect& getHitbox();
 
+        void setHit(bool hit)
+        {
+            m_hit = hit;
+        }
+
         const bool& is_hit() const;
 
         void setLiveTime();

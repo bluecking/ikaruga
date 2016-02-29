@@ -47,7 +47,7 @@ namespace jumper
          * @param frameHeight	The height of the frames within the texture
          * @param numFrames		The number of frames in the texture
          */
-        Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc);
 
         virtual ~Bot();
 

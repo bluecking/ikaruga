@@ -13,7 +13,7 @@ using std::endl;
 namespace jumper
 {
 
-    Bot::Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
+    Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
     {
         m_physicalProps.setMoveForce(Vector2f(0, 0));
@@ -21,6 +21,8 @@ namespace jumper
 
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
         m_health = 2000;
+
+        m_type = ActorType::ENEMY;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
@@ -96,7 +98,4 @@ namespace jumper
     {
         // TODO Auto-generated destructor stub
     }
-
-
-
 } /* namespace jumper */
