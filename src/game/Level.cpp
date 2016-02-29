@@ -472,9 +472,9 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int upY = gridToPos(tiles[0].y());
 
-					if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
+					if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x())) // check if we would collide in next step
 					{
-						y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+						y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y(); // stop before you are stuck in edge
 
 						actor->onCollide();
 					}
@@ -504,9 +504,9 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int downY = gridToPos(tiles[1].y() + 1);
 
-					if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
+					if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()))) // check if we would collide in next step
 					{
-						y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+						y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x())) - (pos.y() + height); // stop before you are stuck in edge
 
 						actor->onCollide();
 					}
@@ -596,9 +596,9 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int upY = gridToPos(tiles[0].y());
 
-					if (pos.y() + y < upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1) // check if we would collide in next step
+					if (pos.y() + y < upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x())) // check if we would collide in next step
 					{
-						y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+						y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y(); // stop before you are stuck in edge
 
 						actor->onCollide();
 					}
@@ -628,9 +628,9 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int downY = gridToPos(tiles[1].y() + 1);
 
-					if (pos.y() + y + height > downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1)) // check if we would collide in next step
+					if (pos.y() + y + height > downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()))) // check if we would collide in next step
 					{
-						y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+						y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x())) - (pos.y() + height); // stop before you are stuck in edge
 
 						actor->onCollide();
 					}
@@ -722,18 +722,18 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
-				if (pos.y() + y + height > downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1)
+				if (pos.y() + y + height > downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())))
 				{
-					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
+					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x()))) - (pos.y() + height);
 				}
 			}
 			else if (t1 != EDGEDOWNLEFT) // t2 == EDGEDOWNRIGHT, slope collision right
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
-				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width, tiles[1].x())) + 1)
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width, tiles[1].x())))
 				{
-					y = (downY - (posRelativToGrid(pos.x() + width, tiles[1].x())) + 1) - (pos.y() + height);
+					y = (downY - (posRelativToGrid(pos.x() + width, tiles[1].x()))) - (pos.y() + height);
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
@@ -800,18 +800,18 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
-				if(pos.y() + y < downY - posRelativToGrid(pos.x(), tiles[0].x()) + 1)
+				if(pos.y() + y < downY - posRelativToGrid(pos.x(), tiles[0].x()))
 				{
-					y = (downY - posRelativToGrid(pos.x(), tiles[0].x()) + 1) - pos.y();
+					y = (downY - posRelativToGrid(pos.x(), tiles[0].x())) - pos.y();
 				}
 			}
 			else if (t1 != EDGETOPLEFT) // t2 == EDGETOPRIGHT, slope collision left
 			{
 				float upY = gridToPos(tiles[1].y());
 
-				if(pos.y() + y < upY + posRelativToGrid(pos.x() + width, tiles[1].x()) + 1)
+				if(pos.y() + y < upY + posRelativToGrid(pos.x() + width, tiles[1].x()))
 				{
-					y = (upY + posRelativToGrid(pos.x() + width, tiles[1].x()) + 1) - pos.y();
+					y = (upY + posRelativToGrid(pos.x() + width, tiles[1].x())) - pos.y();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision left
