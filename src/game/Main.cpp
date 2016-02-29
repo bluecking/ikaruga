@@ -189,5 +189,4 @@ int main(int argc, char** argv)
 
     // Free textures
     TextureFactory::instance(window.getRenderer()).deleteAll();
-
 }
