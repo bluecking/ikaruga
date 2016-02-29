@@ -719,67 +719,20 @@ Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Act
 			}
 			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
 			{
-				float maxMovEdge = nextEdge(pos.y(), height, tiles[0].y(), 1);
+				float downY = gridToPos(tiles[0].y() + 1);
 
-				float movRec = y - maxMovEdge;
-
-				y = std::min(y, maxMovEdge);
-
-				int leftX = gridToPos(tiles[0].x());
-
-				if (pos.x() < leftX + posRelativToGrid(pos.y() + height + y, tiles[0].y()) + 1) // check if we would collide in next step
+				if (pos.y() + y + height > downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1)
 				{
-					x = leftX + posRelativToGrid(pos.y() + height + y, tiles[0].y()) - pos.y() + 1; // stop before you are stuck in edge
-
-					actor->onCollide();
-				}
-
-				bool unused = true;
-
-				float x2 = collideX(Vector2f(pos.x(), pos.y() + y), width, height, Vector2f(x, 0), actor, unused).x(); // repeation
-
-				y -= x - x2;
-				x = x2;
-
-				if (movRec > 0 && posToGrid(pos.x() + x) != tiles[0].x())
-				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(0, movRec), actor);
-
-					x += newMov.x();
-					y += newMov.y();
+					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
 				}
 			}
 			else if (t1 != EDGEDOWNLEFT) // t2 == EDGEDOWNRIGHT, slope collision right
 			{
-				float maxMovEdge = nextEdge(pos.y(), height, tiles[1].y(), 1);
+				float downY = gridToPos(tiles[0].y() + 1);
 
-				float movRec = y - maxMovEdge;
-
-				y = std::min(y, maxMovEdge);
-
-				int rightX = gridToPos(tiles[1].x() + 1);
-
-				if (pos.x() + width > rightX - (posRelativToGrid(pos.y() + height + y, tiles[1].y()) + 1)) // check if we would collide in next step
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1)
 				{
-					x = rightX - (posRelativToGrid(pos.y() + height + y, tiles[1].y()) + 1) -
-						(pos.x() + width); // stop before you are stuck in edge
-
-					actor->onCollide();
-				}
-
-				bool unused = true;
-
-				float x2 = collideX(Vector2f(pos.x(), pos.y() + y), width, height, Vector2f(x, 0), actor, unused).x(); // repeation
-
-				y -= x2 - x;
-				x = x2;
-
-				if (movRec > 0 && posToGrid(pos.x() + x + width) != tiles[1].x())
-				{
-					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(0, movRec), actor);
-
-					x += newMov.x();
-					y += newMov.y();
+					y = (downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
