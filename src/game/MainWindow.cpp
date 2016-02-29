@@ -77,6 +77,7 @@ namespace jumper
                     m_game->update(currentKeyStates, keyDown);
                     break;
                 case MainWindow::RENDER_ITEMSHOP:
+                    ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
                     break;
                 case MainWindow::RENDER_CREDITS:
                     break;

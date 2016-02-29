@@ -13,6 +13,7 @@
 
 #include "Game.hpp"
 #include "WorldProperty.hpp"
+#include "ItemShop.hpp"
 
 namespace jumper
 {
