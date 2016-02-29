@@ -338,10 +338,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 	pos += Vector2f(move.x(), 0);
 
+	float y = move.y();
+
 	if (checkY)
 	{
-		move = collideY(pos, width, height, move, actor);
+		y = collideY(pos, width, height, y, actor);
 	}
+
+	move.setY(y);
 
 	return move;
 }
@@ -475,7 +479,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						actor->onCollide();
 					}
 
-					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 					x -= y - y2;
 					y = y2;
@@ -507,7 +511,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						actor->onCollide();
 					}
 
-					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 					x -= y2 - y;
 					y = y2;
@@ -599,7 +603,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						actor->onCollide();
 					}
 
-					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 					x += y - y2;
 					y = y2;
@@ -631,7 +635,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						actor->onCollide();
 					}
 
-					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 					x += y2 - y;
 					y = y2;
@@ -654,11 +658,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 		return Vector2f(x, y);
 	}
 
-Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Actor* actor)
+float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor)
 {
-	float x = move.x();
-	float y = move.y();
-
 	std::vector<Vector2i> tiles;
 
 	if (y != 0)
@@ -820,7 +821,7 @@ Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Act
 		}
 	}
 
-	return Vector2f(x, y);
+	return y;
 }
 
 

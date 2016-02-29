@@ -102,7 +102,7 @@ private:
 	void getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
 	Vector2f collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
 	Vector2f collideX(Vector2f pos, int width, int height, Vector2f move, Actor* actor, bool& checkY);
-	Vector2f collideY(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
+	float collideY(Vector2f pos, int width, int height, float y, Actor* actor);
 
 	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
 	float posRelativToGrid(float pos, int grid);
