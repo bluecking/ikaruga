@@ -60,7 +60,9 @@ void setupBackground(XML::Background background,std::string filepath,MainWindow*
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
     float scrollspeed = background.scrollspeed * 1.0;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+
     layer->setScrollSpeed(scrollspeed);
+    game->setSound(background.soundfile);
     game->setLayer(layer);
 }
 
@@ -89,20 +91,38 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
+    //magic
+    std::size_t found = filepath.find_last_of("/\\");
+    string sound_path = filepath.substr(0,found);
+    string doubleDots = "..";
+    found = xplayer.explosionSoundFile.find_first_of(doubleDots);
+    string filename = xplayer.explosionSoundFile.substr(found+doubleDots.length(),xplayer.explosionSoundFile.length());
+    player->setExplosionSound(sound_path+filename);
+
+    found = xplayer.hitSoundFile.find_first_of(doubleDots);
+    filename = xplayer.hitSoundFile.substr(found+doubleDots.length(),xplayer.hitSoundFile.length());
+    player->setHitMarkSound(filename);
     // set weapon
 
     // TODO dynamic weapon attributes
 
-    Vector2i* textureSize = new Vector2i(6, 6);
-    Vector2f* weaponOffset = new Vector2f(25, 18.5f);
-    Vector2f* projectileColorOffset = new Vector2f(6, 0);
-    float coolDown = 0.2f;
+
+    XML::Weapon weapon = xplayer.stdWeapon;
+
+
+
+    Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+    Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+    Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+    float coolDown = weapon.cooldown;
+
+
     SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-            filepath + "/../images/laser_shot.png");
+            filepath +"/"+weapon.filename);
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
 
-                            coolDown));
+                            coolDown, weapon.soundfile));
 
 
     game->setPlayer(player);
@@ -134,6 +154,13 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
         getBotProperty(*it, p);
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
+
+        std::size_t found = filepath.find_last_of("/\\");
+        string sound_path = filepath.substr(0,found);
+        string doubleDots = "..";
+        found = (*it).type.explosionSoundFile.find_first_of(doubleDots);
+        string filename = (*it).type.explosionSoundFile.substr(found+doubleDots.length(),(*it).type.explosionSoundFile.length());
+        bot->setExplosionSound(filepath + filename);
 
         game->addBot(bot);
     }

@@ -75,6 +75,9 @@ namespace jumper
 
         Vector2f getPlayerPosition();
 
+        void setSound(std::string soundFile);
+
+
     private:
 
         const int PIXELS_OFFSET_SPAWN_BOTS = 40;

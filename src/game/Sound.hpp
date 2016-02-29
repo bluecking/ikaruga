@@ -39,9 +39,17 @@ namespace jumper {
          *
          * @param filename a relative path to the base to the soundfile
          * @param type the type of the sound
-         * @level the levelFile
+         * @param level the levelFile
          */
         Sound(string filename, int type, Level &level);
+
+        /**
+         * Constructor to create a sound
+         *
+         * @param filename a relative path to the base to the soundfile
+         * @param type the type of the sound
+         */
+        Sound(string filename, int type);
 
         /**
          * Plays the sound

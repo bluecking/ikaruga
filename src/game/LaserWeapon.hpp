@@ -21,7 +21,8 @@ namespace jumper
                     const Vector2i& projectileTextureSize,
                     const Vector2f& weaponOffset,
                     const Vector2f& projectileColorOffset,
-                    float coolDown);
+                    float coolDown,
+                    std::string sound);
 
         /**
          * Shoots a single projectile in a straight line

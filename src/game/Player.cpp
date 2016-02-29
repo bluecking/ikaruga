@@ -4,6 +4,7 @@
 
 
 #include "Player.hpp"
+#include "Sound.hpp"
 
 using std::cout;
 using std::endl;
@@ -124,6 +125,10 @@ namespace jumper
         }
     }
 
+    void Player::setHitMarkSound(std::string soundfile)
+    {
+        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
+    }
     void Player::resolveCollision(Actor& other)
     {
         if(other.type() == ENEMY) {

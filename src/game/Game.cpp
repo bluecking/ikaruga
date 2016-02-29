@@ -85,8 +85,6 @@ namespace jumper
     {
         m_level = level;
         m_renderables.push_back(level);
-
-        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()
@@ -289,9 +287,14 @@ namespace jumper
             }
         }
 
+
         for (auto actor : to_remove)
         {
             removeActor(actor);
         }
+    }
+
+    void Game::setSound(std::string soundFile){
+        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
     }
 } /* namespace jumper */
