@@ -30,7 +30,11 @@ namespace jumper
         void launch()
         { m_launched = true; }
 
-        virtual void resolveCollision(Actor& other) override;
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        void resolveCollision(Actor& other);
+
         virtual SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;

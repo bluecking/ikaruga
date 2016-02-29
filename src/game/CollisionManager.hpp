@@ -11,13 +11,22 @@
 #include <vector>
 #include "Actor.hpp"
 
-using std::vector;
-using jumper::Actor;
-
-class CollisionManager
+namespace jumper
 {
-public:
-    void checkCollision(vector<Actor*>& actors);
-};
+    using std::vector;
+    using jumper::Actor;
+
+    class CollisionManager
+    {
+    public:
+        /**
+         * Sorts actors vector by their x position and uses sweep and prune algorithm
+         * to invoke the resolveCollision method in O(n * log(n)) time complexity.
+         *
+         * @parameter actors Vector of available actors in the game.
+         */
+        void checkCollision(vector<Actor*>& actors);
+    };
 
 #endif //SRC_COLLISIONMANAGER_HPP
+}

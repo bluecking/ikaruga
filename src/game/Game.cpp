@@ -91,6 +91,7 @@ namespace jumper
             m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
             m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
             m_statusBar->setHealth(m_player->getHealth());
+
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
@@ -111,13 +112,13 @@ namespace jumper
             }
             m_player->setMoveDirection(moveDirection);
 
+            removeDeadActors();
+
             moveActors();
             scrollHorizontal();
 
             checkCameraCollision();
             checkActorCollision();
-
-            removeDeadActors();
 
             SDL_RenderClear(m_renderer);
 

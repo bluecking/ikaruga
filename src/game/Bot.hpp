@@ -50,11 +50,15 @@ namespace jumper
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);
 
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
         virtual void resolveCollision(Actor& other) override;
     private:
         int m_move_type;
         int m_move_type_height;
         int m_speed;
+        const int DAMAGE_BY_PROJECTILE = 500;
     };
 
 } /* namespace jumper */

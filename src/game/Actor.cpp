@@ -22,7 +22,6 @@ namespace jumper
         m_startTicks = 0;
         m_type = PLAYER;
 
-        const float HITBOXFACTOR = 0.8;
         m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
         m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
@@ -64,7 +63,6 @@ namespace jumper
 
     void Actor::render()
     {
-        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
         SDL_Rect target;
 
         target.x = (int) floor(m_physicalProps.position().x() - m_camera.x());
@@ -97,8 +95,7 @@ namespace jumper
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
             }
 
-            // TODO: Comment next line in production versions
-            renderHitbox();
+//            renderHitbox();
         }
 
     }
@@ -247,7 +244,7 @@ namespace jumper
         SDL_RenderDrawRect(getRenderer(), &hitbox);
     }
 
-    bool Actor::is_hit()
+    const bool& Actor::is_hit() const
     {
         return m_hit;
     }

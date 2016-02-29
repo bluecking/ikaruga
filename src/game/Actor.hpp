@@ -67,9 +67,13 @@ namespace jumper
             m_hit = hit;
         }
 
-        /** Is invoked if the actor collides with another actor
+        /**
+         * Is invoked if the actor collides with another actor
          * It is pure virtual, since the subclasses react differently on
-         * collisions with different actors. */
+         * collisions with different actors.
+         *
+         * @parameter other The actor instance which collided with this instance
+         */
         virtual void resolveCollision(Actor& other) = 0;
 
         virtual void render();
@@ -95,7 +99,7 @@ namespace jumper
 
         bool hasFocus();
 
-        ActorType type() { return m_type; }
+        const ActorType& type() { return m_type; }
 
         void setType(ActorType t) { m_type = t; }
 
@@ -120,7 +124,7 @@ namespace jumper
 
         virtual SDL_Rect& getHitbox();
 
-        bool is_hit();
+        const bool& is_hit() const;
 
     protected:
 
@@ -149,6 +153,12 @@ namespace jumper
 
         bool m_hit = false;
     private:
+        /** The hitbox size is reduced to this factor */
+        const float HITBOXFACTOR = 0.8;
+
+        /** The opacity level that is rendered, when an actor was hit */
+        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
+
         void renderHitbox();
     };
 

@@ -92,8 +92,9 @@ namespace jumper
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
-            m_hitbox.h = 25;
-            m_hitbox.y -= 40;
+            // TODO: Set the hitbox dynamically
+            m_hitbox.h = (int) (frameHeight() * 0.5);;
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = UPHALF; break;
                 case DOHALF:     m_nextTileRow = NORMAL; break;
@@ -103,8 +104,8 @@ namespace jumper
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
-            m_hitbox.h = 25;
-            m_hitbox.y -= 40;
+            m_hitbox.h = (int) (frameHeight() * 0.5);
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = DOHALF; break;
                 case UPHALF:     m_nextTileRow = NORMAL; break;
@@ -125,10 +126,9 @@ namespace jumper
 
     void Player::resolveCollision(Actor& other)
     {
-        switch(other.type()) {
-            case ENEMY:
-                m_health = 0;
-                break;
+        if(other.type() == ENEMY) {
+            setHit(true);
+            takeDamage(500);
         }
     }
 }

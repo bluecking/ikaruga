@@ -116,7 +116,14 @@ namespace jumper
 
         bool m_started;
 
+        /**
+         * Is invoked by Game::update() and checks if an Actor collides with another Actor.
+         */
         void checkActorCollision();
+
+        /**
+         * Is invoked by Game::update() and remove Actors with health below 0.
+         */
         void removeDeadActors();
     };
 

@@ -19,7 +19,8 @@ namespace jumper
 
     SDL_Rect& Projectile::getHitbox()
     {
-        SDL_Rect hitbox = Actor::getHitbox();
+        SDL_Rect& hitbox = Actor::getHitbox();
+        hitbox.x = position().x();
         hitbox.w = (int) fabs(m_lastPosition.x() - position().x());
         return hitbox;
     }
