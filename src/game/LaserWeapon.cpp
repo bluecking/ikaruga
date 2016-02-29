@@ -32,7 +32,7 @@ namespace jumper
         m_game.addActor(projectile);
     }
 
-    //TODO ~ Set Weapon Name and Evolution Stage from XML
+    //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
     LaserWeapon::LaserWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,

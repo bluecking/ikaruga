@@ -76,6 +76,7 @@ namespace jumper
     {
         if (m_started)
         {
+            m_sound.play();
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -265,7 +266,6 @@ namespace jumper
 
     void Game::start()
     {
-        m_sound.play();
         m_started = true;
     }
 

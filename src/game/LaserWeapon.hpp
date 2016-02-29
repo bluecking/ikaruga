@@ -9,7 +9,6 @@
 
 #include <SDL_render.h>
 #include "Weapon.hpp"
-#include "Sound.hpp"
 
 namespace jumper
 {
@@ -32,7 +31,6 @@ namespace jumper
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
 
-        Sound m_sound;
     };
 
 } /* namespace jumper */

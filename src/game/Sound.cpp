@@ -25,7 +25,7 @@ namespace jumper {
     }
 
     void Sound::play(){
-        if(m_type == SONG) {
+        if(m_type == SONG && !Mix_PlayingMusic()) {
             Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
 
             if(song == NULL ){
