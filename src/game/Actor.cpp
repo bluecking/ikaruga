@@ -28,7 +28,8 @@ namespace jumper
         //TODO: this should not be hardcoded
         m_health = 100;
 
-        m_spawnTime = SDL_GetTicks();
+        setLiveTime();
+
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -52,6 +53,12 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0;
         m_startTicks = ticks;
         return time;
+    }
+
+    void Actor::setLiveTime()
+    {
+
+        m_spawnTime = SDL_GetTicks();
     }
 
     float Actor::getLiveTime()

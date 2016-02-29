@@ -62,11 +62,6 @@ namespace jumper
 
         virtual Collision getCollision(Actor& other);
 
-        void setHit(bool hit)
-        {
-            m_hit = hit;
-        }
-
         /**
          * Is invoked if the actor collides with another actor
          * It is pure virtual, since the subclasses react differently on
@@ -125,6 +120,8 @@ namespace jumper
         virtual SDL_Rect& getHitbox();
 
         const bool& is_hit() const;
+
+        void setLiveTime();
 
     protected:
 

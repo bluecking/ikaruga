@@ -25,6 +25,13 @@ public:
         std::string stdWeapon;
     };
 
+    struct Weapon{
+        std::string type;
+        std::string filename;
+        int colorOffsetX;
+        int colorOffsetY;
+    };
+
     struct Player{
         std::string filename;
         int numFrames;
@@ -32,7 +39,7 @@ public:
         int frameHeight;
         int positionX;
         int positionY;
-        std::string stdWeapon;
+        Weapon stdWeapon;
         int colorOffsetX;
         int colorOffsetY;
         float moveForceX;
@@ -83,14 +90,7 @@ public:
         int scrollspeed;
     };
 
-    struct Weapon{
-        std::string type;
-        std::string filename;
-        int colorOffsetX;
-        int colorOffsetY;
-    };
-
-    struct Statusbar{
+   struct Statusbar{
         std::string filename;
         int frameWidth;
         int frameHeight;

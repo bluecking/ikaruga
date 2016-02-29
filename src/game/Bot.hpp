@@ -8,10 +8,14 @@
 #ifndef SRC_BOT_HPP_
 #define SRC_BOT_HPP_
 
+#define _USE_MATH_DEFINES
+
 #include "Actor.hpp"
 #include "Level.hpp"
 #include <math.h>
 #include <time.h>
+
+#include "../xml/XML.hpp"
 
 namespace jumper
 {
@@ -58,6 +62,7 @@ namespace jumper
         int m_move_type;
         int m_move_type_height;
         int m_speed;
+        XML::NPC m_npc;
         const int DAMAGE_BY_PROJECTILE = 500;
     };
 

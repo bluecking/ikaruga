@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     << "Player - frameHeight: " << m_xml.getPlayer().frameHeight << endl
     << "Player - positionX: " << m_xml.getPlayer().positionX << endl
     << "Player - positionY: " << m_xml.getPlayer().positionY << endl
-    << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon << endl
+    << "Player - stdWeapon: " << m_xml.getPlayer().stdWeapon.type << endl
     << "Player - colorOffsetX: " << m_xml.getPlayer().colorOffsetX << endl
     << "Player - colorOffsetY: " << m_xml.getPlayer().colorOffsetY << endl
     << "Player - moveForceX: " << m_xml.getPlayer().moveForceX << endl

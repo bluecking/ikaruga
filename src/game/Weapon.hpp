@@ -10,6 +10,7 @@
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
 #include "Vector.hpp"
+#include "Sound.hpp"
 using std::string;
 
 namespace jumper
@@ -72,6 +73,9 @@ namespace jumper
          */
         int getEvolutionStage(void)
         { return m_evolution; }
+
+        // The sound, the Weapon should make
+        Sound m_sound;
 
     protected:
         // Game where to add the projectiles
