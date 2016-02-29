@@ -56,7 +56,6 @@ void setupLevel(MainWindow* w,Game* game,std::string filepath)
 //Creates the Levelbackground
 void setupBackground(XML::Background background,std::string filepath,MainWindow* w,Game* game)
 {
-
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
     float scrollspeed = background.scrollspeed * 1.0;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
@@ -72,25 +71,19 @@ void setupStatusbar(MainWindow* w, Game* game ,XML::Statusbar statusbar, std::st
     StatusBar * bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight, statusbar.capitalOffset,
                                     statusbar.minusculeOffset,statusbar.numberOffset, statusbar.letterCount, statusbar.offsetToMid);
 
-
     int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
 
     int xEnd = w->w()-1;
     bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
     game->setStatusBar(bar);
-
-
-
 }
 //create Player
 void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepath)
 {
-
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
     // set weapon
-
     // TODO dynamic weapon attributes
 
     Vector2i* textureSize = new Vector2i(6, 6);
@@ -101,9 +94,8 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
             filepath + "/../images/laser_shot.png");
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
-
-                            coolDown));
-
+                            coolDown)
+    );
 
     game->setPlayer(player);
     player->setFocus(true);
@@ -124,8 +116,6 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
 {
     for (auto it = begin(bots); it != end(bots); it++)
     {
-
-
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+(*it).type.filename);
 
         Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
@@ -139,22 +129,17 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
     }
 }
 
-
 void setupGame(string filename, MainWindow* w, Game* game)
 {
     std::size_t found = filename.find_last_of("/\\");
     string path = filename.substr(0, found);
     XML xml = XML(filename);
 
-
     //create Level
    setupLevel(w,game,path+"/"+xml.getTileset());
 
     //create Background layer
     setupBackground(xml.getBackground(),path+"/"+xml.getBackground().filename,w,game);
-
-
-
 
     //add statusbar
     setupStatusbar(w,game,xml.getStatusbar(),path+"/"+xml.getStatusbar().filename);
@@ -164,20 +149,15 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
    //setup bots
     setupBots(xml.getLevelBots(),w,game,path);
-
-
-
-
 }
 
 int main(int argc, char** argv)
 {
-
-/* if(argc != 2)
-    {
-        std::cout << "Please specify a level to render" << std::endl;
-        return -1;
-    }*/
+//    if(argc != 2)
+//    {
+//        std::cout << "Please specify a level to render" << std::endl;
+//        return -1;
+//    }
 
     MainWindow window("Ikaruga", 625, 576);
     //Game game(&window);
