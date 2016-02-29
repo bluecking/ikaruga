@@ -209,7 +209,7 @@ int main(int argc, char** argv)
 //        return -1;
 //    }
 
-    MainWindow window("Ikaruga");
+    MainWindow window("Ikaruga", 625, 576);
 //    Game game(&window);
 //    setupGame(argv[1], &window, &game);
 //

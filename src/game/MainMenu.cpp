@@ -6,7 +6,6 @@
 * @date 29 Feb 2016
 */
 #include "MainMenu.hpp"
-#include "MainWindow.hpp"
 
 namespace jumper
 {
@@ -42,9 +41,8 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 
 
     MainMenu::MainMenu(MainWindow* win, fs::path resDir) :
-    m_window(win), m_resDir(resDir)
+    m_win(win), m_resDir(resDir)
     {
         m_levelFiles = findFiles(resDir, boost::regex("^.*\\.xml$"));
-
     }
 } //end of namespace jumper

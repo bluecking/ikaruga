@@ -35,7 +35,7 @@ private:
                                     boost::regex pattern);
 
     std::vector<fs::path> m_levelFiles;
-    MainWindow m_window;
+    MainWindow* m_win;
     fs::path m_resDir;
 };
 } //end of namespace jumper
