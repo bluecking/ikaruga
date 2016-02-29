@@ -15,7 +15,7 @@ namespace jumper
 {
     const int MainWindow::MAX_FPS = 60;
 
-    MainWindow::MainWindow(std::string title, int w, int h)
+    MainWindow::MainWindow(MainWindow* title)
             : m_startLoopTicks(0)
     {
         /// Init width and height

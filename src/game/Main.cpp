@@ -209,13 +209,13 @@ int main(int argc, char** argv)
 //        return -1;
 //    }
 
-    MainWindow window("Ikaruga", 625, 576);
+    MainWindow window("Ikaruga");
 //    Game game(&window);
 //    setupGame(argv[1], &window, &game);
 //
 //    window.setGame(&game);
 //    game.start();
-    window.setActualScreen(MainWindow::RENDER_GAME);
+    window.setActualScreen(MainWindow::RENDER_ITEMSHOP);
     window.run();
 
     // Free textures

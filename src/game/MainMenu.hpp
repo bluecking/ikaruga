@@ -11,15 +11,32 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/regex.hpp>
+#include <SDL_stdinc.h>
+#include "MainWindow.hpp"
 
 namespace fs = boost::filesystem;
 
 namespace jumper
 {
 class MainMenu {
+public:
+    MainMenu(MainWindow* win, fs::path resDir);
 
-    std::vector<fs::path> get_levels(const fs::path & path,
-                                     boost::regex pattern);
+    void update(const Uint8*& currentKeyStates, const bool* keyDown);
+
+private:
+    /**
+     * Searches files within a directory that match a regex pattern.
+     * @param path The directory path.
+     * @param pattern Regex pattern.
+     * @return All files within the given path that match the pattern.
+     */
+    std::vector<fs::path> findFiles(const fs::path& path,
+                                    boost::regex pattern);
+
+    std::vector<fs::path> m_levelFiles;
+    MainWindow m_window;
+    fs::path m_resDir;
 };
 } //end of namespace jumper
 

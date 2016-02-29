@@ -32,7 +32,7 @@ namespace jumper
          * @param w			Width
          * @param h			Height
          */
-        MainWindow(std::string title, int w, int h);
+        MainWindow(MainWindow* title);
 
         /**
          * Destructor.
