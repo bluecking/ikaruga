@@ -17,6 +17,9 @@
 #include "StatusBar.hpp"
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
+#include "Sound.hpp"
+
+#include "../xml/XML.hpp"
 
 #include <vector>
 
@@ -66,7 +69,12 @@ namespace jumper
         void setStatusBar(StatusBar * b)
         { m_statusBar = b; };
 
+        /// set bots
+        void addBot(Bot* bot);
+
     private:
+
+        const int PIXELS_OFFSET_SPAWN_BOTS = 40;
 
         void moveActors();
 
@@ -91,6 +99,8 @@ namespace jumper
          * Moves the player and camera for a given offset (m_scrollingSpeed)
          */
         void scrollHorizontal();
+
+        void spawnBots();
 
         float m_startTicks;
 
@@ -122,6 +132,10 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+
+        vector<Bot*> m_bots;
+        //
+        Sound m_sound;
 
     };
 

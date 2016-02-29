@@ -41,6 +41,36 @@ namespace jumper
     Game::~Game()
     {
         // TODO Auto-generated destructor stub
+        m_sound.stop();
+    }
+
+    void Game::addBot(Bot* bot)
+    {
+        m_bots.push_back(bot);
+    }
+
+    void Game::spawnBots()
+    {
+        int curPos = m_level->m_camera.x() + m_level->m_camera.w();
+
+        vector<Bot*> erease_bots;
+
+        for (auto it = m_bots.begin(); it != m_bots.end(); it++)
+        {
+            if ((*it)->position().x() < curPos+PIXELS_OFFSET_SPAWN_BOTS)
+            {
+                (*it)->setLiveTime();
+                erease_bots.push_back(*it);
+                addActor(*it);
+            }
+        }
+
+        for (auto it = erease_bots.begin(); it != erease_bots.end(); it++)
+        {
+            auto it1 = std::find(m_bots.begin(), m_bots.end(), *it);
+            m_bots.erase(it1);
+        }
+
     }
 
     void Game::setPlayer(Player* player)
@@ -54,6 +84,8 @@ namespace jumper
     {
         m_level = level;
         m_renderables.push_back(level);
+
+        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()
@@ -73,6 +105,7 @@ namespace jumper
     {
         if (m_started)
         {
+            m_sound.play();
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -110,6 +143,9 @@ namespace jumper
             m_player->setMoveDirection(moveDirection);
 
             moveActors();
+            //added spawn bots
+            spawnBots();
+
             scrollHorizontal();
             checkPlayerCollision();
             checkCameraCollision();
