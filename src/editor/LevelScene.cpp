@@ -108,7 +108,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
 
-    saveXml(filename);
+    //saveXml(filename);
 
 
 }
@@ -123,6 +123,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
 
 
+
     if(event->buttons() == Qt::LeftButton)
 
     {
@@ -130,7 +131,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 	if (!item_list.isEmpty())
 	{
 
-        if((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType()==1)
+        if((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType()==1 )
         {
             std::cout<<"remove Bot"<<std::endl;
             m_tiles[y][x]=-1;
@@ -139,6 +140,11 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                 if(m_levelBots[i].positionX==x*m_tileWidth && m_levelBots[i].positionY==y*m_tileWidth)
                 {
                     m_levelBots.erase(m_levelBots.begin()+i);
+                    if(event->buttons()==Qt::LeftButton){
+                        if(m_color=="black")m_color="white";
+                        else  m_color="black";
+
+                    }
                 }
             }
         }
@@ -155,7 +161,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                 }
             }
         }
-
 
         if(!m_bot.filename.empty())
         {
@@ -280,6 +285,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
     else if(!item_list.isEmpty() && event->button()==Qt::RightButton)
     {
+
 
         this->removeItem(item_list.first());
         m_mainWindow->ui->MainView->setScene(this);

@@ -72,6 +72,7 @@ namespace jumper
 
             switch(this->actRenderID){
                 case MainWindow::RENDER_MAINMENU:
+                    m_game->update(currentKeyStates, keyDown);
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
