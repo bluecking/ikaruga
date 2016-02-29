@@ -63,6 +63,7 @@ namespace jumper
     public:
         virtual void shoot();
         void updateMoveAnimation();
+        virtual void resolveCollision(Actor& other) override;
     };
 }
 

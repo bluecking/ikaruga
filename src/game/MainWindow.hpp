@@ -13,74 +13,92 @@
 
 #include "Game.hpp"
 #include "WorldProperty.hpp"
+
 namespace jumper
 {
+    class Game;
 
-class Game;
+    /**
+     *	@brief Represents the main window of the game.
+     */
+    class MainWindow
+    {
+    public:
 
-/**
- *	@brief Represents the main window of the game.
- */
-class MainWindow
-{
-public:
+        /**
+         * Creates a main window with given \ref title, width \ref w and height \ref h
+         *
+         * @param title		Title of the window
+         * @param w			Width
+         * @param h			Height
+         */
+        MainWindow(std::string title, int w, int h);
 
-	/**
-	 * Creates a main window with given \ref title, width \ref w and height \ref h
-	 *
-	 * @param title		Title of the window
-	 * @param w			Width
-	 * @param h			Height
-	 */
-	MainWindow(std::string title, int w, int h);
+        /**
+         * Destructor.
+         */
+        ~MainWindow();
 
-	/**
-	 * Destructor.
-	 */
-	~MainWindow();
+        /**
+         * Handles user events and renders the current level.
+         */
+        void run();
 
-	/**
-	 * Handles user events and renders the current level.
-	 */
-	void run();
+        /**
+         * Gets the current SDL renderer
+         */
+        SDL_Renderer* getRenderer();
 
-	/**
-	 * Gets the current SDL renderer
-	 */
-	SDL_Renderer* getRenderer();
+        void setGame(Game* game);
 
-	void setGame(Game* game);
+        /// Returns the window width
+        int w();
 
-	/// Returns the window width
-	int w();
+        /// Retruns the window height
+        int h();
 
-	/// Retruns the window height
-	int h();
+    private:
 
-private:
+        /// Initializes all needed SDL resources
+        void initSDL();
 
+        /// Quits SDL and frees all resources
+        void quitSDL();
 
-	/// Initializes all needed SDL resources
-	void initSDL();
+        /**
+         * Returns time used by the main loop in ms
+         */
+        float getLoopTime();
 
-	/// Quits SDL and frees all resources
-	void quitSDL();
+        /**
+         * Limts the FPS by sleeping not used time
+         */
+        void limitFPS();
 
-	/// SDL renderer struct
-	SDL_Renderer* 		m_renderer;
+        /// SDL renderer struct
+        SDL_Renderer* m_renderer;
 
-	/// SDL main window struct
-	SDL_Window*			m_window;
+        /// SDL main window struct
+        SDL_Window* m_window;
 
-	/// Window width
-	int					m_width;
+        /// Window width
+        int m_width;
 
-	/// Window height
-	int					m_height;
+        /// Window height
+        int m_height;
 
-	Game*				m_game;
+        /// Window title
+        std::string m_title;
 
-};
+        // Pointer to game
+        Game* m_game;
+
+        // Timestamp from the start of the main loop
+        Uint32 m_startLoopTicks;
+
+        // Number of maximal fps
+        static const int MAX_FPS;
+    };
 
 } /* namespace jumper */
 

@@ -15,8 +15,13 @@ namespace jumper
     class LaserWeapon : public Weapon
     {
     public:
-        LaserWeapon(Game& game, Actor& actor, SDL_Texture* projectileTexture, const Vector2i& projectileTextureSize,
-                    const Vector2f& weaponOffset, const Vector2f& projectileColorOffset, float coolDown);
+        LaserWeapon(Game& game,
+                    Actor& actor,
+                    SDL_Texture* projectileTexture,
+                    const Vector2i& projectileTextureSize,
+                    const Vector2f& weaponOffset,
+                    const Vector2f& projectileColorOffset,
+                    float coolDown);
 
         /**
          * Shoots a single projectile in a straight line
@@ -26,6 +31,7 @@ namespace jumper
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
     };
+
 } /* namespace jumper */
 
 

@@ -22,6 +22,14 @@ namespace jumper
         m_health = 2000;
 
 
+        // TODO: Delete before pushing
+        if((float) rand() / RAND_MAX <= 0.5) {
+            m_color = ColorMode::WHITE;
+        }
+        else {
+            m_color = ColorMode::BLACK;
+        }
+
         m_move_type = BotType::SIN_UP;
         m_move_type_height = 25;
         m_speed = 100;
@@ -67,14 +75,16 @@ namespace jumper
 
     void Bot::resolveCollision(Actor& other)
     {
-        switch(other.type()) {
-            case ActorType::PROJECTILE:
-                this->m_hit = true;
-                cout << "Ouch" << endl;
-                break;
-            case ActorType::ACTOR:
-                cout << "hehe" << endl;
-                break;
+        // Hit by player's projectile with same color
+        if(other.type() == PROJECTILE && getColor() == other.getColor()) {
+            setHit(true);
+            takeDamage(500);
+            cout << m_health << endl;
+        }
+
+        // Hit by actor
+        if(other.type() == ACTOR) {
+            m_health = 0;
         }
     }
 } /* namespace jumper */

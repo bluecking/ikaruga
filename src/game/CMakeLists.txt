@@ -20,7 +20,7 @@ set(JUMPER_SOURCES
         PathFollower.cpp
         PuzzleBox.cpp
         Renderable.cpp
-        ScoreBoard.cpp
+        StatusBar.cpp
         SparseMatrix.cpp
         SparseVector.cpp
         StaticRenderable.cpp
@@ -30,7 +30,12 @@ set(JUMPER_SOURCES
         Weapon.cpp
         Projectile.cpp
         LaserWeapon.cpp
-        Armed.cpp CollisionManager.cpp CollisionManager.hpp)
+        Armed.cpp
+        CollisionManager.cpp
+        CollisionManager.hpp
+        Armed.cpp
+        StatusBar.cpp
+        FontRender.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 

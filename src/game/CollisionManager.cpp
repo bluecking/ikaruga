@@ -15,11 +15,9 @@ bool compareActorXPositions(Actor* first, Actor* second)
 
 void CollisionManager::checkCollision(vector<Actor*>& actors)
 {
-    // O(n*log(n))
+    // Sweep and Prune algorithm. Check only actors with other actors that have overlapping x positions
     sort(actors.begin(), actors.end(), compareActorXPositions);
 
-
-    // Sweep and Prune algorithm. Check only actors with actors that have overlapping x positions
     for (auto currentAABB = actors.begin(); currentAABB != actors.end(); ++currentAABB)
     {
         auto otherAABB = currentAABB;

@@ -17,11 +17,10 @@ namespace jumper
     Projectile::~Projectile()
     { }
 
-    const SDL_Rect& Projectile::getHitbox()
+    SDL_Rect& Projectile::getHitbox()
     {
         SDL_Rect hitbox = Actor::getHitbox();
         hitbox.w = (int) fabs(m_lastPosition.x() - position().x());
-//        std::cout << hitbox.x << "+" << hitbox.w << "=" << hitbox.x + hitbox.w << std::endl;
         return hitbox;
     }
 
@@ -29,14 +28,29 @@ namespace jumper
     {
         m_lastPosition = position();
         setPosition(position() + m_direction * 1000 * getElapsedTime());
+
+        // if the projectile exceeds camera boundary, then kill it
+        if(!visible()) {
+            m_health = 0;
+            std::cout << "Outside camera" << std::endl;
+        }
     }
 
     void Projectile::resolveCollision(Actor& other)
     {
-        switch(other.type()) {
-            case ACTOR:
-                return;
+        // TODO: Check if this projectile was shot by player or enemy
+
+        // Hit with player
+        if(other.type() == ACTOR) {
+            return;
         }
-        this->m_hit = true;
+
+        // Hit with enemy
+        if(other.type() == ENEMY) {
+
+        }
+
+        // Kill projectile when it was hit with something
+        m_health = 0;
     }
 }

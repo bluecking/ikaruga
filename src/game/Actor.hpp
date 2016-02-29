@@ -62,6 +62,11 @@ namespace jumper
 
         virtual Collision getCollision(Actor& other);
 
+        void setHit(bool hit)
+        {
+            m_hit = hit;
+        }
+
         virtual void resolveCollision(Actor& other);
 
         virtual void render();
@@ -110,7 +115,7 @@ namespace jumper
 
         int getHealth();
 
-        virtual const SDL_Rect& getHitbox();
+        virtual SDL_Rect& getHitbox();
 
         bool is_hit();
 
@@ -144,6 +149,7 @@ namespace jumper
         bool m_hit = false;
     private:
         void renderHitbox();
+        void renderHitAnimation();
     };
 
 } /* namespace jumper */

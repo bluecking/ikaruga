@@ -31,7 +31,7 @@ namespace jumper
         { m_launched = true; }
 
         virtual void resolveCollision(Actor& other) override;
-        virtual const SDL_Rect& getHitbox() override;
+        virtual SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;
         bool m_launched;

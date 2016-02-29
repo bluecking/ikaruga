@@ -87,6 +87,8 @@ namespace jumper
         const char DOHALF = 3;
         const char DOFULL = 4;
 
+        SDL_Rect& hitbox = getHitbox();
+
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
@@ -118,6 +120,15 @@ namespace jumper
                 case UPFULL:     m_nextTileRow = UPHALF; break;
                 default:         m_nextTileRow = NORMAL;
             }
+        }
+    }
+
+    void Player::resolveCollision(Actor& other)
+    {
+        switch(other.type()) {
+            case ENEMY:
+                m_health = 0;
+                break;
         }
     }
 }

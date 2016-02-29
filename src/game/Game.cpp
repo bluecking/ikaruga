@@ -6,11 +6,8 @@
  */
 
 #include "Game.hpp"
-#include "PuzzleBox.hpp"
-#include "KillAnimation.hpp"
 #include "CollisionManager.hpp"
 
-#include <iostream>
 #include <algorithm>
 #include <set>
 
@@ -27,7 +24,7 @@ namespace jumper
         m_level = 0;
         m_layer = 0;
         m_renderer = mainWindow->getRenderer();
-        m_scoreBoard = 0;
+        m_statusBar = 0;
 
         m_windowWidth = mainWindow->w();
         m_windowHeight = mainWindow->h();
@@ -73,6 +70,11 @@ namespace jumper
     {
         if (m_started)
         {
+            for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
+            {
+                (*it)->setHit(false);
+            }
+
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -85,6 +87,10 @@ namespace jumper
                 m_player->shoot();
             }
 
+            //Update Statusbar \o/
+            m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
+            m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
+            m_statusBar->setHealth(m_player->getHealth());
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
@@ -108,30 +114,32 @@ namespace jumper
             moveActors();
             scrollHorizontal();
 
-            checkPlayerCollision();
+//            checkPlayerCollision();
             checkCameraCollision();
             checkActorCollision();
 
-            removeAllHitActors();
-            // removeProjectiles();
+            removeDeadActors();
+            removeProjectiles();
 
             SDL_RenderClear(m_renderer);
 
-            // Start rendering
             if (m_layer)
             {
                 m_layer->render();
             }
 
-            if (m_scoreBoard)
-            {
-                m_scoreBoard->setScore(m_player->physics().position().x());
-                m_scoreBoard->render();
-            }
-
+            /*
+             * You have to render the Statusbar AFTER the tiles, so the thing is always on Top
+             */
             for (size_t i = 0; i < m_renderables.size(); i++)
             {
                 m_renderables[i]->render();
+            }
+
+            if (m_statusBar)
+            {
+                m_statusBar->setScore(m_player->physics().position().x());
+                m_statusBar->render();
             }
 
             // Update screen
@@ -148,70 +156,70 @@ namespace jumper
         m_renderables.erase(it2);
     }
 
-    void Game::checkPlayerCollision()
-    {
-        set<Actor*> to_remove;
-        KillAnimation* anim = 0;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
-            if (a->getHealth() <= 0)
-            {
-                to_remove.insert(a);
-            }
-
-            // Check for self collision
-            if (a != m_player)
-            {
-                Collision c = m_player->getCollision(*a);
-
-                // Simple items can be collected on the fly
-                if (a->type() == ITEM && c.type() != NONE)
-                {
-                    to_remove.insert(a);
-                }
-
-                // If an collection with an enemy occured, check
-                // who killed whom (Player only can kill enemies
-                // when falling down.
-                if (a->type() == ENEMY && c.type() != NONE)
-                {
-                    if (c.type() == BOOM)
-                    {
-                        cout << "PLAYER KILLED" << endl;
-                    }
-                    else if (c.type() == DOWN)
-                    {
-                        to_remove.insert(a);
-                        anim = new KillAnimation(a);
-                    }
-                }
-
-                if (a->type() == PUZZLEBOX)
-                {
-                    PuzzleBox* b = static_cast<PuzzleBox*>(a);
-                    m_player->resolveCollision(*a);
-                    if (c.type() == UP)
-                    {
-                        b->setHit(true);
-                    }
-                }
-            }
-        }
-
-        // Remove actors that were killed in this loop. We have to
-        // store them separately because otherwise we would corrupt
-        // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
-            removeActor(*i);
-        }
-
-        if (anim)
-        {
-            m_renderables.push_back(anim);
-        }
-    }
+//    void Game::checkPlayerCollision()
+//    {
+//        set<Actor*> to_remove;
+//        KillAnimation* anim = 0;
+//        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+//        {
+//            Actor* a = *it;
+//            if (a->getHealth() <= 0)
+//            {
+//                to_remove.insert(a);
+//            }
+//
+//            // Check for self collision
+//            if (a != m_player)
+//            {
+//                Collision c = m_player->getCollision(*a);
+//
+//                // Simple items can be collected on the fly
+//                if (a->type() == ITEM && c.type() != NONE)
+//                {
+//                    to_remove.insert(a);
+//                }
+//
+//                // If an collection with an enemy occured, check
+//                // who killed whom (Player only can kill enemies
+//                // when falling down.
+//                if (a->type() == ENEMY && c.type() != NONE)
+//                {
+//                    if (c.type() == BOOM)
+//                    {
+//                        cout << "PLAYER KILLED" << endl;
+//                    }
+//                    else if (c.type() == DOWN)
+//                    {
+//                        to_remove.insert(a);
+//                        anim = new KillAnimation(a);
+//                    }
+//                }
+//
+//                if (a->type() == PUZZLEBOX)
+//                {
+//                    PuzzleBox* b = static_cast<PuzzleBox*>(a);
+//                    m_player->resolveCollision(*a);
+//                    if (c.type() == UP)
+//                    {
+//                        b->setHit(true);
+//                    }
+//                }
+//            }
+//        }
+//
+//        // Remove actors that were killed in this loop. We have to
+//        // store them separately because otherwise we would corrupt
+//        // to loop structure
+//        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+//        {
+//            removeActor(*i);
+//        }
+//
+//        if (anim)
+//        {
+//            m_renderables.push_back(anim);
+//        }
+//    }
 
     // This method corrects the position of the player, if its leaving the borders of the camera.
     // It is invoked by Game::update()
@@ -267,13 +275,10 @@ namespace jumper
     {
         float dt = getElapsedTime();
 
-        if (dt > 0)
-        {
-            Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-            m_player->setPosition(m_player->position() +
-                                  m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
-            Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
-        }
+        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
+        m_player->setPosition(m_player->position() +
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
+        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
     float Game::getElapsedTime()
@@ -284,7 +289,7 @@ namespace jumper
         }
 
         Uint32 ticks = SDL_GetTicks();
-        float time = (ticks - m_startTicks) / 1000.0;
+        float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
     }
@@ -319,47 +324,14 @@ namespace jumper
         CollisionManager cm;
 
         cm.checkCollision(m_actors);
-//        set<Actor*> to_remove;
-//        KillAnimation* anim = 0;
-//        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-//        {
-//            Actor* a = *it;
-//            if(a->type() == PROJECTILE) {
-//                for (auto it2 = m_actors.begin(); it2 != m_actors.end(); it2++) {
-//
-//                    Actor* b = *it2;
-//
-//                    if(b == m_player || b->type() == PROJECTILE) {
-//                        continue;
-//                    }
-//
-//                    Collision c = a->getHitboxCollision(*b);
-//
-//                    if(c.type() != NONE) {
-//                        to_remove.insert(a);
-//                        to_remove.insert(b);
-//                        anim = new KillAnimation(b);
-//                        break;
-//                    }
-//
-//                }
-//            }
-//
-//            if(anim) {
-//                m_renderables.push_back(anim);
-//            }
-//        }
-//
-//        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-//        {
-//            removeActor(*i);
-//        }
     }
 
-    void Game::removeAllHitActors()
+    void Game::removeDeadActors()
     {
-        for(auto it = m_actors.begin(); it != m_actors.end(); ++it) {
-            if((*it)->is_hit()) {
+        for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
+        {
+            if ((*it)->getHealth() <= 0)
+            {
                 removeActor(*it);
             }
         }

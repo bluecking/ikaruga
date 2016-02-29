@@ -6,13 +6,11 @@
  */
 
 #include <SDL.h>
-
 #include <iostream>
+#include "Actor.hpp"
 
 using std::cout;
 using std::endl;
-
-#include "Actor.hpp"
 
 namespace jumper
 {
@@ -24,8 +22,7 @@ namespace jumper
         m_startTicks = 0;
         m_type = ACTOR;
 
-
-        const float HITBOXFACTOR = 0.85;
+        const float HITBOXFACTOR = 0.8;
         m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
         m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
@@ -69,8 +66,8 @@ namespace jumper
     {
         SDL_Rect target;
 
-        target.x = floor(m_physicalProps.position().x()) - m_camera.x();
-        target.y = floor(m_physicalProps.position().y()) - m_camera.y();
+        target.x = (int) floor(m_physicalProps.position().x() - m_camera.x());
+        target.y = (int) floor(m_physicalProps.position().y() - m_camera.y());
         target.w = m_frameWidth;
         target.h = m_frameHeight;
 
@@ -83,26 +80,33 @@ namespace jumper
             // switch color
             if (m_color == ColorMode::WHITE)
             {
-                source.x = source.x + m_colorOffset.x();
-                source.y = source.y + m_colorOffset.y();
+                source.x = source.x + (int) m_colorOffset.x();
+                source.y = source.y + (int) m_colorOffset.y();
             }
 
-            SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+            if (m_hit)
+            {
+                SDL_SetTextureAlphaMod(m_texture, 50);
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+                SDL_SetTextureAlphaMod(m_texture, 255);
+            }
+            else
+            {
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+            }
+
+            // TODO: Comment next line in production versions
             renderHitbox();
         }
 
     }
 
-    const SDL_Rect& Actor::getHitbox()
+    SDL_Rect& Actor::getHitbox()
     {
-        SDL_Rect hitbox;
-        hitbox.w = m_hitbox.w;
-        hitbox.h = m_hitbox.h;
+        m_hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
+        m_hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
 
-        hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
-        hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
-
-        return hitbox;
+        return m_hitbox;
     }
 
     void Actor::setPosition(Vector2f pos)
@@ -122,7 +126,7 @@ namespace jumper
 
     void Actor::resolveCollision(Actor& other)
     {
-//        cout << type() << " with " << other.type() << endl;
+
     }
 
     Collision Actor::getCollision(Actor& other)
@@ -147,7 +151,7 @@ namespace jumper
         SDL_Rect intersection;
         SDL_IntersectRect(&myRect, &otherRect, &intersection);
 
-        if (fabs(intersection.w) < otherRect.w && intersection.h > 0)
+        if (std::abs(intersection.w) < otherRect.w && intersection.h > 0)
         {
             if (v.y() > 0)
             {
@@ -171,23 +175,6 @@ namespace jumper
                     c.setType(BOOM);
                 }
             }
-        }
-
-        return c;
-    }
-
-    Collision Actor::getHitboxCollision(Actor& other)
-    {
-        Collision c;
-
-        SDL_Rect myRect = getHitbox();
-        SDL_Rect otherRect = other.getHitbox();
-
-        SDL_Rect intersection;
-        SDL_IntersectRect(&myRect, &otherRect, &intersection);
-
-        if(intersection.h > 0 && intersection.w > 0) {
-            c.setType(BOOM);
         }
 
         return c;
@@ -236,14 +223,24 @@ namespace jumper
 
     void Actor::takeDamage(int damage)
     {
-        this->m_health-=damage;
+        this->m_health -= damage;
     }
 
     void Actor::renderHitbox()
     {
-        SDL_Rect hitbox = getHitbox();
+        SDL_Rect& hitbox = getHitbox();
         hitbox.x -= m_camera.x();
         hitbox.y -= m_camera.y();
+
+        if (m_color == ColorMode::BLACK)
+        {
+            SDL_SetRenderDrawColor(getRenderer(), 255, 0, 0, 0);
+        }
+        else
+        {
+            SDL_SetRenderDrawColor(getRenderer(), 0, 255, 0, 0);
+        }
+
         SDL_RenderDrawRect(getRenderer(), &hitbox);
     }
 
