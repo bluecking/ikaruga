@@ -80,16 +80,9 @@ namespace jumper
 
         void moveActors();
 
-        void checkPlayerCollision();
-
         void checkCameraCollision();
 
         void removeActor(Actor* a);
-
-        /**
-         * Removes projectiles which are out of view.
-         */
-        void removeProjectiles();
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.
@@ -135,8 +128,17 @@ namespace jumper
 
         bool m_started;
 
+        /**
+         * Is invoked by Game::update() and checks if an Actor collides with another Actor.
+         */
+        void checkActorCollision();
+
+        /**
+         * Is invoked by Game::update() and remove Actors with health below 0.
+         */
+        void removeDeadActors();
         vector<Bot*> m_bots;
-        //
+
         Sound m_sound;
 
     };

@@ -88,9 +88,14 @@ namespace jumper
         const char DOHALF = 3;
         const char DOFULL = 4;
 
+        SDL_Rect& hitbox = getHitbox();
+
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
+            // TODO: Set the hitbox dynamically
+            m_hitbox.h = (int) (frameHeight() * 0.5);;
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = UPHALF; break;
                 case DOHALF:     m_nextTileRow = NORMAL; break;
@@ -100,6 +105,8 @@ namespace jumper
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
+            m_hitbox.h = (int) (frameHeight() * 0.5);
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = DOHALF; break;
                 case UPHALF:     m_nextTileRow = NORMAL; break;
@@ -109,6 +116,7 @@ namespace jumper
         } // Player does not move
         else
         {
+            m_hitbox.h = frameHeight();
             switch(m_currentTileRow) {
                 case DOFULL:     m_nextTileRow = DOHALF; break;
                 case UPFULL:     m_nextTileRow = UPHALF; break;
@@ -117,7 +125,15 @@ namespace jumper
         }
     }
 
-    void Player::setHitMarkSound(std::string soundfile){
+    void Player::setHitMarkSound(std::string soundfile)
+    {
         m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
+    }
+    void Player::resolveCollision(Actor& other)
+    {
+        if(other.type() == ENEMY) {
+            setHit(true);
+            takeDamage(500);
+        }
     }
 }

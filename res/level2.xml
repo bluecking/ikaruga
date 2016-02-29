@@ -1,18 +1,15 @@
 <level>
   <tileset filename="test1.lvl"/>
-  <layer filename="../images/star_background_2_200x200.png">
-    <scrollSpeed>0.9</scrollSpeed>
+  <layer filename="images/background_40x40.png">
+    <scrollSpeed>1.2</scrollSpeed>
   </layer>
-  <statusBar filename="../images/statusbar_font_10x10.png">
-      <frameWidth>10</frameWidth>
-      <frameHeight>10</frameHeight>
-      <letterCount>26</letterCount>
-      <capitalOffset>1</capitalOffset>
-      <minusculeOffset>2</minusculeOffset>
-      <numberOffset>0</numberOffset>
-      <offsetToMid>1</offsetToMid>
-  </statusBar>
-  <player filename="../images/player_animated_55x43_transparent.png">
+  <scoreBoard filename="numbers.png">
+    <xPos>20</xPos>
+    <yPos>20</yPos>
+    <digitWidth>10</digitWidth>
+    <digitHeight>10</digitHeight>
+  </scoreBoard>
+  <player filename="images/player_animated_55x43_transparent.png">
     <numFrames>24</numFrames>
     <frameWidth>55</frameWidth>
     <frameHeight>43</frameHeight>
@@ -32,7 +29,7 @@
     <frameWidth>16</frameWidth>
     <frameHeight>16</frameHeight>
     <positionX>100</positionX>
-    <positionY>20</positionY>
+    <positionY>200</positionY>
     <moveForceX>0.0</moveForceX>
     <maxVelRun>30.0</maxVelRun>
     <maxVelFall>250.0</maxVelFall>
@@ -54,7 +51,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>140</positionX>
-        <positionY>40</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -65,7 +62,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>160</positionX>
-        <positionY>180</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -76,7 +73,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>180</positionX>
-        <positionY>60</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -87,7 +84,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>300</positionX>
-        <positionY>160</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -98,7 +95,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>400</positionX>
-        <positionY>80</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -109,7 +106,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>500</positionX>
-        <positionY>140</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -120,7 +117,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>600</positionX>
-        <positionY>100</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>
@@ -131,7 +128,7 @@
         <frameWidth>16</frameWidth>
         <frameHeight>23</frameHeight>
         <positionX>700</positionX>
-        <positionY>120</positionY>
+        <positionY>200</positionY>
         <moveForceX>0.0</moveForceX>
         <maxVelRun>20.0</maxVelRun>
         <maxVelFall>250.0</maxVelFall>

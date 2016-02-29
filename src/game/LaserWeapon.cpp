@@ -28,7 +28,7 @@ namespace jumper
         projectile->setColor(m_actor.getColor());
         projectile->launch();
 
-        if (m_actor.type() == ActorType::ACTOR)
+        if (m_actor.type() == ActorType::PLAYER)
         {
             m_sound.play();
         }
