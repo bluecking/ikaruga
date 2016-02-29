@@ -41,6 +41,7 @@ namespace jumper
     Game::~Game()
     {
         // TODO Auto-generated destructor stub
+        m_sound.stop();
     }
 
     void Game::addBot(Bot* bot)
@@ -83,6 +84,8 @@ namespace jumper
     {
         m_level = level;
         m_renderables.push_back(level);
+
+        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()
@@ -102,6 +105,7 @@ namespace jumper
     {
         if (m_started)
         {
+            m_sound.play();
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {

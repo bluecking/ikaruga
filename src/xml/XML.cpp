@@ -59,7 +59,7 @@ XML::XML()
     p.frameHeight = 32;
     p.positionX = 100;
     p.positionY = 40;
-    p.stdWeapon = "LASER_GUN";
+    p.stdWeapon.type = "LASER_GUN";
     p.colorOffsetX = 1320;
     p.colorOffsetY = 0;
     p.moveForceX = 100.0;
@@ -128,13 +128,29 @@ void XML::load()
                 m_player.frameHeight = v.second.get<int>("frameHeight");
                 m_player.positionX = v.second.get<int>("positionX");
                 m_player.positionY = v.second.get<int>("positionY");
-                m_player.stdWeapon = v.second.get<string>("stdWeapon");
+
                 m_player.colorOffsetX = v.second.get<int>("colorOffsetX");
                 m_player.colorOffsetY = v.second.get<int>("colorOffsetY");
                 m_player.moveForceX = v.second.get<float>("moveForceX");
                 m_player.moveForceY = v.second.get<float>("moveForceY");
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
+
+                std::string type_tmp = v.second.get<string>("stdWeapon");
+                bool foundType = false;
+                for (auto it = begin(m_weapons); it != end(m_weapons); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        m_player.stdWeapon = *it;
+                        foundType = true;
+                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
+                }
+
                 m_requiredAttributes["player"]++;
             }
             else if (v.first == "statusBar")
@@ -381,7 +397,7 @@ void XML::save()
     player.put("frameHeight", m_player.frameHeight);
     player.put("positionX", m_player.positionX);
     player.put("positionY", m_player.positionY);
-    player.put("stdWeapon", m_player.stdWeapon);
+    player.put("stdWeapon", m_player.stdWeapon.type);
     player.put("colorOffsetX", m_player.colorOffsetX);
     player.put("colorOffsetY", m_player.colorOffsetY);
     player.put("moveForceX", m_player.moveForceX);

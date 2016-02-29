@@ -17,6 +17,7 @@
 #include "StatusBar.hpp"
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
+#include "Sound.hpp"
 
 #include "../xml/XML.hpp"
 
@@ -133,6 +134,8 @@ namespace jumper
         bool m_started;
 
         vector<Bot*> m_bots;
+        //
+        Sound m_sound;
 
     };
 
