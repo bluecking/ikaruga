@@ -30,7 +30,7 @@ namespace jumper
 
         if (m_actor.type() == ActorType::PLAYER)
         {
-            m_sound.play(-1, m_volume);
+            m_sound.play(m_volume);
         }
 
         m_game.addActor(projectile);

@@ -120,7 +120,7 @@ namespace jumper
     }
     void Bot::play()
     {
-        m_explosionSound.play(0, m_explosionVolume);
+        m_explosionSound.play(m_explosionVolume);
     }
     Bot::~Bot()
     {

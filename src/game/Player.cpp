@@ -145,6 +145,6 @@ namespace jumper
     }
 
     void Player::playHitMark() {
-        m_hitMarkSound.play(3,m_hitMarkVolume);
+        m_hitMarkSound.play(m_hitMarkVolume);
     }
 }

@@ -29,6 +29,8 @@ namespace jumper {
     class Sound {
     public:
 
+        static int NEXT_CHANNEL_ID;
+
         /**
          * Standard Constructor
          */
@@ -51,15 +53,13 @@ namespace jumper {
          */
         Sound(string filename, int type);
 
-        /**
-         * Plays the sound
-         */
-        void play();
 
         /**
          * Plays the sound
+         *
+         * @param volume the volume the sound should be played with
          */
-        void play(int channel, int volume);
+        void play(int volume);
 
         /**
          * stops Playing
@@ -82,6 +82,8 @@ namespace jumper {
 
         //The Type of the Sound
         int m_type;
+
+        int m_channel;
     };
 };
 

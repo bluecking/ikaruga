@@ -102,7 +102,7 @@ namespace jumper
     {
         if (m_started)
         {
-            m_sound.play(0,m_volume);
+            m_sound.play(m_volume);
 
             for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
             {
