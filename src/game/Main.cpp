@@ -10,6 +10,7 @@
 #include "PuzzleBox.hpp"
 #include "LaserWeapon.hpp"
 #include "../xml/XML.hpp"
+#include "MainMenu.hpp"
 #include <iostream>
 
 using namespace jumper;
@@ -203,18 +204,16 @@ void setupGame(string filename, MainWindow* w, Game* game)
 int main(int argc, char** argv)
 {
 
-// if(argc != 2)
-//    {
-//        std::cout << "Please specify a resource folder" << std::endl;
-//        return -1;
-//    }
+ if(argc != 2)
+    {
+        std::cout << "Invalid amount of parameters." << std::endl;
+        return -1;
+    }
 
     MainWindow window("Ikaruga", 625, 576);
-//    Game game(&window);
-//    setupGame(argv[1], &window, &game);
-//
-//    window.setGame(&game);
-//    game.start();
+    Game game(&window);
+    MainMenu menu(&window, boost::filesystem::path(argv[1]));
+
     window.setActualScreen(MainWindow::RENDER_ITEMSHOP);
     window.run();
 

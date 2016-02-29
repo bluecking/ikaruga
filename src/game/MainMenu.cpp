@@ -17,7 +17,7 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 {
     std::vector<fs::path> vec;
     if (!fs::is_directory(path)) //!path.empty()
-    {throw std::invalid_argument("You have to provide a resource directory!");}
+    {throw std::invalid_argument("You have to provide a resource DIRECTORY!");}
 
         fs::directory_iterator end; //default construction yields past-the-end
 
@@ -35,6 +35,7 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 
             // File matches, store it
             vec.push_back( i->path().filename() );
+            //std::cout << i->path().filename().string() << std::endl; //Debug output
         }
     return vec;
 }
@@ -44,5 +45,17 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
     m_win(win), m_resDir(resDir)
     {
         m_levelFiles = findFiles(resDir, boost::regex("^.*\\.xml$"));
+    }
+
+    void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
+    {
+        //TODO display menu
+
+
+
+        //    setupGame(argv[1], &window, &game);
+        //
+        //    window.setGame(&game);
+        //    game.start();
     }
 } //end of namespace jumper
