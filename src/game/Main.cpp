@@ -46,42 +46,28 @@ void getBotProperty(XML::LevelBot bot, PlayerProperty& p)
     p.setMaxRunVelocity(maxVelRun);
 }
 
-
-void setupGame(string filename, MainWindow* w, Game* game)
+//create level
+void setupLevel(MainWindow* w,Game* game,std::string filepath)
 {
-    //<alter Teil>
-    std::size_t found = filename.find_last_of("/\\");
-    string path = filename.substr(0, found);
-    //</alter Teil>
-
-
-    //<mein teil>
-    //open xml file
-    XML xml = XML(filename);
-
-
-    //create Level
-    string xpath = xml.getTileset();
-    Level* level = new Level(w->getRenderer(), path + "/" + xpath);
+    Level* level = new Level(w->getRenderer(), filepath);
     game->setLevel(level);
+}
 
+//Creates the Levelbackground
+void setupBackground(XML::Background background,std::string filepath,MainWindow* w,Game* game)
+{
 
-
-    //create Background layer
-    XML::Background background = xml.getBackground();
-    xpath = background.filename;
-    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
     float scrollspeed = background.scrollspeed * 1.0;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
     layer->setScrollSpeed(scrollspeed);
     game->setLayer(layer);
+}
 
-
-
-    //add statusbar
-    XML::Statusbar statusbar = xml.getStatusbar();
-    xpath = statusbar.filename;
-    texture = TextureFactory::instance(w->getRenderer()).getTexture(path +"/" +statusbar.filename);
+//create statusbar
+void setupStatusbar(MainWindow* w, Game* game ,XML::Statusbar statusbar, std::string filepath)
+{
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
 
     StatusBar * bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight, statusbar.capitalOffset,
                                     statusbar.minusculeOffset,statusbar.numberOffset, statusbar.letterCount, statusbar.offsetToMid);
@@ -95,10 +81,12 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
 
+}
+//create Player
+void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepath)
+{
 
-    XML::Player xplayer = xml.getPlayer();
-    xpath = xplayer.filename;
-    texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
     // set weapon
@@ -110,7 +98,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
     Vector2f* projectileColorOffset = new Vector2f(6, 0);
     float coolDown = 0.2f;
     SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-            path + "/../images/laser_shot.png");
+            filepath + "/../images/laser_shot.png");
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
 
@@ -129,28 +117,57 @@ void setupGame(string filename, MainWindow* w, Game* game)
     float colorOffsetY = xplayer.colorOffsetY;
     Vector2f colorOffset(colorOffsetX, colorOffsetY);
     player->setColorOffset(colorOffset);
+}
 
-
-    vector<XML::LevelBot> bots = xml.getLevelBots();
-
+//create Bots
+void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string filepath)
+{
     for (auto it = begin(bots); it != end(bots); it++)
     {
 
 
-        texture = TextureFactory::instance(w->getRenderer()).getTexture(path+"/"+(*it).type.filename);
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+(*it).type.filename);
 
         Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
                            (*it).type.numFrames, (*it).type.npc);
-
+        PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
 
         game->addBot(bot);
     }
+}
+
+
+void setupGame(string filename, MainWindow* w, Game* game)
+{
+    std::size_t found = filename.find_last_of("/\\");
+    string path = filename.substr(0, found);
+    XML xml = XML(filename);
+
+
+    //create Level
+   setupLevel(w,game,path+"/"+xml.getTileset());
+
+    //create Background layer
+    setupBackground(xml.getBackground(),path+"/"+xml.getBackground().filename,w,game);
 
 
 
+
+    //add statusbar
+    setupStatusbar(w,game,xml.getStatusbar(),path+"/"+xml.getStatusbar().filename);
+
+    //add player
+    setupPlayer(xml.getPlayer(),w,game,path);
+
+   //setup bots
+    setupBots(xml.getLevelBots(),w,game,path);
+
+
+
+    
 }
 
 int main(int argc, char** argv)
