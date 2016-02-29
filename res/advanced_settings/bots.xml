@@ -1,4 +1,21 @@
 <bots>
+    <bot type="BOT_AI">
+        <filename>../images/Bot_1.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>100</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
     <bot type="BOT_SIN">
         <filename>../images/Bot_1.png</filename>
         <numFrames>4</numFrames>

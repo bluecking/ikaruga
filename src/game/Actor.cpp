@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <iostream>
 #include "Actor.hpp"
+#include "Game.hpp"
 
 using std::cout;
 using std::endl;
@@ -78,7 +79,7 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.w > 0 && target.x + target.w < m_camera.w())
+        if (target.x + target.w > 0 && target.x + target.w < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
         {
             // Render current animation frame
             SDL_Rect source = m_sourceRect;

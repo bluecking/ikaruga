@@ -47,7 +47,7 @@ namespace jumper
 
     void Game::spawnBots()
     {
-        int curPos = m_level->m_camera.x() + m_level->m_camera.w();
+        int curPos = ((int) m_level->m_camera.x()) + m_level->m_camera.w();
 
         vector<Bot*> erease_bots;
 
@@ -69,6 +69,11 @@ namespace jumper
 
     }
 
+    Vector2f Game::getPlayerPosition()
+    {
+        return m_player->position();
+    }
+
     void Game::setPlayer(Player* player)
     {
         m_player = player;
@@ -84,9 +89,7 @@ namespace jumper
 
     Level* Game::getLevel()
     {
-
         return m_level;
-
     }
 
     void Game::addActor(Actor* actor)
