@@ -1,7 +1,6 @@
 #include "MainWindow.hpp"
 #include <iostream>
 
-
 MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent)
   ,ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -23,6 +22,18 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent)
 }
 
 MainWindow::~MainWindow(){
+}
+
+void MainWindow::addBot(QString botName,QString description){
+    ui->botList->addItem(botName);
+    QListWidgetItem* x=ui->botList->item(ui->botList->count()-1);
+    x->setToolTip(description);
+}
+
+void MainWindow::addPower(QString powerName,QString description){
+    ui->powerList->addItem(powerName);
+    QListWidgetItem* x=ui->powerList->item(ui->powerList->count()-1);
+    x->setToolTip(description);
 }
 
 void MainWindow::openLast(QAction *action){
@@ -117,11 +128,21 @@ void MainWindow::on_actionNeu_triggered()
         if(!result.endsWith(".xml",Qt::CaseInsensitive)){
             result+=".xml";
         }
-        this->openFile(QDir::currentPath()+"/"+result);
+        this->openFile(QDir::currentPath()+"/../res/levels/"+result);
     }
 }
 
 void MainWindow::on_pushButton_released()
 {
     scene->setSize(ui->spinBox->value());
+}
+
+void MainWindow::on_botList_itemClicked(QListWidgetItem *item)
+{
+    scene->setBot(item->text());
+}
+
+void MainWindow::on_powerList_itemClicked(QListWidgetItem *item)
+{
+    scene->setPower(item->text());
 }
