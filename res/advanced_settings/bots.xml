@@ -9,6 +9,7 @@
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <npc type="NORMAL">
             <move function="AI">30</move>
             <speed>0</speed>
