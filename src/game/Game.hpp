@@ -17,6 +17,7 @@
 #include "StatusBar.hpp"
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
+#include "Sound.hpp"
 
 #include <vector>
 
@@ -122,6 +123,9 @@ namespace jumper
         int m_windowHeight;
 
         bool m_started;
+
+        //
+        Sound m_sound;
 
     };
 

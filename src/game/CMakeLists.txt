@@ -32,7 +32,8 @@ set(JUMPER_SOURCES
         LaserWeapon.cpp
         Armed.cpp
         StatusBar.cpp
-        FontRender.cpp)
+        FontRender.cpp
+        Sound.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 
