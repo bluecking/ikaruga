@@ -167,7 +167,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
 
-    
+
 }
 
 int main(int argc, char** argv)

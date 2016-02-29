@@ -50,7 +50,7 @@ namespace jumper
 
     void Game::spawnBots()
     {
-        int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
+        int curPos = m_level->m_camera.x() + m_level->m_camera.w();
 
         vector<Bot*> erease_bots;
 
