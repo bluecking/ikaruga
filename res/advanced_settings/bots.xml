@@ -1,6 +1,6 @@
 <bots>
     <bot type="BOT_SIN">
-        <filename>Bot_1.png</filename>
+        <filename>../images/Bot_1.png</filename>
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
@@ -16,7 +16,7 @@
         </npc>
     </bot>
     <bot type="BOT_SIN_UP">
-        <filename>Bot_2.png</filename>
+        <filename>../images/Bot_4.png</filename>
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
@@ -32,7 +32,7 @@
         </npc>
     </bot>
     <bot type="BOT_SIN_DOWN">
-        <filename>Bot_3.png</filename>
+        <filename>../images/Bot_3.png</filename>
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
@@ -48,7 +48,7 @@
         </npc>
     </bot>
     <bot type="BOT_NO_MOVE">
-        <filename>Bot_4.png</filename>
+        <filename>../images/Bot_2.png</filename>
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>

@@ -94,6 +94,13 @@ public:
 	Collision resolveCollision(Actor* actor);
 	Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
 
+    /**
+     * gets the Path of the current level
+     *
+     * @returns a string to the current levelpath
+     */
+	string getPath() {return m_path;};
+
 private:
 
 	/// Returns the surrounding tiles of the given position
@@ -130,6 +137,9 @@ private:
 
 	/// Tile matrix
 	SparseMatrix		m_tiles;
+
+    //
+    string              m_path;
 };
 
 } /* namespace jumper */
