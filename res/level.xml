@@ -1,9 +1,9 @@
 <level>
   <tileset filename="test1.lvl"/>
-  <layer filename="images/star_background_2_200x200.png">
+  <layer filename="../images/star_background_2_200x200.png">
     <scrollSpeed>0.9</scrollSpeed>
   </layer>
-  <statusBar filename="statusbar_font_10x10.png">
+  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>
       <frameHeight>10</frameHeight>
       <letterCount>26</letterCount>
@@ -12,7 +12,7 @@
       <numberOffset>0</numberOffset>
       <offsetToMid>1</offsetToMid>
   </statusBar>
-  <player filename="images/player_animated_55x43_transparent.png">
+  <player filename="../images/player_animated_55x43_transparent.png">
     <numFrames>24</numFrames>
     <frameWidth>55</frameWidth>
     <frameHeight>43</frameHeight>

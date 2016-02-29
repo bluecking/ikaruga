@@ -164,6 +164,7 @@ void XML::load()
                 m_statusbar.numberOffset = v.second.get<int>("numberOffset");
                 m_statusbar.offsetToMid = v.second.get<int>("offsetToMid");
                 m_requiredAttributes["statusbar"]++;
+
             }
             else if (v.first == "bot")
             {
