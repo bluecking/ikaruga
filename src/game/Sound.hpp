@@ -29,8 +29,6 @@ namespace jumper {
     class Sound {
     public:
 
-        static int NEXT_CHANNEL_ID;
-
         /**
          * Standard Constructor
          */

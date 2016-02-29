@@ -7,9 +7,7 @@ using std::string;
 
 namespace jumper {
 
-    int Sound::NEXT_CHANNEL_ID = -1;
     Sound::Sound(string filename, int type){
-        m_channel = NEXT_CHANNEL_ID++;
         m_soundFile = filename;
         m_type = type;
         if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
@@ -28,7 +26,6 @@ namespace jumper {
         path = path.substr(0,found);
         m_type = type;
         m_soundFile = path + filename;
-        m_channel = NEXT_CHANNEL_ID++;
         if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
         {
             printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
@@ -42,17 +39,17 @@ namespace jumper {
             if(song == NULL ){
                 std::cout << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayMusic( song, 0);
             Mix_VolumeMusic(volume);
+            Mix_PlayMusic(song, 0);
         } else if(m_type == SoundType::SOUND) {
-            Mix_HaltChannel(-1);
             Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
 
             if(sound == NULL ){
                 std::cout << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayChannel( m_channel, sound, 0 );
-            Mix_Volume(m_channel, volume);
+            Mix_Volume(-1, volume);
+            Mix_PlayChannel(-1, sound, 0 );
+            Mix_FadeOutChannel(-1,sound->alen/9*10);
         }
     }
 
