@@ -2,10 +2,10 @@
     <id>0</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
-    <background filename="background_40x40.png">
+    <background filename="../images/background_40x40.png">
         <scrollspeed>3</scrollspeed>
     </background>
-    <statusBar filename="statusbar_font_10x10.png">
+    <statusBar filename="../images/statusbar_font_10x10.png">
         <frameWidth>10</frameWidth>
         <frameHeight>10</frameHeight>
         <letterCount>26</letterCount>
@@ -14,10 +14,10 @@
         <numberOffset>0</numberOffset>
         <offsetToMid>1</offsetToMid>
     </statusBar>
-    <player filename="player_combined_47x51.png">
+    <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
-        <frameWidth>18</frameWidth>
-        <frameHeight>32</frameHeight>
+        <frameWidth>55</frameWidth>
+        <frameHeight>43</frameHeight>
         <positionX>100</positionX>
         <positionY>40</positionY>
         <stdWeapon>LASER_GUN</stdWeapon>
