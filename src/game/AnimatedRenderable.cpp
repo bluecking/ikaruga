@@ -54,7 +54,9 @@ namespace jumper
               m_frameHeight(frameHeight),
               m_currentFrame(0),
               m_lastRenderTicks(0),
-              m_frameTimeout(0)
+              m_frameTimeout(0),
+              m_currentTileRow(0),
+              m_nextTileRow(0)
     {
         // Initialize source recnt
         m_sourceRect.x = 0;
