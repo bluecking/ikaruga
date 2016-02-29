@@ -743,6 +743,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				if (pos.y() + y + height > downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())))
 				{
 					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x()))) - (pos.y() + height);
+
+					actor->onCollide();
 				}
 			}
 			else if (t1 != EDGEDOWNLEFT) // t2 == EDGEDOWNRIGHT, slope collision right
@@ -752,6 +754,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width, tiles[1].x())))
 				{
 					y = (downY - (posRelativToGrid(pos.x() + width, tiles[1].x()))) - (pos.y() + height);
+
+					actor->onCollide();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
@@ -827,6 +831,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				if(pos.y() + y < downY - posRelativToGrid(pos.x(), tiles[0].x()))
 				{
 					y = (downY - posRelativToGrid(pos.x(), tiles[0].x())) - pos.y();
+
+					actor->onCollide();
 				}
 			}
 			else if (t1 != EDGETOPLEFT) // t2 == EDGETOPRIGHT, slope collision left
@@ -836,6 +842,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				if(pos.y() + y < upY + posRelativToGrid(pos.x() + width, tiles[1].x()))
 				{
 					y = (upY + posRelativToGrid(pos.x() + width, tiles[1].x())) - pos.y();
+
+					actor->onCollide();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision left
