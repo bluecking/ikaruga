@@ -39,11 +39,11 @@ XML::XML()
     setLevelname("Levelname");
     setTileset("tileset.lvl");
     Background b;
-    b.filename = relativePath + "background.png";
+    b.filename = relativePath + "star_background_2_200x200.png";
     b.scrollspeed = 3;
     setBackground(b);
     Statusbar sb;
-    sb.filename = relativePath + "statusbar.png";
+    sb.filename = relativePath + "statusbar_font_10x10.png";
     sb.frameWidth = 10;
     sb.frameHeight = 10;
     sb.letterCount = 26;
@@ -53,7 +53,7 @@ XML::XML()
     sb.offsetToMid = 1;
     setStatusbar(sb);
     Player p;
-    p.filename = relativePath + "player.png";
+    p.filename = relativePath + "player_animated_55x43_transparent.png";
     p.numFrames = 24;
     p.frameWidth = 18;
     p.frameHeight = 32;
