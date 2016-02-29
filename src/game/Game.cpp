@@ -58,6 +58,7 @@ namespace jumper
         {
             if ((*it)->position().x() < curPos)
             {
+                cout << "Bot spaned " << endl;
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
                 addActor(*it);
