@@ -40,7 +40,7 @@
     <bot type="BOT_AI">
         <positionX>750</positionX>
         <positionY>55</positionY>
-        <color>black</color>
+        <color>white</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN_UP">

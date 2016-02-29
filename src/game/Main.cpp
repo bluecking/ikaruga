@@ -156,6 +156,21 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
 
+        // detect color
+        if ((*it).color.compare("black"))
+        {
+            bot->setColor(ColorMode::BLACK);
+        }
+        else if ((*it).color.compare("white"))
+        {
+            bot->setColor(ColorMode::WHITE);
+        }
+        else
+        {
+            bot->setColor(ColorMode::NONE);
+        }
+        bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
+
         std::size_t found = filepath.find_last_of("/\\");
         string sound_path = filepath.substr(0, found);
         string doubleDots = "..";
