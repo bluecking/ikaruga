@@ -118,6 +118,7 @@ void XML::load()
             {
                 m_background.filename = v.second.get<string>("<xmlattr>.filename");
                 m_background.scrollspeed = v.second.get<int>("scrollspeed");
+                m_background.soundfile = v.second.get<std::string>("soundfile");
                 m_requiredAttributes["background"]++;
             }
             else if (v.first == "player")

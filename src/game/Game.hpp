@@ -72,6 +72,8 @@ namespace jumper
         /// set bots
         void addBot(Bot* bot);
 
+        void setSound(std::string soundFile);
+
     private:
 
         const int PIXELS_OFFSET_SPAWN_BOTS = 40;

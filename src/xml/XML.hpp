@@ -94,6 +94,7 @@ public:
     struct Background{
         std::string filename;
         int scrollspeed;
+        std::string soundfile;
     };
 
    struct Statusbar{

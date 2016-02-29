@@ -84,8 +84,6 @@ namespace jumper
     {
         m_level = level;
         m_renderables.push_back(level);
-
-        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()
@@ -340,6 +338,8 @@ namespace jumper
             }
         }
 
+
+
         // Remove actors that were killed in this loop. We have to
         // store them separately because otherwise we would corrupt
         // to loop structure
@@ -347,5 +347,9 @@ namespace jumper
         {
             removeActor(*i);
         }
+    }
+
+    void Game::setSound(std::string soundFile){
+        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
     }
 } /* namespace jumper */

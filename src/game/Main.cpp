@@ -60,7 +60,9 @@ void setupBackground(XML::Background background,std::string filepath,MainWindow*
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
     float scrollspeed = background.scrollspeed * 1.0;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+
     layer->setScrollSpeed(scrollspeed);
+    game->setSound(background.soundfile);
     game->setLayer(layer);
 }
 
