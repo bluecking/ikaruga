@@ -73,6 +73,11 @@ namespace jumper
 
     }
 
+    Vector2f Game::getPlayerPosition()
+    {
+        return m_player->position();
+    }
+
     void Game::setPlayer(Player* player)
     {
         m_player = player;

@@ -18,6 +18,7 @@
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
 #include "Sound.hpp"
+#include "Vector.hpp"
 
 #include "../xml/XML.hpp"
 
@@ -71,6 +72,8 @@ namespace jumper
 
         /// set bots
         void addBot(Bot* bot);
+
+        Vector2f getPlayerPosition();
 
     private:
 
