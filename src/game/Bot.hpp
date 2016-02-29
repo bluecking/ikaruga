@@ -8,6 +8,10 @@
 #ifndef SRC_BOT_HPP_
 #define SRC_BOT_HPP_
 
+#ifndef M_PI
+#define M_PI    3.14159265358979323846f
+#endif
+
 #include "Actor.hpp"
 #include "Level.hpp"
 #include <math.h>

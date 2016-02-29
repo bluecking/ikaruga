@@ -64,10 +64,11 @@ namespace jumper
                             d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_UP:
-                            d_move.setY(-cos(3.1415 / 2 + getLiveTime()) * m_npc.move_value * 2.6);
+
+                            d_move.setY(-cos(M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_DOWN:
-                            d_move.setY(-cos(-3.1415 / 2 + getLiveTime()) * m_npc.move_value * 2.6);
+                            d_move.setY(-cos(-M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                     }
                     d_move.setX(m_npc.speed);
