@@ -136,6 +136,7 @@ void XML::load()
                 m_player.moveForceY = v.second.get<float>("moveForceY");
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
+                m_player.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
 
                 std::string type_tmp = v.second.get<string>("stdWeapon");
                 bool foundType = false;
@@ -257,6 +258,7 @@ void XML::loadBots(std::string filename){
                 bot.colorOffsetX = v.second.get<int>("colorOffsetX");
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
                 bot.fps = v.second.get<int>("fps");
+                bot.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
 
                 /* Get data from child node NPC */
                 NPC npc;

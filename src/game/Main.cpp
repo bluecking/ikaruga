@@ -91,6 +91,13 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
+    std::size_t found = filepath.find_last_of("/\\");
+    string sound_path = filepath.substr(0,found);
+    string doubleDots = "..";
+    found = xplayer.explosionSoundFile.find_first_of(doubleDots);
+    string filename = xplayer.explosionSoundFile.substr(found+doubleDots.length(),xplayer.explosionSoundFile.length());
+    player->setExplosionSound(sound_path+filename);
+
     // set weapon
 
     // TODO dynamic weapon attributes
@@ -143,6 +150,13 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
         getBotProperty(*it, p);
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
+
+        std::size_t found = filepath.find_last_of("/\\");
+        string sound_path = filepath.substr(0,found);
+        string doubleDots = "..";
+        found = (*it).type.explosionSoundFile.find_first_of(doubleDots);
+        string filename = (*it).type.explosionSoundFile.substr(found+doubleDots.length(),(*it).type.explosionSoundFile.length());
+        bot->setExplosionSound(filepath + filename);
 
         game->addBot(bot);
     }

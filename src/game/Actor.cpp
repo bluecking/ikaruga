@@ -240,5 +240,11 @@ namespace jumper
     {
         this->m_health-=damage;
     }
+
+    void Actor::setExplosionSound(std::string explosionSoundFilename)
+    {
+        m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
+    };
+
 } /* namespace jumper */
 

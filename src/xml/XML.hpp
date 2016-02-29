@@ -52,6 +52,7 @@ public:
         float moveForceY;
         float maxVel;
         int fps;
+        std::string explosionSoundFile;
     };
 
     struct Bot{
@@ -66,6 +67,7 @@ public:
         int colorOffsetY;
         int fps;
         NPC npc;
+        std::string explosionSoundFile;
     };
 
     struct LevelBot{

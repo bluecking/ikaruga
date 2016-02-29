@@ -17,6 +17,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include "Sound.hpp"
 
 namespace jumper
 {
@@ -118,7 +119,11 @@ namespace jumper
 
         void setLiveTime();
 
+        void setExplosionSound(std::string explosionSoundFilename);
+
     protected:
+
+        Sound m_explosionSound;
 
         float getElapsedTime();
 
@@ -140,6 +145,8 @@ namespace jumper
         Vector2f m_colorOffset;
 
         int     m_health;
+
+        Level *m_level;
 
 
     };
