@@ -21,7 +21,7 @@ XML::XML(std::string xmlFilename)
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
     advanced_settings = advanced_settings.append("/advanced_settings/");
-    cout << "SETTINGS FILE : " << advanced_settings << endl;
+    //cout << "SETTINGS FILE : " << advanced_settings << endl;
 
     loadBots(advanced_settings + "bots.xml");
     loadItems(advanced_settings + "items.xml");
@@ -118,6 +118,7 @@ void XML::load()
             {
                 m_background.filename = v.second.get<string>("<xmlattr>.filename");
                 m_background.scrollspeed = v.second.get<int>("scrollspeed");
+                m_background.soundfile = v.second.get<std::string>("soundfile");
                 m_requiredAttributes["background"]++;
             }
             else if (v.first == "player")
@@ -135,6 +136,8 @@ void XML::load()
                 m_player.moveForceY = v.second.get<float>("moveForceY");
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
+                m_player.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                m_player.hitSoundFile = v.second.get<std::string>("hitSoundFile");
 
                 std::string type_tmp = v.second.get<string>("stdWeapon");
                 bool foundType = false;
@@ -256,6 +259,7 @@ void XML::loadBots(std::string filename){
                 bot.colorOffsetX = v.second.get<int>("colorOffsetX");
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
                 bot.fps = v.second.get<int>("fps");
+                bot.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
 
                 /* Get data from child node NPC */
                 NPC npc;
@@ -339,6 +343,12 @@ void XML::loadWeapons(std::string filename){
                 w.filename = v.second.get<string>("filename");
                 w.colorOffsetX = v.second.get<int>("colorOffsetX");
                 w.colorOffsetY = v.second.get<int>("colorOffsetY");
+                w.soundfile = v.second.get<std::string>("soundfile");
+                w.frameHeight = v.second.get<int>("frameHeight");
+                w.frameWidth = v.second.get<int>("frameWidth");
+                w.weaponOffsetX = v.second.get<float>("weaponOffsetX");
+                w.weaponOffsetY = v.second.get<float>("weaponOffsetY");
+                w.cooldown = v.second.get<float>("cooldown");
                 m_weapons.push_back(w);
             }
             else

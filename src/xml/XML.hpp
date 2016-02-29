@@ -30,6 +30,12 @@ public:
         std::string filename;
         int colorOffsetX;
         int colorOffsetY;
+        std::string soundfile;
+        int frameWidth;
+        int frameHeight;
+        float weaponOffsetX;
+        float weaponOffsetY;
+        float cooldown;
     };
 
     struct Player{
@@ -46,6 +52,8 @@ public:
         float moveForceY;
         float maxVel;
         int fps;
+        std::string explosionSoundFile;
+        std::string hitSoundFile;
     };
 
     struct Bot{
@@ -60,6 +68,7 @@ public:
         int colorOffsetY;
         int fps;
         NPC npc;
+        std::string explosionSoundFile;
     };
 
     struct LevelBot{
@@ -88,6 +97,7 @@ public:
     struct Background{
         std::string filename;
         int scrollspeed;
+        std::string soundfile;
     };
 
    struct Statusbar{

@@ -7,14 +7,25 @@ using std::string;
 
 namespace jumper {
 
-    Sound::Sound(string filename, int type, Level &level){
-        std::size_t found = level.getPath().find_last_of("/\\");
-        string sound_path = level.getPath().substr(0,found);
-        found = sound_path.find_last_of("/\\");
-        sound_path = sound_path.substr(0,found);
-        sound_path += filename;
-        m_soundFile = sound_path;
+    Sound::Sound(string filename, int type){
+        m_soundFile = filename;
         m_type = type;
+        if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+        {
+            printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        }
+    }
+    Sound::Sound(string filename, int type, Level &level){
+        string doubleDots = "..";
+        std::size_t found;
+        found = filename.find_first_of(doubleDots);
+        filename = filename.substr(found+doubleDots.length(),filename.length());
+        found = level.getPath().find_first_of(doubleDots);
+        std::string path = level.getPath().substr(0,found-1);
+        found = path.find_last_of("/\\");
+        path = path.substr(0,found);
+        m_type = type;
+        m_soundFile = path + filename;
         if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
         {
             printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );

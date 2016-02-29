@@ -4,6 +4,7 @@
     <tileset filename="test1.lvl"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
+        <soundfile>../sounds/game_loop.wav</soundfile>
     </background>
     <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
@@ -18,6 +19,8 @@
         <moveForceY>200.0</moveForceY>
         <maxVel>200.0</maxVel>
         <fps>12</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>
