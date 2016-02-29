@@ -30,6 +30,7 @@ namespace jumper
          * @param spawnPosition Position where the projectiles should spawn
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
+
     };
 
 } /* namespace jumper */

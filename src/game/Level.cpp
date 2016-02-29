@@ -59,6 +59,7 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	std::size_t found = filename.find_last_of("/\\");
 	string path = filename.substr(0,found);
 
+    m_path = path + "/" + texFileName;
 	m_texture = TextureFactory::instance(m_renderer).getTexture(path + "/" + texFileName);
 
 	if(!m_texture)

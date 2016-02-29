@@ -8,10 +8,14 @@
 #ifndef SRC_BOT_HPP_
 #define SRC_BOT_HPP_
 
+#define _USE_MATH_DEFINES
+
 #include "Actor.hpp"
 #include "Level.hpp"
 #include <math.h>
 #include <time.h>
+
+#include "../xml/XML.hpp"
 
 namespace jumper
 {
@@ -43,7 +47,7 @@ namespace jumper
          * @param frameHeight	The height of the frames within the texture
          * @param numFrames		The number of frames in the texture
          */
-        Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames,XML::NPC npc);
 
         virtual ~Bot();
 
@@ -54,6 +58,7 @@ namespace jumper
         int m_move_type;
         int m_move_type_height;
         int m_speed;
+        XML::NPC m_npc;
     };
 
 } /* namespace jumper */

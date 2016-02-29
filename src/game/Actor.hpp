@@ -116,6 +116,8 @@ namespace jumper
 
         int getHealth();
 
+        void setLiveTime();
+
     protected:
 
         float getElapsedTime();
