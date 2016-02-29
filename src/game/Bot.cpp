@@ -6,6 +6,7 @@
  */
 
 #include "Bot.hpp"
+#include "Game.hpp"
 
 using std::cout;
 using std::endl;
@@ -93,6 +94,12 @@ namespace jumper
                 }
                 break;
             }
+        }
+
+        // remove bots
+        if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
+        {
+            m_health = 0;
         }
     }
 

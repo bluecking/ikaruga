@@ -77,10 +77,11 @@ namespace jumper
 
         void setSound(std::string soundFile);
 
+        static const int PIXELS_OFFSET_SPAWN_BOTS = 40;
+        static const int PIXELS_OFFSET_RENDER = 40;
 
     private:
 
-        const int PIXELS_OFFSET_SPAWN_BOTS = 40;
 
         void moveActors();
 
