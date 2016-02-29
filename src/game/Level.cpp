@@ -665,56 +665,245 @@ Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Act
 	{
 		if (y> 0)
 		{
-			getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
+			getInnerTiles(pos, TRIGHT, width, height, &tiles);
 
-			int round = 0;
+			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
-			for(Vector2i& tPos : tiles)
+			if (t1 != EDGETOPRIGHT && t2 != EDGEDOWNRIGHT) // right movement no slope collision
 			{
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+				tiles.clear();
+
+				getSurroundingRelevantTiles(pos, TDOWN, width, height, &tiles);
+
+				int round = 0;
+
+				for (Vector2i &tPos : tiles)
 				{
-					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 					{
-						float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
-						y = std::min(y, maxMov);
-
-						if (y == maxMov)
+						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
 						{
-							actor->onCollide();
-						}
+							float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
+							y = std::min(y, maxMov);
 
-						break;
+							if (y == maxMov)
+							{
+								actor->onCollide();
+							}
+
+							break;
+						}
 					}
+
+					round++;
 				}
 
-				round++;
+				TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+				TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+				if (t1 == EDGETOPRIGHT && t2 == EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
+				{
+					// TODO
+				}
+				else if (t1 == EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
+				{
+					// TODO
+				}
+				else if (t2 == EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
+				{
+					// TODO
+				}
+			}
+			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check, slope collision right
+			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[0].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int upY = gridToPos(tiles[0].y());
+
+				if (pos.y() + y < upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) + 1) // check if we would collide in next step
+				{
+					y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+
+					actor->onCollide();
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+
+				x -= y - y2;
+				y = y2;
+
+				if (movRec > 0 && posToGrid(pos.y() + y) != tiles[0].y())
+				{
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+			}
+			else if (t1 != EDGETOPRIGHT) // t2 == EDGEDOWNRIGHT, slope collision right
+			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), width, tiles[1].x(), 1);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::min(x, maxMovEdge);
+
+				int downY = gridToPos(tiles[1].y() + 1);
+
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1)) // check if we would collide in next step
+				{
+					y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+
+					actor->onCollide();
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+
+				x -= y2 - y;
+				y = y2;
+
+				if (movRec > 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
+				{
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+			}
+			else // t1 and t2 EDGEs, slope collision right
+			{
+				// TODO
 			}
 		}
 		else
 		{
-			getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+			getInnerTiles(pos, TRIGHT, width, height, &tiles);
 
-			int round = 0;
+			TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+			TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
-			for(Vector2i& tPos : tiles)
+			if (t1 != EDGETOPRIGHT && t2 != EDGEDOWNRIGHT) // right movement no slope collision
 			{
-				if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
+
+				tiles.clear();
+
+				getSurroundingRelevantTiles(pos, TUP, width, height, &tiles);
+
+				int round = 0;
+
+				for (Vector2i &tPos : tiles)
 				{
-					if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
+					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
 					{
-						float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
-						y = std::max(y, maxMov);
-
-						if (y == maxMov)
+						if (m_tileTypes[m_tiles[tPos.y()][tPos.x()]] == SOLID)
 						{
-							actor->onCollide();
-						}
+							float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
+							y = std::max(y, maxMov);
 
-						break;
+							if (y == maxMov)
+							{
+								actor->onCollide();
+							}
+
+							break;
+						}
 					}
+
+					round++;
 				}
 
-				round++;
+                TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
+                TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+
+                if (t1 == EDGETOPLEFT && t2 == EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
+                {
+                    // TODO
+                }
+                else if (t1 == EDGETOPLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
+                {
+                    // TODO
+                }
+                else if (t2 == EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
+                {
+                    // TODO
+                }
+			}
+			else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check, slope collision left
+			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), 0, tiles[0].x(), 0);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::max(x, maxMovEdge);
+
+				int upY = gridToPos(tiles[0].y());
+
+				if (pos.y() + y < upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1) // check if we would collide in next step
+				{
+					y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y() + 1; // stop before you are stuck in edge
+
+					actor->onCollide();
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+
+				x += y - y2;
+				y = y2;
+
+				if (movRec < 0 && posToGrid(pos.y() + y) != tiles[0].y())
+				{
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+			}
+			else if (t1 != EDGETOPLEFT) // t2 == EDGEDOWNLEFT, slope collision left
+			{
+				checkY = false;
+
+				float maxMovEdge = nextEdge(pos.x(), 0, tiles[1].x(), 0);
+
+				float movRec = x - maxMovEdge;
+
+				x = std::max(x, maxMovEdge);
+
+				int downY = gridToPos(tiles[1].y() + 1);
+
+				if (pos.y() + y + height > downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1)) // check if we would collide in next step
+				{
+					y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x()) + 1) - (pos.y() + height); // stop before you are stuck in edge
+
+					actor->onCollide();
+				}
+
+				float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, Vector2f(0, y), actor).y(); // repeation
+
+				x += y2 - y;
+				y = y2;
+
+				if (movRec < 0 && posToGrid(pos.y() + y + height) != tiles[1].y())
+				{
+					Vector2f newMov = collideRC(Vector2f(pos.x() + x, pos.y() + y), width, height, Vector2f(movRec, 0), actor);
+
+					x += newMov.x();
+					y += newMov.y();
+				}
+			}
+			else // t1 and t2 EDGEs, slope collision left
+			{
+				// TODO
 			}
 		}
 	}
