@@ -20,7 +20,7 @@ namespace jumper {
         std::list<int> digits;
 
         if (0 == number) {
-            digits.push_back(0);
+            digits.push_back(10);
         }
         else {
             while (number != 0) {
@@ -31,7 +31,12 @@ namespace jumper {
         }
 
         for (std::list<int>::iterator it = digits.begin(); it != digits.end(); it++) {
-            int num = *it;
+            int num;
+            if(*it == 0){
+                num = 10-1;
+            } else  {
+                num = *it-1;
+            }
             Vector2i source;
             source.setX(num * m_tileWidth);
             source.setY(numberOffset);

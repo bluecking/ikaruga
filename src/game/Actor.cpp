@@ -266,5 +266,10 @@ namespace jumper
         m_explosionVolume = volume;
     }
 
+    void Actor::setScoreValue(int value)
+    {
+        m_scoreValue = value;
+    }
+
 } /* namespace jumper */
 
