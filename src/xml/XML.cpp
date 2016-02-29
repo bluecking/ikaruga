@@ -137,6 +137,7 @@ void XML::load()
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
                 m_player.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                m_player.hitSoundFile = v.second.get<std::string>("hitSoundFile");
 
                 std::string type_tmp = v.second.get<string>("stdWeapon");
                 bool foundType = false;

@@ -4,6 +4,7 @@
 
 
 #include "Player.hpp"
+#include "Sound.hpp"
 
 using std::cout;
 using std::endl;
@@ -114,5 +115,9 @@ namespace jumper
                 default:         m_nextTileRow = NORMAL;
             }
         }
+    }
+
+    void Player::setHitMarkSound(std::string soundfile){
+        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
     }
 }

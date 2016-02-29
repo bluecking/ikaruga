@@ -53,6 +53,7 @@ public:
         float maxVel;
         int fps;
         std::string explosionSoundFile;
+        std::string hitSoundFile;
     };
 
     struct Bot{

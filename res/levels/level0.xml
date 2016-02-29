@@ -20,6 +20,7 @@
         <maxVel>200.0</maxVel>
         <fps>12</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>

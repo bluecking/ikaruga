@@ -91,6 +91,7 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
+    //magic
     std::size_t found = filepath.find_last_of("/\\");
     string sound_path = filepath.substr(0,found);
     string doubleDots = "..";
@@ -98,6 +99,9 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     string filename = xplayer.explosionSoundFile.substr(found+doubleDots.length(),xplayer.explosionSoundFile.length());
     player->setExplosionSound(sound_path+filename);
 
+    found = xplayer.hitSoundFile.find_first_of(doubleDots);
+    filename = xplayer.hitSoundFile.substr(found+doubleDots.length(),xplayer.hitSoundFile.length());
+    player->setHitMarkSound(filename);
     // set weapon
 
     // TODO dynamic weapon attributes

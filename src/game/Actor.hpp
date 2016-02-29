@@ -119,10 +119,16 @@ namespace jumper
 
         void setLiveTime();
 
+        /**
+         * the sound when this thing explodes
+         *
+         * @param explosionSoundFilename the filepath to the explosion sound
+         */
         void setExplosionSound(std::string explosionSoundFilename);
 
     protected:
 
+        //the explosion sound
         Sound m_explosionSound;
 
         float getElapsedTime();

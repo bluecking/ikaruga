@@ -14,6 +14,7 @@
 #include "Actor.hpp"
 #include "Vector.hpp"
 #include "Armed.hpp"
+#include "Sound.hpp"
 
 namespace jumper
 {
@@ -58,8 +59,18 @@ namespace jumper
         template<typename T>
         friend std::ostream& operator<<(std::ostream& stream, const Vector2<T>& vec);
 
+        /**
+         * Sets the sound the player should make, when hit
+         *
+         * @param soundfile the path to the sound
+         */
+        void setHitMarkSound(std::string soundfile);
+
     private:
         Vector2f m_moveDirection;
+
+        //the sound file
+        Sound m_hitMarkSound;
     public:
         virtual void shoot();
         void updateMoveAnimation();
