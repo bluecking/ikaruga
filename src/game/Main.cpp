@@ -77,6 +77,25 @@ void setupGame(string filename, MainWindow* w, Game* game)
     game->setLayer(layer);
 
 
+
+    //add statusbar
+    XML::Statusbar statusbar = xml.getStatusbar();
+    xpath = statusbar.filename;
+    texture = TextureFactory::instance(w->getRenderer()).getTexture(path +"/" +statusbar.filename);
+
+    StatusBar * bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight, statusbar.capitalOffset,
+                                    statusbar.minusculeOffset,statusbar.numberOffset, statusbar.letterCount, statusbar.offsetToMid);
+
+
+    int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
+
+    int xEnd = w->w()-1;
+    bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
+    game->setStatusBar(bar);
+
+
+
+
     XML::Player xplayer = xml.getPlayer();
     xpath = xplayer.filename;
     texture = TextureFactory::instance(w->getRenderer()).getTexture(path + "/" + xpath);
@@ -96,7 +115,6 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
                             coolDown));
 
-    cout<<"wname: "<<player->getWeapon()->getWeaponName()<<endl;
 
     game->setPlayer(player);
     player->setFocus(true);
@@ -128,6 +146,7 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
         game->addBot(bot);
     }
+
 
 
 /*
