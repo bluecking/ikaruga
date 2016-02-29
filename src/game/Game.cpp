@@ -70,33 +70,6 @@ namespace jumper
             m_bots.erase(it1);
         }
 
-
-        /*
-
-        int curPos = m_level->m_camera.x() + m_level->m_camera.w()+40;
-        for (auto it = begin (m_bots); it != end (m_bots); it++) {
-            if(it->positionX<curPos+40)
-            {
-                std::size_t found = (*it).type.filename.find_last_of("/\\");
-                string path = (*it).type.filename.substr(0,found);
-
-                SDL_Texture* texture       = TextureFactory::instance(m_renderer).getTexture("/home/marius/git/CPPP/praktikum1/res/images/enemys_green_40x40.png");
-
-                XML::NPC karl;
-                karl.type="SIN_UP";
-                karl.move_function="SIN_UP";
-                karl.move_value= 50;
-                karl.speed=100;
-
-                Bot* bot = new Bot(m_renderer, texture, 40, 40, 2, karl);
-                bot->position().setY(40);
-                bot->position().setX(400);
-                addActor(bot);
-                m_bots.erase(it);
-            }
-        }
-
-         */
     }
 
     void Game::setPlayer(Player* player)
