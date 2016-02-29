@@ -28,10 +28,11 @@ namespace jumper
         projectile->setColor(m_actor.getColor());
         projectile->launch();
 
+        m_sound.play();
         m_game.addActor(projectile);
     }
 
-    //TODO ~ Set Weapon Name and Evolution Stage from XML
+    //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
     LaserWeapon::LaserWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
@@ -48,5 +49,7 @@ namespace jumper
                      coolDown,
                      "LaserGun",
                      1)
-    { }
+    {
+        m_sound = Sound("/sounds/laser.wav", Sound::SOUND, *game.getLevel());
+    }
 }
