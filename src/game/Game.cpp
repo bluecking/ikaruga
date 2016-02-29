@@ -6,13 +6,9 @@
  */
 
 #include "Game.hpp"
-#include "PuzzleBox.hpp"
-#include "KillAnimation.hpp"
+#include "CollisionManager.hpp"
 
-#include <iostream>
-#include <algorithm>
 #include <set>
-#include <string>
 
 using std::set;
 using std::cout;
@@ -51,13 +47,13 @@ namespace jumper
 
     void Game::spawnBots()
     {
-        int curPos = m_level->m_camera.x() + m_level->m_camera.w();
+        int curPos = ((int) m_level->m_camera.x()) + m_level->m_camera.w();
 
         vector<Bot*> erease_bots;
 
         for (auto it = m_bots.begin(); it != m_bots.end(); it++)
         {
-            if ((*it)->position().x() < curPos+PIXELS_OFFSET_SPAWN_BOTS)
+            if ((*it)->position().x() < curPos + PIXELS_OFFSET_SPAWN_BOTS)
             {
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
@@ -73,6 +69,11 @@ namespace jumper
 
     }
 
+    Vector2f Game::getPlayerPosition()
+    {
+        return m_player->position();
+    }
+
     void Game::setPlayer(Player* player)
     {
         m_player = player;
@@ -84,15 +85,11 @@ namespace jumper
     {
         m_level = level;
         m_renderables.push_back(level);
-
-        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()
     {
-
         return m_level;
-
     }
 
     void Game::addActor(Actor* actor)
@@ -105,7 +102,13 @@ namespace jumper
     {
         if (m_started)
         {
-            m_sound.play();
+            m_sound.play(m_volume);
+
+            for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
+            {
+                (*it)->setHit(false);
+            }
+
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -122,6 +125,7 @@ namespace jumper
             m_statusBar->setWeaponName(m_player->getWeapon()->getWeaponName());
             m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
             m_statusBar->setHealth(m_player->getHealth());
+
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
@@ -142,14 +146,17 @@ namespace jumper
             }
             m_player->setMoveDirection(moveDirection);
 
+            removeDeadActors();
+
             moveActors();
+
             //added spawn bots
             spawnBots();
 
             scrollHorizontal();
-            checkPlayerCollision();
+
             checkCameraCollision();
-            removeProjectiles();
+            checkActorCollision();
 
             SDL_RenderClear(m_renderer);
 
@@ -168,7 +175,6 @@ namespace jumper
 
             if (m_statusBar)
             {
-                m_statusBar->setScore(m_player->physics().position().x());
                 m_statusBar->render();
             }
 
@@ -184,71 +190,6 @@ namespace jumper
 
         auto it2 = std::find(m_renderables.begin(), m_renderables.end(), a);
         m_renderables.erase(it2);
-    }
-
-    void Game::checkPlayerCollision()
-    {
-        set<Actor*> to_remove;
-        KillAnimation* anim = 0;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
-            if (a->getHealth() <= 0)
-            {
-                to_remove.insert(a);
-            }
-
-            // Check for self collision
-            if (a != m_player)
-            {
-                Collision c = m_player->getCollision(*a);
-
-                // Simple items can be collected on the fly
-                if (a->type() == ITEM && c.type() != NONE)
-                {
-                    to_remove.insert(a);
-                }
-
-                // If an collection with an enemy occured, check
-                // who killed whom (Player only can kill enemies
-                // when falling down.
-                if (a->type() == ENEMY && c.type() != NONE)
-                {
-                    if (c.type() == BOOM)
-                    {
-                        cout << "PLAYER KILLED" << endl;
-                    }
-                    else if (c.type() == DOWN)
-                    {
-                        to_remove.insert(a);
-                        anim = new KillAnimation(a);
-                    }
-                }
-
-                if (a->type() == PUZZLEBOX)
-                {
-                    PuzzleBox* b = static_cast<PuzzleBox*>(a);
-                    m_player->resolveCollision(*a);
-                    if (c.type() == UP)
-                    {
-                        b->setHit(true);
-                    }
-                }
-            }
-        }
-
-        // Remove actors that were killed in this loop. We have to
-        // store them separately because otherwise we would corrupt
-        // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
-        {
-            removeActor(*i);
-        }
-
-        if (anim)
-        {
-            m_renderables.push_back(anim);
-        }
     }
 
     // This method corrects the position of the player, if its leaving the borders of the camera.
@@ -324,28 +265,38 @@ namespace jumper
         return time;
     }
 
-    void Game::removeProjectiles()
+    void Game::checkActorCollision()
     {
-        set<Actor*> to_remove;
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
-        {
-            Actor* a = *it;
+        CollisionManager cm;
 
-            if (a->type() == PROJECTILE)
+        cm.checkCollision(m_actors);
+    }
+
+    void Game::removeDeadActors()
+    {
+        vector<Actor*> to_remove;
+
+        for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
+        {
+            if ((*it)->getHealth() <= 0)
             {
-                if (!a->visible())
-                {
-                    to_remove.insert(a);
-                }
+                to_remove.push_back(*it);
             }
         }
 
-        // Remove actors that were killed in this loop. We have to
-        // store them separately because otherwise we would corrupt
-        // to loop structure
-        for (auto i = to_remove.begin(); i != to_remove.end(); i++)
+
+        for (auto actor : to_remove)
         {
-            removeActor(*i);
+            removeActor(actor);
+            if(m_statusBar) {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+            }
+            actor->~Actor();
         }
+    }
+
+    void Game::setSound(std::string soundFile, int volume){
+        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
+        m_volume = volume;
     }
 } /* namespace jumper */

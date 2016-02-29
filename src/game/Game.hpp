@@ -18,6 +18,7 @@
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
 #include "Sound.hpp"
+#include "Vector.hpp"
 
 #include "../xml/XML.hpp"
 
@@ -27,7 +28,7 @@ using std::vector;
 
 namespace jumper
 {
-
+    class Bot;
     class MainWindow;
 
 /**
@@ -72,22 +73,24 @@ namespace jumper
         /// set bots
         void addBot(Bot* bot);
 
+
+        void setSound(std::string soundFile, int volume);
+
+        Vector2f getPlayerPosition();
+
+        void setSound(std::string soundFile);
+
+        static const int PIXELS_OFFSET_SPAWN_BOTS = 40;
+        static const int PIXELS_OFFSET_RENDER = 40;
+
     private:
 
-        const int PIXELS_OFFSET_SPAWN_BOTS = 40;
 
         void moveActors();
-
-        void checkPlayerCollision();
 
         void checkCameraCollision();
 
         void removeActor(Actor* a);
-
-        /**
-         * Removes projectiles which are out of view.
-         */
-        void removeProjectiles();
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.
@@ -133,8 +136,19 @@ namespace jumper
 
         bool m_started;
 
+        int m_volume;
+
+        /**
+         * Is invoked by Game::update() and checks if an Actor collides with another Actor.
+         */
+        void checkActorCollision();
+
+        /**
+         * Is invoked by Game::update() and remove Actors with health below 0.
+         */
+        void removeDeadActors();
         vector<Bot*> m_bots;
-        //
+
         Sound m_sound;
 
     };

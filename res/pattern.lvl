@@ -1,3 +1,0 @@
-fileName_of_TileSet
-tileSet.tileWidth tileSet.tileHeight tileSet.tilesPerRow tileSet.numRows tileSet.offset level.levelWidth
-levelTile.row(0).column(0) levelTile.row(0).column(1) .. levelTile.row(1).column(0) levelTile.row(1).column(1) ..

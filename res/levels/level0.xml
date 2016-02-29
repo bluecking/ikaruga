@@ -4,13 +4,15 @@
     <tileset filename="test1.lvl"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
+        <soundfile>../sounds/game_loop.wav</soundfile>
+        <volume>70</volume>
     </background>
     <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
         <frameWidth>55</frameWidth>
         <frameHeight>43</frameHeight>
         <positionX>100</positionX>
-        <positionY>40</positionY>
+        <positionY>140</positionY>
         <stdWeapon>LASER_GUN</stdWeapon>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -18,6 +20,10 @@
         <moveForceY>200.0</moveForceY>
         <maxVel>200.0</maxVel>
         <fps>12</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>100</explosionVolume>
+        <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
+        <hitVolume>100</hitVolume>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>
@@ -28,27 +34,33 @@
       <numberOffset>0</numberOffset>
       <offsetToMid>1</offsetToMid>
   </statusBar>
-    <bot type="BOT_SIN_UP">
-        <positionX>1400</positionX>
+    <bot type="BOT_AI">
+        <positionX>600</positionX>
         <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_UP">
-        <positionX>1500</positionX>
-        <positionY>50</positionY>
-        <color>black</color>
+    <bot type="BOT_AI">
+        <positionX>750</positionX>
+        <positionY>55</positionY>
+        <color>white</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN_UP">
-        <positionX>1600</positionX>
-        <positionY>50</positionY>
+        <positionX>1200</positionX>
+        <positionY>80</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_UP">
+    <bot type="BOT_SIN">
+        <positionX>1350</positionX>
+        <positionY>200</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_DOWN">
         <positionX>1700</positionX>
-        <positionY>50</positionY>
+        <positionY>280</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
@@ -60,13 +72,13 @@
     </bot>
     <bot type="BOT_SIN_DOWN">
         <positionX>2200</positionX>
-        <positionY>120</positionY>
+        <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_NO_MOVE">
         <positionX>3000</positionX>
-        <positionY>50</positionY>
+        <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>

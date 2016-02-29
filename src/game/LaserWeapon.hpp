@@ -21,7 +21,9 @@ namespace jumper
                     const Vector2i& projectileTextureSize,
                     const Vector2f& weaponOffset,
                     const Vector2f& projectileColorOffset,
-                    float coolDown);
+                    float coolDown,
+                    std::string sound,
+                    int volume);
 
         /**
          * Shoots a single projectile in a straight line
@@ -30,6 +32,8 @@ namespace jumper
          * @param spawnPosition Position where the projectiles should spawn
          */
         virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
+
+        int m_volume;
 
     };
 

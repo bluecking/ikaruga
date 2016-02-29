@@ -9,9 +9,7 @@
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
 #include "LaserWeapon.hpp"
-
 #include "../xml/XML.hpp"
-
 #include <iostream>
 
 using namespace jumper;
@@ -47,55 +45,79 @@ void getBotProperty(XML::LevelBot bot, PlayerProperty& p)
 }
 
 //create level
-void setupLevel(MainWindow* w,Game* game,std::string filepath)
+void setupLevel(MainWindow* w, Game* game, std::string filepath)
 {
     Level* level = new Level(w->getRenderer(), filepath);
     game->setLevel(level);
 }
 
 //Creates the Levelbackground
-void setupBackground(XML::Background background,std::string filepath,MainWindow* w,Game* game)
+void setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game)
 {
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
     float scrollspeed = background.scrollspeed * 1.0;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+
     layer->setScrollSpeed(scrollspeed);
+    game->setSound(background.soundfile, background.volume);
     game->setLayer(layer);
 }
 
 //create statusbar
-void setupStatusbar(MainWindow* w, Game* game ,XML::Statusbar statusbar, std::string filepath)
+void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath)
 {
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
 
-    StatusBar * bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight, statusbar.capitalOffset,
-                                    statusbar.minusculeOffset,statusbar.numberOffset, statusbar.letterCount, statusbar.offsetToMid);
+    StatusBar* bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight,
+                                   statusbar.capitalOffset,
+                                   statusbar.minusculeOffset, statusbar.numberOffset, statusbar.letterCount,
+                                   statusbar.offsetToMid);
 
     int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
 
-    int xEnd = w->w()-1;
+    int xEnd = w->w() - 1;
     bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
     game->setStatusBar(bar);
 }
+
 //create Player
-void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepath)
+void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
 {
-    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+xplayer.filename);
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + "/" + xplayer.filename);
     Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
 
+    //magic
+    std::size_t found = filepath.find_last_of("/\\");
+    string sound_path = filepath.substr(0, found);
+    string doubleDots = "..";
+    found = xplayer.explosionSoundFile.find_first_of(doubleDots);
+    string filename = xplayer.explosionSoundFile.substr(found + doubleDots.length(),
+                                                        xplayer.explosionSoundFile.length());
+    player->setExplosionSound(sound_path + filename);
+
+    found = xplayer.hitSoundFile.find_first_of(doubleDots);
+    filename = xplayer.hitSoundFile.substr(found + doubleDots.length(), xplayer.hitSoundFile.length());
+    player->setHitMarkSound(filename);
+    player->setHitMarkVolume(xplayer.hitVolume);
     // set weapon
     // TODO dynamic weapon attributes
 
-    Vector2i* textureSize = new Vector2i(6, 6);
-    Vector2f* weaponOffset = new Vector2f(25, 18.5f);
-    Vector2f* projectileColorOffset = new Vector2f(6, 0);
-    float coolDown = 0.2f;
+
+    XML::Weapon weapon = xplayer.stdWeapon;
+
+
+    Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+    Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+    Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+    float coolDown = weapon.cooldown;
+
+
     SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-            filepath + "/../images/laser_shot.png");
+            filepath + "/" + weapon.filename);
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
-                            coolDown)
-    );
+                            coolDown, weapon.soundfile, weapon.shootingVolume));
+
 
     game->setPlayer(player);
     player->setFocus(true);
@@ -112,18 +134,44 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
 }
 
 //create Bots
-void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string filepath)
+void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
 {
-    for (auto it = begin(bots); it != end(bots); it++)
+    for (auto it = bots.begin(); it != bots.end(); it++)
     {
-        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+(*it).type.filename);
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
+                filepath + "/" + (*it).type.filename);
+
 
         Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
-                           (*it).type.numFrames, (*it).type.npc);
+                           (*it).type.numFrames, game, (*it).type.npc);
         PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);
         bot->setFPS((*it).type.fps);
+
+        // detect color
+        if ((*it).color.compare("black"))
+        {
+            bot->setColor(ColorMode::BLACK);
+        }
+        else if ((*it).color.compare("white"))
+        {
+            bot->setColor(ColorMode::WHITE);
+        }
+        else
+        {
+            bot->setColor(ColorMode::NONE);
+        }
+        bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
+
+        std::size_t found = filepath.find_last_of("/\\");
+        string sound_path = filepath.substr(0, found);
+        string doubleDots = "..";
+        found = (*it).type.explosionSoundFile.find_first_of(doubleDots);
+        string filename = (*it).type.explosionSoundFile.substr(found+doubleDots.length(),(*it).type.explosionSoundFile.length());
+        bot->setExplosionSound(sound_path + filename);
+        bot->setExplosionVolume((*it).type.explosionVolume);
+        bot->setScoreValue((*it).type.scorevalue);
 
         game->addBot(bot);
     }
@@ -136,19 +184,20 @@ void setupGame(string filename, MainWindow* w, Game* game)
     XML xml = XML(filename);
 
     //create Level
-   setupLevel(w,game,path+"/"+xml.getTileset());
+    setupLevel(w, game, path + "/" + xml.getTileset());
 
     //create Background layer
-    setupBackground(xml.getBackground(),path+"/"+xml.getBackground().filename,w,game);
+    setupBackground(xml.getBackground(), path + "/" + xml.getBackground().filename, w, game);
+
 
     //add statusbar
-    setupStatusbar(w,game,xml.getStatusbar(),path+"/"+xml.getStatusbar().filename);
+    setupStatusbar(w, game, xml.getStatusbar(), path + "/" + xml.getStatusbar().filename);
 
     //add player
-    setupPlayer(xml.getPlayer(),w,game,path);
+    setupPlayer(xml.getPlayer(), w, game, path);
 
-   //setup bots
-    setupBots(xml.getLevelBots(),w,game,path);
+    //setup bots
+    setupBots(xml.getLevelBots(), w, game, path);
 }
 
 int main(int argc, char** argv)
@@ -161,12 +210,12 @@ int main(int argc, char** argv)
 //    }
 
     MainWindow window("Ikaruga", 625, 576);
-    //Game game(&window);
-    //setupGame(argv[1], &window, &game);
-
-    //window.setGame(&game);
-    //game.start();
-    window.setActualScreen(MainWindow::RENDER_ITEMSHOP);
+//    Game game(&window);
+//    setupGame(argv[1], &window, &game);
+//
+//    window.setGame(&game);
+//    game.start();
+    window.setActualScreen(MainWindow::RENDER_GAME);
     window.run();
 
     // Free textures

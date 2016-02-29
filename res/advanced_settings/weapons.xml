@@ -1,7 +1,14 @@
 <weapons>
     <weapon type="LASER_GUN">
-        <filename>laser_shot.png</filename>
+        <filename>../images/laser_shot.png</filename>
         <colorOffsetX>6</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
+	<soundfile>../sounds/laser.wav</soundfile>
+    <projectileVolume>50</projectileVolume>
+	<frameWidth>6</frameWidth>
+	<frameHeight>6</frameHeight>
+	<weaponOffsetX>25</weaponOffsetX>
+	<weaponOffsetY>18.5</weaponOffsetY>
+	<cooldown>0.2</cooldown>
     </weapon>
 </weapons>

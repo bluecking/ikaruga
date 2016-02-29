@@ -31,6 +31,9 @@ set(JUMPER_SOURCES
         Projectile.cpp
         LaserWeapon.cpp
         Armed.cpp
+        CollisionManager.cpp
+        CollisionManager.hpp
+        Armed.cpp
         StatusBar.cpp
         FontRender.cpp
         Sound.cpp
