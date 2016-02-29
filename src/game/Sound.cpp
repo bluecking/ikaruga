@@ -23,7 +23,7 @@ namespace jumper {
         //if(song == NULL ){
         //    std::cout << "Couldnt open " + m_soundFile + "\n";
         //}
-        //Mix_PlayMusic( song, 0);
+        Mix_PlayMusic( song, 0);
     }
 
     void Sound::stop(){
