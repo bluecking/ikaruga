@@ -62,7 +62,7 @@ void setupBackground(XML::Background background,std::string filepath,MainWindow*
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
 
     layer->setScrollSpeed(scrollspeed);
-    game->setSound(background.soundfile);
+    game->setSound(background.soundfile, background.volume);
     game->setLayer(layer);
 }
 
@@ -102,6 +102,7 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     found = xplayer.hitSoundFile.find_first_of(doubleDots);
     filename = xplayer.hitSoundFile.substr(found+doubleDots.length(),xplayer.hitSoundFile.length());
     player->setHitMarkSound(filename);
+    player->setHitMarkVolume(xplayer.hitVolume);
     // set weapon
 
     // TODO dynamic weapon attributes
@@ -122,7 +123,7 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
 
-                            coolDown, weapon.soundfile));
+                            coolDown, weapon.soundfile, weapon.shootingVolume));
 
 
     game->setPlayer(player);
@@ -161,7 +162,7 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
         found = (*it).type.explosionSoundFile.find_first_of(doubleDots);
         string filename = (*it).type.explosionSoundFile.substr(found+doubleDots.length(),(*it).type.explosionSoundFile.length());
         bot->setExplosionSound(sound_path + filename);
-
+        bot->setExplosionVolume((*it).type.explosionVolume);
         game->addBot(bot);
     }
 }

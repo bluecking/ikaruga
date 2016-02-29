@@ -5,6 +5,7 @@
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
         <soundfile>../sounds/game_loop.wav</soundfile>
+        <volume>70</volume>
     </background>
     <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
@@ -20,7 +21,9 @@
         <maxVel>200.0</maxVel>
         <fps>12</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>100</explosionVolume>
         <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
+        <hitVolume>100</hitVolume>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>

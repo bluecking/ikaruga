@@ -261,5 +261,9 @@ namespace jumper
         m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
     };
 
+    void Actor::setExplosionVolume(int volume) {
+        m_explosionVolume = volume;
+    }
+
 } /* namespace jumper */
 

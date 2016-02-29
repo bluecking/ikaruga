@@ -119,6 +119,7 @@ void XML::load()
                 m_background.filename = v.second.get<string>("<xmlattr>.filename");
                 m_background.scrollspeed = v.second.get<int>("scrollspeed");
                 m_background.soundfile = v.second.get<std::string>("soundfile");
+                m_background.volume = v.second.get<int>("volume");
                 m_requiredAttributes["background"]++;
             }
             else if (v.first == "player")
@@ -137,7 +138,9 @@ void XML::load()
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
                 m_player.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                m_player.explosionVolume = v.second.get<int>("explosionVolume");
                 m_player.hitSoundFile = v.second.get<std::string>("hitSoundFile");
+                m_player.hitVolume = v.second.get<int>("hitVolume");
 
                 std::string type_tmp = v.second.get<string>("stdWeapon");
                 bool foundType = false;
@@ -260,6 +263,7 @@ void XML::loadBots(std::string filename){
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
                 bot.fps = v.second.get<int>("fps");
                 bot.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                bot.explosionVolume = v.second.get<int>("explosionVolume");
 
                 /* Get data from child node NPC */
                 NPC npc;
@@ -349,6 +353,7 @@ void XML::loadWeapons(std::string filename){
                 w.weaponOffsetX = v.second.get<float>("weaponOffsetX");
                 w.weaponOffsetY = v.second.get<float>("weaponOffsetY");
                 w.cooldown = v.second.get<float>("cooldown");
+                w.shootingVolume = v.second.get<int>("projectileVolume");
                 m_weapons.push_back(w);
             }
             else

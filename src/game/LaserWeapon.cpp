@@ -30,7 +30,7 @@ namespace jumper
 
         if (m_actor.type() == ActorType::PLAYER)
         {
-            m_sound.play(-1, 50);
+            m_sound.play(-1, m_volume);
         }
 
         m_game.addActor(projectile);
@@ -44,7 +44,8 @@ namespace jumper
                              const Vector2f& weaponOffset,
                              const Vector2f& projectileColorOffset,
                              float coolDown,
-                             std::string sound)
+                             std::string sound,
+                             int volume)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -56,5 +57,6 @@ namespace jumper
                      1)
     {
         m_sound = Sound(sound, SoundType::SOUND, *game.getLevel());
+        m_volume = volume;
     }
 }
