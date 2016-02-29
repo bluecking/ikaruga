@@ -122,8 +122,11 @@ namespace jumper
     {
         m_explosionSound.play(m_explosionVolume);
     }
+
     Bot::~Bot()
     {
-     play();
+        play();
     }
+
+
 } /* namespace jumper */

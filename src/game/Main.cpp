@@ -179,6 +179,7 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
         string filename = (*it).type.explosionSoundFile.substr(found+doubleDots.length(),(*it).type.explosionSoundFile.length());
         bot->setExplosionSound(sound_path + filename);
         bot->setExplosionVolume((*it).type.explosionVolume);
+        bot->setScoreValue((*it).type.scorevalue);
 
         game->addBot(bot);
     }

@@ -74,6 +74,7 @@ public:
         NPC npc;
         std::string explosionSoundFile;
         int explosionVolume;
+        int long scorevalue;
     };
 
     struct LevelBot{

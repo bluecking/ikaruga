@@ -175,7 +175,6 @@ namespace jumper
 
             if (m_statusBar)
             {
-                m_statusBar->setScore(m_player->physics().position().x());
                 m_statusBar->render();
             }
 
@@ -289,6 +288,9 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
+            if(m_statusBar) {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+            }
             actor->~Actor();
         }
     }
