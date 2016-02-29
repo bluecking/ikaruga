@@ -56,13 +56,7 @@ namespace jumper
         m_level = level;
         m_renderables.push_back(level);
 
-        std::size_t found = m_level->getPath().find_last_of("/\\");
-        string sound_path = m_level->getPath().substr(0,found);
-        found = sound_path.find_last_of("/\\");
-        sound_path = sound_path.substr(0,found);
-        sound_path += "/sounds/game_loop.wav";
-        std::cout << sound_path + "\n";
-        m_sound = Sound(sound_path);
+        m_sound = Sound("/sounds/game_loop.wav", Sound::SONG, *m_level);
     }
 
     Level* Game::getLevel()

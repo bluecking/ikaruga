@@ -28,6 +28,7 @@ namespace jumper
         projectile->setColor(m_actor.getColor());
         projectile->launch();
 
+        m_sound.play();
         m_game.addActor(projectile);
     }
 
@@ -48,5 +49,7 @@ namespace jumper
                      coolDown,
                      "LaserGun",
                      1)
-    { }
+    {
+        m_sound = Sound("/sounds/laser.wav", Sound::SOUND, *game.getLevel());
+    }
 }
