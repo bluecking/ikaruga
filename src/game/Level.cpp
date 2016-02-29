@@ -731,9 +731,9 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
-				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1)
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x() + width, tiles[1].x())) + 1)
 				{
-					y = (downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
+					y = (downY - (posRelativToGrid(pos.x() + width, tiles[1].x())) + 1) - (pos.y() + height);
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
