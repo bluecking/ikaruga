@@ -43,11 +43,17 @@ namespace jumper {
     }
 
     void Sound::stop(){
-        std::cout << "i stop something\n";
+        Mix_HaltMusic();
     }
 
     void Sound::pause(){
-        std::cout << "i pause something\n";
+        Mix_PausedMusic();
     }
 
+    void Sound::resume() {
+        if( Mix_PausedMusic() == 1 )
+        {
+            Mix_ResumeMusic();
+        }
+    }
 }

@@ -12,28 +12,60 @@
 
 using std::string;
 
-namespace jumper{
+namespace jumper {
+    /**
+     * @brief a class to play some fancy wavs
+     */
+    class Sound {
+    public:
 
-        class Sound {
-        public:
-            Sound() {};
+        /**
+         * Standard Constructor
+         */
+        Sound() { };
 
-            Sound(string filename, int type, Level &level);
+        /**
+         * Constructor to create a sound
+         *
+         * @param filename a relative path to the base to the soundfile
+         * @param type the type of the sound
+         * @level the levelFile
+         */
+        Sound(string filename, int type, Level &level);
 
-            void play();
+        /**
+         * Plays the sound
+         */
+        void play();
 
-            void stop();
+        /**
+         * stops Playing
+         */
+        void stop();
 
-            void pause();
+        /**
+         * pauses playning
+         */
+        void pause();
 
-            static const int SONG;
+        /**
+         * resumes playing
+         */
+        void resume();
 
-            static const int SOUND;
-        private:
-            string m_soundFile;
+        //Int representation of SONG type
+        static const int SONG;
 
-            int m_type;
-        };
+        //Int representation of SOUND type
+        static const int SOUND;
+    private:
+
+        //The Filename of the sound
+        string m_soundFile;
+
+        //The Type of the Sound
+        int m_type;
+    };
 };
 
 #endif //SCROLLER_SOUND_HPP
