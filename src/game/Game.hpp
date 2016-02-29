@@ -28,7 +28,7 @@ using std::vector;
 
 namespace jumper
 {
-
+    class Bot;
     class MainWindow;
 
 /**

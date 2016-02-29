@@ -20,6 +20,8 @@
 
 namespace jumper
 {
+    class Game;
+
     namespace BotType
     {
         enum BotMoveType
@@ -63,6 +65,7 @@ namespace jumper
          */
         virtual void resolveCollision(Actor& other) override;
     private:
+        const float AI_TRACE_SPEED=0.7;
         int m_move_type;
         int m_move_type_height;
         int m_speed;
