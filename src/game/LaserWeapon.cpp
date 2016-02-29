@@ -50,6 +50,6 @@ namespace jumper
                      "LaserGun",
                      1)
     {
-        m_sound = Sound("/sounds/laser.wav", Sound::SOUND, *game.getLevel());
+        m_sound = Sound("/sounds/laser.wav", SoundType::SOUND, *game.getLevel());
     }
 }

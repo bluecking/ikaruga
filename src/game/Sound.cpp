@@ -7,9 +7,6 @@ using std::string;
 
 namespace jumper {
 
-    const int Sound::SONG = 1;
-    const int Sound::SOUND = 2;
-
     Sound::Sound(string filename, int type, Level &level){
         std::size_t found = level.getPath().find_last_of("/\\");
         string sound_path = level.getPath().substr(0,found);
@@ -25,14 +22,14 @@ namespace jumper {
     }
 
     void Sound::play(){
-        if(m_type == SONG && !Mix_PlayingMusic()) {
+        if(m_type == SoundType::SONG && !Mix_PlayingMusic()) {
             Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
 
             if(song == NULL ){
                 std::cout << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_PlayMusic( song, 0);
-        } else if(m_type == SOUND) {
+        } else if(m_type == SoundType::SOUND) {
             Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
 
             if(sound == NULL ){

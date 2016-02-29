@@ -56,7 +56,7 @@ namespace jumper
         m_level = level;
         m_renderables.push_back(level);
 
-        m_sound = Sound("/sounds/game_loop.wav", Sound::SONG, *m_level);
+        m_sound = Sound("/sounds/game_loop.wav", SoundType::SONG, *m_level);
     }
 
     Level* Game::getLevel()

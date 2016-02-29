@@ -13,6 +13,16 @@
 using std::string;
 
 namespace jumper {
+
+    namespace SoundType
+    {
+        enum SoundType
+        {
+            SONG,
+            SOUND
+        };
+    }
+
     /**
      * @brief a class to play some fancy wavs
      */
@@ -52,12 +62,6 @@ namespace jumper {
          * resumes playing
          */
         void resume();
-
-        //Int representation of SONG type
-        static const int SONG;
-
-        //Int representation of SOUND type
-        static const int SOUND;
     private:
 
         //The Filename of the sound
