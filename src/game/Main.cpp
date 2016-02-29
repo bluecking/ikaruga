@@ -272,20 +272,22 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 int main(int argc, char** argv)
 {
-    if (argc != 2)
-    {
-        std::cout << "Please specify a level to render" << std::endl;
-        return -1;
-    }
 
-    MainWindow window("Jumper", 625, 576);
-    Game game(&window);
-    setupGame(argv[1], &window, &game);
+	if(argc != 2)
+	{
+		std::cout << "Please specify a level to render" << std::endl;
+		return -1;
+	}
 
-    window.setGame(&game);
-    game.start();
-    window.run();
+	MainWindow window("Ikaruga", 625, 576);
+	Game game(&window);
+	setupGame(argv[1], &window, &game);
 
-    // Free textures
-    TextureFactory::instance(window.getRenderer()).deleteAll();
+	window.setGame(&game);
+	game.start();
+	window.run();
+
+	// Free textures
+	TextureFactory::instance(window.getRenderer()).deleteAll();
+
 }
