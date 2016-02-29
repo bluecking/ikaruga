@@ -57,6 +57,9 @@ public:
 	/// the offset wrt. the current camera position when
 	/// rendering
 	static Camera		m_camera;
+
+    // Destructor
+    virtual ~Renderable();
 protected:
 
     /// Renderer

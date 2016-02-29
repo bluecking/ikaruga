@@ -13,7 +13,7 @@ using std::endl;
 namespace jumper
 {
 
-    Bot::Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
+    Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, XML::NPC npc)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
     {
         m_physicalProps.setMoveForce(Vector2f(0, 0));
@@ -21,6 +21,8 @@ namespace jumper
 
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
         m_health = 2000;
+
+        m_type = ActorType::ENEMY;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
@@ -39,12 +41,12 @@ namespace jumper
         {
             m_move_type=BotType::NO_MOVE;
         }
+        m_move_type = BotType::SIN_UP;
+        m_move_type_height = 25;
+        m_speed = 100;
     }
 
-
-
-
-    void Bot::move(Level &level)
+    void Bot::move(Level& level)
     {
         nextFrame();
         switch (m_move_type)
@@ -78,12 +80,22 @@ namespace jumper
         }
     }
 
+    void Bot::resolveCollision(Actor& other)
+    {
+        // Hit by player's projectile with same color
+        if(other.type() == PROJECTILE && getColor() == other.getColor()) {
+            setHit(true);
+            takeDamage(DAMAGE_BY_PROJECTILE);
+        }
+
+        // Hit by player
+        if(other.type() == PLAYER) {
+            m_health = 0;
+        }
+    }
 
     Bot::~Bot()
     {
         // TODO Auto-generated destructor stub
     }
-
-
-
 } /* namespace jumper */
