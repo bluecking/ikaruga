@@ -32,6 +32,9 @@ public:
 	void loadXml(QString fileName);
 	void loadLevel(QString fileName);
 	void setSize(int value);
+	void setBot(QString botName);
+	void setPower(QString powerName);
+	void setNull();
 	QString toQString(std::string string);
 
 	QPixmap** getPixmap();
@@ -60,10 +63,19 @@ private:
 	QString m_imgStatusbar;
 	QString m_imgPlayer;
 	Settings m_setting;
-	std::string m_weapon;
+
 	std::string m_botType;
+	std::string m_color;
 	std::vector<XML::LevelBot> m_levelBots;
+	std::vector<XML::LevelItem> m_levelItems;
 	std::vector<XML::Bot> m_bots;
+	std::vector<XML::Item> m_items;
+	std::vector<XML::Weapon> m_weapons;
+	XML::LevelItem m_levelItem;
+	XML::Item m_item;
+	XML::Bot m_bot;
+	XML::Weapon m_weapon;
+	XML::LevelBot m_levelbot;
 	XML::Background m_background;
 	XML::Statusbar m_statusbar;
 	XML::Player m_player;
@@ -83,6 +95,9 @@ private:
 	=m_xml->getPlayer();*/
 
 	std::vector<int>* m_tiles;        // The 2D tile array
+	int m_typeItem;
+	int m_typeBot;
+	int m_typeTexture;
 	int m_scrollSpeed;
 	int m_index=0;        // Tile id
 	int m_type=0;         // texture type

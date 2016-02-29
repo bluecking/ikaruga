@@ -34,6 +34,13 @@ void GraphicsTileItem::changeItem(int tileset_id,QRect& rect,int index)
     m_index=index;
 }
 
+void GraphicsTileItem::changeItem(QPixmap* map,QRect& rect,int type)
+{
+    this->setPixmap(map->copy(rect));
+    m_type=type;
+
+}
+
 int GraphicsTileItem::getType()
 {
     return m_type;

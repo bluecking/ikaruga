@@ -96,6 +96,9 @@ void TextureScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
     {
         GraphicsTileItem *gItem = dynamic_cast<GraphicsTileItem *>(item_list.first());
         m_levelScene->setTileSettings(gItem->getIndex(), gItem->getType(), gItem->getRect());
+        m_levelScene->setNull();
     }
+
+
 
 }

@@ -23,6 +23,7 @@ public:
     /// Returns the tile index of the item
     int getIndex() const { return m_index;}
 	void changeItem(int tileset_id,QRect& rect,int index);
+	void changeItem(QPixmap* map,QRect& rect,int type);
 	bool getWindowType();
 	QRect getRect();
 	int getType();
