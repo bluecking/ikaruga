@@ -18,6 +18,7 @@
 #include "Collidable.hpp"
 #include "StatusBar.hpp"
 #include "Sound.hpp"
+#include "Vector.hpp"
 
 #include "../xml/XML.hpp"
 
@@ -27,7 +28,7 @@ using std::vector;
 
 namespace jumper
 {
-
+    class Bot;
     class MainWindow;
 
 /**
@@ -72,7 +73,10 @@ namespace jumper
         /// set bots
         void addBot(Bot* bot);
 
+        Vector2f getPlayerPosition();
+
         void setSound(std::string soundFile);
+
 
     private:
 

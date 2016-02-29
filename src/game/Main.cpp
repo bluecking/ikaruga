@@ -149,7 +149,7 @@ void setupBots(vector<XML::LevelBot>bots,MainWindow* w,Game* game,std::string fi
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath+"/"+(*it).type.filename);
 
         Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
-                           (*it).type.numFrames, (*it).type.npc);
+                           (*it).type.numFrames, game, (*it).type.npc);
         PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);
