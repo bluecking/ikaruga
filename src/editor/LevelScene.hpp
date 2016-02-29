@@ -57,6 +57,7 @@ private:
 	QString m_enemyFileName;
 	QString m_playerFileName;
 	Settings m_setting;
+	std::vector<XML::LevelBot> m_bots;
 
 	/**=m_xml->getLevelBot();
 	=m_xml->getLevelBots();
@@ -82,6 +83,7 @@ private:
 	int m_tileOffset;     // Offset between the tiles
 	int m_levelWidth;     // Level width (in tiles)
 	int m_levelHeight;    // Level height in tiles
+
 
 
 	MainWindow* m_mainWindow; // Pointer to a main window

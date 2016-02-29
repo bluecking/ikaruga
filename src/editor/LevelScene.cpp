@@ -20,8 +20,6 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_fileName=filename;
 
 
-
-
     loadXml(filename);
 
     loadLevel(m_levelName);
@@ -32,7 +30,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
-
+    
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
 	window->ui->EnemieView->setScene(m_enemyView);
@@ -45,10 +43,15 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
 	///Calculates Clickposition and the containing Items
-	int x = event->scenePos().x()/m_tileWidth;
-	int y = event->scenePos().y()/m_tileHeight;
-	QList<QGraphicsItem*> item_list = items(x*m_tileWidth,y*m_tileHeight,m_tileWidth,m_tileHeight);
 
+    int x = event->scenePos().x()/m_tileWidth;
+	int y = event->scenePos().y()/m_tileHeight;
+    QList<QGraphicsItem*> item_list = items(x*m_tileWidth,y*m_tileHeight,m_tileWidth,m_tileHeight);
+
+
+    if(event->buttons() == Qt::LeftButton)
+
+    {
 	///if there is an item write new rect to that Item else create a new Item and set rect
 	if (!item_list.isEmpty())
 	{
@@ -56,6 +59,22 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
         if(m_type==0)
         {
             m_tiles[y][x]=m_index;
+        }
+        else
+        {
+
+            XML::LevelBot bot;
+
+            if(m_index<1)bot.color=1;
+            else bot.color=2;
+            bot.positionX = x;
+            bot.positionY = y;
+            bot.powerUpName="HealtBoost";
+            bot.powerUpProb=0.05;
+
+
+            m_bots.push_back(bot);
+            ///bot.type=atoi(mtype);
         }
 		m_mainWindow->ui->MainView->setScene(this);
 	}
@@ -67,7 +86,21 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 		item->setPos(m_tileWidth*x,m_tileHeight*y);
 		this->addItem(item);
 		m_mainWindow->ui->MainView->setScene(this);
-	}
+	}}
+
+    else if(!item_list.isEmpty() && event->button()==Qt::RightButton)
+    {
+        m_tiles[y][x]=-1;
+        this->removeItem(item_list.first());
+        m_mainWindow->ui->MainView->setScene(this);
+        delete item_list.first();
+    }
+
+
+
+
+
+
 }
 
 QPixmap** LevelScene::getPixmap()
@@ -88,14 +121,15 @@ void LevelScene::loadXml(QString fileName)
 
     m_xml = new XML(fileName.toStdString());
 
-
     int last=(fileName.lastIndexOf("/"));
+
     m_path=fileName.mid(0,last+1);
 
     m_levelName     = toQString(m_xml->getTileset());
     m_levelName     =m_path+m_levelName;
     m_xmlFileName   =toQString(m_xml->getFilename());
     m_levelId       =m_xml->getId();
+    std::cout<<"foo"<<std::endl;
 
     std::vector<XML::LevelBot>  bots = m_xml->getLevelBots();
 
@@ -117,8 +151,10 @@ void LevelScene::saveXml(QString fileName)
     m_xml->setTileset(m_levelName.toStdString());
     m_xml->setLevelname("Milky test");
     m_xml->setId(1);
-   /// m_xml->setLevelBots();
-   /// m_xml->save();
+    m_xml->setLevelBots(m_bots);
+    m_xml->save();
+
+    saveLevel(m_path+"test_collision.lvl");
 
     /**m_xml->setLevelBot();
     m_xml->setTileset()
@@ -143,7 +179,6 @@ void LevelScene::loadLevel(QString fileName )
     ///readonly file open
     if(file.open(QIODevice::ReadOnly))
     {
-        std::cout<<"hallo"<<std::endl;
 
         QTextStream in(&file);
 

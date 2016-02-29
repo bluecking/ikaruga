@@ -18,7 +18,7 @@ public:
 	GraphicsTileItem(QColor* color, int w, int h);
     
     /// Destructor.
-  virtual ~GraphicsTileItem(){}
+  virtual ~GraphicsTileItem();
 
     /// Returns the tile index of the item
     int getIndex() const { return m_index;}
