@@ -134,7 +134,7 @@ namespace jumper
         bool m_started;
 
         vector<Bot*> m_bots;
-        //
+
         Sound m_sound;
 
     };
