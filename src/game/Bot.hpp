@@ -49,19 +49,28 @@ namespace jumper
          * @param frameHeight	The height of the frames within the texture
          * @param numFrames		The number of frames in the texture
          */
+
         Bot(SDL_Renderer *renderer, SDL_Texture *texture, int frameWidth, int frameHeight, int numFrames, Game* game, XML::NPC npc);
+
 
         virtual ~Bot();
 
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);
 
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
     private:
         int m_move_type;
         int m_move_type_height;
         int m_speed;
         XML::NPC m_npc;
+
         Game* m_game;
+
+        const int DAMAGE_BY_PROJECTILE = 500;
     };
 
 } /* namespace jumper */
