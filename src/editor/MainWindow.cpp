@@ -8,9 +8,9 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent)
     ui->actionSpeichern->setEnabled(false);
     ui->actionSpeichern_unter->setEnabled(false);
     connect(ui->menuZuletzt_geoeffnet, SIGNAL(triggered(QAction*)), this, SLOT(openLast(QAction*)));
-    QPixmap pixmap("../src/editor/refresh.png");
-    QIcon ButtonIcon(pixmap);
-    ui->pushButton->setIcon(ButtonIcon);
+    //QPixmap pixmap("../src/editor/refresh.png");
+    //QIcon ButtonIcon(pixmap);
+    //ui->pushButton->setIcon(ButtonIcon);
     QRect buttonSize=ui->pushButton->geometry();
     buttonSize.setWidth(buttonSize.height());
     ui->pushButton->setGeometry(buttonSize);
@@ -123,5 +123,5 @@ void MainWindow::on_actionNeu_triggered()
 
 void MainWindow::on_pushButton_released()
 {
-    //scene->setSize(ui->spinBox->value());
+    scene->setSize(ui->spinBox->value());
 }

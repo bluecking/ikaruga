@@ -8,6 +8,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
     ///Set tilesettings
 
 
+
     if (View->objectName().toStdString() == "EnemieView")
     {
         m_tilesPerRow =1;
@@ -15,6 +16,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
         m_tileWidth = 40;
         m_tileHeight = 40;
         m_type=1;
+        std::cout<<"enemie"<<std::endl;
     }
     else if(View->objectName().toStdString() == "TextureView")
     {

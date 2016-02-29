@@ -14,10 +14,49 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	m_tilesPerRow = 10;
 	m_levelWidth = 400;
 	m_levelHeight = 14;
-    m_texFileName="../images/rocks.png";
+    m_imgTexture="../images/rocks.png";
 	m_mainWindow=window;
 	m_setting=Settings();
     m_fileName=filename;
+    m_scrollSpeed=0.9;
+    m_imgBackground="../images/star_background_2_200x200.png";
+    m_imgStatusbar="../images/statusbar_font_10x10.png";
+    m_imgPlayer="../images/player_animated_55x43_transparent.png";
+    m_weapon="LASER_GUN";
+
+    int last = (filename.lastIndexOf("/"));
+    m_path = filename.mid(0, last + 1);
+
+    int lastName=filename.lastIndexOf(".");
+    m_levelName=filename.mid(last+1,lastName-last-1);
+    m_levelName=m_levelName+".lvl";
+
+
+    m_background.filename     =m_imgBackground.toStdString();
+    m_background.scrollspeed  =m_scrollSpeed;
+
+    m_statusbar.filename      =m_imgStatusbar.toStdString();
+    m_statusbar.capitalOffset =1;
+    m_statusbar.frameHeight   =10;
+    m_statusbar.frameWidth    =10;
+    m_statusbar.letterCount   =26;
+    m_statusbar.minusculeOffset=2;
+    m_statusbar.numberOffset  =0;
+    m_statusbar.offsetToMid   =1;
+
+    m_player.frameWidth       =55;
+    m_player.frameHeight      =43;
+    m_player.colorOffsetX     =1320;
+    m_player.colorOffsetY     =0;
+    m_player.filename         =m_imgPlayer.toStdString();
+    m_player.fps              =12;
+    m_player.maxVel           =200;
+    m_player.moveForceX       =200;
+    m_player.moveForceY       =200;
+    m_player.numFrames        =24;
+    m_player.positionX        =100;
+    m_player.positionY        =100;
+    m_player.stdWeapon        =m_weapon;
 
 
     loadXml(filename);
@@ -30,7 +69,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
-    
+
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
 	window->ui->EnemieView->setScene(m_enemyView);
@@ -55,34 +94,63 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 	///if there is an item write new rect to that Item else create a new Item and set rect
 	if (!item_list.isEmpty())
 	{
+        std::cout<<m_type<<std::endl;
 		(dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(m_type, m_rect, m_index);
+
         if(m_type==0)
         {
             m_tiles[y][x]=m_index;
         }
         else
         {
-
+            m_tiles[y][x]=-1;
+            std::cout<<"bot added"<<std::endl;
             XML::LevelBot bot;
 
-            if(m_index<1)bot.color=1;
-            else bot.color=2;
-            bot.positionX = x;
-            bot.positionY = y;
+            if(m_index<1)bot.color="black";
+            else bot.color="white";
+            bot.positionX = x*m_tileWidth;
+            bot.positionY = y*m_tileHeight;
             bot.powerUpName="HealtBoost";
             bot.powerUpProb=0.05;
+            bot.type=m_bots[0];
 
 
-            m_bots.push_back(bot);
+            m_levelBots.push_back(bot);
             ///bot.type=atoi(mtype);
         }
 		m_mainWindow->ui->MainView->setScene(this);
 	}
 	else
 	{
+
 		///creates a new Item and update View
 		GraphicsTileItem *item = new GraphicsTileItem(m_pixmap,m_rect,m_index,m_type);
-		m_tiles[y][x]=m_index;
+
+        if(m_type==0)
+        {
+            m_tiles[y][x]=m_index;
+        }
+        else
+        {
+            m_tiles[y][x]=-1;
+            std::cout<<"bot added"<<std::endl;
+            XML::LevelBot bot;
+
+            if(m_index<1)bot.color="black";
+            else bot.color="white";
+            bot.positionX = x*m_tileWidth;
+            bot.positionY = y*m_tileHeight;
+            bot.powerUpName="HealtBoost";
+            bot.powerUpProb=0.05;
+            bot.type=m_bots[0];
+
+
+
+            m_levelBots.push_back(bot);
+            ///bot.type=atoi(mtype);
+        }
+
 		item->setPos(m_tileWidth*x,m_tileHeight*y);
 		this->addItem(item);
 		m_mainWindow->ui->MainView->setScene(this);
@@ -90,7 +158,19 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
     else if(!item_list.isEmpty() && event->button()==Qt::RightButton)
     {
-        m_tiles[y][x]=-1;
+        if((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType()>0)
+        {
+            std::cout<<"remove Bot"<<std::endl;
+            m_tiles[y][x]=-1;
+            for(unsigned int i=0;i<m_levelBots.size();i++)
+            {
+                if(m_levelBots[i].positionX==x*m_tileWidth && m_levelBots[i].positionY==y*m_tileWidth)
+                {
+                    m_levelBots.erase(m_levelBots.begin()+i);
+                }
+            }
+        }
+
         this->removeItem(item_list.first());
         m_mainWindow->ui->MainView->setScene(this);
         delete item_list.first();
@@ -119,20 +199,21 @@ void LevelScene::setTileSettings(int index,int type, QRect rect)
 void LevelScene::loadXml(QString fileName)
 {
 
-    m_xml = new XML(fileName.toStdString());
+    if(QFile(fileName).exists()) {
 
-    int last=(fileName.lastIndexOf("/"));
+        std::cout << fileName.toStdString() << std::endl;
+        m_xml = new XML(fileName.toStdString());
 
-    m_path=fileName.mid(0,last+1);
 
-    m_levelName     = toQString(m_xml->getTileset());
-    m_levelName     =m_path+m_levelName;
-    m_xmlFileName   =toQString(m_xml->getFilename());
-    m_levelId       =m_xml->getId();
-    std::cout<<"foo"<<std::endl;
 
-    std::vector<XML::LevelBot>  bots = m_xml->getLevelBots();
+        m_levelName = toQString(m_xml->getTileset());
+        m_xmlFileName = toQString(m_xml->getFilename());
+        m_bots = m_xml->getBots();
+        m_levelId = m_xml->getId();
 
+
+        m_levelBots = m_xml->getLevelBots();
+    }
 
 }
 
@@ -147,14 +228,22 @@ void LevelScene::saveXml(QString fileName)
 
     m_xml = new XML();
 
-    m_xml->setFilename(m_path.toStdString()+"testFile.xml");
+
+
+
+    m_xml->setFilename(fileName.toStdString());
     m_xml->setTileset(m_levelName.toStdString());
     m_xml->setLevelname("Milky test");
     m_xml->setId(1);
-    m_xml->setLevelBots(m_bots);
+    m_xml->setLevelBots(m_levelBots);
+    m_xml->setBackground(m_background);
+    m_xml->setStatusbar(m_statusbar);
+    m_xml->setPlayer(m_player);
+
     m_xml->save();
 
-    saveLevel(m_path+"test_collision.lvl");
+
+    saveLevel(m_levelName);
 
     /**m_xml->setLevelBot();
     m_xml->setTileset()
@@ -175,7 +264,9 @@ void LevelScene::saveXml(QString fileName)
 void LevelScene::loadLevel(QString fileName )
 {
     // Read meta data from level file
-    QFile file(fileName);
+    QFile file(m_path+fileName);
+
+    std::cout<<m_path.toStdString()+fileName.toStdString()<<std::endl;
     ///readonly file open
     if(file.open(QIODevice::ReadOnly))
     {
@@ -190,7 +281,7 @@ void LevelScene::loadLevel(QString fileName )
         m_pixmap=new QPixmap*[6];
         std::cout<<m_path.toStdString()<<"../images/rocks.png"<<std::endl;
 
-        m_pixmap[0]= new QPixmap(m_path+m_texFileName);
+        m_pixmap[0]= new QPixmap(m_path+m_imgTexture);
         m_pixmap[1]= new QPixmap(m_path+"../images/Bot_1.png");
         m_pixmap[2]= new QPixmap(m_path+"../images/Bot_2.png");
         m_pixmap[3]= new QPixmap(m_path+"../images/Bot_3.png");
@@ -226,11 +317,8 @@ void LevelScene::loadLevel(QString fileName )
 
 
         // Alloc tile set memory
-        m_tiles = new int*[m_levelHeight];
-        for(int i = 0; i < m_levelHeight; i++)
-        {
-            m_tiles[i] = new int[m_levelWidth];
-        }
+        m_tiles = new std::vector<int>[m_levelHeight];
+
 
 
         // Read tile indices
@@ -244,7 +332,7 @@ void LevelScene::loadLevel(QString fileName )
 
 
                     ///puts tile_id in m_tiles
-                    m_tiles[i][j] = list[j].toInt() - 1;
+                    m_tiles[i].push_back(list[j].toInt() - 1);
 
                     ///creates Qrect if m_tiles >=0
                     if (m_tiles[i][j] >= 0) {
@@ -270,19 +358,15 @@ void LevelScene::loadLevel(QString fileName )
 
     else
     {
-        m_tiles = new int*[m_levelHeight];
-        for(int i = 0; i < m_levelHeight; i++)
-        {
-            m_tiles[i] = new int[m_levelWidth];
-        }
+        m_tiles = new std::vector<int>[m_levelHeight];
 
         for(int i=0;i<m_levelHeight;i++)
         {
             for(int j=0;j<m_levelWidth;j++)
             {
-                if(i==0)m_tiles[i][j]=7;
-                else if(i<m_levelHeight-1)m_tiles[i][j]=-1;
-                if(i==m_levelHeight-1)m_tiles[i][j]=0;
+                if(i==0)m_tiles[i].push_back(7);
+                else if(i<m_levelHeight-1)m_tiles[i].push_back(-1);
+                if(i==m_levelHeight-1)m_tiles[i].push_back(0);
             }
         }
         ///file close
@@ -302,11 +386,11 @@ void LevelScene::loadLevel(QString fileName )
 void LevelScene::saveLevel(QString fileName)
 {
 
-    QFile readfile(fileName);
+    QFile readfile(m_path+fileName);
     QTextStream write(&readfile);
     if(readfile.open(QFile::WriteOnly  | QFile::Text))
     {
-            write<<m_texFileName<<"\n";
+            write<<m_imgTexture<<"\n";
 
             write<<m_tileWidth<<" ";
             write<< m_tileHeight<<" ";
@@ -329,6 +413,59 @@ void LevelScene::saveLevel(QString fileName)
 
         readfile.close();
     }
+}
+
+void LevelScene::setSize(int value)
+{
+    if(value<m_levelWidth)
+    {
+        QList<QGraphicsItem*> item_list = items(value*m_tileWidth,0,m_tileWidth*(m_levelWidth-value),m_tileHeight*m_levelHeight);
+        while(!item_list.isEmpty())
+        {
+            this->removeItem(item_list.first());
+            delete item_list.first();
+            item_list.removeFirst();
+
+        }
+
+        for(int i=0;i<m_levelHeight;i++)
+        {
+            for(int j=value;j<m_levelWidth;j++)
+            {
+                m_tiles[i].pop_back();
+            }
+        }
+    }
+
+    else
+    {
+        for(int i=0;i<m_levelHeight;i++)
+        {
+            for(int j=m_levelWidth;j<value;j++)
+            {
+                if(i==0)m_tiles[i].push_back(7);
+                else if(i<m_levelHeight-1)m_tiles[i].push_back(-1);
+                if(i==m_levelHeight-1)m_tiles[i].push_back(0);
+
+                if (m_tiles[i][j] >= 0) {
+                    ///Creates Rect for GraphicsTileItem
+
+                    QRect rect((m_tileWidth) * (m_tiles[i][j] % m_tilesPerRow),
+                               (m_tileHeight) * ((int) (m_tiles[i][j] / m_tilesPerRow)), m_tileWidth, m_tileHeight);
+
+                    ///creates new GraphicsTileItem
+                    GraphicsTileItem *item = new GraphicsTileItem(m_pixmap, rect, m_tiles[i][j], 0);
+
+                    ///sets Position of the rect and adds it to the scene
+                    item->setPos(m_tileWidth * j, m_tileHeight * i);
+                    this->addItem(item);
+                }
+            }
+        }
+    }
+    m_mainWindow->ui->MainView->setScene(this);
+    m_mainWindow->ui->MainView->showMinimized();
+    m_levelWidth=value;
 }
 
 
