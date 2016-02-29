@@ -8,6 +8,8 @@
 #ifndef SRC_BOT_HPP_
 #define SRC_BOT_HPP_
 
+#define _USE_MATH_DEFINES
+
 #include "Actor.hpp"
 #include "Level.hpp"
 #include <math.h>

@@ -29,26 +29,44 @@
       <offsetToMid>1</offsetToMid>
   </statusBar>
     <bot type="BOT_SIN_UP">
-        <positionX>400</positionX>
-        <positionY>40</positionY>
+        <positionX>1400</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1500</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1600</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1700</positionX>
+        <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN">
-        <positionX>500</positionX>
-        <positionY>60</positionY>
+        <positionX>2000</positionX>
+        <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN_DOWN">
-        <positionX>600</positionX>
-        <positionY>80</positionY>
+        <positionX>2200</positionX>
+        <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_NO_MOVE">
-        <positionX>1200</positionX>
-        <positionY>40</positionY>
+        <positionX>3000</positionX>
+        <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
