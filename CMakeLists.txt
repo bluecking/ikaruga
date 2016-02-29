@@ -14,7 +14,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 find_package(SDL2 REQUIRED)
 find_package(SDL2_IMAGE REQUIRED)
 find_package(SDL2_MIXER REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS filesystem system regex REQUIRED)
 
 # Add SDL2 include directory to search path
 include_directories(${SDL2_INCLUDE_DIR})
