@@ -56,7 +56,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_player.numFrames        =24;
     m_player.positionX        =100;
     m_player.positionY        =100;
-    m_player.stdWeapon        =m_weapon;
+    //m_player.stdWeapon        =m_weapon;
 
 
     loadXml(filename);
@@ -65,14 +65,14 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///Create TextureViews
 	TextureScene* m_textureView= new TextureScene(m_setting,window->ui->TextureView,this, window);
-	TextureScene* m_enemyView= new TextureScene(m_setting,window->ui->EnemieView,this, window);
+    //TextureScene* m_enemyView= new TextureScene(m_setting,window->ui->EnemieView,this, window);
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
 
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
-	window->ui->EnemieView->setScene(m_enemyView);
+    //window->ui->EnemieView->setScene(m_enemyView);
 
     saveXml(filename);
 

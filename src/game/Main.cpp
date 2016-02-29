@@ -185,6 +185,7 @@ int main(int argc, char** argv)
 
     //window.setGame(&game);
     //game.start();
+    window.setActualScreen(MainWindow::RENDER_ITEMSHOP);
     window.run();
 
     // Free textures

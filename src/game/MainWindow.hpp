@@ -57,6 +57,15 @@ namespace jumper
         /// Retruns the window height
         int h();
 
+        ///Constants for setting the actual renderscreen
+        static const int RENDER_MAINMENU=0;
+        static const int RENDER_GAME=1;
+        static const int RENDER_ITEMSHOP=2;
+        static const int RENDER_CREDITS=3;
+
+        ///Sets the Actual Render Screen
+        void setActualScreen(int ID);
+
     private:
 
         /// Initializes all needed SDL resources
@@ -101,13 +110,6 @@ namespace jumper
 
         //Number for settings updatecall (actual Menu/Game)
         int actRenderID;
-
-        static const int RENDER_MAINMENU=0;
-        static const int RENDER_GAME=1;
-        static const int RENDER_ITEMSHOP=2;
-        static const int RENDER_CREDITS=3;
-
-        void setActualScreen(int ID);
     };
 
 } /* namespace jumper */
