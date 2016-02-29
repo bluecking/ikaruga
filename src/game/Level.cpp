@@ -719,15 +719,21 @@ Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Act
 			}
 			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
 			{
-				float maxMovEdge = nextEdge(pos.y(), height, tiles[0].y(), 1);
+				float downY = gridToPos(tiles[0].y() + 1);
 
-				y = std::min(y, maxMovEdge);
+				if (pos.y() + y + height > downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1)
+				{
+					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
+				}
 			}
 			else if (t1 != EDGEDOWNLEFT) // t2 == EDGEDOWNRIGHT, slope collision right
 			{
-				float maxMovEdge = nextEdge(pos.y(), height, tiles[1].y(), 1);
+				float downY = gridToPos(tiles[0].y() + 1);
 
-				y = std::min(y, maxMovEdge);
+				if (pos.y() + y + height > downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1)
+				{
+					y = (downY - (posRelativToGrid(pos.x(), tiles[0].x())) + 1) - (pos.y() + height);
+				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
 			{
