@@ -96,12 +96,12 @@ namespace jumper
     }
     void Bot::play()
     {
+
         m_explosionSound.play();
+
     }
     Bot::~Bot()
     {
-     cout<<"start"<<endl;
      play();
-     cout<<"end"<<endl;
     }
 } /* namespace jumper */
