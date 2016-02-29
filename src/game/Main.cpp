@@ -175,12 +175,10 @@ void setupGame(string filename, MainWindow* w, Game* game)
 
 
     //create Level
-   setupLevel(w,game,path+"/"+xml.getTileset());
+    setupLevel(w,game,path+"/"+xml.getTileset());
 
     //create Background layer
     setupBackground(xml.getBackground(),path+"/"+xml.getBackground().filename,w,game);
-
-
 
 
     //add statusbar

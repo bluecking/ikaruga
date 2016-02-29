@@ -11,7 +11,7 @@
         <frameWidth>55</frameWidth>
         <frameHeight>43</frameHeight>
         <positionX>100</positionX>
-        <positionY>40</positionY>
+        <positionY>140</positionY>
         <stdWeapon>LASER_GUN</stdWeapon>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -32,7 +32,7 @@
       <offsetToMid>1</offsetToMid>
   </statusBar>
     <bot type="BOT_SIN_UP">
-        <positionX>1400</positionX>
+        <positionX>600</positionX>
         <positionY>50</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>

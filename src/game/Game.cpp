@@ -286,6 +286,7 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
+            actor->~Actor();
         }
     }
 

@@ -94,9 +94,14 @@ namespace jumper
             m_health = 0;
         }
     }
-
+    void Bot::play()
+    {
+        m_explosionSound.play();
+    }
     Bot::~Bot()
     {
-        // TODO Auto-generated destructor stub
+     cout<<"start"<<endl;
+     play();
+     cout<<"end"<<endl;
     }
 } /* namespace jumper */
