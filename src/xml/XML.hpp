@@ -30,6 +30,12 @@ public:
         std::string filename;
         int colorOffsetX;
         int colorOffsetY;
+        std::string soundfile;
+        int frameWidth;
+        int frameHeight;
+        float weaponOffsetX;
+        float weaponOffsetY;
+        float cooldown;
     };
 
     struct Player{

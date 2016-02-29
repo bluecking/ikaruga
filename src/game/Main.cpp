@@ -93,16 +93,23 @@ void setupPlayer(XML::Player xplayer,MainWindow* w,Game* game,std::string filepa
 
     // TODO dynamic weapon attributes
 
-    Vector2i* textureSize = new Vector2i(6, 6);
-    Vector2f* weaponOffset = new Vector2f(25, 18.5f);
-    Vector2f* projectileColorOffset = new Vector2f(6, 0);
-    float coolDown = 0.2f;
+
+    XML::Weapon weapon = xplayer.stdWeapon;
+
+
+
+    Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+    Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+    Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+    float coolDown = weapon.cooldown;
+
+
     SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-            filepath + "/../images/laser_shot.png");
+            filepath +"/"+weapon.filename);
     player->setWeapon(
             new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
 
-                            coolDown));
+                            coolDown, weapon.soundfile));
 
 
     game->setPlayer(player);

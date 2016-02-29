@@ -339,6 +339,12 @@ void XML::loadWeapons(std::string filename){
                 w.filename = v.second.get<string>("filename");
                 w.colorOffsetX = v.second.get<int>("colorOffsetX");
                 w.colorOffsetY = v.second.get<int>("colorOffsetY");
+                w.soundfile = v.second.get<std::string>("soundfile");
+                w.frameHeight = v.second.get<int>("frameHeight");
+                w.frameWidth = v.second.get<int>("frameWidth");
+                w.weaponOffsetX = v.second.get<float>("weaponOffsetX");
+                w.weaponOffsetY = v.second.get<float>("weaponOffsetY");
+                w.cooldown = v.second.get<float>("cooldown");
                 m_weapons.push_back(w);
             }
             else
