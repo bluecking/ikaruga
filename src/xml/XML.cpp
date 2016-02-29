@@ -390,6 +390,8 @@ void XML::save()
     /* Adding Background */
     background.put("<xmlattr>.filename", m_background.filename);
     background.put("scrollspeed", m_background.scrollspeed);
+    background.put("soundfile", m_background.soundfile);
+    background.put("volume", m_background.volume);
 
     level.add_child("background", background);
 
@@ -419,6 +421,10 @@ void XML::save()
     player.put("moveForceY", m_player.moveForceY);
     player.put("maxVel", m_player.maxVel);
     player.put("fps", m_player.fps);
+    player.put("explosionSoundFile", m_player.explosionSoundFile);
+    player.put("explosionVolume", m_player.explosionVolume);
+    player.put("hitSoundFile", m_player.hitSoundFile);
+    player.put("hitVolume", m_player.hitVolume);
 
     level.add_child("player", player);
 
