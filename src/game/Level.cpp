@@ -384,7 +384,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-							if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) // collide with something solid
+							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID)))) // collide with something solid
 							{
 								float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
 								x = std::min(x, maxMov);
@@ -558,7 +558,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-							if ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) // collide with something solid
+							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID)))) // collide with something solid
 							{
 								float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
 								x = std::max(x, maxMov);
