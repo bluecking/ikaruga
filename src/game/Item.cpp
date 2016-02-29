@@ -25,4 +25,8 @@ Item::~Item()
 	// TODO Auto-generated destructor stub
 }
 
+void Item::resolveCollision(Actor& other)
+{
+
+}
 } // namespace jumper

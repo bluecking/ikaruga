@@ -51,6 +51,10 @@ int Renderable::h() const
 	return m_sourceRect.h;
 }
 
+	Renderable::~Renderable()
+	{
+
+	}
 } /* namespace jumper */
 
 

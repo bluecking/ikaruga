@@ -1,7 +1,0 @@
-<items>
-    <item type="RESTORE_HEALTH">
-        <filename>powerups_20x20_transparent.png</filename>
-        <frameWidth>20</frameWidth>
-        <frameHeight>20</frameHeight>
-    </item>
-</items>

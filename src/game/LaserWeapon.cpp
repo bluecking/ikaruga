@@ -28,7 +28,7 @@ namespace jumper
         projectile->setColor(m_actor.getColor());
         projectile->launch();
 
-        if (m_actor.type() == ActorType::ACTOR)
+        if (m_actor.type() == ActorType::PLAYER)
         {
             m_sound.play();
         }
@@ -43,7 +43,8 @@ namespace jumper
                              const Vector2i& projectileTextureSize,
                              const Vector2f& weaponOffset,
                              const Vector2f& projectileColorOffset,
-                             float coolDown)
+                             float coolDown,
+                             std::string sound)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -54,6 +55,6 @@ namespace jumper
                      "LaserGun",
                      1)
     {
-        m_sound = Sound("/sounds/laser.wav", SoundType::SOUND, *game.getLevel());
+        m_sound = Sound(sound, SoundType::SOUND, *game.getLevel());
     }
 }
