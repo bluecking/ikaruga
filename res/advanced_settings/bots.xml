@@ -35,7 +35,7 @@
     </bot>
     <bot type="BOT_SIN_DOWN">
         <filename>../images/Bot_3.png</filename>
-        <numFrames>4</numFrames>
+        <numFrames>5</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
         <health>100</health>
