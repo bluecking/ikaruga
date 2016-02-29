@@ -42,6 +42,11 @@ namespace jumper
     {
     public:
 
+
+
+        void play();
+
+
         /**
          * @brief	Constructs a bot from given renderer, texture
          * 			and frame information.
@@ -56,6 +61,7 @@ namespace jumper
 
 
         virtual ~Bot();
+
 
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);

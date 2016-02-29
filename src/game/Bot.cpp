@@ -118,9 +118,12 @@ namespace jumper
             m_health = 0;
         }
     }
-
+    void Bot::play()
+    {
+        m_explosionSound.play(m_explosionVolume);
+    }
     Bot::~Bot()
     {
-        // TODO Auto-generated destructor stub
+     play();
     }
 } /* namespace jumper */

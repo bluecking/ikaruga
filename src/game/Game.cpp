@@ -102,7 +102,7 @@ namespace jumper
     {
         if (m_started)
         {
-            m_sound.play();
+            m_sound.play(m_volume);
 
             for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
             {
@@ -289,10 +289,12 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
+            actor->~Actor();
         }
     }
 
-    void Game::setSound(std::string soundFile){
+    void Game::setSound(std::string soundFile, int volume){
         m_sound = Sound(soundFile, SoundType::SONG, *m_level);
+        m_volume = volume;
     }
 } /* namespace jumper */

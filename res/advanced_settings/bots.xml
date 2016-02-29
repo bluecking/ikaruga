@@ -10,6 +10,7 @@
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
         <npc type="NORMAL">
             <move function="AI">30</move>
             <speed>0</speed>
@@ -27,6 +28,7 @@
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
         <npc type="NORMAL">
             <move function="SIN">30</move>
             <speed>0</speed>
@@ -44,6 +46,7 @@
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
         <npc type="NORMAL">
             <move function="SIN_UP">30</move>
             <speed>0</speed>
@@ -61,6 +64,7 @@
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
         <npc type="NORMAL">
             <move function="SIN_DOWN">30</move>
             <speed>0</speed>
@@ -78,6 +82,7 @@
         <colorOffsetY>40</colorOffsetY>
         <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
         <npc type="NORMAL">
             <move function="NO_MOVE">30</move>
             <speed>0</speed>

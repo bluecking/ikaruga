@@ -136,6 +136,13 @@ namespace jumper
          */
         void setExplosionSound(std::string explosionSoundFilename);
 
+        /**
+         * the explosion of the volume
+         *
+         * @param volume
+         */
+        void setExplosionVolume(int volume);
+
     protected:
 
         //the explosion sound
@@ -165,6 +172,9 @@ namespace jumper
         SDL_Rect m_hitbox;
 
         bool m_hit = false;
+
+        //Explosion Volume
+        int m_explosionVolume;
     private:
         /** The hitbox size is reduced to this factor */
         const float HITBOXFACTOR = 0.8;
