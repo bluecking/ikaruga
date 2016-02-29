@@ -30,6 +30,7 @@ namespace jumper {
             }
             Mix_PlayMusic( song, 0);
         } else if(m_type == SoundType::SOUND) {
+            Mix_HaltChannel(-1);
             Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
 
             if(sound == NULL ){
