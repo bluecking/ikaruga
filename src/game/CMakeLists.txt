@@ -34,7 +34,8 @@ set(JUMPER_SOURCES
         StatusBar.cpp
         FontRender.cpp
         Sound.cpp
-	ItemShop.cpp)
+	ItemShop.cpp
+	HighScore.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 
