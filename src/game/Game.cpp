@@ -109,6 +109,17 @@ namespace jumper
             }
             m_player->setMoveDirection(moveDirection);
 
+
+            if (currentKeyStates[SDL_SCANCODE_A])
+            {
+                Renderable::m_camera.move(Renderable::m_camera.position() + Vector2f(-2, 0));
+            }
+
+            if (currentKeyStates[SDL_SCANCODE_D])
+            {
+                Renderable::m_camera.move(Renderable::m_camera.position() + Vector2f(2, 0));
+            }
+
             moveActors();
             scrollHorizontal();
             // checkPlayerCollision();

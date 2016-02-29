@@ -799,18 +799,18 @@ Vector2f Level::collideY(Vector2f pos, int width, int height, Vector2f move, Act
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
-				if(pos.y() + y < downY - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1)
+				if(pos.y() + y < downY - posRelativToGrid(pos.x(), tiles[0].x()) + 1)
 				{
-					y = (downY - posRelativToGrid(pos.x() + x, tiles[0].x()) + 1) - pos.y();
+					y = (downY - posRelativToGrid(pos.x(), tiles[0].x()) + 1) - pos.y();
 				}
 			}
 			else if (t1 != EDGETOPLEFT) // t2 == EDGETOPRIGHT, slope collision left
 			{
-				float downY = gridToPos(tiles[1].y() + 1);
+				float upY = gridToPos(tiles[1].y());
 
-				if(pos.y() + y < downY - posRelativToGrid(pos.x() + x + width, tiles[1].x() + 1) + 1)
+				if(pos.y() + y < upY + posRelativToGrid(pos.x() + width, tiles[1].x()) + 1)
 				{
-					y = (downY - posRelativToGrid(pos.x() + x + width, tiles[1].x() + 1) + 1) - pos.y();
+					y = (upY + posRelativToGrid(pos.x() + width, tiles[1].x()) + 1) - pos.y();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision left
