@@ -21,7 +21,7 @@ XML::XML(std::string xmlFilename)
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
     advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
     advanced_settings = advanced_settings.append("/advanced_settings/");
-    cout << "SETTINGS FILE : " << advanced_settings << endl;
+    //cout << "SETTINGS FILE : " << advanced_settings << endl;
 
     loadBots(advanced_settings + "bots.xml");
     loadItems(advanced_settings + "items.xml");
