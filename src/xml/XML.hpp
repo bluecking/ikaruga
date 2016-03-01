@@ -524,7 +524,7 @@ private:
      * @return Weapon struct
      * @throws domain_error When weapon was not found
      */
-    XML::Weapon* getWeaponByName(std::string weaponName);
+    XML::Weapon getWeaponByName(std::string weaponName);
 
     /**
      * Load XML game items into several structures.
