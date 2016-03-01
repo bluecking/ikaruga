@@ -1,18 +1,16 @@
 <profiles>
     <profile name="player1">
-        <actualWeapon type="weapon1"/>
+        <actualWeapon type="LASER_GUN"/>
         <boughtWeapons>
-		    <weapon type="weapon1"/>
-		    <weapon type="weapon2"/>
-	    </boughtWeapons>
+            <weapon type="LASER_GUN"/>
+        </boughtWeapons>
         <boughtPowerUps>
-		    <powerUp type="powerup1"/>
-		    <powerUp type="powerup2"/>
-	    </boughtPowerUps>
+            <powerUp type="RESTORE_HEALTH"/>
+        </boughtPowerUps>
         <highscores>
-		    <highscore filename="level.xml">483204</highscore>
-		    <highscore filename="level1.xml">214821</highscore>
-	    </highscores>
-	    <money>92932</money>
+            <highscore filename="level0.xml">10000</highscore>
+            <highscore filename="level1.xml">20000</highscore>
+        </highscores>
+        <money>32</money>
     </profile>
 </profiles>
