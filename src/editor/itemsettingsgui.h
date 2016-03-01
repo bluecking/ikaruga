@@ -25,7 +25,7 @@ public:
     explicit ItemSettingsGui(Bot *bot,QWidget *parent = 0);
     explicit ItemSettingsGui(Item *item,QWidget *parent = 0);
     ~ItemSettingsGui();
-private slots:
+private Q_SLOTS:
     void on_ButtonOption_accepted();
     void on_ButtonOption_rejected();
 

@@ -9,7 +9,8 @@ using std::endl;
 
 int main(int argc, char** argv)
 {
-    if(argc != 2)
+    if (argc != 2)
+
     {
         std::cout << "Invalid amount of parameters." << std::endl;
         return -1;

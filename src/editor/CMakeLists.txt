@@ -1,27 +1,30 @@
-cmake_minimum_required(VERSION 2.6)
-PROJECT(LevelView)
- 
-set(JUMPER_SOURCES
-	src/Main.cpp
-	src/MainWindow.cpp
-	src/LevelScene.cpp
-	src/GraphicsTileItem.cpp
-		src/TextureScene.cpp src/TextureScene.h src/Settings.cpp src/Settings.h)
-
+set(EDITOR_SOURCES
+		Main.cpp
+		MainWindow.cpp
+		LevelScene.cpp
+		GraphicsTileItem.cpp
+		TextureScene.cpp
+		TextureScene.h
+		Settings.cpp
+		Settings.h)
 
 FIND_PACKAGE(Qt4 REQUIRED)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-INCLUDE(${QT_USE_FILE})
+include_directories(${QT_INCLUDE_DIR})
+include_directories(${QT_QTGUI_INCLUDE_DIR})
+include_directories(${QT_QTCORE_INCLUDE_DIR})
 
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-QT4_WRAP_UI(UISrcs src/LevelView.ui)
-QT4_WRAP_CPP(MOCSrcs build/ui_LevelView.h )
+add_definitions(-DQT_NO_KEYWORDS )
+add_definitions(${QT_DEFINITIONS})
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
- 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+set(GUI_UIS LevelView.ui)
+set(GUI_MOCS MainWindow.hpp)
 
-ADD_EXECUTABLE(LevelView ${JUMPER_SOURCES} ${MOCSrcs} ${UISrcs})
-TARGET_LINK_LIBRARIES(LevelView ${QT_LIBRARIES})
+set(GUI_DEPENDENCIES ${QT_QTCORE_LIBRARIES} ${QT_QTGUI_LIBRARIES})
+
+qt_wrap_cpp(editor GUI_MOC_SRC ${GUI_MOCS})
+qt_wrap_ui(editor GUI_UI_HDRS GUI_UI_SRC ${GUI_UIS})
+
+add_executable(editor ${EDITOR_SOURCES} ${GUI_MOC_SRC} ${GUI_UI_HDRS})
+target_link_libraries(editor ${GUI_DEPENDENCIES} xml)

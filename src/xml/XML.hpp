@@ -17,14 +17,6 @@
 class XML {
 public:
     //Public structs for xml nodes
-    struct NPC{
-        std::string type;
-        std::string move_function;
-        signed int move_value;
-        signed int speed;
-        std::string stdWeapon;
-    };
-
     struct Weapon{
         std::string type;
         std::string filename;
@@ -39,6 +31,14 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+    };
+
+    struct NPC{
+        std::string type;
+        std::string move_function;
+        signed int move_value;
+        signed int speed;
+        Weapon stdWeapon;
     };
 
     struct Player{
@@ -255,7 +255,7 @@ public:
 
     /**
      * Set single level bot.
-     * @param Number of the level bot.
+     * @param position Number of the level bot.
      * @param lBot The level bot.
      * @throw range_error If no level bot is available with the given number.
      */
@@ -263,7 +263,7 @@ public:
 
     /**
      * Set all level bots at a time.
-     * @param levelBots vector of level bots.
+     * @param levelBots Vector of level bots.
      */
     void setLevelBots(const std::vector<LevelBot>& levelBots)
     {
@@ -401,19 +401,19 @@ public:
      * Returns the total number of bots.
      * @return Total number of bots.
      */
-    unsigned int botSize() {return m_bots.size();}
+    unsigned int botSize() { return m_bots.size(); }
 
     /**
      * Returns the total number of items.
      * @return Total number of items.
      */
-    unsigned int itemSize() {return m_items.size();}
+    unsigned int itemSize() { return m_items.size(); }
 
     /**
      * Returns the total number of weapons.
      * @return Total number of weapons.
      */
-    unsigned int weaponSize() {return m_weapons.size();}
+    unsigned int weaponSize() { return m_weapons.size(); }
 
     /************************************** PROFILE STRUCT METHODS **************************************/
 
@@ -446,13 +446,13 @@ public:
      * Get all Profiles
      * @return Vector with all Profiles
      */
-    std::vector<Profile> getProfiles() { return m_profiles;}
+    std::vector<Profile> getProfiles() { return m_profiles; }
 
     /**
      * Add an additional Profile.
      * @param profile The new Profile.
      */
-    void addProfile(Profile profile) {m_profiles.push_back(profile);}
+    void addProfile(Profile profile) { m_profiles.push_back(profile); }
 
     /**
      * Remove a Profile.
@@ -465,13 +465,15 @@ public:
      * Returns the total number of profiles.
      * @return Total number of profiles.
      */
-    unsigned int profileSize() {return m_profiles.size();}
+    unsigned int profileSize() { return m_profiles.size(); }
 
     /**
      * Saves the profile file
      * @throw std::ios_base::failure If file could not be saved.
      */
     void saveProfiles();
+
+    std::string getExplosions();
 
 private:
     /* XML Filename */
@@ -484,6 +486,9 @@ private:
     Background m_background;
     Player m_player;
     Statusbar m_statusbar;
+    std::string m_explosions;
+
+
 
     std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::LevelItem> m_level_items;
@@ -492,10 +497,13 @@ private:
     std::vector<XML::Item> m_items;
     std::vector<XML::Weapon> m_weapons;
 
+    /* File Path to profiles.xml */
     std::string profile_path;
     std::vector<XML::Profile> m_profiles;
 
     std::map<std::string, int> m_requiredAttributes;
+
+
 
     /**
      * Load XML game information into several structures.
@@ -505,7 +513,7 @@ private:
     void load();
 
     /**
-     * Initialize some variables with default values. Required by the constructors.
+     * Initialize our requiredAttributes-Map with default values. Required by the constructors.
      */
     void init();
 
@@ -516,6 +524,15 @@ private:
      * @throw invalid_argument If xml file could not be accessed.
      */
     void loadBots(std::string filename);
+
+    /**
+     * Returns the weapon struct from m_weapons by the given name
+     *
+     * @param weaponName Name of the weapon to search for
+     * @return Weapon struct
+     * @throws domain_error When weapon was not found
+     */
+    XML::Weapon getWeaponByName(std::string weaponName);
 
     /**
      * Load XML game items into several structures.

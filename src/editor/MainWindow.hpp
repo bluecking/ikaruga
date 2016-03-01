@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
-#include "ui_LevelView.h"
+#include "LevelView.h"
 #include "QFileDialog"
 #include "LevelScene.hpp"
 #include <QList>
@@ -20,14 +20,21 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         virtual ~MainWindow();
         void addBot(QString botName,QString description);
         void addPower(QString powerName,QString description);
+		void resetBot();
+
+
+		void resetPower();
+
 		Ui::MainWindow *ui;
-	private slots:
+	private Q_SLOTS:
         void on_action_oeffnen_triggered();
         void on_actionSpeichern_triggered();
         void on_actionSpeichern_unter_triggered();
         void on_actionNeu_triggered();
         void openLast(QAction *action);
         void on_pushButton_released();
+        void on_save_id_released();
+        void on_saveLevelName_released();
         void on_botList_itemClicked(QListWidgetItem *item);
         void on_powerList_itemClicked(QListWidgetItem *item);
 private:

@@ -29,7 +29,8 @@ namespace jumper
         PUZZLEBOX,
         PLAYER,
         PROJECTILE,
-        BOSS
+        BOSS,
+        POWERUP
     };
 
     namespace ColorMode
@@ -191,6 +192,8 @@ namespace jumper
         {
             m_collisionDamage = collisionDamage;
         }
+
+        void dropPowerUp();
 
         void setIsKilled(bool isKilled)
         {

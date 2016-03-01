@@ -2,6 +2,7 @@
     <id>0</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
+    <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
         <soundfile>../sounds/game_loop.wav</soundfile>
@@ -91,13 +92,14 @@
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <item type="RESTORE_HEALTH">
-        <positionX>400</positionX>
-        <positionY>30</positionY>
+        <positionX>1000</positionX>
+        <positionY>50</positionY>
         <value>50</value>
     </item>
     <item type="RESTORE_HEALTH">
-        <positionX>4000</positionX>
-        <positionY>30</positionY>
+        <positionX>1100</positionX>
+        <positionY>50</positionY>
         <value>50</value>
     </item>
 </level>
+

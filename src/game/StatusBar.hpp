@@ -102,6 +102,8 @@ namespace jumper {
          */
         void setHealth(int health);
 
+        void setBossHealth(int health);
+
     private:
 
         /**
@@ -191,6 +193,9 @@ namespace jumper {
 
         int m_max_health;
 
+        int m_boss_health;
+        int m_boss_max_health;
+
         /**
          * Renders a Number at a given Position
          *
@@ -201,7 +206,7 @@ namespace jumper {
          */
         void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
 
-        void RenderHPBar(Vector2i& position, int w, int h);
+        void RenderHPBar(Vector2i& position, int w, int h, int* max_health, int* health);
 
         void renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b);
     };
