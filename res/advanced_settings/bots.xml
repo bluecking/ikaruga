@@ -100,7 +100,7 @@
         </npc>
     </bot>
     <bot type="BOSS_FSM">
-        <filename>../images/flying_spghettimonster_960x160.png</filename>
+        <filename>../images/flying_spghettimonster_160x160.png</filename>
         <numFrames>6</numFrames>
         <frameWidth>160</frameWidth>
         <frameHeight>160</frameHeight>

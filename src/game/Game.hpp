@@ -96,7 +96,6 @@ namespace jumper
     protected:
         bool m_bossFight;
 
-        float m_scrollingOffset;
     private:
 
         int m_bossFightAt;

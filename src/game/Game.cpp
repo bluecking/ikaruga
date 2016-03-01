@@ -31,7 +31,6 @@ namespace jumper
         m_started = false;
         m_startTicks = 0;
 
-        m_scrollingOffset = 0;
         SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
     }
 
@@ -61,7 +60,6 @@ namespace jumper
                 addActor(*it);
                 if ((*it)->type() == ActorType::BOSS)
                 {
-
                     setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w()/5*4 - ((*it)->w()/3)));
                     //setBossFightAt((int) (*it)->position().x() - (*it)->w());
                     setBossFight(true);
