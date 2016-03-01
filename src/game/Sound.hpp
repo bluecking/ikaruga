@@ -12,7 +12,8 @@
 
 using std::string;
 
-namespace jumper {
+namespace jumper
+{
 
     namespace SoundType
     {
@@ -22,26 +23,20 @@ namespace jumper {
             SOUND
         };
     }
-
+    static int NEXT_CHANNEL = 1;
     /**
      * @brief a class to play some fancy wavs
      */
-    class Sound {
+    class Sound
+    {
+
     public:
 
         /**
          * Standard Constructor
          */
-        Sound() { };
-
-        /**
-         * Constructor to create a sound
-         *
-         * @param filename a relative path to the base to the soundfile
-         * @param type the type of the sound
-         * @param level the levelFile
-         */
-        Sound(string filename, int type, Level &level);
+        Sound()
+        { };
 
         /**
          * Constructor to create a sound
@@ -51,10 +46,21 @@ namespace jumper {
          */
         Sound(string filename, int type);
 
+
         /**
          * Plays the sound
+         *
+         * @param volume the volume the sound should be played with
          */
-        void play();
+        void play(int volume);
+
+        /**
+         * Plays the sound with a fadeout
+         *
+         * @param volume the volume the sound should be played with
+         * @param fadeOut the fadeout in ms
+         */
+        void play(int volume, int fadeOut);
 
         /**
          * stops Playing
@@ -70,6 +76,7 @@ namespace jumper {
          * resumes playing
          */
         void resume();
+
     private:
 
         //The Filename of the sound
@@ -77,6 +84,8 @@ namespace jumper {
 
         //The Type of the Sound
         int m_type;
+
+        int m_channel;
     };
 };
 

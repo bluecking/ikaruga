@@ -8,10 +8,18 @@
 
 namespace jumper
 {
-    Projectile::Projectile(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_launched(false)
+    const int BULLET_HEALTH = 32767;
+    
+    Projectile::Projectile(SDL_Renderer* renderer,
+                           SDL_Texture* texture,
+                           int frameWidth,
+                           int frameHeight,
+                           int numFrames,
+                           int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage), m_launched(false)
     {
         m_hitbox.h = frameHeight;
+        m_collisionDamage = collisionDamage;
     }
 
     Projectile::~Projectile()

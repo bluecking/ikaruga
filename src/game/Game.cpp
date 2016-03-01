@@ -47,7 +47,7 @@ namespace jumper
 
     void Game::spawnBots()
     {
-        int curPos = m_level->m_camera.x() + m_level->m_camera.w();
+        int curPos = ((int) m_level->m_camera.x()) + m_level->m_camera.w();
 
         vector<Bot*> erease_bots;
 
@@ -69,6 +69,11 @@ namespace jumper
 
     }
 
+    Vector2f Game::getPlayerPosition()
+    {
+        return m_player->position();
+    }
+
     void Game::setPlayer(Player* player)
     {
         m_player = player;
@@ -84,9 +89,7 @@ namespace jumper
 
     Level* Game::getLevel()
     {
-
         return m_level;
-
     }
 
     void Game::addActor(Actor* actor)
@@ -99,7 +102,7 @@ namespace jumper
     {
         if (m_started)
         {
-            m_sound.play();
+            m_sound.play(m_volume);
 
             for (auto it = m_actors.begin(); it != m_actors.end(); ++it)
             {
@@ -172,7 +175,6 @@ namespace jumper
 
             if (m_statusBar)
             {
-                m_statusBar->setScore(m_player->physics().position().x());
                 m_statusBar->render();
             }
 
@@ -286,10 +288,15 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
+            if(m_statusBar) {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+            }
+            actor->~Actor();
         }
     }
 
-    void Game::setSound(std::string soundFile){
-        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
+    void Game::setSound(std::string soundFile, int volume){
+        m_sound = Sound(soundFile, SoundType::SONG);
+        m_volume = volume;
     }
 } /* namespace jumper */

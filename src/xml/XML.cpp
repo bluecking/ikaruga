@@ -119,6 +119,7 @@ void XML::load()
                 m_background.filename = v.second.get<string>("<xmlattr>.filename");
                 m_background.scrollspeed = v.second.get<int>("scrollspeed");
                 m_background.soundfile = v.second.get<std::string>("soundfile");
+                m_background.volume = v.second.get<int>("volume");
                 m_requiredAttributes["background"]++;
             }
             else if (v.first == "player")
@@ -137,7 +138,11 @@ void XML::load()
                 m_player.maxVel = v.second.get<float>("maxVel");
                 m_player.fps = v.second.get<int>("fps");
                 m_player.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                m_player.explosionVolume = v.second.get<int>("explosionVolume");
                 m_player.hitSoundFile = v.second.get<std::string>("hitSoundFile");
+                m_player.hitVolume = v.second.get<int>("hitVolume");
+                m_player.collisionDamage = v.second.get<int>("collisionDamage");
+                m_player.health = v.second.get<int>("health");
 
                 std::string type_tmp = v.second.get<string>("stdWeapon");
                 bool foundType = false;
@@ -260,6 +265,9 @@ void XML::loadBots(std::string filename){
                 bot.colorOffsetY = v.second.get<int>("colorOffsetY");
                 bot.fps = v.second.get<int>("fps");
                 bot.explosionSoundFile = v.second.get<std::string>("explosionSoundFile");
+                bot.explosionVolume = v.second.get<int>("explosionVolume");
+                bot.scorevalue = v.second.get<int long>("scoreValue");
+                bot.collisionDamage = v.second.get<int>("collisionDamage");
 
                 /* Get data from child node NPC */
                 NPC npc;
@@ -306,6 +314,8 @@ void XML::loadItems(std::string filename){
                 i.filename = v.second.get<string>("filename");
                 i.frameWidth = v.second.get<int>("frameWidth");
                 i.frameHeight = v.second.get<int>("frameHeight");
+                i.health = v.second.get<int>("health");
+                i.collisionDamage = v.second.get<int>("collisionDamage");
                 m_items.push_back(i);
             }
             else
@@ -349,6 +359,8 @@ void XML::loadWeapons(std::string filename){
                 w.weaponOffsetX = v.second.get<float>("weaponOffsetX");
                 w.weaponOffsetY = v.second.get<float>("weaponOffsetY");
                 w.cooldown = v.second.get<float>("cooldown");
+                w.shootingVolume = v.second.get<int>("projectileVolume");
+                w.collisionDamage = v.second.get<int>("collisionDamage");
                 m_weapons.push_back(w);
             }
             else
@@ -385,6 +397,8 @@ void XML::save()
     /* Adding Background */
     background.put("<xmlattr>.filename", m_background.filename);
     background.put("scrollspeed", m_background.scrollspeed);
+    background.put("soundfile", m_background.soundfile);
+    background.put("volume", m_background.volume);
 
     level.add_child("background", background);
 
@@ -414,6 +428,12 @@ void XML::save()
     player.put("moveForceY", m_player.moveForceY);
     player.put("maxVel", m_player.maxVel);
     player.put("fps", m_player.fps);
+    player.put("explosionSoundFile", m_player.explosionSoundFile);
+    player.put("explosionVolume", m_player.explosionVolume);
+    player.put("hitSoundFile", m_player.hitSoundFile);
+    player.put("hitVolume", m_player.hitVolume);
+    player.put("health", m_player.health);
+    player.put("collisionDamage", m_player.collisionDamage);
 
     level.add_child("player", player);
 
@@ -439,7 +459,7 @@ void XML::save()
         level_item.put("positionX", m_level_items[i].positionX);
         level_item.put("positionY", m_level_items[i].positionY);
         level_item.put("value", m_level_items[i].value);
-
+        
         level.add_child("item", level_item);
     }
 
