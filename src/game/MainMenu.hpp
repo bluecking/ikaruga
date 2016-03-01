@@ -13,6 +13,7 @@
 #include <SDL_stdinc.h>
 #include "MainWindow.hpp"
 #include "Game.hpp"
+#include "TexturedLayer.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -33,6 +34,7 @@ private:
     MainWindow* m_win;
     fs::path m_resDir;
     Game* m_game;
+    TexturedLayer* m_layer;
 
     //TODO move to struct?
 
