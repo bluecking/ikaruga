@@ -60,6 +60,8 @@ public:
 
     // Destructor
     virtual ~Renderable();
+
+    void renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b);
 protected:
 
     /// Renderer

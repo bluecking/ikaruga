@@ -201,7 +201,7 @@ namespace jumper {
          */
         void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
 
-        void RenderHPBar(int x, int y, int w, int h);
+        void RenderHPBar(Vector2i& position, int w, int h);
     };
 
 } /* namespace jumper */
