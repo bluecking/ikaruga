@@ -5,6 +5,7 @@
 
 #include "Player.hpp"
 #include "Sound.hpp"
+#include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
@@ -154,8 +155,12 @@ namespace jumper
         }
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
-            setHit(true);
-            takeDamage(other.m_collisionDamage);
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor() != this)
+            {
+                setHit(true);
+                takeDamage(other.m_collisionDamage);
+            }
         }
     }
 

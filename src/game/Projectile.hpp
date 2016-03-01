@@ -22,6 +22,12 @@ namespace jumper
                    int numFrames,
                    int collisionDamage);
 
+        Actor* getOriginActor() const
+        { return m_originActor; }
+
+        void setOriginActor(Actor* m_originActor)
+        { Projectile::m_originActor = m_originActor; }
+
         virtual ~Projectile();
 
         virtual void move(Level& level);
@@ -47,6 +53,7 @@ namespace jumper
         int m_collisionDamage;
     private:
         Vector2f m_lastPosition = 0;
+        Actor* m_originActor;
     };
 }
 
