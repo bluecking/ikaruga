@@ -28,7 +28,9 @@ namespace jumper
         ITEM,
         PUZZLEBOX,
         PLAYER,
-        PROJECTILE
+        PROJECTILE,
+        BOSS,
+        POWERUP
     };
 
     namespace ColorMode
@@ -68,8 +70,6 @@ namespace jumper
         virtual void move(Level& level) = 0;
 
         virtual void onCollide() = 0;
-
-        virtual Collision getCollision(Actor& other);
 
         /**
          * Is invoked if the actor collides with another actor
@@ -124,7 +124,7 @@ namespace jumper
 
         void takeDamage(int damage);
 
-        int getHealth();
+        int getHealth() const;
 
         virtual SDL_Rect& getHitbox();
 
@@ -133,7 +133,9 @@ namespace jumper
             m_hit = hit;
         }
 
-        const bool& is_hit() const;
+        bool isHit() const {
+            return m_hit;
+        }
 
         void setLiveTime();
 
@@ -142,27 +144,71 @@ namespace jumper
          *
          * @param explosionSoundFilename the filepath to the explosion sound
          */
-        void setExplosionSound(std::string explosionSoundFilename);
+        void setExplosionSound(std::string explosionSoundFilename)
+        {
+            m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
+        };
 
         /**
          * the explosion of the volume
          *
          * @param volume
          */
-        void setExplosionVolume(int volume);
+        void setExplosionVolume(int volume) {
+            m_explosionVolume = volume;
+        }
 
-        void setScoreValue(int value);
+        void setScoreValue(int value)
+        {
+            m_scoreValue = value;
+        }
 
+        void setKilled(bool killed) {
+            m_isKilled = killed;
+        }
+
+        bool isKilled() const
+        {
+            return m_isKilled;
+        }
+
+
+        void setHealth(int health)
+        {
+            m_health = health;
+        }
+
+        int getScoreValue() const
+        {
+            return m_scoreValue;
+        }
+
+        int getCollisionDamage() const
+        {
+            return m_collisionDamage;
+        }
+
+        void setCollisionDamage(int collisionDamage)
+        {
+            m_collisionDamage = collisionDamage;
+        }
+
+        void setIsKilled(bool isKilled)
+        {
+            m_isKilled = isKilled;
+        }
+
+        void playExplosionSound();
+
+    protected:
         int m_scoreValue = 0;
-
-        void setKilled(bool killed);
 
         int m_health;
 
         int m_collisionDamage;
-    protected:
 
         bool m_isKilled;
+
         //the explosion sound
         Sound m_explosionSound;
 

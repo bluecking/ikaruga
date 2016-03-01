@@ -65,12 +65,17 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_player.numFrames        =24;
     m_player.positionX        =100;
     m_player.positionY        =100;
+<<<<<<< HEAD
     m_player.collisionDamage  =25;
     m_player.health           =100;
     m_player.hitSoundFile     ="../sounds/hit_mark.wav";
     m_player.hitVolume        =100;
     m_player.explosionSoundFile="../sounds/player_explosion.wav";
     m_player.explosionVolume  =100;
+=======
+    //m_player.stdWeapon        =m_weapon;
+
+>>>>>>> 3bd2996256897662b5f2d559a9f54853c945b237
 
     loadXml(filename);
 
@@ -116,12 +121,22 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 	///Create TextureViews
 	TextureScene* m_textureView= new TextureScene(m_setting,window->ui->TextureView,this, window);
+<<<<<<< HEAD
+=======
+    //TextureScene* m_enemyView= new TextureScene(m_setting,window->ui->EnemieView,this, window);
+>>>>>>> 3bd2996256897662b5f2d559a9f54853c945b237
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
 
 	///set the TextureViews to VisibleS
 	window->ui->TextureView->setScene(m_textureView);
+<<<<<<< HEAD
+=======
+    //window->ui->EnemieView->setScene(m_enemyView);
+
+    saveXml(filename);
+>>>>>>> 3bd2996256897662b5f2d559a9f54853c945b237
 
 
 }
@@ -209,7 +224,8 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     XML::LevelItem item;
                     item.positionX = x * m_tileWidth;
                     item.positionY = y * m_tileHeight;
-                    item.type = m_item.type;
+                    //item.type = m_item.type;
+
                     item.value = 50;
                     m_levelItems.push_back(item);
 
@@ -266,7 +282,8 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     XML::LevelItem item;
                     item.positionX = x * m_tileWidth;
                     item.positionY = y * m_tileHeight;
-                    item.type = m_item.type;
+                    //item.type = m_item.type;
+                    
                     item.value = 50;
 
                     m_levelItems.push_back(item);

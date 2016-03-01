@@ -13,10 +13,13 @@
 
 #include "Game.hpp"
 #include "WorldProperty.hpp"
+#include "ItemShop.hpp"
+#include "MainMenu.hpp"
 
 namespace jumper
 {
     class Game;
+    class MainMenu;
 
     /**
      *	@brief Represents the main window of the game.
@@ -51,11 +54,22 @@ namespace jumper
 
         void setGame(Game* game);
 
+        void setMenu(MainMenu* menu);
+
         /// Returns the window width
         int w();
 
         /// Retruns the window height
         int h();
+
+        ///Constants for setting the actual renderscreen
+        static const int RENDER_MAINMENU=0;
+        static const int RENDER_GAME=1;
+        static const int RENDER_ITEMSHOP=2;
+        static const int RENDER_CREDITS=3;
+
+        ///Sets the Actual Render Screen
+        void setActualScreen(int ID);
 
     private:
 
@@ -93,6 +107,9 @@ namespace jumper
         // Pointer to game
         Game* m_game;
 
+        // Pointer to menu
+        MainMenu* m_menu;
+
         // Timestamp from the start of the main loop
         Uint32 m_startLoopTicks;
 
@@ -101,13 +118,6 @@ namespace jumper
 
         //Number for settings updatecall (actual Menu/Game)
         int actRenderID;
-
-        static const int RENDER_MAINMENU=0;
-        static const int RENDER_GAME=1;
-        static const int RENDER_ITEMSHOP=2;
-        static const int RENDER_CREDITS=3;
-
-        void setActualScreen(int ID);
     };
 
 } /* namespace jumper */

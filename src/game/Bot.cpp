@@ -21,17 +21,18 @@ namespace jumper
              Game* game,
              XML::NPC npc,
              int health,
-             int collisionDamage)
+             int collisionDamage,
+             ActorType type)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
     {
-        m_type = ActorType::ENEMY;
+        m_type = type;
         m_physicalProps.setMoveForce(Vector2f(0, 0));
         m_physicalProps.setMaxRunVelocity(50);
 
         m_game = game;
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
 
-        m_type = ActorType::ENEMY;
+        m_type = type;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
@@ -102,10 +103,11 @@ namespace jumper
             }
         }
 
-        // remove bots
+        // remove bots when out of focus
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
-            m_health = 0;
+            setHealth(0);
+            setIsKilled(false);
         }
     }
 
@@ -116,24 +118,16 @@ namespace jumper
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             setHit(true);
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
+            setIsKilled(true);
         }
         // Hit by player
         if (other.type() == PLAYER)
         {
             setHit(true);
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
+            setIsKilled(true);
         }
-        if (m_health <= 0) {
-            setKilled(true);
-        }
-        if(m_isKilled) {
-            play();
-        }
-    }
-    void Bot::play()
-    {
-        m_explosionSound.play(m_explosionVolume);
     }
 
     void Bot::onCollide()

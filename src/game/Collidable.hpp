@@ -21,8 +21,6 @@ public:
 	Collidable();
 	virtual ~Collidable();
 
-	virtual Collision getCollision(Collidable& other) = 0;
-
 protected:
 
 };
