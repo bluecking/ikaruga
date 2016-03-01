@@ -15,8 +15,7 @@ namespace jumper {
     {
 
     public:
-        PowerUpHeal(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames,
-                int health, int collisionDamage);
+        PowerUpHeal(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         virtual void consume(Player* player);
     };
