@@ -62,7 +62,7 @@ namespace jumper
                      1)
     {
         m_collisionDamage = collisionDamage;
-        m_sound = Sound(sound, SoundType::SOUND, *game.getLevel());
+        m_sound = Sound(sound, SoundType::SOUND);
         m_volume = volume;
     }
 }

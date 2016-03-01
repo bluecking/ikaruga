@@ -19,26 +19,6 @@ namespace jumper
         }
     }
 
-    Sound::Sound(string filename, int type, Level& level)
-    {
-        m_channel = NEXT_CHANNEL;
-        NEXT_CHANNEL++;
-        string doubleDots = "..";
-        std::size_t found;
-        found = filename.find_first_of(doubleDots);
-        filename = filename.substr(found + doubleDots.length(), filename.length());
-        found = level.getPath().find_first_of(doubleDots);
-        std::string path = level.getPath().substr(0, found - 1);
-        found = path.find_last_of("/\\");
-        path = path.substr(0, found);
-        m_type = type;
-        m_soundFile = path + filename;
-        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-        {
-            printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-        }
-    }
-
     void Sound::play(int volume)
     {
         if (m_type == SoundType::SONG && !Mix_PlayingMusic())
@@ -47,7 +27,7 @@ namespace jumper
 
             if (song == NULL)
             {
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_VolumeMusic(volume);
             Mix_PlayMusic(song, 0);
@@ -58,12 +38,11 @@ namespace jumper
 
             if (sound == NULL)
             {
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_Volume(m_channel, volume);
             Mix_PlayChannel(m_channel, sound, 0);
             Mix_FadeOutChannel(m_channel, sound->alen / 9 * 10);
-            std::cout << m_channel << " - " << m_soundFile << std::endl;
         }
     }
 
@@ -75,7 +54,7 @@ namespace jumper
 
             if (song == NULL)
             {
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_VolumeMusic(volume);
             Mix_PlayMusic(song, 0);
@@ -87,12 +66,11 @@ namespace jumper
 
             if (sound == NULL)
             {
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_Volume(m_channel, volume);
             Mix_PlayChannel(m_channel, sound, 0);
             Mix_FadeOutChannel(m_channel, fadeout);
-            std::cout << m_channel << " - " << m_soundFile << std::endl;
         }
     }
 
