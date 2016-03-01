@@ -482,7 +482,45 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				}
 				else // t1 and t2 EDGEs, slope collision right
 				{
-					// TODO
+					checkY = false;
+
+					int tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+
+					float maxDep = m_tileHeight - tHeight;
+					float xR = posRelativToGrid(pos.x() + width, tiles[0].x());
+					float maxMov = maxDep - xR;
+
+					x = std::min(x, maxMov);
+
+					if (x == maxMov)
+					{
+						actor->onCollide();
+					}
+
+					int upY = tiles[0].y() * m_tileHeight;
+					int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+					int pUp = pos.y() + y;
+					int pDown = pos.y() + y + height;
+
+					if (pUp - upY <= downY - pDown)
+					{
+						if (pUp < upY + xR)
+						{
+							y = upY + xR - pUp;
+
+							actor->onCollide();
+						}
+					}
+					else
+					{
+						if (pDown > downY - xR)
+						{
+							y = downY - xR - pDown;
+
+							actor->onCollide();
+						}
+					}
 				}
 			}
 			else
@@ -611,7 +649,45 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				}
 				else // t1 and t2 EDGEs, slope collision left
 				{
-					// TODO
+					checkY = false;
+
+					int tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+
+					float maxDep = m_tileHeight - tHeight;
+					float xR = -posRelativToGrid(pos.x(), tiles[0].x() + 1);
+					float maxMov = maxDep - xR;
+
+					x = std::max(x, -maxMov);
+
+					if (x == maxMov)
+					{
+						actor->onCollide();
+					}
+
+					int upY = tiles[0].y() * m_tileHeight;
+					int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+					int pUp = pos.y() + y;
+					int pDown = pos.y() + y + height;
+
+					if (pUp - upY <= downY - pDown)
+					{
+						if (pUp < upY + xR)
+						{
+							y = upY + xR - pUp;
+
+							actor->onCollide();
+						}
+					}
+					else
+					{
+						if (pDown > downY - xR)
+						{
+							y = downY - xR - pDown;
+
+							actor->onCollide();
+						}
+					}
 				}
 			}
 		}
