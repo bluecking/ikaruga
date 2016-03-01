@@ -67,6 +67,8 @@ namespace jumper
 
         virtual void move(Level& level) = 0;
 
+        virtual void onCollide() = 0;
+
         /**
          * Is invoked if the actor collides with another actor
          * It is pure virtual, since the subclasses react differently on

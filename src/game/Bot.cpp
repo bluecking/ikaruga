@@ -102,10 +102,11 @@ namespace jumper
             }
         }
 
-        // remove bots
+        // remove bots when out of focus
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
             setHealth(0);
+            setIsKilled(false);
         }
     }
 
@@ -117,15 +118,18 @@ namespace jumper
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
+            if (getHealth() <= 0) {
+                setKilled(true);
+            }
         }
         // Hit by player
         if (other.type() == PLAYER)
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-        }
-        if (getHealth() <= 0) {
-            setKilled(true);
+            if (getHealth() <= 0) {
+                setKilled(true);
+            }
         }
         if(isKilled()) {
             play();
@@ -134,6 +138,11 @@ namespace jumper
     void Bot::play()
     {
         m_explosionSound.play(m_explosionVolume);
+    }
+
+    void Bot::onCollide()
+    {
+        return;
     }
 
     Bot::~Bot()

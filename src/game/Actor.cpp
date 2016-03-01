@@ -226,5 +226,10 @@ namespace jumper
         m_isKilled = killed;
     }
 
+    bool Actor::isKilled()
+    {
+        return m_isKilled;
+    }
+
 } /* namespace jumper */
 

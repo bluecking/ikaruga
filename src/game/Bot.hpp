@@ -74,6 +74,8 @@ namespace jumper
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);
 
+        virtual void onCollide();
+
         /**
          * @see Actor::resolveCollision(Actor& other)
          */

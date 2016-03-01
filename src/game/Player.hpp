@@ -51,6 +51,8 @@ namespace jumper
          */
         virtual void move(Level& level);
 
+        virtual void onCollide();
+
         virtual void shoot();
 
         /**

@@ -22,6 +22,11 @@ namespace jumper {
         nextFrame();
     }
 
+	void Item::onCollide()
+	{
+		return;
+	}
+
     Item::~Item() {
         // TODO Auto-generated destructor stub
     }
