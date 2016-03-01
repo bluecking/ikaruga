@@ -290,7 +290,7 @@ namespace jumper
             if(m_statusBar) {
                 if(actor->isKilled() && actor->type() == ActorType::ENEMY)
                 {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
                 }
                 if(actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY){
                     actor->playExplosionSound();

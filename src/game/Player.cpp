@@ -137,23 +137,12 @@ namespace jumper
         }
     }
 
-    void Player::setHitMarkSound(std::string soundfile)
-    {
-        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
-    }
-
-    void Player::setHitMarkVolume(int volume)
-    {
-        m_hitMarkVolume = volume;
-    }
-
-
     void Player::resolveCollision(Actor& other)
     {
         if(other.type() == ENEMY) {
             setHit(true);
             playHitMark();
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
             if(getHealth() <= 0) {
                 setKilled(true);
             }
@@ -164,7 +153,7 @@ namespace jumper
             if (projectile->getOriginActor() != this)
             {
                 setHit(true);
-                takeDamage(other.m_collisionDamage);
+                takeDamage(other.getCollisionDamage());
             }
         }
     }

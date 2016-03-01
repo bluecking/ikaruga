@@ -20,8 +20,8 @@ KillAnimation::KillAnimation(Actor* actor)
 		   actor->frameWidth(),
 		   actor->frameHeight(),
 		   actor->numFrames(),
- 		   actor->m_health,
-		   actor->m_collisionDamage)
+ 		   actor->getHealth(),
+		   actor->getCollisionDamage())
 {
 	m_rotAngle = 0;
 	m_yPos = actor->position().y();
