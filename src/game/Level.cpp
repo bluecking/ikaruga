@@ -398,7 +398,22 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					// TODO recusrsion
+					if (recursionNeeded && posRelativToGrid(pos.x() + x + width, tiles[0].x()) > 1)
+					{
+
+						float movRec = posRelativToGrid(pos.x() + x + width, tiles[0].x()) - 1;
+
+						x -= movRec;
+
+						checkY = false;
+
+						Vector2f newMov = collideRC(pos + Vector2f(x, 0), width, height, Vector2f(movRec, y), actor);
+
+						y = newMov.y();
+
+						x +=newMov.x();
+
+					}
 
 				}
 				else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check, slope collision right
@@ -513,7 +528,22 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					// TODO recursion
+					if (recursionNeeded && posRelativToGrid(pos.x() + x, tiles[0].x() + 1) < -1)
+					{
+
+						float movRec = posRelativToGrid(pos.x() + x, tiles[0].x() + 1) + 1;
+
+						x -= movRec;
+
+						checkY = false;
+
+						Vector2f newMov = collideRC(pos + Vector2f(x, 0), width, height, Vector2f(movRec, y), actor);
+
+						y = newMov.y();
+
+						x +=newMov.x();
+
+					}
 				}
 				else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check, slope collision left
 				{
@@ -637,7 +667,17 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				// TODO recusion
+				if (recursionNeeded && posRelativToGrid(pos.y() + height + y, tiles[0].y()) > 1)
+				{
+
+					float movRec = posRelativToGrid(pos.y() + height + y, tiles[0].y()) - 1;
+
+					y -= movRec;
+
+					Vector2f newMov = collideRC(pos + Vector2f(0, y), width, height, Vector2f(0, movRec), actor);
+
+					y += newMov.y();
+				}
 
 			}
 			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
@@ -709,8 +749,17 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 					round++;
 				}
-				
-				// TODO recursion
+
+				if (recursionNeeded && posRelativToGrid(pos.y() + y, tiles[0].y() + 1) < -1)
+				{
+					float movRec = posRelativToGrid(pos.y() + y, tiles[0].y() + 1) + 1;
+
+					y -= movRec;
+
+					Vector2f newMov = collideRC(pos + Vector2f(0, y), width, height, Vector2f(0, movRec), actor);
+
+					y += newMov.y();
+				}
 
 			}
 			else if (t2 != EDGETOPRIGHT) // t1 == EDGETOPLEFT no collision down check, slope collision left
