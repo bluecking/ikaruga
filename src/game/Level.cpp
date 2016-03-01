@@ -394,71 +394,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
-					{
-						TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-						TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+					// TODO recusrsion
 
-						if (t1 == EDGETOPRIGHT && t2 ==
-												  EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
-							{
-								int tHeight = height - (tiles.size() - 2) * m_tileHeight;
-								tHeight /= 2;
-
-								float maxMov = m_tileHeight - tHeight;
-
-								if (0 < x - ((tiles[0].x() * m_tileWidth) - pos.x() - width)) // you move into the edge
-								{
-									x = std::min(x - ((tiles[0].x() * m_tileWidth) - pos.x() - width), maxMov);
-
-									int upY = tiles[0].y() * m_tileHeight;
-									int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
-
-									int pUp = pos.y();
-									int pDown = pos.y() + height;
-
-									if (pUp - upY <= downY - pDown)
-									{
-										if (pos.y() + y < upY + x)
-										{
-											y = x + upY - pos.y();
-										}
-									}
-									else
-									{
-										if (pos.y() + y + height > downY - x)
-										{
-											y = downY - x - pos.y() - height;
-										}
-									}
-
-									x += ((tiles[0].x() * m_tileWidth) - pos.x() - width);
-
-									checkY = false;
-
-								}
-							}
-							else // you can't move into the edge
-							{
-								float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
-								x = std::min(x, maxMov);
-							}
-
-							// TODO
-						}
-						else if (t1 ==
-								 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							// TODO
-						}
-						else if (t2 ==
-								 EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							// TODO
-						}
-					}
 				}
 				else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check, slope collision right
 				{
@@ -568,27 +505,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
-					{
-						TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-						TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
-
-						if (t1 == EDGETOPLEFT && t2 ==
-												 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
-						else if (t1 ==
-								 EDGETOPLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
-						else if (t2 ==
-								 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
-					}
+					// TODO recursion
 				}
 				else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check, slope collision left
 				{
@@ -708,27 +625,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
-				{
-					TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-					TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+				// TODO recusion
 
-					if (t1 == EDGEDOWNLEFT && t2 ==
-											  EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
-					else if (t1 ==
-							 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
-					else if (t2 ==
-							 EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
-				}
 			}
 			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
 			{
@@ -795,28 +693,9 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 					round++;
 				}
+				
+				// TODO recursion
 
-				if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
-				{
-					TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-					TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
-
-					if (t1 == EDGETOPLEFT && t2 ==
-											 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
-					else if (t1 ==
-							 EDGETOPLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
-					else if (t2 ==
-							 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
-				}
 			}
 			else if (t2 != EDGETOPRIGHT) // t1 == EDGETOPLEFT no collision down check, slope collision left
 			{
