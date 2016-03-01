@@ -59,9 +59,9 @@ namespace jumper
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
                 addActor(*it);
-                if((*it)->type() == ActorType::BOSS)
+                if ((*it)->type() == ActorType::BOSS)
                 {
-                    m_bossFightAt = (int) (*it)->position().x() - (*it)->w();
+                    setBossFightAt((int) (*it)->position().x() - (*it)->w());
                     setBossFight(true);
                 }
             }
@@ -158,14 +158,7 @@ namespace jumper
 
             //added spawn bots
             spawnBots();
-            if(!m_bossFight){
-                scrollHorizontal();
-            } else {
-                if((int) Renderable::m_camera.position().x() < m_bossFightAt) {
-                    scrollHorizontal();
-                }
-                stopScrolling();
-            }
+            bossFight();
             checkCameraCollision();
             checkActorCollision();
 
@@ -255,11 +248,12 @@ namespace jumper
 
     void Game::scrollHorizontal()
     {
-        float dt = getElapsedTime() - m_scrollingOffset;
+        float dt = getElapsedTime();
 
         Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
         m_player->setPosition(m_player->position() +
-                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset, m_player));
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset,
+                                               m_player));
         Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
@@ -299,17 +293,19 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
-            if(m_statusBar) {
-                if(actor->isKilled() && actor->type() == ActorType::ENEMY)
+            if (m_statusBar)
+            {
+                if (actor->isKilled() && actor->type() == ActorType::ENEMY)
                 {
                     m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
                 }
-                if(actor->isKilled() && actor->type() == ActorType::BOSS)
+                if (actor->isKilled() && actor->type() == ActorType::BOSS)
                 {
                     m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
                     setBossFight(false);
                 }
-                if(actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY){
+                if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY)
+                {
                     actor->playExplosionSound();
                 }
             }
@@ -317,14 +313,15 @@ namespace jumper
         }
     }
 
-    void Game::setSound(std::string soundFile, int volume){
+    void Game::setSound(std::string soundFile, int volume)
+    {
         m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
 
     void Game::setBossFight(bool bossfight)
     {
-        if(m_bossFight == true && bossfight)
+        if (m_bossFight == true && bossfight)
         {
             cout << "Bossfight has ended";
         }
@@ -332,9 +329,35 @@ namespace jumper
 
     }
 
-    void Game::stopScrolling()
+    void Game::bossFight()
     {
-        //TODO ~ intelligent Funciton
+        if (!getBossFight())
+        {
+            scrollHorizontal();
+        }
+        else
+        {
+            if ((int) Renderable::m_camera.position().x() < getBossFightAt())
+            {
+                scrollHorizontal();
+            }
+            m_startTicks = SDL_GetTicks();
+        }
+    }
+
+    bool Game::getBossFight()
+    {
+        return m_bossFight;
+    }
+
+    void Game::setBossFightAt(int bossFightAt)
+    {
+        m_bossFightAt = bossFightAt;
+    }
+
+    int Game::getBossFightAt()
+    {
+        return m_bossFightAt;
     }
 
 } /* namespace jumper */

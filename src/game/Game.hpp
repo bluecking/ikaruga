@@ -85,7 +85,13 @@ namespace jumper
 
         void setBossFight(bool bossfight);
 
-        void stopScrolling();
+        void bossFight();
+
+        bool getBossFight();
+
+        void setBossFightAt(int bossFightAt);
+
+        int getBossFightAt();
 
     protected:
         bool m_bossFight;
