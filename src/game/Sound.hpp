@@ -23,7 +23,7 @@ namespace jumper
             SOUND
         };
     }
-    static int NEXT_CHANNEL = 1;
+    //static int NEXT_CHANNEL = 1;
     /**
      * @brief a class to play some fancy wavs
      */
