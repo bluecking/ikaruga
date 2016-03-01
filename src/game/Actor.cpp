@@ -287,5 +287,10 @@ namespace jumper
         return m_isKilled;
     }
 
+    void Actor::playExplosionSound()
+    {
+        m_explosionSound.play(m_explosionVolume);
+    }
+
 } /* namespace jumper */
 

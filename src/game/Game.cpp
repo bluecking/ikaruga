@@ -292,6 +292,9 @@ namespace jumper
                 {
                     m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
                 }
+                if(actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY){
+                    actor->playExplosionSound();
+                }
             }
             actor->~Actor();
         }
