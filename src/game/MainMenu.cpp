@@ -34,16 +34,16 @@ namespace jumper
 
     }
 
-    //Creates the Levelbackground
-    void MainMenu::setupBackground(XML::Background background, std::string filepath)
+    //Creates the highscore background
+    void MainMenu::setupBackground(float scrollspeed, std::string backgroundImage)
     {
-        SDL_Texture* texture = TextureFactory::instance(m_win->getRenderer()).getTexture(filepath + background.filename);
-        float scrollspeed = background.scrollspeed * 1.0f;
-        TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+        SDL_Texture* texture = TextureFactory::instance(m_win->getRenderer()).getTexture(backgroundImage);
+        TexturedLayer* layer = new TexturedLayer(m_win->getRenderer(), texture, m_game->getLevel()->tileHeight()); //TODO tileHeight should be dependent of of backgroundImage
 
         layer->setScrollSpeed(scrollspeed);
-        game->setSound(filepath + background.soundfile, background.volume);
-        game->setLayer(layer);
+        SDL_RenderClear(m_win->getRenderer());
+        layer->render();
+        //m_game->setSound(filepath + background.soundfile, background.volume);
     }
 
 

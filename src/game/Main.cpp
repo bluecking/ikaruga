@@ -1,19 +1,5 @@
-#include <boost/property_tree/xml_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/foreach.hpp>
-
 #include "MainWindow.hpp"
-#include "Game.hpp"
-#include "TextureFactory.hpp"
-#include "TexturedLayer.hpp"
-#include "Item.hpp"
-#include "PuzzleBox.hpp"
-#include "../xml/XML.hpp"
 #include "Filesystem.hpp"
-#include "Profile.hpp"
-#include <iostream>
-#include "MainMenu.hpp"
-#include <boost/filesystem/path.hpp>
 
 using namespace jumper;
 using std::string;

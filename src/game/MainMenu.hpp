@@ -20,7 +20,7 @@ namespace jumper
 {
     class Game;
     class MainWindow;
-class MainMenu : public FontRender
+class MainMenu
 {
 public:
     MainMenu(MainWindow* win, Game* game, fs::path resDir);
@@ -36,7 +36,7 @@ private:
 
     //TODO move to struct?
 
-    void setupBackground(XML::Background background, string filepath);
+    void setupBackground(float scrollspeed, string backgroundImage);
 };
 } //end of namespace jumper
 
