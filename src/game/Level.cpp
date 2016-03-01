@@ -370,6 +370,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int round = 0;
 
+					bool recursionNeeded = true;
+
 					for(Vector2i& tPos : tiles)
 					{
 
@@ -379,6 +381,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID)))) // collide with something solid
 							{
+								recursionNeeded = false;
+
 								float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
 								x = std::min(x, maxMov);
 
@@ -482,6 +486,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int round = 0;
 
+					bool recursionNeeded = true;
+
 					for(Vector2i& tPos : tiles)
 					{
 						if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -490,6 +496,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID)))) // collide with something solid
 							{
+								recursionNeeded = false;
+
 								float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
 								x = std::max(x, maxMov);
 
@@ -602,6 +610,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 				int round = 0;
 
+				bool recursionNeeded = true;
+
 				for (Vector2i &tPos : tiles)
 				{
 					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -610,6 +620,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 						if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGEDOWNLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGEDOWNLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))))
 						{
+							recursionNeeded = false;
+
 							float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
 							y = std::min(y, maxMov);
 
@@ -671,6 +683,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 				int round = 0;
 
+				bool recursionNeeded = true;
+
 				for (Vector2i &tPos : tiles)
 				{
 					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -679,6 +693,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
                         if (tiles.size() == 1 && t != NONSOLID && t != EDGETOPLEFT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGETOPRIGHT && t != NONSOLID)))) // collide with something solid
                         {
+							recursionNeeded = false;
+
 							float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
 							y = std::max(y, maxMov);
 
