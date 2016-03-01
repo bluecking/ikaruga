@@ -37,6 +37,7 @@ private:
     std::vector<fs::path> m_levelFiles;
     MainWindow* m_win;
     fs::path m_resDir;
+    Game* m_game;
 };
 } //end of namespace jumper
 

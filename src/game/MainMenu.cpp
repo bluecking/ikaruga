@@ -41,8 +41,8 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 }
 
 
-    MainMenu::MainMenu(MainWindow* win, fs::path resDir) :
-    m_win(win), m_resDir(resDir)
+    MainMenu::MainMenu(MainWindow* win, fs::path resDir, Game game) :
+    m_win(win), m_resDir(resDir), m_game(game)
     {
         m_levelFiles = findFiles(resDir, boost::regex("^.*\\.xml$"));
     }
@@ -53,9 +53,8 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 
 
 
-        //    setupGame(argv[1], &window, &game);
-        //
-        //    window.setGame(&game);
-        //    game.start();
+        Game::setupGame(m_resDir.path().filename().string() + "/levels/level0.xml", m_win, m_game );
+        m_win->setGame(m_game);
+        m_game->start();
     }
 } //end of namespace jumper

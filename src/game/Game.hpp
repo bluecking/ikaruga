@@ -21,6 +21,7 @@
 #include "Vector.hpp"
 
 #include "../xml/XML.hpp"
+#include "Main.cpp"
 
 #include <vector>
 
@@ -82,6 +83,18 @@ namespace jumper
 
         static const int PIXELS_OFFSET_SPAWN_BOTS = 40;
         static const int PIXELS_OFFSET_RENDER = 40;
+
+        static void setupGame(string filename, MainWindow* w, Game* game);
+
+        void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, string filepath);
+
+        void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, string filepath);
+
+        void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, string filepath);
+
+        void setupBackground(XML::Background background, string filepath, MainWindow* w, Game* game);
+
+        void setupLevel(MainWindow* w, Game* game, string filepath);
 
     private:
 
