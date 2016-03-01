@@ -398,10 +398,10 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if (recursionNeeded && posRelativToGrid(pos.x() + x + width, tiles[0].x()) > 1)
+					if (recursionNeeded && posRelativToGrid(pos.x() + x + width, tiles[0].x()) > 1.1)
 					{
 
-						float movRec = posRelativToGrid(pos.x() + x + width, tiles[0].x()) - 1;
+						float movRec = posRelativToGrid(pos.x() + x + width, tiles[0].x()) - 1.1;
 
 						x -= movRec;
 
@@ -528,10 +528,10 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if (recursionNeeded && posRelativToGrid(pos.x() + x, tiles[0].x() + 1) < -1)
+					if (recursionNeeded && posRelativToGrid(pos.x() + x, tiles[0].x() + 1) < -1.1)
 					{
 
-						float movRec = posRelativToGrid(pos.x() + x, tiles[0].x() + 1) + 1;
+						float movRec = posRelativToGrid(pos.x() + x, tiles[0].x() + 1) + 1.1;
 
 						x -= movRec;
 
@@ -667,10 +667,10 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				if (recursionNeeded && posRelativToGrid(pos.y() + height + y, tiles[0].y()) > 1)
+				if (recursionNeeded && posRelativToGrid(pos.y() + height + y, tiles[0].y()) > 1.1)
 				{
 
-					float movRec = posRelativToGrid(pos.y() + height + y, tiles[0].y()) - 1;
+					float movRec = posRelativToGrid(pos.y() + height + y, tiles[0].y()) - 1.1;
 
 					y -= movRec;
 
@@ -750,9 +750,9 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				if (recursionNeeded && posRelativToGrid(pos.y() + y, tiles[0].y() + 1) < -1)
+				if (recursionNeeded && posRelativToGrid(pos.y() + y, tiles[0].y() + 1) < -1.1)
 				{
-					float movRec = posRelativToGrid(pos.y() + y, tiles[0].y() + 1) + 1;
+					float movRec = posRelativToGrid(pos.y() + y, tiles[0].y() + 1) + 1.1;
 
 					y -= movRec;
 
