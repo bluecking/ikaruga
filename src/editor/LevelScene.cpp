@@ -97,7 +97,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
         "Scorevalue     : \t"+toQString(std::to_string(m_bots[i].scorevalue))+"\n"+
         "Col_Damage     : \t"+toQString(std::to_string(m_bots[i].collisionDamage))+"\n"+
         "Type           : \t"+toQString(m_bots[i].npc.type)+"\n"+
-        "Std Weapon     : \t"+toQString(m_bots[i].npc.stdWeapon)+"\n"+
+        "Std Weapon     : \t"+toQString(m_bots[i].npc.stdWeapon.type)+"\n"+
         "Move function  : \t"+toQString(m_bots[i].npc.move_function)+"\n"+
         "Move Value     : \t"+toQString(std::to_string(m_bots[i].npc.move_value))+"\n"+
         "Speed          : \t"+toQString(std::to_string(m_bots[i].npc.speed))

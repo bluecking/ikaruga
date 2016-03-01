@@ -373,7 +373,8 @@ namespace jumper
 
     void Game::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
-        if (m_started)
+        // Only render/update game if it's started and player is there
+        if (m_started && m_player)
         {
             m_sound.play(m_volume);
 
@@ -423,13 +424,17 @@ namespace jumper
 
             removeDeadActors();
 
-            moveActors();
+            // If player is still there, update game
+            if(m_player)
+            {
+                moveActors();
 
-            //added spawn bots
-            spawnBots();
-            bossFight();
-            checkCameraCollision();
-            checkActorCollision();
+                //added spawn bots
+                spawnBots();
+                bossFight();
+                checkCameraCollision();
+                checkActorCollision();
+            }
 
             if (m_bossFight)
             {
@@ -589,6 +594,14 @@ namespace jumper
         {
             removeActor(actor);
             setActorOptionsOnKill(actor);
+
+            // Clear player pointer member variable before destructing player,
+            // so the game update loop can handle the despawn of the player
+            if(actor->type() == ActorType::PLAYER)
+            {
+                m_player = NULL;
+            }
+
             actor->~Actor();
         }
     }
