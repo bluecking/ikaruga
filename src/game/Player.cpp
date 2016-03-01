@@ -147,11 +147,15 @@ namespace jumper
         if(other.type() == ENEMY) {
             setHit(true);
             playHitMark();
-            other.takeDamage(this->m_collisionDamage);
             takeDamage(other.m_collisionDamage);
             if(getHealth() <= 0) {
                 setKilled(true);
             }
+        }
+        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        {
+            setHit(true);
+            takeDamage(other.m_collisionDamage);
         }
     }
 

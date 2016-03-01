@@ -112,16 +112,23 @@ namespace jumper
     void Bot::resolveCollision(Actor& other)
     {
         // Hit by player's projectile with same color
+        // TODO ~ Check from where the projectile is from
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             setHit(true);
-            takeDamage(DAMAGE_BY_PROJECTILE);
+            takeDamage(other.m_collisionDamage);
         }
-
         // Hit by player
         if (other.type() == PLAYER)
         {
-            m_health = 0;
+            setHit(true);
+            takeDamage(other.m_collisionDamage);
+        }
+        if (m_health <= 0) {
+            setKilled(true);
+        }
+        if(m_isKilled) {
+            play();
         }
     }
     void Bot::play()
@@ -131,9 +138,7 @@ namespace jumper
 
     Bot::~Bot()
     {
-        if(m_isKilled){
-            play();
-        }
+        //TODO ~ Do something fancy here
     }
 
 } /* namespace jumper */
