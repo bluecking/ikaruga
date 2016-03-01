@@ -99,16 +99,16 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
-    <bot type="BOSS_SHY">
-        <filename>../images/boss_shy_259x361.png</filename>
-        <numFrames>1</numFrames>
-        <frameWidth>259</frameWidth>
-        <frameHeight>361</frameHeight>
+    <bot type="BOSS_FSM">
+        <filename>../images/flying_spghettimonster_960x160.png</filename>
+        <numFrames>6</numFrames>
+        <frameWidth>160</frameWidth>
+        <frameHeight>160</frameHeight>
         <health>150</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
-        <fps>1</fps>
+        <fps>6</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
