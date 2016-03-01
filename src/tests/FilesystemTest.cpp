@@ -42,8 +42,24 @@ void testGetParentDirectory()
     cout << (expected.compare(result) == 0 ? "." : "-");
 }
 
+void testSetFileExtension()
+{
+    // absolut path
+    string path = "/usr/local/Cellar/sdl2/2.0.4/test\\ file\\ name.txt";
+    string expected = "/usr/local/Cellar/sdl2/2.0.4/test\\ file\\ name.ti";
+    string result = jumper::Filesystem::setFileExtension(path, "ti");
+    cout << (expected.compare(result) == 0 ? "." : "-");
+
+    // relative path
+    path = "../sdl2/2.0.4/test\\ file\\ name.txt";
+    expected = "../sdl2/2.0.4/test\\ file\\ name.ti";
+    result = jumper::Filesystem::setFileExtension(path, "ti");
+    cout << (expected.compare(result) == 0 ? "." : "-");
+}
+
 int main(int arc, char** argv)
 {
     testGetDirectoryPath();
     testGetParentDirectory();
+    testSetFileExtension();
 }

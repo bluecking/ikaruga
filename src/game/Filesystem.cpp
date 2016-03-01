@@ -28,4 +28,11 @@ namespace jumper
 
         return folderPath;
     }
+
+    string Filesystem::setFileExtension(string filePath, string fileExtension)
+    {
+        string newFilePath = filePath.substr(0, filePath.find_last_of(".") + 1);
+        newFilePath += fileExtension;
+        return newFilePath;
+    }
 }
