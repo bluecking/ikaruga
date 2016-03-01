@@ -595,11 +595,6 @@ namespace jumper
 
         for (auto actor : to_remove)
         {
-            if(actor->type() == ENEMY || actor->type() == PLAYER ){
-                KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
-                addActor(kill);
-            }
-
             removeActor(actor);
             setActorOptionsOnKill(actor);
 
@@ -616,22 +611,32 @@ namespace jumper
 
     void Game::setActorOptionsOnKill(Actor* actor)
     {
+        if(actor->type() == ENEMY || actor->type() == PLAYER ){
+            KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
+            addActor(kill);
+        }
         if (m_statusBar)
         {
-            if (actor->isKilled() && actor->type() == ActorType::ENEMY)
-            {
-                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+            if (actor->isKilled()){
+                if (actor->type() == ActorType::ENEMY)
+                {
+                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                }
+                if (actor->type() == ActorType::BOSS)
+                {
+                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    setBossFight(false);
+                }
+                if (actor->type() == ActorType::ENEMY ||
+                    actor->type() == ActorType::BOSS)
+                {
+                    actor->playExplosionSound();
+                }
             }
-            if (actor->isKilled() && actor->type() == ActorType::BOSS)
-            {
-                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                setBossFight(false);
-            }
-            if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY ||
-                actor->type() == ActorType::BOSS)
-            {
-                actor->playExplosionSound();
-            }
+
+        }
+        if ( actor->type() == ActorType::PLAYER) {
+            actor->playExplosionSound();
         }
     }
 
