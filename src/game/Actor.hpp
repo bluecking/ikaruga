@@ -29,6 +29,7 @@ namespace jumper
         PUZZLEBOX,
         PLAYER,
         PROJECTILE,
+        BOSS,
         POWERUP
     };
 

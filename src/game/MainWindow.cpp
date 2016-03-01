@@ -31,6 +31,7 @@ namespace jumper
         Renderable::m_camera.m_height = h;
         /// Initialize SDL stuff
         initSDL();
+        this->actRenderID=0;
     }
 
     MainWindow::~MainWindow()
@@ -68,8 +69,22 @@ namespace jumper
                     keyDown[e.key.keysym.scancode] = true;
                 }
             }
-
-            m_game->update(currentKeyStates, keyDown);
+            //std::cout << actRenderID << std::endl; //Debug Output
+            switch(actRenderID){
+                case MainWindow::RENDER_MAINMENU:
+                    m_menu->update(currentKeyStates, keyDown);
+                    break;
+                case MainWindow::RENDER_GAME:
+                    m_game->update(currentKeyStates, keyDown);
+                    break;
+                case MainWindow::RENDER_ITEMSHOP:
+                    //ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
+                    break;
+                case MainWindow::RENDER_CREDITS:
+                    break;
+                default: std::cout << "You have to use setActualScreen." << std::endl;
+                    break;
+            }
 
             // reset key down
             for (int i = 0; i < SDL_NUM_SCANCODES; i++)
@@ -82,9 +97,17 @@ namespace jumper
         }
     }
 
+    void MainWindow::setActualScreen(int ID){
+        actRenderID=ID;
+    }
+
     void MainWindow::setGame(Game* game)
     {
         m_game = game;
+    }
+
+    void MainWindow::setMenu(MainMenu* menu) {
+        m_menu = menu;
     }
 
     void MainWindow::initSDL()

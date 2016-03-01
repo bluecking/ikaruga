@@ -21,17 +21,18 @@ namespace jumper
              Game* game,
              XML::NPC npc,
              int health,
-             int collisionDamage)
+             int collisionDamage,
+             ActorType type)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
     {
-        m_type = ActorType::ENEMY;
+        m_type = type;
         m_physicalProps.setMoveForce(Vector2f(0, 0));
         m_physicalProps.setMaxRunVelocity(50);
 
         m_game = game;
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
 
-        m_type = ActorType::ENEMY;
+        m_type = type;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
@@ -118,13 +119,14 @@ namespace jumper
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-
+            setIsKilled(true);
         }
         // Hit by player
         if (other.type() == PLAYER)
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
+            setIsKilled(true);
         }
     }
 

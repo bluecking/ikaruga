@@ -58,3 +58,7 @@ void GraphicsTileItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
     //gui->show();
 	std::cout<<m_index<<std::endl;
 }
+
+GraphicsTileItem::~GraphicsTileItem()
+{
+}
