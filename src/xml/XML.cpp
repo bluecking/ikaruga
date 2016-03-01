@@ -40,6 +40,7 @@ XML::XML(std::string xmlFilename)
     load();
 }
 
+/** OUT OF ORDER UNTIL REBUILDING
 XML::XML()
 {
     init();
@@ -78,6 +79,7 @@ XML::XML()
     p.fps = 12;
     setPlayer(p);
 }
+**/
 
 void XML::init()
 {
@@ -154,7 +156,7 @@ void XML::load()
                 m_player.hitVolume = v.second.get<int>("hitVolume");
                 m_player.collisionDamage = v.second.get<int>("collisionDamage");
                 m_player.health = v.second.get<int>("health");
-                m_player.stdWeapon = *getWeaponByName(v.second.get<string>("stdWeapon"));
+                m_player.stdWeapon = getWeaponByName(v.second.get<string>("stdWeapon"));
 
                 m_requiredAttributes["player"]++;
             }
@@ -289,7 +291,7 @@ void XML::loadBots(std::string filename){
                 npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
                 npc.move_value = v.second.get_child("npc").get <signed int> ("move");
                 npc.speed = v.second.get_child("npc").get <signed int> ("speed");
-                npc.stdWeapon = *getWeaponByName(v.second.get_child("npc").get <string> ("stdWeapon"));
+                npc.stdWeapon = getWeaponByName(v.second.get_child("npc").get <string> ("stdWeapon"));
                 bot.npc = npc;
                 m_bots.push_back(bot);
             }
@@ -775,16 +777,16 @@ void XML::saveProfiles(){
     }
 
 };
-XML::Weapon* XML::getWeaponByName(std::string weaponName)
+XML::Weapon XML::getWeaponByName(std::string weaponName)
 {
-    Weapon* foundWeapon = 0;
+    Weapon foundWeapon;
 
     bool foundType = false;
     for (auto weapon : m_weapons)
     {
         if(weaponName.compare(weapon.type) == 0)
         {
-            foundWeapon = &weapon;
+            foundWeapon = weapon;
             foundType = true;
         }
     }

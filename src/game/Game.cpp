@@ -265,7 +265,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
 
-        game->m_explosionAnimation = xml.getExplosions();
+        game->m_explosionAnimation = path+xml.getExplosions();
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -372,7 +372,8 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
     void Game::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
-        if (m_started)
+        // Only render/update game if it's started and player is there
+        if (m_started && m_player)
         {
             m_sound.play(m_volume);
 
@@ -422,13 +423,17 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
             removeDeadActors();
 
-            moveActors();
+            // If player is still there, update game
+            if(m_player)
+            {
+                moveActors();
 
-            //added spawn bots
-            spawnBots();
-            bossFight();
-            checkCameraCollision();
-            checkActorCollision();
+                //added spawn bots
+                spawnBots();
+                bossFight();
+                checkCameraCollision();
+                checkActorCollision();
+            }
 
             SDL_RenderClear(m_renderer);
 
@@ -583,8 +588,16 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
             removeActor(actor);
             setActorOptionsOnKill(actor);
-            delete(actor);
-        }
+
+            // Clear player pointer member variable before destructing player,
+            // so the game update loop can handle the despawn of the player
+            if(actor->type() == ActorType::PLAYER)
+            {
+                m_player = NULL;
+            }
+
+            actor->~Actor();
+      }
     }
 
     void Game::setActorOptionsOnKill(Actor* actor)
