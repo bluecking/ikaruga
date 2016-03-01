@@ -8,6 +8,7 @@
 #include "MainWindow.hpp"
 #include "Game.hpp"
 #include "CollisionManager.hpp"
+#include "KillAnimation.hpp"
 #include "Filesystem.hpp"
 
 #include <set>
@@ -263,6 +264,8 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
     {
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
+
+        game->m_explosionAnimation = path+xml.getExplosions();
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -578,6 +581,11 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
         for (auto actor : to_remove)
         {
+            if(actor->type() == ENEMY || actor->type() == PLAYER ){
+                KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
+                addActor(kill);
+            }
+
             removeActor(actor);
             setActorOptionsOnKill(actor);
 
@@ -588,8 +596,8 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
                 m_player = NULL;
             }
 
-            actor->~Actor();
-        }
+            delete actor;
+      }
     }
 
     void Game::setActorOptionsOnKill(Actor* actor)

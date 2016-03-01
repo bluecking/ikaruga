@@ -90,6 +90,7 @@ void XML::init()
     m_requiredAttributes.insert(std::pair<string, int>("background", 0));
     m_requiredAttributes.insert(std::pair<string, int>("player", 0));
     m_requiredAttributes.insert(std::pair<string, int>("statusbar", 0));
+    m_requiredAttributes.insert(std::pair<string, int>("explosions",0));
 }
 
 void XML::load()
@@ -219,6 +220,10 @@ void XML::load()
                 lItem.value = v.second.get<int>("value");
 
                 m_level_items.push_back(lItem);
+            }
+            else if(v.first == "explosions")
+            {
+                m_explosions = v.second.get<string>("<xmlattr>.filename");
             }
             else
             {
@@ -690,7 +695,10 @@ void XML::removeProfile(unsigned int position)
     if(position >= profileSize()) {throw std::range_error("Index out of range.");}
     m_profiles.erase(m_profiles.begin() + position);
 }
-
+std::string XML::getExplosions()
+{
+    return m_explosions;
+}
 void XML::saveProfiles(){
     ptree root;
     ptree profiles;
@@ -767,6 +775,7 @@ void XML::saveProfiles(){
         std::cerr << boost::diagnostic_information(e);
         throw std::ios_base::failure("Cannot write file. Is it readonly?");
     }
+
 };
 XML::Weapon XML::getWeaponByName(std::string weaponName)
 {
@@ -789,3 +798,4 @@ XML::Weapon XML::getWeaponByName(std::string weaponName)
 
     return foundWeapon;
 }
+
