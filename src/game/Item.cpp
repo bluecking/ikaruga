@@ -7,29 +7,31 @@
 
 #include "Item.hpp"
 
-namespace jumper
-{
+namespace jumper {
+    Item::Item(SDL_Renderer *renderer,
+               SDL_Texture *texture,
+               int frameWidth,
+               int frameHeight,
+               int numFrames,
+               int health,
+               int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage) {
+    }
 
-Item::Item(SDL_Renderer* renderer, std::string filename)
-	: Actor(renderer, filename)
-{
+    void Item::move(Level &level) {
+        nextFrame();
+    }
 
-}
+	void Item::onCollide()
+	{
+		return;
+	}
 
-Item::Item(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth,
-		int frameHeight, int numFrames)
-	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
-{
-}
+    Item::~Item() {
+        // TODO Auto-generated destructor stub
+    }
 
-void Item::move(Level& level)
-{
-	nextFrame();
-}
+    void Item::resolveCollision(Actor &other) {
 
-Item::~Item()
-{
-	// TODO Auto-generated destructor stub
-}
-
+    }
 } // namespace jumper

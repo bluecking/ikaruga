@@ -11,6 +11,7 @@
 #include <string>
 #include <SDL.h>
 
+#include <vector>
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
 #include "SparseMatrix.hpp"
@@ -22,6 +23,25 @@
 
 namespace jumper
 {
+
+
+enum TilesDirection
+{
+	TUP,
+	TDOWN,
+	TLEFT,
+	TRIGHT
+};
+
+enum TileType
+{
+	SOLID = 1,
+	NONSOLID = 2,
+	EDGETOPLEFT = 3,
+	EDGETOPRIGHT = 4,
+	EDGEDOWNLEFT = 5,
+	EDGEDOWNRIGHT = 6
+};
 
 
 class Actor;
@@ -72,12 +92,23 @@ public:
 
 	/// Generates a collision object between the level and the actor
 	Collision resolveCollision(Actor* actor);
+	Vector2f collide(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
 
 private:
 
 	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
+	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
+	void getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
+	Vector2f collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
+	Vector2f collideX(Vector2f pos, int width, int height, Vector2f move, Actor* actor, bool& checkY);
+	float collideY(Vector2f pos, int width, int height, float y, Actor* actor);
 
+	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
+	float posRelativToGrid(float pos, int grid);
+	float gridToPos(int grid);
+	int posToGrid(float pos);
+	bool tileInRange(Vector2i& tile);
 
 	/// Tile width
 	int					m_tileWidth;
@@ -91,15 +122,6 @@ private:
 	/// Number of rows in the tile sheet
 	int 				m_numRows;
 
-	/// Key color red component
-	unsigned char	 	m_keyR;
-
-	/// Key color green component
-	unsigned char		m_keyG;
-
-	/// Key color blue component
-	unsigned char		m_keyB;
-
 	/// Number of tiles per row
 	int					m_tilesPerRow;
 
@@ -108,6 +130,9 @@ private:
 
 	/// Level height
 	int					m_levelHeight;
+
+
+	std::vector<TileType>			m_tileTypes;
 
 	///Physical properties of level
 	WorldProperty		m_levelPhysics;

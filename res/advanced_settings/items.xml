@@ -1,0 +1,9 @@
+<items>
+    <item type="RESTORE_HEALTH">
+        <filename>../images/powerup_health_regenaration_60x45.png</filename>
+        <frameWidth>60</frameWidth>
+        <frameHeight>45</frameHeight>
+        <health>100</health>
+        <collisionDamage>0</collisionDamage>
+    </item>
+</items>

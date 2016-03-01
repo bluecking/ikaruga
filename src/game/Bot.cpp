@@ -6,96 +6,160 @@
  */
 
 #include "Bot.hpp"
+#include "Game.hpp"
+#include "Projectile.hpp"
 
-#include <iostream>
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
+    Bot::Bot(SDL_Renderer* renderer,
+             SDL_Texture* texture,
+             int frameWidth,
+             int frameHeight,
+             int numFrames,
+             Game* game,
+             XML::NPC npc,
+             int health,
+             int collisionDamage,
+             ActorType type)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
+    {
+        m_type = type;
+        m_physicalProps.setMoveForce(Vector2f(0, 0));
+        m_physicalProps.setMaxRunVelocity(50);
 
-Bot::Bot(SDL_Renderer* renderer, std::string filename)
-	: Actor(renderer, filename), m_bouncePos(0)
-{
-	m_physicalProps.setMoveForce(Vector2f(0,0));
-	m_physicalProps.setMaxRunVelocity(50);
-	physics().setMaxFallVelocity(2400);
-}
+        m_game = game;
 
-Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-  	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
-{
-	m_physicalProps.setMoveForce(Vector2f(0,0));
-	m_physicalProps.setMaxRunVelocity(50);
-	physics().setMaxFallVelocity(2400);
-}
+        m_npc = npc;
+        if (npc.move_function == "SIN")
+        {
+            m_move_type = BotType::SIN;
+        }
+        else if (npc.move_function == "SIN_UP")
+        {
+            m_move_type = BotType::SIN_UP;
+        }
+        else if (npc.move_function == "SIN_DOWN")
+        {
+            m_move_type = BotType::SIN_DOWN;
+        }
+        else if (npc.move_function == "AI")
+        {
+            m_move_type = BotType::AI;
+        }
+        else
+        {
+            m_move_type = BotType::NO_MOVE;
+        }
+        m_move_type_height = 25;
+        m_speed = 100;
+    }
 
-Bot::~Bot()
-{
-	// TODO Auto-generated destructor stub
-}
+    void Bot::move(Level& level)
+    {
+        nextFrame();
+        float dt = getElapsedTime();
+        Vector2f d_move;
+        shoot();
+        switch (m_move_type)
+        {
+            case BotType::NO_MOVE:
+                break;
+            case BotType::AI:
+            {
+                float ds = (m_game->getPlayerPosition().y() - physics().position().y()) * AI_TRACE_SPEED;
+                d_move.setY(ds);
+                d_move.setX(m_npc.speed);
+                physics().setPosition(physics().position() + d_move * dt);
+                break;
+            }
+            case BotType::SIN:
+            case BotType::SIN_UP:
+            case BotType::SIN_DOWN:
+            {
+                if (dt > 0)
+                {
 
-void Bot::move(Level& level)
-{
-	nextFrame();
-	float dt = getElapsedTime();
-	if(dt > 0)
-	{
-		Collision c = level.resolveCollision(this);
-		if(c.delta().x() > 5)
-		{
-			bounce();
-		}
+                    switch (m_move_type)
+                    {
+                        case BotType::SIN:
+                            d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
+                            break;
+                        case BotType::SIN_UP:
 
-		if(onGround() && fabs(physics().moveForce().x()) < 2)
-		{
-			physics().setMoveForce(Vector2f(100, 0));
-		}
+                            d_move.setY(-cos(M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
+                            break;
+                        case BotType::SIN_DOWN:
+                            d_move.setY(-cos(-M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
+                            break;
+                    }
+                    d_move.setX(m_npc.speed);
+                    physics().setPosition(physics().position() + d_move * dt);
+                }
+                break;
+            }
+        }
 
-		Vector2f d_gravity;
-		Vector2f d_move;
+        // remove bots when out of focus
+        if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
+        {
+            setHealth(0);
+            setIsKilled(false);
+        }
+        if (type() == ActorType::BOSS)
+        {
+            m_game->setBossHealth(m_health);
+        }
+    }
 
-		d_gravity = level.physics().gravity() * dt;
-		d_move = (physics().moveForce() * dt);
+    void Bot::resolveCollision(Actor& other)
+    {
+        // Hit by player's projectile with same color
+        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        {
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor()->type() == ActorType::PLAYER)
+            {
+                setHit(true);
+                takeDamage(other.getCollisionDamage());
+                setIsKilled(true);
+            }
+        }
+        // Hit by player
+        if (other.type() == PLAYER)
+        {
+            setHit(true);
+            takeDamage(other.getCollisionDamage());
+            setIsKilled(true);
+        }
+    }
 
-		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move + d_gravity);
+    void Bot::onCollide()
+    {
+        return;
+    }
 
-		// Damp velocity according to extrinsic level damping
-		physics().setVelocity(physics().velocity() * level.physics().damping());
+    Bot::~Bot()
+    {
+        //TODO ~ Do something fancy here
+    }
 
-		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
+    void Bot::shoot()
+    {
+        // skip if no weapon is set
+        if (m_weapon == 0)
+        {
+            return;
+        }
 
-		if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
+        // calc direction
+        Vector2f playerPos = m_game->getPlayerPosition();
+        Vector2f direction = playerPos - position();
+        direction.setY(0);
+        direction.normalize();
 
-		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
-		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
-		}
-
-
-		// Set new player position
-		physics().setPosition(physics().position() + physics().velocity());
-
-	}
-}
-
-void Bot::bounce()
-{
-	if(fabs(physics().position().x() - m_bouncePos.x()) > 5)
-	{
-		physics().setMoveForce(physics().moveForce() * -1);
-		m_bouncePos = physics().position();
-	}
-}
-
+        m_weapon->shoot(direction, position());
+    }
 } /* namespace jumper */

@@ -1,52 +1,30 @@
-set(EDITOR_SOURCES 
-	app/Main.cpp 
-	app/EditorMainWindow.cpp
-	widgets/GraphicsTileItem.cpp
-	widgets/TilesetScene.cpp
-	widgets/LevelScene.cpp
-)
+set(EDITOR_SOURCES
+		Main.cpp
+		MainWindow.cpp
+		LevelScene.cpp
+		GraphicsTileItem.cpp
+		TextureScene.cpp
+		TextureScene.h
+		Settings.cpp
+		Settings.h)
 
-#####################################################################################
-# Set uis
-#####################################################################################
-
-set(EDITOR_UIS
-   ui/MainWindow.ui
-)
-
-#####################################################################################
-# Set mocs
-#####################################################################################
-
-set(EDITOR_MOCS
-   app/EditorMainWindow.hpp
-)
-
-#####################################################################################
-# Setup dependencies
-#####################################################################################
-
-set(EDITOR_DEPENDENCIES
-	${QT_QTCORE_LIBRARIES} 
-	${QT_QTGUI_LIBRARIES}  
-	${QT_QTOPENGL_LIBRARIES} 
-	${QT_QTXML_LIBRARY}  
-)
-
-
-qt_wrap_ui(editor EDITOR_UI_HDRS EDITOR_UI_SRC ${EDITOR_UIS})
-qt_wrap_cpp(editor EDITOR_MOC_SRC ${EDITOR_MOCS})
-add_definitions(${QT_DEFINITIONS})
-
-#####################################################################################
-# Add current binary dir to includes to find the generated header files
-#####################################################################################
+FIND_PACKAGE(Qt4 REQUIRED)
+include_directories(${QT_INCLUDE_DIR})
+include_directories(${QT_QTGUI_INCLUDE_DIR})
+include_directories(${QT_QTCORE_INCLUDE_DIR})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-#####################################################################################
-# Add main executable
-#####################################################################################
+add_definitions(-DQT_NO_KEYWORDS )
+add_definitions(${QT_DEFINITIONS})
 
-add_executable(editor ${EDITOR_SOURCES} ${EDITOR_MOC_SRC} ${EDITOR_UI_HDRS})
-target_link_libraries(editor ${EDITOR_DEPENDENCIES})
+set(GUI_UIS LevelView.ui)
+set(GUI_MOCS MainWindow.hpp)
+
+set(GUI_DEPENDENCIES ${QT_QTCORE_LIBRARIES} ${QT_QTGUI_LIBRARIES})
+
+qt_wrap_cpp(editor GUI_MOC_SRC ${GUI_MOCS})
+qt_wrap_ui(editor GUI_UI_HDRS GUI_UI_SRC ${GUI_UIS})
+
+add_executable(editor ${EDITOR_SOURCES} ${GUI_MOC_SRC} ${GUI_UI_HDRS})
+target_link_libraries(editor ${GUI_DEPENDENCIES} xml)

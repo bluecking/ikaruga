@@ -4,103 +4,184 @@
 
 
 #include "Player.hpp"
+#include "Projectile.hpp"
 
-#include <iostream>
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
+    Player::Player(SDL_Renderer* renderer,
+                   SDL_Texture* texture,
+                   int frameWidth,
+                   int frameHeight,
+                   int numFrames,
+                   int health,
+                   int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0), m_initial_health(health)
+    { }
 
-Player::Player(SDL_Renderer *renderer, std::string filename)
-	: Actor(renderer, filename)
-{
+    void Player::move(Level& level)
+    {
+        nextFrame();
+        float dt = getElapsedTime();
+        if (dt > 0)
+        {
+            Vector2f d_move;
 
-}
+            d_move = (physics().moveForce() * m_moveDirection * dt);
 
-Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
-{
+            // Update velocity
+            physics().setVelocity(physics().velocity() + d_move);
 
-}
+            // Damp velocity according to extrinsic level damping
+            physics().setVelocity(physics().velocity() * level.physics().damping());
 
+            // Clamp velocities
+            if (physics().velocity().x() > physics().maxRunVelocity() * dt)
+            {
+                physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
+                                               physics().velocity().y()));
+            }
 
-void Player::move(Level& level)
-{
-	nextFrame();
-	float dt = getElapsedTime();
-	if(dt > 0)
-	{
-		if(m_wantsToJump && onGround())
-		{
-			setJumping(true);
-			m_wantsToJump = false;
-		}
+            if (physics().velocity().x() < -physics().maxRunVelocity() * dt)
+            {
+                physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
+                                               physics().velocity().y()));
+            }
 
-		Vector2f d_gravity;
-		Vector2f d_move;
+            if (physics().velocity().y() > physics().maxRunVelocity() * dt)
+            {
+                physics().setVelocity(Vector2f(physics().velocity().x(), physics().maxRunVelocity() * dt));
+            }
 
-		d_gravity = level.physics().gravity() * dt;
-		d_move = (physics().moveForce() * dt);
+            if (physics().velocity().y() < -physics().maxRunVelocity() * dt)
+            {
+                physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
+            }
 
-		// Update velocity
-		physics().setVelocity(physics().velocity() + d_move + d_gravity);
+            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity(), this));
 
-		// Add jumping momentum
-		if(jumping())
-		{
-			physics().velocity().setY(
-					physics().velocity().y() + (physics().jumpForce().y() * dt) );
-		}
+            // Set new player position
+            physics().setPosition(physics().position() + physics().velocity());
 
-		// Damp velocity according to extrinsic level damping
-		physics().setVelocity(physics().velocity() * level.physics().damping());
+            // Checks if the player moves up or down and updates the source rect
+            updateMoveAnimation();
 
-		// Clamp velocities
-		if(physics().velocity().x() > physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
+            //Collision c = level.resolveCollision(this);
+            //cout << c.delta() << endl;
+        }
 
-		if(physics().velocity().x() < -physics().maxRunVelocity() * dt)
-		{
-			physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-					physics().velocity().y()));
-		}
+    }
 
-		if(physics().velocity().y() > physics().maxFallVelocity() * dt)
-		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), physics().maxFallVelocity() * dt));
-		}
+    void Player::shoot()
+    {
+        // skip if no weapon is set
+        if (m_weapon == 0)
+        {
+            return;
+        }
 
-		if(physics().velocity().y() < -physics().maxJumpVelocity() * dt)
-		{
-			physics().setVelocity(
-					Vector2f(physics().velocity().x(), -physics().maxJumpVelocity() * dt));
-		}
+        Vector2f direction(1, 0);
+        m_weapon->shoot(direction, position());
+    }
 
-		// Set new player position
-		physics().setPosition(physics().position() + physics().velocity());
+    void Player::onCollide()
+    {
+        return;
+    }
 
-		/*	// Move camera if player position exceeds window with / 2
-		m_camera.position().setX(position().x() - m_levelWidth / 2 + w());
-		if(m_camera.position().x() < 0)
-		{
-			m_camera.position().setX(0);
-		}*/
+    void Player::updateMoveAnimation()
+    {
+        const char NORMAL = 0;
+        const char UPHALF = 1;
+        const char UPFULL = 2;
+        const char DOHALF = 3;
+        const char DOFULL = 4;
 
-		// Stop jumping at maximum jumping height
-		if(fabs(physics().position().y() - jumpStart()) >= physics().maxJumpHeight())
-		{
-			setJumping(false);
-		}
+        SDL_Rect& hitbox = getHitbox();
 
-		Collision c = level.resolveCollision(this);
-		//cout << c.delta() << endl;
-	}
+        // Player moves up
+        if (getMoveDirection().y() < 0)
+        {
+            // TODO: Set the hitbox dynamically
+            m_hitbox.h = (int) (frameHeight() * 0.5);;
+            m_hitbox.y = (int) position().y();
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = UPHALF; break;
+                case DOHALF:     m_nextTileRow = NORMAL; break;
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                default:         m_nextTileRow = UPFULL;
+            }
+        } // Player moves down
+        else if (getMoveDirection().y() > 0)
+        {
+            m_hitbox.h = (int) (frameHeight() * 0.5);
+            m_hitbox.y = (int) position().y();
+            switch(m_currentTileRow) {
+                case NORMAL:     m_nextTileRow = DOHALF; break;
+                case UPHALF:     m_nextTileRow = NORMAL; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = DOFULL;
+            }
+        } // Player does not move
+        else
+        {
+            m_hitbox.h = frameHeight();
+            switch(m_currentTileRow) {
+                case DOFULL:     m_nextTileRow = DOHALF; break;
+                case UPFULL:     m_nextTileRow = UPHALF; break;
+                default:         m_nextTileRow = NORMAL;
+            }
+        }
+    }
 
-}
+    void Player::resolveCollision(Actor& other)
+    {
+        if(other.type() == ENEMY) {
+            setHit(true);
+            playHitMark();
+            takeDamage(other.getCollisionDamage());
+            if(getHealth() <= 0) {
+                setKilled(true);
+            }
+        }
 
+        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        {
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor() != this)
+            {
+                setHit(true);
+                takeDamage(other.getCollisionDamage());
+            }
+        }
+
+        if(other.type() == POWERUP) {
+            PowerUp* powerUp = static_cast<PowerUp*>(&other);
+            m_powerUps.push_back(powerUp);
+        }
+    }
+
+    void Player::playHitMark() {
+        m_hitMarkSound.play(m_hitMarkVolume);
+    }
+
+    void Player::consumePowerUps()
+    {
+        vector<PowerUp*> to_remove;
+
+        for(auto powerUp : m_powerUps) {
+            powerUp->consume(this);
+
+            if(getLiveTime() > powerUp->getExpirationTime()) {
+                to_remove.push_back(powerUp);
+            }
+        }
+
+        for(auto powerUp : to_remove) {
+            auto itr = std::find(m_powerUps.begin(), m_powerUps.end(), powerUp);
+            m_powerUps.erase(itr);
+        }
+    }
 }

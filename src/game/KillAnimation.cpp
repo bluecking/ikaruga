@@ -7,46 +7,43 @@
 
 #include "KillAnimation.hpp"
 
-#include <iostream>
+
+
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
 
-KillAnimation::KillAnimation(Actor* actor)
-	: Item(actor->getRenderer(), actor->getTexture(), actor->frameWidth(), actor->frameHeight(), actor->numFrames())
+KillAnimation::KillAnimation(Actor* actor, std::string filepath)
+	: Item(actor->getRenderer(),
+		   actor->getTexture(),
+		   40,
+		   40,
+		   4,
+ 		   4,
+		   actor->getCollisionDamage())
 {
-	m_rotAngle = 0;
-	m_yPos = actor->position().y();
+
 	setPosition(actor->position());
 	m_lastRenderTicks = 0;
+	m_currentFrame = 0;
+	m_texture = TextureFactory::instance(m_renderer).getTexture(filepath);
+	m_type = ITEM;
+	setFPS(8);
+    m_color = actor->getColor();
+    m_colorOffset = actor->getColorOffset();
 }
 
-void KillAnimation::render()
-{
-	Uint32 ticks = SDL_GetTicks();
-	float time =  (ticks - m_lastRenderTicks);
-
-	SDL_Rect dst;
-	dst.w = w();
-	dst.h = h();
-	dst.x = floor(m_physicalProps.position().x()) - m_camera.x();
-	dst.y = floor(m_yPos - m_camera.y());
-
-	if(time > 10)
+void KillAnimation::move(Level& level)
 	{
-		m_yPos+= 2;
-		m_rotAngle++;
-
-		// Save current tick count
-		m_lastRenderTicks = ticks;
+        nextFrame();
+        //this will kill the animation once it has played fully
+		if(m_currentFrame == 3)
+		{
+			m_health = 0;
+		}
 	}
-
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_RenderCopyEx(m_renderer, m_texture, &m_sourceRect, &dst, m_rotAngle, NULL, flip);
-
-}
 
 KillAnimation::~KillAnimation()
 {

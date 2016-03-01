@@ -7,25 +7,15 @@ namespace jumper
 {
 
 WorldProperty::WorldProperty()
-	: m_gravity(0,400), m_damping(0.9,1.0)
+	: m_damping(0.95,0.95), m_scrollingSpeed(100, 0)
 {
 
 }
 
-WorldProperty::WorldProperty(const Vector2f &gravity, const Vector2f &damping)
- 	 : m_gravity(gravity),  m_damping(damping)
+WorldProperty::WorldProperty(const Vector2f &damping)
+ 	 : m_damping(damping)
 {
 
-}
-
-const Vector2f & WorldProperty::gravity() const
-{
-	return m_gravity;
-}
-
-void WorldProperty::setGravity(const Vector2f &gravity)
-{
-	m_gravity = gravity;
 }
 
 const Vector2f& jumper::WorldProperty::damping() const
@@ -39,5 +29,3 @@ void jumper::WorldProperty::setDamping(const Vector2f& damping)
 }
 
 }
-
-
