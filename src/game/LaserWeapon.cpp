@@ -28,7 +28,7 @@ namespace jumper
         projectile->setColorOffset(m_projectileColorOffset);
         projectile->setDirection(direction);
         projectile->setType(ActorType::PROJECTILE);
-        projectile->setPosition(spawnPosition);
+        projectile->setPosition(spawnPosition + m_weaponOffset);
         projectile->setColor(m_actor.getColor());
         projectile->setOriginActor(&m_actor);
         projectile->launch();
