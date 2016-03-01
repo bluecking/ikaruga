@@ -93,6 +93,8 @@ namespace jumper
 
         int getBossFightAt();
 
+        void setActorOptionsOnKill(Actor* actor);
+
     protected:
         bool m_bossFight;
 
