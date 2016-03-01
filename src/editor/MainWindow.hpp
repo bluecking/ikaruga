@@ -16,17 +16,17 @@ class LevelScene;
 class MainWindow : public QMainWindow, public Ui::MainWindow{
 	Q_OBJECT
 	public:
-		MainWindow (QMainWindow *parent = 0);
+		
+        MainWindow (QMainWindow *parent = 0);
         virtual ~MainWindow();
         void addBot(QString botName,QString description);
         void addPower(QString powerName,QString description);
 		void resetBot();
-
-
 		void resetPower();
-
 		Ui::MainWindow *ui;
+    
 	private Q_SLOTS:
+    
         void on_action_oeffnen_triggered();
         void on_actionSpeichern_triggered();
         void on_actionSpeichern_unter_triggered();
@@ -37,11 +37,13 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         void on_saveLevelName_released();
         void on_botList_itemClicked(QListWidgetItem *item);
         void on_powerList_itemClicked(QListWidgetItem *item);
-private:
-	LevelScene* scene;
-    QString openedFile;
-    QMap<QString,QString> lastOpenedFiles;
-    void openFile(QString sFile);
-    void saveFile(QString sFile);
+	
+	private:
+    
+		LevelScene* scene;
+    	QString openedFile;
+    	QMap<QString,QString> lastOpenedFiles;
+    	void openFile(QString sFile);
+    	void saveFile(QString sFile);
 };
 #endif //MAINWINDOW_HPP
