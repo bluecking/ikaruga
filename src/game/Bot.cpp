@@ -67,7 +67,7 @@ namespace jumper
                 break;
             case BotType::AI:
             {
-                float ds = (m_game->getPlayerPosition().y()-physics().position().y())*AI_TRACE_SPEED;
+                float ds = (m_game->getPlayerPosition().y() - physics().position().y()) * AI_TRACE_SPEED;
                 d_move.setY(ds);
                 d_move.setX(m_npc.speed);
                 physics().setPosition(physics().position() + d_move * dt);
@@ -105,6 +105,10 @@ namespace jumper
         {
             setHealth(0);
             setIsKilled(false);
+        }
+        if (type() == ActorType::BOSS)
+        {
+            m_game->setBossHealth(m_health);
         }
     }
 

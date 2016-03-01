@@ -33,6 +33,8 @@ namespace jumper
         m_offsetMiddle = offsetMiddle;
         m_weaponChanged = false;
         m_max_health = 0;
+        m_boss_health = 0;
+        m_boss_max_health = 0;
     }
 
 
@@ -109,11 +111,26 @@ namespace jumper
         displayNumber(std::stoi(m_evolutionStage), evolutionPosition, source, target);
 
         //Rendering of Health Display
-        //displayNumber(m_health, m_healthPosition, source, target);
 
+        RenderHPBar(m_healthPosition, 100, target.h, &m_max_health, &m_health);
+        if (m_boss_health != 0)
+        {
+            Vector2i position = m_healthPosition;
+            position.setY(position.y() + 60);
+            RenderHPBar(position, 100, target.h, &m_boss_max_health, &m_boss_health);
+            position.setX(position.x() - 50);
+            vector<Vector2i> boss_source = renderString("BOSS:", m_minusculeOffset, m_capitalOffset, m_numberOffset);
 
+            for (int i = 0; i < boss_source.size(); i++)
+            {
+                source.x = boss_source[i].x();
+                source.y = boss_source[i].y();
 
-        RenderHPBar(m_healthPosition, 100, target.h);
+                target.x = position.x() + (i * m_tileWidth) + i;
+                target.y = position.y();
+                SDL_RenderCopy(m_renderer, m_texture, &source, &target);
+            }
+        }
     }
 
     void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
@@ -131,18 +148,17 @@ namespace jumper
 
     }
 
-    void StatusBar::RenderHPBar(Vector2i& position, int w, int h)
+    void StatusBar::RenderHPBar(Vector2i& position, int w, int h, int* max_health, int* health)
     {
         SDL_Color old;
         SDL_GetRenderDrawColor(m_renderer, &old.r, &old.g, &old.b, &old.a);
 
-
-        if (m_max_health == 0)
+        if (*max_health == 0)
         {
-            m_max_health = m_health;
+            *max_health = *health;
         }
 
-        float percent = 1.0 * m_health / m_max_health;
+        float percent = 1.0 * *health / *max_health;
         percent = percent > 1.f ? 1.f : percent < 0.f ? 0.f : percent;
         SDL_Color FGColor;
         FGColor.b = 0;
@@ -226,6 +242,11 @@ namespace jumper
     void StatusBar::setHealth(int health)
     {
         m_health = health;
+    }
+
+    void StatusBar::setBossHealth(int health)
+    {
+        m_boss_health = health;
     }
 
     StatusBar::~StatusBar()
