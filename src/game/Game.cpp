@@ -404,7 +404,13 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         // Player leaves left border of the camera
         if (m_player->position().x() <= leftBorder)
         {
-            m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
+            // m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
+            m_player->setPosition(m_player->position() + m_level->collide(m_player->position(), m_player->w(), m_player->h(), Vector2f(leftBorder - m_player->position().x(), 0), m_player));
+
+            if (m_player->position().x() <= leftBorder - borderOffsetInPixel)
+            {
+                m_player->setHealth(0);
+            }
         }
 
         // Player leaves right border of the camera
