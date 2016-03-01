@@ -5,13 +5,14 @@
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
         <soundfile>../sounds/game_loop.wav</soundfile>
+        <volume>70</volume>
     </background>
     <player filename="../images/player_animated_55x43_transparent.png">
         <numFrames>24</numFrames>
         <frameWidth>55</frameWidth>
         <frameHeight>43</frameHeight>
         <positionX>100</positionX>
-        <positionY>40</positionY>
+        <positionY>140</positionY>
         <stdWeapon>LASER_GUN</stdWeapon>
         <colorOffsetX>1320</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -20,7 +21,11 @@
         <maxVel>200.0</maxVel>
         <fps>12</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>100</explosionVolume>
         <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
+        <hitVolume>100</hitVolume>
+        <collisionDamage>25</collisionDamage>
+        <health>100</health>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>
@@ -40,7 +45,7 @@
     <bot type="BOT_AI">
         <positionX>750</positionX>
         <positionY>55</positionY>
-        <color>black</color>
+        <color>white</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SIN_UP">

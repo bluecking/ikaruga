@@ -8,6 +8,7 @@
 #include "Actor.hpp"
 #include "Level.hpp"
 #include "StaticRenderable.hpp"
+#include "Filesystem.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -56,12 +57,8 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 	m_tiles = tiles;
 
 	// Load texture
-	std::size_t found = filename.find_last_of("/\\");
-	string path = filename.substr(0,found);
-
-    m_path = path + "/" + texFileName;
+	string path = Filesystem::getDirectoryPath(filename);
 	m_texture = TextureFactory::instance(m_renderer).getTexture(path + "/" + texFileName);
-
 	if(!m_texture)
 	{
 		std::cout << "Unable to load texture " << texFileName << std::endl;
@@ -80,12 +77,8 @@ Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(re
 
 	in.close();
 
-	string texFileTileInfo = texFileName.substr(0, texFileName.find_last_of("."));
-
-	texFileTileInfo += ".ti";
-
+	string texFileTileInfo = Filesystem::setFileExtension(texFileName, "ti");
 	texFileTileInfo = path + "/" + texFileTileInfo;
-	
 	std::ifstream inTileInfo(texFileTileInfo.c_str());
 
 	m_tileTypes.push_back(NONSOLID); // for id=0

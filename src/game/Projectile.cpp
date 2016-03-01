@@ -8,10 +8,19 @@
 
 namespace jumper
 {
-    Projectile::Projectile(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_launched(false)
+    const int BULLET_HEALTH = 32767;
+
+    Projectile::Projectile(SDL_Renderer* renderer,
+                           SDL_Texture* texture,
+                           int frameWidth,
+                           int frameHeight,
+                           int numFrames,
+                           int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage),
+              m_launched(false), m_originActor(0)
     {
         m_hitbox.h = frameHeight;
+        m_collisionDamage = collisionDamage;
     }
 
     Projectile::~Projectile()
@@ -31,7 +40,8 @@ namespace jumper
         setPosition(position() + m_direction * 1000 * getElapsedTime());
 
         // if the projectile exceeds camera boundary, then kill it
-        if(!visible()) {
+        if (!visible())
+        {
             m_health = 0;
         }
     }
@@ -41,12 +51,14 @@ namespace jumper
         // TODO: Check if this projectile was shot by player or enemy
 
         // Hit with player
-        if(other.type() == PLAYER) {
+        if (other.type() == PLAYER)
+        {
             return;
         }
 
         // Hit with enemy
-        if(other.type() == ENEMY) {
+        if (other.type() == ENEMY)
+        {
 
         }
 

@@ -15,7 +15,18 @@ namespace jumper
     class Projectile : public Actor
     {
     public:
-        Projectile(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Projectile(SDL_Renderer* renderer,
+                   SDL_Texture* texture,
+                   int frameWidth,
+                   int frameHeight,
+                   int numFrames,
+                   int collisionDamage);
+
+        Actor* getOriginActor() const
+        { return m_originActor; }
+
+        void setOriginActor(Actor* m_originActor)
+        { Projectile::m_originActor = m_originActor; }
 
         virtual ~Projectile();
 
@@ -41,8 +52,10 @@ namespace jumper
     protected:
         Vector2f m_direction;
         bool m_launched;
+        int m_collisionDamage;
     private:
         Vector2f m_lastPosition = 0;
+        Actor* m_originActor;
     };
 }
 

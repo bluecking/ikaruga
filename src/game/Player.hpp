@@ -36,7 +36,13 @@ namespace jumper
          * @param frameHeight	Frame height of the animation frames
          * @param numFrames		Number of frames
          */
-        Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Player(SDL_Renderer* renderer,
+               SDL_Texture* texture,
+               int frameWidth,
+               int frameHeight,
+               int numFrames,
+               int health,
+               int collisionDamage);
 
         /**
          * Moves the player in the given level.
@@ -68,11 +74,25 @@ namespace jumper
          */
         void setHitMarkSound(std::string soundfile);
 
+        /**
+         * Sets the volume the hitmarksound should be played with
+         *
+         * @param volume the volume
+         */
+        void setHitMarkVolume(int volume);
+
+        /**
+         * plays the hitmarksound
+         */
+        void playHitMark();
     private:
         Vector2f m_moveDirection;
 
         //the sound file
         Sound m_hitMarkSound;
+
+        //the volume of the hitmarksound
+        int m_hitMarkVolume;
     public:
         virtual void shoot();
 
