@@ -65,7 +65,8 @@ namespace jumper
             Game* game,
             XML::NPC npc,
             int health,
-            int collisionDamage);
+            int collisionDamage,
+            ActorType type);
 
 
         virtual ~Bot();
@@ -80,7 +81,6 @@ namespace jumper
          * @see Actor::resolveCollision(Actor& other)
          */
         virtual void resolveCollision(Actor& other) override;
-
     private:
         const float AI_TRACE_SPEED=0.7;
         int m_move_type;
