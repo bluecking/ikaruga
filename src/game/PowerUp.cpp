@@ -12,10 +12,7 @@ namespace jumper {
             SDL_Texture* texture,
             int frameWidth,
             int frameHeight,
-            int numFrames,
-            int health,
-            int collisionDamage) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
-
+            int numFrames) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
                                    m_expirationTime(0)
     {
 
@@ -23,7 +20,9 @@ namespace jumper {
 
     void PowerUp::resolveCollision(Actor& other)
     {
-        setHealth(0);
+        if(other.type() == ActorType::PLAYER) {
+            setHealth(0);
+        }
     }
 
     void PowerUp::move(Level& level)
