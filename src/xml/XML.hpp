@@ -17,14 +17,6 @@
 class XML {
 public:
     //Public structs for xml nodes
-    struct NPC{
-        std::string type;
-        std::string move_function;
-        signed int move_value;
-        signed int speed;
-        std::string stdWeapon;
-    };
-
     struct Weapon{
         std::string type;
         std::string filename;
@@ -39,6 +31,14 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+    };
+
+    struct NPC{
+        std::string type;
+        std::string move_function;
+        signed int move_value;
+        signed int speed;
+        Weapon stdWeapon;
     };
 
     struct Player{
@@ -444,6 +444,15 @@ private:
      * @throw invalid_argument If xml file could not be accessed.
      */
     void loadBots(std::string filename);
+
+    /**
+     * Returns the weapon struct from m_weapons by the given name
+     *
+     * @param weaponName Name of the weapon to search for
+     * @return Weapon struct
+     * @throws domain_error When weapon was not found
+     */
+    XML::Weapon* getWeaponByName(std::string weaponName);
 
     /**
      * Load XML game items into several structures.

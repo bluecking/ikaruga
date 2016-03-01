@@ -134,30 +134,53 @@ void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string fil
 //create Bots
 void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
 {
-    for (auto it = bots.begin(); it != bots.end(); it++)
+    for (auto currentBot : bots)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
-                filepath + (*it).type.filename);
+                filepath + currentBot.type.filename);
 
         Bot* bot = new Bot(w->getRenderer(),
-                           texture, (*it).type.frameWidth,
-                           (*it).type.frameHeight,
-                           (*it).type.numFrames,
+                           texture, currentBot.type.frameWidth,
+                           currentBot.type.frameHeight,
+                           currentBot.type.numFrames,
                            game,
-                           (*it).type.npc,
-                           (*it).type.health,
-                           (*it).type.collisionDamage);
+                           currentBot.type.npc,
+                           currentBot.type.health,
+                           currentBot.type.collisionDamage);
         PlayerProperty p;
-        getBotProperty(*it, p);
+        getBotProperty(currentBot, p);
         bot->setPhysics(p);
-        bot->setFPS((*it).type.fps);
+        bot->setFPS(currentBot.type.fps);
+
+        Vector2i* textureSize = new Vector2i(currentBot.type.npc.stdWeapon.frameWidth, currentBot.type.npc.stdWeapon.frameHeight);
+        Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
+        Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
+        float coolDown = currentBot.type.npc.stdWeapon.cooldown;
+        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                filepath + currentBot.type.npc.stdWeapon.filename);
+
+        // detect Weapon
+        if (currentBot.type.npc.stdWeapon.type.compare("LASER_GUN") == 0)
+        {
+            LaserWeapon* weapon = new LaserWeapon(*game,
+                            *bot,
+                            weaponTexture,
+                            *textureSize,
+                            *weaponOffset,
+                            *projectileColorOffset,
+                            coolDown,
+                            filepath + currentBot.type.npc.stdWeapon.soundfile,
+                            currentBot.type.npc.stdWeapon.shootingVolume,
+                            currentBot.type.npc.stdWeapon.collisionDamage);
+            bot->setWeapon(weapon);
+        }
 
         // detect color
-        if ((*it).color.compare("black"))
+        if (currentBot.color.compare("black"))
         {
             bot->setColor(ColorMode::BLACK);
         }
-        else if ((*it).color.compare("white"))
+        else if (currentBot.color.compare("white"))
         {
             bot->setColor(ColorMode::WHITE);
         }
@@ -166,10 +189,10 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
             bot->setColor(ColorMode::NONE);
         }
 
-        bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
-        bot->setExplosionSound(filepath + (*it).type.explosionSoundFile);
-        bot->setExplosionVolume((*it).type.explosionVolume);
-        bot->setScoreValue((*it).type.scorevalue);
+        bot->setColorOffset(Vector2f(currentBot.type.colorOffsetX, currentBot.type.colorOffsetY));
+        bot->setExplosionSound(filepath + currentBot.type.explosionSoundFile);
+        bot->setExplosionVolume(currentBot.type.explosionVolume);
+        bot->setScoreValue(currentBot.type.scorevalue);
         game->addBot(bot);
     }
 }

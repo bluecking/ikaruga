@@ -230,9 +230,17 @@ namespace jumper
 
     void Game::moveActors()
     {
-        for (auto it = m_actors.begin(); it != m_actors.end(); it++)
+        // copy to new vector to prevent fail fast
+        vector<Actor*> tempActors;
+        for (auto actor : m_actors)
         {
-            (*it)->move(*m_level);
+            tempActors.push_back(actor);
+        }
+
+        // then iterate over copy and apply move
+        for (auto actor : tempActors)
+        {
+            actor->move(*m_level);
         }
     }
 
