@@ -10,8 +10,6 @@
 namespace jumper
 {
 
-
-
 std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
                                           boost::regex pattern)
 {
@@ -54,7 +52,7 @@ std::vector<fs::path> MainMenu::findFiles(const fs::path& path,
 
         //std::string new_filename = m_resDir.f + ".foo";
         //p.remove_leaf() /= new_filename;
-        Game::setupGame(m_resDir.filename().string() + "/levels/level0.xml", m_win, m_game );//TODO change to specific level
+        Game::setupGame(m_resDir.string() + "/levels/level0.xml", m_win, m_game );//TODO change to specific level
         m_win->setGame(m_game);
         m_win->setActualScreen(MainWindow::RENDER_GAME);
         m_game->start();
