@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <profiles>
     <profile name="player1">
         <actualWeapon type="LASER_GUN"/>
@@ -8,8 +9,8 @@
             <powerUp type="RESTORE_HEALTH"/>
         </boughtPowerUps>
         <highscores>
-            <highscore filename="level0.xml">10000</highscore>
-            <highscore filename="level1.xml">20000</highscore>
+            <highscore filename="level0.xml">20000</highscore>
+            <highscore filename="level1.xml"/>
         </highscores>
         <money>32</money>
     </profile>

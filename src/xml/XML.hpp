@@ -100,7 +100,7 @@ public:
     };
 
     struct LevelItem{
-        std::string type;
+        Item type;
         int positionX;
         int positionY;
         int value;

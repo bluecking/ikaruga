@@ -212,7 +212,20 @@ void XML::load()
             else if (v.first == "item")
             {
                 LevelItem lItem;
-                lItem.type = v.second.get<string>("<xmlattr>.type");
+                std::string type_tmp = v.second.get<string>("<xmlattr>.type");
+                bool foundType = false;
+                for (auto it = begin(m_items); it != end(m_items); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        lItem.type = *it;
+                        foundType = true;
+                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
+                }
                 lItem.positionX = v.second.get<int>("positionX");
                 lItem.positionY = v.second.get<int>("positionY");
                 lItem.value = v.second.get<int>("value");
@@ -587,7 +600,7 @@ void XML::save()
     /* Adding Level_Items */
     for(int i=0;i<(int) m_level_items.size();i++) {
         ptree level_item;
-        level_item.put("<xmlattr>.type", m_level_items[i].type);
+        level_item.put("<xmlattr>.type", m_level_items[i].type.type);
         level_item.put("positionX", m_level_items[i].positionX);
         level_item.put("positionY", m_level_items[i].positionY);
         level_item.put("value", m_level_items[i].value);

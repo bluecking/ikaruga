@@ -56,7 +56,7 @@ int main(int argc, char** argv)
             << "LevelBot - powerUpProb: " << lBot.powerUpProb << endl << endl;
     }
     for(int i=0;i<(int) m_xml.levelItemSize();i++) {
-        cout << "LevelItem - type: " << m_xml.getLevelItem(i).type << endl
+        cout << "LevelItem - type: " << m_xml.getLevelItem(i).type.type << endl
             << "LevelItem - positionY: " << m_xml.getLevelItem(i).positionY << endl
             << "LevelItem - positionX: " << m_xml.getLevelItem(i).positionX << endl
             << "LevelItem - value: " << m_xml.getLevelItem(i).value << endl << endl;
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
     m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
 
-    m_xml.saveProfiles();
+//    m_xml.saveProfiles();
 
     return 0;
 }
