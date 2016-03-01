@@ -101,8 +101,24 @@ namespace jumper
 
         static void getPlayerProperty(XML::Player player, PlayerProperty& p);
 
+        void setBossFight(bool bossfight);
+
+        void bossFight();
+
+        bool getBossFight();
+
+        void setBossFightAt(int bossFightAt);
+
+        int getBossFightAt();
+
+        void setActorOptionsOnKill(Actor* actor);
+
+    protected:
+        bool m_bossFight;
+
     private:
 
+        int m_bossFightAt;
 
         void moveActors();
 
