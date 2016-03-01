@@ -302,6 +302,8 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
                 (*it)->setHit(false);
             }
 
+            m_player->consumePowerUps();
+
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
