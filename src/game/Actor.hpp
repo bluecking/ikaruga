@@ -160,6 +160,8 @@ namespace jumper
         int m_health;
 
         int m_collisionDamage;
+
+        bool isKilled();
     protected:
 
         bool m_isKilled;

@@ -288,7 +288,10 @@ namespace jumper
         {
             removeActor(actor);
             if(m_statusBar) {
-                m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+                if(actor->isKilled() && actor->type() == ActorType::ENEMY)
+                {
+                    m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+                }
             }
             actor->~Actor();
         }
