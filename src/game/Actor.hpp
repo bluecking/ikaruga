@@ -17,6 +17,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include "Sound.hpp"
 
 namespace jumper
 {
@@ -26,7 +27,7 @@ namespace jumper
         PLATFORM,
         ITEM,
         PUZZLEBOX,
-        ACTOR,
+        PLAYER,
         PROJECTILE
     };
 
@@ -54,7 +55,13 @@ namespace jumper
          * @param renderer		A pointer to a SDL renderer struct
          * @param filename		A filename with animation definitions
          */
-        Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Actor(SDL_Renderer* renderer,
+              SDL_Texture* texture,
+              int frameWidth,
+              int frameHeight,
+              int numFrames,
+              int health,
+              int collisionDamage);
 
         virtual ~Actor();
 
@@ -62,7 +69,14 @@ namespace jumper
 
         virtual Collision getCollision(Actor& other);
 
-        virtual void resolveCollision(Actor& other);
+        /**
+         * Is invoked if the actor collides with another actor
+         * It is pure virtual, since the subclasses react differently on
+         * collisions with different actors.
+         *
+         * @parameter other The actor instance which collided with this instance
+         */
+        virtual void resolveCollision(Actor& other) = 0;
 
         virtual void render();
 
@@ -87,25 +101,19 @@ namespace jumper
 
         bool hasFocus();
 
-        ActorType type()
-        { return m_type; }
+        const ActorType& type() { return m_type; }
 
-        void setType(ActorType t)
-        { m_type = t; }
+        void setType(ActorType t) { m_type = t; }
 
-        void setColorOffset(const Vector2f& colorOffset)
-        { m_colorOffset = colorOffset; }
+        void setColorOffset(const Vector2f& colorOffset) { m_colorOffset = colorOffset; }
 
-        const Vector2f& getColorOffset() const
-        { return m_colorOffset; }
+        const Vector2f& getColorOffset() const { return m_colorOffset; }
 
         void toggleColor();
 
-        const ColorMode::ColorMode& getColor() const
-        { return m_color; }
+        const ColorMode::ColorMode& getColor() const { return m_color; }
 
-        void setColor(const ColorMode::ColorMode& m_color)
-        { Actor::m_color = m_color; }
+        void setColor(const ColorMode::ColorMode& m_color) { Actor::m_color = m_color; }
 
         /**
          * Returns true, if the actor is visible (in camera rect)
@@ -116,9 +124,45 @@ namespace jumper
 
         int getHealth();
 
+        virtual SDL_Rect& getHitbox();
+
+        void setHit(bool hit)
+        {
+            m_hit = hit;
+        }
+
+        const bool& is_hit() const;
+
         void setLiveTime();
 
+        /**
+         * the sound when this thing explodes
+         *
+         * @param explosionSoundFilename the filepath to the explosion sound
+         */
+        void setExplosionSound(std::string explosionSoundFilename);
+
+        /**
+         * the explosion of the volume
+         *
+         * @param volume
+         */
+        void setExplosionVolume(int volume);
+
+        void setScoreValue(int value);
+
+        int m_scoreValue = 0;
+
+        void setKilled(bool killed);
+
+        int m_health;
+
+        int m_collisionDamage;
     protected:
+
+        bool m_isKilled;
+        //the explosion sound
+        Sound m_explosionSound;
 
         float getElapsedTime();
 
@@ -139,9 +183,20 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-        int     m_health;
+        SDL_Rect m_hitbox;
 
+        bool m_hit = false;
 
+        //Explosion Volume
+        int m_explosionVolume;
+    private:
+        /** The hitbox size is reduced to this factor */
+        const float HITBOXFACTOR = 0.8;
+
+        /** The opacity level that is rendered, when an actor was hit */
+        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
+
+        void renderHitbox();
     };
 
 } /* namespace jumper */

@@ -5,51 +5,88 @@
 
 using std::string;
 
-namespace jumper {
-
-    Sound::Sound(string filename, int type, Level &level){
-        std::size_t found = level.getPath().find_last_of("/\\");
-        string sound_path = level.getPath().substr(0,found);
-        found = sound_path.find_last_of("/\\");
-        sound_path = sound_path.substr(0,found);
-        sound_path += filename;
-        m_soundFile = sound_path;
+namespace jumper
+{
+    Sound::Sound(string filename, int type)
+    {
+        m_channel = NEXT_CHANNEL;
+        NEXT_CHANNEL++;
+        m_soundFile = filename;
         m_type = type;
-        if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
         {
-            printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+            printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
         }
     }
 
-    void Sound::play(){
-        if(m_type == SoundType::SONG && !Mix_PlayingMusic()) {
+    void Sound::play(int volume)
+    {
+        if (m_type == SoundType::SONG && !Mix_PlayingMusic())
+        {
             Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
 
-            if(song == NULL ){
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+            if (song == NULL)
+            {
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayMusic( song, 0);
-        } else if(m_type == SoundType::SOUND) {
-            Mix_HaltChannel(-1);
-            Mix_Chunk *sound = Mix_LoadWAV(m_soundFile.c_str());
+            Mix_VolumeMusic(volume);
+            Mix_PlayMusic(song, 0);
+        }
+        else if (m_type == SoundType::SOUND)
+        {
+            Mix_Chunk* sound = Mix_LoadWAV(m_soundFile.c_str());
 
-            if(sound == NULL ){
-                std::cout << "Couldnt open " + m_soundFile + "\n";
+            if (sound == NULL)
+            {
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
-            Mix_PlayChannel( -1, sound, 0 );
+            Mix_Volume(m_channel, volume);
+            Mix_PlayChannel(m_channel, sound, 0);
+            Mix_FadeOutChannel(m_channel, sound->alen / 9 * 10);
         }
     }
 
-    void Sound::stop(){
+    void Sound::play(int volume, int fadeout)
+    {
+        if (m_type == SoundType::SONG && !Mix_PlayingMusic())
+        {
+            Mix_Music* song = Mix_LoadMUS(m_soundFile.c_str());
+
+            if (song == NULL)
+            {
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
+            }
+            Mix_VolumeMusic(volume);
+            Mix_PlayMusic(song, 0);
+            Mix_FadeOutMusic(fadeout);
+        }
+        else if (m_type == SoundType::SOUND)
+        {
+            Mix_Chunk* sound = Mix_LoadWAV(m_soundFile.c_str());
+
+            if (sound == NULL)
+            {
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
+            }
+            Mix_Volume(m_channel, volume);
+            Mix_PlayChannel(m_channel, sound, 0);
+            Mix_FadeOutChannel(m_channel, fadeout);
+        }
+    }
+
+    void Sound::stop()
+    {
         Mix_HaltMusic();
     }
 
-    void Sound::pause(){
+    void Sound::pause()
+    {
         Mix_PausedMusic();
     }
 
-    void Sound::resume() {
-        if( Mix_PausedMusic() == 1 )
+    void Sound::resume()
+    {
+        if (Mix_PausedMusic() == 1)
         {
             Mix_ResumeMusic();
         }

@@ -15,7 +15,13 @@ namespace jumper
 {
 
 KillAnimation::KillAnimation(Actor* actor)
-	: Item(actor->getRenderer(), actor->getTexture(), actor->frameWidth(), actor->frameHeight(), actor->numFrames())
+	: Item(actor->getRenderer(),
+		   actor->getTexture(),
+		   actor->frameWidth(),
+		   actor->frameHeight(),
+		   actor->numFrames(),
+ 		   actor->m_health,
+		   actor->m_collisionDamage)
 {
 	m_rotAngle = 0;
 	m_yPos = actor->position().y();

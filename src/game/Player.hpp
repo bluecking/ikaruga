@@ -14,6 +14,7 @@
 #include "Actor.hpp"
 #include "Vector.hpp"
 #include "Armed.hpp"
+#include "Sound.hpp"
 
 namespace jumper
 {
@@ -35,7 +36,13 @@ namespace jumper
          * @param frameHeight	Frame height of the animation frames
          * @param numFrames		Number of frames
          */
-        Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Player(SDL_Renderer* renderer,
+               SDL_Texture* texture,
+               int frameWidth,
+               int frameHeight,
+               int numFrames,
+               int health,
+               int collisionDamage);
 
         /**
          * Moves the player in the given level.
@@ -58,11 +65,46 @@ namespace jumper
         template<typename T>
         friend std::ostream& operator<<(std::ostream& stream, const Vector2<T>& vec);
 
+        /**
+         * Sets the sound the player should make, when hit
+         *
+         * @param soundfile the path to the sound
+         */
+        void setHitMarkSound(std::string soundfile);
+
+        /**
+         * Sets the volume the hitmarksound should be played with
+         *
+         * @param volume the volume
+         */
+        void setHitMarkVolume(int volume);
+
+        /**
+         * plays the hitmarksound
+         */
+        void playHitMark();
     private:
         Vector2f m_moveDirection;
+
+        //the sound file
+        Sound m_hitMarkSound;
+
+        //the volume of the hitmarksound
+        int m_hitMarkVolume;
     public:
         virtual void shoot();
+
+        /**
+         * Gets invoked when the player moves up or down.
+         * So the player gets rendered with a different texture,
+         * and the hitbox is updated to a proper size and position.
+         */
         void updateMoveAnimation();
+
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
     };
 }
 

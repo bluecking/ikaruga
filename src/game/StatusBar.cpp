@@ -33,7 +33,7 @@ namespace jumper {
     }
 
 
-    void StatusBar::setScore(int score) {
+    void StatusBar::setScore(int long score) {
         if (score < m_maxScore) {
             m_score = score;
         }
@@ -42,7 +42,7 @@ namespace jumper {
         }
     }
 
-    int StatusBar::getScore() const {
+    int long StatusBar::getScore() const {
         return m_score;
     }
 
@@ -116,7 +116,7 @@ namespace jumper {
         Vector2i evolutionPosition;
         evolutionPosition.setX(m_weaponPosition.x() + (m_weaponName.length() * m_tileWidth) + 2 * m_tileWidth);
         evolutionPosition.setY(m_horziontalAlignemnt);
-        displayNumber(std::stoi(m_evolutionStage) - 1, evolutionPosition, source, target);
+        displayNumber(std::stoi(m_evolutionStage), evolutionPosition, source, target);
 
         //Rendering of Health Display
         displayNumber(m_health, m_healthPosition, source, target);

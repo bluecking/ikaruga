@@ -8,22 +8,33 @@
 #include <SDL.h>
 #include <iostream>
 #include "Actor.hpp"
+#include "Game.hpp"
 
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
-    Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+    Actor::Actor(SDL_Renderer* renderer,
+                 SDL_Texture* texture,
+                 int frameWidth,
+                 int frameHeight,
+                 int numFrames,
+                 int health,
+                 int collisionDamage)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
-        m_type = ACTOR;
+        m_type = PLAYER;
+
+        m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
+        m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
         //TODO: this should not be hardcoded
-        m_health = 100;
+        m_health = health;
+        m_collisionDamage = collisionDamage;
 
         setLiveTime();
 
@@ -75,7 +86,7 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.w > 0 && target.x + target.w < m_camera.w())
+        if (target.x + target.w > 0 && target.x + target.w < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
         {
             // Render current animation frame
             SDL_Rect source = m_sourceRect;
@@ -87,9 +98,29 @@ namespace jumper
                 source.y = source.y + (int) m_colorOffset.y();
             }
 
-            SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+            // Make the texture opaque
+            if (m_hit)
+            {
+                SDL_SetTextureAlphaMod(m_texture, OPACITY_LEVEL_WHEN_HIT);
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+                SDL_SetTextureAlphaMod(m_texture, 255);
+            }
+            else
+            {
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+            }
+
+//            renderHitbox();
         }
 
+    }
+
+    SDL_Rect& Actor::getHitbox()
+    {
+        m_hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
+        m_hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
+
+        return m_hitbox;
     }
 
     void Actor::setPosition(Vector2f pos)
@@ -109,39 +140,7 @@ namespace jumper
 
     void Actor::resolveCollision(Actor& other)
     {
-        SDL_Rect myRect;
-        myRect.x = position().x();
-        myRect.y = position().y();
-        myRect.w = w();
-        myRect.h = h();
 
-        SDL_Rect otherRect;
-        otherRect.x = other.position().x();
-        otherRect.y = other.position().y();
-        otherRect.w = other.w();
-        otherRect.h = other.h();
-
-        SDL_Rect intersection;
-        SDL_IntersectRect(&myRect, &otherRect, &intersection);
-
-        //cout << intersection.w << endl;
-        if (intersection.h > 0 && intersection.w > 0)
-        {
-            Vector2f tmp = position();
-            Vector2f tmp_v = m_physicalProps.velocity();
-            tmp_v.setY(0);
-
-            if (m_physicalProps.velocity().y() > 0)
-            {
-                tmp.setY(position().y() - intersection.h);
-            }
-            else
-            {
-                tmp.setY(position().y() + intersection.h);
-            }
-            setPosition(tmp);
-            m_physicalProps.setVelocity(tmp_v);
-        }
     }
 
     Collision Actor::getCollision(Actor& other)
@@ -238,7 +237,50 @@ namespace jumper
 
     void Actor::takeDamage(int damage)
     {
-        this->m_health-=damage;
+        m_health -= damage;
     }
+
+    void Actor::renderHitbox()
+    {
+        SDL_Rect& hitbox = getHitbox();
+        hitbox.x -= m_camera.x();
+        hitbox.y -= m_camera.y();
+
+        // Color hitbox depending on the current color state
+        if (m_color == ColorMode::BLACK)
+        {
+            SDL_SetRenderDrawColor(getRenderer(), 255, 0, 0, 0);
+        }
+        else
+        {
+            SDL_SetRenderDrawColor(getRenderer(), 0, 255, 0, 0);
+        }
+
+        SDL_RenderDrawRect(getRenderer(), &hitbox);
+    }
+
+    const bool& Actor::is_hit() const
+    {
+        return m_hit;
+    }
+
+    void Actor::setExplosionSound(std::string explosionSoundFilename)
+    {
+        m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
+    };
+
+    void Actor::setExplosionVolume(int volume) {
+        m_explosionVolume = volume;
+    }
+
+    void Actor::setScoreValue(int value)
+    {
+        m_scoreValue = value;
+    }
+
+    void Actor::setKilled(bool killed) {
+        m_isKilled = killed;
+    }
+
 } /* namespace jumper */
 

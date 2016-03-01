@@ -31,11 +31,15 @@ set(JUMPER_SOURCES
         Projectile.cpp
         LaserWeapon.cpp
         Armed.cpp
+        CollisionManager.cpp
+        CollisionManager.hpp
+        Armed.cpp
         StatusBar.cpp
         FontRender.cpp
         Sound.cpp
 	ItemShop.cpp
-	HighScore.cpp)
+	HighScore.cpp
+	Filesystem.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 

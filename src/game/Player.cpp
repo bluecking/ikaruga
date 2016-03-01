@@ -4,14 +4,22 @@
 
 
 #include "Player.hpp"
+#include "Sound.hpp"
+#include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
-    Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
+    Player::Player(SDL_Renderer* renderer,
+                   SDL_Texture* texture,
+                   int frameWidth,
+                   int frameHeight,
+                   int numFrames,
+                   int health,
+                   int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0)
     { }
 
     void Player::move(Level& level)
@@ -87,9 +95,14 @@ namespace jumper
         const char DOHALF = 3;
         const char DOFULL = 4;
 
+        SDL_Rect& hitbox = getHitbox();
+
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
+            // TODO: Set the hitbox dynamically
+            m_hitbox.h = (int) (frameHeight() * 0.5);;
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = UPHALF; break;
                 case DOHALF:     m_nextTileRow = NORMAL; break;
@@ -99,6 +112,8 @@ namespace jumper
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
+            m_hitbox.h = (int) (frameHeight() * 0.5);
+            m_hitbox.y = (int) position().y();
             switch(m_currentTileRow) {
                 case NORMAL:     m_nextTileRow = DOHALF; break;
                 case UPHALF:     m_nextTileRow = NORMAL; break;
@@ -108,11 +123,48 @@ namespace jumper
         } // Player does not move
         else
         {
+            m_hitbox.h = frameHeight();
             switch(m_currentTileRow) {
                 case DOFULL:     m_nextTileRow = DOHALF; break;
                 case UPFULL:     m_nextTileRow = UPHALF; break;
                 default:         m_nextTileRow = NORMAL;
             }
         }
+    }
+
+    void Player::setHitMarkSound(std::string soundfile)
+    {
+        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
+    }
+
+    void Player::setHitMarkVolume(int volume)
+    {
+        m_hitMarkVolume = volume;
+    }
+
+
+    void Player::resolveCollision(Actor& other)
+    {
+        if(other.type() == ENEMY) {
+            setHit(true);
+            playHitMark();
+            takeDamage(other.m_collisionDamage);
+            if(getHealth() <= 0) {
+                setKilled(true);
+            }
+        }
+        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        {
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor() != this)
+            {
+                setHit(true);
+                takeDamage(other.m_collisionDamage);
+            }
+        }
+    }
+
+    void Player::playHitMark() {
+        m_hitMarkSound.play(m_hitMarkVolume);
     }
 }
