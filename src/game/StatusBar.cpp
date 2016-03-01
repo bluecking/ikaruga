@@ -144,7 +144,6 @@ namespace jumper
 
         float percent = 1.0 * m_health / m_max_health;
         percent = percent > 1.f ? 1.f : percent < 0.f ? 0.f : percent;
-
         SDL_Color FGColor;
         FGColor.b = 0;
         if (percent <= 0.25)
