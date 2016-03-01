@@ -107,8 +107,16 @@ namespace jumper
          * It consumes each powerup and removes those that are expired.
          */
         void consumePowerUps();
+
+        int getInitial_health() const
+        {
+            return m_initial_health;
+        }
+
     private:
         Vector2f m_moveDirection;
+
+        int m_initial_health;
 
         //the sound file
         Sound m_hitMarkSound;

@@ -29,35 +29,7 @@ add_subdirectory(src/game)
 
 ################## EDITOR ################
 
-set(EDITOR_SOURCES
-	src/editor/Main.cpp
-	src/editor/MainWindow.cpp
-	src/editor/LevelScene.cpp
-	src/editor/GraphicsTileItem.cpp
-	src/editor/TextureScene.cpp
-	src/editor/TextureScene.h
-	src/editor/Settings.cpp
-        src/editor/Settings.h
-        src/editor/itemsettingsgui.cpp
-        src/editor/itemsettingsgui.h)
-
-FIND_PACKAGE(Qt4 REQUIRED)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-INCLUDE(${QT_USE_FILE})
-
-QT4_WRAP_UI(UISrcs src/editor/LevelView.ui)
-QT4_WRAP_CPP(MOCSrcs build/ui_LevelView.h)
-QT4_WRAP_UI(UISrcs src/editor/itemsettingsgui.ui)
-QT4_WRAP_CPP(MOCSrcs build/ui_itemsettingsgui.h)
-
-set(CMAKE_CXX_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-
-add_executable(editor ${EDITOR_SOURCES} ${MOCSrcs} ${UISrcs})
-target_link_libraries(editor ${QT_LIBRARIES} xml)
+add_subdirectory(src/editor)
 
 ############ XML ##########
 enable_testing()
