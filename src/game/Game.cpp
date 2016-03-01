@@ -405,7 +405,9 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         if (m_player->position().x() <= leftBorder)
         {
             // m_player->setPosition(Vector2f(leftBorder, m_player->position().y()));
-            m_player->setPosition(m_player->position() + m_level->collide(m_player->position(), m_player->w(), m_player->h(), Vector2f(leftBorder - m_player->position().x(), 0), m_player));
+            Vector2f moveWanted = Vector2f(leftBorder - m_player->position().x(), 0);
+            Vector2f move = m_level->collide(m_player->position(), m_player->w(), m_player->h(), moveWanted, m_player);
+            m_player->setPosition(m_player->position() + move);
 
             if (m_player->position().x() <= leftBorder - borderOffsetInPixel)
             {
