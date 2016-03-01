@@ -2,7 +2,7 @@
     <id>0</id>
     <name>Milky Way</name>
     <tileset filename="test1.lvl"/>
-    <explosions filename= "..images/explosions.png"/>
+    <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
         <soundfile>../sounds/game_loop.wav</soundfile>

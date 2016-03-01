@@ -7,8 +7,7 @@
 
 #include "KillAnimation.hpp"
 
-#include <iostream>
-#include <unistd.h>
+
 
 using std::cout;
 using std::endl;
@@ -26,11 +25,10 @@ KillAnimation::KillAnimation(Actor* actor, std::string filepath)
 		   actor->getCollisionDamage())
 {
 
-    std::string path = get_current_dir_name();
 	setPosition(actor->position());
 	m_lastRenderTicks = 0;
 	m_currentFrame = 0;
-	m_texture = TextureFactory::instance(m_renderer).getTexture(path+"/res/images/explosions.png");
+	m_texture = TextureFactory::instance(m_renderer).getTexture(filepath);
 	m_type = ITEM;
 	setFPS(8);
     m_color = actor->getColor();
