@@ -19,8 +19,10 @@
 #include "StatusBar.hpp"
 #include "Sound.hpp"
 #include "Vector.hpp"
+#include "LaserWeapon.hpp"
 
 #include "../xml/XML.hpp"
+//#include "Main.cpp"
 
 #include <vector>
 
@@ -82,6 +84,22 @@ namespace jumper
 
         static const int PIXELS_OFFSET_SPAWN_BOTS = 40;
         static const int PIXELS_OFFSET_RENDER = 40;
+
+        static void setupGame(string filename, MainWindow* w, Game* game);
+
+        static void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath);
+
+        static void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath);
+
+        static void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath);
+
+        static void setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game);
+
+        static void setupLevel(MainWindow* w, Game* game, std::string filepath);
+
+        static void getBotProperty(XML::LevelBot bot, PlayerProperty& p);
+
+        static void getPlayerProperty(XML::Player player, PlayerProperty& p);
 
         void setBossFight(bool bossfight);
 
