@@ -30,9 +30,6 @@ namespace jumper
         m_physicalProps.setMaxRunVelocity(50);
 
         m_game = game;
-        //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-
-        m_type = type;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
