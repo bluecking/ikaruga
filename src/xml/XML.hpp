@@ -113,7 +113,7 @@ public:
         int volume;
     };
 
-   struct Statusbar{
+    struct Statusbar{
         std::string filename;
         int frameWidth;
         int frameHeight;
@@ -123,6 +123,16 @@ public:
         int numberOffset;
         int offsetToMid;
     };
+
+    struct Profile{
+        std::string name;
+        Weapon currentWeapon;
+        std::vector<Weapon> boughtWeapons;
+        std::vector<Item> boughtPowerUps;
+        std::map<std::string, int> highscores;
+        int money;
+    };
+
 
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.
