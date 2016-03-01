@@ -21,26 +21,31 @@ namespace jumper
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
-    {int cnt = 0;
-        while (cnt < 300) {cnt++;
-            //TODO display menu
-            SDL_RenderClear(m_win->getRenderer());
+    {
+        if(m_win->getActualScreen() == m_win->RENDER_MAINMENU)
+        {
+            m_offset.setX(0.005f);
+            m_offset.setY(0.005f);
             m_layer->setScrollSpeed(100.0f);
-            Vector2f offset(0.005f, 0.0f);
-            m_layer->m_camera.move(m_layer->m_camera.position() + offset);
+            m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
+
+
+            SDL_RenderClear(m_win->getRenderer());
+
             m_layer->render();
+            //TODO display menu
+
             SDL_RenderPresent(m_win->getRenderer());
-            SDL_Delay(10);
+
+            //temporary to start game -------------------------------------------------------------------
+            if (currentKeyStates[SDL_SCANCODE_G])
+            {
+                Game::setupGame(m_resDir.string() + "/levels/level0.xml", m_win, m_game);
+                m_win->setGame(m_game);
+                m_win->setActualScreen(MainWindow::RENDER_GAME);
+                m_game->start();
+            }
         }
-
-
-//---------------------------------------------------------------------------------------------
-        //std::string new_filename = m_resDir.f + ".foo";
-        //p.remove_leaf() /= new_filename;
-        Game::setupGame(m_resDir.string() + "/levels/level0.xml", m_win, m_game);//TODO change to specific level
-        m_win->setGame(m_game);
-        m_win->setActualScreen(MainWindow::RENDER_GAME);
-        m_game->start();
     }
 
     //Creates the highscore background

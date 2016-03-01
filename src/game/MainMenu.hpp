@@ -35,6 +35,7 @@ private:
     fs::path m_resDir;
     Game* m_game;
     TexturedLayer* m_layer;
+    Vector2f m_offset;
 
     //TODO move to struct?
 

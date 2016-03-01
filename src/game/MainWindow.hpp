@@ -71,6 +71,9 @@ namespace jumper
         ///Sets the Actual Render Screen
         void setActualScreen(int ID);
 
+        ///Gets the Actual Render Screen
+        int getActualScreen();
+
     private:
 
         /// Initializes all needed SDL resources
