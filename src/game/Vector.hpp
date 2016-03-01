@@ -135,6 +135,18 @@ public:
     // Returns the euclidean distance to another vector
     T distanceTo(const Vector2<T>& other);
 
+    /**
+     * Normalizes the vector to length 1
+     */
+    void normalize();
+
+    /**
+     * Returns the length of the vector
+     *
+     * @return Length of the vector
+     */
+    T getLength() const;
+
     template<typename S>
     friend std::ostream& operator<< (std::ostream& stream, const jumper::Vector2<S> & vec);
 

@@ -115,10 +115,13 @@ namespace jumper
 
         void setActorOptionsOnKill(Actor* actor);
 
+        void setBossHealth(int health);
+
     protected:
         bool m_bossFight;
 
     private:
+        int m_boss_health;
 
         int m_bossFightAt;
 
@@ -175,7 +178,7 @@ namespace jumper
         int m_volume;
 
         /**
-         * Is invoked by Game::update() and checks if an Actor collides with another Actor.
+         * Is invoked by Game::updaL m_xml;te() and checks if an Actor collides with another Actor.
          */
         void checkActorCollision();
 
@@ -186,6 +189,8 @@ namespace jumper
         vector<Bot*> m_bots;
 
         Sound m_sound;
+
+        string m_explosionAnimation;
 
     };
 

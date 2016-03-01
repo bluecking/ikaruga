@@ -122,6 +122,18 @@ void Vector2<T>::setX(T x)
     m_x = x;
 }
 
+    template<typename T>
+    void Vector2<T>::normalize()
+    {
+        (*this) *= (1 / this->getLength());
+    }
+
+    template<typename T>
+    T Vector2<T>::getLength() const
+    {
+        return sqrt(this->m_x * this->m_x + this->m_y * this->m_y);
+    }
+
 template<typename T>
 T Vector2<T>::y() const
 {
