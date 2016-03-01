@@ -37,7 +37,7 @@ set(JUMPER_SOURCES
         StatusBar.cpp
         FontRender.cpp
         Sound.cpp
-        Filesystem.cpp)
+        Filesystem.cpp PowerUp.cpp PowerUp.hpp PowerUpHeal.cpp PowerUpHeal.hpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 

@@ -4,7 +4,6 @@
 
 
 #include "Player.hpp"
-#include "Sound.hpp"
 #include "Projectile.hpp"
 
 using std::cout;
@@ -147,6 +146,7 @@ namespace jumper
                 setKilled(true);
             }
         }
+
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             Projectile* projectile = static_cast<Projectile*>(&other);
@@ -156,9 +156,32 @@ namespace jumper
                 takeDamage(other.getCollisionDamage());
             }
         }
+
+        if(other.type() == POWERUP) {
+            PowerUp* powerUp = static_cast<PowerUp*>(&other);
+            m_powerUps.push_back(powerUp);
+        }
     }
 
     void Player::playHitMark() {
         m_hitMarkSound.play(m_hitMarkVolume);
+    }
+
+    void Player::consumePowerUps()
+    {
+        vector<PowerUp*> to_remove;
+
+        for(auto powerUp : m_powerUps) {
+            powerUp->consume(this);
+
+            if(getLiveTime() > powerUp->getExpirationTime()) {
+                to_remove.push_back(powerUp);
+            }
+        }
+
+        for(auto powerUp : to_remove) {
+            auto itr = std::find(m_powerUps.begin(), m_powerUps.end(), powerUp);
+            m_powerUps.erase(itr);
+        }
     }
 }

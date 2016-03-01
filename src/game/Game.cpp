@@ -109,6 +109,8 @@ namespace jumper
                 (*it)->setHit(false);
             }
 
+            m_player->consumePowerUps();
+
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
