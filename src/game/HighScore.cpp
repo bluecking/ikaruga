@@ -1,6 +1,6 @@
 #include "HighScore.hpp"
 
-HighScore::HighScore(std::string levelFile)
+HighScore::HighScore(Profile* profile,std::string levelFile)
 {
     this->levelFile=levelFile;
     this->actualHighscore=0;
@@ -11,12 +11,7 @@ void HighScore::addPointsToHighscore(int points){
 }
 
 void HighScore::saveHighscore(){
-    long oldHighscore=0;
-    //lade HighScore von XML
-    if(this->actualHighscore>oldHighscore){
-        //saveNewHighscore
-        ItemShop::addMoney(this->actualHighscore-oldHighscore);
-    }
+    profile->addHighScore(levelFile,actualHighscore);
 }
 
 long HighScore::getHighscore(){

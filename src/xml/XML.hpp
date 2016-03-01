@@ -100,7 +100,7 @@ public:
     };
 
     struct LevelItem{
-        std::string type;
+        Item type;
         int positionX;
         int positionY;
         int value;
@@ -491,7 +491,10 @@ private:
     std::vector<XML::Bot> m_bots;
     std::vector<XML::Item> m_items;
     std::vector<XML::Weapon> m_weapons;
+
+    std::string profile_path;
     std::vector<XML::Profile> m_profiles;
+
     std::map<std::string, int> m_requiredAttributes;
 
     /**

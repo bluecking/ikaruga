@@ -189,6 +189,8 @@ namespace jumper {
         //Players Health
         int m_health;
 
+        int m_max_health;
+
         /**
          * Renders a Number at a given Position
          *
@@ -198,6 +200,10 @@ namespace jumper {
          * @param target the sdl_rect target
          */
         void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
+
+        void RenderHPBar(Vector2i& position, int w, int h);
+
+        void renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b);
     };
 
 } /* namespace jumper */
