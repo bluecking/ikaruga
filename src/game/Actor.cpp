@@ -202,5 +202,11 @@ namespace jumper
 
         SDL_RenderDrawRect(getRenderer(), &hitbox);
     }
+
+    void Actor::playExplosionSound()
+    {
+        m_explosionSound.play(m_explosionVolume);
+    }
+
 } /* namespace jumper */
 

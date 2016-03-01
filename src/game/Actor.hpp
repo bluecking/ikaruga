@@ -203,6 +203,9 @@ namespace jumper
 
         int m_collisionDamage;
 
+        void playExplosionSound();
+    protected:
+
         bool m_isKilled;
 
         //the explosion sound

@@ -118,26 +118,14 @@ namespace jumper
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-            if (getHealth() <= 0) {
-                setKilled(true);
-            }
+
         }
         // Hit by player
         if (other.type() == PLAYER)
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-            if (getHealth() <= 0) {
-                setKilled(true);
-            }
         }
-        if(isKilled()) {
-            play();
-        }
-    }
-    void Bot::play()
-    {
-        m_explosionSound.play(m_explosionVolume);
     }
 
     void Bot::onCollide()
