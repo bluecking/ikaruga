@@ -37,7 +37,15 @@ namespace jumper
     void Projectile::move(Level& level)
     {
         m_lastPosition = position();
-        setPosition(position() + m_direction * 1000 * getElapsedTime());
+
+        //setPosition(position() + level.collide(position(), w(), h(), m_direction * 1000 * getElapsedTime(), this));
+
+        float elapsedTime = getElapsedTime();
+
+        //level.collide(position(), w(), h(), m_direction * 1000 * elapsedTime, this);
+        setPosition(position() + m_direction * 1000 * elapsedTime);
+
+
 
         // if the projectile exceeds camera boundary, then kill it
         if (!visible())
@@ -68,6 +76,7 @@ namespace jumper
 
         void Projectile::onCollide()
         {
+            //m_health = 0;
             return;
         }
 }
