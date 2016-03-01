@@ -5,17 +5,204 @@
  *      Author: twiemann
  */
 
+#include "MainWindow.hpp"
 #include "Game.hpp"
 #include "CollisionManager.hpp"
+#include "Filesystem.hpp"
 
 #include <set>
-
 using std::set;
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
+
+void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)
+{
+    int pos_x = player.positionX;
+    int pos_y = player.positionY;
+    float moveForceX = player.moveForceX * 1.0;
+    float moveForceY = player.moveForceY * 1.0;
+    float maxVelRun = player.maxVel * 1.0;
+
+    p.setPosition(Vector2f(pos_x, pos_y));
+    p.setMoveForce(Vector2f(moveForceX, moveForceY));
+    p.setMaxRunVelocity(maxVelRun);
+}
+
+void Game::getBotProperty(XML::LevelBot bot, PlayerProperty& p)
+{
+    int pos_x = bot.positionX;
+    int pos_y = bot.positionY;
+    float moveForceX = 1.0;
+    float moveForceY = 1.0;
+    float maxVelRun = 1.0;
+
+    p.setPosition(Vector2f(pos_x, pos_y));
+    p.setMoveForce(Vector2f(moveForceX, moveForceY));
+    p.setMaxRunVelocity(maxVelRun);
+}
+
+
+//create level
+void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
+{
+    Level* level = new Level(w->getRenderer(), filepath);
+    game->setLevel(level);
+}
+
+//Creates the Levelbackground
+    void Game::setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game)
+    {
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + background.filename);
+        float scrollspeed = background.scrollspeed * 1.0f;
+        TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
+
+        layer->setScrollSpeed(scrollspeed);
+        game->setSound(filepath + background.soundfile, background.volume);
+        game->setLayer(layer);
+    }
+
+//create statusbar
+    void Game::setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath)
+    {
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + statusbar.filename);
+
+        StatusBar* bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight,
+                                       statusbar.capitalOffset,
+                                       statusbar.minusculeOffset, statusbar.numberOffset, statusbar.letterCount,
+                                       statusbar.offsetToMid);
+
+
+        int yStart = w->h() - (game->getLevel()->levelHeight() * game->getLevel()->tileHeight());
+
+        int xEnd = w->w() - 1;
+        bar->setPosition(Vector2i(0, yStart), Vector2i(xEnd, 0));
+        game->setStatusBar(bar);
+    }
+
+//create Player
+    void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
+    {
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
+        Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
+        player->setExplosionSound(filepath + xplayer.explosionSoundFile);
+        player->setHitMarkSound(filepath + xplayer.hitSoundFile);
+        player->setHitMarkVolume(xplayer.hitVolume);
+
+        // set weapon
+        XML::Weapon weapon = xplayer.stdWeapon;
+        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+        float coolDown = weapon.cooldown;
+        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                filepath + weapon.filename);
+
+        player->setWeapon(
+                new LaserWeapon(*game,
+                                *player,
+                                weaponTexture,
+                                *textureSize,
+                                *weaponOffset,
+                                *projectileColorOffset,
+                                coolDown,
+                                filepath + weapon.soundfile,
+                                weapon.shootingVolume,
+                                weapon.collisionDamage));
+
+
+        game->setPlayer(player);
+        player->setFocus(true);
+
+        PlayerProperty p;
+        getPlayerProperty(xplayer, p);
+        player->setPhysics(p);
+        player->setFPS(xplayer.fps);
+
+        float colorOffsetX = xplayer.colorOffsetX;
+        float colorOffsetY = xplayer.colorOffsetY;
+        Vector2f colorOffset(colorOffsetX, colorOffsetY);
+        player->setColorOffset(colorOffset);
+    }
+
+
+
+//create Bots
+    void Game::setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
+    {
+        for (auto it = bots.begin(); it != bots.end(); it++)
+        {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
+                    filepath + (*it).type.filename);
+            ActorType bot_type;
+
+            //Determine of the Bot is a Boss.
+            if ((*it).type.type.find("BOSS")!=std::string::npos)
+            {
+                bot_type = ActorType::BOSS;
+            } else
+            {
+                bot_type = ActorType::ENEMY;
+            }
+            Bot* bot = new Bot(w->getRenderer(),
+                               texture,
+                               (*it).type.frameWidth,
+                               (*it).type.frameHeight,
+                               (*it).type.numFrames,
+                               game,
+                               (*it).type.npc,
+                               (*it).type.health,
+                               (*it).type.collisionDamage,
+                               bot_type);
+            PlayerProperty p;
+            getBotProperty(*it, p);
+            bot->setPhysics(p);
+            bot->setFPS((*it).type.fps);
+
+            // detect color
+            if ((*it).color.compare("black"))
+            {
+                bot->setColor(ColorMode::BLACK);
+            }
+            else if ((*it).color.compare("white"))
+            {
+                bot->setColor(ColorMode::WHITE);
+            }
+            else
+            {
+                bot->setColor(ColorMode::NONE);
+            }
+
+            bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
+            bot->setExplosionSound(filepath + (*it).type.explosionSoundFile);
+            bot->setExplosionVolume((*it).type.explosionVolume);
+            bot->setScoreValue((*it).type.scorevalue);
+            game->addBot(bot);
+        }
+    }
+
+    void Game::setupGame(string filename, MainWindow* w, Game* game)
+    {
+        string path = Filesystem::getDirectoryPath(filename);
+        XML xml = XML(filename);
+
+        //create Level
+        setupLevel(w, game, path + xml.getTileset());
+
+        //create Background layer
+        setupBackground(xml.getBackground(), path, w, game);
+
+        //add statusbar
+        setupStatusbar(w, game, xml.getStatusbar(), path);
+
+        //add player
+        setupPlayer(xml.getPlayer(), w, game, path);
+
+        //setup bots
+        setupBots(xml.getLevelBots(), w, game, path);
+    }
 
     Game::Game(MainWindow* mainWindow)
     {
@@ -122,7 +309,7 @@ namespace jumper
             }
 
             // react to shoot
-            if (currentKeyStates[SDL_SCANCODE_SPACE])
+            if (!m_player->isKilled() && currentKeyStates[SDL_SCANCODE_SPACE])
             {
                 m_player->shoot();
             }
@@ -293,26 +480,30 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
-            if (m_statusBar)
-            {
-                if (actor->isKilled() && actor->type() == ActorType::ENEMY)
-                {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                }
-                if (actor->isKilled() && actor->type() == ActorType::BOSS)
-                {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                    setBossFight(false);
-                }
-                if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
-                {
-                    actor->playExplosionSound();
-                }
-            }
+            setActorOptionsOnKill(actor);
             actor->~Actor();
         }
     }
 
+    void Game::setActorOptionsOnKill(Actor* actor)
+    {
+        if (m_statusBar)
+        {
+            if (actor->isKilled() && actor->type() == ActorType::ENEMY)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+            }
+            if (actor->isKilled() && actor->type() == ActorType::BOSS)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                setBossFight(false);
+            }
+            if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
+            {
+                actor->playExplosionSound();
+            }
+        }
+    }
     void Game::setSound(std::string soundFile, int volume)
     {
         m_sound = Sound(soundFile, SoundType::SONG);

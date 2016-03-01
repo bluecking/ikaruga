@@ -69,9 +69,10 @@ namespace jumper
                     keyDown[e.key.keysym.scancode] = true;
                 }
             }
-
-            switch(this->actRenderID){
+            //std::cout << actRenderID << std::endl; //Debug Output
+            switch(actRenderID){
                 case MainWindow::RENDER_MAINMENU:
+                    m_menu->update(currentKeyStates, keyDown);
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
@@ -80,6 +81,8 @@ namespace jumper
                     //ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
                     break;
                 case MainWindow::RENDER_CREDITS:
+                    break;
+                default: std::cout << "You have to use setActualScreen." << std::endl;
                     break;
             }
 
@@ -95,12 +98,16 @@ namespace jumper
     }
 
     void MainWindow::setActualScreen(int ID){
-        this->actRenderID=ID;
+        actRenderID=ID;
     }
 
     void MainWindow::setGame(Game* game)
     {
         m_game = game;
+    }
+
+    void MainWindow::setMenu(MainMenu* menu) {
+        m_menu = menu;
     }
 
     void MainWindow::initSDL()

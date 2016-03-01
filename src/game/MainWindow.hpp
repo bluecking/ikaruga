@@ -14,10 +14,12 @@
 #include "Game.hpp"
 #include "WorldProperty.hpp"
 #include "ItemShop.hpp"
+#include "MainMenu.hpp"
 
 namespace jumper
 {
     class Game;
+    class MainMenu;
 
     /**
      *	@brief Represents the main window of the game.
@@ -51,6 +53,8 @@ namespace jumper
         SDL_Renderer* getRenderer();
 
         void setGame(Game* game);
+
+        void setMenu(MainMenu* menu);
 
         /// Returns the window width
         int w();
@@ -102,6 +106,9 @@ namespace jumper
 
         // Pointer to game
         Game* m_game;
+
+        // Pointer to menu
+        MainMenu* m_menu;
 
         // Timestamp from the start of the main loop
         Uint32 m_startLoopTicks;

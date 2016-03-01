@@ -104,11 +104,31 @@
         <numFrames>6</numFrames>
         <frameWidth>160</frameWidth>
         <frameHeight>160</frameHeight>
-        <health>150</health>
+        <health>300</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
         <fps>6</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOSS_WIEMAN">
+        <filename>../images/thomas_189x189.png</filename>
+        <numFrames>2</numFrames>
+        <frameWidth>189</frameWidth>
+        <frameHeight>189</frameHeight>
+        <health>300</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>3</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>

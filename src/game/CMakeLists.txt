@@ -40,13 +40,19 @@ set(JUMPER_SOURCES
 	ItemShop.cpp
 	HighScore.cpp
 	Filesystem.cpp
-	Profile.cpp)
+	Profile.cpp
+        MainMenu.cpp)
 
-set(JUMPER_LIBS ${JUMPER_LIBS} xml)
+set(JUMPER_LIBS ${JUMPER_LIBS}
+        xml
+        ${Boost_LIBRARIES}
+        ${SDL2_LIBRARY}
+        ${SDL2_IMG_LIBRARY}
+        ${SDL2_MIXER_LIBRARY})
 
 # Build executable
 add_executable(jumper ${JUMPER_SOURCES})
-target_link_libraries(jumper ${SDL2_LIBRARY} ${SDL2_IMG_LIBRARY} ${SDL2_MIXER_LIBRARY})
-target_link_libraries(jumper xml)
-target_link_libraries(jumper ${Boost_LIBRARIES})
 target_link_libraries(jumper ${JUMPER_LIBS})
+
+
+
