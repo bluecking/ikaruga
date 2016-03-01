@@ -16,14 +16,14 @@ namespace jumper
 class KillAnimation : public Item
 {
 public:
-	KillAnimation(Actor* actor);
+	KillAnimation(Actor* actor ,std::string filepath);
 	virtual ~KillAnimation();
 
-	virtual void render();
 
-private:
-	float 		m_rotAngle;
-	int			m_yPos;
+	virtual void move(Level& level);
+	//virtual void render();
+
+
 
 };
 
