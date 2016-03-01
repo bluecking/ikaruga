@@ -7,6 +7,7 @@
 
 #include "Bot.hpp"
 #include "Game.hpp"
+#include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
@@ -31,8 +32,6 @@ namespace jumper
 
         m_game = game;
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-
-        m_type = type;
 
         m_npc = npc;
         if (npc.move_function == "SIN")
@@ -64,6 +63,7 @@ namespace jumper
         nextFrame();
         float dt = getElapsedTime();
         Vector2f d_move;
+        shoot();
         switch (m_move_type)
         {
             case BotType::NO_MOVE:
@@ -114,12 +114,15 @@ namespace jumper
     void Bot::resolveCollision(Actor& other)
     {
         // Hit by player's projectile with same color
-        // TODO ~ Check from where the projectile is from
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
-            setHit(true);
-            takeDamage(other.getCollisionDamage());
-            setIsKilled(true);
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor()->type() == ActorType::PLAYER)
+            {
+                setHit(true);
+                takeDamage(other.getCollisionDamage());
+                setIsKilled(true);
+            }
         }
         // Hit by player
         if (other.type() == PLAYER)
@@ -140,4 +143,20 @@ namespace jumper
         //TODO ~ Do something fancy here
     }
 
+    void Bot::shoot()
+    {
+        // skip if no weapon is set
+        if (m_weapon == 0)
+        {
+            return;
+        }
+
+        // calc direction
+        Vector2f playerPos = m_game->getPlayerPosition();
+        Vector2f direction = playerPos - position();
+        direction.setY(0);
+        direction.normalize();
+
+        m_weapon->shoot(direction, position());
+    }
 } /* namespace jumper */

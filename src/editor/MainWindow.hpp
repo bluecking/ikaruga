@@ -20,6 +20,11 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         virtual ~MainWindow();
         void addBot(QString botName,QString description);
         void addPower(QString powerName,QString description);
+		void resetBot();
+
+
+		void resetPower();
+
 		Ui::MainWindow *ui;
 	private slots:
         void on_action_oeffnen_triggered();
@@ -28,6 +33,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         void on_actionNeu_triggered();
         void openLast(QAction *action);
         void on_pushButton_released();
+        void on_save_id_released();
+        void on_saveLevelName_released();
         void on_botList_itemClicked(QListWidgetItem *item);
         void on_powerList_itemClicked(QListWidgetItem *item);
 private:
