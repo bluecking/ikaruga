@@ -105,7 +105,7 @@ namespace jumper
         // remove bots
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
-            m_health = 0;
+            setHealth(0);
         }
     }
 
@@ -116,18 +116,18 @@ namespace jumper
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             setHit(true);
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
         }
         // Hit by player
         if (other.type() == PLAYER)
         {
             setHit(true);
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
         }
-        if (m_health <= 0) {
+        if (getHealth() <= 0) {
             setKilled(true);
         }
-        if(m_isKilled) {
+        if(isKilled()) {
             play();
         }
     }

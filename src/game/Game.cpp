@@ -289,7 +289,7 @@ namespace jumper
         {
             removeActor(actor);
             if(m_statusBar) {
-                m_statusBar->setScore(m_statusBar->getScore() + actor->m_scoreValue);
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
             }
             actor->~Actor();
         }

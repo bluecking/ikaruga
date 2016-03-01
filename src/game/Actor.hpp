@@ -67,8 +67,6 @@ namespace jumper
 
         virtual void move(Level& level) = 0;
 
-        virtual Collision getCollision(Actor& other);
-
         /**
          * Is invoked if the actor collides with another actor
          * It is pure virtual, since the subclasses react differently on
@@ -122,7 +120,7 @@ namespace jumper
 
         void takeDamage(int damage);
 
-        int getHealth();
+        int getHealth() const;
 
         virtual SDL_Rect& getHitbox();
 
@@ -131,7 +129,7 @@ namespace jumper
             m_hit = hit;
         }
 
-        const bool& is_hit() const;
+        bool isHit() const;
 
         void setLiveTime();
 
@@ -151,16 +149,47 @@ namespace jumper
 
         void setScoreValue(int value);
 
-        int m_scoreValue = 0;
-
         void setKilled(bool killed);
+
+        void setHealth(int health)
+        {
+            m_health = health;
+        }
+
+        int getScoreValue() const
+        {
+            return m_scoreValue;
+        }
+
+        int getCollisionDamage() const
+        {
+            return m_collisionDamage;
+        }
+
+        void setCollisionDamage(int collisionDamage)
+        {
+            m_collisionDamage = collisionDamage;
+        }
+
+        bool isKilled() const
+        {
+            return m_isKilled;
+        }
+
+        void setIsKilled(bool isKilled)
+        {
+            m_isKilled = isKilled;
+        }
+
+    protected:
+        int m_scoreValue = 0;
 
         int m_health;
 
         int m_collisionDamage;
-    protected:
 
         bool m_isKilled;
+
         //the explosion sound
         Sound m_explosionSound;
 
