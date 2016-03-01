@@ -57,7 +57,7 @@ void setupLevel(MainWindow* w, Game* game, std::string filepath)
 //Creates the Levelbackground
 void setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game)
 {
-    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + background.filename);
     float scrollspeed = background.scrollspeed * 1.0f;
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
 
@@ -69,7 +69,7 @@ void setupBackground(XML::Background background, std::string filepath, MainWindo
 //create statusbar
 void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath)
 {
-    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath);
+    SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + statusbar.filename);
 
     StatusBar* bar = new StatusBar(w->getRenderer(), texture, statusbar.frameWidth, statusbar.frameHeight,
                                    statusbar.capitalOffset,
@@ -184,10 +184,10 @@ void setupGame(string filename, MainWindow* w, Game* game)
     setupLevel(w, game, path + xml.getTileset());
 
     //create Background layer
-    setupBackground(xml.getBackground(), path + xml.getBackground().filename, w, game);
+    setupBackground(xml.getBackground(), path, w, game);
 
     //add statusbar
-    setupStatusbar(w, game, xml.getStatusbar(), path + xml.getStatusbar().filename);
+    setupStatusbar(w, game, xml.getStatusbar(), path);
 
     //add player
     setupPlayer(xml.getPlayer(), w, game, path);
