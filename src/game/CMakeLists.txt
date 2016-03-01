@@ -37,10 +37,13 @@ set(JUMPER_SOURCES
         StatusBar.cpp
         FontRender.cpp
         Sound.cpp
-	ItemShop.cpp
-	HighScore.cpp
-	Filesystem.cpp
-	Profile.cpp
+        Filesystem.cpp
+        PowerUp.cpp
+        PowerUpHeal.cpp
+        ItemShop.cpp
+        HighScore.cpp
+        Filesystem.cpp
+        Profile.cpp
         MainMenu.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
@@ -53,6 +56,3 @@ set(JUMPER_LIBS ${JUMPER_LIBS}
 # Build executable
 add_executable(jumper ${JUMPER_SOURCES})
 target_link_libraries(jumper ${JUMPER_LIBS})
-
-
-

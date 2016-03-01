@@ -61,13 +61,19 @@ namespace jumper
         // Hit with player
         if (other.type() == PLAYER)
         {
-            return;
+            if (m_originActor->type() == PLAYER)
+            {
+                return;
+            }
         }
 
         // Hit with enemy
         if (other.type() == ENEMY)
         {
-
+            if (m_originActor->type() == ENEMY)
+            {
+                return;
+            }
         }
 
         // Kill projectile when it was hit with something
