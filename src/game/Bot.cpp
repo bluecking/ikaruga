@@ -13,9 +13,16 @@ using std::endl;
 
 namespace jumper
 {
-    Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, Game* game,
-             XML::NPC npc)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
+    Bot::Bot(SDL_Renderer* renderer,
+             SDL_Texture* texture,
+             int frameWidth,
+             int frameHeight,
+             int numFrames,
+             Game* game,
+             XML::NPC npc,
+             int health,
+             int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
     {
         m_type = ActorType::ENEMY;
         m_physicalProps.setMoveForce(Vector2f(0, 0));
@@ -23,7 +30,6 @@ namespace jumper
 
         m_game = game;
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-        m_health = 2000;
 
         m_type = ActorType::ENEMY;
 
@@ -125,8 +131,9 @@ namespace jumper
 
     Bot::~Bot()
     {
-        play();
+        if(m_isKilled){
+            play();
+        }
     }
-
 
 } /* namespace jumper */

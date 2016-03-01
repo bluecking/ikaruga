@@ -18,8 +18,12 @@ namespace jumper
         }
 
         // spawn projectile
-        Projectile* projectile = new Projectile(m_actor.getRenderer(), m_projectileTexture, m_projectileTextureSize.x(),
-                                                m_projectileTextureSize.y(), 1);
+        Projectile* projectile = new Projectile(m_actor.getRenderer(),
+                                                m_projectileTexture,
+                                                m_projectileTextureSize.x(),
+                                                m_projectileTextureSize.y(),
+                                                1,
+                                                m_collisionDamage);
 
         projectile->setColorOffset(m_projectileColorOffset);
         projectile->setDirection(direction);
@@ -45,7 +49,8 @@ namespace jumper
                              const Vector2f& projectileColorOffset,
                              float coolDown,
                              std::string sound,
-                             int volume)
+                             int volume,
+                             int collisionDamage)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -56,6 +61,7 @@ namespace jumper
                      "LaserGun",
                      1)
     {
+        m_collisionDamage = collisionDamage;
         m_sound = Sound(sound, SoundType::SOUND, *game.getLevel());
         m_volume = volume;
     }

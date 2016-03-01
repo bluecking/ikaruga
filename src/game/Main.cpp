@@ -91,7 +91,13 @@ void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string fil
 {
 
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + "/" + xplayer.filename);
-    Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
+    Player* player = new Player(w->getRenderer(),
+                                texture,
+                                xplayer.frameWidth,
+                                xplayer.frameHeight,
+                                xplayer.numFrames,
+                                xplayer.health,
+                                xplayer.collisionDamage);
 
     //magic
     std::size_t found = filepath.find_last_of("/\\");
@@ -104,7 +110,7 @@ void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string fil
 
     found = xplayer.hitSoundFile.find_first_of(doubleDots);
     filename = xplayer.hitSoundFile.substr(found + doubleDots.length(), xplayer.hitSoundFile.length());
-    player->setHitMarkSound(filename);
+    player->setHitMarkSound(sound_path + filename);
     player->setHitMarkVolume(xplayer.hitVolume);
     // set weapon
 
@@ -123,9 +129,16 @@ void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string fil
     SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
             filepath + "/" + weapon.filename);
     player->setWeapon(
-            new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
-
-                            coolDown, weapon.soundfile, weapon.shootingVolume));
+            new LaserWeapon(*game,
+                            *player,
+                            weaponTexture,
+                            *textureSize,
+                            *weaponOffset,
+                            *projectileColorOffset,
+                            coolDown,
+                            weapon.soundfile,
+                            weapon.shootingVolume,
+                            weapon.collisionDamage));
 
 
     game->setPlayer(player);
@@ -150,8 +163,14 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + "/" + (*it).type.filename);
 
-        Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
-                           (*it).type.numFrames, game, (*it).type.npc);
+        Bot* bot = new Bot(w->getRenderer(),
+                           texture, (*it).type.frameWidth,
+                           (*it).type.frameHeight,
+                           (*it).type.numFrames,
+                           game,
+                           (*it).type.npc,
+                           (*it).type.health,
+                           (*it).type.collisionDamage);
         PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);
