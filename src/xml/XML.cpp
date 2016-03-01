@@ -708,17 +708,24 @@ void XML::saveProfiles(){
 
         /* Adding actual Weapon */
         actualWeapon.put("<xmlattr>.type", curProfile.actualWeapon.type);
-
         profile.add_child("actualWeapon", actualWeapon);
 
         /* Adding bought Weapons */
-        boughtWeapons.put("<xmlattr>.filename", m_tileset);
-
+        BOOST_FOREACH(Weapon w, curProfile.boughtWeapons)
+        {
+            ptree weapon;
+            weapon.put("<xmlattr>.type", w.type);
+            boughtWeapons.put("weapon", weapon);
+        }
         profile.add_child("boughtWeapons", boughtWeapons);
 
         /* Adding bought PowerUps */
-        boughtPowerUps.put("<xmlattr>.filename", m_tileset);
-
+        BOOST_FOREACH(Item i, curProfile.boughtPowerUps)
+        {
+            ptree powerup;
+            powerup.put("<xmlattr>.type", i.type);
+            boughtWeapons.put("weapon", powerup);
+        }
         profile.add_child("boughtPowerUps", boughtPowerUps);
 
         /* Adding highscores */
