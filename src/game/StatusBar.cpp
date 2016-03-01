@@ -162,11 +162,11 @@ namespace jumper
         if (m_max_health == 0)
         {
             m_max_health = m_health;
-            cout << "MAX:   " << m_max_health << "   " << m_health << endl;
+            //cout << "MAX:   " << m_max_health << "   " << m_health << endl; //Debug Output
         }
 
         float Percent = 1.0 * m_health / m_max_health;
-        cout << Percent << "   " << m_health << endl;
+        //cout << Percent << "   " << m_health << endl; //Debug Output
         Percent = Percent > 1.f ? 1.f : Percent < 0.f ? 0.f : Percent;
 
         SDL_Color FGColor;
