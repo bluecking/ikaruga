@@ -13,9 +13,16 @@ using std::endl;
 
 namespace jumper
 {
-    Bot::Bot(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, Game* game,
-             XML::NPC npc)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames)
+    Bot::Bot(SDL_Renderer* renderer,
+             SDL_Texture* texture,
+             int frameWidth,
+             int frameHeight,
+             int numFrames,
+             Game* game,
+             XML::NPC npc,
+             int health,
+             int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
     {
         m_type = ActorType::ENEMY;
         m_physicalProps.setMoveForce(Vector2f(0, 0));
@@ -23,7 +30,6 @@ namespace jumper
 
         m_game = game;
         //TODO: THIS FOR TESTING AND NEEDS TO BE PARAMETER
-        m_health = 2000;
 
         m_type = ActorType::ENEMY;
 
@@ -96,37 +102,40 @@ namespace jumper
             }
         }
 
-        // remove bots
+        // remove bots when out of focus
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
-            m_health = 0;
+            setHealth(0);
+            setIsKilled(false);
         }
     }
 
     void Bot::resolveCollision(Actor& other)
     {
         // Hit by player's projectile with same color
+        // TODO ~ Check from where the projectile is from
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             setHit(true);
-            takeDamage(DAMAGE_BY_PROJECTILE);
-        }
+            takeDamage(other.getCollisionDamage());
 
+        }
         // Hit by player
         if (other.type() == PLAYER)
         {
-            m_health = 0;
+            setHit(true);
+            takeDamage(other.getCollisionDamage());
         }
     }
-    void Bot::play()
+
+    void Bot::onCollide()
     {
-        m_explosionSound.play(m_explosionVolume);
+        return;
     }
 
     Bot::~Bot()
     {
-        play();
+        //TODO ~ Do something fancy here
     }
-
 
 } /* namespace jumper */

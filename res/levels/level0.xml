@@ -24,6 +24,8 @@
         <explosionVolume>100</explosionVolume>
         <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
         <hitVolume>100</hitVolume>
+        <collisionDamage>25</collisionDamage>
+        <health>100</health>
     </player>
  <statusBar filename="../images/statusbar_font_10x10.png">
       <frameWidth>10</frameWidth>

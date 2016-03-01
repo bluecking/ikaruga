@@ -32,7 +32,13 @@ public:
 	 * @param frameHeight	Frame height
 	 * @param numFrames		Number of frames
 	 */
-	Item(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+	Item(SDL_Renderer* renderer,
+		 SDL_Texture* texture,
+         int frameWidth,
+         int frameHeight,
+         int numFrames,
+         int health,
+         int collisionDamage);
 
 	/**
 	 * Moves the item and checks collisions with the given level. This default
@@ -41,6 +47,8 @@ public:
 	 * @param level
 	 */
 	virtual void move(Level& level);
+
+	virtual void onCollide();
 
 	/// Destructor.
 	virtual ~Item();

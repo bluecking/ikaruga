@@ -36,7 +36,13 @@ namespace jumper
          * @param frameHeight	Frame height of the animation frames
          * @param numFrames		Number of frames
          */
-        Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Player(SDL_Renderer* renderer,
+               SDL_Texture* texture,
+               int frameWidth,
+               int frameHeight,
+               int numFrames,
+               int health,
+               int collisionDamage);
 
         /**
          * Moves the player in the given level.
@@ -44,6 +50,22 @@ namespace jumper
          * @param level			A level object
          */
         virtual void move(Level& level);
+
+        virtual void onCollide();
+
+        virtual void shoot();
+
+        /**
+         * Gets invoked when the player moves up or down.
+         * So the player gets rendered with a different texture,
+         * and the hitbox is updated to a proper size and position.
+         */
+        void updateMoveAnimation();
+
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
 
         const Vector2f& getMoveDirection() const
         {
@@ -64,14 +86,20 @@ namespace jumper
          *
          * @param soundfile the path to the sound
          */
-        void setHitMarkSound(std::string soundfile);
+        void setHitMarkSound(std::string soundfile)
+        {
+            m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
+        }
 
         /**
          * Sets the volume the hitmarksound should be played with
          *
          * @param volume the volume
          */
-        void setHitMarkVolume(int volume);
+        void setHitMarkVolume(int volume)
+        {
+            m_hitMarkVolume = volume;
+        }
 
         /**
          * plays the hitmarksound
@@ -85,20 +113,6 @@ namespace jumper
 
         //the volume of the hitmarksound
         int m_hitMarkVolume;
-    public:
-        virtual void shoot();
-
-        /**
-         * Gets invoked when the player moves up or down.
-         * So the player gets rendered with a different texture,
-         * and the hitbox is updated to a proper size and position.
-         */
-        void updateMoveAnimation();
-
-        /**
-         * @see Actor::resolveCollision(Actor& other)
-         */
-        virtual void resolveCollision(Actor& other) override;
     };
 }
 

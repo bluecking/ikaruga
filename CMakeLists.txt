@@ -63,6 +63,9 @@ target_link_libraries(editor ${QT_LIBRARIES} xml)
 enable_testing()
 add_subdirectory(src/xml)
 
+############ TESTS ########
+add_subdirectory(src/tests)
+
 ############ COPY CONFIG FILES ##########
 file(GLOB ConfigFiles
         #${CMAKE_SOURCE_DIR}/res/levels/level0.xml

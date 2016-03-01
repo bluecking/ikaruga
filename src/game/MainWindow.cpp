@@ -69,7 +69,7 @@ namespace jumper
                     keyDown[e.key.keysym.scancode] = true;
                 }
             }
-            std::cout << actRenderID << std::endl;
+            //std::cout << actRenderID << std::endl; //Debug Output
             switch(actRenderID){
                 case MainWindow::RENDER_MAINMENU:
                     m_menu->update(currentKeyStates, keyDown);

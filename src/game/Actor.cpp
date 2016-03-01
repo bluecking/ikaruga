@@ -15,7 +15,13 @@ using std::endl;
 
 namespace jumper
 {
-    Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+    Actor::Actor(SDL_Renderer* renderer,
+                 SDL_Texture* texture,
+                 int frameWidth,
+                 int frameHeight,
+                 int numFrames,
+                 int health,
+                 int collisionDamage)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {
         m_focus = false;
@@ -27,7 +33,8 @@ namespace jumper
         m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
         //TODO: this should not be hardcoded
-        m_health = 100;
+        m_health = health;
+        m_collisionDamage = collisionDamage;
 
         setLiveTime();
 
@@ -85,14 +92,14 @@ namespace jumper
             SDL_Rect source = m_sourceRect;
 
             // switch color
-            if (m_color == ColorMode::WHITE)
+            if (getColor() == ColorMode::WHITE)
             {
                 source.x = source.x + (int) m_colorOffset.x();
                 source.y = source.y + (int) m_colorOffset.y();
             }
 
-            // Make the texture opaque
-            if (m_hit)
+            // Make the texture opaque when actor collides
+            if (isHit())
             {
                 SDL_SetTextureAlphaMod(m_texture, OPACITY_LEVEL_WHEN_HIT);
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
@@ -131,62 +138,6 @@ namespace jumper
         return m_physicalProps.position();
     }
 
-    void Actor::resolveCollision(Actor& other)
-    {
-
-    }
-
-    Collision Actor::getCollision(Actor& other)
-    {
-        Collision c;
-
-        // Check for collision
-        Vector2f v = m_physicalProps.velocity();
-
-        SDL_Rect myRect;
-        myRect.x = position().x();
-        myRect.y = position().y();
-        myRect.w = w();
-        myRect.h = h();
-
-        SDL_Rect otherRect;
-        otherRect.x = other.position().x();
-        otherRect.y = other.position().y();
-        otherRect.w = other.w();
-        otherRect.h = other.h();
-
-        SDL_Rect intersection;
-        SDL_IntersectRect(&myRect, &otherRect, &intersection);
-
-        if (std::abs(intersection.w) < otherRect.w && intersection.h > 0)
-        {
-            if (v.y() > 0)
-            {
-                if (intersection.h < otherRect.h / 2)
-                {
-                    c.setType(DOWN);
-                }
-                else
-                {
-                    c.setType(BOOM);
-                }
-            }
-            else
-            {
-                if (intersection.h < otherRect.h / 2)
-                {
-                    c.setType(UP);
-                }
-                else
-                {
-                    c.setType(BOOM);
-                }
-            }
-        }
-
-        return c;
-    }
-
     void jumper::Actor::setFocus(bool focus)
     {
         m_focus = focus;
@@ -223,7 +174,7 @@ namespace jumper
         return intersection.w > 0 && intersection.h > 0;
     }
 
-    int Actor::getHealth()
+    int Actor::getHealth() const
     {
         return m_health;
     }
@@ -252,23 +203,9 @@ namespace jumper
         SDL_RenderDrawRect(getRenderer(), &hitbox);
     }
 
-    const bool& Actor::is_hit() const
+    void Actor::playExplosionSound()
     {
-        return m_hit;
-    }
-
-    void Actor::setExplosionSound(std::string explosionSoundFilename)
-    {
-        m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
-    };
-
-    void Actor::setExplosionVolume(int volume) {
-        m_explosionVolume = volume;
-    }
-
-    void Actor::setScoreValue(int value)
-    {
-        m_scoreValue = value;
+        m_explosionSound.play(m_explosionVolume);
     }
 
 } /* namespace jumper */

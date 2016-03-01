@@ -14,7 +14,7 @@ namespace jumper
 {
 
 PathFollower::PathFollower(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-	: Actor(renderer, texture, frameWidth, frameHeight, numFrames)
+	: Actor(renderer, texture, frameWidth, frameHeight, numFrames, 100, 0)
 {
 
 }

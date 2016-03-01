@@ -39,7 +39,7 @@ set(JUMPER_SOURCES
         Sound.cpp
         ItemShop.cpp
         MainMenu.cpp
-        )
+        Filesystem.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml

@@ -87,15 +87,15 @@ namespace jumper
 
         static void setupGame(string filename, MainWindow* w, Game* game);
 
-        static void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, string filepath);
+        static void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath);
 
-        static void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, string filepath);
+        static void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath);
 
-        static void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, string filepath);
+        static void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath);
 
-        static void setupBackground(XML::Background background, string filepath, MainWindow* w, Game* game);
+        static void setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game);
 
-        static void setupLevel(MainWindow* w, Game* game, string filepath);
+        static void setupLevel(MainWindow* w, Game* game, std::string filepath);
 
         static void getBotProperty(XML::LevelBot bot, PlayerProperty& p);
 

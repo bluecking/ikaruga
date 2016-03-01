@@ -92,21 +92,23 @@ public:
 
 	/// Generates a collision object between the level and the actor
 	Collision resolveCollision(Actor* actor);
-	Vector2f collide(Vector2f pos, int width, int height, Vector2f move);
-
-    /**
-     * gets the Path of the current level
-     *
-     * @returns a string to the current levelpath
-     */
-	string getPath() {return m_path;};
+	Vector2f collide(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
 
 private:
 
 	/// Returns the surrounding tiles of the given position
 	void getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *tiles);
-	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i> *tiles);
+	void getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
+	void getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles);
+	Vector2f collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor);
+	Vector2f collideX(Vector2f pos, int width, int height, Vector2f move, Actor* actor, bool& checkY);
+	float collideY(Vector2f pos, int width, int height, float y, Actor* actor);
 
+	float nextEdge(float playerPos, int playerSize, int tileGridPos, int edgeBonus);
+	float posRelativToGrid(float pos, int grid);
+	float gridToPos(int grid);
+	int posToGrid(float pos);
+	bool tileInRange(Vector2i& tile);
 
 	/// Tile width
 	int					m_tileWidth;
@@ -137,9 +139,6 @@ private:
 
 	/// Tile matrix
 	SparseMatrix		m_tiles;
-
-    //
-    string              m_path;
 };
 
 } /* namespace jumper */
