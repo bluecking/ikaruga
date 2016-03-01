@@ -142,18 +142,18 @@ namespace jumper
             m_max_health = m_health;
         }
 
-        float Percent = 1.0 * m_health / m_max_health;
-        Percent = Percent > 1.f ? 1.f : Percent < 0.f ? 0.f : Percent;
+        float percent = 1.0 * m_health / m_max_health;
+        percent = percent > 1.f ? 1.f : percent < 0.f ? 0.f : percent;
 
         SDL_Color FGColor;
         FGColor.b = 0;
-        if (Percent <= 0.25)
+        if (percent <= 0.25)
         {
-            int value = Percent * 100;
+            int value = percent * 100;
             FGColor.r = 255 - value;
             FGColor.g = value;
         }
-        else if (Percent <= 0.5)
+        else if (percent <= 0.5)
         {
             FGColor.r = 100;
             FGColor.g = 200;
@@ -170,7 +170,7 @@ namespace jumper
         SDL_SetRenderDrawColor(m_renderer, BGColor.r, BGColor.g, BGColor.b, BGColor.a);
         SDL_RenderFillRect(m_renderer, &bgrect);
         SDL_SetRenderDrawColor(m_renderer, FGColor.r, FGColor.g, FGColor.b, FGColor.a);
-        int pw = (int) ((float) w * Percent);
+        int pw = (int) ((float) w * percent);
         int px = position.x() + (w - pw);
         SDL_Rect fgrect = {px, position.y(), pw, h};
         SDL_RenderFillRect(m_renderer, &fgrect);
