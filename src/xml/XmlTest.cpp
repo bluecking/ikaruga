@@ -116,7 +116,7 @@ int main(int argc, char** argv)
     m_xml.setFilename("/tmp/scrollerXmlOut.xml");
     m_xml.save();
 
-//    m_xml.saveProfiles();
+    m_xml.saveProfiles();
 
     return 0;
 }

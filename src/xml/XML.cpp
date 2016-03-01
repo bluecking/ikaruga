@@ -742,13 +742,14 @@ void XML::saveProfiles(){
         profile.add_child("boughtPowerUps", boughtPowerUps);
 
         /* Adding highscores */
-        std::pair<std::string,int> highScorePairs;
+        std::pair<std::string, int> highScorePairs;
         BOOST_FOREACH(highScorePairs, curProfile.highscores)
         {
             ptree highscore;
             highscore.put("<xmlattr>.filename", highScorePairs.first);
-            highscores.add_child("highscore", highscore);
             highscores.put("highscore", highScorePairs.second);
+//            highscores.add_child("highscore", highscore);
+            highscores.put_child("highscore", highscore);
         }
 
         profile.add_child("highscores", highscores);
