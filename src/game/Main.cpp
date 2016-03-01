@@ -62,7 +62,7 @@ void setupBackground(XML::Background background, std::string filepath, MainWindo
     TexturedLayer* layer = new TexturedLayer(w->getRenderer(), texture, game->getLevel()->tileHeight());
 
     layer->setScrollSpeed(scrollspeed);
-    game->setSound(background.soundfile);
+    game->setSound(filepath + background.soundfile, background.volume);
     game->setLayer(layer);
 }
 
@@ -90,9 +90,10 @@ void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::st
 void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
 {
     SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
-    Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames);
+    Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight, xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
     player->setExplosionSound(filepath + xplayer.explosionSoundFile);
     player->setHitMarkSound(filepath + xplayer.hitSoundFile);
+    player->setHitMarkVolume(xplayer.hitVolume);
 
     // set weapon
     XML::Weapon weapon = xplayer.stdWeapon;
@@ -104,8 +105,17 @@ void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string fil
             filepath + weapon.filename);
 
     player->setWeapon(
-            new LaserWeapon(*game, *player, weaponTexture, *textureSize, *weaponOffset, *projectileColorOffset,
-                            coolDown, filepath + weapon.soundfile));
+            new LaserWeapon(*game,
+                            *player,
+                            weaponTexture,
+                            *textureSize,
+                            *weaponOffset,
+                            *projectileColorOffset,
+                            coolDown,
+                            filepath + weapon.soundfile,
+                            weapon.shootingVolume,
+                            weapon.collisionDamage));
+
 
     game->setPlayer(player);
     player->setFocus(true);
@@ -129,8 +139,14 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + (*it).type.filename);
 
-        Bot* bot = new Bot(w->getRenderer(), texture, (*it).type.frameWidth, (*it).type.frameHeight,
-                           (*it).type.numFrames, game, (*it).type.npc);
+        Bot* bot = new Bot(w->getRenderer(),
+                           texture, (*it).type.frameWidth,
+                           (*it).type.frameHeight,
+                           (*it).type.numFrames,
+                           game,
+                           (*it).type.npc,
+                           (*it).type.health,
+                           (*it).type.collisionDamage);
         PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);
@@ -152,6 +168,8 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
 
         bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
         bot->setExplosionSound(filepath + (*it).type.explosionSoundFile);
+        bot->setExplosionVolume((*it).type.explosionVolume);
+        bot->setScoreValue((*it).type.scorevalue);
         game->addBot(bot);
     }
 }

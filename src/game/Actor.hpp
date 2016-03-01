@@ -55,7 +55,13 @@ namespace jumper
          * @param renderer		A pointer to a SDL renderer struct
          * @param filename		A filename with animation definitions
          */
-        Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Actor(SDL_Renderer* renderer,
+              SDL_Texture* texture,
+              int frameWidth,
+              int frameHeight,
+              int numFrames,
+              int health,
+              int collisionDamage);
 
         virtual ~Actor();
 
@@ -136,8 +142,25 @@ namespace jumper
          */
         void setExplosionSound(std::string explosionSoundFilename);
 
+        /**
+         * the explosion of the volume
+         *
+         * @param volume
+         */
+        void setExplosionVolume(int volume);
+
+        void setScoreValue(int value);
+
+        int m_scoreValue = 0;
+
+        void setKilled(bool killed);
+
+        int m_health;
+
+        int m_collisionDamage;
     protected:
 
+        bool m_isKilled;
         //the explosion sound
         Sound m_explosionSound;
 
@@ -160,11 +183,12 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-        int m_health;
-
         SDL_Rect m_hitbox;
 
         bool m_hit = false;
+
+        //Explosion Volume
+        int m_explosionVolume;
     private:
         /** The hitbox size is reduced to this factor */
         const float HITBOXFACTOR = 0.8;

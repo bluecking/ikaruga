@@ -15,7 +15,13 @@ using std::endl;
 
 namespace jumper
 {
-    Actor::Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+    Actor::Actor(SDL_Renderer* renderer,
+                 SDL_Texture* texture,
+                 int frameWidth,
+                 int frameHeight,
+                 int numFrames,
+                 int health,
+                 int collisionDamage)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
     {
         m_focus = false;
@@ -27,7 +33,8 @@ namespace jumper
         m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
 
         //TODO: this should not be hardcoded
-        m_health = 100;
+        m_health = health;
+        m_collisionDamage = collisionDamage;
 
         setLiveTime();
 
@@ -261,6 +268,19 @@ namespace jumper
     {
         m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
     };
+
+    void Actor::setExplosionVolume(int volume) {
+        m_explosionVolume = volume;
+    }
+
+    void Actor::setScoreValue(int value)
+    {
+        m_scoreValue = value;
+    }
+
+    void Actor::setKilled(bool killed) {
+        m_isKilled = killed;
+    }
 
 } /* namespace jumper */
 
