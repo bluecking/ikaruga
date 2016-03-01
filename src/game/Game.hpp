@@ -83,8 +83,17 @@ namespace jumper
         static const int PIXELS_OFFSET_SPAWN_BOTS = 40;
         static const int PIXELS_OFFSET_RENDER = 40;
 
+        void setBossFight(bool bossfight);
+
+        void stopScrolling();
+
+    protected:
+        bool m_bossFight;
+
+        float m_scrollingOffset;
     private:
 
+        int m_bossFightAt;
 
         void moveActors();
 

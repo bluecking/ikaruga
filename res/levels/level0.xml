@@ -84,6 +84,12 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
+    <bot type="BOSS_SHY">
+        <positionX>3200</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
     <item type="RESTORE_HEALTH">
         <positionX>400</positionX>
         <positionY>30</positionY>

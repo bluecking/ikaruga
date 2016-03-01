@@ -31,6 +31,7 @@ namespace jumper
         m_started = false;
         m_startTicks = 0;
 
+        m_scrollingOffset = 0;
         SDL_SetRenderDrawColor(m_renderer, 0, 102, 204, 255);
     }
 
@@ -58,6 +59,11 @@ namespace jumper
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
                 addActor(*it);
+                if((*it)->type() == ActorType::BOSS)
+                {
+                    m_bossFightAt = (int) (*it)->position().x() - (*it)->w();
+                    setBossFight(true);
+                }
             }
         }
 
@@ -152,8 +158,14 @@ namespace jumper
 
             //added spawn bots
             spawnBots();
-
-            scrollHorizontal();
+            if(!m_bossFight){
+                scrollHorizontal();
+            } else {
+                if((int) Renderable::m_camera.position().x() < m_bossFightAt) {
+                    scrollHorizontal();
+                }
+                stopScrolling();
+            }
             checkCameraCollision();
             checkActorCollision();
 
@@ -243,7 +255,7 @@ namespace jumper
 
     void Game::scrollHorizontal()
     {
-        float dt = getElapsedTime();
+        float dt = getElapsedTime() - m_scrollingOffset;
 
         Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
         m_player->setPosition(m_player->position() +
@@ -292,6 +304,11 @@ namespace jumper
                 {
                     m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
                 }
+                if(actor->isKilled() && actor->type() == ActorType::BOSS)
+                {
+                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    setBossFight(false);
+                }
                 if(actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY){
                     actor->playExplosionSound();
                 }
@@ -304,4 +321,20 @@ namespace jumper
         m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
+
+    void Game::setBossFight(bool bossfight)
+    {
+        if(m_bossFight == true && bossfight)
+        {
+            cout << "Bossfight has ended";
+        }
+        m_bossFight = bossfight;
+
+    }
+
+    void Game::stopScrolling()
+    {
+        //TODO ~ intelligent Funciton
+    }
+
 } /* namespace jumper */
