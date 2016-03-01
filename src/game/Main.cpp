@@ -30,9 +30,11 @@ int main(int argc, char** argv)
 
     MainWindow window("Ikaruga", 625, 576);
     Game game(&window);
-    MainMenu menu(&window, boost::filesystem::path(argv[1]), &game);
+    MainMenu menu(&window, &game, boost::filesystem::path(argv[1]));
 
-    //window.setActualScreen(MainWindow::RENDER_ITEMSHOP);
+    window.setMenu(&menu);
+
+    window.setActualScreen(MainWindow::RENDER_MAINMENU);
     window.run();
 
     // Free textures

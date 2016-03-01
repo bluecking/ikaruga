@@ -20,7 +20,7 @@ namespace jumper
 {
 class MainMenu {
 public:
-    MainMenu(MainWindow* win, fs::path resDir, Game* game);
+    MainMenu(MainWindow* win, Game* game, fs::path resDir);
 
     void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
