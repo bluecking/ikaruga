@@ -747,9 +747,11 @@ void XML::saveProfiles(){
         {
             ptree highscore;
             highscore.put("<xmlattr>.filename", highScorePairs.first);
+            
+            highscores.add_child("highscore", highscore);
             highscores.put("highscore", highScorePairs.second);
-//            highscores.add_child("highscore", highscore);
-            highscores.put_child("highscore", highscore);
+
+            cout << "Profile - " << highScorePairs.first  << ": " << highScorePairs.second << endl;
         }
 
         profile.add_child("highscores", highscores);
