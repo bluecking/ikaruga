@@ -7,6 +7,8 @@ using std::string;
 
 namespace jumper
 {
+    int Sound::NEXT_CHANNEL = 1;
+
     Sound::Sound(string filename, int type)
     {
         m_channel = -1;

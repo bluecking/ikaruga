@@ -67,3 +67,7 @@ doc/
 
 # VIM
 .txt.swp
+*.cpp.swp
+*.hpp.swp
+*.ti.swp
+*.lvl.swp
