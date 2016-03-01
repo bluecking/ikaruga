@@ -353,7 +353,7 @@ public:
      */
     unsigned int levelItemSize() {return m_level_items.size();}
 
-    /************************************** SETTING STRUCT METHODS **************************************/
+    /************************************** SETTINGS STRUCT METHODS **************************************/
 
     /**
      * Get the Bot at given number
@@ -415,6 +415,64 @@ public:
      */
     unsigned int weaponSize() {return m_weapons.size();}
 
+    /************************************** PROFILE STRUCT METHODS **************************************/
+
+    /**
+     * Set single profile.
+     * @param position Number of the profile.
+     * @param profile The profile.
+     * @throw range_error If no profile is available with the given number.
+     */
+    void setProfile(unsigned int position, Profile profile);
+
+    /**
+     * Set all profiles at a time.
+     * @param profiles Vector of profiles
+     */
+    void setProfiles(const std::vector<Profile>& profiles)
+    {
+        m_profiles = profiles;
+    }
+
+    /**
+     * Get the Profile at given number
+     * @param number Position of Profile
+     * @return Profile at position number
+     * @throw range_error If no profile is available with the given number.
+     */
+    Profile getProfile(unsigned int number);
+
+    /**
+     * Get all Profiles
+     * @return Vector with all Profiles
+     */
+    std::vector<Profile> getProfiles() { return m_profiles;}
+
+    /**
+     * Add an additional Profile.
+     * @param profile The new Profile.
+     */
+    void addProfile(Profile profile) {m_profiles.push_back(profile);}
+
+    /**
+     * Remove a Profile.
+     * @param position Number of the Profile.
+     * @throw range_error If no Profile is available with the given number.
+     */
+    void removeProfile(unsigned int position);
+
+    /**
+     * Returns the total number of profiles.
+     * @return Total number of profiles.
+     */
+    unsigned int profileSize() {return m_profiles.size();}
+
+    /**
+     * Saves the profile file
+     * @throw std::ios_base::failure If file could not be saved.
+     */
+    void saveProfiles();
+
 private:
     /* XML Filename */
     std::string m_filename;
@@ -433,6 +491,7 @@ private:
     std::vector<XML::Bot> m_bots;
     std::vector<XML::Item> m_items;
     std::vector<XML::Weapon> m_weapons;
+    std::vector<XML::Profile> m_profiles;
     std::map<std::string, int> m_requiredAttributes;
 
     /**
@@ -470,6 +529,14 @@ private:
      * @throw invalid_argument If xml file could not be accessed.
      */
     void loadWeapons(std::string filename);
+
+    /**
+     * Load XML game profiles into several structures.
+     * @param filename location of the profiles file
+     * @throw domain_error If unknown tag found or the xml file does not contain all required attributes.
+     * @throw invalid_argument If xml file could not be accessed.
+     */
+    void loadProfiles(std::string filename);
 };
 
 #endif //XML_HPP
