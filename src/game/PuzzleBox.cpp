@@ -11,7 +11,7 @@ namespace jumper
 {
 
 PuzzleBox::PuzzleBox(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-	: Item(renderer, texture, frameWidth, frameHeight, numFrames), m_hit(false)
+	: Item(renderer, texture, frameWidth, frameHeight, numFrames, 100, 0), m_hit(false)
 {
 	m_hitRect.x = numFrames * frameWidth;
 	m_hitRect.y = 0;
