@@ -16,16 +16,26 @@ XML::XML(std::string xmlFilename)
     init();
 
     /* Temporary hotfix for loading issue */
-    std::string advanced_settings;
-    advanced_settings = xmlFilename;
-    advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
-    advanced_settings = advanced_settings.substr(0,advanced_settings.find_last_of("/\\"));
+    std::string res_settings, advanced_settings, profile_settings;
+    res_settings = xmlFilename;
+    res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+    res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+
+    advanced_settings = res_settings;
     advanced_settings = advanced_settings.append("/advanced_settings/");
-    //cout << "SETTINGS FILE : " << advanced_settings << endl;
+
+    profile_settings = res_settings;
+    profile_path = profile_settings.append("/profiles/");
+    profile_path.append("profiles.xml");
+
+//    cout << "ADVANCE FILE : " << advanced_settings << endl;
+//    cout << "PROFILE FILE : " << profile_settings << endl;
 
     loadBots(advanced_settings + "bots.xml");
     loadItems(advanced_settings + "items.xml");
     loadWeapons(advanced_settings + "weapons.xml");
+
+    loadProfiles(profile_path);
 
     load();
 }
@@ -39,11 +49,11 @@ XML::XML()
     setLevelname("Levelname");
     setTileset("tileset.lvl");
     Background b;
-    b.filename = relativePath + "background.png";
+    b.filename = relativePath + "star_background_2_200x200.png";
     b.scrollspeed = 3;
     setBackground(b);
     Statusbar sb;
-    sb.filename = relativePath + "statusbar.png";
+    sb.filename = relativePath + "statusbar_font_10x10.png";
     sb.frameWidth = 10;
     sb.frameHeight = 10;
     sb.letterCount = 26;
@@ -53,7 +63,7 @@ XML::XML()
     sb.offsetToMid = 1;
     setStatusbar(sb);
     Player p;
-    p.filename = relativePath + "player.png";
+    p.filename = relativePath + "player_animated_55x43_transparent.png";
     p.numFrames = 24;
     p.frameWidth = 18;
     p.frameHeight = 32;
@@ -202,7 +212,20 @@ void XML::load()
             else if (v.first == "item")
             {
                 LevelItem lItem;
-                lItem.type = v.second.get<string>("<xmlattr>.type");
+                std::string type_tmp = v.second.get<string>("<xmlattr>.type");
+                bool foundType = false;
+                for (auto it = begin(m_items); it != end(m_items); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        lItem.type = *it;
+                        foundType = true;
+                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
+                }
                 lItem.positionX = v.second.get<int>("positionX");
                 lItem.positionY = v.second.get<int>("positionY");
                 lItem.value = v.second.get<int>("value");
@@ -376,6 +399,128 @@ void XML::loadWeapons(std::string filename){
     }
 }
 
+void XML::loadProfiles(std::string filename){
+    ptree pt;
+    try
+    {
+        read_xml(filename, pt);
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::invalid_argument("Invalid path or filename.");
+    }
+
+    try
+    {
+        BOOST_FOREACH(const ptree::value_type& v, pt.get_child("profiles"))
+        {
+            if (v.first == "profile")
+            {
+                Profile p;
+                p.name = v.second.get<string>("<xmlattr>.name");
+                p.money = v.second.get<int>("money");
+
+                std::string type_tmp = v.second.get_child("actualWeapon").get<string>("<xmlattr>.type");
+                bool foundType = false;
+                for (auto it = begin(m_weapons); it != end(m_weapons); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        p.actualWeapon = *it;
+                        foundType = true;
+                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on profileWeapon.");
+                }
+
+                /** Already bought Weapons **/
+                BOOST_FOREACH(const ptree::value_type& bw, v.second.get_child("boughtWeapons"))
+                {
+                    if (bw.first == "weapon")
+                    {
+                        Weapon boughtWeapon;
+
+                        std::string type_tmp = bw.second.get<string>("<xmlattr>.type");
+                        bool foundType = false;
+                        for (auto it = begin(m_weapons); it != end(m_weapons); it++)
+                        {
+                            if(type_tmp.compare(it->type)==0)
+                            {
+                                boughtWeapon = *it;
+                                foundType = true;
+                            }
+                        }
+                        if(false == foundType)
+                        {
+                            throw std::domain_error("Found unknown xml tag " + type_tmp + " on boughtWeapons.");
+                        }
+                        p.boughtWeapons.push_back(boughtWeapon);
+                    }
+                    else
+                    {
+                        throw std::domain_error("Found unknown xml tag " + bw.first + " on first child layer below boughtWeapons.");
+                    }
+                }
+
+                /** Already bought PowerUps **/
+                BOOST_FOREACH(const ptree::value_type& bp, v.second.get_child("boughtPowerUps"))
+                {
+                    if (bp.first == "powerUp")
+                    {
+                        Item boughtPowerUp;
+
+                        std::string type_tmp = bp.second.get<string>("<xmlattr>.type");
+                        bool foundType = false;
+                        for (auto it = begin(m_items); it != end(m_items); it++)
+                        {
+                            if(type_tmp.compare(it->type)==0)
+                            {
+                                boughtPowerUp = *it;
+                                foundType = true;
+                            }
+                        }
+                        if(false == foundType)
+                        {
+                            throw std::domain_error("Found unknown xml tag " + type_tmp + " on boughtPowerUps.");
+                        }
+                        p.boughtPowerUps.push_back(boughtPowerUp);
+                    }
+                    else
+                    {
+                        throw std::domain_error("Found unknown xml tag " + bp.first + " on first child layer below boughtPowerUps.");
+                    }
+                }
+
+                /** Level Highscores **/
+                BOOST_FOREACH(const ptree::value_type& scores, v.second.get_child("highscores"))
+                {
+                    if (scores.first != "highscore")
+                    {
+                        throw std::domain_error("Found unknown xml tag " + scores.first + " on first child layer below highscores.");
+
+                    }
+                    std::string filename = scores.second.get<string>("<xmlattr>.filename");
+                    int scoreVal = scores.second.get<int>("");
+                    p.highscores.insert(std::pair<string, int>(filename, scoreVal));
+                }
+
+                m_profiles.push_back(p);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below profile.");
+            }
+        }
+    }
+    catch (boost::exception const& e)
+    {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::domain_error("XML-Profile parsing failed. Did you use an invalid tag or attribute?");
+    }
+}
+
 void XML::save()
 {
     ptree root;
@@ -455,7 +600,7 @@ void XML::save()
     /* Adding Level_Items */
     for(int i=0;i<(int) m_level_items.size();i++) {
         ptree level_item;
-        level_item.put("<xmlattr>.type", m_level_items[i].type);
+        level_item.put("<xmlattr>.type", m_level_items[i].type.type);
         level_item.put("positionX", m_level_items[i].positionX);
         level_item.put("positionY", m_level_items[i].positionY);
         level_item.put("value", m_level_items[i].value);
@@ -539,3 +684,99 @@ XML::Weapon XML::getWeapon(unsigned int number)
     if(number >= weaponSize()) {throw std::range_error("Index out of range.");}
     return m_weapons[number];
 }
+
+void XML::setProfile(unsigned int position, XML::Profile profile)
+{
+    if(position >= profileSize()) {throw std::range_error("Index out of range.");}
+    m_profiles[position] = profile;
+}
+
+XML::Profile XML::getProfile(unsigned int number)
+{
+    if(number >= profileSize()) {throw std::range_error("Index out of range.");}
+    return m_profiles[number];
+}
+
+void XML::removeProfile(unsigned int position)
+{
+    if(position >= profileSize()) {throw std::range_error("Index out of range.");}
+    m_profiles.erase(m_profiles.begin() + position);
+}
+
+void XML::saveProfiles(){
+    ptree root;
+    ptree profiles;
+
+    for(int iProfile=0;iProfile<(int) profileSize();iProfile++) {
+        ptree profile;
+        ptree actualWeapon;
+        ptree boughtWeapons;
+        ptree boughtPowerUps;
+        ptree highscores;
+
+        Profile curProfile = getProfile(iProfile);
+
+        /* Adding Profile Information */
+        profile.put("<xmlattr>.name", curProfile.name);
+
+        /* Adding actual Weapon */
+        actualWeapon.put("<xmlattr>.type", curProfile.actualWeapon.type);
+        profile.add_child("actualWeapon", actualWeapon);
+
+        /* Adding bought Weapons */
+        BOOST_FOREACH(Weapon weapon, curProfile.boughtWeapons)
+        {
+            ptree bWeapon;
+            bWeapon.put("<xmlattr>.type", weapon.type);
+            boughtWeapons.add_child("weapon", bWeapon);
+        }
+        profile.add_child("boughtWeapons", boughtWeapons);
+
+        /* Adding bought PowerUps */
+        BOOST_FOREACH(Item item, curProfile.boughtPowerUps)
+        {
+            ptree powerup;
+            powerup.put("<xmlattr>.type", item.type);
+            boughtPowerUps.add_child("powerUp", powerup);
+        }
+        profile.add_child("boughtPowerUps", boughtPowerUps);
+
+        /* Adding highscores */
+        std::pair<std::string, int> highScorePairs;
+        BOOST_FOREACH(highScorePairs, curProfile.highscores)
+        {
+            ptree highscore;
+            highscore.put("<xmlattr>.filename", highScorePairs.first);
+            highscore.put_value(highScorePairs.second);
+            highscores.add_child("highscore", highscore);
+        }
+
+        profile.add_child("highscores", highscores);
+
+        /* Adding player money */
+        profile.put("money", curProfile.money);
+
+        /* Adding the profile to the upper level node */
+        profiles.add_child("profile", profile);
+    }
+
+    /* Setting up XML-Tree with root-Node */
+    root.add_child("profiles", profiles);
+
+    try
+    {
+        //Automatic indents of the xml file does not work on the same way with different versions because of a bug in
+        //the boost library.
+        //The following line works in boost 1.60, 1.58:
+        //write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        //The following line works in boost 1.54:
+        //boost::property_tree::xml_writer_settings<char> settings (' ', 4u); write_xml(getFilename(), root, std::locale(), settings);
+        //Without pretty format (all XML tags in one line) it works in all boost versions
+        //write_xml(getFilename(), root, std::locale(), xml_writer_make_settings<ptree::key_type>(' ', 4u));
+        write_xml(profile_path, root, std::locale());
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::ios_base::failure("Cannot write file. Is it readonly?");
+    }
+};

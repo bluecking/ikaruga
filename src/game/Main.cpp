@@ -9,6 +9,8 @@
 #include "Item.hpp"
 #include "PuzzleBox.hpp"
 #include "../xml/XML.hpp"
+#include "Filesystem.hpp"
+#include "Profile.hpp"
 #include <iostream>
 #include "MainMenu.hpp"
 #include <boost/filesystem/path.hpp>
@@ -21,8 +23,7 @@ using std::endl;
 
 int main(int argc, char** argv)
 {
-
- if(argc != 2)
+    if(argc != 2)
     {
         std::cout << "Invalid amount of parameters." << std::endl;
         return -1;
@@ -31,7 +32,6 @@ int main(int argc, char** argv)
     MainWindow window("Ikaruga", 625, 576);
     Game game(&window);
     MainMenu menu(&window, &game, boost::filesystem::path(argv[1]));
-
     window.setMenu(&menu);
 
     window.setActualScreen(MainWindow::RENDER_MAINMENU);
