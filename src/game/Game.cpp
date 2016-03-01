@@ -304,7 +304,7 @@ namespace jumper
                     m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
                     setBossFight(false);
                 }
-                if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY)
+                if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
                 {
                     actor->playExplosionSound();
                 }
