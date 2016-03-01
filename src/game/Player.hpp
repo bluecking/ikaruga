@@ -15,9 +15,12 @@
 #include "Vector.hpp"
 #include "Armed.hpp"
 #include "Sound.hpp"
+#include "PowerUp.hpp"
 
 namespace jumper
 {
+    class PowerUp;
+
     /**
      * @brief	A class to represent an animated sprite controlled
      * 			by the user.
@@ -53,6 +56,13 @@ namespace jumper
 
         virtual void onCollide();
 
+        virtual void shoot();
+
+        /**
+         * @see Actor::resolveCollision(Actor& other)
+         */
+        virtual void resolveCollision(Actor& other) override;
+
         const Vector2f& getMoveDirection() const
         {
             return m_moveDirection;
@@ -72,19 +82,31 @@ namespace jumper
          *
          * @param soundfile the path to the sound
          */
-        void setHitMarkSound(std::string soundfile);
+        void setHitMarkSound(std::string soundfile)
+        {
+            m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
+        }
 
         /**
          * Sets the volume the hitmarksound should be played with
          *
          * @param volume the volume
          */
-        void setHitMarkVolume(int volume);
+        void setHitMarkVolume(int volume)
+        {
+            m_hitMarkVolume = volume;
+        }
 
         /**
          * plays the hitmarksound
          */
         void playHitMark();
+
+        /**
+         * This method iterates through all powerups that the player is owning.
+         * It consumes each powerup and removes those that are expired.
+         */
+        void consumePowerUps();
     private:
         Vector2f m_moveDirection;
 
@@ -93,8 +115,9 @@ namespace jumper
 
         //the volume of the hitmarksound
         int m_hitMarkVolume;
-    public:
-        virtual void shoot();
+
+        /** Vector of all powerups that the player is currently owning */
+        std::vector<PowerUp*> m_powerUps;
 
         /**
          * Gets invoked when the player moves up or down.
@@ -102,11 +125,6 @@ namespace jumper
          * and the hitbox is updated to a proper size and position.
          */
         void updateMoveAnimation();
-
-        /**
-         * @see Actor::resolveCollision(Actor& other)
-         */
-        virtual void resolveCollision(Actor& other) override;
     };
 }
 

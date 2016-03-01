@@ -24,6 +24,7 @@ namespace jumper
         };
     }
 
+    //static int NEXT_CHANNEL = 1;
     /**
      * @brief a class to play some fancy wavs
      */

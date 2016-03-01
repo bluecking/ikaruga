@@ -370,6 +370,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int round = 0;
 
+					bool recursionNeeded = true;
+
 					for(Vector2i& tPos : tiles)
 					{
 
@@ -379,6 +381,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID)))) // collide with something solid
 							{
+								recursionNeeded = false;
+
 								float maxMov = (tPos.x() * m_tileWidth) - (pos.x() + width);
 								x = std::min(x, maxMov);
 
@@ -394,71 +398,23 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
+					if (recursionNeeded && posRelativToGrid(pos.x() + x + width, tiles[0].x()) > 1.1)
 					{
-						TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-						TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
 
-						if (t1 == EDGETOPRIGHT && t2 ==
-												  EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							if (tiles.size() * m_tileHeight >= height + 2) // you can move into the edge
-							{
-								int tHeight = height - (tiles.size() - 2) * m_tileHeight;
-								tHeight /= 2;
+						float movRec = posRelativToGrid(pos.x() + x + width, tiles[0].x()) - 1.1;
 
-								float maxMov = m_tileHeight - tHeight;
+						x -= movRec;
 
-								if (0 < x - ((tiles[0].x() * m_tileWidth) - pos.x() - width)) // you move into the edge
-								{
-									x = std::min(x - ((tiles[0].x() * m_tileWidth) - pos.x() - width), maxMov);
+						checkY = false;
 
-									int upY = tiles[0].y() * m_tileHeight;
-									int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+						Vector2f newMov = collideRC(pos + Vector2f(x, 0), width, height, Vector2f(movRec, y), actor);
 
-									int pUp = pos.y();
-									int pDown = pos.y() + height;
+						y = newMov.y();
 
-									if (pUp - upY <= downY - pDown)
-									{
-										if (pos.y() + y < upY + x)
-										{
-											y = x + upY - pos.y();
-										}
-									}
-									else
-									{
-										if (pos.y() + y + height > downY - x)
-										{
-											y = downY - x - pos.y() - height;
-										}
-									}
+						x +=newMov.x();
 
-									x += ((tiles[0].x() * m_tileWidth) - pos.x() - width);
-
-									checkY = false;
-
-								}
-							}
-							else // you can't move into the edge
-							{
-								float maxMov = (tiles[0].x() * m_tileWidth) - (pos.x() + width);
-								x = std::min(x, maxMov);
-							}
-
-							// TODO
-						}
-						else if (t1 ==
-								 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							// TODO
-						}
-						else if (t2 ==
-								 EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-						{
-							// TODO
-						}
 					}
+
 				}
 				else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check, slope collision right
 				{
@@ -545,6 +501,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					int round = 0;
 
+					bool recursionNeeded = true;
+
 					for(Vector2i& tPos : tiles)
 					{
 						if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -553,6 +511,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID)))) // collide with something solid
 							{
+								recursionNeeded = false;
+
 								float maxMov = (tPos.x() * m_tileWidth + m_tileWidth) - (pos.x());
 								x = std::max(x, maxMov);
 
@@ -568,26 +528,21 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
-					if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
+					if (recursionNeeded && posRelativToGrid(pos.x() + x, tiles[0].x() + 1) < -1.1)
 					{
-						TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-						TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
 
-						if (t1 == EDGETOPLEFT && t2 ==
-												 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
-						else if (t1 ==
-								 EDGETOPLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
-						else if (t2 ==
-								 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-						{
-							// TODO
-						}
+						float movRec = posRelativToGrid(pos.x() + x, tiles[0].x() + 1) + 1.1;
+
+						x -= movRec;
+
+						checkY = false;
+
+						Vector2f newMov = collideRC(pos + Vector2f(x, 0), width, height, Vector2f(movRec, y), actor);
+
+						y = newMov.y();
+
+						x +=newMov.x();
+
 					}
 				}
 				else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check, slope collision left
@@ -685,6 +640,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 				int round = 0;
 
+				bool recursionNeeded = true;
+
 				for (Vector2i &tPos : tiles)
 				{
 					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -693,6 +650,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 						if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGEDOWNLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGEDOWNLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))))
 						{
+							recursionNeeded = false;
+
 							float maxMov = (tPos.y() * m_tileHeight) - (pos.y() + height);
 							y = std::min(y, maxMov);
 
@@ -708,27 +667,18 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
+				if (recursionNeeded && posRelativToGrid(pos.y() + height + y, tiles[0].y()) > 1.1)
 				{
-					TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-					TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
 
-					if (t1 == EDGEDOWNLEFT && t2 ==
-											  EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
-					else if (t1 ==
-							 EDGEDOWNLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
-					else if (t2 ==
-							 EDGEDOWNRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed)
-					{
-						// TODO
-					}
+					float movRec = posRelativToGrid(pos.y() + height + y, tiles[0].y()) - 1.1;
+
+					y -= movRec;
+
+					Vector2f newMov = collideRC(pos + Vector2f(0, y), width, height, Vector2f(0, movRec), actor);
+
+					y += newMov.y();
 				}
+
 			}
 			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
 			{
@@ -773,6 +723,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 				int round = 0;
 
+				bool recursionNeeded = true;
+
 				for (Vector2i &tPos : tiles)
 				{
 					if (tPos.x() < m_levelWidth && tPos.y() < m_levelHeight && tPos.x() >= 0 && tPos.y() >= 0)
@@ -781,6 +733,8 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
                         if (tiles.size() == 1 && t != NONSOLID && t != EDGETOPLEFT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGETOPRIGHT && t != NONSOLID)))) // collide with something solid
                         {
+							recursionNeeded = false;
+
 							float maxMov = (tPos.y() * m_tileHeight + m_tileHeight) - (pos.y());
 							y = std::max(y, maxMov);
 
@@ -796,27 +750,17 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
-				if(tileInRange(tiles[0]) && tileInRange(tiles[tiles.size() - 1]))
+				if (recursionNeeded && posRelativToGrid(pos.y() + y, tiles[0].y() + 1) < -1.1)
 				{
-					TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
-					TileType t2 = m_tileTypes[(m_tiles[tiles[tiles.size() - 1].y()])[tiles[tiles.size() - 1].x()]];
+					float movRec = posRelativToGrid(pos.y() + y, tiles[0].y() + 1) + 1.1;
 
-					if (t1 == EDGETOPLEFT && t2 ==
-											 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
-					else if (t1 ==
-							 EDGETOPLEFT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
-					else if (t2 ==
-							 EDGETOPRIGHT) // next tile is slope movement (there is a chance some of the cases aren't needed
-					{
-						// TODO
-					}
+					y -= movRec;
+
+					Vector2f newMov = collideRC(pos + Vector2f(0, y), width, height, Vector2f(0, movRec), actor);
+
+					y += newMov.y();
 				}
+
 			}
 			else if (t2 != EDGETOPRIGHT) // t1 == EDGETOPLEFT no collision down check, slope collision left
 			{

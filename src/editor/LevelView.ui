@@ -38,7 +38,16 @@
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <item>
@@ -64,7 +73,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -100,7 +109,7 @@
            <attribute name="title">
             <string>Enemies</string>
            </attribute>
-           <widget class="QGraphicsView" name="EnemieView">
+           <widget class="QListWidget" name="botList">
             <property name="geometry">
              <rect>
               <x>-1</x>
@@ -108,20 +117,14 @@
               <width>225</width>
               <height>251</height>
              </rect>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>225</width>
-              <height>251</height>
-             </size>
             </property>
            </widget>
           </widget>
           <widget class="QWidget" name="tab_3">
            <attribute name="title">
-            <string>Player/Boss</string>
+            <string>Items</string>
            </attribute>
-           <widget class="QGraphicsView" name="PlayerView">
+           <widget class="QListWidget" name="powerList">
             <property name="geometry">
              <rect>
               <x>-1</x>
@@ -129,12 +132,6 @@
               <width>225</width>
               <height>251</height>
              </rect>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>225</width>
-              <height>251</height>
-             </size>
             </property>
            </widget>
           </widget>
@@ -255,7 +252,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>27</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatei">

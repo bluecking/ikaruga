@@ -4,7 +4,6 @@
 
 
 #include "Player.hpp"
-#include "Sound.hpp"
 #include "Projectile.hpp"
 
 using std::cout;
@@ -137,39 +136,52 @@ namespace jumper
         }
     }
 
-    void Player::setHitMarkSound(std::string soundfile)
-    {
-        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
-    }
-
-    void Player::setHitMarkVolume(int volume)
-    {
-        m_hitMarkVolume = volume;
-    }
-
-
     void Player::resolveCollision(Actor& other)
     {
         if(other.type() == ENEMY) {
             setHit(true);
             playHitMark();
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
             if(getHealth() <= 0) {
                 setKilled(true);
             }
         }
+
         if (other.type() == PROJECTILE && getColor() == other.getColor())
         {
             Projectile* projectile = static_cast<Projectile*>(&other);
             if (projectile->getOriginActor() != this)
             {
                 setHit(true);
-                takeDamage(other.m_collisionDamage);
+                takeDamage(other.getCollisionDamage());
             }
+        }
+
+        if(other.type() == POWERUP) {
+            PowerUp* powerUp = static_cast<PowerUp*>(&other);
+            m_powerUps.push_back(powerUp);
         }
     }
 
     void Player::playHitMark() {
         m_hitMarkSound.play(m_hitMarkVolume);
+    }
+
+    void Player::consumePowerUps()
+    {
+        vector<PowerUp*> to_remove;
+
+        for(auto powerUp : m_powerUps) {
+            powerUp->consume(this);
+
+            if(getLiveTime() > powerUp->getExpirationTime()) {
+                to_remove.push_back(powerUp);
+            }
+        }
+
+        for(auto powerUp : to_remove) {
+            auto itr = std::find(m_powerUps.begin(), m_powerUps.end(), powerUp);
+            m_powerUps.erase(itr);
+        }
     }
 }

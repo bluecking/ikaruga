@@ -66,7 +66,8 @@ namespace jumper
             Game* game,
             XML::NPC npc,
             int health,
-            int collisionDamage);
+            int collisionDamage,
+            ActorType type);
 
 
         virtual ~Bot();
