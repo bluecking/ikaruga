@@ -59,7 +59,8 @@ namespace jumper
         SDL_Rect source;
 
         //Paint the Border in Red
-        renderRectangle(m_renderer, m_startPosition, m_endPosition.x()-m_startPosition.x(), m_endPosition.y()-m_startPosition.y(),255,0,0);
+        renderRectangle(m_renderer, m_startPosition, m_endPosition.x() - m_startPosition.x(),
+                        m_endPosition.y() - m_startPosition.y(), 255, 0, 0);
 
         //Make the Background black
         SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 1);
@@ -174,7 +175,7 @@ namespace jumper
         SDL_Rect fgrect = {px, position.y(), pw, h};
         SDL_RenderFillRect(m_renderer, &fgrect);
 
-        renderRectangle(m_renderer, position, w, h,255,100,100);
+        renderRectangle(m_renderer, position, w, h, 255, 100, 100);
 
         SDL_SetRenderDrawColor(m_renderer, old.r, old.g, old.b, old.a);
     }
@@ -232,6 +233,37 @@ namespace jumper
     {
         // TODO Auto-generated destructor stub
     }
+
+    void StatusBar::renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b)
+    {
+        SDL_SetRenderDrawColor(m_renderer, r, g, b, 1);
+        //left line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x(),
+                           position.y(),
+                           position.x(),
+                           position.y() + h);
+        //Buttom line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y(),
+                           position.x(),
+                           position.y());
+        //Top line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y() + h,
+                           position.x(),
+                           position.y() + h);
+        //Right line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y() + h,
+                           position.x() + w,
+                           position.y());
+
+    }
+
 
 } /* namespace jumper */
 

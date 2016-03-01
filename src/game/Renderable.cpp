@@ -57,36 +57,6 @@ namespace jumper
 
     }
 
-    void Renderable::renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b)
-    {
-        SDL_SetRenderDrawColor(m_renderer, r, g, b, 1);
-        //left line
-        SDL_RenderDrawLine(m_renderer,
-                           position.x(),
-                           position.y(),
-                           position.x(),
-                           position.y() + h);
-        //Buttom line
-        SDL_RenderDrawLine(m_renderer,
-                           position.x() + w,
-                           position.y(),
-                           position.x(),
-                           position.y());
-        //Top line
-        SDL_RenderDrawLine(m_renderer,
-                           position.x() + w,
-                           position.y() + h,
-                           position.x(),
-                           position.y() + h);
-        //Right line
-        SDL_RenderDrawLine(m_renderer,
-                           position.x() + w,
-                           position.y() + h,
-                           position.x() + w,
-                           position.y());
-
-    }
-
 } /* namespace jumper */
 
 
