@@ -11,7 +11,8 @@ namespace jumper
 
     Sound::Sound(string filename, int type)
     {
-        m_channel = NEXT_CHANNEL++;
+        m_channel = -1;
+        //NEXT_CHANNEL++;
         m_soundFile = filename;
         m_type = type;
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
