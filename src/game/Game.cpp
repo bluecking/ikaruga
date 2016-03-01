@@ -480,8 +480,11 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
         for (auto actor : to_remove)
         {
-            KillAnimation* kill = new KillAnimation(actor);
-            addActor(kill);
+            if(actor->type() == ENEMY || actor->type() == PLAYER ){
+                KillAnimation* kill = new KillAnimation(actor);
+                addActor(kill);
+            }
+
             removeActor(actor);
             setActorOptionsOnKill(actor);
             delete(actor);

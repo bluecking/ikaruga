@@ -26,69 +26,26 @@ KillAnimation::KillAnimation(Actor* actor)
 	m_rotAngle = 0;
 	m_yPos = actor->position().y();
 	setPosition(actor->position());
-	m_lastRenderTicks = 0;
-	m_texture = actor->getTexture();
-	m_numFrames = 2;
+	m_lastRenderTicks = 1;
+	m_numFrames = 4;
 	m_currentFrame = 0;
 	m_texture = TextureFactory::instance(m_renderer).getTexture("/home/marius/git/CPPP/praktikum1/res/images/explosions.png");
+	m_type = ITEM;
+	m_health = 4;
+	setFPS(8);
+    m_color = actor->getColor();
+    m_colorOffset = actor->getColorOffset();
+    cout<<m_color<<endl;
 }
-/*
-void KillAnimation::render()
-{
-	Uint32 ticks = SDL_GetTicks();
-	float time =  (ticks - m_lastRenderTicks);
-
-	SDL_Rect dst;
-	dst.w = w();
-	dst.h = h();
-	dst.x = floor(m_physicalProps.position().x()) - m_camera.x();
-	dst.y = floor(m_yPos - m_camera.y());
-
-	if(time > 10)
-	{
-		m_yPos+= 2;
-		m_rotAngle++;
-
-		// Save current tick count
-		m_lastRenderTicks = ticks;
-	}
-
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_RenderCopyEx(m_renderer, m_texture, &m_sourceRect, &dst, m_rotAngle, NULL, flip);
-
-}
-*/
 
 void KillAnimation::move(Level& level)
 	{
-
-		Uint32 ticks = SDL_GetTicks();
-		float time = (ticks - m_lastRenderTicks);
-		cout<<this->m_currentFrame<<endl;
-
-		if (time > m_frameTimeout)
+        nextFrame();
+        //this will kill the animation once it has played fully
+		if(m_currentFrame == 3)
 		{
-			// Check and increase frame counter
-			if (this->m_currentFrame + 1 < this->m_numFrames)
-			{
-				this->m_currentFrame++;
-			}
-			else
-			{
-				this->m_currentFrame = 0;
-			}
-
-			// Render next tile row
-			m_currentTileRow = m_nextTileRow;
-
-			// Setup source rect
-			m_sourceRect.x = m_currentFrame * m_frameWidth;
-			m_sourceRect.y = m_currentTileRow * m_frameHeight;
-
-			// Save current tick count
-			m_lastRenderTicks = ticks;
+			m_health = 0;
 		}
-		cout<<this->m_currentFrame<<endl;
 	}
 
 KillAnimation::~KillAnimation()
