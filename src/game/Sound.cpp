@@ -7,10 +7,11 @@ using std::string;
 
 namespace jumper
 {
+    int Sound::NEXT_CHANNEL = 1;
+
     Sound::Sound(string filename, int type)
     {
-        m_channel = NEXT_CHANNEL;
-        NEXT_CHANNEL++;
+        m_channel = NEXT_CHANNEL++;
         m_soundFile = filename;
         m_type = type;
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
