@@ -38,14 +38,14 @@ namespace jumper
     {
         m_lastPosition = position();
 
-        //setPosition(position() + level.collide(position(), w(), h(), m_direction * 1000 * getElapsedTime(), this));
+        // Calculate movement of projectile
+        Vector2f movement = m_direction * 1000 * getElapsedTime();
 
-        float elapsedTime = getElapsedTime();
+        // Check collision with tiles
+        level.collide(position(), w(), h(), movement, this);
 
-        //level.collide(position(), w(), h(), m_direction * 1000 * elapsedTime, this);
-        setPosition(position() + m_direction * 1000 * elapsedTime);
-
-
+        // Set new projectile position regardless of collision
+        setPosition(position() + movement);
 
         // if the projectile exceeds camera boundary, then kill it
         if (!visible())
@@ -76,7 +76,9 @@ namespace jumper
 
         void Projectile::onCollide()
         {
-            //m_health = 0;
+            // Kill projectile when colliding with a tile
+            m_health = 0;
+
             return;
         }
 }
