@@ -162,6 +162,8 @@ namespace jumper
         int m_collisionDamage;
 
         bool isKilled();
+
+        void playExplosionSound();
     protected:
 
         bool m_isKilled;
