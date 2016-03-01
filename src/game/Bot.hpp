@@ -15,6 +15,7 @@
 #include "Level.hpp"
 #include <math.h>
 #include <time.h>
+#include "Armed.hpp"
 
 #include "../xml/XML.hpp"
 
@@ -38,7 +39,7 @@ namespace jumper
      * @brief An actor that moves in a level according to a predefined movement pattern.
      * 		  The default implementation switches x-direction when it hits an object.
      */
-    class Bot : public Actor
+    class Bot : public Actor, public Armed
     {
     public:
 
@@ -81,6 +82,9 @@ namespace jumper
          * @see Actor::resolveCollision(Actor& other)
          */
         virtual void resolveCollision(Actor& other) override;
+
+        virtual void shoot();
+
     private:
         const float AI_TRACE_SPEED=0.7;
         int m_move_type;
