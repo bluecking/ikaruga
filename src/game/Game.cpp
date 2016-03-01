@@ -293,26 +293,30 @@ namespace jumper
         for (auto actor : to_remove)
         {
             removeActor(actor);
-            if (m_statusBar)
-            {
-                if (actor->isKilled() && actor->type() == ActorType::ENEMY)
-                {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                }
-                if (actor->isKilled() && actor->type() == ActorType::BOSS)
-                {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                    setBossFight(false);
-                }
-                if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
-                {
-                    actor->playExplosionSound();
-                }
-            }
+            setActorOptionsOnKill(actor);
             actor->~Actor();
         }
     }
 
+    void Game::setActorOptionsOnKill(Actor* actor)
+    {
+        if (m_statusBar)
+        {
+            if (actor->isKilled() && actor->type() == ActorType::ENEMY)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+            }
+            if (actor->isKilled() && actor->type() == ActorType::BOSS)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                setBossFight(false);
+            }
+            if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
+            {
+                actor->playExplosionSound();
+            }
+        }
+    }
     void Game::setSound(std::string soundFile, int volume)
     {
         m_sound = Sound(soundFile, SoundType::SONG);
