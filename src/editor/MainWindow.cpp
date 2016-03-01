@@ -55,7 +55,7 @@ void MainWindow::openLast(QAction *action){
 }
 
 void MainWindow::openFile(QString sFile){
-    std::cout<<"Open: "<<sFile.toStdString()<<std::endl;
+    //std::cout<<"Open: "<<sFile.toStdString()<<std::endl;
 
     QFile fFile(sFile);
     //if(fFile.exists()){
@@ -94,7 +94,7 @@ void MainWindow::openFile(QString sFile){
 
 void MainWindow::saveFile(QString sFile){
     if(this->openedFile!=""){
-        std::cout<<"Save: "<<sFile.toStdString()<<std::endl;
+        //std::cout<<"Save: "<<sFile.toStdString()<<std::endl;
         scene->saveXml(sFile);
     }
 }
@@ -165,5 +165,5 @@ void MainWindow::on_botList_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_powerList_itemClicked(QListWidgetItem *item)
 {
-    scene->setPower(item->text());
+    scene->setPower(item->text());scene->setPower(item->text());
 }

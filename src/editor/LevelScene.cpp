@@ -140,7 +140,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
         QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, m_tileWidth, m_tileHeight);
         if (!item_list.empty()) {
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 1) {
-                std::cout << "remove Bot" << std::endl;
+                //std::cout << "remove Bot" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelBots.size(); i++) {
                     if (m_levelBots[i].positionX == x * m_tileWidth && m_levelBots[i].positionY == y * m_tileWidth) {
@@ -156,7 +156,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
             }
 
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 2) {
-                std::cout << "remove Item" << std::endl;
+                //std::cout << "remove Item" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelItems.size(); i++) {
                     if (m_levelItems[i].positionX == x * m_tileWidth && m_levelItems[i].positionY == y * m_tileWidth) {
@@ -188,7 +188,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    std::cout << "bot added" << std::endl;
+                    //std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
 
                     bot.color = m_color;
@@ -204,7 +204,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
                     m_bot.filename.clear();
-                    std::cout << "item added" << std::endl;
+                    //std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeItem);
@@ -247,7 +247,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     item->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    std::cout << "bot added" << std::endl;
+                    //std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
 
                     bot.color = m_color;
@@ -262,7 +262,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     m_bot.filename.clear();
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
-                    std::cout << "item added" << std::endl;
+                    //std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     item->changeItem(map, rect, m_typeItem);
@@ -319,7 +319,7 @@ void LevelScene::loadXml(QString fileName)
 
     if(QFile(fileName).exists()) {
 
-        std::cout << fileName.toStdString() << std::endl;
+        //std::cout << fileName.toStdString() << std::endl;
         m_xml = new XML(fileName.toStdString());
 
         m_levelName = toQString(m_xml->getTileset());
@@ -373,7 +373,7 @@ void LevelScene::loadLevel(QString fileName )
     // Read meta data from level file
     QFile file(m_path+fileName);
 
-    std::cout<<m_path.toStdString()+fileName.toStdString()<<std::endl;
+    //std::cout<<m_path.toStdString()+fileName.toStdString()<<std::endl;
     ///readonly file open
     if(file.open(QIODevice::ReadOnly)) {
 
@@ -381,8 +381,6 @@ void LevelScene::loadLevel(QString fileName )
 
         ///Filename
         QString line = in.readLine();
-
-        std::cout << m_path.toStdString() << "../images/rocks.png" << std::endl;
 
         m_pixmap = new QPixmap(m_path + m_imgTexture);
 
@@ -483,7 +481,7 @@ void LevelScene::loadLevel(QString fileName )
             }
             else
             {
-                std::cout<<"Failed to load bot"<<std::endl;
+                std::cerr<<"Failed to load bot"<<std::endl;
             }
         }
 
@@ -514,7 +512,7 @@ void LevelScene::loadLevel(QString fileName )
             }
             else
             {
-                std::cout<<"Failed to load bot"<<std::endl;
+                std::cerr<<"Failed to load bot"<<std::endl;
             }
         }*/
 
