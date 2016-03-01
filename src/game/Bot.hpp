@@ -51,11 +51,16 @@ namespace jumper
         /**
          * @brief	Constructs a bot from given renderer, texture
          * 			and frame information.
-         * @param renderer		A pointer to a SDL renderer struct
-         * @param texture		A pointer to valid SDL_Texture struct
-         * @param frameWidth	The width of the frames within the texture
-         * @param frameHeight	The height of the frames within the texture
-         * @param numFrames		The number of frames in the texture
+         * @param renderer		    A pointer to a SDL renderer struct
+         * @param texture		    A pointer to valid SDL_Texture struct
+         * @param frameWidth	    The width of the frames within the texture
+         * @param frameHeight	    The height of the frames within the texture
+         * @param numFrames		    The number of frames in the texture
+         * @param game              The instance of Game
+         * @param npc               The NPC struct from the XML file
+         * @param health            The start health value
+         * @param collisionDamage   The collision Damage
+         * @param type              the ActorType
          */
 
         Bot(SDL_Renderer *renderer,

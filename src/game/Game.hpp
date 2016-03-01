@@ -113,11 +113,13 @@ namespace jumper
 
         void setActorOptionsOnKill(Actor* actor);
 
+        void setBossHealth(int health);
 
     protected:
         bool m_bossFight;
 
     private:
+        int m_boss_health;
 
         int m_bossFightAt;
 
