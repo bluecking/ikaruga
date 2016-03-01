@@ -749,9 +749,6 @@ void XML::saveProfiles(){
             highscore.put("<xmlattr>.filename", highScorePairs.first);
             highscore.put_value(highScorePairs.second);
             highscores.add_child("highscore", highscore);
-//            highscores.put("highscore", highScorePairs.second);
-
-            cout << "XML Profile - " << highScorePairs.first  << ": " << highScorePairs.second << endl;
         }
 
         profile.add_child("highscores", highscores);

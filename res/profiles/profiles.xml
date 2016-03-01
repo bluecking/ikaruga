@@ -4,8 +4,10 @@
         <actualWeapon type="LASER_GUN"/>
         <boughtWeapons>
             <weapon type="LASER_GUN"/>
+            <weapon type="LASER_GUN"/>
         </boughtWeapons>
         <boughtPowerUps>
+            <powerUp type="RESTORE_HEALTH"/>
             <powerUp type="RESTORE_HEALTH"/>
         </boughtPowerUps>
         <highscores>
