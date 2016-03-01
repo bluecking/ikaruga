@@ -19,9 +19,10 @@
 #include "StatusBar.hpp"
 #include "Sound.hpp"
 #include "Vector.hpp"
+#include "LaserWeapon.hpp"
 
 #include "../xml/XML.hpp"
-#include "Main.cpp"
+//#include "Main.cpp"
 
 #include <vector>
 
@@ -86,15 +87,19 @@ namespace jumper
 
         static void setupGame(string filename, MainWindow* w, Game* game);
 
-        void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, string filepath);
+        static void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, string filepath);
 
-        void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, string filepath);
+        static void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, string filepath);
 
-        void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, string filepath);
+        static void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, string filepath);
 
-        void setupBackground(XML::Background background, string filepath, MainWindow* w, Game* game);
+        static void setupBackground(XML::Background background, string filepath, MainWindow* w, Game* game);
 
-        void setupLevel(MainWindow* w, Game* game, string filepath);
+        static void setupLevel(MainWindow* w, Game* game, string filepath);
+
+        static void getBotProperty(XML::LevelBot bot, PlayerProperty& p);
+
+        static void getPlayerProperty(XML::Player player, PlayerProperty& p);
 
     private:
 
