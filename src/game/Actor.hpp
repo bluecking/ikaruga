@@ -196,15 +196,14 @@ namespace jumper
             m_isKilled = isKilled;
         }
 
+        void playExplosionSound();
+
     protected:
         int m_scoreValue = 0;
 
         int m_health;
 
         int m_collisionDamage;
-
-        void playExplosionSound();
-    protected:
 
         bool m_isKilled;
 
