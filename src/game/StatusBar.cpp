@@ -190,7 +190,7 @@ namespace jumper
         setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
         //TODO ~ Update Weapon Position, so its always in the middle.
         setWeaponPosition(Vector2i(m_endPosition.x() / 2, m_horziontalAlignemnt));
-        setHealthPosition(Vector2i(m_endPosition.x() - 75 - 3 * m_tileWidth, m_horziontalAlignemnt));
+        setHealthPosition(Vector2i(m_endPosition.x() - 73 - 3 * m_tileWidth, m_horziontalAlignemnt-1));
     }
 
     void StatusBar::setScorePosition(const Vector2i& position)
