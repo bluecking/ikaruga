@@ -29,7 +29,8 @@ namespace jumper
         PUZZLEBOX,
         PLAYER,
         PROJECTILE,
-        BOSS
+        BOSS,
+        POWERUP
     };
 
     namespace ColorMode

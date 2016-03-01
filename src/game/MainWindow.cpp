@@ -72,7 +72,9 @@ namespace jumper
             //std::cout << actRenderID << std::endl; //Debug Output
             switch(actRenderID){
                 case MainWindow::RENDER_MAINMENU:
+
                     m_menu->update(currentKeyStates, keyDown);
+
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
