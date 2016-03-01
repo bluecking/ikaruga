@@ -85,7 +85,7 @@ int main(int argc, char** argv)
             << "Bot - NPC - move_function: " << m_xml.getBot(i).npc.move_function << endl
             << "Bot - NPC - move_value: " << m_xml.getBot(i).npc.move_value << endl
             << "Bot - NPC - speed: " << m_xml.getBot(i).npc.speed << endl
-            << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon << endl << endl;
+            << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon.type << endl << endl;
     }
 
     for(int i=0;i<(int) m_xml.weaponSize();i++) {

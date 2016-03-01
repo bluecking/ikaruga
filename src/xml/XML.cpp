@@ -40,7 +40,6 @@ XML::XML(std::string xmlFilename)
     load();
 }
 
-/** OUT OF ORDER UNTIL REBUILDING
 XML::XML()
 {
     init();
@@ -79,7 +78,6 @@ XML::XML()
     p.fps = 12;
     setPlayer(p);
 }
-**/
 
 void XML::init()
 {
