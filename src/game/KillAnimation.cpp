@@ -6,7 +6,6 @@
  */
 
 #include "KillAnimation.hpp"
-#include "Filesystem.hpp"
 
 #include <iostream>
 #include <unistd.h>
