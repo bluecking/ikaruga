@@ -65,4 +65,9 @@ namespace jumper
         // Kill projectile when it was hit with something
         m_health = 0;
     }
+
+        void Projectile::onCollide()
+        {
+            return;
+        }
 }

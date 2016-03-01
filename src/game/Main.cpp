@@ -138,15 +138,26 @@ void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::strin
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + (*it).type.filename);
+        ActorType bot_type;
 
+        //Determine of the Bot is a Boss.
+        if ((*it).type.type.find("BOSS")!=std::string::npos)
+        {
+            bot_type = ActorType::BOSS;
+        } else
+        {
+            bot_type = ActorType::ENEMY;
+        }
         Bot* bot = new Bot(w->getRenderer(),
-                           texture, (*it).type.frameWidth,
-                           (*it).type.frameHeight,
-                           (*it).type.numFrames,
-                           game,
-                           (*it).type.npc,
-                           (*it).type.health,
-                           (*it).type.collisionDamage);
+                      texture,
+                      (*it).type.frameWidth,
+                      (*it).type.frameHeight,
+                      (*it).type.numFrames,
+                      game,
+                      (*it).type.npc,
+                      (*it).type.health,
+                      (*it).type.collisionDamage,
+                      bot_type);
         PlayerProperty p;
         getBotProperty(*it, p);
         bot->setPhysics(p);

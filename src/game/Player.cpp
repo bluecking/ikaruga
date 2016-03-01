@@ -61,7 +61,7 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
-            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity()));
+            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity(), this));
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
@@ -85,6 +85,11 @@ namespace jumper
 
         Vector2f direction(1, 0);
         m_weapon->shoot(direction, position());
+    }
+
+    void Player::onCollide()
+    {
+        return;
     }
 
     void Player::updateMoveAnimation()
@@ -132,23 +137,12 @@ namespace jumper
         }
     }
 
-    void Player::setHitMarkSound(std::string soundfile)
-    {
-        m_hitMarkSound = Sound(soundfile, SoundType::SOUND);
-    }
-
-    void Player::setHitMarkVolume(int volume)
-    {
-        m_hitMarkVolume = volume;
-    }
-
-
     void Player::resolveCollision(Actor& other)
     {
         if(other.type() == ENEMY) {
             setHit(true);
             playHitMark();
-            takeDamage(other.m_collisionDamage);
+            takeDamage(other.getCollisionDamage());
             if(getHealth() <= 0) {
                 setKilled(true);
             }
@@ -159,7 +153,7 @@ namespace jumper
             if (projectile->getOriginActor() != this)
             {
                 setHit(true);
-                takeDamage(other.m_collisionDamage);
+                takeDamage(other.getCollisionDamage());
             }
         }
     }
