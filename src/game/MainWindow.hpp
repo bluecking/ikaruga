@@ -18,6 +18,7 @@
 namespace jumper
 {
     class Game;
+    class MainMenu;
 
     /**
      *	@brief Represents the main window of the game.

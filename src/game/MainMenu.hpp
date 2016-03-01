@@ -13,11 +13,14 @@
 #include <boost/regex.hpp>
 #include <SDL_stdinc.h>
 #include "MainWindow.hpp"
+#include "Game.hpp"
 
 namespace fs = boost::filesystem;
 
 namespace jumper
 {
+    class Game;
+    class MainWindow;
 class MainMenu {
 public:
     MainMenu(MainWindow* win, Game* game, fs::path resDir);
