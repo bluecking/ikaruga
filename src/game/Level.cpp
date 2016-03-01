@@ -484,7 +484,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				{
 					checkY = false;
 
-					int tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+					float tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
 
 					float maxDep = m_tileHeight - tHeight;
 					float xR = posRelativToGrid(pos.x() + width, tiles[0].x());
@@ -651,7 +651,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				{
 					checkY = false;
 
-					int tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+					float tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
 
 					float maxDep = m_tileHeight - tHeight;
 					float xR = -posRelativToGrid(pos.x(), tiles[0].x() + 1);
