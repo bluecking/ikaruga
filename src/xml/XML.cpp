@@ -517,7 +517,7 @@ void XML::loadProfiles(std::string filename){
     catch (boost::exception const& e)
     {
         std::cerr << boost::diagnostic_information(e);
-        throw std::domain_error("XML parsing failed. Did you use an invalid tag or attribute?");
+        throw std::domain_error("XML-Profile parsing failed. Did you use an invalid tag or attribute?");
     }
 }
 

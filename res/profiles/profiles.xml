@@ -10,7 +10,7 @@
         </boughtPowerUps>
         <highscores>
             <highscore filename="level0.xml">20000</highscore>
-            <highscore filename="level1.xml"/>
+            <highscore filename="level1.xml">25000</highscore>
         </highscores>
         <money>32</money>
     </profile>
