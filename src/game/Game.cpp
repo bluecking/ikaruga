@@ -122,7 +122,7 @@ namespace jumper
             }
 
             // react to shoot
-            if (currentKeyStates[SDL_SCANCODE_SPACE])
+            if (!m_player->isKilled() && currentKeyStates[SDL_SCANCODE_SPACE])
             {
                 m_player->shoot();
             }
