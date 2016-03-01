@@ -20,7 +20,6 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_levelId=0;
 
 	m_mainWindow=window;
-	m_setting=Settings();
     m_fileName=filename;
     m_scrollSpeed=2;
     m_color="black";
@@ -116,7 +115,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     }
 
 	///Create TextureViews
-	TextureScene* m_textureView= new TextureScene(m_setting,window->ui->TextureView,this, window);
+	TextureScene* m_textureView= new TextureScene(window->ui->TextureView,this, window);
 
 
 	///sets MainViewScene

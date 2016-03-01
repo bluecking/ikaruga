@@ -3,7 +3,7 @@
 //
 #include "TextureScene.h"
 
-TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
+TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
 
     ///Set tilesettings
     if(View->objectName().toStdString() == "TextureView")

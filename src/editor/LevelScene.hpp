@@ -62,7 +62,6 @@ private:
 	QString m_imgStatusbar;
 	QString m_imgPlayer;
 	QString m_xmlLevelName;
-	Settings m_setting;
 	std::string m_soundfile;
 	std::string m_botType;
 	std::string m_color;

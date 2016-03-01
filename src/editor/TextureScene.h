@@ -15,7 +15,6 @@
 #include"GraphicsTileItem.hpp"
 #include<QGraphicsSceneMouseEvent>
 #include<iostream>
-#include"Settings.h"
 #include"LevelScene.hpp"
 
 class MainWindow;
@@ -27,7 +26,7 @@ public:
     /// Loads des Level with the given filenale nad
     /// Stores a pointer to it's main window in a
     /// class valiable.
-    TextureScene(Settings setting, QGraphicsView* View,LevelScene* level, MainWindow* window);
+    TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* window);
     TextureScene(){};
 
     QGraphicsScene* getScene();
