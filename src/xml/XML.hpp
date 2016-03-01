@@ -473,6 +473,8 @@ public:
      */
     void saveProfiles();
 
+    std::string getExplosions();
+
 private:
     /* XML Filename */
     std::string m_filename;
@@ -484,6 +486,9 @@ private:
     Background m_background;
     Player m_player;
     Statusbar m_statusbar;
+    std::string m_explosions;
+
+
 
     std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::LevelItem> m_level_items;
@@ -496,6 +501,8 @@ private:
     std::vector<XML::Profile> m_profiles;
 
     std::map<std::string, int> m_requiredAttributes;
+
+
 
     /**
      * Load XML game information into several structures.

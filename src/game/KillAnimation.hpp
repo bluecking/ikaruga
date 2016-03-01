@@ -16,7 +16,7 @@ namespace jumper
 class KillAnimation : public Item
 {
 public:
-	KillAnimation(Actor* actor);
+	KillAnimation(Actor* actor ,std::string filepath);
 	virtual ~KillAnimation();
 
 

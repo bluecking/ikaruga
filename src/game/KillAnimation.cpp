@@ -16,7 +16,7 @@ using std::endl;
 namespace jumper
 {
 
-KillAnimation::KillAnimation(Actor* actor)
+KillAnimation::KillAnimation(Actor* actor, std::string filepath)
 	: Item(actor->getRenderer(),
 		   actor->getTexture(),
 		   40,
