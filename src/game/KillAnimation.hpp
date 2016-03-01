@@ -23,9 +23,7 @@ public:
 	virtual void move(Level& level);
 	//virtual void render();
 
-private:
-	float 		m_rotAngle;
-	int			m_yPos;
+
 
 };
 
