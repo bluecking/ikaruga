@@ -6,19 +6,7 @@
 TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
 
     ///Set tilesettings
-
-
-
-    if (View->objectName().toStdString() == "EnemieView")
-    {
-        m_tilesPerRow =1;
-        m_numRows = 2;
-        m_tileWidth = 40;
-        m_tileHeight = 40;
-        m_type=1;
-        std::cout<<"enemie"<<std::endl;
-    }
-    else if(View->objectName().toStdString() == "TextureView")
+    if(View->objectName().toStdString() == "TextureView")
     {
         m_tilesPerRow = 10;
         m_numRows = 4;
@@ -26,8 +14,6 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
         m_tileHeight = 40;
         m_type=0;
     }
-
-
 
     m_levelScene=level;
     int count = 1;
@@ -53,7 +39,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
                 QRect rect((m_tileWidth)*(tile_id%m_tilesPerRow),(m_tileHeight)*((int)(tile_id/m_tilesPerRow)),m_tileWidth,m_tileHeight);
 
                 ///creates new GraphicsTileItem
-                GraphicsTileItem *item = new GraphicsTileItem(m_levelScene->getPixmap()[m_type],rect,tile_id,m_type);
+                GraphicsTileItem *item = new GraphicsTileItem(m_levelScene->getPixmap(),rect,tile_id,m_type);
 
                 ///sets Position of the rect and adds it to the scene
                 item->setPos(m_tileWidth*j,m_tileHeight*i);
@@ -65,7 +51,7 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
                 QRect rect(0,m_tileHeight*j,m_tileWidth,m_tileHeight);
 
                 ///creates new GraphicsTileItem
-                GraphicsTileItem *item = new GraphicsTileItem(m_levelScene->getPixmap()[m_type],rect,j*5,m_type);
+                GraphicsTileItem *item = new GraphicsTileItem(m_levelScene->getPixmap(),rect,j*5,m_type);
 
                 ///sets Position of the rect and adds it to the scene
                 item->setPos(m_tileWidth*j,m_tileHeight*i);

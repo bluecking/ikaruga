@@ -16,9 +16,9 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent)
     buttonSize.setX(0);
     buttonSize.setY(0);
     ui->pushButton->setIconSize(buttonSize.size());
-    ui->spinBox->setMinimum(10);
-    ui->spinBox->setMaximum(10000);
-    ui->spinBox->setValue(300);
+    ui->level_size->setMinimum(10);
+    ui->level_size->setMaximum(10000);
+    ui->level_size->setValue(300);
 }
 
 MainWindow::~MainWindow(){
@@ -36,6 +36,16 @@ void MainWindow::addPower(QString powerName,QString description){
     x->setToolTip(description);
 }
 
+void MainWindow::resetBot()
+{
+    ui->botList->clear();
+}
+
+void MainWindow::resetPower()
+{
+    ui->powerList->clear();
+}
+
 void MainWindow::openLast(QAction *action){
    QString x=action->text();
    QString sFile=this->lastOpenedFiles.value(x,NULL);
@@ -46,6 +56,7 @@ void MainWindow::openLast(QAction *action){
 
 void MainWindow::openFile(QString sFile){
     std::cout<<"Open: "<<sFile.toStdString()<<std::endl;
+
     QFile fFile(sFile);
     //if(fFile.exists()){
         this->openedFile=sFile;
@@ -134,7 +145,17 @@ void MainWindow::on_actionNeu_triggered()
 
 void MainWindow::on_pushButton_released()
 {
-    scene->setSize(ui->spinBox->value());
+    scene->setSize(ui->level_size->value());
+}
+
+void MainWindow::on_save_id_released()
+{
+    scene->setId(ui->level_id->value());
+}
+
+void MainWindow::on_saveLevelName_released()
+{
+    scene->setLevelName(ui->level_name->text());
 }
 
 void MainWindow::on_botList_itemClicked(QListWidgetItem *item)

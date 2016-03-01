@@ -3,22 +3,15 @@
 
 /// Constructor. Creates a sub-pixmap from tileset at position rect
     /// and stores the given index
-GraphicsTileItem::GraphicsTileItem(QPixmap** tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
-{
-    mainWindow=true;
-    m_type=type;
-    m_pixmap=tileset;
-    this->setPixmap(m_pixmap[type]->copy(rect));
-    m_index=index;
-}
 
 GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
 {
     mainWindow=false;
+    m_pixmap=tileset;
     m_type=type;
     m_rect=rect;
-    this->setPixmap(tileset->copy(rect));
     m_index=index;
+    this->setPixmap(tileset->copy(rect));
 }
     
     /// Constructor. Creartes an item with given color, width w and height h.
@@ -27,17 +20,17 @@ GraphicsTileItem::GraphicsTileItem(QColor* color, int w, int h):QGraphicsPixmapI
 
 }
 
-void GraphicsTileItem::changeItem(int tileset_id,QRect& rect,int index)
-{
-    this->setPixmap(m_pixmap[tileset_id]->copy(rect));
-    m_type=tileset_id;
-    m_index=index;
-}
-
 void GraphicsTileItem::changeItem(QPixmap* map,QRect& rect,int type)
 {
     this->setPixmap(map->copy(rect));
     m_type=type;
+}
+
+void GraphicsTileItem::changeItem(QPixmap* map,QRect& rect,int type,int index)
+{
+    this->setPixmap(map->copy(rect));
+    m_type=type;
+    m_index=index;
 
 }
 
@@ -56,15 +49,7 @@ QRect GraphicsTileItem::getRect()
     return m_rect;
 }
 	    
-    /// Is called when the mouse is pressed on the item
-void GraphicsTileItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
-{
-	std::cout<<"Doubleclicked: ";
-    //Player* x=new Player();
-    //ItemSettingsGui* gui=new ItemSettingsGui(x);
-    //gui->show();
-	std::cout<<m_index<<std::endl;
-}
+
 
 GraphicsTileItem::~GraphicsTileItem()
 {

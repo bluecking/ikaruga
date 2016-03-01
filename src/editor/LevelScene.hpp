@@ -35,9 +35,12 @@ public:
 	void setBot(QString botName);
 	void setPower(QString powerName);
 	void setNull();
+	void setId(int id);
+	void setLevelName(QString levelName);
+
 	QString toQString(std::string string);
 
-	QPixmap** getPixmap();
+	QPixmap* getPixmap();
 
 protected:
 
@@ -47,23 +50,20 @@ protected:
 
 private:
 
-    GraphicsTileItem* textureItem;
     QRect m_rect;
-    QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
+    QPixmap* m_pixmap;   // A QPixmap to store the tile bitmap
 	QString	m_fileName;
 	QString m_path;
 	XML* m_xml;
 	QString m_xmlFileName;
-	QString m_levelId;
 	QString m_levelName;
 	QString m_imgTexture; // File name of the tile bitmap
-	QString m_enemyFileName;
-	QString m_playerFileName;
 	QString m_imgBackground;
 	QString m_imgStatusbar;
 	QString m_imgPlayer;
+	QString m_xmlLevelName;
 	Settings m_setting;
-
+	std::string m_soundfile;
 	std::string m_botType;
 	std::string m_color;
 	std::vector<XML::LevelBot> m_levelBots;
@@ -79,21 +79,6 @@ private:
 	XML::Background m_background;
 	XML::Statusbar m_statusbar;
 	XML::Player m_player;
-
-	/**=m_xml->getLevelBot();
-	=m_xml->getLevelBots();
-	=m_xml->getBot();
-	=m_xml->getItem();
-	=m_xml->getItems();
-	=m_xml->getLevelItem();
-	=m_xml->getWeapon();
-	=m_xml->getWeapons();
-	=m_xml->getBackground();
-	=m_xml->getBots();
-	=m_xml->getLevelItems();
-	=m_xml->getLevelname();
-	=m_xml->getPlayer();*/
-
 	std::vector<int>* m_tiles;        // The 2D tile array
 	int m_typeItem;
 	int m_typeBot;
@@ -108,6 +93,8 @@ private:
 	int m_tileOffset;     // Offset between the tiles
 	int m_levelWidth;     // Level width (in tiles)
 	int m_levelHeight;    // Level height in tiles
+	int m_levelId;
+
 
 
 
