@@ -596,7 +596,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
                 m_player = NULL;
             }
 
-            actor->~Actor();
+            delete actor;
       }
     }
 
