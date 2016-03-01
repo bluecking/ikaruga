@@ -170,7 +170,7 @@ namespace jumper
         SDL_SetRenderDrawColor(m_renderer, BGColor.r, BGColor.g, BGColor.b, BGColor.a);
         SDL_RenderFillRect(m_renderer, &bgrect);
         SDL_SetRenderDrawColor(m_renderer, FGColor.r, FGColor.g, FGColor.b, FGColor.a);
-        int pw = (int) ((float) w * percent);
+        int pw = (int) (percent * w);
         int px = position.x() + (w - pw);
         SDL_Rect fgrect = {px, position.y(), pw, h};
         SDL_RenderFillRect(m_renderer, &fgrect);
@@ -236,7 +236,7 @@ namespace jumper
 
     void StatusBar::renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b)
     {
-        SDL_SetRenderDrawColor(m_renderer, r, g, b, 1);
+        SDL_SetRenderDrawColor(m_renderer, r, g, b, 0);
         //left line
         SDL_RenderDrawLine(m_renderer,
                            position.x(),
