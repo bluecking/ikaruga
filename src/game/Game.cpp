@@ -296,7 +296,7 @@ namespace jumper
     }
 
     void Game::setSound(std::string soundFile, int volume){
-        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
+        m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
 } /* namespace jumper */
