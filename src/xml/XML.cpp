@@ -432,6 +432,8 @@ void XML::save()
     player.put("explosionVolume", m_player.explosionVolume);
     player.put("hitSoundFile", m_player.hitSoundFile);
     player.put("hitVolume", m_player.hitVolume);
+    player.put("health", m_player.health);
+    player.put("collisionDamage", m_player.collisionDamage);
 
     level.add_child("player", player);
 
@@ -457,7 +459,7 @@ void XML::save()
         level_item.put("positionX", m_level_items[i].positionX);
         level_item.put("positionY", m_level_items[i].positionY);
         level_item.put("value", m_level_items[i].value);
-
+        
         level.add_child("item", level_item);
     }
 
