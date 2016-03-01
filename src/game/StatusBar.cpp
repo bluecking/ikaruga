@@ -113,7 +113,7 @@ namespace jumper
 
 
 
-        RenderHPBar(m_healthPosition, 50, target.h);
+        RenderHPBar(m_healthPosition, 100, target.h);
     }
 
     void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
@@ -190,7 +190,7 @@ namespace jumper
         setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
         //TODO ~ Update Weapon Position, so its always in the middle.
         setWeaponPosition(Vector2i(m_endPosition.x() / 2, m_horziontalAlignemnt));
-        setHealthPosition(Vector2i(m_endPosition.x() - 20 - 3 * m_tileWidth, m_horziontalAlignemnt));
+        setHealthPosition(Vector2i(m_endPosition.x() - 75 - 3 * m_tileWidth, m_horziontalAlignemnt));
     }
 
     void StatusBar::setScorePosition(const Vector2i& position)
