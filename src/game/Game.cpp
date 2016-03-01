@@ -6,11 +6,9 @@
  */
 
 #include "MainWindow.hpp"
-#include "Game.hpp"
 #include "CollisionManager.hpp"
 #include "Filesystem.hpp"
 
-#include <set>
 using std::set;
 using std::cout;
 using std::endl;
@@ -18,41 +16,41 @@ using std::endl;
 namespace jumper
 {
 
-void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)
-{
-    int pos_x = player.positionX;
-    int pos_y = player.positionY;
-    float moveForceX = player.moveForceX * 1.0;
-    float moveForceY = player.moveForceY * 1.0;
-    float maxVelRun = player.maxVel * 1.0;
+    void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)
+    {
+        int pos_x = player.positionX;
+        int pos_y = player.positionY;
+        float moveForceX = player.moveForceX * 1.0;
+        float moveForceY = player.moveForceY * 1.0;
+        float maxVelRun = player.maxVel * 1.0;
 
-    p.setPosition(Vector2f(pos_x, pos_y));
-    p.setMoveForce(Vector2f(moveForceX, moveForceY));
-    p.setMaxRunVelocity(maxVelRun);
-}
+        p.setPosition(Vector2f(pos_x, pos_y));
+        p.setMoveForce(Vector2f(moveForceX, moveForceY));
+        p.setMaxRunVelocity(maxVelRun);
+    }
 
-void Game::getBotProperty(XML::LevelBot bot, PlayerProperty& p)
-{
-    int pos_x = bot.positionX;
-    int pos_y = bot.positionY;
-    float moveForceX = 1.0;
-    float moveForceY = 1.0;
-    float maxVelRun = 1.0;
+    void Game::getBotProperty(XML::LevelBot bot, PlayerProperty& p)
+    {
+        int pos_x = bot.positionX;
+        int pos_y = bot.positionY;
+        float moveForceX = 1.0;
+        float moveForceY = 1.0;
+        float maxVelRun = 1.0;
 
-    p.setPosition(Vector2f(pos_x, pos_y));
-    p.setMoveForce(Vector2f(moveForceX, moveForceY));
-    p.setMaxRunVelocity(maxVelRun);
-}
+        p.setPosition(Vector2f(pos_x, pos_y));
+        p.setMoveForce(Vector2f(moveForceX, moveForceY));
+        p.setMaxRunVelocity(maxVelRun);
+    }
 
 
-//create level
-void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
-{
-    Level* level = new Level(w->getRenderer(), filepath);
-    game->setLevel(level);
-}
+    //create level
+    void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
+    {
+        Level* level = new Level(w->getRenderer(), filepath);
+        game->setLevel(level);
+    }
 
-//Creates the Levelbackground
+    //Creates the Levelbackground
     void Game::setupBackground(XML::Background background, std::string filepath, MainWindow* w, Game* game)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + background.filename);
@@ -64,7 +62,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         game->setLayer(layer);
     }
 
-//create statusbar
+    //create statusbar
     void Game::setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + statusbar.filename);
@@ -82,7 +80,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         game->setStatusBar(bar);
     }
 
-//create Player
+    //create Player
     void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
@@ -127,9 +125,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         player->setColorOffset(colorOffset);
     }
 
-
-
-//create Bots
+        //create Bots
     void Game::setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
     {
         for (auto it = bots.begin(); it != bots.end(); it++)
@@ -183,6 +179,24 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         }
     }
 
+    void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
+    {
+        for(auto it = items.begin(); it != items.end(); ++it) {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + it->type.filename);
+
+            PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
+                            texture,
+                            it->type.frameWidth,
+                            it->type.frameHeight,
+                            1);
+
+            Vector2f pos = Vector2f(it->positionX, it->positionY);
+            powerUp->setPosition(pos);
+
+            game->addActor(powerUp);
+        }
+    }
+
     void Game::setupGame(string filename, MainWindow* w, Game* game)
     {
         string path = Filesystem::getDirectoryPath(filename);
@@ -202,6 +216,9 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
         //setup bots
         setupBots(xml.getLevelBots(), w, game, path);
+
+        //setup items
+        setupItems(xml.getLevelItems(), w, game, path);
     }
 
     Game::Game(MainWindow* mainWindow)
@@ -486,7 +503,6 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
             actor->~Actor();
         }
     }
-
     void Game::setActorOptionsOnKill(Actor* actor)
     {
         if (m_statusBar)
@@ -506,6 +522,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
             }
         }
     }
+
     void Game::setSound(std::string soundFile, int volume)
     {
         m_sound = Sound(soundFile, SoundType::SONG);
@@ -552,5 +569,4 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
     {
         return m_bossFightAt;
     }
-
 } /* namespace jumper */

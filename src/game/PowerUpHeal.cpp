@@ -9,14 +9,13 @@
 
 namespace jumper {
     PowerUpHeal::PowerUpHeal(
-            SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames, int health,
-            int collisionDamage) : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage)
+            SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames) : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames)
     {
-
+        setType(POWERUP);
     }
 
     void PowerUpHeal::consume(Player* player)
     {
-        player->setHealth(100);
+        player->setHealth(player->getInitial_health());
     }
 }

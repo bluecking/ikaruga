@@ -12,10 +12,7 @@ namespace jumper {
             SDL_Texture* texture,
             int frameWidth,
             int frameHeight,
-            int numFrames,
-            int health,
-            int collisionDamage) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
-
+            int numFrames) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
                                    m_expirationTime(0)
     {
 

@@ -18,7 +18,7 @@ namespace jumper
                    int numFrames,
                    int health,
                    int collisionDamage)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0), m_initial_health(health)
     { }
 
     void Player::move(Level& level)
