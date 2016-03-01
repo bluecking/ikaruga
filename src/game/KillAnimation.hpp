@@ -19,7 +19,9 @@ public:
 	KillAnimation(Actor* actor);
 	virtual ~KillAnimation();
 
-	virtual void render();
+
+	virtual void move(Level& level);
+	//virtual void render();
 
 private:
 	float 		m_rotAngle;

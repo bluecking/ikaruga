@@ -7,6 +7,7 @@
 
 #include "Game.hpp"
 #include "CollisionManager.hpp"
+#include "KillAnimation.hpp"
 
 #include <set>
 
@@ -292,9 +293,11 @@ namespace jumper
 
         for (auto actor : to_remove)
         {
+            KillAnimation* kill = new KillAnimation(actor);
+            addActor(kill);
             removeActor(actor);
             setActorOptionsOnKill(actor);
-            actor->~Actor();
+            delete(actor);
         }
     }
 
