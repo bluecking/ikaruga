@@ -160,10 +160,10 @@ void MainWindow::on_saveLevelName_released()
 
 void MainWindow::on_botList_itemClicked(QListWidgetItem *item)
 {
-    //scene->setBot(item->text());
+    scene->setBot(item->text());
 }
 
 void MainWindow::on_powerList_itemClicked(QListWidgetItem *item)
 {
-    //scene->setPower(item->text());
+    scene->setPower(item->text());
 }
