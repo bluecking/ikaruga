@@ -482,7 +482,45 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				}
 				else // t1 and t2 EDGEs, slope collision right
 				{
-					// TODO
+					checkY = false;
+
+					float tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+
+					float maxDep = m_tileHeight - tHeight;
+					float xR = posRelativToGrid(pos.x() + width, tiles[0].x());
+					float maxMov = maxDep - xR;
+
+					x = std::min(x, maxMov);
+
+					if (x == maxMov)
+					{
+						actor->onCollide();
+					}
+
+					int upY = tiles[0].y() * m_tileHeight;
+					int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+					int pUp = pos.y() + y;
+					int pDown = pos.y() + y + height;
+
+					if (pUp - upY <= downY - pDown)
+					{
+						if (pUp < upY + xR)
+						{
+							y = upY + xR - pUp;
+
+							actor->onCollide();
+						}
+					}
+					else
+					{
+						if (pDown > downY - xR)
+						{
+							y = downY - xR - pDown;
+
+							actor->onCollide();
+						}
+					}
 				}
 			}
 			else
@@ -611,7 +649,45 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				}
 				else // t1 and t2 EDGEs, slope collision left
 				{
-					// TODO
+					checkY = false;
+
+					float tHeight = (height + 2 - (tiles.size() - 2) * m_tileHeight) / 2;
+
+					float maxDep = m_tileHeight - tHeight;
+					float xR = -posRelativToGrid(pos.x(), tiles[0].x() + 1);
+					float maxMov = maxDep - xR;
+
+					x = std::max(x, -maxMov);
+
+					if (x == maxMov)
+					{
+						actor->onCollide();
+					}
+
+					int upY = tiles[0].y() * m_tileHeight;
+					int downY = (tiles[tiles.size() - 1].y() + 1) * m_tileHeight;
+
+					int pUp = pos.y() + y;
+					int pDown = pos.y() + y + height;
+
+					if (pUp - upY <= downY - pDown)
+					{
+						if (pUp < upY + xR)
+						{
+							y = upY + xR - pUp;
+
+							actor->onCollide();
+						}
+					}
+					else
+					{
+						if (pDown > downY - xR)
+						{
+							y = downY - xR - pDown;
+
+							actor->onCollide();
+						}
+					}
 				}
 			}
 		}
@@ -704,7 +780,34 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 			}
 			else // t1 and t2 EDGEs, slope collision right
 			{
-				// TODO
+				float xR = posRelativToGrid(pos.x(), tiles[0].x());
+				float xR2 = posRelativToGrid(pos.x() + width, tiles[tiles.size() - 1].x() + 1);
+
+				float leftX = gridToPos(tiles[0].x());
+				float rightX = gridToPos(tiles[tiles.size() - 1].x() + 1);
+				float y1 = gridToPos(tiles[0].y());
+
+				float pLeft = pos.x();
+				float pRight = pos.x() + width;
+
+				if (pLeft - leftX <= rightX - pRight)
+				{
+					if (pos.y() + y + height > xR + y1)
+					{
+						y = xR + y1 - pos.y() - height;
+
+						actor->onCollide();
+					}
+				}
+				else
+				{
+					if (pos.y() + y + height > y1 - xR2)
+					{
+						y = -xR2 + y1 - pos.y() - height; std::cout << y << std::endl;
+
+						actor->onCollide();
+					}
+				}
 			}
 		}
 		else
@@ -786,7 +889,34 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 			}
 			else // t1 and t2 EDGEs, slope collision left
 			{
-				// TODO
+				float xR = m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x());
+				float xR2 = m_tileHeight - posRelativToGrid(pos.x() + width, tiles[tiles.size() - 1].x() + 1);
+
+				float leftX = gridToPos(tiles[0].x());
+				float rightX = gridToPos(tiles[tiles.size() - 1].x() + 1);
+				float y1 = gridToPos(tiles[0].y());
+
+				float pLeft = pos.x();
+				float pRight = pos.x() + width;
+
+				if (pLeft - leftX <= rightX - pRight)
+				{
+					if (pos.y() + y < xR + y1)
+					{
+						y = xR + y1 - pos.y();
+
+						actor->onCollide();
+					}
+				}
+				else
+				{
+					if (pos.y() + y < y1 - xR2)
+					{
+						y = -xR2 + y1 - pos.y();
+
+						actor->onCollide();
+					}
+				}
 			}
 		}
 	}
