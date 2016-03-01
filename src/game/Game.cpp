@@ -136,15 +136,26 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         {
             SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
                     filepath + (*it).type.filename);
+            ActorType bot_type;
 
+            //Determine of the Bot is a Boss.
+            if ((*it).type.type.find("BOSS")!=std::string::npos)
+            {
+                bot_type = ActorType::BOSS;
+            } else
+            {
+                bot_type = ActorType::ENEMY;
+            }
             Bot* bot = new Bot(w->getRenderer(),
-                               texture, (*it).type.frameWidth,
+                               texture,
+                               (*it).type.frameWidth,
                                (*it).type.frameHeight,
                                (*it).type.numFrames,
                                game,
                                (*it).type.npc,
                                (*it).type.health,
-                               (*it).type.collisionDamage);
+                               (*it).type.collisionDamage,
+                               bot_type);
             PlayerProperty p;
             getBotProperty(*it, p);
             bot->setPhysics(p);
@@ -234,6 +245,12 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
                 (*it)->setLiveTime();
                 erease_bots.push_back(*it);
                 addActor(*it);
+                if ((*it)->type() == ActorType::BOSS)
+                {
+                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w()/5*4 - ((*it)->w()/3)));
+                    //setBossFightAt((int) (*it)->position().x() - (*it)->w());
+                    setBossFight(true);
+                }
             }
         }
 
@@ -292,7 +309,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
             }
 
             // react to shoot
-            if (currentKeyStates[SDL_SCANCODE_SPACE])
+            if (!m_player->isKilled() && currentKeyStates[SDL_SCANCODE_SPACE])
             {
                 m_player->shoot();
             }
@@ -328,8 +345,7 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
             //added spawn bots
             spawnBots();
-
-            scrollHorizontal();
+            bossFight();
             checkCameraCollision();
             checkActorCollision();
 
@@ -423,7 +439,8 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
 
         Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
         m_player->setPosition(m_player->position() +
-                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset, m_player));
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset,
+                                               m_player));
         Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
@@ -463,21 +480,75 @@ void Game::setupLevel(MainWindow* w, Game* game, std::string filepath)
         for (auto actor : to_remove)
         {
             removeActor(actor);
-            if(m_statusBar) {
-                if(actor->isKilled() && actor->type() == ActorType::ENEMY)
-                {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
-                }
-                if(actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY){
-                    actor->playExplosionSound();
-                }
-            }
+            setActorOptionsOnKill(actor);
             actor->~Actor();
         }
     }
 
-    void Game::setSound(std::string soundFile, int volume){
+    void Game::setActorOptionsOnKill(Actor* actor)
+    {
+        if (m_statusBar)
+        {
+            if (actor->isKilled() && actor->type() == ActorType::ENEMY)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+            }
+            if (actor->isKilled() && actor->type() == ActorType::BOSS)
+            {
+                m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                setBossFight(false);
+            }
+            if (actor->type() == ActorType::PLAYER || actor->type() == ActorType::ENEMY || actor->type() == ActorType::BOSS)
+            {
+                actor->playExplosionSound();
+            }
+        }
+    }
+    void Game::setSound(std::string soundFile, int volume)
+    {
         m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
+
+    void Game::setBossFight(bool bossfight)
+    {
+        if (m_bossFight == true && bossfight)
+        {
+            cout << "Bossfight has ended";
+        }
+        m_bossFight = bossfight;
+
+    }
+
+    void Game::bossFight()
+    {
+        if (!getBossFight())
+        {
+            scrollHorizontal();
+        }
+        else
+        {
+            if ((int) Renderable::m_camera.position().x() < getBossFightAt())
+            {
+                scrollHorizontal();
+            }
+            m_startTicks = SDL_GetTicks();
+        }
+    }
+
+    bool Game::getBossFight()
+    {
+        return m_bossFight;
+    }
+
+    void Game::setBossFightAt(int bossFightAt)
+    {
+        m_bossFightAt = bossFightAt;
+    }
+
+    int Game::getBossFightAt()
+    {
+        return m_bossFightAt;
+    }
+
 } /* namespace jumper */

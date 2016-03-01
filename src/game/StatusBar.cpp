@@ -59,31 +59,8 @@ namespace jumper
         SDL_Rect source;
 
         //Paint the Border in Red
-        SDL_SetRenderDrawColor(m_renderer, 255, 0, 0, 1);
-        //left line
-        SDL_RenderDrawLine(m_renderer,
-                           m_startPosition.x(),
-                           m_startPosition.y(),
-                           m_startPosition.x(),
-                           m_startPosition.y() - m_startPosition.y());
-        //Buttom line
-        SDL_RenderDrawLine(m_renderer,
-                           m_endPosition.x(),
-                           m_startPosition.y(),
-                           m_startPosition.x(),
-                           m_startPosition.y());
-        //Top line
-        SDL_RenderDrawLine(m_renderer,
-                           m_endPosition.x(),
-                           m_endPosition.y(),
-                           m_startPosition.x(),
-                           m_endPosition.y());
-        //Right line
-        SDL_RenderDrawLine(m_renderer,
-                           m_endPosition.x(),
-                           m_endPosition.y(),
-                           m_endPosition.x(),
-                           m_startPosition.y());
+        renderRectangle(m_renderer, m_startPosition, m_endPosition.x() - m_startPosition.x(),
+                        m_endPosition.y() - m_startPosition.y(), 255, 0, 0);
 
         //Make the Background black
         SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 1);
@@ -136,7 +113,7 @@ namespace jumper
 
 
 
-        RenderHPBar((int) m_healthPosition.x(), (int) m_healthPosition.y(), 50, target.h);
+        RenderHPBar(m_healthPosition, 100, target.h);
     }
 
     void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
@@ -154,30 +131,28 @@ namespace jumper
 
     }
 
-    void StatusBar::RenderHPBar(int x, int y, int w, int h)
+    void StatusBar::RenderHPBar(Vector2i& position, int w, int h)
     {
         SDL_Color old;
         SDL_GetRenderDrawColor(m_renderer, &old.r, &old.g, &old.b, &old.a);
 
+
         if (m_max_health == 0)
         {
             m_max_health = m_health;
-            //cout << "MAX:   " << m_max_health << "   " << m_health << endl; //Debug Output
         }
 
-        float Percent = 1.0 * m_health / m_max_health;
-        //cout << Percent << "   " << m_health << endl; //Debug Output
-        Percent = Percent > 1.f ? 1.f : Percent < 0.f ? 0.f : Percent;
-
+        float percent = 1.0 * m_health / m_max_health;
+        percent = percent > 1.f ? 1.f : percent < 0.f ? 0.f : percent;
         SDL_Color FGColor;
         FGColor.b = 0;
-        if (Percent <= 0.25)
+        if (percent <= 0.25)
         {
-            int value = Percent * 100;
-            FGColor.r = 255-value;
+            int value = percent * 100;
+            FGColor.r = 255 - value;
             FGColor.g = value;
         }
-            else if(Percent <= 0.5)
+        else if (percent <= 0.5)
         {
             FGColor.r = 100;
             FGColor.g = 200;
@@ -190,15 +165,16 @@ namespace jumper
         SDL_Color BGColor;
         BGColor.r = BGColor.g = BGColor.b = 75;
 
-        SDL_Rect bgrect = {x, y, w, h};
+        SDL_Rect bgrect = {position.x(), position.y(), w, h};
         SDL_SetRenderDrawColor(m_renderer, BGColor.r, BGColor.g, BGColor.b, BGColor.a);
         SDL_RenderFillRect(m_renderer, &bgrect);
         SDL_SetRenderDrawColor(m_renderer, FGColor.r, FGColor.g, FGColor.b, FGColor.a);
-        int pw = (int) ((float) w * Percent);
-        int px = x + (w - pw);
-        SDL_Rect fgrect = {px, y, pw, h};
+        int pw = (int) (percent * w);
+        int px = position.x() + (w - pw);
+        SDL_Rect fgrect = {px, position.y(), pw, h};
         SDL_RenderFillRect(m_renderer, &fgrect);
 
+        renderRectangle(m_renderer, position, w, h, 255, 100, 100);
 
         SDL_SetRenderDrawColor(m_renderer, old.r, old.g, old.b, old.a);
     }
@@ -213,7 +189,7 @@ namespace jumper
         setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
         //TODO ~ Update Weapon Position, so its always in the middle.
         setWeaponPosition(Vector2i(m_endPosition.x() / 2, m_horziontalAlignemnt));
-        setHealthPosition(Vector2i(m_endPosition.x() - 20 - 3 * m_tileWidth, m_horziontalAlignemnt));
+        setHealthPosition(Vector2i(m_endPosition.x() - 73 - 3 * m_tileWidth, m_horziontalAlignemnt - 1));
     }
 
     void StatusBar::setScorePosition(const Vector2i& position)
@@ -256,6 +232,37 @@ namespace jumper
     {
         // TODO Auto-generated destructor stub
     }
+
+    void StatusBar::renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b)
+    {
+        SDL_SetRenderDrawColor(m_renderer, r, g, b, 0);
+        //left line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x(),
+                           position.y(),
+                           position.x(),
+                           position.y() + h);
+        //Buttom line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y(),
+                           position.x(),
+                           position.y());
+        //Top line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y() + h,
+                           position.x(),
+                           position.y() + h);
+        //Right line
+        SDL_RenderDrawLine(m_renderer,
+                           position.x() + w,
+                           position.y() + h,
+                           position.x() + w,
+                           position.y());
+
+    }
+
 
 } /* namespace jumper */
 
