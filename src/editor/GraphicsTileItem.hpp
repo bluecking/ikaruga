@@ -20,8 +20,6 @@ public:
 
 	void changeItem(QPixmap* map,QRect& rect,int type,int index);
 
-	bool getWindowType();
-
 	QRect getRect();
 
 	int getType();
@@ -30,7 +28,7 @@ public:
     void setIndex(int i) {m_index = i;}
 
 	/// Destructor.
-	virtual ~GraphicsTileItem();
+	virtual ~GraphicsTileItem(){};
 
 private:
     
@@ -38,7 +36,6 @@ private:
 	int m_index;					//tile index
 	int m_type;                     //type of Texture
 	QPixmap* m_pixmap;              //Texture to copy from
-	bool m_mainWindow;          //
 	QRect m_rect;
 };
 

@@ -1,17 +1,14 @@
 #include"GraphicsTileItem.hpp"
 
 
-/// Constructor. Creates a sub-pixmap from tileset at position rect
-    /// and stores the given index
 
 GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
 {
-    m_mainWindow=false;
+    this->setPixmap(tileset->copy(rect));
     m_pixmap=tileset;
     m_type=type;
     m_rect=rect;
     m_index=index;
-    this->setPixmap(tileset->copy(rect));
 }
 
 
@@ -34,18 +31,9 @@ int GraphicsTileItem::getType()
     return m_type;
 }
 
-bool GraphicsTileItem::getWindowType()
-{
-    return m_mainWindow==true;
-}
 
 QRect GraphicsTileItem::getRect()
 {
     return m_rect;
 }
-	    
 
-
-GraphicsTileItem::~GraphicsTileItem()
-{
-}
