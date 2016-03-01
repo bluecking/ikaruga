@@ -144,7 +144,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 1)
             {
-                std::cout << "remove Bot" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelBots.size(); i++)
                 {
@@ -164,7 +163,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 2)
             {
-                std::cout << "remove Item" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelItems.size(); i++)
                 {
@@ -202,7 +200,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
 
                     bot.color = m_color;
@@ -220,7 +217,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
                     m_bot.filename.clear();
-                    std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeItem);
@@ -270,7 +266,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     item->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
                     bot.color = m_color;
                     bot.positionX = x * m_tileWidth;
@@ -285,7 +280,6 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     m_bot.filename.clear();
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
-                    std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     item->changeItem(map, rect, m_typeItem);
@@ -616,7 +610,13 @@ void LevelScene::setSize(int value)
         }
     }
     m_levelWidth=value;
-    //todo
+
+    //resize SceneRect(scrollbar fix)
+    m_mainWindow->ui->MainView->setSceneRect(m_mainWindow->ui->MainView->sceneRect().x(),
+                                             m_mainWindow->ui->MainView->sceneRect().y(),
+                                             m_tileWidth*m_levelWidth,
+                                             m_mainWindow->ui->MainView->sceneRect().height());
+
     m_mainWindow->ui->MainView->setScene(this);
 
 }
