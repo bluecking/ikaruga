@@ -711,20 +711,20 @@ void XML::saveProfiles(){
         profile.add_child("actualWeapon", actualWeapon);
 
         /* Adding bought Weapons */
-        BOOST_FOREACH(Weapon w, curProfile.boughtWeapons)
+        BOOST_FOREACH(Weapon weapon, curProfile.boughtWeapons)
         {
-            ptree weapon;
-            weapon.put("<xmlattr>.type", w.type);
-            boughtWeapons.put("weapon", weapon);
+            ptree bWeapon;
+            bWeapon.put("<xmlattr>.type", weapon.type);
+            boughtWeapons.add_child("weapon", bWeapon);
         }
         profile.add_child("boughtWeapons", boughtWeapons);
 
         /* Adding bought PowerUps */
-        BOOST_FOREACH(Item i, curProfile.boughtPowerUps)
+        BOOST_FOREACH(Item item, curProfile.boughtPowerUps)
         {
             ptree powerup;
-            powerup.put("<xmlattr>.type", i.type);
-            boughtWeapons.put("weapon", powerup);
+            powerup.put("<xmlattr>.type", item.type);
+            boughtPowerUps.add_child("powerUp", powerup);
         }
         profile.add_child("boughtPowerUps", boughtPowerUps);
 
