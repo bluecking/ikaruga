@@ -376,6 +376,86 @@ void XML::loadWeapons(std::string filename){
     }
 }
 
+void XML::loadProfiles(std::string filename){
+    ptree pt;
+    try
+    {
+        read_xml(filename, pt);
+    }
+    catch (boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::property_tree::xml_parser::xml_parser_error> > const& e) {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::invalid_argument("Invalid path or filename.");
+    }
+
+    try
+    {
+        BOOST_FOREACH(const ptree::value_type& v, pt.get_child("profiles"))
+        {
+            if (v.first == "profile")
+            {
+                Profile p;
+                p.name = v.second.get<string>("<xmlattr>.name");
+                p.money = v.second.get<int>("money");
+
+                std::string type_tmp = v.second.get_child("actualWeapon").get<string>("<xmlattr>.type");
+                bool foundType = false;
+                for (auto it = begin(m_weapons); it != end(m_weapons); it++)
+                {
+                    if(type_tmp.compare(it->type)==0)
+                    {
+                        p.actualWeapon = *it;
+                        foundType = true;
+                    }
+                }
+                if(false == foundType)
+                {
+                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on weapon.");
+                }
+
+                BOOST_FOREACH(const ptree::value_type& v, pt.get_child("profiles"))
+                {
+                    if (v.first == "weapon")
+                    {
+                        Weapon boughtWeapon;
+
+                        std::string type_tmp = v.second.get_child("actualWeapon").get<string>("<xmlattr>.type");
+                        bool foundType = false;
+                        for (auto it = begin(m_weapons); it != end(m_weapons); it++)
+                        {
+                            if(type_tmp.compare(it->type)==0)
+                            {
+                                p.actualWeapon = *it;
+                                foundType = true;
+                            }
+                        }
+                        if(false == foundType)
+                        {
+                            throw std::domain_error("Found unknown xml tag " + type_tmp + " on weapon.");
+                        }
+
+                        m_profiles.push_back(p);
+                    }
+                    else
+                    {
+                        throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below profile.");
+                    }
+                }
+
+                m_profiles.push_back(p);
+            }
+            else
+            {
+                throw std::domain_error("Found unknown xml tag " + v.first + " on first child layer below profile.");
+            }
+        }
+    }
+    catch (boost::exception const& e)
+    {
+        std::cerr << boost::diagnostic_information(e);
+        throw std::domain_error("XML parsing failed. Did you use an invalid tag or attribute?");
+    }
+}
+
 void XML::save()
 {
     ptree root;
@@ -539,3 +619,23 @@ XML::Weapon XML::getWeapon(unsigned int number)
     if(number >= weaponSize()) {throw std::range_error("Index out of range.");}
     return m_weapons[number];
 }
+
+void XML::setProfile(unsigned int position, XML::Profile profile)
+{
+    if(position >= profileSize()) {throw std::range_error("Index out of range.");}
+    m_profiles[position] = profile;
+}
+
+XML::Profile XML::getProfile(unsigned int number)
+{
+    if(number >= profileSize()) {throw std::range_error("Index out of range.");}
+    return m_profiles[number];
+}
+
+void XML::removeProfile(unsigned int position)
+{
+    if(position >= profileSize()) {throw std::range_error("Index out of range.");}
+    m_profiles.erase(m_profiles.begin() + position);
+}
+
+void saveProfiles();

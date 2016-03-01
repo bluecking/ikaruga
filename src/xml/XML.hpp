@@ -126,7 +126,7 @@ public:
 
     struct Profile{
         std::string name;
-        Weapon currentWeapon;
+        Weapon actualWeapon;
         std::vector<Weapon> boughtWeapons;
         std::vector<Item> boughtPowerUps;
         std::map<std::string, int> highscores;
