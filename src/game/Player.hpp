@@ -15,9 +15,12 @@
 #include "Vector.hpp"
 #include "Armed.hpp"
 #include "Sound.hpp"
+#include "PowerUp.hpp"
 
 namespace jumper
 {
+    class PowerUp;
+
     /**
      * @brief	A class to represent an animated sprite controlled
      * 			by the user.
@@ -54,13 +57,6 @@ namespace jumper
         virtual void onCollide();
 
         virtual void shoot();
-
-        /**
-         * Gets invoked when the player moves up or down.
-         * So the player gets rendered with a different texture,
-         * and the hitbox is updated to a proper size and position.
-         */
-        void updateMoveAnimation();
 
         /**
          * @see Actor::resolveCollision(Actor& other)
@@ -105,6 +101,12 @@ namespace jumper
          * plays the hitmarksound
          */
         void playHitMark();
+
+        /**
+         * This method iterates through all powerups that the player is owning.
+         * It consumes each powerup and removes those that are expired.
+         */
+        void consumePowerUps();
     private:
         Vector2f m_moveDirection;
 
@@ -113,6 +115,16 @@ namespace jumper
 
         //the volume of the hitmarksound
         int m_hitMarkVolume;
+
+        /** Vector of all powerups that the player is currently owning */
+        std::vector<PowerUp*> m_powerUps;
+
+        /**
+         * Gets invoked when the player moves up or down.
+         * So the player gets rendered with a different texture,
+         * and the hitbox is updated to a proper size and position.
+         */
+        void updateMoveAnimation();
     };
 }
 

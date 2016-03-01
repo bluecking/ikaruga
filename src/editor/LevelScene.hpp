@@ -32,9 +32,15 @@ public:
 	void loadXml(QString fileName);
 	void loadLevel(QString fileName);
 	void setSize(int value);
+	void setBot(QString botName);
+	void setPower(QString powerName);
+	void setNull();
+	void setId(int id);
+	void setLevelName(QString levelName);
+
 	QString toQString(std::string string);
 
-	QPixmap** getPixmap();
+	QPixmap* getPixmap();
 
 protected:
 
@@ -44,45 +50,39 @@ protected:
 
 private:
 
-    GraphicsTileItem* textureItem;
     QRect m_rect;
-    QPixmap** m_pixmap;   // A QPixmap to store the tile bitmap
+    QPixmap* m_pixmap;   // A QPixmap to store the tile bitmap
 	QString	m_fileName;
 	QString m_path;
 	XML* m_xml;
 	QString m_xmlFileName;
-	QString m_levelId;
 	QString m_levelName;
 	QString m_imgTexture; // File name of the tile bitmap
-	QString m_enemyFileName;
-	QString m_playerFileName;
 	QString m_imgBackground;
 	QString m_imgStatusbar;
 	QString m_imgPlayer;
+	QString m_xmlLevelName;
 	Settings m_setting;
-	std::string m_weapon;
+	std::string m_soundfile;
 	std::string m_botType;
+	std::string m_color;
 	std::vector<XML::LevelBot> m_levelBots;
+	std::vector<XML::LevelItem> m_levelItems;
 	std::vector<XML::Bot> m_bots;
+	std::vector<XML::Item> m_items;
+	std::vector<XML::Weapon> m_weapons;
+	XML::LevelItem m_levelItem;
+	XML::Item m_item;
+	XML::Bot m_bot;
+	XML::Weapon m_weapon;
+	XML::LevelBot m_levelbot;
 	XML::Background m_background;
 	XML::Statusbar m_statusbar;
 	XML::Player m_player;
-
-	/**=m_xml->getLevelBot();
-	=m_xml->getLevelBots();
-	=m_xml->getBot();
-	=m_xml->getItem();
-	=m_xml->getItems();
-	=m_xml->getLevelItem();
-	=m_xml->getWeapon();
-	=m_xml->getWeapons();
-	=m_xml->getBackground();
-	=m_xml->getBots();
-	=m_xml->getLevelItems();
-	=m_xml->getLevelname();
-	=m_xml->getPlayer();*/
-
 	std::vector<int>* m_tiles;        // The 2D tile array
+	int m_typeItem;
+	int m_typeBot;
+	int m_typeTexture;
 	int m_scrollSpeed;
 	int m_index=0;        // Tile id
 	int m_type=0;         // texture type
@@ -93,6 +93,8 @@ private:
 	int m_tileOffset;     // Offset between the tiles
 	int m_levelWidth;     // Level width (in tiles)
 	int m_levelHeight;    // Level height in tiles
+	int m_levelId;
+
 
 
 

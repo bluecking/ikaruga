@@ -31,15 +31,16 @@ XML::XML(std::string xmlFilename)
 //    cout << "ADVANCE FILE : " << advanced_settings << endl;
 //    cout << "PROFILE FILE : " << profile_settings << endl;
 
+    loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
     loadItems(advanced_settings + "items.xml");
-    loadWeapons(advanced_settings + "weapons.xml");
 
     loadProfiles(profile_path);
 
     load();
 }
 
+/** OUT OF ORDER UNTIL REBUILDING
 XML::XML()
 {
     init();
@@ -78,6 +79,7 @@ XML::XML()
     p.fps = 12;
     setPlayer(p);
 }
+**/
 
 void XML::init()
 {
@@ -153,21 +155,7 @@ void XML::load()
                 m_player.hitVolume = v.second.get<int>("hitVolume");
                 m_player.collisionDamage = v.second.get<int>("collisionDamage");
                 m_player.health = v.second.get<int>("health");
-
-                std::string type_tmp = v.second.get<string>("stdWeapon");
-                bool foundType = false;
-                for (auto it = begin(m_weapons); it != end(m_weapons); it++)
-                {
-                    if(type_tmp.compare(it->type)==0)
-                    {
-                        m_player.stdWeapon = *it;
-                        foundType = true;
-                    }
-                }
-                if(false == foundType)
-                {
-                    throw std::domain_error("Found unknown xml tag " + type_tmp + " on level.");
-                }
+                m_player.stdWeapon = getWeaponByName(v.second.get<string>("stdWeapon"));
 
                 m_requiredAttributes["player"]++;
             }
@@ -193,7 +181,7 @@ void XML::load()
                 {
                     if(type_tmp.compare(it->type)==0)
                     {
-                        lBot.type = *it;
+                        lBot.type = (*it);
                         foundType = true;
                     }
                 }
@@ -298,7 +286,7 @@ void XML::loadBots(std::string filename){
                 npc.move_function = v.second.get_child("npc").get_child("move").get<string>("<xmlattr>.function");
                 npc.move_value = v.second.get_child("npc").get <signed int> ("move");
                 npc.speed = v.second.get_child("npc").get <signed int> ("speed");
-                npc.stdWeapon = v.second.get_child("npc").get <string> ("stdWeapon");
+                npc.stdWeapon = getWeaponByName(v.second.get_child("npc").get <string> ("stdWeapon"));
                 bot.npc = npc;
                 m_bots.push_back(bot);
             }
@@ -780,3 +768,24 @@ void XML::saveProfiles(){
         throw std::ios_base::failure("Cannot write file. Is it readonly?");
     }
 };
+XML::Weapon XML::getWeaponByName(std::string weaponName)
+{
+    Weapon foundWeapon;
+
+    bool foundType = false;
+    for (auto weapon : m_weapons)
+    {
+        if(weaponName.compare(weapon.type) == 0)
+        {
+            foundWeapon = weapon;
+            foundType = true;
+        }
+    }
+
+    if(false == foundType)
+    {
+        throw std::domain_error("Found unknown xml tag " + weaponName + " on level.");
+    }
+
+    return foundWeapon;
+}
