@@ -1,18 +1,18 @@
 <profiles>
-    <profile playerName="player1">
-        <actualWeapon name="weapon1"/>
-        <buyedWeapons>
-		<weapon name="weapon1"/>
-		<weapon name="weapon2"/>
-	</buyedWeapons>
+    <profile name="player1">
+        <actualWeapon type="weapon1"/>
+        <boughtWeapons>
+	    <weapon type="weapon1"/>
+	    <weapon type="weapon2"/>
+	</boughtWeapons>
         <boughtPowerUps>
-		<PowerUp name="powerup1"/>
-		<PowerUp name="powerup2"/>
+	    <powerUp type="powerup1"/>
+	    <powerUp type="powerup2"/>
 	</boughtPowerUps>
-        <Highscores>
-		<Highscore xml="level.xml">483204</Highscore>
-		<Highscore xml="level1.xml">214821</Highscore>
-	</Highscores>
+        <highscores>
+	    <highscore filename="level.xml">483204</highscore>
+	    <highscore filename="level1.xml">214821</highscore>
+	</highscores>
 	<money>92932</money>
     </profile>
 </profiles>
