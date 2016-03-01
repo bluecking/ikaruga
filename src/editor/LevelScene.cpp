@@ -135,11 +135,16 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     {
         QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, m_tileWidth, m_tileHeight);
 
+
+
         if (!item_list.empty())
         {
+            x = item_list.first()->x()/m_tileWidth;
+            y = item_list.first()->y()/m_tileHeight;
+
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 1)
             {
-                //std::cout << "remove Bot" << std::endl;
+                std::cout << "remove Bot" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelBots.size(); i++)
                 {
@@ -159,7 +164,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
             if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 2)
             {
-                //std::cout << "remove Item" << std::endl;
+                std::cout << "remove Item" << std::endl;
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelItems.size(); i++)
                 {
@@ -197,14 +202,14 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    //std::cout << "bot added" << std::endl;
+                    std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
 
                     bot.color = m_color;
                     bot.positionX = x * m_tileWidth;
                     bot.positionY = y * m_tileHeight;
-                    bot.powerUpName = "RESTORE_HEALTH";
-                    bot.powerUpProb = 0.50;
+                    bot.powerUpName = m_items[0].type;
+                    bot.powerUpProb = 0.20;
                     bot.type = m_bot;
                     m_levelBots.push_back(bot);
 
@@ -215,7 +220,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
                     m_bot.filename.clear();
-                    //std::cout << "item added" << std::endl;
+                    std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeItem);
@@ -238,6 +243,8 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                 }
                 m_mainWindow->ui->MainView->setScene(this);
             }
+
+            // if item_list is empty
             else
             {
                 ///creates a new Item and update View
@@ -263,13 +270,13 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     item->changeItem(map, rect, m_typeBot);
 
                     m_tiles[y][x] = -1;
-                    //std::cout << "bot added" << std::endl;
+                    std::cout << "bot added" << std::endl;
                     XML::LevelBot bot;
                     bot.color = m_color;
                     bot.positionX = x * m_tileWidth;
                     bot.positionY = y * m_tileHeight;
-                    bot.powerUpName = "RESTORE_HEALTH";
-                    bot.powerUpProb = 0.50;
+                    bot.powerUpName = m_items[0].type;
+                    bot.powerUpProb = 20;
                     bot.type = m_bot;
                     m_levelBots.push_back(bot);
                 }
@@ -278,7 +285,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event) {
                     m_bot.filename.clear();
                     QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
 
-                    //std::cout << "item added" << std::endl;
+                    std::cout << "item added" << std::endl;
                     m_tiles[y][x] = -1;
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     item->changeItem(map, rect, m_typeItem);
