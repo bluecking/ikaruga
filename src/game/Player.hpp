@@ -36,7 +36,13 @@ namespace jumper
          * @param frameHeight	Frame height of the animation frames
          * @param numFrames		Number of frames
          */
-        Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Player(SDL_Renderer* renderer,
+               SDL_Texture* texture,
+               int frameWidth,
+               int frameHeight,
+               int numFrames,
+               int health,
+               int collisionDamage);
 
         /**
          * Moves the player in the given level.
@@ -44,6 +50,8 @@ namespace jumper
          * @param level			A level object
          */
         virtual void move(Level& level);
+
+        virtual void onCollide();
 
         const Vector2f& getMoveDirection() const
         {

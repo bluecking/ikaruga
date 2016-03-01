@@ -5,14 +5,21 @@
 
 #include "Player.hpp"
 #include "Sound.hpp"
+#include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
 
 namespace jumper
 {
-    Player::Player(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames), m_moveDirection(0, 0)
+    Player::Player(SDL_Renderer* renderer,
+                   SDL_Texture* texture,
+                   int frameWidth,
+                   int frameHeight,
+                   int numFrames,
+                   int health,
+                   int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0)
     { }
 
     void Player::move(Level& level)
@@ -54,7 +61,7 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
-            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity()));
+            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity(), this));
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
@@ -78,6 +85,11 @@ namespace jumper
 
         Vector2f direction(1, 0);
         m_weapon->shoot(direction, position());
+    }
+
+    void Player::onCollide()
+    {
+        return;
     }
 
     void Player::updateMoveAnimation()
@@ -140,7 +152,20 @@ namespace jumper
     {
         if(other.type() == ENEMY) {
             setHit(true);
-            takeDamage(500);
+            playHitMark();
+            takeDamage(other.m_collisionDamage);
+            if(getHealth() <= 0) {
+                setKilled(true);
+            }
+        }
+        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        {
+            Projectile* projectile = static_cast<Projectile*>(&other);
+            if (projectile->getOriginActor() != this)
+            {
+                setHit(true);
+                takeDamage(other.m_collisionDamage);
+            }
         }
     }
 

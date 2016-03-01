@@ -154,7 +154,6 @@ namespace jumper
             spawnBots();
 
             scrollHorizontal();
-
             checkCameraCollision();
             checkActorCollision();
 
@@ -248,7 +247,7 @@ namespace jumper
 
         Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
         m_player->setPosition(m_player->position() +
-                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset));
+                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset, m_player));
         Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
     }
 
@@ -296,7 +295,7 @@ namespace jumper
     }
 
     void Game::setSound(std::string soundFile, int volume){
-        m_sound = Sound(soundFile, SoundType::SONG, *m_level);
+        m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
 } /* namespace jumper */

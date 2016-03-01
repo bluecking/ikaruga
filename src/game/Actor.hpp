@@ -55,11 +55,19 @@ namespace jumper
          * @param renderer		A pointer to a SDL renderer struct
          * @param filename		A filename with animation definitions
          */
-        Actor(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        Actor(SDL_Renderer* renderer,
+              SDL_Texture* texture,
+              int frameWidth,
+              int frameHeight,
+              int numFrames,
+              int health,
+              int collisionDamage);
 
         virtual ~Actor();
 
         virtual void move(Level& level) = 0;
+
+        virtual void onCollide() = 0;
 
         virtual Collision getCollision(Actor& other);
 
@@ -147,8 +155,14 @@ namespace jumper
 
         int m_scoreValue = 0;
 
+        void setKilled(bool killed);
+
+        int m_health;
+
+        int m_collisionDamage;
     protected:
 
+        bool m_isKilled;
         //the explosion sound
         Sound m_explosionSound;
 
@@ -170,8 +184,6 @@ namespace jumper
         ColorMode::ColorMode m_color;
 
         Vector2f m_colorOffset;
-
-        int m_health;
 
         SDL_Rect m_hitbox;
 

@@ -4,7 +4,7 @@
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
-        <health>100</health>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
@@ -12,6 +12,7 @@
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="AI">30</move>
             <speed>0</speed>
@@ -23,7 +24,7 @@
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
-        <health>100</health>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
@@ -31,6 +32,7 @@
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN">30</move>
             <speed>0</speed>
@@ -42,7 +44,7 @@
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
-        <health>100</health>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
@@ -50,6 +52,7 @@
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN_UP">30</move>
             <speed>0</speed>
@@ -61,7 +64,7 @@
         <numFrames>5</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
-        <health>100</health>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
@@ -69,6 +72,7 @@
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN_DOWN">30</move>
             <speed>0</speed>
@@ -80,7 +84,7 @@
         <numFrames>4</numFrames>
         <frameWidth>40</frameWidth>
         <frameHeight>40</frameHeight>
-        <health>100</health>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>40</colorOffsetY>
@@ -88,6 +92,7 @@
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="NO_MOVE">30</move>
             <speed>0</speed>
