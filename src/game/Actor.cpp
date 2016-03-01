@@ -202,34 +202,5 @@ namespace jumper
 
         SDL_RenderDrawRect(getRenderer(), &hitbox);
     }
-
-    bool Actor::isHit() const
-    {
-        return m_hit;
-    }
-
-    void Actor::setExplosionSound(std::string explosionSoundFilename)
-    {
-        m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
-    };
-
-    void Actor::setExplosionVolume(int volume) {
-        m_explosionVolume = volume;
-    }
-
-    void Actor::setScoreValue(int value)
-    {
-        m_scoreValue = value;
-    }
-
-    void Actor::setKilled(bool killed) {
-        m_isKilled = killed;
-    }
-
-    bool Actor::isKilled()
-    {
-        return m_isKilled;
-    }
-
 } /* namespace jumper */
 

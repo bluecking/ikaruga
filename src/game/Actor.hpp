@@ -131,7 +131,9 @@ namespace jumper
             m_hit = hit;
         }
 
-        bool isHit() const;
+        bool isHit() const {
+            return m_hit;
+        }
 
         void setLiveTime();
 
@@ -140,18 +142,34 @@ namespace jumper
          *
          * @param explosionSoundFilename the filepath to the explosion sound
          */
-        void setExplosionSound(std::string explosionSoundFilename);
+        void setExplosionSound(std::string explosionSoundFilename)
+        {
+            m_explosionSound = Sound(explosionSoundFilename, SoundType::SOUND);
+        };
 
         /**
          * the explosion of the volume
          *
          * @param volume
          */
-        void setExplosionVolume(int volume);
+        void setExplosionVolume(int volume) {
+            m_explosionVolume = volume;
+        }
 
-        void setScoreValue(int value);
+        void setScoreValue(int value)
+        {
+            m_scoreValue = value;
+        }
 
-        void setKilled(bool killed);
+        void setKilled(bool killed) {
+            m_isKilled = killed;
+        }
+
+        bool isKilled() const
+        {
+            return m_isKilled;
+        }
+
 
         void setHealth(int health)
         {
@@ -171,11 +189,6 @@ namespace jumper
         void setCollisionDamage(int collisionDamage)
         {
             m_collisionDamage = collisionDamage;
-        }
-
-        bool isKilled() const
-        {
-            return m_isKilled;
         }
 
         void setIsKilled(bool isKilled)
