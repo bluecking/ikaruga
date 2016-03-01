@@ -208,59 +208,6 @@ namespace jumper
             bot->setScoreValue(currentBot.type.scorevalue);
             game->addBot(bot);
         }
-
-        /*
-        for (auto it = bots.begin(); it != bots.end(); it++)
-        {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(
-                    filepath + (*it).type.filename);
-            ActorType bot_type;
-
-            //Determine of the Bot is a Boss.
-            if ((*it).type.type.find("BOSS") != std::string::npos)
-            {
-                bot_type = ActorType::BOSS;
-            }
-            else
-            {
-                bot_type = ActorType::ENEMY;
-            }
-            Bot* bot = new Bot(w->getRenderer(),
-                               texture,
-                               (*it).type.frameWidth,
-                               (*it).type.frameHeight,
-                               (*it).type.numFrames,
-                               game,
-                               (*it).type.npc,
-                               (*it).type.health,
-                               (*it).type.collisionDamage,
-                               bot_type);
-            PlayerProperty p;
-            getBotProperty(*it, p);
-            bot->setPhysics(p);
-            bot->setFPS((*it).type.fps);
-
-            // detect color
-            if ((*it).color.compare("black"))
-            {
-                bot->setColor(ColorMode::BLACK);
-            }
-            else if ((*it).color.compare("white"))
-            {
-                bot->setColor(ColorMode::WHITE);
-            }
-            else
-            {
-                bot->setColor(ColorMode::NONE);
-            }
-
-            bot->setColorOffset(Vector2f((*it).type.colorOffsetX, (*it).type.colorOffsetY));
-            bot->setExplosionSound(filepath + (*it).type.explosionSoundFile);
-            bot->setExplosionVolume((*it).type.explosionVolume);
-            bot->setScoreValue((*it).type.scorevalue);
-            game->addBot(bot);
-        }
-         */
     }
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)

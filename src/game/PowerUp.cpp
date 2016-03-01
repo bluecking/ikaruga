@@ -20,7 +20,9 @@ namespace jumper {
 
     void PowerUp::resolveCollision(Actor& other)
     {
-        setHealth(0);
+        if(other.type() == ActorType::PLAYER) {
+            setHealth(0);
+        }
     }
 
     void PowerUp::move(Level& level)
