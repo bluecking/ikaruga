@@ -48,6 +48,8 @@ public:
 	 */
 	virtual void move(Level& level);
 
+	virtual void onCollide();
+
 	/// Destructor.
 	virtual ~Item();
 

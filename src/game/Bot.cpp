@@ -136,6 +136,11 @@ namespace jumper
         m_explosionSound.play(m_explosionVolume);
     }
 
+    void Bot::onCollide()
+    {
+        return;
+    }
+
     Bot::~Bot()
     {
         //TODO ~ Do something fancy here

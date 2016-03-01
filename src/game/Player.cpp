@@ -61,7 +61,7 @@ namespace jumper
                 physics().setVelocity(Vector2f(physics().velocity().x(), -physics().maxRunVelocity() * dt));
             }
 
-            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity()));
+            physics().setVelocity(level.collide(position(), w(), h(), physics().velocity(), this));
 
             // Set new player position
             physics().setPosition(physics().position() + physics().velocity());
@@ -85,6 +85,11 @@ namespace jumper
 
         Vector2f direction(1, 0);
         m_weapon->shoot(direction, position());
+    }
+
+    void Player::onCollide()
+    {
+        return;
     }
 
     void Player::updateMoveAnimation()
