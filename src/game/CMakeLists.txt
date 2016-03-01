@@ -39,7 +39,8 @@ set(JUMPER_SOURCES
         Sound.cpp
 	ItemShop.cpp
 	HighScore.cpp
-	Filesystem.cpp)
+	Filesystem.cpp
+	Profile.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS} xml)
 

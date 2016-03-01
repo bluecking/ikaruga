@@ -6,10 +6,11 @@ ItemShop::ItemShop()
 }
 
 ItemShop* ItemShop::getShop(){
-    if(ItemShop::shop!=NULL)
-        return ItemShop::shop;
-    ItemShop::shop=new ItemShop();
-    return ItemShop::shop;
+    //if(ItemShop::shop!=NULL)
+    //    return ItemShop::shop;
+    //ItemShop::shop=new ItemShop();
+    //return ItemShop::shop;
+    return new ItemShop();
 }
 
 void ItemShop::mainLoop(const Uint8*& currentKeyStates, const bool* keyDown){
@@ -38,13 +39,13 @@ void ItemShop::buyPowerUp(std::string powerUpName){
 }
 
 void ItemShop::payMoney(int money){
-    ItemShop::shop->money-=money;
-    ItemShop::shop->saveMoneyToXML();
+    //ItemShop::shop->money-=money;
+    //ItemShop::shop->saveMoneyToXML();
 }
 
 void ItemShop::addMoney(int money){
-    ItemShop::shop->money+=money;
-    ItemShop::shop->saveMoneyToXML();
+    //ItemShop::shop->money+=money;
+    //ItemShop::shop->saveMoneyToXML();
 }
 
 void ItemShop::saveMoneyToXML(){
