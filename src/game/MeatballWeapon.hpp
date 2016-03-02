@@ -22,23 +22,11 @@ namespace jumper
                     const Vector2f& weaponOffset,
                     const Vector2f& projectileColorOffset,
                     float coolDown,
-                    std::string sound,
-                    int volume,
-                    int collisionDamage,
-                    float speed,
-                    int numFrames);
-
-        /**
-         * Shoots a single projectile in a straight line
-         *
-         * @param direction Direction in which the projectile should move
-         * @param spawnPosition Position where the projectiles should spawn
-         */
-        virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
-
-        int m_volume;
-
-        int m_collisionDamage;
+                       std::string sound,
+                       int volume,
+                       int collisionDamage,
+                       float speed,
+                       int numFrames);
 
     };
 
