@@ -73,7 +73,7 @@ namespace jumper
         void setActualScreen(int ID);
 
         Profile* profile;
-
+        XML* xml;
     private:
 
         /// Initializes all needed SDL resources

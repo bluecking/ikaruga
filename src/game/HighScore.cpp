@@ -1,9 +1,10 @@
 #include "HighScore.hpp"
 
-jumper::HighScore::HighScore(Profile* profile,std::string levelFile)
+jumper::HighScore::HighScore(Profile *profile, std::string levelFile)
 {
     this->levelFile=levelFile;
     this->actualHighscore=0;
+    this->profile=profile;
 }
 
 void jumper::HighScore::addPointsToHighscore(int points){

@@ -124,13 +124,10 @@ namespace jumper
 
         Actor* getLastBoss();
 
-
     protected:
         bool m_bossFight;
 
     private:
-        static HighScore* highscore;
-
         void printStartScreen();
 
         void printEndScreen();
@@ -172,11 +169,14 @@ namespace jumper
         /// The current level
         Level* m_level;
 
+        HighScore* highscore;
+        MainWindow* window;
+
         /// A Layer
         TexturedLayer* m_layer;
 
         /// A score board
-        StatusBar * m_statusBar;
+        StatusBar* m_statusBar;
 
         /// Pointer to the main window of the game
         SDL_Renderer* m_renderer;

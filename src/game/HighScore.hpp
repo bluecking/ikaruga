@@ -5,6 +5,7 @@
 #include "Profile.hpp"
 
 namespace jumper{
+    class Profile;
     /**
      * @brief 	Represents the Highscore of one Level.
      */
@@ -17,7 +18,7 @@ namespace jumper{
          * @param profile where the infos have to be set
          * @param name of the unique levelname where the highscore is needed
          */
-        HighScore(Profile* profile,std::string levelFile);
+        HighScore(Profile* profile, std::string levelFile);
         /**
          * Add points to the Highscore of the level
          *

@@ -33,12 +33,14 @@ namespace jumper
         initSDL();
         this->actRenderID=0;
         std::cout<<resPath.c_str()<<std::endl;
-        XML* xml=new XML(resPath.c_str(),true);
+        xml=new XML(resPath.c_str(),true);
         profile=new Profile(xml);
     }
 
     MainWindow::~MainWindow()
     {
+        delete xml;
+        delete profile;
         quitSDL();
     }
 
@@ -75,9 +77,7 @@ namespace jumper
             //std::cout << actRenderID << std::endl; //Debug Output
             switch(actRenderID){
                 case MainWindow::RENDER_MAINMENU:
-
                     m_menu->update(currentKeyStates, keyDown);
-
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);

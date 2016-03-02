@@ -232,12 +232,13 @@ namespace jumper
 
     void Game::setupGame(string filename, MainWindow* w, Game* game)
     {
+        game->window=w;
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
 
         game->m_explosionAnimation = path+xml.getExplosions();
 
-        highscore=new HighScore(w->profile,xml.getLevelname());
+        game->highscore=new HighScore(&(*(w->profile)),xml.getLevelname());
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -518,6 +519,7 @@ namespace jumper
         printEndScreen();
         m_started = false;
         highscore->saveHighscore();
+        //this->window->setActualScreen(MainWindow::RENDER_MAINMENU);
     }
 
     void Game::scrollHorizontal()
