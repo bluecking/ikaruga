@@ -68,9 +68,9 @@ namespace jumper
         }
 
         // Hit with enemy
-        if (other.type() == ENEMY)
+        if (other.type() == ENEMY || other.type() == BOSS)
         {
-            if (m_originActor->type() == ENEMY)
+            if (m_originActor->type() == ENEMY || other.type() == BOSS)
             {
                 return;
             }

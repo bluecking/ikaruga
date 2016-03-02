@@ -7,9 +7,11 @@
 
 #include "PowerUpHeal.hpp"
 
-namespace jumper {
+namespace jumper
+{
     PowerUpHeal::PowerUpHeal(
-            SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames) : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames)
+            SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+            : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames)
     {
     }
 

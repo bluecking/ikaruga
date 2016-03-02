@@ -40,7 +40,6 @@ XML::XML(std::string xmlFilename)
     load();
 }
 
-/** OUT OF ORDER UNTIL REBUILDING
 XML::XML()
 {
     init();
@@ -79,7 +78,6 @@ XML::XML()
     p.fps = 12;
     setPlayer(p);
 }
-**/
 
 void XML::init()
 {
@@ -330,6 +328,8 @@ void XML::loadItems(std::string filename){
                 i.filename = v.second.get<string>("filename");
                 i.frameWidth = v.second.get<int>("frameWidth");
                 i.frameHeight = v.second.get<int>("frameHeight");
+                i.fps = v.second.get<int>("fps");
+                i.numFrames = v.second.get<int>("numFrames");
                 i.health = v.second.get<int>("health");
                 i.collisionDamage = v.second.get<int>("collisionDamage");
                 m_items.push_back(i);
@@ -519,6 +519,7 @@ void XML::save()
     ptree root;
     ptree level;
     ptree tileset;
+    ptree explosions;
     ptree background;
     ptree player;
     ptree statusbar;
@@ -531,6 +532,11 @@ void XML::save()
     tileset.put("<xmlattr>.filename", m_tileset);
 
     level.add_child("tileset", tileset);
+
+    /* Adding Explosions */
+    explosions.put("<xmlattr>.filename", m_explosions);
+
+    level.add_child("explosions", explosions);
 
     /* Adding Background */
     background.put("<xmlattr>.filename", m_background.filename);

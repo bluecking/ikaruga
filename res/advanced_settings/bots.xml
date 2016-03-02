@@ -113,8 +113,8 @@
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
         <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="AI">30</move>
+        <npc type="BOSS">
+            <move function="CIRCLE">30</move>
             <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
@@ -133,8 +133,8 @@
         <explosionVolume>150</explosionVolume>
         <scoreValue>1000</scoreValue>
         <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="AI">30</move>
+        <npc type="BOSS">
+            <move function="CIRCLE">30</move>
             <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>

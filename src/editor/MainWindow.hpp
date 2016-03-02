@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
-#include "ui_LevelView.h"
+#include "LevelView.h"
 #include "QFileDialog"
 #include "LevelScene.hpp"
 #include <QList>
@@ -26,7 +26,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
 		void resetPower();
 
 		Ui::MainWindow *ui;
-	private slots:
+	private Q_SLOTS:
         void on_action_oeffnen_triggered();
         void on_actionSpeichern_triggered();
         void on_actionSpeichern_unter_triggered();

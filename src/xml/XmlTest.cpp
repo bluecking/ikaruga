@@ -67,7 +67,9 @@ int main(int argc, char** argv)
         cout << "Item - type: " << m_xml.getItem(i).type << endl
             << "Item - filename: " << m_xml.getItem(i).filename << endl
             << "Item - frameHeight: " << m_xml.getItem(i).frameHeight << endl
-            << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl << endl;
+            << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl << endl
+            << "Item - numFrames: " << m_xml.getItem(i).numFrames << endl << endl
+            << "Item - fps: " << m_xml.getItem(i).fps << endl << endl;
     }
 
     for(int i=0;i<(int) m_xml.botSize();i++) {
@@ -85,7 +87,7 @@ int main(int argc, char** argv)
             << "Bot - NPC - move_function: " << m_xml.getBot(i).npc.move_function << endl
             << "Bot - NPC - move_value: " << m_xml.getBot(i).npc.move_value << endl
             << "Bot - NPC - speed: " << m_xml.getBot(i).npc.speed << endl
-            << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon << endl << endl;
+            << "Bot - NPC - stdWeapon: " << m_xml.getBot(i).npc.stdWeapon.type << endl << endl;
     }
 
     for(int i=0;i<(int) m_xml.weaponSize();i++) {
