@@ -59,7 +59,7 @@ namespace jumper
                 {
                     m_rectSource.x = m_textLine[k].x();
                     m_rectSource.y = m_textLine[k].y();
-                    int offset = 0;std::cout << "mpos: " << m_pos << std::endl;
+                    int offset = 0;
                     if(m_pos == i)
                     {
                         offset = m_tileWidth;

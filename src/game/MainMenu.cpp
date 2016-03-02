@@ -25,16 +25,23 @@ namespace jumper
         m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
                 m_resDir.string() + "/images/font_blue_20x20.png"); //TODO make dynamic
 
-        RenderTable m_table(m_win->getRenderer(), m_normalFontTexture, 20,
-                            20); //TODO static tile height&width -> make dynamic
-
+        m_table = RenderTable(m_win->getRenderer(), m_normalFontTexture, 20,
+                              20); //TODO static tile height&width -> make dynamic
         prepareTable();
+        m_table.setStringProperties(2, 1, 0, m_tableText);
+        RenderTable::tableProperties tableProps;
+        tableProps.positionX = 50;
+        tableProps.positionY = 120;
+        tableProps.width = 200;
+        tableProps.height = 100;
+        m_table.setTableProperties(tableProps);
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
         if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
         {
+            //Render background
             m_offset.setX(0.005f);
             m_offset.setY(0.005f);
             m_layer->setScrollSpeed(100.0f);
@@ -42,23 +49,15 @@ namespace jumper
 
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
-            //TODO display menu
 
-
-            m_table.setStringProperties(2, 1, 0, m_tableText);
-            RenderTable::tableProperties tableProps;
-            tableProps.positionX = 50;
-            tableProps.positionY = 120;
-            tableProps.width = 200;
-            tableProps.height = 100;
-            m_table.setTableProperties(tableProps);
-
-
-            if (keyDown[SDL_SCANCODE_UP]) {
+            //Render table
+            if (keyDown[SDL_SCANCODE_UP])
+            {
                 m_table.increase();
             }
 
-            if (keyDown[SDL_SCANCODE_DOWN]) {
+            if (keyDown[SDL_SCANCODE_DOWN])
+            {
                 m_table.decrease();
             }
             m_table.render();
@@ -82,10 +81,10 @@ namespace jumper
             try
             {
                 XML m_tmp(m_levelFiles[i].string());
-                m_tableText.resize(m_tableText.size()+1);
+                m_tableText.resize(m_tableText.size() + 1);
                 m_levelId_and_path.insert(std::pair<int, boost::filesystem::path>(m_tmp.getId(), m_levelFiles[i]));
-                m_tableText[m_tableText.size()-1].resize(1);
-                m_tableText[m_tableText.size()-1][0] = m_tmp.getLevelname();
+                m_tableText[m_tableText.size() - 1].resize(1);
+                m_tableText[m_tableText.size() - 1][0] = m_tmp.getLevelname();
             }
             catch (...)
             {
