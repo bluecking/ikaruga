@@ -10,6 +10,7 @@
 #include "CollisionManager.hpp"
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
+#include "FontRender.hpp"
 
 #include <set>
 
@@ -142,7 +143,7 @@ namespace jumper
 
             // Determine of the bot is a boss
             ActorType bot_type;
-            if (currentBot.type.type.find("BOSS")!=std::string::npos)
+            if (currentBot.type.npc.type=="BOSS")
             {
                 bot_type = ActorType::BOSS;
             } else
@@ -212,16 +213,17 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for(auto it = items.begin(); it != items.end(); ++it) {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + it->type.filename);
+        for(auto item : items) {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
 
             PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
                             texture,
-                            it->type.frameWidth,
-                            it->type.frameHeight,
-                            1);
+                            item.type.frameWidth,
+                            item.type.frameHeight,
+                            item.type.numFrames);
+            powerUp->setFPS(item.type.fps);
 
-            Vector2f pos = Vector2f(it->positionX, it->positionY);
+            Vector2f pos = Vector2f(item.positionX, item.positionY);
             powerUp->setPosition(pos);
 
             game->addActor(powerUp);
@@ -299,7 +301,7 @@ namespace jumper
                 addActor(*it);
                 if ((*it)->type() == ActorType::BOSS)
                 {
-                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w() / 3)));
+                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w())));
                     //setBossFightAt((int) (*it)->position().x() - (*it)->w());
                     setBossFight(true);
                 }
@@ -408,16 +410,6 @@ namespace jumper
                 checkActorCollision();
             }
 
-            if (m_bossFight)
-            {
-                m_statusBar->setBossHealth(m_boss_health);
-            }
-            else
-            {
-                m_statusBar->setBossHealth(0);
-            }
-
-
             SDL_RenderClear(m_renderer);
 
             if (m_layer)
@@ -515,7 +507,14 @@ namespace jumper
 
     void Game::start()
     {
+        printStartScreen();
         m_started = true;
+    }
+
+    void Game::end()
+    {
+        printEndScreen();
+        m_started = false;
     }
 
     void Game::scrollHorizontal()
@@ -564,8 +563,8 @@ namespace jumper
 
         for (auto actor : to_remove)
         {
-            removeActor(actor);
             setActorOptionsOnKill(actor);
+            removeActor(actor);
 
             // Clear player pointer member variable before destructing player,
             // so the game update loop can handle the despawn of the player
@@ -602,10 +601,57 @@ namespace jumper
                     actor->playExplosionSound();
                 }
             }
-
         }
-        if ( actor->type() == ActorType::PLAYER) {
+        //End When Player is Dead
+        if ( actor->type() == ActorType::PLAYER)
+        {
             actor->playExplosionSound();
+            end();
+        }
+        if(actor->type() == ActorType::BOSS)
+        {
+            if(actor == getLastBoss()){
+                end();
+            }
+        }
+
+    }
+
+    Actor* Game::getLastBoss() {
+        //m_bots und m_actors durchgehen
+        int xOfLastBoss = 0;
+        Actor* lastBoss;
+        for(auto bot : m_bots)
+        {
+            if(bot->type() == ActorType::BOSS)
+            {
+                if(xOfLastBoss < bot->position().x())
+                {
+                    xOfLastBoss = bot->position().x();
+                    lastBoss = bot;
+                }
+            }
+        }
+        if(xOfLastBoss == 0)
+        {
+            for(auto bot : m_actors)
+            {
+                if(bot->type() == ActorType::BOSS)
+                {
+                    if(xOfLastBoss < bot->position().x())
+                    {
+                        xOfLastBoss = bot->position().x();
+                        lastBoss = bot;
+                    }
+                }
+            }
+        }
+        if(xOfLastBoss == 0)
+        {
+            return NULL;
+        } else
+        {
+            return lastBoss;
         }
     }
 
@@ -615,12 +661,9 @@ namespace jumper
         m_volume = volume;
     }
 
+
     void Game::setBossFight(bool bossfight)
     {
-        if (m_bossFight == true && bossfight)
-        {
-            cout << "Bossfight has ended";
-        }
         m_bossFight = bossfight;
 
     }
@@ -630,9 +673,11 @@ namespace jumper
         if (!getBossFight())
         {
             scrollHorizontal();
+            m_statusBar->setBossHealth(0);
         }
         else
         {
+            m_statusBar->setBossHealth(m_boss_health);
             if ((int) Renderable::m_camera.position().x() < getBossFightAt())
             {
                 scrollHorizontal();
@@ -659,6 +704,16 @@ namespace jumper
     void Game::setBossHealth(int health)
     {
         m_boss_health = health;
+    }
+
+    void Game::printStartScreen()
+    {
+        //TODO ~ Implement
+    }
+
+    void Game::printEndScreen()
+    {
+        //TODO ~ Implement
     }
 
 } /* namespace jumper */

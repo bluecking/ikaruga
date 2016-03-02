@@ -39,7 +39,7 @@ void KillAnimation::move(Level& level)
 	{
         nextFrame();
         //this will kill the animation once it has played fully
-		if(m_currentFrame == 3)
+		if(m_currentFrame == m_numFrames -1)
 		{
 			m_health = 0;
 		}

@@ -49,6 +49,10 @@ namespace jumper
         {
             m_move_type = BotType::AI;
         }
+        else if (npc.move_function == "CIRCLE")
+        {
+            m_move_type = BotType::CIRCLE;
+        }
         else
         {
             m_move_type = BotType::NO_MOVE;
@@ -78,14 +82,20 @@ namespace jumper
             case BotType::SIN:
             case BotType::SIN_UP:
             case BotType::SIN_DOWN:
+            case BotType::CIRCLE:
             {
                 if (dt > 0)
                 {
+                    d_move.setX(m_npc.speed);
 
                     switch (m_move_type)
                     {
                         case BotType::SIN:
                             d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
+                            break;
+                        case BotType::CIRCLE:
+                            d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
+                            d_move.setX(-cos(M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_UP:
 
@@ -95,7 +105,7 @@ namespace jumper
                             d_move.setY(-cos(-M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                     }
-                    d_move.setX(m_npc.speed);
+
                     physics().setPosition(physics().position() + d_move * dt);
                 }
                 break;
