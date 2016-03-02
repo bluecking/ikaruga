@@ -383,6 +383,8 @@ void XML::loadWeapons(std::string filename){
                 w.cooldown = v.second.get<float>("cooldown");
                 w.shootingVolume = v.second.get<int>("projectileVolume");
                 w.collisionDamage = v.second.get<int>("collisionDamage");
+                w.speed = v.second.get<float>("speed");
+                w.numFrames = v.second.get<int>("numFrames");
                 m_weapons.push_back(w);
             }
             else
