@@ -29,8 +29,6 @@ namespace jumper
 
         void setTableProperties(tableProperties properties);
 
-        void showTable(tableProperties properties);
-
     private:
         SDL_Renderer* m_renderer;
         SDL_Texture* m_texture;
@@ -45,6 +43,7 @@ namespace jumper
         SDL_Rect m_rectSource;
         SDL_Rect m_rectTarget;
         bool m_stringPropertiesSet;
+        bool m_tablePropertiesSet;
     public:
         virtual void render();
     };

@@ -36,9 +36,11 @@ namespace jumper
             //TODO display menu
             RenderTable table(m_win->getRenderer(), m_normalFontTexture, 40, 40); //TODO static tile height&width -> make dynamic
             std::vector<std::vector<std::string>> m_tableText;
-            m_tableText.resize(1);
+            m_tableText.resize(2);
             m_tableText[0].resize(1);
+            m_tableText[1].resize(1);
             m_tableText[0][0] = "First";
+            m_tableText[1][0] = "Second";
             table.setStringProperties(2, 1, 0, m_tableText);
             RenderTable::tableProperties tableProps;
             tableProps.positionX = 50;
