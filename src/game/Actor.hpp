@@ -239,11 +239,6 @@ namespace jumper
 
         //Explosion Volume
         int m_explosionVolume;
-
-        /**
-         * returns whether or not a texture flip is necessary
-         */
-        virtual SDL_RendererFlip getFlip();
     private:
         /** The hitbox size is reduced to this factor */
         const float HITBOXFACTOR = 0.8;

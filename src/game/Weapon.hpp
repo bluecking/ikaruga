@@ -18,14 +18,7 @@ namespace jumper
     class Game;
 
     class Actor;
-    namespace WeaponType {
-        enum WeaponType {
-            LASER_GUN,
-            BLASTER,
-            ROCKET,
-            NONE
-        };
-    }
+
     /**
      * @brief Absract class for weapons. Handles basic functionality like weapon cool down.
      */
@@ -53,9 +46,7 @@ namespace jumper
                const Vector2f& projectileColorOffset,
                float coolDown,
                string name,
-               int evolution,
-               float speed,
-               int numFrames);
+               int evolution);
 
         virtual ~Weapon();
 
@@ -123,10 +114,6 @@ namespace jumper
 
         //Evlolution Stage of Weapon
         int m_evolution;
-
-        float m_speed;
-
-        int m_numFrames;
     };
 } /* namespace jumper */
 

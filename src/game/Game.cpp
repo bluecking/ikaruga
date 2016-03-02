@@ -86,9 +86,10 @@ namespace jumper
     }
 
     //create Player
-    void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath) {
-        SDL_Texture *texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
-        Player *player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight,
+    void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
+    {
+        SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
+        Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight,
                                     xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
@@ -96,68 +97,24 @@ namespace jumper
 
         // set weapon
         XML::Weapon weapon = xplayer.stdWeapon;
-        Vector2i *textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
-        Vector2f *weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
-        Vector2f *projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
         float coolDown = weapon.cooldown;
-        SDL_Texture *weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + weapon.filename);
 
-        // Set the right weapon for player
-        if (xplayer.stdWeapon.type.compare("LASER_GUN") == 0)
-        {
-            player->setWeapon(
-                    new LaserWeapon(*game,
-                                    *player,
-                                    weaponTexture,
-                                    *textureSize,
-                                    *weaponOffset,
-                                    *projectileColorOffset,
-                                    coolDown,
-                                    filepath + weapon.soundfile,
-                                    weapon.shootingVolume,
-                                    weapon.collisionDamage,
-                                    weapon.speed,
-                                    weapon.numFrames));
-        }
-        else
-        {
-            if (xplayer.stdWeapon.type.compare("BLASTER") == 0)
-            {
-                player->setWeapon(
-                        new BlasterWeapon(*game,
-                                        *player,
-                                        weaponTexture,
-                                        *textureSize,
-                                        *weaponOffset,
-                                        *projectileColorOffset,
-                                        coolDown,
-                                        filepath + weapon.soundfile,
-                                        weapon.shootingVolume,
-                                        weapon.collisionDamage,
-                                        weapon.speed,
-                                        weapon.numFrames));
-            }
-            else
-            {
-                if (xplayer.stdWeapon.type.compare("ROCKET") == 0)
-                {
-                    player->setWeapon(
-                            new RocketWeapon(*game,
-                                            *player,
-                                            weaponTexture,
-                                            *textureSize,
-                                            *weaponOffset,
-                                            *projectileColorOffset,
-                                            coolDown,
-                                            filepath + weapon.soundfile,
-                                            weapon.shootingVolume,
-                                            weapon.collisionDamage,
-                                            weapon.speed,
-                                            weapon.numFrames));
-                }
-            }
-        }
+        player->setWeapon(
+                new LaserWeapon(*game,
+                                *player,
+                                weaponTexture,
+                                *textureSize,
+                                *weaponOffset,
+                                *projectileColorOffset,
+                                coolDown,
+                                filepath + weapon.soundfile,
+                                weapon.shootingVolume,
+                                weapon.collisionDamage));
 
 
         game->setPlayer(player);
@@ -189,8 +146,7 @@ namespace jumper
             if (currentBot.type.npc.type=="BOSS")
             {
                 bot_type = ActorType::BOSS;
-            }
-            else
+            } else
             {
                 bot_type = ActorType::ENEMY;
             }
@@ -211,86 +167,26 @@ namespace jumper
             bot->setFPS(currentBot.type.fps);
 
             // detect Weapon
-            Vector2i* textureSize = new Vector2i(currentBot.type.npc.stdWeapon.frameWidth, currentBot.type.npc.stdWeapon.frameHeight);
-            Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
-            Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
-            float coolDown = currentBot.type.npc.stdWeapon.cooldown;
-            SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-                    filepath + currentBot.type.npc.stdWeapon.filename);
-
-            // Set the right weapon for bot
             if (currentBot.type.npc.stdWeapon.type.compare("LASER_GUN") == 0)
             {
-                bot->setWeapon(
-                        new LaserWeapon(*game,
-                                        *bot,
-                                        weaponTexture,
-                                        *textureSize,
-                                        *weaponOffset,
-                                        *projectileColorOffset,
-                                        coolDown,
-                                        filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                        currentBot.type.npc.stdWeapon.shootingVolume,
-                                        currentBot.type.npc.stdWeapon.collisionDamage,
-                                        currentBot.type.npc.stdWeapon.speed,
-                                        currentBot.type.npc.stdWeapon.numFrames));
-            }
-            else
-            {
-                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0)
-                {
-                    bot->setWeapon(
-                            new BlasterWeapon(*game,
-                                              *bot,
-                                              weaponTexture,
-                                              *textureSize,
-                                              *weaponOffset,
-                                              *projectileColorOffset,
-                                              coolDown,
-                                              filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                              currentBot.type.npc.stdWeapon.shootingVolume,
-                                              currentBot.type.npc.stdWeapon.collisionDamage,
-                                              currentBot.type.npc.stdWeapon.speed,
-                                              currentBot.type.npc.stdWeapon.numFrames));
-                }
-                else
-                {
-                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0)
-                    {
-                        bot->setWeapon(
-                                new RocketWeapon(*game,
-                                                 *bot,
-                                                 weaponTexture,
-                                                 *textureSize,
-                                                 *weaponOffset,
-                                                 *projectileColorOffset,
-                                                 coolDown,
-                                                 filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                                 currentBot.type.npc.stdWeapon.shootingVolume,
-                                                 currentBot.type.npc.stdWeapon.collisionDamage,
-                                                 currentBot.type.npc.stdWeapon.speed,
-                                                 currentBot.type.npc.stdWeapon.numFrames));
-                    }
-                    else
-                    {
-                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL") == 0)
-                        {
-                            bot->setWeapon(
-                                    new MeatballWeapon(*game,
-                                                     *bot,
-                                                     weaponTexture,
-                                                     *textureSize,
-                                                     *weaponOffset,
-                                                     *projectileColorOffset,
-                                                     coolDown,
-                                                     filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                                     currentBot.type.npc.stdWeapon.shootingVolume,
-                                                     currentBot.type.npc.stdWeapon.collisionDamage,
-                                                     currentBot.type.npc.stdWeapon.speed,
-                                                     currentBot.type.npc.stdWeapon.numFrames));
-                        }
-                    }
-                }
+                Vector2i* textureSize = new Vector2i(currentBot.type.npc.stdWeapon.frameWidth, currentBot.type.npc.stdWeapon.frameHeight);
+                Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
+                Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
+                float coolDown = currentBot.type.npc.stdWeapon.cooldown;
+                SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                        filepath + currentBot.type.npc.stdWeapon.filename);
+
+                LaserWeapon* weapon = new LaserWeapon(*game,
+                                                      *bot,
+                                                      weaponTexture,
+                                                      *textureSize,
+                                                      *weaponOffset,
+                                                      *projectileColorOffset,
+                                                      coolDown,
+                                                      filepath + currentBot.type.npc.stdWeapon.soundfile,
+                                                      currentBot.type.npc.stdWeapon.shootingVolume,
+                                                      currentBot.type.npc.stdWeapon.collisionDamage);
+                bot->setWeapon(weapon);
             }
 
             // detect color

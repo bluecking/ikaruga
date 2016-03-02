@@ -20,8 +20,7 @@ namespace jumper
                    int frameWidth,
                    int frameHeight,
                    int numFrames,
-                   int collisionDamage,
-                   float speed);
+                   int collisionDamage);
 
         Actor* getOriginActor() const
         { return m_originActor; }
@@ -49,17 +48,11 @@ namespace jumper
          */
         void resolveCollision(Actor& other);
 
-        /**
-         * returns whether or not a texture flip is necessary
-         */
-        virtual SDL_RendererFlip getFlip();
-
         virtual SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;
         bool m_launched;
         int m_collisionDamage;
-        float m_speed;
     private:
         Vector2f m_lastPosition = 0;
         Actor* m_originActor;
