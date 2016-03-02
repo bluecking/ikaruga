@@ -189,13 +189,33 @@
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>30</colorOffsetY>
         <fps>19</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionSoundFile>../sounds/horse_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>50</scoreValue>
         <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="AI">30</move>
-            <speed>0</speed>
+            <speed>-2</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_NYAN">
+        <filename>../images/bot_nyancat_48x21.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>48</frameWidth>
+        <frameHeight>21</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>21</colorOffsetY>
+        <fps>21</fps>
+        <explosionSoundFile>../sounds/nyan_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>-2</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
