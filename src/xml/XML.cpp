@@ -29,8 +29,8 @@ XML::XML(std::string resPath, bool noLevel)
 
     profile_path = profile_path.append("/profiles/profiles.xml");
 
-    cout << "ADVANCE FILE : " << advanced_settings << endl;
-    cout << "PROFILE FILE : " << profile_path << endl;
+//    cout << "ADVANCE FILE : " << advanced_settings << endl;
+//    cout << "PROFILE FILE : " << profile_path << endl;
 
     loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
