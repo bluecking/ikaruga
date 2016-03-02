@@ -36,6 +36,7 @@ public:
 	void setNull();
 	void setId(int id);
 	void setLevelName(QString levelName);
+	void setBackgroundSize(int levelWidth);
 	QString toQString(std::string string);
 	QPixmap* getPixmap();
 
@@ -46,6 +47,7 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
 
 private:
+	void setSceneRect();
 
     QRect m_rect;									// last copied rect
     QPixmap* m_pixmap;   							// A QPixmap to store the tile bitmap
@@ -54,6 +56,7 @@ private:
 	QString m_levelName;							// name of .lvl file
 	QString m_imgTexture; 							// path of the tile texture
 	QString m_imgBackground;						// path of the background texture
+	QString m_imgExplosion;                         // path of the explosion texture
 	QString m_imgStatusbar;							// path of the statusbar texture
 	QString m_imgPlayer;							// path of the player texture
 	QString m_xmlLevelName;							// name of the level
@@ -70,7 +73,9 @@ private:
 	XML::Background m_background;					// background properties for xml file
 	XML::Statusbar m_statusbar;						// statusbar properties for the xml file
 	XML::Player m_player;							// player properties for the xml file
-	std::vector<int>* m_tiles;        				// The 2D tile array
+    std::vector<int>* m_tiles;        				// The 2D tile array
+    QGraphicsItemGroup* m_backgroundGroupe;         // background layer
+    int m_typeBackground;							// int for background type
 	int m_typeItem;									// int for item type
 	int m_typeBot;									// int for bot type
 	int m_typeTexture;								// int for texture type
@@ -85,6 +90,9 @@ private:
 	int m_levelWidth;                               // Level width in tiles
 	int m_levelHeight;                              // Level height in tiles
 	int m_levelId;                                  // Level id
+	int m_backgroundHeight;							// background tile height
+	int m_backgroundWidth;							// backgoround tile Width
+
 
 
 

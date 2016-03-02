@@ -16,6 +16,27 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) ,ui(new Ui::Ma
     ui->level_size->setMinimum(10);
     ui->level_size->setMaximum(10000);
     ui->level_size->setValue(300);
+
+
+    /**this->setStyle(QStyleFactory::create("Fusion"));
+    QPalette darkPalette;
+    darkPalette.setColor(QPalette::Window, QColor(53,53,53));
+    darkPalette.setColor(QPalette::WindowText, Qt::white);
+    darkPalette.setColor(QPalette::Base, QColor(25,25,25));
+    darkPalette.setColor(QPalette::AlternateBase, QColor(53,53,53));
+    darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+    darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+    darkPalette.setColor(QPalette::Text, Qt::white);
+    darkPalette.setColor(QPalette::Button, QColor(53,53,53));
+    darkPalette.setColor(QPalette::ButtonText, Qt::white);
+    darkPalette.setColor(QPalette::BrightText, Qt::red);
+    darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+
+    this->setPalette(darkPalette);
+    this->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+     */
 }
 
 MainWindow::~MainWindow()
@@ -58,9 +79,10 @@ void MainWindow::openLast(QAction *action){
 
 void MainWindow::openFile(QString sFile)
 {
-    //std::cout<<"Open: "<<sFile.toStdString()<<std::endl;
 
     QFile fFile(sFile);
+    QFileInfo info(fFile);
+    sFile=info.absoluteFilePath();
     this->openedFile=sFile;
     QFileInfo fileInfo(fFile.fileName());
     QString filename(fileInfo.fileName());
@@ -68,7 +90,6 @@ void MainWindow::openFile(QString sFile)
     {
         this->lastOpenedFiles.insert(filename,sFile);
         ui->menuZuletzt_geoeffnet->addAction(new QAction(filename,ui->menuZuletzt_geoeffnet));
-
     }
     else
     {
@@ -79,7 +100,6 @@ void MainWindow::openFile(QString sFile)
         do
         {
             tmp = this->lastOpenedFiles.value(filename, NULL);
-
             if (tmp == NULL) {
                 this->lastOpenedFiles.insert(fName, sFile);
                 ui->menuZuletzt_geoeffnet->addAction(new QAction(fName, ui->menuZuletzt_geoeffnet));
@@ -87,7 +107,7 @@ void MainWindow::openFile(QString sFile)
             }
             else {
                 if (tmp == sFile)break;
-                else fName = filename + " (" + QString::number(i) + ")";
+                else{ fName = filename + " (" + QString::number(i) + ")";i++;}
             }
         }while(true);
     }
@@ -103,7 +123,6 @@ void MainWindow::saveFile(QString sFile)
 {
     if(this->openedFile!="")
     {
-        //std::cout<<"Save: "<<sFile.toStdString()<<std::endl;
         scene->saveXml(sFile);
     }
 }
@@ -159,7 +178,10 @@ void MainWindow::on_actionNeu_triggered()
             result+=".xml";
         }
 
+
         this->openFile(QDir::currentPath()+"/../res/levels/"+result);
+        //this->openFile("/home/johann/cpp_Praktikum/praktikum1/res/levels/"+result);
+
     }
 }
 

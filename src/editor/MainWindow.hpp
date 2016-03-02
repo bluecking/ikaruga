@@ -3,6 +3,7 @@
 #include "LevelView.h"
 #include "QFileDialog"
 #include "LevelScene.hpp"
+#include <QStyleFactory>
 #include <QList>
 #include <QMap>
 #include <QInputDialog>
@@ -11,6 +12,7 @@
 #include <QListWidgetItem>
 #include <QMouseEvent>
 #include <iostream>
+#include <QRegExp>
 
 class LevelScene;
 class MainWindow : public QMainWindow, public Ui::MainWindow{
