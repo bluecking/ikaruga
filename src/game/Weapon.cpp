@@ -29,8 +29,9 @@ namespace jumper
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
               m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution),
-              m_collisionDamage(collisionDamage), m_sound(Sound(sound, SoundType::SOUND)),
-              m_volume(volume), m_evolutionScale(evolutionScale)
+              m_sound(Sound(sound, SoundType::SOUND)),
+              m_volume(volume), m_collisionDamage(collisionDamage),
+              m_evolutionScale(evolutionScale)
     {
 
     }

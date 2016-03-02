@@ -135,14 +135,14 @@ namespace jumper
         //Evolution Stage of Weapon
         int m_evolution;
 
+        // The sound, the Weapon should make
+        Sound m_sound;
+
         // Volume
         int m_volume;
 
         // Damage when colliding
         int m_collisionDamage;
-
-        // The sound, the Weapon should make
-        Sound m_sound;
 
         // Scale of projectiles with evolution
         int m_evolutionScale;
