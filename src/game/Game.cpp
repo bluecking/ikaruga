@@ -225,7 +225,7 @@ namespace jumper
                         texture,
                         it->type.frameWidth,
                         it->type.frameHeight,
-                        1);
+                        it->type.numFrames);
 
                 powerUp->setExpirationTime(10);
             }
@@ -235,7 +235,7 @@ namespace jumper
                         texture,
                         it->type.frameWidth,
                         it->type.frameHeight,
-                        1);
+                        it->type.numFrames);
             }
 
             Vector2f pos = Vector2f(it->positionX, it->positionY);
