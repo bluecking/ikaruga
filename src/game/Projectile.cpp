@@ -15,9 +15,10 @@ namespace jumper
                            int frameWidth,
                            int frameHeight,
                            int numFrames,
-                           int collisionDamage)
+                           int collisionDamage,
+                           float speed)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage),
-              m_launched(false), m_originActor(0)
+              m_launched(false), m_originActor(0), m_speed(speed)
     {
         m_hitbox.h = frameHeight;
         m_collisionDamage = collisionDamage;
@@ -36,10 +37,11 @@ namespace jumper
 
     void Projectile::move(Level& level)
     {
+        nextFrame();
         m_lastPosition = position();
 
         // Calculate movement of projectile
-        Vector2f movement = m_direction * 1000 * getElapsedTime();
+        Vector2f movement = m_direction * m_speed * getElapsedTime();
 
         // Check collision with tiles
         level.collide(position(), w(), h(), movement, this);
@@ -56,40 +58,31 @@ namespace jumper
 
     void Projectile::resolveCollision(Actor& other)
     {
-        // TODO: Check if this projectile was shot by player or enemy
 
-        if (other.type() == PROJECTILE)
+        if ((m_originActor->type() == PLAYER && (other.type() == ENEMY || other.type() == BOSS)) ||
+            ((m_originActor->type() == ENEMY || m_originActor->type() == BOSS) && other.type() == PLAYER))
         {
-            return;
+            m_health = 0;
         }
-
-        // Hit with player
-        if (other.type() == PLAYER)
-        {
-            if (m_originActor->type() == PLAYER)
-            {
-                return;
-            }
-        }
-
-        // Hit with enemy
-        if (other.type() == ENEMY || other.type() == BOSS)
-        {
-            if (m_originActor->type() == ENEMY || other.type() == BOSS)
-            {
-                return;
-            }
-        }
-
-        // Kill projectile when it was hit with something
-        m_health = 0;
     }
 
-        void Projectile::onCollide()
-        {
-            // Kill projectile when colliding with a tile
-            m_health = 0;
+    void Projectile::onCollide()
+    {
+        // Kill projectile when colliding with a tile
+        m_health = 0;
 
             return;
         }
+
+    SDL_RendererFlip Projectile::getFlip()
+    {
+        if (m_direction.x() > 0)
+        {
+            // No flip necessary shooting backwards
+            return SDL_FLIP_NONE;
+        }
+
+        // flip texture horizontally if shooting forwards
+        return SDL_FLIP_HORIZONTAL;
+    }
 }

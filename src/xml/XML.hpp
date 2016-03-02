@@ -31,6 +31,8 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+        float speed;
+        int numFrames;
     };
 
     struct NPC{
@@ -95,6 +97,8 @@ public:
         std::string filename;
         int frameWidth;
         int frameHeight;
+        int fps;
+        int numFrames;
         int health;
         int collisionDamage;
     };
@@ -133,6 +137,13 @@ public:
         int money;
     };
 
+
+    /**
+     * This constructor loads the settings files and profiles
+     * @param resPath Path to the res-Directory
+     * @param noLevel Bool if the given string points to the resPath or to a level xml file
+     */
+    XML(std::string resPath, bool noLevel);
 
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.
@@ -473,7 +484,19 @@ public:
      */
     void saveProfiles();
 
+    /**
+     * Get the explosion image filename
+     * @return string with the explosion image filename
+     */
     std::string getExplosions();
+
+    /**
+     * Set the explosion image filename
+     * @param filename Path to the explosion image file
+     */
+    void setExplosions(std::string filename){
+        m_explosions = filename;
+    }
 
 private:
     /* XML Filename */

@@ -24,7 +24,9 @@ namespace jumper
                     float coolDown,
                     std::string sound,
                     int volume,
-                    int collisionDamage);
+                    int collisionDamage,
+                    float speed,
+                    int numFrames);
 
     };
 

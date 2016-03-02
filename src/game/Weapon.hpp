@@ -18,7 +18,14 @@ namespace jumper
     class Game;
 
     class Actor;
-
+    namespace WeaponType {
+        enum WeaponType {
+            LASER_GUN,
+            BLASTER,
+            ROCKET,
+            NONE
+        };
+    }
     /**
      * @brief Absract class for weapons. Handles basic functionality like weapon cool down.
      */
@@ -96,7 +103,9 @@ namespace jumper
                std::string sound,
                int volume,
                int collisionDamage,
-               int evolutionScale);
+               int evolutionScale,
+               float speed,
+               int numFrames);
 
         // Game where to add the projectiles
         Game& m_game;
@@ -146,6 +155,10 @@ namespace jumper
 
         // Scale of projectiles with evolution
         int m_evolutionScale;
+
+        float m_speed;
+
+        int m_numFrames;
     };
 } /* namespace jumper */
 

@@ -19,7 +19,9 @@ namespace jumper
                              float coolDown,
                              std::string sound,
                              int volume,
-                             int collisionDamage)
+                             int collisionDamage,
+                             float speed,
+                             int numFrames)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -32,7 +34,9 @@ namespace jumper
                      sound,
                      volume,
                      collisionDamage,
-                     1)
+                     1,
+                     speed,
+                     numFrames)
     {
 
     }

@@ -21,12 +21,33 @@ namespace jumper {
         PowerUp(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         ~PowerUp();
-        virtual void move(Level& level);
-        virtual void onCollide();
-        virtual void resolveCollision(Actor& other);
+        virtual void move(Level& level) final;
+        virtual void onCollide() final;
+        virtual void resolveCollision(Actor& other) final;
 
-        virtual void consume(Player* player) = 0;
-        int getExpirationTime();
+        /**
+         * This method will be invoked by the player on every game update, as long as he has not dropped the powerup.
+         *
+         * @param player The player passes itself, so the powerup can manipulate the player
+         */
+        virtual void consume(Player& player) = 0;
+
+        /**
+         * This method will be invoked by the player as soon as the player drops the powerup.
+         *
+         * @param player The player passes itself, so the powerup can manipulate the player
+         */
+        virtual void stop(Player& player) = 0;
+
+        int getExpirationTime() const {
+            return m_expirationTime;
+        }
+
+        void setExpirationTime(int expirationTime)
+        {
+            m_expirationTime = expirationTime;
+        }
+
     private:
         int m_expirationTime;
     };

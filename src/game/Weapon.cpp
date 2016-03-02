@@ -24,14 +24,17 @@ namespace jumper
                    std::string sound,
                    int volume,
                    int collisionDamage,
-                   int evolutionScale)
+                   int evolutionScale,
+                   float speed,
+                   int numFrames)
             : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
               m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution),
               m_sound(Sound(sound, SoundType::SOUND)),
               m_volume(volume), m_collisionDamage(collisionDamage),
-              m_evolutionScale(evolutionScale)
+              m_evolutionScale(evolutionScale),
+              m_speed(speed), m_numFrames(numFrames)
     {
 
     }
@@ -72,7 +75,8 @@ namespace jumper
                                         m_projectileTextureSize.x(),
                                         m_projectileTextureSize.y(),
                                         1,
-                                        m_collisionDamage);
+                                        m_collisionDamage,
+                                        m_speed);
 
             // Calculate y-movement of current projectile
             float moveY = ((numProjectiles / 2) - i + yOffset) * spreadScale;

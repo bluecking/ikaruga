@@ -11,13 +11,21 @@
 #include "PowerUp.hpp"
 
 namespace jumper {
-    class PowerUpHeal : public PowerUp
+    class PowerUpHeal final : public PowerUp
     {
 
     public:
         PowerUpHeal(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
-        virtual void consume(Player* player);
+        /**
+         * see PowerUp::consume(Player& player)
+         */
+        virtual void consume(Player& player);
+
+        /**
+         * see PowerUp::stop(Player& player)
+         */
+        virtual void stop(Player& player);
     };
 }
 
