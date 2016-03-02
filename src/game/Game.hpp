@@ -20,6 +20,8 @@
 #include "Sound.hpp"
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
+#include "BlasterWeapon.hpp"
+#include "RocketWeapon.hpp"
 #include "PowerUpHeal.hpp"
 #include "../xml/XML.hpp"
 //#include "Main.cpp"

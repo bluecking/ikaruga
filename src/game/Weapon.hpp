@@ -46,7 +46,9 @@ namespace jumper
                const Vector2f& projectileColorOffset,
                float coolDown,
                string name,
-               int evolution);
+               int evolution,
+               float speed,
+               int numFrames);
 
         virtual ~Weapon();
 
@@ -114,6 +116,10 @@ namespace jumper
 
         //Evlolution Stage of Weapon
         int m_evolution;
+
+        float m_speed;
+
+        int m_numFrames;
     };
 } /* namespace jumper */
 
