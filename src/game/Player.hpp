@@ -119,9 +119,28 @@ namespace jumper
             return m_godMode;
         }
 
+        bool isGodModeCheat() const
+        {
+            return m_godModeCheat;
+        }
+
+        void setGodModeCheat()
+        {
+            m_godModeCheat = true;
+            SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
+        }
+
         void setGodMode(bool godMode)
         {
             m_godMode = godMode;
+
+            // This changes the color mod of the player when it is in godmode
+            if(godMode) {
+                SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
+            } // Change it to the initial value if godmode is gone.
+            else {
+                SDL_SetTextureColorMod(m_texture, m_colorModR, m_colorModG, m_colorModB);
+            }
         }
 
     private:
@@ -130,6 +149,15 @@ namespace jumper
         Vector2f m_moveDirection;
 
         int m_initial_health;
+
+        /** Initial red value of the texture color mod */
+        Uint8 m_colorModR;
+
+        /** Initial green value of the texture color mod */
+        Uint8 m_colorModG;
+
+        /** Initial blue value of the texture color mod */
+        Uint8 m_colorModB;
 
         //the sound file
         Sound m_hitMarkSound;
@@ -140,6 +168,8 @@ namespace jumper
         /** A flag that is true when the player does not lose health when hit */
         bool m_godMode;
 
+        bool m_godModeCheat;
+
         /** Vector of all powerups that the player is currently owning */
         std::vector<PowerUp*> m_powerUps;
 
@@ -149,6 +179,10 @@ namespace jumper
          * and the hitbox is updated to a proper size and position.
          */
         void updateMoveAnimation();
+
+        const Uint8 m_ColorGod_R = 150;
+        const Uint8 m_ColorGod_G = 150;
+        const Uint8 m_ColorGod_B = 239;
     };
 }
 

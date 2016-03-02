@@ -21,7 +21,9 @@ namespace jumper
             int health,
             int collisionDamage)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage),
-              m_moveDirection(0, 0), m_initial_health(health), m_godMode(false), m_powerUps(), m_game(game) {
+              m_moveDirection(0, 0), m_initial_health(health), m_godMode(false), m_godModeCheat(false), m_powerUps(), m_game(game)
+    {
+        SDL_GetTextureColorMod(texture, &m_colorModR, &m_colorModG, &m_colorModB);
     }
 
     void Player::move(Level& level)
@@ -163,7 +165,7 @@ namespace jumper
 
     void Player::resolveCollision(Actor& other)
     {
-        if (!isGodMode())
+        if (!isGodMode() && !isGodModeCheat())
         {
             if (other.type() == ENEMY || other.type() == BOSS)
             {
