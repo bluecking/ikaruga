@@ -28,6 +28,7 @@ namespace jumper {
     void PowerUp::move(Level& level)
     {
         // DO NOT MOVE AT ALL
+        nextFrame();
     }
 
     void PowerUp::onCollide()

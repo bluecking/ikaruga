@@ -95,6 +95,8 @@ public:
         std::string filename;
         int frameWidth;
         int frameHeight;
+        int fps;
+        int numFrames;
         int health;
         int collisionDamage;
     };
