@@ -1,7 +1,7 @@
 <level>
     <id>0</id>
     <name>Milky Way</name>
-    <tileset filename="test1.lvl"/>
+    <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
@@ -102,4 +102,3 @@
         <value>50</value>
     </item>
 </level>
-
