@@ -18,8 +18,7 @@ namespace jumper {
     class PowerUp : public Actor
     {
     public:
-        PowerUp(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames,
-                int health, int collisionDamage);
+        PowerUp(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         ~PowerUp();
         virtual void move(Level& level);

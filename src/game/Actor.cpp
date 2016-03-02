@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Actor.hpp"
 #include "Game.hpp"
+#include "PowerUpHeal.hpp"
 
 using std::cout;
 using std::endl;
@@ -22,7 +23,8 @@ namespace jumper
                  int numFrames,
                  int health,
                  int collisionDamage)
-            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK)
+            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK),
+              m_isKilled(false)
     {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
@@ -208,5 +210,8 @@ namespace jumper
         m_explosionSound.play(m_explosionVolume);
     }
 
+    void Actor::dropPowerUp()
+    {
+    }
 } /* namespace jumper */
 

@@ -20,7 +20,7 @@
 #include "Sound.hpp"
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
-
+#include "PowerUpHeal.hpp"
 #include "../xml/XML.hpp"
 //#include "Main.cpp"
 
@@ -89,6 +89,8 @@ namespace jumper
 
         static void setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath);
 
+        static void setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath);
+
         static void setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath);
 
         static void setupStatusbar(MainWindow* w, Game* game, XML::Statusbar statusbar, std::string filepath);
@@ -113,11 +115,13 @@ namespace jumper
 
         void setActorOptionsOnKill(Actor* actor);
 
+        void setBossHealth(int health);
 
     protected:
         bool m_bossFight;
 
     private:
+        int m_boss_health;
 
         int m_bossFightAt;
 
