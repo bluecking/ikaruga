@@ -9,7 +9,7 @@
 
 namespace jumper
 {
-    void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
+    void BlasterWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
         // Ignore shoots when weapon is not ready
         if (!weaponReady())
@@ -22,7 +22,7 @@ namespace jumper
                                                 m_projectileTexture,
                                                 m_projectileTextureSize.x(),
                                                 m_projectileTextureSize.y(),
-                                                1,
+                                                m_numFrames,
                                                 m_collisionDamage,
                                                 m_speed);
 
@@ -43,7 +43,7 @@ namespace jumper
     }
 
     //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
-    LaserWeapon::LaserWeapon(Game& game,
+    BlasterWeapon::BlasterWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,
@@ -62,7 +62,7 @@ namespace jumper
                      weaponOffset,
                      projectileColorOffset,
                      coolDown,
-                     "LaserGun",
+                     "Blaster",
                      1,
                      speed,
                      numFrames)
