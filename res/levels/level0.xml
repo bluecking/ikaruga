@@ -28,7 +28,7 @@
         <collisionDamage>25</collisionDamage>
         <health>100</health>
     </player>
- <statusBar filename="../images/statusbar_font_10x10.png">
+ <statusBar filename="../images/font_yellow_10x10.png">
       <frameWidth>10</frameWidth>
       <frameHeight>10</frameHeight>
       <letterCount>26</letterCount>
