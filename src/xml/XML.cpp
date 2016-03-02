@@ -21,9 +21,9 @@ XML::XML(std::string resPath, bool noLevel)
     boost::filesystem::path res_settings(resPath);
 
     res_settings = boost::filesystem::absolute(res_settings);
-    res_settings = res_settings.remove_trailing_separator();
-
+    cout << "RES 1 -> " << res_settings.string() << endl;
     res_settings = res_settings.normalize();
+    cout << "RES 2 -> " << res_settings.string() << endl;
 
     std::string advanced_settings;
 
@@ -31,7 +31,8 @@ XML::XML(std::string resPath, bool noLevel)
     while(res_settings.parent_path().string().size()-1==res_settings.parent_path().string().find_last_of("res") && res_settings.parent_path().string().find_last_of("res")!=0){
         res_settings = res_settings.parent_path();
     }
-    res_settings = res_settings.remove_trailing_separator();
+    res_settings = res_settings.normalize();
+    cout << "RES 3 -> " << res_settings.string() << endl;
 
     if(!boost::filesystem::exists(res_settings) || !boost::filesystem::is_directory(res_settings)){
         throw std::domain_error("Invalid path given!");
