@@ -348,8 +348,9 @@ void XML::loadItems(std::string filename){
                 i.frameWidth = v.second.get<int>("frameWidth");
                 i.frameHeight = v.second.get<int>("frameHeight");
                 i.fps = v.second.get<int>("fps");
+                i.weapon = getWeaponByName(v.second.get<string>("weapon"));
                 i.numFrames = v.second.get<int>("numFrames");
-                i.health = v.second.get<int>("health");
+                i.healPercentage = v.second.get<int>("healPercentage");
                 i.collisionDamage = v.second.get<int>("collisionDamage");
                 m_items.push_back(i);
             }

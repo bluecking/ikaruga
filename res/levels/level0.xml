@@ -37,55 +37,55 @@
       <numberOffset>0</numberOffset>
       <offsetToMid>1</offsetToMid>
   </statusBar>
-    <bot type="BOT_AI">
+    <bot type="BOT_NYAN_SIN">
         <positionX>600</positionX>
-        <positionY>50</positionY>
+        <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_AI">
+    <bot type="BOT_JAVA_SIN">
         <positionX>750</positionX>
-        <positionY>55</positionY>
+        <positionY>120</positionY>
         <color>white</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_UP">
+    <bot type="BOT_UNICORN_SIN">
         <positionX>1200</positionX>
-        <positionY>80</positionY>
+        <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN">
+    <bot type="BOT_DRONE_SIN_DOWN">
         <positionX>1350</positionX>
         <positionY>200</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_DOWN">
+    <bot type="BOT_MIST_SIN_DOWN">
         <positionX>1700</positionX>
         <positionY>280</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN">
+    <bot type="BOT_SLIME_SIN_DOWN">
         <positionX>2000</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_DOWN">
+    <bot type="BOT_SPIKE_SIN_DOWN">
         <positionX>2200</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_NO_MOVE">
+    <bot type="BOT_LIGTHPOST_SIN_UP">
         <positionX>3000</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOSS_FSM">
+    <bot type="BOSS_FSM_CIRCLE">
         <positionX>1800</positionX>
         <positionY>100</positionY>
         <color>black</color>
@@ -100,5 +100,10 @@
         <positionX>1200</positionX>
         <positionY>150</positionY>
         <value>50</value>
+    </item>
+    <item type="WEAPON">
+        <positionX>500</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
     </item>
 </level>

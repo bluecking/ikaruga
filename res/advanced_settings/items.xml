@@ -5,8 +5,19 @@
         <frameHeight>32</frameHeight>
         <fps>12</fps>
         <numFrames>8</numFrames>
-        <health>100</health>
+        <healPercentage>100</healPercentage>
         <collisionDamage>0</collisionDamage>
+        <weapon>LASER_GUN</weapon>
+    </item>
+    <item type="WEAPON">
+        <filename>../images/powerup_weapon_laser_32x32.png</filename>
+        <frameWidth>32</frameWidth>
+        <frameHeight>32</frameHeight>
+        <fps>10</fps>
+        <numFrames>4</numFrames>
+        <healPercentage>100</healPercentage>
+        <collisionDamage>0</collisionDamage>
+        <weapon>LASER_GUN</weapon>
     </item>
     <item type="GODMODE">
         <filename>../images/powerup_nuke_49x50.png</filename>
@@ -14,7 +25,8 @@
         <frameHeight>45</frameHeight>
         <fps>12</fps>
         <numFrames>1</numFrames>
-        <health>100</health>
         <collisionDamage>0</collisionDamage>
+        <healPercentage>100</healPercentage>
+        <weapon>LASER_GUN</weapon>
     </item>
 </items>
