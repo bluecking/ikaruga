@@ -22,6 +22,7 @@
 #include "LaserWeapon.hpp"
 #include "PowerUpHeal.hpp"
 #include "../xml/XML.hpp"
+#include "HighScore.hpp"
 //#include "Main.cpp"
 
 #include <vector>
@@ -121,6 +122,7 @@ namespace jumper
         bool m_bossFight;
 
     private:
+        HighScore* highscore;
         int m_boss_health;
 
         int m_bossFightAt;

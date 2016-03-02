@@ -172,7 +172,15 @@ namespace jumper
                 Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
                 Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
                 float coolDown = currentBot.type.npc.stdWeapon.cooldown;
-                SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                SDL_Texture* weaponTexture = TextureFactory::instanceindow;
+                SDL_Renderer* renderer;
+                struct RenderItem{
+                    SDL_Texture* texture;
+                    SDL_Rect* rect;
+                };
+                std::list<RenderItem> renderItems;
+                TTF_Font* Sans;
+                SDL_Color White;(w->getRenderer()).getTexture(
                         filepath + currentBot.type.npc.stdWeapon.filename);
 
                 LaserWeapon* weapon = new LaserWeapon(*game,
@@ -329,7 +337,15 @@ namespace jumper
     void Game::setLevel(Level* level)
     {
         m_level = level;
-        m_renderables.push_back(level);
+        m_renderables.push_back(level);indow;
+        SDL_Renderer* renderer;
+        struct RenderItem{
+            SDL_Texture* texture;
+            SDL_Rect* rect;
+        };
+        std::list<RenderItem> renderItems;
+        TTF_Font* Sans;
+        SDL_Color White;
     }
 
     Level* Game::getLevel()
@@ -589,11 +605,13 @@ namespace jumper
             if (actor->isKilled()){
                 if (actor->type() == ActorType::ENEMY)
                 {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    highscore->addPointsToHighscore(actor->getScoreValue());
+                    m_statusBar->setScore(highscore->getHighscore());
                 }
                 if (actor->type() == ActorType::BOSS)
                 {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    highscore->addPointsToHighscore(actor->getScoreValue());
+                    m_statusBar->setScore(highscore->getHighscore());
                     setBossFight(false);
                 }
                 if (actor->type() == ActorType::ENEMY ||
@@ -605,6 +623,8 @@ namespace jumper
 
         }
         if ( actor->type() == ActorType::PLAYER) {
+            //Player dies
+            highscore->saveHighscore();
             actor->playExplosionSound();
         }
     }
