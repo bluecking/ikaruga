@@ -196,7 +196,7 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>MEATBALL</stdWeapon>
+            <stdWeapon>MEATBALL_GUN</stdWeapon>
         </npc>
     </bot>
     <bot type="BOSS_WIEMAN">

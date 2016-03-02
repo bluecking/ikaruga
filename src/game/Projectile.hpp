@@ -50,7 +50,7 @@ namespace jumper
         void resolveCollision(Actor& other);
 
         /**
-         * returns whether or not a texture flip is necessary
+         * @return Whether or not a texture flip is necessary
          */
         virtual SDL_RendererFlip getFlip();
 

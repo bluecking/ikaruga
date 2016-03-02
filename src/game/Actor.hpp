@@ -241,7 +241,7 @@ namespace jumper
         int m_explosionVolume;
 
         /**
-         * returns whether or not a texture flip is necessary
+         * @return Whether or not a texture flip is necessary
          */
         virtual SDL_RendererFlip getFlip();
     private:

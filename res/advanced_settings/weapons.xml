@@ -14,7 +14,7 @@
         <speed>1000</speed>
         <numFrames>2</numFrames>
     </weapon>
-    <weapon type="BLASTER">
+    <weapon type="BLASTER_GUN">
         <filename>../images/weapon_blaster_20x10.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>10</colorOffsetY>
@@ -29,7 +29,7 @@
         <speed>1500</speed>
         <numFrames>2</numFrames>
     </weapon>
-    <weapon type="ROCKET">
+    <weapon type="ROCKET_GUN">
         <filename>../images/weapon_rocket_22x10.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>10</colorOffsetY>
@@ -44,7 +44,7 @@
         <speed>500</speed>
         <numFrames>4</numFrames>
     </weapon>
-    <weapon type="MEATBALL">
+    <weapon type="MEATBALL_GUN">
         <filename>../images/meatball_45x45.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
