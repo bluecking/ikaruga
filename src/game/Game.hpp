@@ -20,9 +20,13 @@
 #include "Sound.hpp"
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
+#include "BlasterWeapon.hpp"
+#include "RocketWeapon.hpp"
+#include "MeatballWeapon.hpp"
 #include "PowerUpHeal.hpp"
 #include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"
+#include "HighScore.hpp"
 //#include "Main.cpp"
 
 #include <vector>
@@ -35,6 +39,7 @@ namespace jumper
     class Bot;
 
     class MainWindow;
+    class HighScore;
 
 /**
  * @brief 	Represents a game instance.
@@ -106,6 +111,18 @@ namespace jumper
 
         static void getPlayerProperty(XML::Player player, PlayerProperty& p);
 
+        /**
+         * Creates a weapon Object from the given XML weapon struct
+         *
+         * @param weapon XML weapon struct to get infos from
+         * @param game Pointer to game instance
+         * @param actor Pointer to actor instance
+         * @param w Pointer to mainwindow instance
+         * @param filepath Filepath to res folder
+         * @return Weapon instance
+         */
+        static Weapon* createWeaponFromXML(XML::Weapon weapon, Game* game, Actor* actor, MainWindow* w, std::string filepath);
+
         void setBossFight(bool bossfight);
 
         void bossFight();
@@ -130,7 +147,6 @@ namespace jumper
         bool m_bossFight;
 
     private:
-
         void checkCheat(const char type);
 
         void printStartScreen();
@@ -171,6 +187,9 @@ namespace jumper
 
         /// The current level
         Level* m_level;
+
+        HighScore* highscore;
+        MainWindow* window;
 
         /// A Layer
         TexturedLayer* m_layer;

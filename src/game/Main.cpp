@@ -16,7 +16,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    MainWindow window("Ikaruga", 625, 576);
+    MainWindow window("Ikaruga", 625, 576,boost::filesystem::path(argv[1]));
     Game game(&window);
     MainMenu menu(&window, &game, boost::filesystem::path(argv[1]));
     window.setMenu(&menu);

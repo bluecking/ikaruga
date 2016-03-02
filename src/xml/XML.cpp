@@ -2,6 +2,8 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "XML.hpp"
 
 using std::string;
@@ -12,25 +14,36 @@ using boost::property_tree::xml_writer_make_settings;
 
 XML::XML(std::string resPath, bool noLevel)
 {
-    std::string res_settings = resPath;
+    if(!boost::filesystem::exists(boost::filesystem::path(resPath))){
+        throw std::domain_error("Invalid path given!");
+    }
+
+    boost::filesystem::path res_settings(resPath);
+
+    res_settings = boost::filesystem::absolute(res_settings);
+    res_settings = res_settings.normalize();
+
     std::string advanced_settings;
 
     // Check whether it's the level path or the ressources Path
-    if(!noLevel) {
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+    while(res_settings.parent_path().string().size()-1==res_settings.parent_path().string().find_last_of("res") && res_settings.parent_path().string().find_last_of("res")!=0){
+        res_settings = res_settings.parent_path();
+    }
+    res_settings = res_settings.normalize();
+
+    if(!boost::filesystem::exists(res_settings) || !boost::filesystem::is_directory(res_settings)){
+        throw std::domain_error("Invalid path given!");
     }
 
-    if(res_settings.find_last_of("/\\")>res_settings.find_last_of("res")){
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+    if(res_settings.string().size()-1!=res_settings.string().find_last_of("res") || res_settings.string().find_last_of("res")==0){
+        throw std::domain_error("Couldn't resolve ressources path!");
     }
 
-    profile_path = res_settings;
+    profile_path = res_settings.string();
+    advanced_settings = res_settings.string();
 
-    advanced_settings = res_settings;
-    advanced_settings = advanced_settings.append("/advanced_settings/");
-
-    profile_path = profile_path.append("/profiles/profiles.xml");
+    advanced_settings.append("/advanced_settings/");
+    profile_path.append("/profiles/profiles.xml");
 
     loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
@@ -42,7 +55,7 @@ XML::XML(std::string resPath, bool noLevel)
 XML::XML(std::string xmlFilename) : XML(xmlFilename, false)
 {
     init();
-    setFilename(xmlFilename);
+    setFilename(boost::filesystem::path(xmlFilename).normalize().string());
     load();
 }
 
@@ -335,8 +348,9 @@ void XML::loadItems(std::string filename){
                 i.frameWidth = v.second.get<int>("frameWidth");
                 i.frameHeight = v.second.get<int>("frameHeight");
                 i.fps = v.second.get<int>("fps");
+                i.weapon = getWeaponByName(v.second.get<string>("weapon"));
                 i.numFrames = v.second.get<int>("numFrames");
-                i.health = v.second.get<int>("health");
+                i.healPercentage = v.second.get<int>("healPercentage");
                 i.collisionDamage = v.second.get<int>("collisionDamage");
                 m_items.push_back(i);
             }
@@ -383,6 +397,8 @@ void XML::loadWeapons(std::string filename){
                 w.cooldown = v.second.get<float>("cooldown");
                 w.shootingVolume = v.second.get<int>("projectileVolume");
                 w.collisionDamage = v.second.get<int>("collisionDamage");
+                w.speed = v.second.get<float>("speed");
+                w.numFrames = v.second.get<int>("numFrames");
                 m_weapons.push_back(w);
             }
             else

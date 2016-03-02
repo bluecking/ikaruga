@@ -46,7 +46,12 @@ set(JUMPER_SOURCES
         Profile.cpp
         MainMenu.cpp
         RenderTable.cpp
-        PowerUpGodMode.cpp)
+        MenuHighscore.cpp
+        PowerUpWeapon.cpp
+        PowerUpGodMode.cpp
+        BlasterWeapon.cpp
+        RocketWeapon.cpp
+        MeatballWeapon.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml

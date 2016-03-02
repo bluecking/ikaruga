@@ -104,5 +104,4 @@ namespace jumper
 
         //m_game->setSound(filepath + background.soundfile, background.volume);
     }
-
 } //end of namespace jumper

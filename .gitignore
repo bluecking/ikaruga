@@ -71,3 +71,6 @@ doc/
 *.hpp.swp
 *.ti.swp
 *.lvl.swp
+
+## Ignore Player Profile Updates
+res/profiles/

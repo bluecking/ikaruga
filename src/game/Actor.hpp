@@ -173,7 +173,7 @@ namespace jumper
         }
 
 
-        void setHealth(int health)
+        virtual void setHealth(int health)
         {
             m_health = health;
         }
@@ -239,6 +239,11 @@ namespace jumper
 
         //Explosion Volume
         int m_explosionVolume;
+
+        /**
+         * @return Whether or not a texture flip is necessary
+         */
+        virtual SDL_RendererFlip getFlip();
     private:
         /** The hitbox size is reduced to this factor */
         const float HITBOXFACTOR = 0.8;
