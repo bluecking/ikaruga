@@ -14,8 +14,10 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    XML m_xml(argv[1]);
     XML xml2(argv[1], false);
+    exit(0);
+
+    XML m_xml(argv[1]);
 
     cout << "Parsing level defintion (xml):" << endl
         << "ID: " << m_xml.getId() << endl
@@ -92,10 +94,22 @@ int main(int argc, char** argv)
     }
 
     for(int i=0;i<(int) m_xml.weaponSize();i++) {
-        cout << "Weapon - type: " << m_xml.getWeapon(i).type << endl
-            << "Weapon - filename: " << m_xml.getWeapon(i).filename << endl
-            << "Weapon - colorOffsetX: " << m_xml.getWeapon(i).colorOffsetX << endl
-            << "Weapon - colorOffsetY: " << m_xml.getWeapon(i).colorOffsetY << endl;
+        XML::Weapon curWeapon = m_xml.getWeapon(i);
+        cout << "Weapon - type: " << curWeapon.type << endl
+        << "Weapon - filename: " << curWeapon.filename << endl
+        << "Weapon - colorOffsetX: " << curWeapon.colorOffsetX << endl
+        << "Weapon - colorOffsetY: " << curWeapon.colorOffsetY << endl
+        << "Weapon - shootingVolume: " << curWeapon.shootingVolume << endl
+        << "Weapon - soundVolume: " << curWeapon.soundVolume << endl
+        << "Weapon - frameWidth: " << curWeapon.frameWidth << endl
+        << "Weapon - frameHeight: " << curWeapon.frameHeight << endl
+        << "Weapon - weaponOffsetX: " << curWeapon.weaponOffsetX << endl
+        << "Weapon - weaponOffsetY: " << curWeapon.weaponOffsetY << endl
+        << "Weapon - cooldown: " << curWeapon.cooldown << endl
+        << "Weapon - soundfile: " << curWeapon.soundfile << endl
+        << "Weapon - collisionDamage: " << curWeapon.collisionDamage << endl
+        << "Weapon - speed: " << curWeapon.speed << endl
+        << "Weapon - numFrames: " << curWeapon.numFrames << endl;
     }
 
     for(int i=0;i<(int) m_xml.profileSize();i++){
