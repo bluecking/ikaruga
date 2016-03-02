@@ -34,6 +34,7 @@ namespace jumper
 {
     class Bot;
     class MainWindow;
+    class HighScore;
 
 /**
  * @brief 	Represents a game instance.
@@ -128,7 +129,7 @@ namespace jumper
         bool m_bossFight;
 
     private:
-        HighScore* highscore;
+        static HighScore* highscore;
 
         void printStartScreen();
 

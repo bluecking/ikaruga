@@ -15,7 +15,7 @@ namespace jumper
 {
     const int MainWindow::MAX_FPS = 60;
 
-    MainWindow::MainWindow(std::string title, int w, int h)
+    MainWindow::MainWindow(std::string title, int w, int h,boost::filesystem::path resPath)
             : m_startLoopTicks(0)
     {
         /// Init width and height
@@ -32,6 +32,9 @@ namespace jumper
         /// Initialize SDL stuff
         initSDL();
         this->actRenderID=0;
+        std::cout<<resPath.c_str()<<std::endl;
+        XML* xml=new XML(resPath.c_str(),true);
+        profile=new Profile(xml);
     }
 
     MainWindow::~MainWindow()

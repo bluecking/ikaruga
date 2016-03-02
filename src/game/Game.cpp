@@ -173,15 +173,7 @@ namespace jumper
                 Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
                 Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
                 float coolDown = currentBot.type.npc.stdWeapon.cooldown;
-                SDL_Texture* weaponTexture = TextureFactory::instanceindow;
-                SDL_Renderer* renderer;
-                struct RenderItem{
-                    SDL_Texture* texture;
-                    SDL_Rect* rect;
-                };
-                std::list<RenderItem> renderItems;
-                TTF_Font* Sans;
-                SDL_Color White;(w->getRenderer()).getTexture(
+                SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
                         filepath + currentBot.type.npc.stdWeapon.filename);
 
                 LaserWeapon* weapon = new LaserWeapon(*game,
@@ -244,6 +236,8 @@ namespace jumper
         XML xml = XML(filename);
 
         game->m_explosionAnimation = path+xml.getExplosions();
+
+        highscore=new HighScore(w->profile,xml.getLevelname());
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -339,15 +333,7 @@ namespace jumper
     void Game::setLevel(Level* level)
     {
         m_level = level;
-        m_renderables.push_back(level);indow;
-        SDL_Renderer* renderer;
-        struct RenderItem{
-            SDL_Texture* texture;
-            SDL_Rect* rect;
-        };
-        std::list<RenderItem> renderItems;
-        TTF_Font* Sans;
-        SDL_Color White;
+        m_renderables.push_back(level);
     }
 
     Level* Game::getLevel()
@@ -531,6 +517,7 @@ namespace jumper
     {
         printEndScreen();
         m_started = false;
+        highscore->saveHighscore();
     }
 
     void Game::scrollHorizontal()
