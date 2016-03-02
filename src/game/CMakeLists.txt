@@ -44,7 +44,9 @@ set(JUMPER_SOURCES
         HighScore.cpp
         Filesystem.cpp
         Profile.cpp
-        MainMenu.cpp)
+        MainMenu.cpp
+        BlasterWeapon.cpp
+        RocketWeapon.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml
