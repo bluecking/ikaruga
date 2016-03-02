@@ -31,7 +31,8 @@ namespace jumper
             SIN,
             SIN_UP,
             SIN_DOWN,
-            AI
+            AI,
+            CIRCLE
         };
     }
 
