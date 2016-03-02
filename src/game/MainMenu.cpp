@@ -7,25 +7,33 @@
 */
 #include "MainMenu.hpp"
 #include "Filesystem.hpp"
-#include "RenderTable.hpp"
 
 namespace jumper
 {
 
 
     MainMenu::MainMenu(MainWindow* win, Game* game, fs::path resDir) :
-            m_win(win), m_resDir(resDir), m_game(game)
+            m_win(win), m_resDir(resDir), m_game(game), m_table(NULL, NULL, NULL, NULL)
     {
-        m_levelFiles = Filesystem::findFiles(resDir, boost::regex("^.*\\.xml$"));
+        boost::filesystem::path concat(resDir);
+        concat /= "levels";
+        m_levelFiles = Filesystem::findFiles(concat, boost::regex("^.*\\.xml$"));
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
-        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
-        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_blue_20x20.png"); //TODO make dynamic
+        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
+                m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
+        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
+                m_resDir.string() + "/images/font_blue_20x20.png"); //TODO make dynamic
+
+        RenderTable m_table(m_win->getRenderer(), m_normalFontTexture, 20,
+                            20); //TODO static tile height&width -> make dynamic
+
+        prepareTable();
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
-        if(m_win->getActualScreen() == m_win->RENDER_MAINMENU)
+        if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
         {
             m_offset.setX(0.005f);
             m_offset.setY(0.005f);
@@ -35,22 +43,25 @@ namespace jumper
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
             //TODO display menu
-            RenderTable table(m_win->getRenderer(), m_normalFontTexture, 20, 20); //TODO static tile height&width -> make dynamic
-            std::vector<std::vector<std::string>> m_tableText;
-            m_tableText.resize(2);
-            m_tableText[0].resize(1);
-            m_tableText[1].resize(1);
-            m_tableText[0][0] = "First";
-            m_tableText[1][0] = "Second";
-            table.setStringProperties(2, 1, 0, m_tableText);
+
+
+            m_table.setStringProperties(2, 1, 0, m_tableText);
             RenderTable::tableProperties tableProps;
             tableProps.positionX = 50;
             tableProps.positionY = 120;
             tableProps.width = 200;
             tableProps.height = 100;
-            table.setTableProperties(tableProps);
-            table.render();
+            m_table.setTableProperties(tableProps);
 
+
+            if (keyDown[SDL_SCANCODE_UP]) {
+                m_table.increase();
+            }
+
+            if (keyDown[SDL_SCANCODE_DOWN]) {
+                m_table.decrease();
+            }
+            m_table.render();
             SDL_RenderPresent(m_win->getRenderer());
 
             //temporary to start game -------------------------------------------------------------------
@@ -60,6 +71,26 @@ namespace jumper
                 m_win->setGame(m_game);
                 m_win->setActualScreen(MainWindow::RENDER_GAME);
                 m_game->start();
+            }
+        }
+    }
+
+    void MainMenu::prepareTable()
+    {
+        for (int i = 0; i < m_levelFiles.size(); i++)
+        {
+            try
+            {
+                XML m_tmp(m_levelFiles[i].string());
+                m_tableText.resize(m_tableText.size()+1);
+                m_levelId_and_path.insert(std::pair<int, boost::filesystem::path>(m_tmp.getId(), m_levelFiles[i]));
+                m_tableText[m_tableText.size()-1].resize(1);
+                m_tableText[m_tableText.size()-1][0] = m_tmp.getLevelname();
+            }
+            catch (...)
+            {
+                std::cerr << "Failed to read file " + m_levelFiles[i].string() << std::endl;
+                continue;
             }
         }
     }

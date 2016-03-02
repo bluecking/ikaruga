@@ -58,7 +58,7 @@ namespace jumper
             if(!boost::regex_match(i->path().filename().string(), match_result, pattern)) continue;
 
             // File matches, store it
-            vec.push_back( i->path().filename() );
+            vec.push_back( i->path());
             //std::cout << i->path().filename().string() << std::endl; //Debug output
         }
         return vec;

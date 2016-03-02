@@ -14,6 +14,8 @@
 #include "MainWindow.hpp"
 #include "Game.hpp"
 #include "TexturedLayer.hpp"
+#include "../xml/XML.hpp"
+#include "RenderTable.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -38,10 +40,16 @@ private:
     Vector2f m_offset;
     SDL_Texture* m_normalFontTexture;
     SDL_Texture* m_selectFontTexture;
+    std::vector<std::vector<std::string>> m_tableText;
+    std::map<int, boost::filesystem::path> m_levelId_and_path;
+    XML m_tmp;
+    RenderTable m_table;
 
     //TODO move to struct?
 
     void setupBackground(float scrollspeed, string backgroundImage);
+
+    void prepareTable();
 };
 } //end of namespace jumper
 

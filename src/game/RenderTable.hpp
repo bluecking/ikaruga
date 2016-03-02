@@ -45,7 +45,13 @@ namespace jumper
         SDL_Rect m_rectTarget;
         bool m_stringPropertiesSet;
         bool m_tablePropertiesSet;
+        unsigned long m_pos;
     public:
+        unsigned long getM_pos() const;
+
+        void increase();
+        void decrease();
+
         virtual void render();
     };
 } //end of namespace jumper

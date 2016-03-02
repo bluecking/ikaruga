@@ -23,6 +23,7 @@ namespace jumper
         m_rectTarget.h = tileHeight;
         m_stringPropertiesSet = false;
         m_tablePropertiesSet = false;
+        m_pos = 0;
     }
 
     void RenderTable::setStringProperties(int minusculeOffset, int capitalOffset,
@@ -58,14 +59,43 @@ namespace jumper
                 {
                     m_rectSource.x = m_textLine[k].x();
                     m_rectSource.y = m_textLine[k].y();
-
-                    m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth;
+                    int offset = 0;std::cout << "mpos: " << m_pos << std::endl;
+                    if(m_pos == i)
+                    {
+                        offset = m_tileWidth;
+                    }
+                    m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset;
                     m_rectTarget.y = m_tableProperties.positionY + i * m_tileHeight;
                     //std::cout << "recS_Px" << m_rectSource.x << "recS_Py" << m_rectSource.y << "recS_w" << m_rectSource.w << "recS_h" << m_rectSource.h << std::endl;
                     //std::cout << "recT_Px" << m_rectTarget.x << "recT_Py" << m_rectTarget.y << "recT_w" << m_rectTarget.w << "recT_h" << m_rectTarget.h << std::endl << std::endl;
                     SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
                 }
             }
+        }
+    }
+
+    unsigned long RenderTable::getM_pos() const
+    {
+        return m_pos;
+    }
+
+    void RenderTable::increase()
+    {
+        if(m_pos >= m_content.size()-1) {
+            m_pos = 0;
+        }
+        else {
+            m_pos++;
+        }
+    }
+
+    void RenderTable::decrease()
+    {
+        if(m_pos <= 0) {
+            m_pos = m_content.size()-1;
+        }
+        else {
+            m_pos--;
         }
     }
 } //end of namespace jumper
