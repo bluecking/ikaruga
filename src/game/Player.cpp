@@ -231,4 +231,14 @@ namespace jumper
             delete *itr;
         }
     }
+
+    void Player::setHealth(int health)
+    {
+        if (health > m_initial_health)
+        {
+            health = m_initial_health;
+        }
+
+        m_health = health;
+    }
 }

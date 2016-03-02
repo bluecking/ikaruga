@@ -109,6 +109,8 @@ namespace jumper
          */
         void consumePowerUps();
 
+        virtual void setHealth(int health);
+
         int getInitial_health() const
         {
             return m_initial_health;

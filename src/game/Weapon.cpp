@@ -27,7 +27,7 @@ namespace jumper
                    int evolutionScale,
                    float speed,
                    int numFrames)
-            : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
+            : m_game(game), m_actor(&actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
               m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution),
@@ -70,7 +70,7 @@ namespace jumper
         for(int i = 0; i < numProjectiles; i++)
         {
             // Create new projectile
-            projectile = new Projectile(m_actor.getRenderer(),
+            projectile = new Projectile(m_actor->getRenderer(),
                                         m_projectileTexture,
                                         m_projectileTextureSize.x(),
                                         m_projectileTextureSize.y(),
@@ -86,15 +86,15 @@ namespace jumper
             projectile->setDirection(Vector2f(direction.x(), moveY));
             projectile->setType(ActorType::PROJECTILE);
             projectile->setPosition(spawnPos);
-            projectile->setColor(m_actor.getColor());
-            projectile->setOriginActor(&m_actor);
+            projectile->setColor(m_actor->getColor());
+            projectile->setOriginActor(m_actor);
             projectile->launch();
 
             // Add created projectile to actors
             m_game.addActor(projectile);
         }
 
-        if (m_actor.type() == ActorType::PLAYER)
+        if (m_actor->type() == ActorType::PLAYER)
         {
             m_sound.play(m_volume, this->m_coolDown * 1000);
         }

@@ -45,6 +45,7 @@ set(JUMPER_SOURCES
         Filesystem.cpp
         Profile.cpp
         MainMenu.cpp
+        PowerUpWeapon.cpp
         PowerUpGodMode.cpp
         BlasterWeapon.cpp
         RocketWeapon.cpp

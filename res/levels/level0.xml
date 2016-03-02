@@ -101,4 +101,9 @@
         <positionY>150</positionY>
         <value>50</value>
     </item>
+    <item type="WEAPON">
+        <positionX>500</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
 </level>
