@@ -10,33 +10,39 @@ using std::endl;
 using boost::property_tree::ptree;
 using boost::property_tree::xml_writer_make_settings;
 
-XML::XML(std::string xmlFilename)
+XML::XML(std::string resPath, bool noLevel)
 {
-    setFilename(xmlFilename);
-    init();
+    std::string res_settings = resPath;
+    std::string advanced_settings;
 
-    /* Temporary hotfix for loading issue */
-    std::string res_settings, advanced_settings, profile_settings;
-    res_settings = xmlFilename;
-    res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
-    res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
-
+    // Check whether it's the level path or the ressources Path
+    if(!noLevel) {
+        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+    }
+    if(res_settings.find_last_of("/\\")>res_settings.find_last_of("res")){
+        res_settings.substr(0,res_settings.find_last_of("/\\"));
+    }
+    profile_path = res_settings;
     advanced_settings = res_settings;
     advanced_settings = advanced_settings.append("/advanced_settings/");
 
-    profile_settings = res_settings;
-    profile_path = profile_settings.append("/profiles/");
-    profile_path.append("profiles.xml");
+    profile_path = profile_path.append("/profiles/profiles.xml");
 
-//    cout << "ADVANCE FILE : " << advanced_settings << endl;
-//    cout << "PROFILE FILE : " << profile_settings << endl;
+    cout << "ADVANCE FILE : " << advanced_settings << endl;
+    cout << "PROFILE FILE : " << profile_path << endl;
 
     loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
     loadItems(advanced_settings + "items.xml");
 
     loadProfiles(profile_path);
+}
 
+XML::XML(std::string xmlFilename) : XML(xmlFilename, false)
+{
+    init();
+    setFilename(xmlFilename);
     load();
 }
 
