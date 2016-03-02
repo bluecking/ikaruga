@@ -20,17 +20,17 @@ XML::XML(std::string resPath, bool noLevel)
         res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
         res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
     }
+
     if(res_settings.find_last_of("/\\")>res_settings.find_last_of("res")){
-        res_settings.substr(0,res_settings.find_last_of("/\\"));
+        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
     }
+
     profile_path = res_settings;
+
     advanced_settings = res_settings;
     advanced_settings = advanced_settings.append("/advanced_settings/");
 
     profile_path = profile_path.append("/profiles/profiles.xml");
-
-//    cout << "ADVANCE FILE : " << advanced_settings << endl;
-//    cout << "PROFILE FILE : " << profile_path << endl;
 
     loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
