@@ -122,6 +122,14 @@ namespace jumper
         void setGodMode(bool godMode)
         {
             m_godMode = godMode;
+
+            // This changes the color mod of the player when it is in godmode
+            if(godMode) {
+                SDL_SetTextureColorMod(m_texture, 150, 150, 239);
+            } // Change it to the initial value if godmode is gone.
+            else {
+                SDL_SetTextureColorMod(m_texture, m_colorModR, m_colorModG, m_colorModB);
+            }
         }
 
     private:
@@ -130,6 +138,15 @@ namespace jumper
         Vector2f m_moveDirection;
 
         int m_initial_health;
+
+        /** Initial red value of the texture color mod */
+        Uint8 m_colorModR;
+
+        /** Initial green value of the texture color mod */
+        Uint8 m_colorModG;
+
+        /** Initial blue value of the texture color mod */
+        Uint8 m_colorModB;
 
         //the sound file
         Sound m_hitMarkSound;
