@@ -100,14 +100,14 @@
         </npc>
     </bot>
     <bot type="BOT_SPIKE">
-        <filename>../images/bot_spike_16x18.png</filename>
+        <filename>../images/bot_spike_40x40.png</filename>
         <numFrames>3</numFrames>
-        <frameWidth>16</frameWidth>
-        <frameHeight>16</frameHeight>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>16</colorOffsetY>
+        <colorOffsetY>40</colorOffsetY>
         <fps>6</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -120,15 +120,15 @@
         </npc>
     </bot>
     <bot type="BOT_SLIME">
-        <filename>../images/bot_slime_18x16.png</filename>
+        <filename>../images/bot_slime_40x40.png</filename>
         <numFrames>4</numFrames>
         <frameWidth>18</frameWidth>
         <frameHeight>16</frameHeight>
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>16</colorOffsetY>
-        <fps>6</fps>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>50</scoreValue>
@@ -140,14 +140,14 @@
         </npc>
     </bot>
     <bot type="BOT_MIST">
-        <filename>../images/bot_mist_14x15.png</filename>
+        <filename>../images/bot_mist_40x40.png</filename>
         <numFrames>3</numFrames>
-        <frameWidth>14</frameWidth>
-        <frameHeight>16</frameHeight>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>14</colorOffsetY>
+        <colorOffsetY>40</colorOffsetY>
         <fps>6</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -160,15 +160,15 @@
         </npc>
     </bot>
     <bot type="BOT_DRONE">
-        <filename>../images/bot_drone_17x15.png</filename>
+        <filename>../images/bot_drone_40x40.png</filename>
         <numFrames>6</numFrames>
-        <frameWidth>17</frameWidth>
-        <frameHeight>15</frameHeight>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>14</colorOffsetY>
-        <fps>8</fps>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>50</scoreValue>
