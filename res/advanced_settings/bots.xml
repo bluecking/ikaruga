@@ -122,8 +122,8 @@
     <bot type="BOT_SLIME">
         <filename>../images/bot_slime_40x40.png</filename>
         <numFrames>4</numFrames>
-        <frameWidth>18</frameWidth>
-        <frameHeight>16</frameHeight>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
