@@ -7,6 +7,7 @@
 */
 #include "MainMenu.hpp"
 #include "Filesystem.hpp"
+#include "RenderTable.hpp"
 
 namespace jumper
 {
@@ -18,6 +19,7 @@ namespace jumper
         m_levelFiles = Filesystem::findFiles(resDir, boost::regex("^.*\\.xml$"));
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
+        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/splashscreen_font_40x40.png");
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
@@ -29,11 +31,22 @@ namespace jumper
             m_layer->setScrollSpeed(100.0f);
             m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
 
-
             SDL_RenderClear(m_win->getRenderer());
-
             m_layer->render();
             //TODO display menu
+            RenderTable table(m_win->getRenderer(), m_normalFontTexture, 40, 40); //TODO static tile height&width -> make dynamic
+            std::vector<std::vector<std::string>> m_tableText;
+            m_tableText.resize(1);
+            m_tableText[0].resize(1);
+            m_tableText[0][0] = "First";
+            table.setStringProperties(2, 1, 0, m_tableText);
+            RenderTable::tableProperties tableProps;
+            tableProps.positionX = 50;
+            tableProps.positionY = 50;
+            tableProps.width = 200;
+            tableProps.height = 100;
+            table.setTableProperties(tableProps);
+            table.render();
 
             SDL_RenderPresent(m_win->getRenderer());
 
@@ -58,32 +71,5 @@ namespace jumper
 
         //m_game->setSound(filepath + background.soundfile, background.volume);
     }
-
-//    void MainMenu::scrollHorizontal()
-//    {
-//        float dt = getElapsedTime();
-//
-//        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
-//        m_player->setPosition(m_player->position() +
-//                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset,
-//                                               m_player));
-//        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
-//    }
-//
-//    float MainMenu::getElapsedTime()
-//    {
-//        if (m_startTicks == 0)
-//        {
-//            m_startTicks = SDL_GetTicks();
-//        }
-//
-//        Uint32 ticks = SDL_GetTicks();
-//        float time = (ticks - m_startTicks) / 1000.0f;
-//        m_startTicks = ticks;
-//        return time;
-//    }
-
-
-
 
 } //end of namespace jumper

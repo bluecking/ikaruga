@@ -44,7 +44,7 @@ set(JUMPER_SOURCES
         HighScore.cpp
         Filesystem.cpp
         Profile.cpp
-        MainMenu.cpp)
+        MainMenu.cpp RenderTable.cpp RenderTable.hpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml

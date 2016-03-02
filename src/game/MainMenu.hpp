@@ -36,6 +36,7 @@ private:
     Game* m_game;
     TexturedLayer* m_layer;
     Vector2f m_offset;
+    SDL_Texture* m_normalFontTexture;
 
     //TODO move to struct?
 
