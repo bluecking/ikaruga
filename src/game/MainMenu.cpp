@@ -18,17 +18,21 @@ namespace jumper
         m_levelFiles = Filesystem::findFiles(resDir, boost::regex("^.*\\.xml$"));
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
-        m_startTicks = 0;
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
         if(m_win->getActualScreen() == m_win->RENDER_MAINMENU)
         {
+            m_offset.setX(0.005f);
+            m_offset.setY(0.005f);
+            m_layer->setScrollSpeed(100.0f);
+            m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
+
 
             SDL_RenderClear(m_win->getRenderer());
-            moveBackground();
 
+            m_layer->render();
             //TODO display menu
 
             SDL_RenderPresent(m_win->getRenderer());
@@ -50,30 +54,34 @@ namespace jumper
         SDL_RenderClear(m_win->getRenderer());
         SDL_Texture* texture = TextureFactory::instance(m_win->getRenderer()).getTexture(backgroundImage);
         m_layer = new TexturedLayer(m_win->getRenderer(), texture, 1);
+
+
         //m_game->setSound(filepath + background.soundfile, background.volume);
     }
 
-    void MainMenu::moveBackground()
-    {
-        float dt = getElapsedTime();
-        m_offset.setX(1.0f * dt);
-        m_offset.setY(1.0f * dt);
-        m_layer->setScrollSpeed(100.0f);
-        m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
-        m_layer->render();
-    }
-
-    float MainMenu::getElapsedTime()
-    {
-        if (m_startTicks == 0)
-        {
-            m_startTicks = SDL_GetTicks();
-        }
-        Uint32 ticks = SDL_GetTicks();
-        float time = (ticks - m_startTicks) / 1000.0f;
-        m_startTicks = ticks;
-        return time;
-    }
+//    void MainMenu::scrollHorizontal()
+//    {
+//        float dt = getElapsedTime();
+//
+//        Vector2f scrollOffset(m_level->physics().getScrollingSpeed() * dt);
+//        m_player->setPosition(m_player->position() +
+//                              m_level->collide(m_player->position(), m_player->w(), m_player->h(), scrollOffset,
+//                                               m_player));
+//        Renderable::m_camera.move(Renderable::m_camera.position() + scrollOffset);
+//    }
+//
+//    float MainMenu::getElapsedTime()
+//    {
+//        if (m_startTicks == 0)
+//        {
+//            m_startTicks = SDL_GetTicks();
+//        }
+//
+//        Uint32 ticks = SDL_GetTicks();
+//        float time = (ticks - m_startTicks) / 1000.0f;
+//        m_startTicks = ticks;
+//        return time;
+//    }
 
 
 
