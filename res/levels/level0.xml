@@ -85,7 +85,7 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOSS_FSM">
+    <bot type="BOSS_FSM_MEATBALL">
         <positionX>1800</positionX>
         <positionY>100</positionY>
         <color>black</color>
