@@ -1,15 +1,15 @@
 /**
- * LaserWeapon.cpp
+ * MeatballWeapon.cpp
  * 
- * @date 23.02.16
- * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
+ * @date 02.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#include "LaserWeapon.hpp"
+#include "MeatballWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper
 {
-    void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
+    void MeatballWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
         // Ignore shoots when weapon is not ready
         if (!weaponReady())
@@ -43,7 +43,7 @@ namespace jumper
     }
 
     //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
-    LaserWeapon::LaserWeapon(Game& game,
+    MeatballWeapon::MeatballWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,

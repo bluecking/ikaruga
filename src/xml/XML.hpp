@@ -31,6 +31,8 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+        float speed;
+        int numFrames;
     };
 
     struct NPC{
