@@ -1,10 +1,10 @@
 /**
- * BlasterWeapon.cpp
+ * LaserWeapon.cpp
  * 
- * @date 02.03.16
- * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
+ * @date 23.02.16
+ * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#include "BlasterWeapon.hpp"
+#include "LaserWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper

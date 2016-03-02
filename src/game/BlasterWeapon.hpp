@@ -1,8 +1,8 @@
 /**
- * BlasterWeapon.hpp
+ * LaserWeapon.hpp
  * 
- * @date 02.03.16
- * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
+ * @date 23.02.16
+ * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
 #ifndef JUMPER_BLASTERWEAPON_HPP
 #define JUMPER_BLASTERWEAPON_HPP

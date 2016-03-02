@@ -1,5 +1,5 @@
 /**
- * RocketWeapon.hpp
+ * LaserWeapon.hpp
  * 
  * @date 01.03.16
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)

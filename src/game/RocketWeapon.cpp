@@ -4,7 +4,7 @@
  * @date 01.03.16
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#include "RocketWeapon.hpp"
+#include "LaserWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper

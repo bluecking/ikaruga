@@ -18,7 +18,7 @@
         <filename>../images/weapon_blaster_20x10.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>10</colorOffsetY>
-        <soundfile>../sounds/blaster.wav</soundfile>
+        <soundfile>../sounds/laser.wav</soundfile>
         <projectileVolume>50</projectileVolume>
         <frameWidth>20</frameWidth>
         <frameHeight>10</frameHeight>
@@ -33,7 +33,7 @@
         <filename>../images/weapon_rocket_22x10.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>10</colorOffsetY>
-        <soundfile>../sounds/rocket.wav</soundfile>
+        <soundfile>../sounds/laser.wav</soundfile>
         <projectileVolume>50</projectileVolume>
         <frameWidth>22</frameWidth>
         <frameHeight>10</frameHeight>
@@ -43,20 +43,5 @@
         <collisionDamage>50</collisionDamage>
         <speed>500</speed>
         <numFrames>4</numFrames>
-    </weapon>
-    <weapon type="MEATBALL">
-        <filename>../images/meatball_45x45.png</filename>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
-        <soundfile>../sounds/gun.wav</soundfile>
-        <projectileVolume>50</projectileVolume>
-        <frameWidth>45</frameWidth>
-        <frameHeight>45</frameHeight>
-        <weaponOffsetX>25</weaponOffsetX>
-        <weaponOffsetY>18.5</weaponOffsetY>
-        <cooldown>0.5</cooldown>
-        <collisionDamage>30</collisionDamage>
-        <speed>200</speed>
-        <numFrames>14</numFrames>
     </weapon>
 </weapons>
