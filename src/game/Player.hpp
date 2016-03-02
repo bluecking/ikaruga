@@ -41,6 +41,7 @@ namespace jumper
          */
         Player(SDL_Renderer* renderer,
                SDL_Texture* texture,
+               Game& game,
                int frameWidth,
                int frameHeight,
                int numFrames,
@@ -113,7 +114,19 @@ namespace jumper
             return m_initial_health;
         }
 
+        bool isGodMode() const
+        {
+            return m_godMode;
+        }
+
+        void setGodMode(bool godMode)
+        {
+            m_godMode = godMode;
+        }
+
     private:
+        Game& m_game;
+
         Vector2f m_moveDirection;
 
         int m_initial_health;
@@ -123,6 +136,9 @@ namespace jumper
 
         //the volume of the hitmarksound
         int m_hitMarkVolume;
+
+        /** A flag that is true when the player does not lose health when hit */
+        bool m_godMode;
 
         /** Vector of all powerups that the player is currently owning */
         std::vector<PowerUp*> m_powerUps;

@@ -89,8 +89,8 @@ namespace jumper
     void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
-        Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight,
-                                    xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
+        Player* player = new Player(w->getRenderer(), texture, *game, xplayer.frameWidth, xplayer.frameHeight,
+                xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
         player->setHitMarkVolume(xplayer.hitVolume);
@@ -217,21 +217,38 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for (auto item : items)
+        for (auto it = items.begin(); it != items.end(); ++it)
         {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + it->type.filename);
 
-            PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
-                                                   texture,
-                                                   item.type.frameWidth,
-                                                   item.type.frameHeight,
-                                                   item.type.numFrames);
-            powerUp->setFPS(item.type.fps);
+            PowerUp* powerUp = NULL;
 
-            Vector2f pos = Vector2f(item.positionX, item.positionY);
-            powerUp->setPosition(pos);
+            if (it->type.type.compare("GODMODE") == 0)
+            {
+                powerUp = new PowerUpGodMode(w->getRenderer(),
+                        texture,
+                        it->type.frameWidth,
+                        it->type.frameHeight,
+                        it->type.numFrames);
 
-            game->addActor(powerUp);
+                powerUp->setExpirationTime(10);
+            }
+            else if (it->type.type.compare("RESTORE_HEALTH") == 0)
+            {
+                powerUp = new PowerUpHeal(w->getRenderer(),
+                        texture,
+                        it->type.frameWidth,
+                        it->type.frameHeight,
+                        it->type.numFrames);
+            }
+
+            Vector2f pos = Vector2f(it->positionX, it->positionY);
+
+            if(powerUp != NULL) {
+                powerUp->setPosition(pos);
+                powerUp->setFPS(it->type.fps);
+                game->addActor(powerUp);
+            }
         }
     }
 
@@ -363,8 +380,6 @@ namespace jumper
                 (*it)->setHit(false);
             }
 
-            m_player->consumePowerUps();
-
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -423,6 +438,7 @@ namespace jumper
             // If player is still there, update game
             if (m_player)
             {
+                m_player->consumePowerUps();
                 moveActors();
 
                 //added spawn bots
@@ -688,7 +704,6 @@ namespace jumper
         m_volume = volume;
     }
 
-
     void Game::setBossFight(bool bossfight)
     {
         m_bossFight = bossfight;
@@ -740,7 +755,7 @@ namespace jumper
             {
                 m_cheat = m_cheat.substr(m_cheat.size()-20, m_cheat.size());
             }
-            if (m_cheat.find(*konamiCode) != string::npos)
+            if (m_cheat.find(konamiCode) != string::npos)
             {
                 m_cheatActive = true;
             }

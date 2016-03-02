@@ -21,6 +21,7 @@
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
 #include "PowerUpHeal.hpp"
+#include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"
 //#include "Main.cpp"
 
@@ -32,6 +33,7 @@ using std::vector;
 namespace jumper
 {
     class Bot;
+
     class MainWindow;
 
 /**
@@ -70,7 +72,7 @@ namespace jumper
         { m_layer = layer; };
 
         /// Adds a score board
-        void setStatusBar(StatusBar * b)
+        void setStatusBar(StatusBar* b)
         { m_statusBar = b; };
 
         /// set bots
@@ -118,10 +120,11 @@ namespace jumper
 
         void setBossHealth(int health);
 
+        void removeActor(Actor* a);
+
         void end();
 
         Actor* getLastBoss();
-
 
     protected:
         bool m_bossFight;
@@ -141,8 +144,6 @@ namespace jumper
         void moveActors();
 
         void checkCameraCollision();
-
-        void removeActor(Actor* a);
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.
@@ -175,7 +176,7 @@ namespace jumper
         TexturedLayer* m_layer;
 
         /// A score board
-        StatusBar * m_statusBar;
+        StatusBar* m_statusBar;
 
         /// Pointer to the main window of the game
         SDL_Renderer* m_renderer;
@@ -199,6 +200,7 @@ namespace jumper
          * Is invoked by Game::update() and remove Actors with health below 0.
          */
         void removeDeadActors();
+
         vector<Bot*> m_bots;
 
         Sound m_sound;
@@ -209,8 +211,7 @@ namespace jumper
 
         bool m_cheatActive;
 
-        const char konamiCode[19] = {'u',' ','u',' ','d',' ','d',' ','l',' ','r',' ','l',' ','r',' ','B',' ','A'};
-
+        const std::string konamiCode = "u u d d l r l r B A";
     };
 
 } /* namespace jumper */
