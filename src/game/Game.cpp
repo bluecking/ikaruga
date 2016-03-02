@@ -123,7 +123,7 @@ namespace jumper
         }
         else
         {
-            if (xplayer.stdWeapon.type.compare("BLASTER") == 0)
+            if (xplayer.stdWeapon.type.compare("BLASTER_GUN") == 0)
             {
                 player->setWeapon(
                         new BlasterWeapon(*game,
@@ -141,7 +141,7 @@ namespace jumper
             }
             else
             {
-                if (xplayer.stdWeapon.type.compare("ROCKET") == 0)
+                if (xplayer.stdWeapon.type.compare("ROCKET_GUN") == 0)
                 {
                     player->setWeapon(
                             new RocketWeapon(*game,
@@ -241,7 +241,7 @@ namespace jumper
             }
             else
             {
-                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0)
+                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER_GUN") == 0)
                 {
                     bot->setWeapon(
                             new BlasterWeapon(*game,
@@ -259,7 +259,7 @@ namespace jumper
                 }
                 else
                 {
-                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0)
+                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET_GUN") == 0)
                     {
                         bot->setWeapon(
                                 new RocketWeapon(*game,
@@ -277,7 +277,7 @@ namespace jumper
                     }
                     else
                     {
-                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL") == 0)
+                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL_GUN") == 0)
                         {
                             bot->setWeapon(
                                     new MeatballWeapon(*game,
