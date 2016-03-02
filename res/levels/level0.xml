@@ -1,7 +1,7 @@
 <level>
     <id>0</id>
     <name>Milky Way</name>
-    <tileset filename="test1.lvl"/>
+    <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
         <scrollspeed>1</scrollspeed>
@@ -91,10 +91,10 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <item type="RESTORE_HEALTH">
-        <positionX>800</positionX>
-        <positionY>100</positionY>
-        <value>50</value>
+    <item type="GODMODE">
+        <positionX>300</positionX>
+        <positionY>50</positionY>
+        <value>15</value>
     </item>
     <item type="RESTORE_HEALTH">
         <positionX>1200</positionX>
@@ -107,4 +107,3 @@
         <value>1</value>
     </item>
 </level>
-

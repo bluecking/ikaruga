@@ -17,7 +17,15 @@ namespace jumper
         PowerUpWeapon(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames,
                       Weapon* weapon);
 
-        virtual void consume(Player* player);
+        /**
+         * see PowerUp::consume(Player& player)
+         */
+        virtual void consume(Player& player);
+
+        /**
+         * see PowerUp::stop(Player& player)
+         */
+        virtual void stop(Player& player);
 
     private:
         Weapon* m_weapon;

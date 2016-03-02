@@ -19,7 +19,15 @@ namespace jumper
         PowerUpHeal(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames,
                     int healPercentage);
 
-        virtual void consume(Player* player);
+        /**
+         * see PowerUp::consume(Player& player)
+         */
+        virtual void consume(Player& player);
+
+        /**
+         * see PowerUp::stop(Player& player)
+         */
+        virtual void stop(Player& player);
 
     private:
         int m_healPercentage;

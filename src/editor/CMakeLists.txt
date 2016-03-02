@@ -4,9 +4,7 @@ set(EDITOR_SOURCES
 		LevelScene.cpp
 		GraphicsTileItem.cpp
 		TextureScene.cpp
-		TextureScene.h
-		Settings.cpp
-		Settings.h)
+		)
 
 FIND_PACKAGE(Qt4 REQUIRED)
 include_directories(${QT_INCLUDE_DIR})

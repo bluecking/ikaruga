@@ -112,12 +112,12 @@ namespace jumper
 
         //Rendering of Health Display
 
-        RenderHPBar(m_healthPosition, 100, target.h, &m_max_health, &m_health);
+        RenderHPBar(m_healthPosition, m_healthBarWidth, target.h, &m_max_health, &m_health);
         if (m_boss_health != 0)
         {
             Vector2i position = m_healthPosition;
-            position.setY(position.y() + 60);
-            RenderHPBar(position, 100, target.h, &m_boss_max_health, &m_boss_health);
+            position.setY((m_horziontalAlignemnt + offsetBossHealth )* m_tileHeight);
+            RenderHPBar(position, m_healthBarWidth, target.h, &m_boss_max_health, &m_boss_health);
             position.setX(position.x() - 50);
             vector<Vector2i> boss_source = renderString("BOSS:", m_minusculeOffset, m_capitalOffset, m_numberOffset);
 

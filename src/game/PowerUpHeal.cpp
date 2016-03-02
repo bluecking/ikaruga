@@ -15,9 +15,14 @@ namespace jumper
             : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames), m_healPercentage(healPercentage)
     { }
 
-    void PowerUpHeal::consume(Player* player)
+    void PowerUpHeal::consume(Player& player)
     {
-        float heal = player->getInitial_health() * m_healPercentage * 0.01f;
-        player->setHealth(player->getHealth() + ((int) (heal * m_healPercentage)));
+        float heal = player.getInitial_health() * m_healPercentage * 0.01f;
+        player.setHealth(player.getHealth() + ((int) (heal * m_healPercentage)));
+    }
+
+    void PowerUpHeal::stop(Player& player)
+    {
+        // do nothing yet
     }
 }

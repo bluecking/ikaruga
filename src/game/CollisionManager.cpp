@@ -21,11 +21,15 @@ namespace jumper
         // Sweep and Prune algorithm. Check only actors with other actors that have overlapping x positions
         sort(actors.begin(), actors.end(), compareActorXPositions);
 
-        for (auto currentAABB = actors.begin(); currentAABB != actors.end(); ++currentAABB)
+        // We must copy the actor vector, because while iterating through it, we invoke resolveCollision
+        // and resolveCollision manipulates the same vector instance.
+        vector<Actor*> actorCopy(actors);
+        
+        for (auto currentAABB = actorCopy.begin(); currentAABB != actorCopy.end(); ++currentAABB)
         {
             auto otherAABB = currentAABB;
 
-            for (++otherAABB; otherAABB != actors.end(); ++otherAABB)
+            for (++otherAABB; otherAABB != actorCopy.end(); ++otherAABB)
             {
                 SDL_Rect hitBoxA = (*currentAABB)->getHitbox();
                 SDL_Rect hitBoxB = (*otherAABB)->getHitbox();

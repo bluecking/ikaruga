@@ -31,6 +31,8 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+        float speed;
+        int numFrames;
     };
 
     struct NPC{
@@ -136,6 +138,13 @@ public:
         int money;
     };
 
+
+    /**
+     * This constructor loads the settings files and profiles
+     * @param resPath Path to the res-Directory
+     * @param noLevel Bool if the given string points to the resPath or to a level xml file
+     */
+    XML(std::string resPath, bool noLevel);
 
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.

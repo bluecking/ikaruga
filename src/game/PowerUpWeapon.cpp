@@ -15,10 +15,15 @@ namespace jumper
 
     }
 
-    void PowerUpWeapon::consume(Player* player)
+    void PowerUpWeapon::consume(Player& player)
     {
         // todo update weapon level if same weapon is consumed again and destroy (delte) old weapon
-        m_weapon->setActor(player);
-        player->setWeapon(m_weapon);
+        m_weapon->setActor(&player);
+        player.setWeapon(m_weapon);
+    }
+
+    void PowerUpWeapon::stop(Player& player)
+    {
+        // do nothing yet
     }
 }

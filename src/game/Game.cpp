@@ -90,8 +90,8 @@ namespace jumper
     void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
-        Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight,
-                                    xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
+        Player* player = new Player(w->getRenderer(), texture, *game, xplayer.frameWidth, xplayer.frameHeight,
+                xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
         player->setHitMarkVolume(xplayer.hitVolume);
@@ -116,7 +116,7 @@ namespace jumper
         player->setColorOffset(colorOffset);
     }
 
-        //create Bots
+    //create Bots
 
 //create Bots
     void Game::setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
@@ -128,10 +128,11 @@ namespace jumper
 
             // Determine of the bot is a boss
             ActorType bot_type;
-            if (currentBot.type.npc.type=="BOSS")
+            if (currentBot.type.npc.type == "BOSS")
             {
                 bot_type = ActorType::BOSS;
-            } else
+            }
+            else
             {
                 bot_type = ActorType::ENEMY;
             }
@@ -178,39 +179,46 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for(auto item : items) {
+        for(auto item : items)
+        {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
+            PowerUp* powerUp = NULL;
 
             if (item.type.type.compare("RESTORE_HEALTH") == 0)
             {
-                SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
-
-                PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
+                powerUp = new PowerUpHeal(w->getRenderer(),
                                                        texture,
                                                        item.type.frameWidth,
                                                        item.type.frameHeight,
                                                        item.type.numFrames, item.type.healPercentage);
-                powerUp->setFPS(item.type.fps);
 
-                Vector2f pos = Vector2f(item.positionX, item.positionY);
-                powerUp->setPosition(pos);
+            }
+            else if (item.type.type.compare("GODMODE") == 0)
+            {
+                powerUp = new PowerUpGodMode(w->getRenderer(),
+                        texture,
+                        item.type.frameWidth,
+                        item.type.frameHeight,
+                        item.type.numFrames);
 
-                game->addActor(powerUp);
+                powerUp->setExpirationTime(item.value);
             }
             else if (item.type.type.compare("WEAPON") == 0)
             {
-                SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
-
-                PowerUpWeapon* powerUp = new PowerUpWeapon(w->getRenderer(),
+                powerUp = new PowerUpWeapon(w->getRenderer(),
                                                        texture,
                                                        item.type.frameWidth,
                                                        item.type.frameHeight,
                                                        item.type.numFrames,
                                                         createWeaponFromXML(item.type.weapon, game, 0, w, filepath));
-                powerUp->setFPS(item.type.fps);
 
-                Vector2f pos = Vector2f(item.positionX, item.positionY);
+            }
+
+            Vector2f pos = Vector2f(item.positionX, item.positionY);
+
+            if(powerUp != NULL) {
                 powerUp->setPosition(pos);
-
+                powerUp->setFPS(item.type.fps);
                 game->addActor(powerUp);
             }
         }
@@ -221,7 +229,7 @@ namespace jumper
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
 
-        game->m_explosionAnimation = path+xml.getExplosions();
+        game->m_explosionAnimation = path + xml.getExplosions();
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -244,6 +252,7 @@ namespace jumper
 
     Game::Game(MainWindow* mainWindow)
     {
+        m_cheatActive = false;
         m_player = 0;
         m_level = 0;
         m_layer = 0;
@@ -343,8 +352,6 @@ namespace jumper
                 (*it)->setHit(false);
             }
 
-            m_player->consumePowerUps();
-
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -362,31 +369,48 @@ namespace jumper
             m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
             m_statusBar->setHealth(m_player->getHealth());
 
+            char lastKey;
+            lastKey = ' ';
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
             {
+                lastKey = 'u';
                 moveDirection.setY(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_DOWN])
             {
+                lastKey = 'd';
                 moveDirection.setY(1);
             }
             if (currentKeyStates[SDL_SCANCODE_LEFT])
             {
+                lastKey = 'l';
                 moveDirection.setX(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_RIGHT])
             {
+                lastKey = 'r';
                 moveDirection.setX(1);
             }
+            if (currentKeyStates[SDL_SCANCODE_A])
+            {
+                lastKey = 'A';
+            }
+            if (currentKeyStates[SDL_SCANCODE_B])
+            {
+                lastKey = 'B';
+            }
+
+            checkCheat(lastKey);
             m_player->setMoveDirection(moveDirection);
 
             removeDeadActors();
 
             // If player is still there, update game
-            if(m_player)
+            if (m_player)
             {
+                m_player->consumePowerUps();
                 moveActors();
 
                 //added spawn bots
@@ -554,24 +578,26 @@ namespace jumper
 
             // Clear player pointer member variable before destructing player,
             // so the game update loop can handle the despawn of the player
-            if(actor->type() == ActorType::PLAYER)
+            if (actor->type() == ActorType::PLAYER)
             {
                 m_player = NULL;
             }
 
             delete actor;
-      }
+        }
     }
 
     void Game::setActorOptionsOnKill(Actor* actor)
     {
-        if(actor->type() == ENEMY || actor->type() == PLAYER ){
+        if (actor->type() == ENEMY || actor->type() == PLAYER)
+        {
             KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
             addActor(kill);
         }
         if (m_statusBar)
         {
-            if (actor->isKilled()){
+            if (actor->isKilled())
+            {
                 if (actor->type() == ActorType::ENEMY)
                 {
                     m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
@@ -589,42 +615,44 @@ namespace jumper
             }
         }
         //End When Player is Dead
-        if ( actor->type() == ActorType::PLAYER)
+        if (actor->type() == ActorType::PLAYER)
         {
             actor->playExplosionSound();
             end();
         }
-        if(actor->type() == ActorType::BOSS)
+        if (actor->type() == ActorType::BOSS)
         {
-            if(actor == getLastBoss()){
+            if (actor == getLastBoss())
+            {
                 end();
             }
         }
 
     }
 
-    Actor* Game::getLastBoss() {
+    Actor* Game::getLastBoss()
+    {
         //m_bots und m_actors durchgehen
         int xOfLastBoss = 0;
         Actor* lastBoss;
-        for(auto bot : m_bots)
+        for (auto bot : m_bots)
         {
-            if(bot->type() == ActorType::BOSS)
+            if (bot->type() == ActorType::BOSS)
             {
-                if(xOfLastBoss < bot->position().x())
+                if (xOfLastBoss < bot->position().x())
                 {
                     xOfLastBoss = bot->position().x();
                     lastBoss = bot;
                 }
             }
         }
-        if(xOfLastBoss == 0)
+        if (xOfLastBoss == 0)
         {
-            for(auto bot : m_actors)
+            for (auto bot : m_actors)
             {
-                if(bot->type() == ActorType::BOSS)
+                if (bot->type() == ActorType::BOSS)
                 {
-                    if(xOfLastBoss < bot->position().x())
+                    if (xOfLastBoss < bot->position().x())
                     {
                         xOfLastBoss = bot->position().x();
                         lastBoss = bot;
@@ -632,10 +660,11 @@ namespace jumper
                 }
             }
         }
-        if(xOfLastBoss == 0)
+        if (xOfLastBoss == 0)
         {
             return NULL;
-        } else
+        }
+        else
         {
             return lastBoss;
         }
@@ -646,7 +675,6 @@ namespace jumper
         m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
-
 
     void Game::setBossFight(bool bossfight)
     {
@@ -687,6 +715,25 @@ namespace jumper
         return m_bossFightAt;
     }
 
+    void Game::checkCheat(const char type)
+    {
+        if (!m_player->isGodModeCheat())
+        {
+            if (m_cheat.back() != type)
+            {
+                m_cheat += type;
+            }
+            if (m_cheat.size()>=20)
+            {
+                m_cheat = m_cheat.substr(m_cheat.size()-20, m_cheat.size());
+            }
+            if (m_cheat.find(konamiCode) != string::npos)
+            {
+                m_player->setGodModeCheat();
+            }
+        }
+    }
+
     void Game::setBossHealth(int health)
     {
         m_boss_health = health;
@@ -724,7 +771,54 @@ namespace jumper
                             coolDown,
                             filepath + weapon.soundfile,
                             weapon.shootingVolume,
-                            weapon.collisionDamage);
+                            weapon.collisionDamage,
+                            weapon.speed,
+                            weapon.numFrames);
+        }
+        else if (weapon.type.compare("BLASTER_GUN") == 0)
+        {
+            weaponInstance = new BlasterWeapon(*game,
+                                             *actor,
+                                             weaponTexture,
+                                             *textureSize,
+                                             *weaponOffset,
+                                             *projectileColorOffset,
+                                             coolDown,
+                                             filepath + weapon.soundfile,
+                                             weapon.shootingVolume,
+                                             weapon.collisionDamage,
+                                             weapon.speed,
+                                             weapon.numFrames);
+        }
+        else if (weapon.type.compare("ROCKET_GUN") == 0)
+        {
+            weaponInstance = new RocketWeapon(*game,
+                                               *actor,
+                                               weaponTexture,
+                                               *textureSize,
+                                               *weaponOffset,
+                                               *projectileColorOffset,
+                                               coolDown,
+                                               filepath + weapon.soundfile,
+                                               weapon.shootingVolume,
+                                               weapon.collisionDamage,
+                                               weapon.speed,
+                                               weapon.numFrames);
+        }
+        else if (weapon.type.compare("MEATBALL_GUN") == 0)
+        {
+            weaponInstance = new MeatballWeapon(*game,
+                                              *actor,
+                                              weaponTexture,
+                                              *textureSize,
+                                              *weaponOffset,
+                                              *projectileColorOffset,
+                                              coolDown,
+                                              filepath + weapon.soundfile,
+                                              weapon.shootingVolume,
+                                              weapon.collisionDamage,
+                                              weapon.speed,
+                                              weapon.numFrames);
         }
 
         return weaponInstance;

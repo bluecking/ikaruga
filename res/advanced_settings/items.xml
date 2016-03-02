@@ -19,4 +19,14 @@
         <collisionDamage>0</collisionDamage>
         <weapon>LASER_GUN</weapon>
     </item>
+    <item type="GODMODE">
+        <filename>../images/powerup_nuke_49x50.png</filename>
+        <frameWidth>60</frameWidth>
+        <frameHeight>45</frameHeight>
+        <fps>12</fps>
+        <numFrames>1</numFrames>
+        <collisionDamage>0</collisionDamage>
+        <healPercentage>100</healPercentage>
+        <weapon>LASER_GUN</weapon>
+    </item>
 </items>
