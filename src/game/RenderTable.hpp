@@ -7,6 +7,7 @@
 * @date 02 Mrz 2016
 */
 #include "FontRender.hpp"
+#include <stdexcept>
 
 #ifndef SCROLLER_RENDERTABLE_HPP
 #define SCROLLER_RENDERTABLE_HPP
