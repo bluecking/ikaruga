@@ -328,6 +328,8 @@ void XML::loadItems(std::string filename){
                 i.filename = v.second.get<string>("filename");
                 i.frameWidth = v.second.get<int>("frameWidth");
                 i.frameHeight = v.second.get<int>("frameHeight");
+                i.fps = v.second.get<int>("fps");
+                i.numFrames = v.second.get<int>("numFrames");
                 i.health = v.second.get<int>("health");
                 i.collisionDamage = v.second.get<int>("collisionDamage");
                 m_items.push_back(i);

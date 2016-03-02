@@ -212,16 +212,17 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for(auto it = items.begin(); it != items.end(); ++it) {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + it->type.filename);
+        for(auto item : items) {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
 
             PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
                             texture,
-                            it->type.frameWidth,
-                            it->type.frameHeight,
-                            1);
+                            item.type.frameWidth,
+                            item.type.frameHeight,
+                            item.type.numFrames);
+            powerUp->setFPS(item.type.fps);
 
-            Vector2f pos = Vector2f(it->positionX, it->positionY);
+            Vector2f pos = Vector2f(item.positionX, item.positionY);
             powerUp->setPosition(pos);
 
             game->addActor(powerUp);
