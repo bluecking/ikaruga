@@ -25,6 +25,7 @@
 //#include "Main.cpp"
 
 #include <vector>
+#include "FontRender.hpp"
 
 using std::vector;
 
@@ -121,10 +122,16 @@ namespace jumper
 
         Actor* getLastBoss();
 
+
     protected:
         bool m_bossFight;
 
     private:
+
+        void printStartScreen();
+
+        void printEndScreen();
+
         int m_boss_health;
 
         int m_bossFightAt;

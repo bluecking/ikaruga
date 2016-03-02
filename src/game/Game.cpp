@@ -10,6 +10,7 @@
 #include "CollisionManager.hpp"
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
+#include "FontRender.hpp"
 
 #include <set>
 
@@ -515,13 +516,14 @@ namespace jumper
 
     void Game::start()
     {
-        //TODO ~ Splashscreen
+        printStartScreen();
         m_started = true;
     }
 
     void Game::end()
     {
-        cout << "Game Ended" << endl;
+        printEndScreen();
+        m_started = false;
     }
 
     void Game::scrollHorizontal()
@@ -671,10 +673,6 @@ namespace jumper
 
     void Game::setBossFight(bool bossfight)
     {
-        if (m_bossFight == true && bossfight)
-        {
-            cout << "Bossfight has ended";
-        }
         m_bossFight = bossfight;
 
     }
@@ -713,6 +711,16 @@ namespace jumper
     void Game::setBossHealth(int health)
     {
         m_boss_health = health;
+    }
+
+    void Game::printStartScreen()
+    {
+        //TODO ~ Implement
+    }
+
+    void Game::printEndScreen()
+    {
+        //TODO ~ Implement
     }
 
 } /* namespace jumper */
