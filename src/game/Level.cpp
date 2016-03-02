@@ -379,7 +379,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID)))) // collide with something solid
+							if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == (signed) tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) ) ) // collide with something solid
 							{
 								recursionNeeded = false;
 
@@ -547,7 +547,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-							if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID)))) // collide with something solid
+							if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == (signed) tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) ) ) // collide with something solid
 							{
 								recursionNeeded = false;
 
@@ -724,7 +724,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-						if (tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGEDOWNLEFT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGEDOWNLEFT && t != NONSOLID)) || (round == tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))))
+						if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGEDOWNLEFT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGEDOWNLEFT && t != NONSOLID)) || (round == (signed) tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) ) )
 						{
 							recursionNeeded = false;
 
@@ -834,7 +834,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
                         TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
-                        if (tiles.size() == 1 && t != NONSOLID && t != EDGETOPLEFT && t != EDGETOPRIGHT || tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT) && t != NONSOLID) || (round == tiles.size() - 1 && (t != EDGETOPRIGHT && t != NONSOLID)))) // collide with something solid
+                        if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGETOPLEFT && t != EDGETOPRIGHT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT) && t != NONSOLID) || (round == (signed) tiles.size() - 1 && (t != EDGETOPRIGHT && t != NONSOLID))) ) ) // collide with something solid
                         {
 							recursionNeeded = false;
 
