@@ -74,6 +74,20 @@ namespace jumper
         int getEvolutionStage(void)
         { return m_evolution; }
 
+        /**
+         * Sets the Weapon Evolution Stage
+         *
+         * @param evolution Evolution stage
+         */
+        void setEvolutionStage(int evolution)
+        { m_evolution = evolution; }
+
+        /**
+         * Upgrades the Weapon Evolution Stage
+         *
+         */
+        void upgrade();
+
         // The sound, the Weapon should make
         Sound m_sound;
 

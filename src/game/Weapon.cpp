@@ -33,6 +33,11 @@ namespace jumper
 
     }
 
+    void Weapon::upgrade()
+    {
+        setEvolutionStage(getEvolutionStage() + 1);
+    }
+
     bool Weapon::weaponReady()
     {
         if (m_lastShoot == 0)

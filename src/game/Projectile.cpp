@@ -58,6 +58,11 @@ namespace jumper
     {
         // TODO: Check if this projectile was shot by player or enemy
 
+        if (other.type() == PROJECTILE)
+        {
+            return;
+        }
+
         // Hit with player
         if (other.type() == PLAYER)
         {
