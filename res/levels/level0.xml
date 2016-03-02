@@ -91,9 +91,9 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <item type="RESTORE_HEALTH">
-        <positionX>800</positionX>
-        <positionY>100</positionY>
+    <item type="GODMODE">
+        <positionX>300</positionX>
+        <positionY>50</positionY>
         <value>50</value>
     </item>
     <item type="RESTORE_HEALTH">
