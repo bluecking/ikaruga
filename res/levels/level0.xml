@@ -1,2 +1,110 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <level><id>0</id><name>level0</name><tileset filename="level0.lvl"/><explosions filename="../images/explosions.png"/><background filename="../images/star_background_2_200x200.png"><scrollspeed>2</scrollspeed><soundfile>../sounds/game_loop.wav</soundfile><volume>70</volume></background><statusBar filename="../images/font_yellow_10x10.png"><frameWidth>10</frameWidth><frameHeight>10</frameHeight><letterCount>26</letterCount><capitalOffset>1</capitalOffset><minusculeOffset>2</minusculeOffset><numberOffset>0</numberOffset><offsetToMid>1</offsetToMid></statusBar><player filename="../images/player_animated_55x43_transparent.png"><numFrames>24</numFrames><frameWidth>55</frameWidth><frameHeight>43</frameHeight><positionX>100</positionX><positionY>100</positionY><stdWeapon>LASER_GUN</stdWeapon><colorOffsetX>1320</colorOffsetX><colorOffsetY>0</colorOffsetY><moveForceX>200</moveForceX><moveForceY>200</moveForceY><maxVel>200</maxVel><fps>12</fps><explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile><explosionVolume>100</explosionVolume><hitSoundFile>../sounds/hit_mark.wav</hitSoundFile><hitVolume>100</hitVolume><health>100</health><collisionDamage>25</collisionDamage></player><bot type="BOT_AI"><positionX>1160</positionX><positionY>40</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_AI"><positionX>1160</positionX><positionY>160</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_AI"><positionX>1160</positionX><positionY>320</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_AI"><positionX>1040</positionX><positionY>360</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_AI"><positionX>960</positionX><positionY>120</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>440</positionX><positionY>160</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>480</positionX><positionY>80</positionY><color>black</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>520</positionX><positionY>160</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>640</positionX><positionY>80</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>720</positionX><positionY>160</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>760</positionX><positionY>320</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>840</positionX><positionY>240</positionY><color>white</color><powerUp probability="20">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>880</positionX><positionY>240</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>920</positionX><positionY>280</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>800</positionX><positionY>80</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><bot type="BOT_SIN_DOWN"><positionX>440</positionX><positionY>280</positionY><color>white</color><powerUp probability="0">RESTORE_HEALTH</powerUp></bot><item type="RESTORE_HEALTH"><positionX>320</positionX><positionY>200</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>360</positionX><positionY>360</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>560</positionX><positionY>360</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>600</positionX><positionY>240</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>680</positionX><positionY>280</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>880</positionX><positionY>160</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>1000</positionX><positionY>240</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>1040</positionX><positionY>80</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>1240</positionX><positionY>120</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>1280</positionX><positionY>320</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>1160</positionX><positionY>400</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>760</positionX><positionY>240</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>640</positionX><positionY>160</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>560</positionX><positionY>80</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>720</positionX><positionY>40</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>400</positionX><positionY>40</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>240</positionX><positionY>120</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>160</positionX><positionY>120</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>120</positionX><positionY>160</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>200</positionX><positionY>320</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>200</positionX><positionY>400</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>80</positionX><positionY>400</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>120</positionX><positionY>320</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>240</positionX><positionY>240</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>240</positionX><positionY>200</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>80</positionX><positionY>160</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>0</positionX><positionY>80</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>80</positionX><positionY>40</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>160</positionX><positionY>80</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>120</positionX><positionY>200</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>40</positionX><positionY>280</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>120</positionX><positionY>280</positionY><value>50</value></item><item type="RESTORE_HEALTH"><positionX>160</positionX><positionY>240</positionY><value>50</value></item></level>
+=======
+<level>
+    <id>0</id>
+    <name>Milky Way</name>
+    <tileset filename="test1.lvl"/>
+    <explosions filename= "../images/explosions.png"/>
+    <background filename="../images/star_background_2_200x200.png">
+        <scrollspeed>1</scrollspeed>
+        <soundfile>../sounds/game_loop.wav</soundfile>
+        <volume>70</volume>
+    </background>
+    <player filename="../images/player_animated_55x43_transparent.png">
+        <numFrames>24</numFrames>
+        <frameWidth>55</frameWidth>
+        <frameHeight>43</frameHeight>
+        <positionX>100</positionX>
+        <positionY>140</positionY>
+        <stdWeapon>LASER_GUN</stdWeapon>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <moveForceX>200.0</moveForceX>
+        <moveForceY>200.0</moveForceY>
+        <maxVel>200.0</maxVel>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>100</explosionVolume>
+        <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
+        <hitVolume>100</hitVolume>
+        <collisionDamage>25</collisionDamage>
+        <health>100</health>
+    </player>
+ <statusBar filename="../images/font_yellow_10x10.png">
+      <frameWidth>10</frameWidth>
+      <frameHeight>10</frameHeight>
+      <letterCount>26</letterCount>
+      <capitalOffset>1</capitalOffset>
+      <minusculeOffset>2</minusculeOffset>
+      <numberOffset>0</numberOffset>
+      <offsetToMid>1</offsetToMid>
+  </statusBar>
+    <bot type="BOT_AI">
+        <positionX>600</positionX>
+        <positionY>50</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_AI">
+        <positionX>750</positionX>
+        <positionY>55</positionY>
+        <color>white</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_UP">
+        <positionX>1200</positionX>
+        <positionY>80</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN">
+        <positionX>1350</positionX>
+        <positionY>200</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_DOWN">
+        <positionX>1700</positionX>
+        <positionY>280</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN">
+        <positionX>2000</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SIN_DOWN">
+        <positionX>2200</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_NO_MOVE">
+        <positionX>3000</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOSS_FSM">
+        <positionX>1800</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <item type="GODMODE">
+        <positionX>300</positionX>
+        <positionY>50</positionY>
+        <value>50</value>
+    </item>
+    <item type="RESTORE_HEALTH">
+        <positionX>1200</positionX>
+        <positionY>150</positionY>
+        <value>50</value>
+    </item>
+</level>
+
+>>>>>>> f85720901364f3950cad86f2e40300c145984505

@@ -13,9 +13,9 @@ namespace jumper {
             int frameWidth,
             int frameHeight,
             int numFrames) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
-                                   m_expirationTime(0)
+                                                 m_expirationTime(0)
     {
-
+        setType(ActorType::POWERUP);
     }
 
     void PowerUp::resolveCollision(Actor& other)
@@ -39,10 +39,5 @@ namespace jumper {
     PowerUp::~PowerUp()
     {
 
-    }
-
-    int PowerUp::getExpirationTime()
-    {
-        return m_expirationTime;
     }
 }
