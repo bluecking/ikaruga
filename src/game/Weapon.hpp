@@ -66,6 +66,11 @@ namespace jumper
         string getWeaponName(void)
         { return m_name;}
 
+        void setActor(Actor* m_actor)
+        {
+            Weapon::m_actor = m_actor;
+        }
+
         /**
          * Returns the Weapon Evolution Stage
          *
@@ -82,7 +87,7 @@ namespace jumper
         Game& m_game;
 
         // Actor which shoots the projectiles
-        Actor& m_actor;
+        Actor* m_actor;
 
         // Timestamp of the last shoot
         Uint32 m_lastShoot;

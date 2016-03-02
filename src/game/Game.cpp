@@ -11,6 +11,7 @@
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
 #include "FontRender.hpp"
+#include "PowerUpWeapon.hpp"
 
 #include <set>
 
@@ -97,25 +98,9 @@ namespace jumper
 
         // set weapon
         XML::Weapon weapon = xplayer.stdWeapon;
-        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
-        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
-        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
-        float coolDown = weapon.cooldown;
-        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-                filepath + weapon.filename);
+        Weapon* weapon1 = createWeaponFromXML(weapon, game, player, w, filepath);
 
-        player->setWeapon(
-                new LaserWeapon(*game,
-                                *player,
-                                weaponTexture,
-                                *textureSize,
-                                *weaponOffset,
-                                *projectileColorOffset,
-                                coolDown,
-                                filepath + weapon.soundfile,
-                                weapon.shootingVolume,
-                                weapon.collisionDamage));
-
+        player->setWeapon(weapon1);
 
         game->setPlayer(player);
         player->setFocus(true);
@@ -166,28 +151,8 @@ namespace jumper
             bot->setPhysics(p);
             bot->setFPS(currentBot.type.fps);
 
-            // detect Weapon
-            if (currentBot.type.npc.stdWeapon.type.compare("LASER_GUN") == 0)
-            {
-                Vector2i* textureSize = new Vector2i(currentBot.type.npc.stdWeapon.frameWidth, currentBot.type.npc.stdWeapon.frameHeight);
-                Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
-                Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
-                float coolDown = currentBot.type.npc.stdWeapon.cooldown;
-                SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-                        filepath + currentBot.type.npc.stdWeapon.filename);
-
-                LaserWeapon* weapon = new LaserWeapon(*game,
-                                                      *bot,
-                                                      weaponTexture,
-                                                      *textureSize,
-                                                      *weaponOffset,
-                                                      *projectileColorOffset,
-                                                      coolDown,
-                                                      filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                                      currentBot.type.npc.stdWeapon.shootingVolume,
-                                                      currentBot.type.npc.stdWeapon.collisionDamage);
-                bot->setWeapon(weapon);
-            }
+            // set weapon
+            bot->setWeapon(createWeaponFromXML(currentBot.type.npc.stdWeapon, game, bot, w, filepath));
 
             // detect color
             if (currentBot.color.compare("black"))
@@ -214,19 +179,40 @@ namespace jumper
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
         for(auto item : items) {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
 
-            PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
-                            texture,
-                            item.type.frameWidth,
-                            item.type.frameHeight,
-                            item.type.numFrames);
-            powerUp->setFPS(item.type.fps);
+            if (item.type.type.compare("RESTORE_HEALTH") == 0)
+            {
+                SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
 
-            Vector2f pos = Vector2f(item.positionX, item.positionY);
-            powerUp->setPosition(pos);
+                PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
+                                                       texture,
+                                                       item.type.frameWidth,
+                                                       item.type.frameHeight,
+                                                       item.type.numFrames, item.type.healPercentage);
+                powerUp->setFPS(item.type.fps);
 
-            game->addActor(powerUp);
+                Vector2f pos = Vector2f(item.positionX, item.positionY);
+                powerUp->setPosition(pos);
+
+                game->addActor(powerUp);
+            }
+            else if (item.type.type.compare("WEAPON") == 0)
+            {
+                SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
+
+                PowerUpWeapon* powerUp = new PowerUpWeapon(w->getRenderer(),
+                                                       texture,
+                                                       item.type.frameWidth,
+                                                       item.type.frameHeight,
+                                                       item.type.numFrames,
+                                                        createWeaponFromXML(item.type.weapon, game, 0, w, filepath));
+                powerUp->setFPS(item.type.fps);
+
+                Vector2f pos = Vector2f(item.positionX, item.positionY);
+                powerUp->setPosition(pos);
+
+                game->addActor(powerUp);
+            }
         }
     }
 
@@ -716,4 +702,31 @@ namespace jumper
         //TODO ~ Implement
     }
 
+    Weapon* Game::createWeaponFromXML(XML::Weapon weapon, Game* game, Actor* actor, MainWindow* w, std::string filepath)
+    {
+        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+        float coolDown = weapon.cooldown;
+        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                filepath + weapon.filename);
+
+        Weapon* weaponInstance = 0;
+
+        if (weapon.type.compare("LASER_GUN") == 0)
+        {
+            weaponInstance = new LaserWeapon(*game,
+                            *actor,
+                            weaponTexture,
+                            *textureSize,
+                            *weaponOffset,
+                            *projectileColorOffset,
+                            coolDown,
+                            filepath + weapon.soundfile,
+                            weapon.shootingVolume,
+                            weapon.collisionDamage);
+        }
+
+        return weaponInstance;
+    }
 } /* namespace jumper */

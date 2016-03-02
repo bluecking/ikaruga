@@ -15,7 +15,7 @@ namespace jumper {
             int numFrames) : Actor(renderer, texture, frameWidth, frameHeight, numFrames, 1, 0),
                                    m_expirationTime(0)
     {
-
+        setType(ActorType::POWERUP);
     }
 
     void PowerUp::resolveCollision(Actor& other)

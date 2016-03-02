@@ -18,7 +18,7 @@ namespace jumper
         }
 
         // spawn projectile
-        Projectile* projectile = new Projectile(m_actor.getRenderer(),
+        Projectile* projectile = new Projectile(m_actor->getRenderer(),
                                                 m_projectileTexture,
                                                 m_projectileTextureSize.x(),
                                                 m_projectileTextureSize.y(),
@@ -29,11 +29,11 @@ namespace jumper
         projectile->setDirection(direction);
         projectile->setType(ActorType::PROJECTILE);
         projectile->setPosition(spawnPosition + m_weaponOffset);
-        projectile->setColor(m_actor.getColor());
-        projectile->setOriginActor(&m_actor);
+        projectile->setColor(m_actor->getColor());
+        projectile->setOriginActor(m_actor);
         projectile->launch();
 
-        if (m_actor.type() == ActorType::PLAYER)
+        if (m_actor->type() == ActorType::PLAYER)
         {
             m_sound.play(m_volume,this->m_coolDown*1000);
         }
