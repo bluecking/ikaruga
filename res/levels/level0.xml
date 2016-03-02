@@ -94,7 +94,7 @@
     <item type="GODMODE">
         <positionX>300</positionX>
         <positionY>50</positionY>
-        <value>50</value>
+        <value>15</value>
     </item>
     <item type="RESTORE_HEALTH">
         <positionX>1200</positionX>

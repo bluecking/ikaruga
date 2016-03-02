@@ -335,7 +335,7 @@ namespace jumper
                         it->type.frameHeight,
                         it->type.numFrames);
 
-                powerUp->setExpirationTime(10);
+                powerUp->setExpirationTime(it->value);
             }
             else if (it->type.type.compare("RESTORE_HEALTH") == 0)
             {
