@@ -2,6 +2,8 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "XML.hpp"
 
 using std::string;
@@ -12,22 +14,38 @@ using boost::property_tree::xml_writer_make_settings;
 
 XML::XML(std::string resPath, bool noLevel)
 {
-    std::string res_settings = resPath;
+    if(!boost::filesystem::exists(boost::filesystem::path(resPath))){
+        throw std::domain_error("Invalid path given!");
+    }
+
+    boost::filesystem::path res_settings(resPath);
+
+    res_settings = boost::filesystem::absolute(res_settings);
+    res_settings = res_settings.remove_trailing_separator();
+
     std::string advanced_settings;
 
     // Check whether it's the level path or the ressources Path
     if(!noLevel) {
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+        while(res_settings.parent_path().string().size()-1==res_settings.parent_path().string().find_last_of("/res") && res_settings.parent_path().string().find_last_of("/res")!=0){
+            res_settings = res_settings.parent_path();
+        }
+        res_settings = res_settings.remove_trailing_separator();
     }
 
-    if(res_settings.find_last_of("/\\")>res_settings.find_last_of("res")){
-        res_settings = res_settings.substr(0,res_settings.find_last_of("/\\"));
+    res_settings = res_settings.normalize();
+
+    if(!boost::filesystem::exists(res_settings) || !boost::filesystem::is_directory(res_settings)){
+        throw std::domain_error("Invalid path given!");
     }
 
-    profile_path = res_settings;
+    if(res_settings.string().size()-1!=res_settings.string().find_last_of("/res") || res_settings.string().find_last_of("/res")==0){
+        throw std::domain_error("Couldn't resolve ressources path!");
+    }
 
-    advanced_settings = res_settings;
+    profile_path = res_settings.string();
+
+    advanced_settings = res_settings.string();
     advanced_settings = advanced_settings.append("/advanced_settings/");
 
     profile_path = profile_path.append("/profiles/profiles.xml");
