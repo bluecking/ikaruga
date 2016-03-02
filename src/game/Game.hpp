@@ -22,6 +22,7 @@
 #include "LaserWeapon.hpp"
 #include "BlasterWeapon.hpp"
 #include "RocketWeapon.hpp"
+#include "MeatballWeapon.hpp"
 #include "PowerUpHeal.hpp"
 #include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"

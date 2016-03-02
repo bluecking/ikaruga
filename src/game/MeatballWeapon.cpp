@@ -1,15 +1,15 @@
 /**
- * RocketWeapon.cpp
+ * MeatballWeapon.cpp
  * 
- * @date 01.03.16
+ * @date 02.03.16
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#include "RocketWeapon.hpp"
+#include "MeatballWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper
 {
-    void RocketWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
+    void MeatballWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
         // Ignore shoots when weapon is not ready
         if (!weaponReady())
@@ -43,7 +43,7 @@ namespace jumper
     }
 
     //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
-    RocketWeapon::RocketWeapon(Game& game,
+    MeatballWeapon::MeatballWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,
@@ -62,7 +62,7 @@ namespace jumper
                      weaponOffset,
                      projectileColorOffset,
                      coolDown,
-                     "Rockets",
+                     "LaserGun",
                      1,
                      speed,
                      numFrames)

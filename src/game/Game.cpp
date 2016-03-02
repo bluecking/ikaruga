@@ -272,6 +272,25 @@ namespace jumper
                                                  currentBot.type.npc.stdWeapon.speed,
                                                  currentBot.type.npc.stdWeapon.numFrames));
                     }
+                    else
+                    {
+                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL") == 0)
+                        {
+                            bot->setWeapon(
+                                    new MeatballWeapon(*game,
+                                                     *bot,
+                                                     weaponTexture,
+                                                     *textureSize,
+                                                     *weaponOffset,
+                                                     *projectileColorOffset,
+                                                     coolDown,
+                                                     filepath + currentBot.type.npc.stdWeapon.soundfile,
+                                                     currentBot.type.npc.stdWeapon.shootingVolume,
+                                                     currentBot.type.npc.stdWeapon.collisionDamage,
+                                                     currentBot.type.npc.stdWeapon.speed,
+                                                     currentBot.type.npc.stdWeapon.numFrames));
+                        }
+                    }
                 }
             }
 
