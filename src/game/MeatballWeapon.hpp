@@ -1,21 +1,21 @@
 /**
- * LaserWeapon.hpp
+ * MeatballWeapon.hpp
  * 
- * @date 23.02.16
- * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
+ * @date 02.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#ifndef JUMPER_LASERWEAPON_HPP
-#define JUMPER_LASERWEAPON_HPP
+#ifndef JUMPER_MEATBALLWEAPON_HPP
+#define JUMPER_MEATBALLWEAPON_HPP
 
 #include <SDL_render.h>
 #include "Weapon.hpp"
 
 namespace jumper
 {
-    class LaserWeapon : public Weapon
+    class MeatballWeapon : public Weapon
     {
     public:
-        LaserWeapon(Game& game,
+        MeatballWeapon(Game& game,
                     Actor& actor,
                     SDL_Texture* projectileTexture,
                     const Vector2i& projectileTextureSize,
@@ -45,4 +45,4 @@ namespace jumper
 } /* namespace jumper */
 
 
-#endif //JUMPER_LASERWEAPON_HPP
+#endif //JUMPER_MEATBALLWEAPON_HPP
