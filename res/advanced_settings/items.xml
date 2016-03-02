@@ -8,4 +8,13 @@
         <health>100</health>
         <collisionDamage>0</collisionDamage>
     </item>
+    <item type="GODMODE">
+        <filename>../images/powerup_nuke_49x50.png</filename>
+        <frameWidth>60</frameWidth>
+        <frameHeight>45</frameHeight>
+        <fps>12</fps>
+        <numFrames>1</numFrames>
+        <health>100</health>
+        <collisionDamage>0</collisionDamage>
+    </item>
 </items>
