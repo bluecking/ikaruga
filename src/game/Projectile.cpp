@@ -58,35 +58,19 @@ namespace jumper
 
     void Projectile::resolveCollision(Actor& other)
     {
-        // TODO: Check if this projectile was shot by player or enemy
-
-        // Hit with player
-        if (other.type() == PLAYER)
+        if ((m_originActor->type() == PLAYER && (other.type() == ENEMY || other.type() == BOSS)) ||
+            ((m_originActor->type() == ENEMY || m_originActor->type() == BOSS) && other.type() == PLAYER))
         {
-            if (m_originActor->type() == PLAYER)
-            {
-                return;
-            }
+            m_health = 0;
         }
-
-        // Hit with enemy
-        if (other.type() == ENEMY || other.type() == BOSS)
-        {
-            if (m_originActor->type() == ENEMY || other.type() == BOSS)
-            {
-                return;
-            }
-        }
-
-        // Kill projectile when it was hit with something
-        m_health = 0;
     }
 
-        void Projectile::onCollide()
-        {
-            // Kill projectile when colliding with a tile
-            m_health = 0;
+    void Projectile::onCollide()
+    {
+        // Kill projectile when colliding with a tile
+        m_health = 0;
 
+<<<<<<< HEAD
             return;
         }
 
@@ -100,5 +84,8 @@ namespace jumper
 
         // flip texture horizontally if shooting forwards
         return SDL_FLIP_HORIZONTAL;
+=======
+        return;
+>>>>>>> develop
     }
 }
