@@ -36,10 +36,15 @@ private:
     Game* m_game;
     TexturedLayer* m_layer;
     Vector2f m_offset;
+    int m_startTicks;
 
     //TODO move to struct?
 
     void setupBackground(float scrollspeed, string backgroundImage);
+
+    float getElapsedTime();
+
+    void moveBackground();
 };
 } //end of namespace jumper
 
