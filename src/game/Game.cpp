@@ -123,7 +123,7 @@ namespace jumper
         }
         else
         {
-            if (xplayer.stdWeapon.type.compare("BLASTER") == 0)
+            if (xplayer.stdWeapon.type.compare("BLASTER_GUN") == 0)
             {
                 player->setWeapon(
                         new BlasterWeapon(*game,
@@ -141,7 +141,7 @@ namespace jumper
             }
             else
             {
-                if (xplayer.stdWeapon.type.compare("ROCKET") == 0)
+                if (xplayer.stdWeapon.type.compare("ROCKET_GUN") == 0)
                 {
                     player->setWeapon(
                             new RocketWeapon(*game,
@@ -241,7 +241,7 @@ namespace jumper
             }
             else
             {
-                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0)
+                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER_GUN") == 0)
                 {
                     bot->setWeapon(
                             new BlasterWeapon(*game,
@@ -259,7 +259,7 @@ namespace jumper
                 }
                 else
                 {
-                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0)
+                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET_GUN") == 0)
                     {
                         bot->setWeapon(
                                 new RocketWeapon(*game,
@@ -277,7 +277,7 @@ namespace jumper
                     }
                     else
                     {
-                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL") == 0)
+                        if (currentBot.type.npc.stdWeapon.type.compare("MEATBALL_GUN") == 0)
                         {
                             bot->setWeapon(
                                     new MeatballWeapon(*game,
@@ -849,7 +849,7 @@ namespace jumper
 
     void Game::checkCheat(const char type)
     {
-        if (!m_cheatActive)
+        if (!m_player->isGodModeCheat())
         {
             if (m_cheat.back() != type)
             {
@@ -861,12 +861,8 @@ namespace jumper
             }
             if (m_cheat.find(konamiCode) != string::npos)
             {
-                m_cheatActive = true;
+                m_player->setGodModeCheat();
             }
-        }
-        else
-        {
-            m_player->setHealth(10000);
         }
     }
 

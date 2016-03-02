@@ -14,8 +14,10 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    XML m_xml(argv[1]);
     XML xml2(argv[1], false);
+    exit(0);
+
+    XML m_xml(argv[1]);
 
     cout << "Parsing level defintion (xml):" << endl
         << "ID: " << m_xml.getId() << endl
