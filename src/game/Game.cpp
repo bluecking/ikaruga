@@ -143,7 +143,7 @@ namespace jumper
 
             // Determine of the bot is a boss
             ActorType bot_type;
-            if (currentBot.type.type.find("BOSS")!=std::string::npos)
+            if (currentBot.type.npc.type=="BOSS")
             {
                 bot_type = ActorType::BOSS;
             } else
