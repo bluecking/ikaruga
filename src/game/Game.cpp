@@ -103,7 +103,9 @@ namespace jumper
         SDL_Texture *weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + weapon.filename);
 
-        if (xplayer.stdWeapon.type.compare("LASER_GUN") == 0) {
+        // Set the right weapon for player
+        if (xplayer.stdWeapon.type.compare("LASER_GUN") == 0)
+        {
             player->setWeapon(
                     new LaserWeapon(*game,
                                     *player,
@@ -117,8 +119,11 @@ namespace jumper
                                     weapon.collisionDamage,
                                     weapon.speed,
                                     weapon.numFrames));
-        } else {
-            if (xplayer.stdWeapon.type.compare("BLASTER") == 0) {
+        }
+        else
+        {
+            if (xplayer.stdWeapon.type.compare("BLASTER") == 0)
+            {
                 player->setWeapon(
                         new BlasterWeapon(*game,
                                         *player,
@@ -132,9 +137,11 @@ namespace jumper
                                         weapon.collisionDamage,
                                         weapon.speed,
                                         weapon.numFrames));
-            }else
+            }
+            else
             {
-                if (xplayer.stdWeapon.type.compare("ROCKET") == 0) {
+                if (xplayer.stdWeapon.type.compare("ROCKET") == 0)
+                {
                     player->setWeapon(
                             new RocketWeapon(*game,
                                             *player,
@@ -182,7 +189,8 @@ namespace jumper
             if (currentBot.type.npc.type=="BOSS")
             {
                 bot_type = ActorType::BOSS;
-            } else
+            }
+            else
             {
                 bot_type = ActorType::ENEMY;
             }
@@ -210,6 +218,7 @@ namespace jumper
             SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
                     filepath + currentBot.type.npc.stdWeapon.filename);
 
+            // Set the right weapon for bot
             if (currentBot.type.npc.stdWeapon.type.compare("LASER_GUN") == 0)
             {
                 bot->setWeapon(
@@ -225,8 +234,11 @@ namespace jumper
                                         currentBot.type.npc.stdWeapon.collisionDamage,
                                         currentBot.type.npc.stdWeapon.speed,
                                         currentBot.type.npc.stdWeapon.numFrames));
-            } else {
-                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0) {
+            }
+            else
+            {
+                if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0)
+                {
                     bot->setWeapon(
                             new BlasterWeapon(*game,
                                               *bot,
@@ -240,9 +252,11 @@ namespace jumper
                                               currentBot.type.npc.stdWeapon.collisionDamage,
                                               currentBot.type.npc.stdWeapon.speed,
                                               currentBot.type.npc.stdWeapon.numFrames));
-                }else
+                }
+                else
                 {
-                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0) {
+                    if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0)
+                    {
                         bot->setWeapon(
                                 new RocketWeapon(*game,
                                                  *bot,
