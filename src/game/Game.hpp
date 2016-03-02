@@ -128,6 +128,8 @@ namespace jumper
 
     private:
 
+        void checkCheat(const char type);
+
         void printStartScreen();
 
         void printEndScreen();
@@ -202,6 +204,12 @@ namespace jumper
         Sound m_sound;
 
         string m_explosionAnimation;
+
+        std::string m_cheat;
+
+        bool m_cheatActive;
+
+        const char konamiCode = 'u u d d l r l r B A';
 
     };
 
