@@ -1,9 +1,9 @@
 //
 // Created by johann on 23.02.16.
 //
-#include "TextureScene.h"
+#include "TextureScene.hpp"
 
-TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
+TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
 
     ///Set tilesettings
     if(View->objectName().toStdString() == "TextureView")
@@ -18,9 +18,11 @@ TextureScene::TextureScene(Settings setting,QGraphicsView* View,LevelScene* leve
     m_levelScene=level;
     int count = 1;
     int max = m_tilesPerRow * m_numRows;
-    m_textureWidth = (int)((View->geometry().width() / m_tileWidth));
+    m_textureWidth = View->geometry().width() / m_tileWidth;
+
     if(max<m_textureWidth)m_textureWidth=max;
-    m_textureHeight = (int) ((max) / m_textureWidth + ((max % m_textureWidth) > 0 ? 1 : 0));
+    m_textureHeight = max / m_textureWidth + ((max % m_textureWidth) > 0 ? 1 : 0);
+
     if(m_type!=0)m_textureHeight *=5;
 
 

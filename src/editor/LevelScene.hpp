@@ -9,10 +9,9 @@
 #include<QFile>
 #include"MainWindow.hpp"
 #include"GraphicsTileItem.hpp"
-#include"Settings.h"
 #include<QGraphicsSceneMouseEvent>
 #include<iostream>
-#include "TextureScene.h"
+#include "TextureScene.hpp"
 #include"../xml/XML.hpp"
 
 
@@ -37,9 +36,8 @@ public:
 	void setNull();
 	void setId(int id);
 	void setLevelName(QString levelName);
-
+	void setBackgroundSize(int levelWidth);
 	QString toQString(std::string string);
-
 	QPixmap* getPixmap();
 
 protected:
@@ -49,51 +47,52 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
 
 private:
+	void setSceneRect();
 
-    QRect m_rect;
-    QPixmap* m_pixmap;   // A QPixmap to store the tile bitmap
-	QString	m_fileName;
-	QString m_path;
-	XML* m_xml;
-	QString m_xmlFileName;
-	QString m_levelName;
-	QString m_imgTexture; // File name of the tile bitmap
-	QString m_imgBackground;
-	QString m_imgStatusbar;
-	QString m_imgPlayer;
-	QString m_xmlLevelName;
-	Settings m_setting;
-	std::string m_soundfile;
-	std::string m_botType;
-	std::string m_color;
-	std::vector<XML::LevelBot> m_levelBots;
-	std::vector<XML::LevelItem> m_levelItems;
-	std::vector<XML::Bot> m_bots;
-	std::vector<XML::Item> m_items;
-	std::vector<XML::Weapon> m_weapons;
-	XML::LevelItem m_levelItem;
-	XML::Item m_item;
-	XML::Bot m_bot;
-	XML::Weapon m_weapon;
-	XML::LevelBot m_levelbot;
-	XML::Background m_background;
-	XML::Statusbar m_statusbar;
-	XML::Player m_player;
-	std::vector<int>* m_tiles;        // The 2D tile array
-	int m_typeItem;
-	int m_typeBot;
-	int m_typeTexture;
-	int m_scrollSpeed;
-	int m_index=0;        // Tile id
-	int m_type=0;         // texture type
-	int m_tileWidth;      // Width of the tiles
-	int m_tileHeight;     // Height of the tiles
-	int m_tilesPerRow;    // Tiles per row in the tile bitmap
-	int m_numRows;        // Number of rows in the tile bitmap
-	int m_tileOffset;     // Offset between the tiles
-	int m_levelWidth;     // Level width (in tiles)
-	int m_levelHeight;    // Level height in tiles
-	int m_levelId;
+    QRect m_rect;									// last copied rect
+    QPixmap* m_pixmap;   							// A QPixmap to store the tile bitmap
+	QString m_path;									// path to levels directory
+	XML* m_xml;										// xml object for XML library
+	QString m_levelName;							// name of .lvl file
+	QString m_imgTexture; 							// path of the tile texture
+	QString m_imgBackground;						// path of the background texture
+	QString m_imgExplosion;                         // path of the explosion texture
+	QString m_imgStatusbar;							// path of the statusbar texture
+	QString m_imgPlayer;							// path of the player texture
+	QString m_xmlLevelName;							// name of the level
+	std::string m_soundfile;						// path of the background soundfile
+	std::string m_color;							// color to render bots
+	std::vector<XML::LevelBot> m_levelBots;			// bots for the xml file
+	std::vector<XML::LevelItem> m_levelItems;		// items for the xml file
+	std::vector<XML::Bot> m_bots;					// properties of bots
+	std::vector<XML::Item> m_items;					// properties of items
+	std::vector<XML::Weapon> m_weapons;				// properties of weapons
+	XML::Item m_item;								// item to set in the mainView
+	XML::Bot m_bot;									// bot to set in the mainView
+	XML::Weapon m_weapon;							// weapons to set in the xml file
+	XML::Background m_background;					// background properties for xml file
+	XML::Statusbar m_statusbar;						// statusbar properties for the xml file
+	XML::Player m_player;							// player properties for the xml file
+    std::vector<int>* m_tiles;        				// The 2D tile array
+    QGraphicsItemGroup* m_backgroundGroupe;         // background layer
+    int m_typeBackground;							// int for background type
+	int m_typeItem;									// int for item type
+	int m_typeBot;									// int for bot type
+	int m_typeTexture;								// int for texture type
+	int m_scrollSpeed;                              // background scrollspeed
+	int m_index;                                    // Tile id
+	int m_type;                                     // texture type
+	int m_tileWidth;                                // Width of the tiles
+	int m_tileHeight;                               // Height of the tiles
+	int m_tilesPerRow;                              // Tiles per row in the tile bitmap
+	int m_numRows;                                  // Number of rows in the tile bitmap
+	int m_tileOffset;                               // Offset between the tiles
+	int m_levelWidth;                               // Level width in tiles
+	int m_levelHeight;                              // Level height in tiles
+	int m_levelId;                                  // Level id
+	int m_backgroundHeight;							// background tile height
+	int m_backgroundWidth;							// backgoround tile Width
+
 
 
 
