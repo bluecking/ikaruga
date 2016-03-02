@@ -20,7 +20,8 @@ namespace jumper
                    int frameWidth,
                    int frameHeight,
                    int numFrames,
-                   int collisionDamage);
+                   int collisionDamage,
+                   float speed);
 
         Actor* getOriginActor() const
         { return m_originActor; }
@@ -53,6 +54,7 @@ namespace jumper
         Vector2f m_direction;
         bool m_launched;
         int m_collisionDamage;
+        float m_speed;
     private:
         Vector2f m_lastPosition = 0;
         Actor* m_originActor;
