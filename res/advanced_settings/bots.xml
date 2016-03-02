@@ -120,9 +120,9 @@
         </npc>
     </bot>
     <bot type="BOSS_WIEMAN">
-        <filename>../images/thomas_189x189.png</filename>
+        <filename>../images/thomas_135x189.png</filename>
         <numFrames>2</numFrames>
-        <frameWidth>189</frameWidth>
+        <frameWidth>135</frameWidth>
         <frameHeight>189</frameHeight>
         <health>300</health>
         <tileID>1</tileID>

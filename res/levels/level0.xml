@@ -61,7 +61,7 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
-    <bot type="BOT_SIN_DOWN">
+    <bot type="BOSS_WIEMAN">
         <positionX>1700</positionX>
         <positionY>280</positionY>
         <color>black</color>
