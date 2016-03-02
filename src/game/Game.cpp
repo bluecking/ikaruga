@@ -762,7 +762,7 @@ namespace jumper
         }
         else
         {
-            m_player->setHealth(10000);
+            m_player->setGodModeCheat();
         }
     }
 

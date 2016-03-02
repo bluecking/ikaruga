@@ -119,6 +119,16 @@ namespace jumper
             return m_godMode;
         }
 
+        bool isGodModeCheat() const
+        {
+            return m_godModeCheat;
+        }
+
+        void setGodModeCheat()
+        {
+            m_godModeCheat = true;
+        }
+
         void setGodMode(bool godMode)
         {
             m_godMode = godMode;
@@ -156,6 +166,8 @@ namespace jumper
 
         /** A flag that is true when the player does not lose health when hit */
         bool m_godMode;
+
+        bool m_godModeCheat;
 
         /** Vector of all powerups that the player is currently owning */
         std::vector<PowerUp*> m_powerUps;
