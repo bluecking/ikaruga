@@ -109,12 +109,18 @@ namespace jumper
             }
             else
             {
-                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, getFlip());
             }
 
 //            renderHitbox();
         }
 
+    }
+
+    SDL_RendererFlip Actor::getFlip()
+    {
+        // No flip necessary if not projectile
+        return SDL_FLIP_NONE;
     }
 
     SDL_Rect& Actor::getHitbox()

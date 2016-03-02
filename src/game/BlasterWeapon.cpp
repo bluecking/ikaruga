@@ -1,16 +1,16 @@
 /**
- * LaserWeapon.cpp
+ * BlasterWeapon.cpp
  * 
- * @date 23.02.16
- * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
+ * @date 02.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#include "LaserWeapon.hpp"
+#include "BlasterWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper
 {
     //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
-    LaserWeapon::LaserWeapon(Game& game,
+    BlasterWeapon::BlasterWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,
@@ -29,7 +29,7 @@ namespace jumper
                      weaponOffset,
                      projectileColorOffset,
                      coolDown,
-                     "LaserGun",
+                     "Blaster",
                      1,
                      sound,
                      volume,

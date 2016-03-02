@@ -18,13 +18,68 @@ namespace jumper
     class Game;
 
     class Actor;
-
+    namespace WeaponType {
+        enum WeaponType {
+            LASER_GUN,
+            BLASTER,
+            ROCKET,
+            NONE
+        };
+    }
     /**
      * @brief Absract class for weapons. Handles basic functionality like weapon cool down.
      */
     class Weapon
     {
     public:
+
+        virtual ~Weapon();
+
+        /**
+         * Creates projectiles and adds them to the game
+         *
+         * @param direction Direction in which the projectile should move
+         * @param spawnPosition Position where the projectiles should spawn
+         */
+        void shoot(const Vector2f& direction, const Vector2f& spawnPosition);
+
+        /**
+         * Returns the Weapon Name
+         *
+         * @returns: Weapon Name
+         */
+        string getWeaponName(void)
+        { return m_name;}
+
+        void setActor(Actor* m_actor)
+        {
+            Weapon::m_actor = m_actor;
+        }
+
+        /**
+         * Returns the Weapon Evolution Stage
+         *
+         * @returns: Weapon Evolution Stage
+         */
+        int getEvolutionStage(void)
+        { return m_evolution; }
+
+        /**
+         * Sets the Weapon Evolution Stage
+         *
+         * @param evolution Evolution stage
+         */
+        void setEvolutionStage(int evolution)
+        { m_evolution = evolution; }
+
+        /**
+         * Upgrades the Weapon Evolution Stage
+         *
+         */
+        void upgrade();
+
+    protected:
+
         /**
          * Creates a weapon
          *
@@ -37,6 +92,9 @@ namespace jumper
          * @param coolDown Cool down for the weapon (time between shoots)
          * @param name Name of the weapon
          * @param evolution Evolution Stage of the Weapon
+         * @param sound String to soundfile
+         * @param collisionDamage Damage of collision
+         * @param evolutionScale Scale of projectiles with evolution
          */
         Weapon(Game& game,
                Actor& actor,
@@ -46,43 +104,19 @@ namespace jumper
                const Vector2f& projectileColorOffset,
                float coolDown,
                string name,
-               int evolution);
+               int evolution,
+               std::string sound,
+               int volume,
+               int collisionDamage,
+               int evolutionScale,
+               float speed,
+               int numFrames);
 
-        virtual ~Weapon();
-
-        /**
-         * Creates projectiles and adds them to the game
-         *
-         * @param direction Direction in which the projectile should move
-         * @param spawnPosition Position where the projectiles should spawn
-         */
-        virtual void shoot(const Vector2f& direction, const Vector2f& spawnPosition) = 0;
-
-        /**
-         * Returns the Weapon Name
-         *
-         * @returns: Weapon Name
-         */
-        string getWeaponName(void)
-        { return m_name;}
-
-        /**
-         * Returns the Weapon Evolution Stage
-         *
-         * @returns: Weapon Evolution Stage
-         */
-        int getEvolutionStage(void)
-        { return m_evolution; }
-
-        // The sound, the Weapon should make
-        Sound m_sound;
-
-    protected:
         // Game where to add the projectiles
         Game& m_game;
 
         // Actor which shoots the projectiles
-        Actor& m_actor;
+        Actor* m_actor;
 
         // Timestamp of the last shoot
         Uint32 m_lastShoot;
@@ -112,8 +146,24 @@ namespace jumper
         //Name of the Weapon
         string m_name;
 
-        //Evlolution Stage of Weapon
+        //Evolution Stage of Weapon
         int m_evolution;
+
+        // The sound, the Weapon should make
+        Sound m_sound;
+
+        // Volume
+        int m_volume;
+
+        // Damage when colliding
+        int m_collisionDamage;
+
+        // Scale of projectiles with evolution
+        int m_evolutionScale;
+
+        float m_speed;
+
+        int m_numFrames;
     };
 } /* namespace jumper */
 

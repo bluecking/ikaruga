@@ -20,7 +20,11 @@
 #include "Sound.hpp"
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
+#include "BlasterWeapon.hpp"
+#include "RocketWeapon.hpp"
+#include "MeatballWeapon.hpp"
 #include "PowerUpHeal.hpp"
+#include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"
 #include "HighScore.hpp"
 //#include "Main.cpp"
@@ -33,6 +37,7 @@ using std::vector;
 namespace jumper
 {
     class Bot;
+
     class MainWindow;
     class HighScore;
 
@@ -72,7 +77,7 @@ namespace jumper
         { m_layer = layer; };
 
         /// Adds a score board
-        void setStatusBar(StatusBar * b)
+        void setStatusBar(StatusBar* b)
         { m_statusBar = b; };
 
         /// set bots
@@ -106,6 +111,18 @@ namespace jumper
 
         static void getPlayerProperty(XML::Player player, PlayerProperty& p);
 
+        /**
+         * Creates a weapon Object from the given XML weapon struct
+         *
+         * @param weapon XML weapon struct to get infos from
+         * @param game Pointer to game instance
+         * @param actor Pointer to actor instance
+         * @param w Pointer to mainwindow instance
+         * @param filepath Filepath to res folder
+         * @return Weapon instance
+         */
+        static Weapon* createWeaponFromXML(XML::Weapon weapon, Game* game, Actor* actor, MainWindow* w, std::string filepath);
+
         void setBossFight(bool bossfight);
 
         void bossFight();
@@ -120,6 +137,8 @@ namespace jumper
 
         void setBossHealth(int health);
 
+        void removeActor(Actor* a);
+
         void end();
 
         Actor* getLastBoss();
@@ -128,6 +147,8 @@ namespace jumper
         bool m_bossFight;
 
     private:
+        void checkCheat(const char type);
+
         void printStartScreen();
 
         void printEndScreen();
@@ -139,8 +160,6 @@ namespace jumper
         void moveActors();
 
         void checkCameraCollision();
-
-        void removeActor(Actor* a);
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.
@@ -200,12 +219,18 @@ namespace jumper
          * Is invoked by Game::update() and remove Actors with health below 0.
          */
         void removeDeadActors();
+
         vector<Bot*> m_bots;
 
         Sound m_sound;
 
         string m_explosionAnimation;
 
+        std::string m_cheat;
+
+        bool m_cheatActive;
+
+        const std::string konamiCode = "u u d d l r l r B A";
     };
 
 } /* namespace jumper */
