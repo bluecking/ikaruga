@@ -242,6 +242,7 @@ namespace jumper
 
             if(powerUp != NULL) {
                 powerUp->setPosition(pos);
+                powerUp->setFPS(it->type.fps);
                 game->addActor(powerUp);
             }
         }
