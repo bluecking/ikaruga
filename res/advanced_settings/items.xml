@@ -4,7 +4,7 @@
         <frameWidth>32</frameWidth>
         <frameHeight>32</frameHeight>
         <fps>12</fps>
-        <numFrames>7</numFrames>
+        <numFrames>8</numFrames>
         <health>100</health>
         <collisionDamage>0</collisionDamage>
     </item>
