@@ -127,6 +127,7 @@ namespace jumper
         void setGodModeCheat()
         {
             m_godModeCheat = true;
+            SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
         }
 
         void setGodMode(bool godMode)
@@ -135,7 +136,7 @@ namespace jumper
 
             // This changes the color mod of the player when it is in godmode
             if(godMode) {
-                SDL_SetTextureColorMod(m_texture, 150, 150, 239);
+                SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
             } // Change it to the initial value if godmode is gone.
             else {
                 SDL_SetTextureColorMod(m_texture, m_colorModR, m_colorModG, m_colorModB);
@@ -178,6 +179,10 @@ namespace jumper
          * and the hitbox is updated to a proper size and position.
          */
         void updateMoveAnimation();
+
+        const Uint8 m_ColorGod_R = 150;
+        const Uint8 m_ColorGod_G = 150;
+        const Uint8 m_ColorGod_B = 239;
     };
 }
 
