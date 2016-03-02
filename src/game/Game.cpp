@@ -849,7 +849,7 @@ namespace jumper
 
     void Game::checkCheat(const char type)
     {
-        if (!m_cheatActive)
+        if (!m_player->isGodModeCheat())
         {
             if (m_cheat.back() != type)
             {
@@ -861,12 +861,8 @@ namespace jumper
             }
             if (m_cheat.find(konamiCode) != string::npos)
             {
-                m_cheatActive = true;
+                m_player->setGodModeCheat();
             }
-        }
-        else
-        {
-            m_player->setHealth(10000);
         }
     }
 
