@@ -117,6 +117,10 @@ namespace jumper
 
         void setBossHealth(int health);
 
+        void end();
+
+        Actor* getLastBoss();
+
     protected:
         bool m_bossFight;
 

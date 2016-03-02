@@ -515,7 +515,13 @@ namespace jumper
 
     void Game::start()
     {
+        //TODO ~ Splashscreen
         m_started = true;
+    }
+
+    void Game::end()
+    {
+        cout << "Game Ended" << endl;
     }
 
     void Game::scrollHorizontal()
@@ -564,8 +570,8 @@ namespace jumper
 
         for (auto actor : to_remove)
         {
-            removeActor(actor);
             setActorOptionsOnKill(actor);
+            removeActor(actor);
 
             // Clear player pointer member variable before destructing player,
             // so the game update loop can handle the despawn of the player
@@ -602,10 +608,57 @@ namespace jumper
                     actor->playExplosionSound();
                 }
             }
-
         }
-        if ( actor->type() == ActorType::PLAYER) {
+        //End When Player is Dead
+        if ( actor->type() == ActorType::PLAYER)
+        {
             actor->playExplosionSound();
+            end();
+        }
+        if(actor->type() == ActorType::BOSS)
+        {
+            if(actor == getLastBoss()){
+                end();
+            }
+        }
+
+    }
+
+    Actor* Game::getLastBoss() {
+        //m_bots und m_actors durchgehen
+        int xOfLastBoss = 0;
+        Actor* lastBoss;
+        for(auto bot : m_bots)
+        {
+            if(bot->type() == ActorType::BOSS)
+            {
+                if(xOfLastBoss < bot->position().x())
+                {
+                    xOfLastBoss = bot->position().x();
+                    lastBoss = bot;
+                }
+            }
+        }
+        if(xOfLastBoss == 0)
+        {
+            for(auto bot : m_actors)
+            {
+                if(bot->type() == ActorType::BOSS)
+                {
+                    if(xOfLastBoss < bot->position().x())
+                    {
+                        xOfLastBoss = bot->position().x();
+                        lastBoss = bot;
+                    }
+                }
+            }
+        }
+        if(xOfLastBoss == 0)
+        {
+            return NULL;
+        } else
+        {
+            return lastBoss;
         }
     }
 
@@ -614,6 +667,7 @@ namespace jumper
         m_sound = Sound(soundFile, SoundType::SONG);
         m_volume = volume;
     }
+
 
     void Game::setBossFight(bool bossfight)
     {
