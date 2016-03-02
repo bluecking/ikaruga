@@ -89,16 +89,4 @@ namespace jumper
 
             return;
         }
-
-    SDL_RendererFlip Projectile::getFlip()
-    {
-        if (m_direction.x() > 0)
-        {
-            // No flip necessary shooting backwards
-            return SDL_FLIP_NONE;
-        }
-
-        // flip texture horizontally if shooting forwards
-        return SDL_FLIP_HORIZONTAL;
-    }
 }

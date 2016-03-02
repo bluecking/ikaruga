@@ -214,52 +214,52 @@ namespace jumper
             {
                 bot->setWeapon(
                         new LaserWeapon(*game,
-                                        *bot,
+                                        *player,
                                         weaponTexture,
                                         *textureSize,
                                         *weaponOffset,
                                         *projectileColorOffset,
                                         coolDown,
-                                        filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                        currentBot.type.npc.stdWeapon.shootingVolume,
-                                        currentBot.type.npc.stdWeapon.collisionDamage,
-                                        currentBot.type.npc.stdWeapon.speed,
-                                        currentBot.type.npc.stdWeapon.numFrames));
+                                        filepath + weapon.soundfile,
+                                        weapon.shootingVolume,
+                                        weapon.collisionDamage,
+                                        weapon.speed,
+                                        weapon.numFrames));
             } else {
                 if (currentBot.type.npc.stdWeapon.type.compare("BLASTER") == 0) {
                     bot->setWeapon(
                             new BlasterWeapon(*game,
-                                              *bot,
+                                              *player,
                                               weaponTexture,
                                               *textureSize,
                                               *weaponOffset,
                                               *projectileColorOffset,
                                               coolDown,
-                                              filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                              currentBot.type.npc.stdWeapon.shootingVolume,
-                                              currentBot.type.npc.stdWeapon.collisionDamage,
-                                              currentBot.type.npc.stdWeapon.speed,
-                                              currentBot.type.npc.stdWeapon.numFrames));
+                                              filepath + weapon.soundfile,
+                                              weapon.shootingVolume,
+                                              weapon.collisionDamage,
+                                              weapon.speed,
+                                              weapon.numFrames));
                 }else
                 {
                     if (currentBot.type.npc.stdWeapon.type.compare("ROCKET") == 0) {
                         bot->setWeapon(
                                 new RocketWeapon(*game,
-                                                 *bot,
+                                                 *player,
                                                  weaponTexture,
                                                  *textureSize,
                                                  *weaponOffset,
                                                  *projectileColorOffset,
                                                  coolDown,
-                                                 filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                                 currentBot.type.npc.stdWeapon.shootingVolume,
-                                                 currentBot.type.npc.stdWeapon.collisionDamage,
-                                                 currentBot.type.npc.stdWeapon.speed,
-                                                 currentBot.type.npc.stdWeapon.numFrames));
+                                                 filepath + weapon.soundfile,
+                                                 weapon.shootingVolume,
+                                                 weapon.collisionDamage,
+                                                 weapon.speed,
+                                                 weapon.numFrames));
                     }
                 }
             }
-
+            
             // detect color
             if (currentBot.color.compare("black"))
             {
