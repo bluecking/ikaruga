@@ -409,16 +409,6 @@ namespace jumper
                 checkActorCollision();
             }
 
-            if (m_bossFight)
-            {
-                m_statusBar->setBossHealth(m_boss_health);
-            }
-            else
-            {
-                m_statusBar->setBossHealth(0);
-            }
-
-
             SDL_RenderClear(m_renderer);
 
             if (m_layer)
@@ -682,9 +672,11 @@ namespace jumper
         if (!getBossFight())
         {
             scrollHorizontal();
+            m_statusBar->setBossHealth(0);
         }
         else
         {
+            m_statusBar->setBossHealth(m_boss_health);
             if ((int) Renderable::m_camera.position().x() < getBossFightAt())
             {
                 scrollHorizontal();
