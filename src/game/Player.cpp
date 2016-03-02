@@ -165,7 +165,7 @@ namespace jumper
     {
         if (!isGodMode())
         {
-            if (other.type() == ENEMY)
+            if (other.type() == ENEMY || other.type() == BOSS)
             {
                 setHit(true);
                 playHitMark();
