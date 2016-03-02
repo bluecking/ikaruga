@@ -18,7 +18,48 @@
             <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
+    </bot><bot type="BOT_AI_BLASTER">
+        <filename>../images/Bot_1.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
     </bot>
+    <bot type="BOT_AI_ROCKET">
+        <filename>../images/Bot_1.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_SIN_LASER">
         <filename>../images/Bot_1.png</filename>
         <numFrames>4</numFrames>
@@ -39,6 +80,47 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_SIN_BLASTER">
+        <filename>../images/Bot_1.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SIN_ROCKET">
+        <filename>../images/Bot_1.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
     <bot type="BOT_SIN_UP_LASER">
         <filename>../images/Bot_4.png</filename>
         <numFrames>4</numFrames>
@@ -59,6 +141,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_SIN_UP_BLASTER">
+    <filename>../images/Bot_4.png</filename>
+    <numFrames>4</numFrames>
+    <frameWidth>40</frameWidth>
+    <frameHeight>40</frameHeight>
+    <health>25</health>
+    <tileID>1</tileID>
+    <colorOffsetX>0</colorOffsetX>
+    <colorOffsetY>40</colorOffsetY>
+    <fps>8</fps>
+    <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+    <explosionVolume>150</explosionVolume>
+    <scoreValue>1000</scoreValue>
+    <collisionDamage>25</collisionDamage>
+    <npc type="NORMAL">
+        <move function="SIN_UP">30</move>
+        <speed>0</speed>
+        <stdWeapon>BLASTER_GUN</stdWeapon>
+    </npc>
+    </bot>
+    <bot type="BOT_SIN_UP_ROCKET">
+        <filename>../images/Bot_4.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_UP">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_SIN_DOWN_LASER">
         <filename>../images/Bot_3.png</filename>
         <numFrames>5</numFrames>
@@ -79,6 +203,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_SIN_DOWN_BLASTER">
+        <filename>../images/Bot_3.png</filename>
+        <numFrames>5</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SIN_DOWN_ROCKET">
+        <filename>../images/Bot_3.png</filename>
+        <numFrames>5</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_NO_MOVE_LASER">
         <filename>../images/Bot_2.png</filename>
         <numFrames>4</numFrames>
@@ -99,6 +265,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_NO_MOVE_BLASTER">
+        <filename>../images/Bot_2.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="NO_MOVE">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_NO_MOVE_ROCKET">
+        <filename>../images/Bot_2.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="NO_MOVE">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_SPIKE_LASER">
         <filename>../images/bot_spike_40x40.png</filename>
         <numFrames>3</numFrames>
@@ -119,6 +327,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_SPIKE_BLASTER">
+        <filename>../images/bot_spike_40x40.png</filename>
+        <numFrames>3</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>6</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SPIKE_ROCKET">
+        <filename>../images/bot_spike_40x40.png</filename>
+        <numFrames>3</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>6</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_SLIME_LASER">
         <filename>../images/bot_slime_40x40.png</filename>
         <numFrames>4</numFrames>
@@ -139,6 +389,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_SLIME_BLASTER">
+        <filename>../images/bot_slime_40x40.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_SLIME_ROCKET">
+        <filename>../images/bot_slime_40x40.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>8</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_MIST_LASER">
         <filename>../images/bot_mist_40x40.png</filename>
         <numFrames>3</numFrames>
@@ -159,6 +451,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_MIST_BLASTER">
+        <filename>../images/bot_mist_40x40.png</filename>
+        <numFrames>3</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>6</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+    <bot type="BOT_MIST_ROCKET">
+        <filename>../images/bot_mist_40x40.png</filename>
+        <numFrames>3</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>6</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOT_DRONE_LASER">
         <filename>../images/bot_drone_40x40.png</filename>
         <numFrames>6</numFrames>
@@ -179,26 +513,48 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
-    <bot type="BOSS_FSM_MEATBALL">
-        <filename>../images/flying_spghettimonster_160x160.png</filename>
+    <bot type="BOT_DRON_BLASTER">
+        <filename>../images/bot_drone_40x40.png</filename>
         <numFrames>6</numFrames>
-        <frameWidth>160</frameWidth>
-        <frameHeight>160</frameHeight>
-        <health>300</health>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
-        <fps>6</fps>
-        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
+        <scoreValue>50</scoreValue>
         <collisionDamage>25</collisionDamage>
-        <npc type="BOSS">
-            <move function="CIRCLE">30</move>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
             <speed>0</speed>
-            <stdWeapon>MEATBALL</stdWeapon>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
         </npc>
     </bot>
+    <bot type="BOT_DRONE_ROCKET">
+        <filename>../images/bot_drone_40x40.png</filename>
+        <numFrames>6</numFrames>
+        <frameWidth>40</frameWidth>
+        <frameHeight>40</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
     <bot type="BOSS_WIEMAN_LASER">
         <filename>../images/thomas_135x189.png</filename>
         <numFrames>2</numFrames>
@@ -219,187 +575,6 @@
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
-
-    <bot type="BOT_AI_BLASTER">
-        <filename>../images/Bot_1.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="AI">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_BLASTER">
-        <filename>../images/Bot_1.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_UP_BLASTER">
-        <filename>../images/Bot_4.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_UP">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_DOWN_BLASTER">
-        <filename>../images/Bot_3.png</filename>
-        <numFrames>5</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_NO_MOVE_BLASTER">
-        <filename>../images/Bot_2.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="NO_MOVE">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SPIKE_BLASTER">
-        <filename>../images/bot_spike_40x40.png</filename>
-        <numFrames>3</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>6</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SLIME_BLASTER">
-        <filename>../images/bot_slime_40x40.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_MIST_BLASTER">
-        <filename>../images/bot_mist_40x40.png</filename>
-        <numFrames>3</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>6</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_DRON_BLASTER">
-        <filename>../images/bot_drone_40x40.png</filename>
-        <numFrames>6</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>12</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
     <bot type="BOSS_WIEMAN_BLASTER">
         <filename>../images/thomas_135x189.png</filename>
         <numFrames>2</numFrames>
@@ -417,188 +592,7 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>BLASTER</stdWeapon>
-        </npc>
-    </bot>
-
-    <bot type="BOT_AI_ROCKET">
-        <filename>../images/Bot_1.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="AI">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_ROCKET">
-        <filename>../images/Bot_1.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_UP_ROCKET">
-        <filename>../images/Bot_4.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_UP">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SIN_DOWN_ROCKET">
-        <filename>../images/Bot_3.png</filename>
-        <numFrames>5</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_NO_MOVE_ROCKET">
-        <filename>../images/Bot_2.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>1000</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="NO_MOVE">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SPIKE_ROCKET">
-        <filename>../images/bot_spike_40x40.png</filename>
-        <numFrames>3</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>6</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_SLIME_ROCKET">
-        <filename>../images/bot_slime_40x40.png</filename>
-        <numFrames>4</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>8</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_MIST_ROCKET">
-        <filename>../images/bot_mist_40x40.png</filename>
-        <numFrames>3</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>6</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
-        </npc>
-    </bot>
-    <bot type="BOT_DRONE_ROCKET">
-        <filename>../images/bot_drone_40x40.png</filename>
-        <numFrames>6</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
-        <tileID>1</tileID>
-        <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
-        <fps>12</fps>
-        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
-        <explosionVolume>150</explosionVolume>
-        <scoreValue>50</scoreValue>
-        <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
-            <move function="SIN_DOWN">30</move>
-            <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
+            <stdWeapon>BLASTER_GUN</stdWeapon>
         </npc>
     </bot>
     <bot type="BOSS_WIEMAN_ROCKET">
@@ -618,7 +612,29 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+
+    <bot type="BOSS_FSM_MEATBALL">
+        <filename>../images/flying_spghettimonster_160x160.png</filename>
+        <numFrames>6</numFrames>
+        <frameWidth>160</frameWidth>
+        <frameHeight>160</frameHeight>
+        <health>300</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>6</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="BOSS">
+            <move function="CIRCLE">30</move>
+            <speed>0</speed>
+            <stdWeapon>MEATBALL_GUN</stdWeapon>
         </npc>
     </bot>
 </bots>
