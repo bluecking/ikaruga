@@ -1,15 +1,15 @@
 /**
- * LaserWeapon.cpp
+ * RocketWeapon.cpp
  * 
- * @date 23.02.16
- * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
+ * @date 01.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
 #include "LaserWeapon.hpp"
 #include "Projectile.hpp"
 
 namespace jumper
 {
-    void LaserWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
+    void RocketWeapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
     {
         // Ignore shoots when weapon is not ready
         if (!weaponReady())
@@ -22,7 +22,7 @@ namespace jumper
                                                 m_projectileTexture,
                                                 m_projectileTextureSize.x(),
                                                 m_projectileTextureSize.y(),
-                                                1,
+                                                m_numFrames,
                                                 m_collisionDamage,
                                                 m_speed);
 
@@ -43,7 +43,7 @@ namespace jumper
     }
 
     //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
-    LaserWeapon::LaserWeapon(Game& game,
+    RocketWeapon::RocketWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
                              const Vector2i& projectileTextureSize,
@@ -62,7 +62,7 @@ namespace jumper
                      weaponOffset,
                      projectileColorOffset,
                      coolDown,
-                     "LaserGun",
+                     "Rockets",
                      1,
                      speed,
                      numFrames)
