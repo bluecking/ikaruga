@@ -97,26 +97,61 @@ namespace jumper
 
         // set weapon
         XML::Weapon weapon = xplayer.stdWeapon;
-        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
-        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
-        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+        Vector2i *textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+        Vector2f *weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+        Vector2f *projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
         float coolDown = weapon.cooldown;
-        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+        SDL_Texture *weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
                 filepath + weapon.filename);
 
-        player->setWeapon(
-                new LaserWeapon(*game,
-                                *player,
-                                weaponTexture,
-                                *textureSize,
-                                *weaponOffset,
-                                *projectileColorOffset,
-                                coolDown,
-                                filepath + weapon.soundfile,
-                                weapon.shootingVolume,
-                                weapon.collisionDamage,
-                                weapon.speed,
-                                weapon.numFrames));
+        if (xplayer.stdWeapon.type.compare("LASER_GUN")) {
+            player->setWeapon(
+                    new LaserWeapon(*game,
+                                    *player,
+                                    weaponTexture,
+                                    *textureSize,
+                                    *weaponOffset,
+                                    *projectileColorOffset,
+                                    coolDown,
+                                    filepath + weapon.soundfile,
+                                    weapon.shootingVolume,
+                                    weapon.collisionDamage,
+                                    weapon.speed,
+                                    weapon.numFrames));
+        } else {
+            if (xplayer.stdWeapon.type.compare("BLASTER")) {
+                player->setWeapon(
+                        new BlasterWeapon(*game,
+                                        *player,
+                                        weaponTexture,
+                                        *textureSize,
+                                        *weaponOffset,
+                                        *projectileColorOffset,
+                                        coolDown,
+                                        filepath + weapon.soundfile,
+                                        weapon.shootingVolume,
+                                        weapon.collisionDamage,
+                                        weapon.speed,
+                                        weapon.numFrames));
+            }else
+            {
+                if (xplayer.stdWeapon.type.compare("ROCKET")) {
+                    player->setWeapon(
+                            new RocketWeapon(*game,
+                                            *player,
+                                            weaponTexture,
+                                            *textureSize,
+                                            *weaponOffset,
+                                            *projectileColorOffset,
+                                            coolDown,
+                                            filepath + weapon.soundfile,
+                                            weapon.shootingVolume,
+                                            weapon.collisionDamage,
+                                            weapon.speed,
+                                            weapon.numFrames));
+                }
+            }
+        }
 
 
         game->setPlayer(player);

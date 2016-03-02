@@ -37,6 +37,7 @@ namespace jumper
 
     void Projectile::move(Level& level)
     {
+        nextFrame();
         m_lastPosition = position();
 
         // Calculate movement of projectile
