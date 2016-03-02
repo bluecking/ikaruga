@@ -27,7 +27,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_imgTexture        = "../images/rocks.png";
     m_imgBackground     = "../images/star_background_2_200x200.png";
     m_imgExplosion      = "../images/explosions.png";
-    m_imgStatusbar      = "../images/statusbar_font_10x10.png";
+    m_imgStatusbar      = "../images/font_yellow_10x10.png";
     m_imgPlayer         = "../images/player_animated_55x43_transparent.png";
     m_soundfile         = "../sounds/game_loop.wav";
 
@@ -38,7 +38,6 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_levelName         = m_xmlLevelName + ".lvl";
 
     m_background.filename       = m_imgBackground.toStdString();
-    // todo m_background.explosion      = m_imgExplosion;
     m_background.scrollspeed    = m_scrollSpeed;
     m_background.soundfile      = m_soundfile;
     m_background.volume         = 70;
@@ -165,6 +164,7 @@ void LevelScene::saveXml(QString fileName)
     m_xml->setBackground(m_background);
     m_xml->setStatusbar(m_statusbar);
     m_xml->setPlayer(m_player);
+    m_xml->setExplosions(m_imgExplosion.toStdString());
 
     m_xml->save();
 
@@ -597,11 +597,21 @@ void LevelScene::setBackgroundSize(int m_levelWidth)
     {
         for(int j=0;j<width;j++)
         {
-            QRect rect(0,0,m_backgroundWidth,m_backgroundHeight);
-            GraphicsTileItem* item= new GraphicsTileItem(map,rect,0,m_typeBackground);
-            item->setPos(j*m_backgroundWidth,i*m_backgroundHeight);
-            this->addItem(item);
 
+            if(i<height-1)
+            {
+                QRect rect(0, 0, m_backgroundWidth, m_backgroundHeight);
+                GraphicsTileItem *item = new GraphicsTileItem(map, rect, 0, m_typeBackground);
+                item->setPos(j * m_backgroundWidth, i * m_backgroundHeight);
+                this->addItem(item);
+            }
+            else
+            {
+                QRect rect(0, 0, m_backgroundWidth, (m_levelHeight*m_tileHeight)%(m_backgroundHeight+1));
+                GraphicsTileItem *item = new GraphicsTileItem(map, rect, 0, m_typeBackground);
+                item->setPos(j * m_backgroundWidth, i * m_backgroundHeight);
+                this->addItem(item);
+            }
         }
     }
 
