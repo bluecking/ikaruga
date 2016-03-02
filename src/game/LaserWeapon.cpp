@@ -23,8 +23,7 @@ namespace jumper
                                                 m_projectileTextureSize.x(),
                                                 m_projectileTextureSize.y(),
                                                 1,
-                                                m_collisionDamage,
-                                                m_speed);
+                                                m_collisionDamage);
 
         projectile->setColorOffset(m_projectileColorOffset);
         projectile->setDirection(direction);
@@ -52,9 +51,7 @@ namespace jumper
                              float coolDown,
                              std::string sound,
                              int volume,
-                             int collisionDamage,
-                             float speed,
-                             int numFrames)
+                             int collisionDamage)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -63,9 +60,7 @@ namespace jumper
                      projectileColorOffset,
                      coolDown,
                      "LaserGun",
-                     1,
-                     speed,
-                     numFrames)
+                     1)
     {
         m_collisionDamage = collisionDamage;
         m_sound = Sound(sound, SoundType::SOUND);

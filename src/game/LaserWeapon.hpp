@@ -24,9 +24,7 @@ namespace jumper
                     float coolDown,
                     std::string sound,
                     int volume,
-                    int collisionDamage,
-                    float speed,
-                    int numFrames);
+                    int collisionDamage);
 
         /**
          * Shoots a single projectile in a straight line
