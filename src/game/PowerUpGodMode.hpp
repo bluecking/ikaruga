@@ -1,21 +1,19 @@
 /**
- * PowerUpHeal.hpp
+ * PowerUpGodMode.hpp
  *
- *  @date   01.03.16
+ *  @date   02.03.16
  *  @author Benjamin Lücking <bluecking@uos.de>
  */
 
-#ifndef SCROLLER_POWERUPHEAL_HPP
-#define SCROLLER_POWERUPHEAL_HPP
+#ifndef SCROLLER_POWERUPGODMODE_HPP
+#define SCROLLER_POWERUPGODMODE_HPP
 
 #include "PowerUp.hpp"
-
 namespace jumper {
-    class PowerUpHeal final : public PowerUp
+    class PowerUpGodMode final : public PowerUp
     {
-
     public:
-        PowerUpHeal(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
+        PowerUpGodMode(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         /**
          * see PowerUp::consume(Player& player)
@@ -27,7 +25,8 @@ namespace jumper {
          */
         virtual void stop(Player& player);
     };
+
 }
 
 
-#endif //SCROLLER_POWERUPHEAL_HPP
+#endif //SCROLLER_POWERUPGODMODE_HPP
