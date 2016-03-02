@@ -19,7 +19,7 @@ namespace jumper
         m_levelFiles = Filesystem::findFiles(resDir, boost::regex("^.*\\.xml$"));
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
-        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/splashscreen_font_40x40.png");
+        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_white_40x40.png");
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
