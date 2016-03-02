@@ -28,7 +28,7 @@
         <collisionDamage>25</collisionDamage>
         <health>100</health>
     </player>
- <statusBar filename="../images/statusbar_font_10x10.png">
+ <statusBar filename="../images/font_yellow_10x10.png">
       <frameWidth>10</frameWidth>
       <frameHeight>10</frameHeight>
       <letterCount>26</letterCount>
@@ -86,19 +86,19 @@
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOSS_FSM">
-        <positionX>3200</positionX>
+        <positionX>1800</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <item type="RESTORE_HEALTH">
-        <positionX>1000</positionX>
-        <positionY>50</positionY>
+        <positionX>800</positionX>
+        <positionY>100</positionY>
         <value>50</value>
     </item>
     <item type="RESTORE_HEALTH">
-        <positionX>1100</positionX>
-        <positionY>50</positionY>
+        <positionX>1200</positionX>
+        <positionY>150</positionY>
         <value>50</value>
     </item>
 </level>
