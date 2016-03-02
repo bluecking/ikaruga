@@ -51,12 +51,12 @@ namespace jumper
             m_layer->render();
 
             //Render table
-            if (keyDown[SDL_SCANCODE_UP])
+            if (keyDown[SDL_SCANCODE_DOWN])
             {
                 m_table.increase();
             }
 
-            if (keyDown[SDL_SCANCODE_DOWN])
+            if (keyDown[SDL_SCANCODE_UP])
             {
                 m_table.decrease();
             }
