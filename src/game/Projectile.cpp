@@ -70,7 +70,6 @@ namespace jumper
         // Kill projectile when colliding with a tile
         m_health = 0;
 
-<<<<<<< HEAD
             return;
         }
 
@@ -84,8 +83,5 @@ namespace jumper
 
         // flip texture horizontally if shooting forwards
         return SDL_FLIP_HORIZONTAL;
-=======
-        return;
->>>>>>> develop
     }
 }
