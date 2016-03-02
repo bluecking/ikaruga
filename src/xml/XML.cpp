@@ -23,23 +23,21 @@ XML::XML(std::string resPath, bool noLevel)
     res_settings = boost::filesystem::absolute(res_settings);
     res_settings = res_settings.remove_trailing_separator();
 
+    res_settings = res_settings.normalize();
+
     std::string advanced_settings;
 
     // Check whether it's the level path or the ressources Path
-    if(!noLevel) {
-        while(res_settings.parent_path().string().size()-1==res_settings.parent_path().string().find_last_of("/res") && res_settings.parent_path().string().find_last_of("/res")!=0){
-            res_settings = res_settings.parent_path();
-        }
-        res_settings = res_settings.remove_trailing_separator();
+    while(res_settings.parent_path().string().size()-1==res_settings.parent_path().string().find_last_of("res") && res_settings.parent_path().string().find_last_of("res")!=0){
+        res_settings = res_settings.parent_path();
     }
-
-    res_settings = res_settings.normalize();
+    res_settings = res_settings.remove_trailing_separator();
 
     if(!boost::filesystem::exists(res_settings) || !boost::filesystem::is_directory(res_settings)){
         throw std::domain_error("Invalid path given!");
     }
 
-    if(res_settings.string().size()-1!=res_settings.string().find_last_of("/res") || res_settings.string().find_last_of("/res")==0){
+    if(res_settings.string().size()-1!=res_settings.string().find_last_of("res") || res_settings.string().find_last_of("res")==0){
         throw std::domain_error("Couldn't resolve ressources path!");
     }
 
