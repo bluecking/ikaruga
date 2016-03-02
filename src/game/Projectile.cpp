@@ -58,6 +58,7 @@ namespace jumper
 
     void Projectile::resolveCollision(Actor& other)
     {
+
         if ((m_originActor->type() == PLAYER && (other.type() == ENEMY || other.type() == BOSS)) ||
             ((m_originActor->type() == ENEMY || m_originActor->type() == BOSS) && other.type() == PLAYER))
         {
