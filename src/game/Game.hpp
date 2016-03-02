@@ -209,7 +209,7 @@ namespace jumper
 
         bool m_cheatActive;
 
-        const char konamiCode = 'u u d d l r l r B A';
+        const char konamiCode[19] = {'u',' ','u',' ','d',' ','d',' ','l',' ','r',' ','l',' ','r',' ','B',' ','A'};
 
     };
 

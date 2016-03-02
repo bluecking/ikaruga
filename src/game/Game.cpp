@@ -454,11 +454,6 @@ namespace jumper
 
             // Update screen
             SDL_RenderPresent(m_renderer);
-
-            if (m_cheatActive)
-            {
-                m_player->setHealth(1000);
-            }
         }
     }
 
@@ -745,12 +740,15 @@ namespace jumper
             {
                 m_cheat = m_cheat.substr(m_cheat.size()-20, m_cheat.size());
             }
-            if (m_cheat.find(konamiCode) != string::npos)
+            if (m_cheat.find(*konamiCode) != string::npos)
             {
                 m_cheatActive = true;
             }
         }
-
+        else
+        {
+            m_player->setHealth(10000);
+        }
     }
 
     void Game::setBossHealth(int health)
