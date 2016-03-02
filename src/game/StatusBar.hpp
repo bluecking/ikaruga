@@ -193,7 +193,10 @@ namespace jumper {
 
         int m_max_health;
 
+        const int m_healthBarWidth = 100;
+
         int m_boss_health;
+
         int m_boss_max_health;
 
         /**
@@ -209,6 +212,8 @@ namespace jumper {
         void RenderHPBar(Vector2i& position, int w, int h, int* max_health, int* health);
 
         void renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b);
+
+        const int offsetBossHealth = 2;
     };
 
 } /* namespace jumper */
