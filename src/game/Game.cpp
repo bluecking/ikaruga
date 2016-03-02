@@ -300,7 +300,7 @@ namespace jumper
                 addActor(*it);
                 if ((*it)->type() == ActorType::BOSS)
                 {
-                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w() / 3)));
+                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w())));
                     //setBossFightAt((int) (*it)->position().x() - (*it)->w());
                     setBossFight(true);
                 }
@@ -408,16 +408,6 @@ namespace jumper
                 checkCameraCollision();
                 checkActorCollision();
             }
-
-            if (m_bossFight)
-            {
-                m_statusBar->setBossHealth(m_boss_health);
-            }
-            else
-            {
-                m_statusBar->setBossHealth(0);
-            }
-
 
             SDL_RenderClear(m_renderer);
 
@@ -682,9 +672,11 @@ namespace jumper
         if (!getBossFight())
         {
             scrollHorizontal();
+            m_statusBar->setBossHealth(0);
         }
         else
         {
+            m_statusBar->setBossHealth(m_boss_health);
             if ((int) Renderable::m_camera.position().x() < getBossFightAt())
             {
                 scrollHorizontal();
