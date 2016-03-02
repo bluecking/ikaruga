@@ -21,9 +21,7 @@ XML::XML(std::string resPath, bool noLevel)
     boost::filesystem::path res_settings(resPath);
 
     res_settings = boost::filesystem::absolute(res_settings);
-    cout << "RES 1 -> " << res_settings.string() << endl;
     res_settings = res_settings.normalize();
-    cout << "RES 2 -> " << res_settings.string() << endl;
 
     std::string advanced_settings;
 
@@ -32,7 +30,6 @@ XML::XML(std::string resPath, bool noLevel)
         res_settings = res_settings.parent_path();
     }
     res_settings = res_settings.normalize();
-    cout << "RES 3 -> " << res_settings.string() << endl;
 
     if(!boost::filesystem::exists(res_settings) || !boost::filesystem::is_directory(res_settings)){
         throw std::domain_error("Invalid path given!");
@@ -43,11 +40,10 @@ XML::XML(std::string resPath, bool noLevel)
     }
 
     profile_path = res_settings.string();
-
     advanced_settings = res_settings.string();
-    advanced_settings = advanced_settings.append("/advanced_settings/");
 
-    profile_path = profile_path.append("/profiles/profiles.xml");
+    advanced_settings.append("/advanced_settings/");
+    profile_path.append("/profiles/profiles.xml");
 
     loadWeapons(advanced_settings + "weapons.xml");
     loadBots(advanced_settings + "bots.xml");
@@ -59,7 +55,7 @@ XML::XML(std::string resPath, bool noLevel)
 XML::XML(std::string xmlFilename) : XML(xmlFilename, false)
 {
     init();
-    setFilename(xmlFilename);
+    setFilename(boost::filesystem::path(xmlFilename).normalize().string());
     load();
 }
 
