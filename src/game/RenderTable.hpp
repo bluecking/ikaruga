@@ -23,7 +23,7 @@ namespace jumper
             int height;
         };
 
-        RenderTable(SDL_Renderer *renderer, SDL_Texture *textureint, int tileHeight, int tileWidth);
+        RenderTable(SDL_Renderer *renderer, SDL_Texture * defaultTtexture, int tileHeight, int tileWidth);
 
         void setStringProperties(int minusculeOffset, int capitalOffset, int numberOffset, std::vector<std::vector<std::string>> content);
 

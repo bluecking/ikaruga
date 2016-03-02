@@ -20,7 +20,7 @@ namespace jumper
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
         m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
-        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "font_blue_20x20.png"); //TODO make dynamic
+        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_blue_20x20.png"); //TODO make dynamic
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
@@ -45,7 +45,7 @@ namespace jumper
             table.setStringProperties(2, 1, 0, m_tableText);
             RenderTable::tableProperties tableProps;
             tableProps.positionX = 50;
-            tableProps.positionY = 50;
+            tableProps.positionY = 120;
             tableProps.width = 200;
             tableProps.height = 100;
             table.setTableProperties(tableProps);

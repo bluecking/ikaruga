@@ -10,11 +10,11 @@
 
 namespace jumper
 {
-    RenderTable::RenderTable(SDL_Renderer* renderer, SDL_Texture* textureint, int tileHeight, int tileWidth) :
-    FontRender(tileHeight, tileWidth, renderer, textureint)
+    RenderTable::RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth) :
+    FontRender(tileHeight, tileWidth, renderer, defaultTtexture)
     {
         m_renderer = renderer;
-        m_texture = textureint;
+        m_texture = defaultTtexture;
         m_tileHeight = tileHeight;
         m_tileWidth = tileWidth;
         m_rectSource.w = tileWidth;
