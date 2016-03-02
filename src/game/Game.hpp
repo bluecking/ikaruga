@@ -21,6 +21,7 @@
 #include "Vector.hpp"
 #include "LaserWeapon.hpp"
 #include "PowerUpHeal.hpp"
+#include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"
 //#include "Main.cpp"
 
@@ -117,10 +118,12 @@ namespace jumper
 
         void setBossHealth(int health);
 
+        void removeActor(Actor* a);
     protected:
-        bool m_bossFight;
 
+        bool m_bossFight;
     private:
+
         int m_boss_health;
 
         int m_bossFightAt;
@@ -128,8 +131,6 @@ namespace jumper
         void moveActors();
 
         void checkCameraCollision();
-
-        void removeActor(Actor* a);
 
         /**
          * Returns The time in seconds that has elapsed since the last frame.
