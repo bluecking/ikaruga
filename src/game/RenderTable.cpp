@@ -17,6 +17,10 @@ namespace jumper
         m_texture = textureint;
         m_tileHeight = tileHeight;
         m_tileWidth = tileWidth;
+        m_rectSource.w = tileWidth;
+        m_rectSource.h = tileHeight;
+        m_rectTarget.w = tileWidth;
+        m_rectTarget.h = tileHeight;
         m_stringPropertiesSet = false;
         m_tablePropertiesSet = false;
     }
@@ -44,11 +48,6 @@ namespace jumper
     {
         if (!m_stringPropertiesSet || !m_tablePropertiesSet)
         { throw std::domain_error("You have to use setStringProperties and setTableProperties first."); }
-
-        m_rectSource.w = m_tileWidth;
-        m_rectSource.h = m_tileHeight;
-        m_rectTarget.w = m_tileWidth;
-        m_rectTarget.h = m_tileHeight;
 
         for(int i = 0; i < m_content.size(); i++) //loop rows
         {

@@ -19,7 +19,8 @@ namespace jumper
         m_levelFiles = Filesystem::findFiles(resDir, boost::regex("^.*\\.xml$"));
 
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
-        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_white_40x40.png");
+        m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
+        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(m_resDir.string() + "font_blue_20x20.png"); //TODO make dynamic
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
@@ -34,7 +35,7 @@ namespace jumper
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
             //TODO display menu
-            RenderTable table(m_win->getRenderer(), m_normalFontTexture, 40, 40); //TODO static tile height&width -> make dynamic
+            RenderTable table(m_win->getRenderer(), m_normalFontTexture, 20, 20); //TODO static tile height&width -> make dynamic
             std::vector<std::vector<std::string>> m_tableText;
             m_tableText.resize(2);
             m_tableText[0].resize(1);
