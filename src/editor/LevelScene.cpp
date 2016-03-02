@@ -110,7 +110,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     {
         m_mainWindow->addPower(toQString(m_items[i].type),
         "Texture name    : \t"+toQString(m_items[i].filename)+"\n"+
-        "Health          : \t"+toQString(std::to_string(m_items[i].health))
+        "Heal percentage          : \t"+toQString(std::to_string(m_items[i].healPercentage))
         );
 
     }

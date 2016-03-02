@@ -93,11 +93,12 @@ public:
     struct Item{
         std::string type;
         std::string filename;
+        Weapon weapon;
         int frameWidth;
         int frameHeight;
         int fps;
         int numFrames;
-        int health;
+        int healPercentage;
         int collisionDamage;
     };
 

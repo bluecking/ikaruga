@@ -69,6 +69,7 @@ int main(int argc, char** argv)
             << "Item - frameHeight: " << m_xml.getItem(i).frameHeight << endl
             << "Item - frameWidth: " << m_xml.getItem(i).frameWidth << endl << endl
             << "Item - numFrames: " << m_xml.getItem(i).numFrames << endl << endl
+            << "Item - weapon: " << m_xml.getItem(i).weapon.type << endl << endl
             << "Item - fps: " << m_xml.getItem(i).fps << endl << endl;
     }
 
