@@ -15,7 +15,7 @@ namespace jumper
     class BlasterWeapon : public Weapon
     {
     public:
-        BlasterWeapon(Game& game,
+        BlasterWeapon::BlasterWeapon(Game& game,
                                  Actor& actor,
                                  SDL_Texture* projectileTexture,
                                  const Vector2i& projectileTextureSize,

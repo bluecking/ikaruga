@@ -114,9 +114,7 @@ namespace jumper
                                 coolDown,
                                 filepath + weapon.soundfile,
                                 weapon.shootingVolume,
-                                weapon.collisionDamage,
-                                weapon.speed,
-                                weapon.numFrames));
+                                weapon.collisionDamage));
 
 
         game->setPlayer(player);
@@ -187,9 +185,7 @@ namespace jumper
                                                       coolDown,
                                                       filepath + currentBot.type.npc.stdWeapon.soundfile,
                                                       currentBot.type.npc.stdWeapon.shootingVolume,
-                                                      currentBot.type.npc.stdWeapon.collisionDamage,
-                                                      currentBot.type.npc.stdWeapon.speed,
-                                                      currentBot.type.npc.stdWeapon.numFrames);
+                                                      currentBot.type.npc.stdWeapon.collisionDamage);
                 bot->setWeapon(weapon);
             }
 

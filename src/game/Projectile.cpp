@@ -15,10 +15,9 @@ namespace jumper
                            int frameWidth,
                            int frameHeight,
                            int numFrames,
-                           int collisionDamage,
-                           float speed)
+                           int collisionDamage)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage),
-              m_launched(false), m_originActor(0), m_speed(speed)
+              m_launched(false), m_originActor(0)
     {
         m_hitbox.h = frameHeight;
         m_collisionDamage = collisionDamage;
@@ -40,7 +39,7 @@ namespace jumper
         m_lastPosition = position();
 
         // Calculate movement of projectile
-        Vector2f movement = m_direction * m_speed * getElapsedTime();
+        Vector2f movement = m_direction * 1000 * getElapsedTime();
 
         // Check collision with tiles
         level.collide(position(), w(), h(), movement, this);

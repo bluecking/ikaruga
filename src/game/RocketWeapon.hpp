@@ -15,7 +15,7 @@ namespace jumper
     class RocketWeapon : public Weapon
     {
     public:
-        RocketWeapon(Game& game,
+        RocketWeapon::RocketWeapon(Game& game,
                                  Actor& actor,
                                  SDL_Texture* projectileTexture,
                                  const Vector2i& projectileTextureSize,
