@@ -519,6 +519,7 @@ void XML::save()
     ptree root;
     ptree level;
     ptree tileset;
+    ptree explosions;
     ptree background;
     ptree player;
     ptree statusbar;
@@ -531,6 +532,11 @@ void XML::save()
     tileset.put("<xmlattr>.filename", m_tileset);
 
     level.add_child("tileset", tileset);
+
+    /* Adding Explosions */
+    explosions.put("<xmlattr>.filename", m_explosions);
+
+    level.add_child("explosions", explosions);
 
     /* Adding Background */
     background.put("<xmlattr>.filename", m_background.filename);

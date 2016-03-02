@@ -475,7 +475,19 @@ public:
      */
     void saveProfiles();
 
+    /**
+     * Get the explosion image filename
+     * @return string with the explosion image filename
+     */
     std::string getExplosions();
+
+    /**
+     * Set the explosion image filename
+     * @param filename Path to the explosion image file
+     */
+    void setExplosions(std::string filename){
+        m_explosions = filename;
+    }
 
 private:
     /* XML Filename */
