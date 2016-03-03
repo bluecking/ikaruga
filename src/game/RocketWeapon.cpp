@@ -36,7 +36,8 @@ namespace jumper
                      collisionDamage,
                      1,
                      speed,
-                     numFrames)
+                     numFrames,
+                     WeaponType::ROCKET_GUN)
     {
 
     }
