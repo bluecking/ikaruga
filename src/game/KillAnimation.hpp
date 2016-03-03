@@ -8,12 +8,12 @@
 #ifndef SRC_GAME_KILLANIMATION_HPP_
 #define SRC_GAME_KILLANIMATION_HPP_
 
-#include "Item.hpp"
+#include "Actor.hpp"
 
 namespace jumper
 {
 
-class KillAnimation : public Item
+class KillAnimation : public Actor
 {
 public:
 	KillAnimation(Actor* actor ,std::string filepath);
@@ -25,6 +25,9 @@ public:
 
 
 
+	virtual void onTileCollision();
+
+	virtual void onActorCollision(Actor& other);
 };
 
 } /* namespace jumper */

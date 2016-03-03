@@ -12,7 +12,6 @@
 #define SRC_GAME_COLLIDABLE_HPP_
 
 #include "Level.hpp"
-#include "Collision.hpp"
 
 namespace jumper
 {
