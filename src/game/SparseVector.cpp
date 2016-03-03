@@ -201,7 +201,7 @@ bool SparseVector::operator==(const SparseVector &other) const
 
 		//iterate otherwise
 		elem = elem->next;
-		elemb = elemOther->next;
+		elemOther = elemOther->next;
 	}
 }
 
