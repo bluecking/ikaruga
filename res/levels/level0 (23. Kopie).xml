@@ -1,0 +1,109 @@
+<level>
+    <id>66</id>
+    <name>Uni</name>
+    <tileset filename="level0.lvl"/>
+    <explosions filename= "../images/explosions.png"/>
+    <background filename="../images/star_background_2_200x200.png">
+        <scrollspeed>1</scrollspeed>
+        <soundfile>../sounds/game_loop.wav</soundfile>
+        <volume>70</volume>
+    </background>
+    <player filename="../images/player_animated_55x43_transparent.png">
+        <numFrames>24</numFrames>
+        <frameWidth>55</frameWidth>
+        <frameHeight>43</frameHeight>
+        <positionX>100</positionX>
+        <positionY>140</positionY>
+        <stdWeapon>LASER_GUN</stdWeapon>
+        <colorOffsetX>1320</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <moveForceX>200.0</moveForceX>
+        <moveForceY>200.0</moveForceY>
+        <maxVel>200.0</maxVel>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>100</explosionVolume>
+        <hitSoundFile>../sounds/hit_mark.wav</hitSoundFile>
+        <hitVolume>100</hitVolume>
+        <collisionDamage>25</collisionDamage>
+        <health>100</health>
+    </player>
+ <statusBar filename="../images/font_yellow_10x10.png">
+      <frameWidth>10</frameWidth>
+      <frameHeight>10</frameHeight>
+      <letterCount>26</letterCount>
+      <capitalOffset>1</capitalOffset>
+      <minusculeOffset>2</minusculeOffset>
+      <numberOffset>0</numberOffset>
+      <offsetToMid>1</offsetToMid>
+  </statusBar>
+    <bot type="BOT_NYAN_SIN">
+        <positionX>600</positionX>
+        <positionY>120</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_JAVA_SIN">
+        <positionX>750</positionX>
+        <positionY>120</positionY>
+        <color>white</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_UNICORN_SIN">
+        <positionX>1200</positionX>
+        <positionY>120</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_DRONE_SIN_DOWN">
+        <positionX>1350</positionX>
+        <positionY>200</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_MIST_SIN_DOWN">
+        <positionX>1700</positionX>
+        <positionY>280</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SLIME_SIN_DOWN">
+        <positionX>2000</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SPIKE_SIN_DOWN">
+        <positionX>2200</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_LIGTHPOST_SIN_UP">
+        <positionX>3000</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOSS_FSM_CIRCLE">
+        <positionX>1800</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <item type="GODMODE">
+        <positionX>300</positionX>
+        <positionY>50</positionY>
+        <value>15</value>
+    </item>
+    <item type="RESTORE_HEALTH">
+        <positionX>1200</positionX>
+        <positionY>150</positionY>
+        <value>50</value>
+    </item>
+    <item type="WEAPON">
+        <positionX>500</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
+</level>

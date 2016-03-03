@@ -34,7 +34,7 @@ namespace jumper
         tableProps.positionX = 50;
         tableProps.positionY = 120;
         tableProps.width = 200;
-        tableProps.height = 100;
+        tableProps.height = 350;
         m_table.setTableProperties(tableProps);
         m_menu = MAIN_MENU;
         m_offset.setX(0.005f);
