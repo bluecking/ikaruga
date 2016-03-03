@@ -110,10 +110,8 @@ namespace jumper
                             if (m_table.getM_pos() == 3)
                             {
                                 TextureFactory::instance(m_win->getRenderer()).deleteAll();
-                                SDL_Quit();
                                 m_sound.stop();
-                                delete m_win;
-                                exit(0);
+                                m_win->quitGame();
                             }
 
                             break;
