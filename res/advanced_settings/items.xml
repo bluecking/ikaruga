@@ -9,7 +9,7 @@
         <collisionDamage>0</collisionDamage>
         <weapon>LASER_GUN</weapon>
     </item>
-    <item type="WEAPON">
+    <item type="WEAPON_LASER_GUN">
         <filename>../images/powerup_weapon_laser_32x32.png</filename>
         <frameWidth>32</frameWidth>
         <frameHeight>32</frameHeight>
@@ -18,6 +18,26 @@
         <healPercentage>100</healPercentage>
         <collisionDamage>0</collisionDamage>
         <weapon>LASER_GUN</weapon>
+    </item>
+    <item type="WEAPON_BLASTER_GUN">
+        <filename>../images/powerup_weapon_blaster_32x32.png</filename>
+        <frameWidth>32</frameWidth>
+        <frameHeight>32</frameHeight>
+        <fps>10</fps>
+        <numFrames>4</numFrames>
+        <healPercentage>100</healPercentage>
+        <collisionDamage>0</collisionDamage>
+        <weapon>BLASTER_GUN</weapon>
+    </item>
+    <item type="WEAPON_ROCKET_GUN">
+        <filename>../images/powerup_weapon_rocket_32x32.png</filename>
+        <frameWidth>32</frameWidth>
+        <frameHeight>32</frameHeight>
+        <fps>10</fps>
+        <numFrames>4</numFrames>
+        <healPercentage>100</healPercentage>
+        <collisionDamage>0</collisionDamage>
+        <weapon>ROCKET_GUN</weapon>
     </item>
     <item type="GODMODE">
         <filename>../images/powerup_nuke_49x50.png</filename>
