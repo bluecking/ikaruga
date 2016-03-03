@@ -217,6 +217,11 @@ namespace jumper
             SDL_Delay(sleepTimeUint);
         }
     }
+
+    int MainWindow::getActualScreen()
+    {
+        return actRenderID;
+    }
 } /* namespace jumper */
 
 
