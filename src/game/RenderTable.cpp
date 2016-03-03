@@ -23,7 +23,7 @@ namespace jumper
         m_rectTarget.h = tileHeight;
         m_stringPropertiesSet = false;
         m_tablePropertiesSet = false;
-        m_pos = 0;
+        m_pos = 6;
     }
 
     void RenderTable::setStringProperties(int minusculeOffset, int capitalOffset,
@@ -49,8 +49,12 @@ namespace jumper
     {
         if (!m_stringPropertiesSet || !m_tablePropertiesSet)
         { throw std::domain_error("You have to use setStringProperties and setTableProperties first."); }
+        long maxLines = m_tableProperties.height / m_tileHeight; //max lines within table space
+        long startLine = (((long)m_pos) - maxLines) < 0 ? 0 : ((long)m_pos) - maxLines;
+        long endLine = startLine + maxLines;
+        if(m_pos >= maxLines) {startLine++; endLine++;}
 
-        for(int i = 0; i < m_content.size(); i++) //loop rows
+        for(int i = startLine; i < m_content.size() && i < endLine; i++) //loop rows
         {
             for(int j = 0; j < m_content[i].size(); j++) //loop columns
             {
@@ -65,7 +69,7 @@ namespace jumper
                         offset = m_tileWidth;
                     }
                     m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset;
-                    m_rectTarget.y = m_tableProperties.positionY + i * m_tileHeight;
+                    m_rectTarget.y = m_tableProperties.positionY + (i-startLine) * m_tileHeight;
                     //std::cout << "recS_Px" << m_rectSource.x << "recS_Py" << m_rectSource.y << "recS_w" << m_rectSource.w << "recS_h" << m_rectSource.h << std::endl;
                     //std::cout << "recT_Px" << m_rectTarget.x << "recT_Py" << m_rectTarget.y << "recT_w" << m_rectTarget.w << "recT_h" << m_rectTarget.h << std::endl << std::endl;
                     SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
@@ -86,7 +90,7 @@ namespace jumper
         }
         else {
             m_pos++;
-        }
+        }std::cout << m_pos << std::endl;
     }
 
     void RenderTable::decrease()
@@ -96,6 +100,6 @@ namespace jumper
         }
         else {
             m_pos--;
-        }
+        }std::cout << m_pos << std::endl;
     }
 } //end of namespace jumper

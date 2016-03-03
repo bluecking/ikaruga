@@ -1,6 +1,6 @@
 <level>
-    <id>2</id>
-    <name>Star Wars</name>
+    <id>9</id>
+    <name>Uni</name>
     <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
