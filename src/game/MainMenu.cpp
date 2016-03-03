@@ -57,7 +57,8 @@ namespace jumper
         {
             if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
             {
-                m_sound.play(100);
+                m_sound.play(125);
+                m_sound.resume();
 
                 //Render background
 
@@ -235,6 +236,7 @@ namespace jumper
                         m_win, m_game);
         m_win->setGame(m_game);
         m_win->setActualScreen(MainWindow::RENDER_GAME);
+        m_sound.stop();
         m_game->start();
     }
 
