@@ -90,7 +90,7 @@ namespace jumper
         }
         else {
             m_pos++;
-        }std::cout << m_pos << std::endl;
+        }
     }
 
     void RenderTable::decrease()
@@ -100,6 +100,6 @@ namespace jumper
         }
         else {
             m_pos--;
-        }std::cout << m_pos << std::endl;
+        }
     }
 } //end of namespace jumper
