@@ -131,8 +131,18 @@
         <positionY>150</positionY>
         <value>50</value>
     </item>
-    <item type="WEAPON">
+    <item type="WEAPON_LASER_GUN">
         <positionX>500</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
+    <item type="WEAPON_BLASTER_GUN">
+        <positionX>400</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
+    <item type="WEAPON_ROCKET_GUN">
+        <positionX>300</positionX>
         <positionY>400</positionY>
         <value>1</value>
     </item>

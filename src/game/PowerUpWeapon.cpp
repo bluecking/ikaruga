@@ -17,9 +17,18 @@ namespace jumper
 
     void PowerUpWeapon::consume(Player& player)
     {
-        // todo update weapon level if same weapon is consumed again and destroy (delte) old weapon
-        m_weapon->setActor(&player);
-        player.setWeapon(m_weapon);
+        if (player.getWeapon()->getWeaponType() == m_weapon->getWeaponType())
+        {
+            // same weapon collected -> upgrade current weapon
+            player.getWeapon()->upgrade();
+            delete m_weapon;
+        }
+        else
+        {
+            // new weapon collected -> set new weapon
+            m_weapon->setActor(&player);
+            player.setWeapon(m_weapon);
+        }
     }
 
     void PowerUpWeapon::stop(Player& player)
