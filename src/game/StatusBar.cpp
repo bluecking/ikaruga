@@ -84,7 +84,7 @@ namespace jumper
                                                           m_numberOffset);
             setWeaponPosition(Vector2i((m_endPosition.x() / 2) - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
                                        m_horziontalAlignemnt));
-            for (int i = 0; i < weapon_source.size(); i++)
+            for (unsigned int i = 0; i < weapon_source.size(); i++)
             {
                 source.x = weapon_source[i].x();
                 source.y = weapon_source[i].y();
@@ -98,7 +98,7 @@ namespace jumper
         }
         else
         {
-            for (int i = 0; i < m_weaponSource.size(); i++)
+            for (unsigned int i = 0; i < m_weaponSource.size(); i++)
             {
                 SDL_RenderCopy(m_renderer, m_texture, &m_weaponSource.at(i), &m_weaponTarget.at(i));
             }
@@ -121,7 +121,7 @@ namespace jumper
             position.setX(position.x() - 50);
             vector<Vector2i> boss_source = renderString("BOSS:", m_minusculeOffset, m_capitalOffset, m_numberOffset);
 
-            for (int i = 0; i < boss_source.size(); i++)
+            for (unsigned int i = 0; i < boss_source.size(); i++)
             {
                 source.x = boss_source[i].x();
                 source.y = boss_source[i].y();
@@ -140,7 +140,7 @@ namespace jumper
     void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
     {
         vector<Vector2i> vec_source = renderNumber(number, m_numberOffset);
-        for (int i = 0; i < vec_source.size(); i++)
+        for (unsigned int i = 0; i < vec_source.size(); i++)
         {
             source.x = vec_source[i].x();
             source.y = vec_source[i].y();

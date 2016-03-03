@@ -57,21 +57,21 @@ namespace jumper
         long maxLines = m_tableProperties.height / m_tileHeight; //max lines within table space
         long startLine = (((long)m_pos) - maxLines) < 0 ? 0 : ((long)m_pos) - maxLines;
         long endLine = startLine + maxLines;
-        if(m_pos >= maxLines) {startLine++; endLine++;}
+        if((long)m_pos >= maxLines) {startLine++; endLine++;}
 
-        for (int i = 0; i < m_content.size(); i++) //loop rows
-        for(int i = startLine; i < m_content.size() && i < endLine; i++) //loop rows
+        for (unsigned int i = 0; i < m_content.size(); i++) //loop rows
+        for(unsigned int i = startLine; i < m_content.size() && i < endLine; i++) //loop rows
         {
 
             int actColSize=0;
-            for(int j = 0; j < m_content[i].size(); j++) //loop columns
+            for(unsigned int j = 0; j < m_content[i].size(); j++) //loop columns
 
             {
                 if(string_is_number(m_content.at(i).at(j).c_str()))
                     m_textLine = renderNumber(atoi(m_content[i][j].c_str()),0);
                 else
                     m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
-                for (int k = 0; k < m_textLine.size(); k++) //print column content
+                for (unsigned int k = 0; k < m_textLine.size(); k++) //print column content
                 {
                     m_rectSource.x = m_textLine[k].x();
                     m_rectSource.y = m_textLine[k].y();

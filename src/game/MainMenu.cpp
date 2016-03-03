@@ -145,7 +145,7 @@ namespace jumper
         int sleep=10;
         std::vector<std::vector<std::string>> texts;
         texts.resize(2);
-        for(int i=0;i<texts.size();i++){
+        for(unsigned int i=0;i<texts.size();i++){
             texts.at(i).resize(2);
         }
         texts[0][0]="Beendet: ";
@@ -181,7 +181,7 @@ namespace jumper
         int sleep=10;
         std::vector<std::vector<std::string>> texts;
         texts.resize(3);
-        for(int i=0;i<texts.size();i++){
+        for(unsigned int i=0;i<texts.size();i++){
             texts.at(i).resize(1);
         }
         texts[0][0]="Start level";
@@ -235,7 +235,7 @@ namespace jumper
     void MainMenu::levelSelect()
     {
         int z = 0;
-        for (int i = 0; i < m_levelFiles.size(); i++)
+        for (unsigned int i = 0; i < m_levelFiles.size(); i++)
         {
             try
             {
@@ -319,13 +319,13 @@ namespace jumper
     {
         m_table.setScrollable(false);
         std::vector<std::pair<std::string, int>> scores = m_win->profile->getHighScores();
-        int offsetRow = 2;
+        unsigned int offsetRow = 2;
         m_tableText.resize(scores.size() + offsetRow);
         m_tableText[0].resize(1);
         m_tableText[0][0] = "Highscores";
         m_tableText[1].resize(0);
 
-        for (int i = offsetRow; i < scores.size() + offsetRow; i++)
+        for (unsigned int i = offsetRow; i < scores.size() + offsetRow; i++)
         {
             m_tableText[i].resize(2);
             m_tableText[i][0] = scores.at(i - offsetRow).first;

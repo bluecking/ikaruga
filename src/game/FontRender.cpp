@@ -47,7 +47,7 @@ namespace jumper {
 
     vector<Vector2i> FontRender::renderString(string str, int minusculeOffset, int capitalOffset, int numberOffset) {
         vector<Vector2i> retVal;
-        for (int i = 0; i < str.length(); i++) {
+        for (unsigned int i = 0; i < str.length(); i++) {
             Vector2i source_vec;
             string strLetter = string(1, str[i]);
             string strLetterToUpper = str;
