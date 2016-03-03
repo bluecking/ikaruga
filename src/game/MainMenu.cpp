@@ -13,7 +13,7 @@ namespace jumper
 
 
     MainMenu::MainMenu(MainWindow* win, fs::path resDir) :
-            m_win(win), m_resDir(resDir), m_table(NULL, NULL, NULL, NULL)
+            m_win(win), m_resDir(resDir), m_table(0, 0, 0, 0)
     {
         boost::filesystem::path concat(resDir);
         concat /= "levels";
@@ -291,20 +291,28 @@ namespace jumper
         m_tableText.resize(5);
 
         int offsetRow = 2;
-        m_tableText.resize(5 + offsetRow);
+        m_tableText.resize(13 + offsetRow);
         m_tableText[0].resize(1);
         m_tableText[0][0] = "Credits";
         m_tableText[1].resize(0);
 
-        for (int i = offsetRow; i < 5 + offsetRow; i++)
+        for (int i = offsetRow; i < 13 + offsetRow; i++)
         {
             m_tableText[i].resize(1);
         }
-        m_tableText[0 + offsetRow][0] = "Jenny";
-        m_tableText[1 + offsetRow][0] = "Swaggy";
-        m_tableText[2 + offsetRow][0] = "Booster";
-        m_tableText[3 + offsetRow][0] = "mbrockmo";
-        m_tableText[4 + offsetRow][0] = "toaster";
+        m_tableText[0 + offsetRow][0] = "Ben";
+        m_tableText[1 + offsetRow][0] = "David";
+        m_tableText[2 + offsetRow][0] = "Dennis";
+        m_tableText[3 + offsetRow][0] = "Jochen";
+        m_tableText[4 + offsetRow][0] = "Johan";
+        m_tableText[5 + offsetRow][0] = "Johann";
+        m_tableText[6 + offsetRow][0] = "Marius";
+        m_tableText[7 + offsetRow][0] = "Nathan";
+        m_tableText[8 + offsetRow][0] = "Patrick N.";
+        m_tableText[9 + offsetRow][0] = "Patrick S.";
+        m_tableText[10 + offsetRow][0] = "Sven";
+        m_tableText[11 + offsetRow][0] = "Thorsten";
+        m_tableText[12 + offsetRow][0] = "Timo";
     }
 
     void MainMenu::highscore()

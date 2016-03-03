@@ -31,9 +31,9 @@ namespace jumper
 
         virtual ~Projectile();
 
-        virtual void move(Level& level);
+        virtual void move(Level& level) override;
 
-        virtual void onTileCollision();
+        virtual void onTileCollision() override;
 
         const Vector2f& getDirection() const
         { return m_direction; }
@@ -47,18 +47,17 @@ namespace jumper
         /**
          * @see Actor::onActorCollision(Actor& other)
          */
-        void onActorCollision(Actor& other);
+        void onActorCollision(Actor& other) override;
 
         /**
          * @return Whether or not a texture flip is necessary
          */
-        virtual SDL_RendererFlip getFlip();
+        virtual SDL_RendererFlip getFlip() override;
 
         virtual SDL_Rect& getHitbox() override;
     protected:
         Vector2f m_direction;
         bool m_launched;
-        int m_collisionDamage;
         float m_speed;
     private:
         Vector2f m_lastPosition = 0;

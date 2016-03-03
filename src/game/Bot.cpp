@@ -114,7 +114,7 @@ namespace jumper
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
             setHealth(0);
-            setIsKilled(false);
+            setKilled(false);
         }
         if (type() == ActorType::BOSS)
         {
@@ -132,7 +132,7 @@ namespace jumper
             {
                 setHit(true);
                 takeDamage(other.getCollisionDamage());
-                setIsKilled(true);
+                setKilled(true);
             }
         }
         // Hit by player
@@ -140,7 +140,7 @@ namespace jumper
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-            setIsKilled(true);
+            setKilled(true);
         }
     }
 

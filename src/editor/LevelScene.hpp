@@ -168,7 +168,6 @@ private:
 	XML::Statusbar m_statusbar;						/// statusbar properties for the xml file
 	XML::Player m_player;							/// player properties for the xml file
     std::vector<int>* m_tiles;        				/// The 2D tile array
-    QGraphicsItemGroup* m_backgroundGroupe;         /// background layer
     int m_typeBackground;							/// int for background type
 	int m_typeItem;									/// int for item type
 	int m_typeBot;									/// int for bot type
@@ -189,7 +188,7 @@ private:
 	int m_lastX;                                    /// x position of last known item
 	int m_lastY;                                    /// y position of last known item
 	MainWindow* m_mainWindow;                       /// Pointer to a main window
-        
+    
 };
 
 #endif
