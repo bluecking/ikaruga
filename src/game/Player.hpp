@@ -155,6 +155,7 @@ namespace jumper
             }
         }
 
+        virtual SDL_Rect& getHitbox() override;
     private:
         Game& m_game;
 
