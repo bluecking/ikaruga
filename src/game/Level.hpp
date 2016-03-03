@@ -20,6 +20,7 @@
 #include "Vector.hpp"
 #include "WorldProperty.hpp"
 #include "TextureFactory.hpp"
+#include <fstream>
 
 
 namespace ikaruga
