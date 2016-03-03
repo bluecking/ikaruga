@@ -35,9 +35,9 @@ namespace jumper{
          * Returns the actual HighScore of the Level
          */
         long getHighscore();
-    private:
         //levelfile
         std::string levelFile;
+    private:
         //actual highscore
         long actualHighscore;
         //profile to manage saving
