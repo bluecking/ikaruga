@@ -64,9 +64,9 @@ namespace jumper
             SDL_RenderPresent(m_win->getRenderer());
 
             //temporary to start game -------------------------------------------------------------------
-            if (currentKeyStates[SDL_SCANCODE_G])
+            if (currentKeyStates[SDL_SCANCODE_RETURN])
             {
-                Game::setupGame(m_resDir.string() + "/levels/level0.xml", m_win, m_game);
+                Game::setupGame(m_levelId_and_path.at(std::stoi(m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size()-1))).string(), m_win, m_game);
                 m_win->setGame(m_game);
                 m_win->setActualScreen(MainWindow::RENDER_GAME);
                 m_game->start();
@@ -75,22 +75,26 @@ namespace jumper
     }
 
     void MainMenu::prepareTable()
-    {
+    {   int z = 0;
         for (int i = 0; i < m_levelFiles.size(); i++)
         {
             try
             {
                 XML m_tmp(m_levelFiles[i].string());
-                m_tableText.resize(m_tableText.size() + 1);
                 m_levelId_and_path.insert(std::pair<int, boost::filesystem::path>(m_tmp.getId(), m_levelFiles[i]));
-                m_tableText[m_tableText.size() - 1].resize(1);
-                m_tableText[m_tableText.size() - 1][0] = m_tmp.getLevelname();
             }
             catch (...)
             {
                 std::cerr << "Failed to read file " + m_levelFiles[i].string() << std::endl;
                 continue;
             }
+        }
+        m_tableText.resize(m_levelId_and_path.size());
+        for(std::map<int,boost::filesystem::path>::iterator it = m_levelId_and_path.begin(); it != m_levelId_and_path.end(); it++) {
+            m_tableText[z].resize(2);
+            m_tableText[z][0] = std::to_string(it->first) + ".";
+            XML m_tmp2(it->second.string());
+            m_tableText[z++][1] = m_tmp2.getLevelname();
         }
     }
 

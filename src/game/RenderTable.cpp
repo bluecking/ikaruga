@@ -27,7 +27,7 @@ namespace jumper
     }
 
     void RenderTable::setStringProperties(int minusculeOffset, int capitalOffset,
-                                          int numberOffset, std::vector<std::vector<std::string>> content)
+                                          int numberOffset, const std::vector<std::vector<std::string>> content)
     {
         m_stringPropertiesSet = true;
         m_minusculeOffset = minusculeOffset;
