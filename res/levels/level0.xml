@@ -50,73 +50,73 @@
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_UNICORN_SIN">
-        <positionX>1200</positionX>
+        <positionX>900</positionX>
         <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_DRONE_SIN_DOWN">
-        <positionX>1350</positionX>
+        <positionX>1050</positionX>
         <positionY>200</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_MIST_SIN_DOWN">
-        <positionX>1700</positionX>
+        <positionX>1300</positionX>
         <positionY>280</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SLIME_SIN_DOWN">
-        <positionX>2000</positionX>
+        <positionX>1450</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SPIKE_SIN_DOWN">
-        <positionX>2200</positionX>
+        <positionX>1700</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_AI">
-        <positionX>2400</positionX>
+        <positionX>1850</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_ROBOTSHIP_FLYING_SIN_DOWN">
-        <positionX>2600</positionX>
+        <positionX>2000</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_ROBOTSHIP_HOVER_SIN_UP">
-        <positionX>2800</positionX>
+        <positionX>2150</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SPACESHIP_AI">
-        <positionX>2800</positionX>
+        <positionX>2300</positionX>
         <positionY>350</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_LIGTHPOST_SIN_UP">
-        <positionX>3000</positionX>
+        <positionX>2450</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOSS_FSM_CIRCLE">
-        <positionX>1800</positionX>
+        <positionX>2600</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOSS_SPACESHIP_NO_ANIMATION_CIRCLE">
-        <positionX>2000</positionX>
+        <positionX>2750</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>

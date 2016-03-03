@@ -259,7 +259,7 @@
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
+        <colorOffsetY>57</colorOffsetY>
         <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -343,13 +343,13 @@
         <health>250</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>160</colorOffsetY>
+        <colorOffsetY>0</colorOffsetY>
         <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
         <scoreValue>50</scoreValue>
         <collisionDamage>25</collisionDamage>
-        <npc type="NORMAL">
+        <npc type="BOSS">
             <move function="SIN_DOWN">30</move>
             <speed>0</speed>
             <stdWeapon>MEATBALL_GUN</stdWeapon>
