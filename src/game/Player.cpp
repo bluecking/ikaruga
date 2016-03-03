@@ -223,7 +223,7 @@ namespace jumper
         {
             auto itr = std::find(m_powerUps.begin(), m_powerUps.end(), powerUp);
             m_powerUps.erase(itr);
-            delete *itr;
+            delete powerUp;
         }
     }
 
