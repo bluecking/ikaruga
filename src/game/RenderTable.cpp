@@ -80,7 +80,7 @@ namespace jumper
                     //std::cout << "recT_Px" << m_rectTarget.x << "recT_Py" << m_rectTarget.y << "recT_w" << m_rectTarget.w << "recT_h" << m_rectTarget.h << std::endl << std::endl;
                     SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
                 }
-                actColSize+=m_textLine.size() * m_tileWidth + m_tileWidth;
+                actColSize+=m_textLine.size() * m_tileWidth + m_tileWidth*3;
             }
         }
     }

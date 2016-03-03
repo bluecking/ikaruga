@@ -279,15 +279,14 @@ namespace jumper
 
     void MainMenu::highscore()
     {
-        std::vector<std::pair<std::string,int>> scores=m_win->profile->getHighScores();
+        std::vector<std::pair<std::string, int>> scores = m_win->profile->getHighScores();
         m_tableText.resize(scores.size());
 
-        for(int i = 0; i < m_tableText.size(); i++)
+        for (int i = 0; i < m_tableText.size(); i++)
         {
             m_tableText[i].resize(2);
-            m_tableText[i][0] = scores.at(i).first+": ";
+            m_tableText[i][0] = scores.at(i).first;
             m_tableText[i][1] = to_string(scores.at(i).second);
         }
     }
-
 } //end of namespace jumper
