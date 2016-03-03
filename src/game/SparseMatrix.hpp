@@ -13,9 +13,9 @@
 namespace ikaruga
 {
 
-/**
- * @brief Representation of a sparse matrix
- */
+    /**
+     * @brief Representation of a sparse matrix
+     */
     class SparseMatrix
     {
         /// Array of sparse vectors to represent the columns
@@ -85,6 +85,6 @@ namespace ikaruga
 
     };
 
-} // namespace ikaruga
+}  /* namespace ikaruga */
 
 #endif

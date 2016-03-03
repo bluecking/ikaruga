@@ -138,4 +138,4 @@ namespace ikaruga
 
         return false;
     }
-}
+} /* namespace ikaruga */

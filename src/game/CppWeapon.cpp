@@ -38,4 +38,4 @@ namespace ikaruga
                      numFrames,
                      WeaponType::CPP_GUN)
     { }
-}
+} /* namespace ikaruga */

@@ -10,10 +10,10 @@
 namespace ikaruga
 {
 
-/**
- * @brief	A class that holds properties about the physical characteristics
- * 			of a level.
- */
+    /**
+     * @brief	A class that holds properties about the physical characteristics
+     * 			of a level.
+     */
     class WorldProperty
     {
     public:
@@ -64,5 +64,6 @@ namespace ikaruga
         Vector2f m_scrollingSpeed;
     };
 
-}
+} /* namespace ikaruga */
+
 #endif //IKARUGA_WorldProperties_H

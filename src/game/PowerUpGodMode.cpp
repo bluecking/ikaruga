@@ -25,4 +25,4 @@ namespace ikaruga
     {
         player.setGodMode(false);
     }
-}
+} /* namespace ikaruga */

@@ -257,4 +257,4 @@ namespace ikaruga
 
         return hitbox;
     }
-}
+} /* namespace ikaruga */

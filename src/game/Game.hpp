@@ -43,9 +43,9 @@ namespace ikaruga
 
     class HighScore;
 
-/**
- * @brief 	Represents a game instance.
- */
+    /**
+     * @brief 	Represents a game instance.
+     */
     class Game
     {
     public:

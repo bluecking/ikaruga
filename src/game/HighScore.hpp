@@ -56,6 +56,6 @@ namespace ikaruga
         //profile to manage saving
         Profile* profile;
     };
-}
+} /* namespace ikaruga */
 
 #endif // HIGHSCORE_H

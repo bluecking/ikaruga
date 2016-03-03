@@ -15,9 +15,9 @@ namespace ikaruga
 {
 
 
-/**
- * @brief Base class for all objects that can be rendered.
- */
+    /**
+     * @brief Base class for all objects that can be rendered.
+     */
     class Renderable
     {
 

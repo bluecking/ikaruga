@@ -38,4 +38,4 @@ namespace ikaruga
                      numFrames,
                      WeaponType::LASER_GUN)
     { }
-}
+} /* namespace ikaruga */

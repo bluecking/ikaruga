@@ -29,4 +29,4 @@ namespace ikaruga
         m_damping = damping;
     }
 
-}
+} /* namespace ikaruga */

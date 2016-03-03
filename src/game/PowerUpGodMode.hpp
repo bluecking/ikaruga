@@ -31,7 +31,7 @@ namespace ikaruga
         virtual void stop(Player& player);
     };
 
-}
+} /* namespace ikaruga */
 
 
 #endif //IKARUGA_POWERUPGODMODE_HPP

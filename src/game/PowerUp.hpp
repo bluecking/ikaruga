@@ -86,6 +86,6 @@ namespace ikaruga
         /// expiration Time
         int m_expirationTime;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_POWERUP_HPP

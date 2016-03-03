@@ -51,4 +51,4 @@ namespace ikaruga
             }
         }
     }
-}
+} /* namespace ikaruga */

@@ -63,4 +63,4 @@ namespace ikaruga
         m_maxVelRun = maxVelRun;
     }
 
-}
+} /* namespace ikaruga */

@@ -13,9 +13,9 @@
 namespace ikaruga
 {
 
-/**
- * @brief A sparse vector representation for integer values. Non-Zero Entries are saved in a linked list,
- */
+    /**
+     * @brief A sparse vector representation for integer values. Non-Zero Entries are saved in a linked list,
+     */
     class SparseVector
     {
 
@@ -162,6 +162,6 @@ namespace ikaruga
 
     };
 
-} // namespace ikaruga
+}  /* namespace ikaruga */
 
 #endif

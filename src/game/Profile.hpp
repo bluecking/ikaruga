@@ -74,6 +74,6 @@ namespace ikaruga
         ///the actual profileID
         int actProfileID;
     };
-}
+} /* namespace ikaruga */
 
 #endif // PROFILE_H

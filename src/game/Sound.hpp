@@ -91,6 +91,6 @@ namespace ikaruga
         /// The channel, where the sound is played
         int m_channel;
     };
-};
+}  /* namespace ikaruga */
 
 #endif //IKARUGA_SOUND_HPP

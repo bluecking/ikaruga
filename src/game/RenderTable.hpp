@@ -118,5 +118,6 @@ namespace ikaruga
         unsigned long m_pos;
         bool m_scrollable;
     };
-} //end of namespace ikaruga
+}  /* namespace ikaruga */
+
 #endif //IKARUGA_RENDERTABLE_HPP

@@ -40,4 +40,4 @@ namespace ikaruga
     {
 
     }
-}
+} /* namespace ikaruga */

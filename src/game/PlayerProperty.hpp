@@ -91,6 +91,6 @@ namespace ikaruga
         /// Maximum run velocity
         double m_maxVelRun;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_PHYSICPLAYER_H

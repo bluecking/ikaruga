@@ -27,5 +27,6 @@ namespace ikaruga
         static void checkActorCollision(vector<Actor*>& actors);
     };
 
+} /* namespace ikaruga */
+
 #endif //SRC_COLLISIONMANAGER_HPP
-}

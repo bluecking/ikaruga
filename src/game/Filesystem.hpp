@@ -58,7 +58,7 @@ namespace ikaruga
         static std::vector<fs::path> findFiles(const fs::path& path,
                                                boost::regex pattern);
     };
-}
+} /* namespace ikaruga */
 
 
 #endif //IKARUGA_FILESYSTEM_HPP

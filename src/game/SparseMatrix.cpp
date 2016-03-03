@@ -98,4 +98,4 @@ namespace ikaruga
         m_rows[row]->setElem(col, value);
     }
 
-} // namespace ikaruga
+}  /* namespace ikaruga */

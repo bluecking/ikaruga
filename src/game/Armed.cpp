@@ -16,4 +16,4 @@ namespace ikaruga
     {
         delete m_weapon;
     }
-}
+} /* namespace ikaruga */

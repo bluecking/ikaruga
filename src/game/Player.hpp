@@ -259,6 +259,6 @@ namespace ikaruga
         /** GodMode blue value of the texture */
         const Uint8 m_ColorGod_B = 239;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_PLAYER_H

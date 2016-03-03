@@ -38,4 +38,4 @@ namespace ikaruga
                      numFrames,
                      WeaponType::ROCKET_GUN)
     { }
-}
+} /* namespace ikaruga */

@@ -54,6 +54,6 @@ namespace ikaruga
         // The weapon
         Weapon* m_weapon;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_ARMED_HPP

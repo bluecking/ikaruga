@@ -93,4 +93,4 @@ namespace ikaruga
             Mix_ResumeMusic();
         }
     }
-}
+} /* namespace ikaruga */

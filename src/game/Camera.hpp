@@ -13,9 +13,9 @@
 
 namespace ikaruga
 {
-/**
- * @brief A camera object to scroll within a level
- */
+    /**
+     * @brief A camera object to scroll within a level
+     */
     class Camera
     {
     public:

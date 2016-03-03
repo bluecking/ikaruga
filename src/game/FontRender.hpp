@@ -63,6 +63,6 @@ namespace ikaruga
         /// the width of the letters on the tilesheet
         int m_tileWidth;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_FONTRENDER_H

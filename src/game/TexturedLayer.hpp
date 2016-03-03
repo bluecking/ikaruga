@@ -13,9 +13,9 @@
 namespace ikaruga
 {
 
-/**
- * @brief A class to render a background bitmap
- */
+    /**
+     * @brief A class to render a background bitmap
+     */
     class TexturedLayer : public StaticRenderable
     {
     public:

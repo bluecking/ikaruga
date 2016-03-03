@@ -25,7 +25,7 @@
 namespace ikaruga
 {
 
-/// Directions of actor
+    /// Directions of actor
     enum TilesDirection
     {
         TUP,
@@ -48,9 +48,9 @@ namespace ikaruga
 
     class Actor;
 
-/**
- * @brief Represents a level in the ikaruga game.
- */
+    /**
+     * @brief Represents a level in the ikaruga game.
+     */
     class Level : public StaticRenderable
     {
     public:

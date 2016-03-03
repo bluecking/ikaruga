@@ -30,6 +30,6 @@ namespace ikaruga
     private:
         Weapon* m_weapon;
     };
-}
+} /* namespace ikaruga */
 
 #endif //IKARUGA_POWERUPWEAPON_HPP

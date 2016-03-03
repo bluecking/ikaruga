@@ -35,4 +35,4 @@ namespace ikaruga
     {
         // do nothing yet
     }
-}
+} /* namespace ikaruga */

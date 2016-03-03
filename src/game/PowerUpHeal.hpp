@@ -36,7 +36,7 @@ namespace ikaruga
         /// heal Percentage
         int m_healPercentage;
     };
-}
+} /* namespace ikaruga */
 
 
 #endif //IKARUGA_POWERUPHEAL_HPP

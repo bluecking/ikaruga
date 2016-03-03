@@ -101,4 +101,4 @@ namespace ikaruga
         // flip texture horizontally if shooting forwards
         return SDL_FLIP_HORIZONTAL;
     }
-}
+} /* namespace ikaruga */

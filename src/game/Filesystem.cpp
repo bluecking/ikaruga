@@ -61,4 +61,4 @@ namespace ikaruga
         }
         return vec;
     }
-}
+} /* namespace ikaruga */
