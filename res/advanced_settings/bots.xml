@@ -187,6 +187,90 @@
         </npc>
     </bot>
 
+    <bot type="BOT_ROBOTSHIP_FLYING_SIN_DOWN">
+        <filename>../images/bot_robotship_flying_47x34.png</filename>
+        <numFrames>4</numFrames>
+        <frameWidth>47</frameWidth>
+        <frameHeight>34</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_DOWN">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+    <bot type="BOT_ROBOTSHIP_HOVER_SIN_UP">
+        <filename>../images/bot_robotship_hover_46x36.png</filename>
+        <numFrames>5</numFrames>
+        <frameWidth>46</frameWidth>
+        <frameHeight>36</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="SIN_UP">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+    <bot type="BOT_SPACESHIP_AI">
+        <filename>../images/bot_spaceship_67x34.png</filename>
+        <numFrames>8</numFrames>
+        <frameWidth>67</frameWidth>
+        <frameHeight>34</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+    <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_AI">
+        <filename>../images/bot_spaceship_star_57x57.png</filename>
+        <numFrames>1</numFrames>
+        <frameWidth>57</frameWidth>
+        <frameHeight>57</frameHeight>
+        <health>25</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>40</colorOffsetY>
+        <fps>12</fps>
+        <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>50</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="NORMAL">
+            <move function="AI">30</move>
+            <speed>0</speed>
+            <stdWeapon>LASER_GUN</stdWeapon>
+        </npc>
+    </bot>
+
     <bot type="BOT_UNICORN_SIN">
         <filename>../images/bot_unicorn_51x30.png</filename>
         <numFrames>19</numFrames>
@@ -289,6 +373,27 @@
             <move function="CIRCLE">30</move>
             <speed>0</speed>
             <stdWeapon>BLASTER_GUN</stdWeapon>
+        </npc>
+    </bot>
+
+    <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_CIRCLE">
+        <filename>../images/bot_spaceship_big_79x73.png</filename>
+        <numFrames>1</numFrames>
+        <frameWidth>79</frameWidth>
+        <frameHeight>73</frameHeight>
+        <health>250</health>
+        <tileID>1</tileID>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>0</colorOffsetY>
+        <fps>3</fps>
+        <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
+        <explosionVolume>150</explosionVolume>
+        <scoreValue>1000</scoreValue>
+        <collisionDamage>25</collisionDamage>
+        <npc type="BOSS">
+            <move function="CIRCLE">30</move>
+            <speed>0</speed>
+            <stdWeapon>ROCKET</stdWeapon>
         </npc>
     </bot>
 
