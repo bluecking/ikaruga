@@ -116,7 +116,7 @@ namespace jumper
         if (m_boss_health != 0)
         {
             Vector2i position = m_healthPosition;
-            position.setY((m_horziontalAlignemnt + offsetBossHealth )* m_tileHeight);
+            position.setY((m_horziontalAlignemnt + offsetBossHealth) * m_tileHeight);
             RenderHPBar(position, m_healthBarWidth, target.h, &m_boss_max_health, &m_boss_health);
             position.setX(position.x() - 50);
             vector<Vector2i> boss_source = renderString("BOSS:", m_minusculeOffset, m_capitalOffset, m_numberOffset);
@@ -130,6 +130,10 @@ namespace jumper
                 target.y = position.y();
                 SDL_RenderCopy(m_renderer, m_texture, &source, &target);
             }
+        }
+        else
+        {
+            m_boss_max_health = 0;
         }
     }
 
