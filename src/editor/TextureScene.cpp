@@ -57,7 +57,7 @@ QGraphicsScene* TextureScene::getScene()
 }
 
 
-void TextureScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void TextureScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     ///Calculates Clickposition and the containing Items
     int x = event->scenePos().x()/m_tileWidth;
@@ -75,3 +75,13 @@ void TextureScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
 
 
 }
+
+TextureScene::~TextureScene()
+{
+    while(!this->items().empty())
+    {
+        delete this->items().takeAt(0);
+    }
+    this->clear();
+}
+

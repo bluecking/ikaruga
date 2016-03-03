@@ -22,6 +22,7 @@
 
 
 class MainWindow;
+class TextureScene;
 
 class LevelScene : public QGraphicsScene
 {
@@ -126,6 +127,8 @@ public:
      */
 	QPixmap* getPixmap();
 
+    virtual ~LevelScene();
+
 protected:
 
     /**
@@ -168,6 +171,7 @@ private:
 	XML::Statusbar m_statusbar;						/// statusbar properties for the xml file
 	XML::Player m_player;							/// player properties for the xml file
     std::vector<int>* m_tiles;        				/// The 2D tile array
+    TextureScene* m_textureView;                    /// TextureScene pointer;
     int m_typeBackground;							/// int for background type
 	int m_typeItem;									/// int for item type
 	int m_typeBot;									/// int for bot type

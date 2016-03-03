@@ -17,6 +17,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 	m_tilesPerRow       = 10;
 	m_levelWidth        = 400;
 	m_levelHeight       = 14;
+    m_tiles             = new std::vector<int>[m_levelHeight];
     m_typeBackground    = 3;
     m_typeItem          = 2;
     m_typeBot           = 1;
@@ -37,6 +38,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_imgStatusbar      = "../images/font_yellow_10x10.png";
     m_imgPlayer         = "../images/player_animated_55x43_transparent.png";
     m_soundfile         = "../sounds/game_loop.wav";
+
 
     ///sets  default paths
     int last            = (filename.lastIndexOf("/"));
@@ -131,7 +133,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     }
 
 	///Create TextureViews
-	TextureScene* m_textureView= new TextureScene(window->ui->TextureView,this, window);
+    m_textureView = new TextureScene(window->ui->TextureView,this, window);
 
 	///sets MainViewScene
     window->ui->MainView->setScene(this);
@@ -165,6 +167,7 @@ void LevelScene::loadXml(QString fileName)
         m_xml               = new XML();
         m_xml->setFilename(fileName.toStdString());
         m_xml->save();
+        delete m_xml;
         m_xml               = new XML(fileName.toStdString());
     }
 
@@ -229,11 +232,6 @@ void LevelScene::loadLevel(QString fileName )
         m_mainWindow->ui->level_id->setValue(m_levelId);
         m_mainWindow->ui->level_name->setText(m_xmlLevelName);
         m_mainWindow->ui->level_name_label->setText(m_xmlLevelName);
-
-        // Alloc tile set memory
-        m_tiles             = new std::vector<int>[m_levelHeight];
-
-
 
         // Read tile indices
         for (int i = 0; i < m_levelHeight; i++)
@@ -301,6 +299,7 @@ void LevelScene::loadLevel(QString fileName )
                 GraphicsTileItem *item  = new GraphicsTileItem(map, rect, 0, m_typeBot);
                 item->setPos(m_levelBots[i].positionX, m_levelBots[i].positionY);
                 this->addItem(item);
+                delete map;
 
             }
             else
@@ -327,6 +326,7 @@ void LevelScene::loadLevel(QString fileName )
                 GraphicsTileItem *item  = new GraphicsTileItem(map, rect, 0, m_typeItem);
                 item->setPos(m_levelItems[i].positionX, m_levelItems[i].positionY);
                 this->addItem(item);
+                delete map;
             }
             else
             {
@@ -338,8 +338,6 @@ void LevelScene::loadLevel(QString fileName )
     else
     {
         ///creates new level
-        m_tiles = new std::vector<int>[m_levelHeight];
-
         for(int i=0;i<m_levelHeight;i++)
         {
             for(int j=0;j<m_levelWidth;j++)
@@ -503,6 +501,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
 
                     QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_bot.filename));
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeBot);
+                    delete map;
 
                     m_tiles[y][x]       = -1;
                     XML::LevelBot bot;
@@ -527,6 +526,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                     m_tiles[y][x]   = -1;
                     QPixmap *map    = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeItem);
+                    delete map;
 
                     XML::LevelItem item;
                     item.positionX  = x * m_tileWidth;
@@ -592,6 +592,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                     m_tiles[y][x]       = -1;
                     QPixmap *map        = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
                     item->changeItem(map, rect, m_typeItem);
+                    delete map;
 
                     XML::LevelItem item;
 
@@ -712,12 +713,17 @@ void LevelScene::setBackgroundSize(int m_levelWidth)
 
     setSceneRect();
     m_mainWindow->ui->MainView->setScene(this);
+    delete map;
 }
 
 void LevelScene::setSize(int value)
 {
 
     ///resize and rerender Window
+    while(!this->items().empty())
+    {
+        delete this->items().takeAt(0);
+    }
     this->clear();
 
     if(value<m_levelWidth)
@@ -806,4 +812,17 @@ void LevelScene::setNull()
 {
     m_bot.filename.clear();
     m_item.filename.clear();
+}
+
+LevelScene::~LevelScene()
+{
+    while(!this->items().empty())
+    {
+        delete this->items().takeAt(0);
+    }
+    this->clear();
+
+    delete m_textureView;
+    delete[] m_tiles;
+    delete m_xml;
 }

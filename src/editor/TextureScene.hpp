@@ -44,13 +44,17 @@ public:
      */
     QGraphicsScene* getScene();
 
+    /**
+     * @brief
+     */
+    virtual ~TextureScene();
 protected:
 
     /**
     * @brief overrides the last know texture id in the levelScene
     * @param QGraphicsSceneMouseEvent * event mouse event
     */
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
 

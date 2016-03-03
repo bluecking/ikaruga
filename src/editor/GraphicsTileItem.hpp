@@ -64,14 +64,13 @@ public:
 	/**
      * @brief deletes item
      */
-	virtual ~GraphicsTileItem(){};
+	virtual ~GraphicsTileItem();
 
 private:
     
 
 	int m_index;					/// tile index
 	int m_type;                     /// type of Texture
-	QPixmap* m_pixmap;              /// Texture to copy from
 	QRect m_rect;					/// copied rect
 };
 
