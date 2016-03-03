@@ -30,7 +30,7 @@ namespace jumper
 
         void setTableProperties(tableProperties properties);
         bool string_is_number(char const *str);
-        void setSelOffset(int x);
+        void setScrollable(bool scrollable);
     private:
         SDL_Renderer* m_renderer;
         SDL_Texture* m_texture;
@@ -47,6 +47,7 @@ namespace jumper
         bool m_stringPropertiesSet;
         bool m_tablePropertiesSet;
         unsigned long m_pos;
+        bool m_scrollable;
     public:
         unsigned long getM_pos() const;
 
