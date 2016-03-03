@@ -24,6 +24,7 @@ namespace jumper
         m_stringPropertiesSet = false;
         m_tablePropertiesSet = false;
         m_pos = 0;
+        m_scrollable = true;
     }
 
     void RenderTable::setStringProperties(int minusculeOffset, int capitalOffset,
@@ -36,8 +37,8 @@ namespace jumper
         m_content = content;
     }
 
-    void RenderTable::setSelOffset(int x){
-        m_pos=x;
+    void RenderTable::setScrollable(bool scrollable){
+        m_scrollable = scrollable;
     }
 
     void RenderTable::setTableProperties(RenderTable::tableProperties properties)
@@ -75,7 +76,7 @@ namespace jumper
                     m_rectSource.x = m_textLine[k].x();
                     m_rectSource.y = m_textLine[k].y();
                     int offset = 0;
-                    if (m_pos == i)
+                    if (m_pos == i && m_scrollable)
                     {
                         offset = m_tileWidth;
                     }

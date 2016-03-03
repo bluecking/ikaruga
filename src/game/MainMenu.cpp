@@ -79,6 +79,7 @@ namespace jumper
                 }
                 if(keyDown[SDL_SCANCODE_ESCAPE])
                 {
+                    m_table.setScrollable(true);
                     m_menu = MAIN_MENU;
                     mainMenu();
                     m_table.resetPos();
@@ -110,9 +111,9 @@ namespace jumper
                             if (m_table.getM_pos() == 3)
                             {
                                 TextureFactory::instance(m_win->getRenderer()).deleteAll();
-                                SDL_Quit();
                                 m_sound.stop();
-                                exit(0);
+                                m_win->quitGame();
+
                             }
 
                             break;
@@ -138,6 +139,7 @@ namespace jumper
     }
 
     void MainMenu::showLevelHighscore(){
+        m_table.setScrollable(false);
         long points=this->m_game->highscore->getHighscore();
         int sleepTime=3000;
         int sleep=10;
@@ -150,7 +152,6 @@ namespace jumper
         texts[0][1]=this->m_game->highscore->levelFile;
         texts[1][0]="Highscore:";
         texts[1][1]=to_string(points);
-        m_table.setSelOffset(-1);
         m_table.setStringProperties(2,1,0,texts);
         for(int i=0;i<sleepTime/sleep;i++){
             //Render background
@@ -167,13 +168,15 @@ namespace jumper
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
-        m_table.setSelOffset(0);
         m_table.setStringProperties(2,1,0,m_tableText);
         delete m_game;
         this->m_win->setActualScreen(MainWindow::RENDER_MAINMENU);
+        m_table.setScrollable(true);
     }
 
-    void MainMenu::showLevelName(){
+    void MainMenu::showLevelName()
+    {
+        m_table.setScrollable(false);
         int sleepTime=3100;
         int sleep=10;
         std::vector<std::vector<std::string>> texts;
@@ -184,7 +187,6 @@ namespace jumper
         texts[0][0]="Start level";
         texts[1][0]=this->m_game->highscore->levelFile;
         texts[2][0]=to_string(sleepTime/1000);
-        m_table.setSelOffset(-1);
         m_table.setStringProperties(2,1,0,texts);
         for(int i=0;i<sleepTime/sleep;i++){
             //Render background
@@ -203,7 +205,6 @@ namespace jumper
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
-        m_table.setSelOffset(0);
         m_table.setStringProperties(2,1,0,m_tableText);
     }
 
@@ -286,6 +287,9 @@ namespace jumper
 
     void MainMenu::credits()
     {
+        m_table.setScrollable(false);
+        m_tableText.resize(5);
+
         int offsetRow = 2;
         m_tableText.resize(5 + offsetRow);
         m_tableText[0].resize(1);
@@ -305,6 +309,7 @@ namespace jumper
 
     void MainMenu::highscore()
     {
+        m_table.setScrollable(false);
         std::vector<std::pair<std::string, int>> scores = m_win->profile->getHighScores();
         int offsetRow = 2;
         m_tableText.resize(scores.size() + offsetRow);
