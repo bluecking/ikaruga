@@ -174,6 +174,40 @@ namespace jumper
         this->m_win->setActualScreen(MainWindow::RENDER_MAINMENU);
     }
 
+    void MainMenu::showLevelName(){
+        int sleepTime=3100;
+        int sleep=10;
+        std::vector<std::vector<std::string>> texts;
+        texts.resize(3);
+        for(int i=0;i<texts.size();i++){
+            texts.at(i).resize(1);
+        }
+        texts[0][0]="Start level";
+        texts[1][0]=this->m_game->highscore->levelFile;
+        texts[2][0]=to_string(sleepTime/1000);
+        m_table.setSelOffset(-1);
+        m_table.setStringProperties(2,1,0,texts);
+        for(int i=0;i<sleepTime/sleep;i++){
+            //Render background
+            m_offset.setX(0.005f);
+            m_offset.setY(0.005f);
+            m_layer->setScrollSpeed(100.0f);
+            m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
+
+            texts[2][0]=to_string((sleepTime-(i*sleep))/1000+1);
+            m_table.setStringProperties(2,1,0,texts);
+            SDL_RenderClear(m_win->getRenderer());
+            m_layer->render();
+
+            m_table.render();
+
+            SDL_RenderPresent(m_win->getRenderer());
+            usleep(sleep);
+        }
+        m_table.setSelOffset(0);
+        m_table.setStringProperties(2,1,0,m_tableText);
+    }
+
     std::string MainMenu::to_string(long x){
         std::stringstream ss;
         ss << x;
@@ -232,6 +266,7 @@ namespace jumper
                 m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size() - 1))).string(),
                         m_win, m_game);
         m_win->setGame(m_game);
+        this->showLevelName();
         m_win->setActualScreen(MainWindow::RENDER_GAME);
         m_sound.stop();
         m_game->start();

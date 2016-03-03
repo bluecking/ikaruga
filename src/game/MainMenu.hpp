@@ -36,6 +36,8 @@ public:
     static const int MAIN_MENU    = 2;
     static const int HIGHTSCORE   = 3;
 
+
+    void showLevelName();
     void showLevelHighscore();
 private:
 
