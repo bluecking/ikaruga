@@ -8,6 +8,7 @@
 #include "MainWindow.hpp"
 #include <SDL_image.h>
 #include <iostream>
+#include <SDL_mixer.h>
 #include "Vector.hpp"
 #include "Renderable.hpp"
 
@@ -102,6 +103,8 @@ namespace jumper
             // sleep not needed time
             limitFPS();
         }
+
+        delete[] keyDown;
     }
 
     void MainWindow::setActualScreen(int ID){
@@ -181,6 +184,7 @@ namespace jumper
         }
 
         // Quit SDL and SDL_Image
+        Mix_CloseAudio();
         IMG_Quit();
         SDL_Quit();
     }
