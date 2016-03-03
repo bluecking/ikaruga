@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "Actor.hpp"
+#include <algorithm>
 
 namespace ikaruga
 {

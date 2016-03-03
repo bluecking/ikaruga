@@ -10,6 +10,7 @@
 
 #include "StaticRenderable.hpp"
 #include <vector>
+#include <algorithm>
 
 using std::string;
 using std::vector;
