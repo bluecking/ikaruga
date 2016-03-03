@@ -12,8 +12,8 @@ namespace jumper
 {
 
 
-    MainMenu::MainMenu(MainWindow* win, Game* game, fs::path resDir) :
-            m_win(win), m_resDir(resDir), m_game(game), m_table(NULL, NULL, NULL, NULL)
+    MainMenu::MainMenu(MainWindow* win, fs::path resDir) :
+            m_win(win), m_resDir(resDir), m_table(NULL, NULL, NULL, NULL)
     {
         boost::filesystem::path concat(resDir);
         concat /= "levels";
@@ -66,6 +66,7 @@ namespace jumper
             //temporary to start game -------------------------------------------------------------------
             if (currentKeyStates[SDL_SCANCODE_RETURN])
             {
+                m_game = new Game(m_win);
                 Game::setupGame(m_levelId_and_path.at(std::stoi(m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size()-1))).string(), m_win, m_game);
                 m_win->setGame(m_game);
                 m_win->setActualScreen(MainWindow::RENDER_GAME);

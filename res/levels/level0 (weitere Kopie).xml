@@ -1,6 +1,6 @@
 <level>
     <id>2</id>
-    <name>SuperDuperLevel</name>
+    <name>SuperDuperLevel mit extra besonders langem Levelnamen ...... jldofdaf l eiasn dsfldf e af afews fadfd f afadfad df</name>
     <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
