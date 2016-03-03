@@ -9,8 +9,6 @@ jumper::Profile::Profile(XML* xml)
     this->xmlObject=xml;
     if(xmlObject->profileSize()>0){
         XML::Profile tmp=xmlObject->getProfile(0);
-        this->tmpProfile=xmlObject->getProfile(0);
-        //actProfile=xmlObject->getProfile(0);
         actProfile.actualWeapon=tmp.actualWeapon;
         actProfile.boughtPowerUps=tmp.boughtPowerUps;
         actProfile.boughtWeapons=tmp.boughtWeapons;

@@ -17,6 +17,8 @@ MainWindow::MainWindow(QMainWindow* parent, std::string folderPath)
     ui->level_size->setMinimum(10);
     ui->level_size->setMaximum(1000);
     ui->level_size->setValue(300);
+    ui->level_id->setMaximum(10000);
+    ui->level_id->setMinimum(0);
 
 
     /**this->setStyle(QStyleFactory::create("Fusion"));

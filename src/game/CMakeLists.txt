@@ -40,7 +40,6 @@ set(JUMPER_SOURCES
         Filesystem.cpp
         PowerUp.cpp
         PowerUpHeal.cpp
-        ItemShop.cpp
         HighScore.cpp
         Filesystem.cpp
         Profile.cpp
