@@ -60,7 +60,7 @@
         <numFrames>14</numFrames>
     </weapon>
     <weapon type="CPP_GUN">
-        <filename>../images/projectile_cpp_49x22.png</filename>
+        <filename>../images/weapon_cpp_49x22.png</filename>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>22</colorOffsetY>
         <soundfile>../sounds/gun.wav</soundfile>
