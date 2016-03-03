@@ -32,7 +32,10 @@ KillAnimation::KillAnimation(Actor* actor, std::string filepath)
 	m_type = ITEM;
 	setFPS(8);
     m_color = actor->getColor();
-    m_colorOffset = actor->getColorOffset();
+	float colorOffsetX = 0;
+	float colorOffsetY = 40;
+	Vector2f colorOffset(colorOffsetX, colorOffsetY);
+	m_colorOffset = colorOffset;
 }
 
 void KillAnimation::move(Level& level)
