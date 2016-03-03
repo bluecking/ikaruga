@@ -16,7 +16,7 @@ namespace jumper
 {
 
 KillAnimation::KillAnimation(Actor* actor, std::string filepath)
-	: Item(actor->getRenderer(),
+	: Actor(actor->getRenderer(),
 		   actor->getTexture(),
 		   40,
 		   40,
@@ -53,4 +53,13 @@ KillAnimation::~KillAnimation()
 	// TODO Auto-generated destructor stub
 }
 
+	void KillAnimation::onTileCollision()
+	{
+
+	}
+
+	void KillAnimation::onActorCollision(Actor& other)
+	{
+
+	}
 } /* namespace jumper */

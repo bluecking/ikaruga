@@ -1,8 +1,9 @@
-/*
+/**
  * MainWindow.hpp
+ * @brief Creates a main window
  *
- *  Created on: Nov 13, 2015
- *      Author: twiemann
+ * @date 03.03.16
+ * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
  */
 
 #ifndef SRC_MAINWINDOW_HPP_
@@ -10,7 +11,6 @@
 
 #include <string>
 #include <SDL.h>
-
 #include "Game.hpp"
 #include "WorldProperty.hpp"
 #include "MainMenu.hpp"
@@ -20,6 +20,7 @@ namespace jumper
 {
     class Game;
     class MainMenu;
+
     /**
      *	@brief Represents the main window of the game.
      */
@@ -28,52 +29,84 @@ namespace jumper
     public:
 
         /**
-         * Creates a main window with given \ref title, width \ref w and height \ref h
+         * @brief Creates a main window with given title, width w height h.
          *
          * @param title		Title of the window
          * @param w			Width
          * @param h			Height
+         * @param resPath   Path to a resource directory.
          */
         MainWindow(std::string title, int w, int h,boost::filesystem::path resPath);
 
         /**
-         * Destructor.
+         * @brief Destructor.
          */
         ~MainWindow();
 
         /**
-         * Handles user events and renders the current level.
+         * @brief Handles user events and renders the current level.
          */
         void run();
 
         /**
-         * Gets the current SDL renderer
+         * @Gets the current SDL renderer
+         *
+         * @return Pointer to a SDL_Renderer instance.
          */
         SDL_Renderer* getRenderer();
 
+        /**
+         * @brief Provide a game object for rendering.
+         *
+         * @param game Game object.
+         */
         void setGame(Game* game);
 
+        /**
+         * @brief Provide a menu object for rendering.
+         *
+         * @param Menu object.
+         */
         void setMenu(MainMenu* menu);
 
-        /// Returns the window width
+        /**
+         * @brief Returns the window width.
+         *
+         * @return Window width.
+         */
         int w();
 
-        /// Retruns the window height
+        /**
+         * @brief Returns the window height.
+         *
+         * @return Window height.
+         */
         int h();
 
         ///Constants for setting the actual renderscreen
         static const int RENDER_MAINMENU=0;
         static const int RENDER_GAME=1;
-        static const int RENDER_ITEMSHOP=2;
-        static const int RENDER_CREDITS=3;
+        static const int RENDER_CREDITS=3; //TODO make enum
         static const int RENDER_GAMEEND=4;
 
-        ///Sets the Actual Render Screen
+        /**
+         * @brief Set the actual screen for rendering.
+         * You can select  between MAINMENU, GAME, CREDITS and GAMEEND.
+         *
+         * @param ID ID for rendering. You can use the const from this class.
+         */
         void setActualScreen(int ID);
 
-        ///Gets the Actual Render Screen
+        /**
+         * @brief Get the actual renderscreen.
+         *
+         * @return The renderscreen (compare with the const variables of this class).
+         */
         int getActualScreen();
 
+        /**
+         * @brief Method to end the game.
+         */
         void quitGame()
         {
             m_quit = true;
@@ -82,29 +115,33 @@ namespace jumper
         Profile* profile;
         XML* xml;
     private:
-
+        /// quit game if true
         bool m_quit;
 
-        /// Initializes all needed SDL resources
+        /**
+         * @brief Initialize SDL.
+         */
         void initSDL();
 
-        /// Quits SDL and frees all resources
+        /**
+         * @brief Quits SDL and frees all resources.
+         */
         void quitSDL();
 
         /**
-         * Returns time used by the main loop in ms
+         * @brief Returns time used by the main loop in ms
          */
         float getLoopTime();
 
         /**
-         * Limts the FPS by sleeping not used time
+         * @brief Limts the FPS by sleeping not used time
          */
         void limitFPS();
 
-        /// SDL renderer struct
+        /// SDL renderer
         SDL_Renderer* m_renderer;
 
-        /// SDL main window struct
+        /// SDL main window
         SDL_Window* m_window;
 
         /// Window width
@@ -116,16 +153,16 @@ namespace jumper
         /// Window title
         std::string m_title;
 
-        // Pointer to game
+        /// Pointer to game
         Game* m_game;
 
-        // Pointer to menu
+        /// Pointer to menu
         MainMenu* m_menu;
 
-        // Timestamp from the start of the main loop
+        /// Timestamp from the start of the main loop
         Uint32 m_startLoopTicks;
 
-        // Number of maximal fps
+        /// Number of maximal fps
         static const int MAX_FPS;
 
         //Number for settings updatecall (actual Menu/Game)

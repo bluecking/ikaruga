@@ -31,7 +31,7 @@ jumper::Profile::Profile(XML* xml)
 
 void jumper::Profile::setProfile(std::string profileName){
     std::vector<XML::Profile> profileList=xmlObject->getProfiles();
-    for(int i=0;i<profileList.size();i++)
+    for(unsigned int i=0;i<profileList.size();i++)
         if(profileList.at(i).name==profileName)
             if(profileList.at(i).name!=profileName){
                 xmlObject->setProfile(actProfileID,actProfile);
@@ -44,7 +44,7 @@ void jumper::Profile::setProfile(std::string profileName){
 std::vector<std::string> jumper::Profile::getProfiles(){
     std::vector<std::string> profileNameList;
     std::vector<XML::Profile> profileList=xmlObject->getProfiles();
-    for(int i=0;i<profileList.size();i++)
+    for(unsigned int i=0;i<profileList.size();i++)
         profileNameList.push_back(profileList.at(i).name);
     return profileNameList;
 }

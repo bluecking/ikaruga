@@ -1,6 +1,9 @@
-//
-// Created by johann on 23.02.16.
-//
+/*
+ * TextureScene.cpp
+ *
+ *  Created on: Feb 23, 2016
+ *      Author: Johann Arndt
+ */
 #include "TextureScene.hpp"
 
 TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* window) : QGraphicsScene(window) {
@@ -15,6 +18,7 @@ TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* wi
         m_type=0;
     }
 
+    ///some default values and calculations
     m_levelScene=level;
     int count = 1;
     int max = m_tilesPerRow * m_numRows;
@@ -23,18 +27,13 @@ TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* wi
     if(max<m_textureWidth)m_textureWidth=max;
     m_textureHeight = max / m_textureWidth + ((max % m_textureWidth) > 0 ? 1 : 0);
 
-    if(m_type!=0)m_textureHeight *=5;
-
-
-
+    ///sets the items in the scene
     for(int i = 0; i < m_textureHeight; i++)
     {
         for(int j = 0; j < m_textureWidth; j++)
         {
             ///puts tile_id in m_tiles
             int tile_id= count-1;
-
-
 
             if(tile_id>=0 &&  m_type==0)
             {
@@ -47,22 +46,8 @@ TextureScene::TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* wi
                 item->setPos(m_tileWidth*j,m_tileHeight*i);
                 this->addItem(item);
             }
-
-            if(m_type>=1)
-            {
-                QRect rect(0,m_tileHeight*j,m_tileWidth,m_tileHeight);
-
-                ///creates new GraphicsTileItem
-                GraphicsTileItem *item = new GraphicsTileItem(m_levelScene->getPixmap(),rect,j*5,m_type);
-
-                ///sets Position of the rect and adds it to the scene
-                item->setPos(m_tileWidth*j,m_tileHeight*i);
-                this->addItem(item);
-            }
             count++;
-
         }
-        if(m_type>0 && m_type<6)m_type++;
     }
 }
 

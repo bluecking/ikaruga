@@ -1,9 +1,15 @@
+/*
+ * LevelScene.cpp
+ *
+ *  Created on: Feb 23, 2016
+ *      Author: Johann Arndt
+ */
 #include"LevelScene.hpp"
 
 LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(window)
 {
 
-	//Set all default values
+	///Set all default values
 	m_tileWidth 	    = 40;
 	m_tileHeight	    = 40;
 	m_tileOffset 	    = 0;
@@ -22,7 +28,6 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_backgroundWidth   =200;
     m_lastX             =0;
     m_lastY             =0;
-
     m_type              = m_typeTexture;
 	m_mainWindow        = window;
     m_color             = "black";
@@ -33,17 +38,20 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_imgPlayer         = "../images/player_animated_55x43_transparent.png";
     m_soundfile         = "../sounds/game_loop.wav";
 
+    ///sets  default paths
     int last            = (filename.lastIndexOf("/"));
     m_path              = filename.mid(0, last + 1);
     int lastName        = filename.lastIndexOf(".");
     m_xmlLevelName      = filename.mid(last+1,lastName-last-1);
     m_levelName         = m_xmlLevelName + ".lvl";
 
+    ///sets default background struct
     m_background.filename       = m_imgBackground.toStdString();
     m_background.scrollspeed    = m_scrollSpeed;
     m_background.soundfile      = m_soundfile;
     m_background.volume         = 70;
 
+    ///sets default statusbar value
     m_statusbar.filename        = m_imgStatusbar.toStdString();
     m_statusbar.capitalOffset   = 1;
     m_statusbar.frameHeight     = 10;
@@ -53,6 +61,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_statusbar.numberOffset    = 0;
     m_statusbar.offsetToMid     = 1;
 
+    ///sets default player values
     m_player.frameWidth         = 55;
     m_player.frameHeight        = 43;
     m_player.colorOffsetX       = 1320;
@@ -72,8 +81,10 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_player.explosionSoundFile = "../sounds/player_explosion.wav";
     m_player.explosionVolume    = 100;
 
+
     loadXml(filename);
 
+    ///gets bots and set default bots
     m_bots                      = m_xml->getBots();
     m_items                     = m_xml->getItems();
     m_weapons                   = m_xml->getWeapons();
@@ -83,11 +94,15 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_player.stdWeapon          = m_weapon  ;
     setNull();
 
+
     loadLevel(m_levelName);
 
+    ///reset botView
     m_mainWindow->resetBot();
     m_mainWindow->resetPower();
 
+
+    ///sets botView
     for(unsigned int i=0;i<m_bots.size();i++)
     {
         m_mainWindow->addBot(toQString(m_bots[i].type),
@@ -105,11 +120,12 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     }
 
 
+    ///sets ItemView
     for(unsigned int i=0;i<m_items.size();i++)
     {
         m_mainWindow->addPower(toQString(m_items[i].type),
         "Texture name    : \t"+toQString(m_items[i].filename)+"\n"+
-        "Heal percentage          : \t"+toQString(std::to_string(m_items[i].healPercentage))
+        "Value           : \t"+toQString(std::to_string(m_items[i].healPercentage))
         );
 
     }
@@ -129,7 +145,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
 void LevelScene::loadXml(QString fileName)
 {
-
+    ///loads xml or creates a new one
     if(QFile(fileName).exists())
     {
         m_xml               = new XML(fileName.toStdString());
@@ -156,7 +172,7 @@ void LevelScene::loadXml(QString fileName)
 
 void LevelScene::saveXml(QString fileName)
 {
-
+    ///saves the xml and level
     m_xml->setFilename(fileName.toStdString());
     m_xml->setTileset(m_levelName.toStdString());
     m_xml->setLevelname(m_xmlLevelName.toStdString());
@@ -203,6 +219,7 @@ void LevelScene::loadLevel(QString fileName )
         m_levelWidth        = list[5].toInt();
         m_levelHeight       = 14;
 
+        ///sets Background
         setBackgroundSize(m_levelWidth);
 
         setTileSettings(0, 0, QRect(0, 0, 40, 40));
@@ -253,6 +270,7 @@ void LevelScene::loadLevel(QString fileName )
         ///file close
         file.close();
 
+        ///renders bots and items
         for (unsigned int i = 0; i < m_levelBots.size(); i++) {
 
             QList<QGraphicsItem*> item_list = items(m_levelBots[i].positionX,m_levelBots[i].positionY,
@@ -319,6 +337,7 @@ void LevelScene::loadLevel(QString fileName )
 
     else
     {
+        ///creates new level
         m_tiles = new std::vector<int>[m_levelHeight];
 
         for(int i=0;i<m_levelHeight;i++)
@@ -342,6 +361,7 @@ void LevelScene::loadLevel(QString fileName )
 
 void LevelScene::saveLevel(QString fileName)
 {
+    ///save all level data to .lvl file
     QFile readfile(m_path+fileName);
     QTextStream write(&readfile);
 
@@ -372,7 +392,7 @@ void LevelScene::saveLevel(QString fileName)
 
 void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
 {
-    ///Calculates Clickposition and the containing Items
+    ///manages mousecallbacks
     int x = event->scenePos().x()/m_tileWidth;
     int y = event->scenePos().y()/m_tileHeight;
 
@@ -382,6 +402,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
         int height;
         int width;
 
+        ///gets height and with of item
         if(!m_bot.filename.empty() && event->buttons() == Qt::LeftButton)
         {
             height  =m_bot.frameHeight;
@@ -400,8 +421,10 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
 
         int offset = width%m_tileWidth == 0 ? 0:1;
 
+        ///looking for bad positions
         if(x>=0 && y>=0 && (x-1+(width/m_tileWidth)+offset)<m_levelWidth && (y-1+(height/m_tileHeight)+offset)<m_levelHeight)
         {
+            ///last know position of item
             m_lastX=x;
             m_lastY=y;
             QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, width, height);
@@ -413,7 +436,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                 item_list.removeAt(i--);
             }
         }
-
+        ///delets item or bots
         if (item_list.size()==1)
         {
             x = item_list.first()->x()/m_tileWidth;
@@ -455,7 +478,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                 }
             }
         }
-
+            ///sets texture and includes bot and items
         if (event->buttons() == Qt::LeftButton)
         {
             ///if there is an item write new rect to that Item else create a new Item and set rect
@@ -489,7 +512,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                     bot.positionX       = x * m_tileWidth;
                     bot.positionY       = y * m_tileHeight;
                     bot.powerUpName     = m_items[0].type;
-                    bot.powerUpProb     = 0.20;
+                    bot.powerUpProb     = 20;
                     bot.type            = m_bot;
 
                     m_levelBots.push_back(bot);
@@ -523,7 +546,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                 }
             }
 
-                // if item_list is empty
+                // if item_list is empty create new bot item or texture
             else if(item_list.empty())
             {
                 ///creates a new Item and update View
@@ -597,34 +620,14 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
             this->removeItem(item_list.first());
             delete item_list.first();
         }
-
-        if(item_list.size()==1)
-        {
-            int height;
-            int width;
-
-            if (!m_bot.filename.empty() && event->buttons() == Qt::LeftButton) {
-                height = m_bot.frameHeight;
-                width = m_bot.frameWidth;
-            }
-            else if (!m_item.filename.empty() && event->buttons() == Qt::LeftButton) {
-                height = m_item.frameHeight;
-                width = m_item.frameWidth;
-            }
-            else {
-                height = m_tileHeight;
-                width = m_tileWidth;
-            }
-
-        }
             m_mainWindow->ui->MainView->viewport()->update();
-
     }
 
 }
 
 void LevelScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    ///looks for mousemovements
     int x = event->scenePos().x()/m_tileWidth;
     int y = event->scenePos().y()/m_tileHeight;
 
@@ -675,6 +678,8 @@ void LevelScene::setTileSettings(int index,int type, QRect rect)
 
 void LevelScene::setBackgroundSize(int m_levelWidth)
 {
+
+    ///sets new backgroundsize
     QPixmap* map = new QPixmap(m_path+m_imgBackground);
 
 
@@ -712,6 +717,7 @@ void LevelScene::setBackgroundSize(int m_levelWidth)
 void LevelScene::setSize(int value)
 {
 
+    ///resize and rerender Window
     this->clear();
 
     if(value<m_levelWidth)

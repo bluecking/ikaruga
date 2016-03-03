@@ -23,18 +23,18 @@ namespace jumper
                  int numFrames,
                  int health,
                  int collisionDamage)
-            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK),
-              m_isKilled(false), m_scoreValue(0), m_explosionVolume(0)
+            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames),
+              m_color(ColorMode::BLACK),
+              m_explosionVolume(0),
+              m_focus(false),
+              m_health(health),
+              m_isKilled(false),
+              m_scoreValue(0),
+              m_startTicks(0),
+              m_type(PLAYER)
     {
-        m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
-        m_startTicks = 0;
-        m_type = PLAYER;
-
         m_collisionDamage = collisionDamage;
-
-        m_health = health;
-
         setLiveTime();
     }
 
@@ -149,11 +149,6 @@ namespace jumper
         m_focus = focus;
     }
 
-    bool jumper::Actor::hasFocus()
-    {
-        return m_focus;
-    }
-
     void Actor::toggleColor()
     {
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
@@ -212,10 +207,6 @@ namespace jumper
     void Actor::playExplosionSound()
     {
         m_explosionSound.play(m_explosionVolume);
-    }
-
-    void Actor::dropPowerUp()
-    {
     }
 } /* namespace jumper */
 

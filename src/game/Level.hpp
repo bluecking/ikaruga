@@ -19,7 +19,6 @@
 #include "SparseMatrix.hpp"
 #include "Vector.hpp"
 #include "WorldProperty.hpp"
-#include "Collision.hpp"
 #include "TextureFactory.hpp"
 
 
@@ -91,9 +90,6 @@ public:
 	 * Destructor
 	 */
 	virtual ~Level();
-
-	/// Generates a collision object between the level and the actor
-	Collision resolveCollision(Actor* actor);
 
 	/**
 	 * Calculates/Adjusts the possible movement for an actor (wrapper)

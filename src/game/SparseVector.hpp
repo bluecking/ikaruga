@@ -1,3 +1,10 @@
+/**
+ * SparseVector.hpp
+ *
+ * @date 03.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
+ */
+
 #ifndef __SPARSEVECTOR_HPP__
 #define __SPARSEVECTOR_HPP__
 
@@ -7,7 +14,7 @@ namespace jumper
 {
 
 /**
- * @brief A sparse vector representation for integer values
+ * @brief A sparse vector representation for integer values. Non-Zero Entries are saved in a linked list,
  */
 class SparseVector {
 
@@ -39,27 +46,39 @@ class SparseVector {
 	};
 
 public:
-	/**
-	 * Constructs a sparse vector with given size
-	 * @param s 	Size of the vector
-	 */
-	SparseVector(int s);
 
 	/**
-	 * Copy constructor
+	 * Constructs a sparse vector with given size.
+	 * @param size   Size of the vector
 	 */
-	SparseVector(const SparseVector &c);
+	SparseVector(int size);
+
+	/**
+	 * Copy constructor.
+	 *
+	 * @param other    SparseVector to copy from
+	 */
+	SparseVector(const SparseVector &other);
+
+	/*
+	 * Destructor.
+	 */
 	~SparseVector();
 
 	/**
 	 * Assigns the given value the the ith component.
+	 *
+	 * @param index  index of component to assign value to
+	 * @param value  value to assign to component
 	 */
-	void setElem(int i, int value);
+	void setElem(int index, int value);
 
 	/**
-	 * Returns the value of component i
+	 * Returns the value of component index
+	 *
+	 * @param index index of component to get value from
 	 */
-	int getElem(int i) const;
+	int getElem(int index) const;
 
 	/**
 	 * Returns the size of the vector
@@ -68,23 +87,31 @@ public:
 
 	/**
 	 * Assignment operator
+	 *
+	 * @param other   reference of vector to assign from
 	 */
-	SparseVector& operator=(const SparseVector &b);
+	SparseVector& operator=(const SparseVector &other);
 
 	/**
 	 * Checks if two vectors are equal
+	 *
+	 * @param other   reference of vector to check for equality
 	 */
-	bool operator==(const SparseVector &b) const;
+	bool operator==(const SparseVector &other) const;
 
 	/**
 	 * Checks for inequality
+	 *
+	 * @param other   reference of vector to check for inequality
 	 */
-	bool operator!=(const SparseVector &b) const;
+	bool operator!=(const SparseVector &other) const;
 
 	/**
 	 * Returns the value of the ith component
+	 *
+	 * @param ndexi   index of component to get value from
 	 */
-	int operator[](int i) const {return getElem(i);}
+	int operator[](int index) const {return getElem(index);}
 
 private:
 
@@ -94,21 +121,40 @@ private:
 	/// Size of the vector
 	int 		m_size;
 
-	/// Removes all non-zero elements
+	/**
+	 * Removes all non-zero elements
+	 */
 	void clear();
 
-	/// Copies the contends of the other vector
+	/**
+	 * Copies the contends of the other vector
+	 *
+	 * @param other   Vector to copy contends from.
+	 */
 	void copy(const SparseVector &other);
 
-	/// Sets a value of an non-zero element, i.e., inserts a new
-	/// node in the list
+	/**
+	 * Sets a value of an non-zero element, i.e., inserts a new
+	 * node in the list
+	 *
+	 * @param index   index to insert to
+	 * @param value   value to insert
+	 */
 	void setNonzeroElem(int index, int value);
 
-	/// Removes the element at given index
+	/**
+	 * Removes the element at given
+	 *
+	 * @param index  index to remove at
+	 */
 	void removeElem(int index);
 
-	/// Returns a pointer to node in the list before \ref i
-	node *getPrevElem(int i) const;
+	/**
+	 * Returns a pointer to node in the list before \ref index
+	 *
+	 * @param index   index to get previous element from
+	 */
+	node *getPrevElem(int index) const;
 
 };
 
