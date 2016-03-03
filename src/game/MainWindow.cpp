@@ -15,7 +15,7 @@ namespace jumper
 {
     const int MainWindow::MAX_FPS = 60;
 
-    MainWindow::MainWindow(std::string title, int w, int h)
+    MainWindow::MainWindow(std::string title, int w, int h,boost::filesystem::path resPath)
             : m_startLoopTicks(0)
     {
         /// Init width and height
@@ -32,10 +32,15 @@ namespace jumper
         /// Initialize SDL stuff
         initSDL();
         this->actRenderID=0;
+        std::cout<<resPath.c_str()<<std::endl;
+        xml=new XML(resPath.c_str(),true);
+        profile=new Profile(xml);
     }
 
     MainWindow::~MainWindow()
     {
+        delete xml;
+        delete profile;
         quitSDL();
     }
 
@@ -72,9 +77,7 @@ namespace jumper
             //std::cout << actRenderID << std::endl; //Debug Output
             switch(actRenderID){
                 case MainWindow::RENDER_MAINMENU:
-
                     m_menu->update(currentKeyStates, keyDown);
-
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);

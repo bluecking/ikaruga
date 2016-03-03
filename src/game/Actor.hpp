@@ -173,7 +173,7 @@ namespace jumper
         }
 
 
-        void setHealth(int health)
+        virtual void setHealth(int health)
         {
             m_health = health;
         }
