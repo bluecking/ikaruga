@@ -535,7 +535,7 @@ namespace jumper
         printEndScreen();
         m_started = false;
         highscore->saveHighscore();
-        this->window->setActualScreen(MainWindow::RENDER_MAINMENU);
+        this->window->setActualScreen(MainWindow::RENDER_GAMEEND);
     }
 
     void Game::scrollHorizontal()

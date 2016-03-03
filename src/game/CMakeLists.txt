@@ -46,7 +46,6 @@ set(JUMPER_SOURCES
         Profile.cpp
         MainMenu.cpp
         RenderTable.cpp
-        MenuHighscore.cpp
         PowerUpWeapon.cpp
         PowerUpGodMode.cpp
         BlasterWeapon.cpp
