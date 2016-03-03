@@ -15,7 +15,7 @@ MainWindow::MainWindow(QMainWindow* parent, std::string folderPath)
     buttonSize.setY(0);
     ui->pushButton->setIconSize(buttonSize.size());
     ui->level_size->setMinimum(10);
-    ui->level_size->setMaximum(10000);
+    ui->level_size->setMaximum(1000);
     ui->level_size->setValue(300);
 
 
