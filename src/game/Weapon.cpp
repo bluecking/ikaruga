@@ -74,7 +74,7 @@ namespace jumper
                                         m_projectileTexture,
                                         m_projectileTextureSize.x(),
                                         m_projectileTextureSize.y(),
-                                        1,
+                                        m_numFrames,
                                         m_collisionDamage,
                                         m_speed);
 
