@@ -21,7 +21,12 @@ namespace jumper
             int health,
             int collisionDamage)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage),
-              m_moveDirection(0, 0), m_initial_health(health), m_godMode(false), m_godModeCheat(false), m_powerUps(), m_game(game)
+              m_game(game),
+              m_moveDirection(0, 0),
+              m_initial_health(health),
+              m_godMode(false),
+              m_godModeCheat(false),
+              m_powerUps()
     {
         SDL_GetTextureColorMod(texture, &m_colorModR, &m_colorModG, &m_colorModB);
         m_hitboxfactor = 0.8;
@@ -47,13 +52,13 @@ namespace jumper
             if (physics().velocity().x() > physics().maxRunVelocity() * dt)
             {
                 physics().setVelocity(Vector2f(physics().maxRunVelocity() * dt,
-                        physics().velocity().y()));
+                                               physics().velocity().y()));
             }
 
             if (physics().velocity().x() < -physics().maxRunVelocity() * dt)
             {
                 physics().setVelocity(Vector2f(-physics().maxRunVelocity() * dt,
-                        physics().velocity().y()));
+                                               physics().velocity().y()));
             }
 
             if (physics().velocity().y() > physics().maxRunVelocity() * dt)
@@ -104,8 +109,6 @@ namespace jumper
         const char UPFULL = 2;
         const char DOHALF = 3;
         const char DOFULL = 4;
-
-        SDL_Rect& hitbox = getHitbox();
 
         // Player moves up
         if (getMoveDirection().y() < 0)
@@ -241,11 +244,13 @@ namespace jumper
     {
         SDL_Rect& hitbox = Actor::getHitbox();
 
-        if(m_moveDirection.y() < 0) {
+        if (m_moveDirection.y() < 0)
+        {
             hitbox.h = (int) (frameHeight() * 0.5);
             hitbox.y = (int) position().y();
         }
-        else if(m_moveDirection.y() > 0) {
+        else if (m_moveDirection.y() > 0)
+        {
             hitbox.h = (int) (frameHeight() * 0.5);
             hitbox.y = (int) position().y() + hitbox.h;
         }

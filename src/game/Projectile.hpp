@@ -58,7 +58,6 @@ namespace jumper
     protected:
         Vector2f m_direction;
         bool m_launched;
-        int m_collisionDamage;
         float m_speed;
     private:
         Vector2f m_lastPosition = 0;
