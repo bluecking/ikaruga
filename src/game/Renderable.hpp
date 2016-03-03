@@ -24,14 +24,14 @@ namespace jumper
     public:
 
         /**
-         * Constructs a Renderable for the given renderer
+         * @brief Constructs a Renderable for the given renderer
          *
          * @param m_renderer pointer to a valid SDL_Renderer structure
          */
         Renderable(SDL_Renderer* m_renderer);
 
         /**
-         * Contructs a renderable from given texture and renderer.
+         * @brief Contructs a renderable from given texture and renderer.
          *
          * @param renderer pointer to a valid SDL_Renderer
          * @param texture pointer to a valid SDL_Texture
