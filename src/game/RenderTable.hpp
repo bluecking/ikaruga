@@ -17,20 +17,52 @@ namespace jumper
     class RenderTable : public FontRender
     {
     public:
-        struct tableProperties {
+        struct tableProperties
+        {
             int positionX;
             int positionY;
             int width;
             int height;
         };
 
-        RenderTable(SDL_Renderer *renderer, SDL_Texture * defaultTtexture, int tileHeight, int tileWidth);
+        RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth);
 
-        void setStringProperties(int minusculeOffset, int capitalOffset, int numberOffset, std::vector<std::vector<std::string>> content);
+        void setStringProperties(int minusculeOffset, int capitalOffset, int numberOffset,
+                                 std::vector<std::vector<std::string>> content);
 
         void setTableProperties(tableProperties properties);
-        bool string_is_number(char const *str);
+
+        bool string_is_number(char const* str);
+
         void setSelOffset(int x);
+
+        /*
+         * @brief retuns the current posistion of the index of the RenderTable
+         *
+         * @returns int the current position of the RenderTable index
+         */
+        unsigned long getM_pos() const;
+
+        /*
+         * @biref Function circles through the contents of the Randertable increasing the index
+         */
+        void increase();
+
+        /*
+         * @biref Function circles through the contents of the Randertable increasing the index
+         */
+        void decrease();
+
+        /*
+         * @biref resets the index of the RenderTable to the first in the vertex
+         */
+        void resetPos();
+
+        /*
+         * renders the RenderTabble
+         */
+        virtual void render();
+
     private:
         SDL_Renderer* m_renderer;
         SDL_Texture* m_texture;
@@ -47,13 +79,7 @@ namespace jumper
         bool m_stringPropertiesSet;
         bool m_tablePropertiesSet;
         unsigned long m_pos;
-    public:
-        unsigned long getM_pos() const;
 
-        void increase();
-        void decrease();
-        void resetPos();
-        virtual void render();
     };
 } //end of namespace jumper
 #endif //SCROLLER_RENDERTABLE_HPP
