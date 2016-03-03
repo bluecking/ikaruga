@@ -20,6 +20,8 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_scrollSpeed       = 2;
     m_backgroundHeight  =200;
     m_backgroundWidth   =200;
+    m_lastX             =0;
+    m_lastY             =0;
 
     m_type              = m_typeTexture;
 	m_mainWindow        = window;
@@ -255,7 +257,7 @@ void LevelScene::loadLevel(QString fileName )
 
             QList<QGraphicsItem*> item_list = items(m_levelBots[i].positionX,m_levelBots[i].positionY,
                                                     m_levelBots[i].type.frameWidth,m_levelBots[i].type.frameHeight);
-            if(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground)
+            while(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground)
             {
                 item_list.removeFirst();
             }
@@ -295,13 +297,13 @@ void LevelScene::loadLevel(QString fileName )
                                                     m_levelItems[i].positionY,
                                                     m_levelItems[i].type.frameWidth,
                                                     m_levelItems[i].type.frameHeight);
-            if(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground)
+            while(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground)
             {
                 item_list.removeFirst();
             }
             if(item_list.empty())
             {
-                QRect rect(0, 0, m_item.frameWidth, m_item.frameHeight);
+                QRect rect(0, 0, m_levelItems[i].type.frameWidth, m_levelItems[i].type.frameHeight);
 
                 QPixmap* map            = new QPixmap(toQString(m_path.toStdString() + m_levelItems[i].type.filename));
                 GraphicsTileItem *item  = new GraphicsTileItem(map, rect, 0, m_typeItem);
@@ -310,7 +312,7 @@ void LevelScene::loadLevel(QString fileName )
             }
             else
             {
-                std::cerr<<"Failed to load bot"<<std::endl;
+                std::cerr<<"Failed to load item"<<std::endl;
             }
         }
     }
@@ -323,9 +325,11 @@ void LevelScene::loadLevel(QString fileName )
         {
             for(int j=0;j<m_levelWidth;j++)
             {
-                if(i==0)m_tiles[i].push_back(7);
-                else if(i<m_levelHeight-1)m_tiles[i].push_back(-1);
-                if(i==m_levelHeight-1)m_tiles[i].push_back(0);
+                if(i==0)m_tiles[i].push_back(3);
+                else if(i==1)m_tiles[i].push_back(7);
+                else if(i<m_levelHeight-2)m_tiles[i].push_back(-1);
+                else if(i==m_levelHeight-2)m_tiles[i].push_back(0);
+                else if(i==m_levelHeight-1)m_tiles[i].push_back(5);
             }
         }
         ///file close
@@ -366,28 +370,70 @@ void LevelScene::saveLevel(QString fileName)
     }
 }
 
-void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
 {
     ///Calculates Clickposition and the containing Items
-
     int x = event->scenePos().x()/m_tileWidth;
     int y = event->scenePos().y()/m_tileHeight;
 
-    if(x>=0 && y>=0 && x<m_levelWidth && y<m_levelHeight)
-    {
-        QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, m_tileWidth, m_tileHeight);
 
-        while(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground)
+
+
+        int height;
+        int width;
+
+        if(!m_bot.filename.empty() && event->buttons() == Qt::LeftButton)
         {
-                item_list.removeFirst();
+            height  =m_bot.frameHeight;
+            width   =m_bot.frameWidth;
+        }
+        else if(!m_item.filename.empty() && event->buttons() == Qt::LeftButton)
+        {
+            height  =m_item.frameHeight;
+            width   =m_item.frameWidth;
+        }
+        else
+        {
+            height  =m_tileHeight;
+            width   =m_tileWidth;
         }
 
-        if (!item_list.empty())
+        int offset = width%m_tileWidth == 0 ? 0:1;
+
+        if(x>=0 && y>=0 && (x-1+(width/m_tileWidth)+offset)<m_levelWidth && (y-1+(height/m_tileHeight)+offset)<m_levelHeight)
+        {
+            m_lastX=x;
+            m_lastY=y;
+            QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, width, height);
+
+            QRect tmp(0,0,0,0);
+
+            //caching Qt workaround
+            /**QPixmap *map            = new QPixmap();
+            GraphicsTileItem* item  = new GraphicsTileItem(map,tmp,0,99);
+            this->addItem(item);
+            this->removeItem(item);
+            delete item;*/
+
+
+        for(int i=0;i<item_list.size();i++)
+        {
+            if(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list[i]))->getType() == m_typeBackground)
+            {
+                item_list.removeAt(i--);
+            }
+        }
+
+        if (item_list.size()==1)
         {
             x = item_list.first()->x()/m_tileWidth;
             y = item_list.first()->y()/m_tileHeight;
 
-            if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 1)
+
+            m_lastX=x;
+            m_lastY=y;
+
+            if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBot)
             {
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelBots.size(); i++)
@@ -407,7 +453,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
                 }
             }
 
-            if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == 2)
+            if ((dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeItem)
             {
                 m_tiles[y][x] = -1;
                 for (unsigned int i = 0; i < m_levelItems.size(); i++)
@@ -423,7 +469,7 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
         if (event->buttons() == Qt::LeftButton)
         {
             ///if there is an item write new rect to that Item else create a new Item and set rect
-            if (!item_list.isEmpty())
+            if (item_list.size()==1)
             {
 
                 if (!m_bot.filename.empty())
@@ -485,11 +531,10 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
                     m_tiles[y][x]   = m_index;
                     setNull();
                 }
-                m_mainWindow->ui->MainView->setScene(this);
             }
 
                 // if item_list is empty
-            else
+            else if(item_list.empty())
             {
                 ///creates a new Item and update View
                 GraphicsTileItem *item = new GraphicsTileItem(m_pixmap, m_rect, m_index, m_type);
@@ -553,18 +598,70 @@ void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
 
                 item->setPos(m_tileWidth * x, m_tileHeight * y);
                 this->addItem(item);
-                m_mainWindow->ui->MainView->setScene(this);
             }
         }
 
-        else if (!item_list.isEmpty() && event->button() == Qt::RightButton)
+        else if (item_list.size()==1 && event->buttons() == Qt::RightButton)
         {
             m_tiles[y][x] = -1;
             this->removeItem(item_list.first());
-            m_mainWindow->ui->MainView->setScene(this);
             delete item_list.first();
         }
+
+        if(item_list.size()==1)
+        {
+            int height;
+            int width;
+
+            if (!m_bot.filename.empty() && event->buttons() == Qt::LeftButton) {
+                height = m_bot.frameHeight;
+                width = m_bot.frameWidth;
+            }
+            else if (!m_item.filename.empty() && event->buttons() == Qt::LeftButton) {
+                height = m_item.frameHeight;
+                width = m_item.frameWidth;
+            }
+            else {
+                height = m_tileHeight;
+                width = m_tileWidth;
+            }
+            m_mainWindow->ui->MainView->update(item_list.first()->pos().x(),item_list.first()->pos().y(),width,height);
+
+        }
+
     }
+}
+
+void LevelScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    int x = event->scenePos().x()/m_tileWidth;
+    int y = event->scenePos().y()/m_tileHeight;
+
+    if(x>=0 && y>=0 && x<m_levelWidth && y<m_levelHeight) {
+        QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, m_tileWidth, m_tileHeight);
+
+        while (!item_list.empty() &&
+               (dynamic_cast<GraphicsTileItem *>(item_list.first()))->getType() == m_typeBackground) {
+            item_list.removeFirst();
+        }
+
+        if (!item_list.empty()) {
+            x = item_list.first()->x() / m_tileWidth;
+            y = item_list.first()->y() / m_tileHeight;
+        }
+    }
+
+    if(!(m_lastX==x && m_lastY==y))
+    {
+        m_lastX=x;
+        m_lastY=y;
+        setItem(event);
+    }
+}
+
+void LevelScene::mousePressEvent(QGraphicsSceneMouseEvent * event)
+{
+    setItem(event);
 }
 
 QString LevelScene::toQString(std::string string)
@@ -646,11 +743,11 @@ void LevelScene::setSize(int value)
             for(int j=0;j<value;j++)
             {
 
-                if(i==0)m_tiles[i].push_back(7);
-
-                else if(i<m_levelHeight-1)m_tiles[i].push_back(-1);
-
-                if(i==m_levelHeight-1)m_tiles[i].push_back(0);
+                if(i==0)m_tiles[i].push_back(3);
+                else if(i==1)m_tiles[i].push_back(7);
+                else if(i<m_levelHeight-2)m_tiles[i].push_back(-1);
+                else if(i==m_levelHeight-2)m_tiles[i].push_back(0);
+                else if(i==m_levelHeight-1)m_tiles[i].push_back(5);
             }
         }
     }
