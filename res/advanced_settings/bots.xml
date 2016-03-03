@@ -18,6 +18,7 @@
             <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
+    </bot>
 
     <bot type="BOT_WHIRL_NO_MOVE">
         <filename>../images/bot_whirl_40x40.png</filename>
@@ -287,7 +288,7 @@
         <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN">30</move>
-            <speed>-2</speed>
+            <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
@@ -308,7 +309,7 @@
         <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN">30</move>
-            <speed>-2</speed>
+            <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
@@ -329,7 +330,7 @@
         <collisionDamage>25</collisionDamage>
         <npc type="NORMAL">
             <move function="SIN">30</move>
-            <speed>-2</speed>
+            <speed>0</speed>
             <stdWeapon>LASER_GUN</stdWeapon>
         </npc>
     </bot>
@@ -337,12 +338,12 @@
     <bot type="BOSS_FSM_CIRCLE">
         <filename>../images/flying_spghettimonster_160x160.png</filename>
         <numFrames>6</numFrames>
-        <frameWidth>40</frameWidth>
-        <frameHeight>40</frameHeight>
-        <health>25</health>
+        <frameWidth>160</frameWidth>
+        <frameHeight>160</frameHeight>
+        <health>250</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
+        <colorOffsetY>160</colorOffsetY>
         <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -376,12 +377,12 @@
         </npc>
     </bot>
 
-    <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_CIRCLE">
+    <bot type="BOSS_SPACESHIP_NO_ANIMATION_CIRCLE">
         <filename>../images/bot_spaceship_big_79x73.png</filename>
         <numFrames>1</numFrames>
         <frameWidth>79</frameWidth>
         <frameHeight>73</frameHeight>
-        <health>250</health>
+        <health>200</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>0</colorOffsetY>
@@ -393,7 +394,7 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>ROCKET</stdWeapon>
+            <stdWeapon>ROCKET_GUN</stdWeapon>
         </npc>
     </bot>
 

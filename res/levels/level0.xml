@@ -28,15 +28,15 @@
         <collisionDamage>25</collisionDamage>
         <health>100</health>
     </player>
- <statusBar filename="../images/font_yellow_10x10.png">
-      <frameWidth>10</frameWidth>
-      <frameHeight>10</frameHeight>
-      <letterCount>26</letterCount>
-      <capitalOffset>1</capitalOffset>
-      <minusculeOffset>2</minusculeOffset>
-      <numberOffset>0</numberOffset>
-      <offsetToMid>1</offsetToMid>
-  </statusBar>
+    <statusBar filename="../images/font_yellow_10x10.png">
+        <frameWidth>10</frameWidth>
+        <frameHeight>10</frameHeight>
+        <letterCount>26</letterCount>
+        <capitalOffset>1</capitalOffset>
+        <minusculeOffset>2</minusculeOffset>
+        <numberOffset>0</numberOffset>
+        <offsetToMid>1</offsetToMid>
+    </statusBar>
     <bot type="BOT_NYAN_SIN">
         <positionX>600</positionX>
         <positionY>120</positionY>
@@ -79,6 +79,30 @@
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
+    <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_AI">
+        <positionX>2400</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_ROBOTSHIP_FLYING_SIN_DOWN">
+        <positionX>2600</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_ROBOTSHIP_HOVER_SIN_UP">
+        <positionX>2800</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SPACESHIP_AI">
+        <positionX>2800</positionX>
+        <positionY>350</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
     <bot type="BOT_LIGTHPOST_SIN_UP">
         <positionX>3000</positionX>
         <positionY>100</positionY>
@@ -87,6 +111,12 @@
     </bot>
     <bot type="BOSS_FSM_CIRCLE">
         <positionX>1800</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOSS_SPACESHIP_NO_ANIMATION_CIRCLE">
+        <positionX>2000</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
