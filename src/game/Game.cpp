@@ -405,6 +405,10 @@ namespace jumper
             {
                 lastKey = 'B';
             }
+            if (currentKeyStates[SDL_SCANCODE_ESCAPE])
+            {
+                end();
+            }
 
             checkCheat(lastKey);
             m_player->setMoveDirection(moveDirection);
@@ -527,6 +531,7 @@ namespace jumper
 
     void Game::end()
     {
+        m_player->setGodMode(false);
         printEndScreen();
         m_started = false;
         highscore->saveHighscore();
