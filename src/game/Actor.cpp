@@ -24,22 +24,18 @@ namespace jumper
                  int health,
                  int collisionDamage)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK),
-              m_isKilled(false)
+              m_isKilled(false), m_scoreValue(0)
     {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
         m_startTicks = 0;
         m_type = PLAYER;
 
-        m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
-        m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
-
-        //TODO: this should not be hardcoded
-        m_health = health;
         m_collisionDamage = collisionDamage;
 
-        setLiveTime();
+        m_health = health;
 
+        setLiveTime();
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -103,7 +99,7 @@ namespace jumper
             // Make the texture opaque when actor collides
             if (isHit())
             {
-                SDL_SetTextureAlphaMod(m_texture, OPACITY_LEVEL_WHEN_HIT);
+                SDL_SetTextureAlphaMod(m_texture, m_opacityLevelWhenHit);
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
                 SDL_SetTextureAlphaMod(m_texture, 255);
             }
@@ -125,6 +121,8 @@ namespace jumper
 
     SDL_Rect& Actor::getHitbox()
     {
+        m_hitbox.w = (int) std::floor(m_frameWidth * m_hitboxfactor);
+        m_hitbox.h = (int) std::floor(m_frameHeight * m_hitboxfactor);
         m_hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
         m_hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
 

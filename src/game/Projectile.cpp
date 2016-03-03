@@ -56,7 +56,7 @@ namespace jumper
         }
     }
 
-    void Projectile::resolveCollision(Actor& other)
+    void Projectile::onActorCollision(Actor& other)
     {
 
         if ((m_originActor->type() == PLAYER && (other.type() == ENEMY || other.type() == BOSS)) ||
@@ -66,7 +66,7 @@ namespace jumper
         }
     }
 
-    void Projectile::onCollide()
+    void Projectile::onTileCollision()
     {
         // Kill projectile when colliding with a tile
         m_health = 0;

@@ -55,14 +55,14 @@ namespace jumper
          */
         virtual void move(Level& level);
 
-        virtual void onCollide();
+        virtual void onTileCollision();
 
         virtual void shoot();
 
         /**
-         * @see Actor::resolveCollision(Actor& other)
+         * @see Actor::onActorCollision(Actor& other)
          */
-        virtual void resolveCollision(Actor& other) override;
+        virtual void onActorCollision(Actor& other) override;
 
         const Vector2f& getMoveDirection() const
         {

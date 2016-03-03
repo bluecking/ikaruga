@@ -18,7 +18,7 @@ namespace jumper {
         setType(ActorType::POWERUP);
     }
 
-    void PowerUp::resolveCollision(Actor& other)
+    void PowerUp::onActorCollision(Actor& other)
     {
         if(other.type() == ActorType::PLAYER) {
             setHealth(0);
@@ -31,7 +31,7 @@ namespace jumper {
         nextFrame();
     }
 
-    void PowerUp::onCollide()
+    void PowerUp::onTileCollision()
     {
         // DOES NOT HAPPEN
     }
