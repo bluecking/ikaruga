@@ -26,15 +26,17 @@ namespace jumper
                    int collisionDamage,
                    int evolutionScale,
                    float speed,
-                   int numFrames)
-            : m_game(game), m_actor(actor), m_lastShoot(0), m_coolDown(coolDown),
+                   int numFrames,
+                   WeaponType::WeaponType weaponType
+    )
+            : m_game(game), m_actor(&actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
               m_projectileColorOffset(projectileColorOffset), m_name(name), m_evolution(evolution),
               m_sound(Sound(sound, SoundType::SOUND)),
               m_volume(volume), m_collisionDamage(collisionDamage),
               m_evolutionScale(evolutionScale),
-              m_speed(speed), m_numFrames(numFrames)
+              m_speed(speed), m_numFrames(numFrames), m_weaponType(weaponType)
     {
 
     }
@@ -59,7 +61,18 @@ namespace jumper
         float spreadScale = m_projectileTextureSize.y() * 0.005f;
 
         // Spawn position of projectiles
-        Vector2f spawnPos = (spawnPosition + m_weaponOffset);
+        Vector2f spawnPos = spawnPosition;
+
+        // Adjust projectile spawn, considering shoot direction
+        if(direction.x() > 0)
+        {
+            spawnPos += m_actor->w();
+            spawnPos += Vector2f(-m_weaponOffset.x(), m_weaponOffset.y());
+        }
+        else
+        {
+            spawnPos += Vector2f(m_weaponOffset.x(), m_weaponOffset.y());
+        }
 
         // yOffset for even projectile number
         float yOffset = -(((numProjectiles + 1) % 2) * 0.5f);
@@ -70,11 +83,11 @@ namespace jumper
         for(int i = 0; i < numProjectiles; i++)
         {
             // Create new projectile
-            projectile = new Projectile(m_actor.getRenderer(),
+            projectile = new Projectile(m_actor->getRenderer(),
                                         m_projectileTexture,
                                         m_projectileTextureSize.x(),
                                         m_projectileTextureSize.y(),
-                                        1,
+                                        m_numFrames,
                                         m_collisionDamage,
                                         m_speed);
 
@@ -86,15 +99,15 @@ namespace jumper
             projectile->setDirection(Vector2f(direction.x(), moveY));
             projectile->setType(ActorType::PROJECTILE);
             projectile->setPosition(spawnPos);
-            projectile->setColor(m_actor.getColor());
-            projectile->setOriginActor(&m_actor);
+            projectile->setColor(m_actor->getColor());
+            projectile->setOriginActor(m_actor);
             projectile->launch();
 
             // Add created projectile to actors
             m_game.addActor(projectile);
         }
 
-        if (m_actor.type() == ActorType::PLAYER)
+        if (m_actor->type() == ActorType::PLAYER)
         {
             m_sound.play(m_volume, this->m_coolDown * 1000);
         }

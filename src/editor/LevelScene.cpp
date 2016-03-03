@@ -26,9 +26,9 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     m_type              = m_typeTexture;
 	m_mainWindow        = window;
     m_color             = "black";
-    m_imgTexture        = "../images/rocks.png";
+    m_imgTexture        = "../images/tileset_rocks_40x40.png";
     m_imgBackground     = "../images/star_background_2_200x200.png";
-    m_imgExplosion      = "../images/explosions.png";
+    m_imgExplosion      = "../images/explosions_40x40.png";
     m_imgStatusbar      = "../images/font_yellow_10x10.png";
     m_imgPlayer         = "../images/player_animated_55x43_transparent.png";
     m_soundfile         = "../sounds/game_loop.wav";
@@ -109,7 +109,7 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
     {
         m_mainWindow->addPower(toQString(m_items[i].type),
         "Texture name    : \t"+toQString(m_items[i].filename)+"\n"+
-        "Health          : \t"+toQString(std::to_string(m_items[i].health))
+        "Heal percentage          : \t"+toQString(std::to_string(m_items[i].healPercentage))
         );
 
     }

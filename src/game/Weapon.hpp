@@ -20,10 +20,11 @@ namespace jumper
     class Actor;
     namespace WeaponType {
         enum WeaponType {
+            NONE,
             LASER_GUN,
-            BLASTER,
-            ROCKET,
-            NONE
+            BLASTER_GUN,
+            ROCKET_GUN,
+            MEATBALL_GUN
         };
     }
     /**
@@ -51,6 +52,11 @@ namespace jumper
         string getWeaponName(void)
         { return m_name;}
 
+        void setActor(Actor* m_actor)
+        {
+            Weapon::m_actor = m_actor;
+        }
+
         /**
          * Returns the Weapon Evolution Stage
          *
@@ -73,6 +79,11 @@ namespace jumper
          */
         void upgrade();
 
+        const WeaponType::WeaponType& getWeaponType() const
+        {
+            return m_weaponType;
+        }
+
     protected:
 
         /**
@@ -90,6 +101,7 @@ namespace jumper
          * @param sound String to soundfile
          * @param collisionDamage Damage of collision
          * @param evolutionScale Scale of projectiles with evolution
+         * @param weaponType Type of weapon
          */
         Weapon(Game& game,
                Actor& actor,
@@ -105,13 +117,15 @@ namespace jumper
                int collisionDamage,
                int evolutionScale,
                float speed,
-               int numFrames);
+               int numFrames,
+               WeaponType::WeaponType weaponType
+        );
 
         // Game where to add the projectiles
         Game& m_game;
 
         // Actor which shoots the projectiles
-        Actor& m_actor;
+        Actor* m_actor;
 
         // Timestamp of the last shoot
         Uint32 m_lastShoot;
@@ -159,6 +173,9 @@ namespace jumper
         float m_speed;
 
         int m_numFrames;
+
+        // Type of weapon
+        WeaponType::WeaponType m_weaponType;
     };
 } /* namespace jumper */
 

@@ -55,14 +55,14 @@ namespace jumper
          */
         virtual void move(Level& level);
 
-        virtual void onCollide();
+        virtual void onTileCollision();
 
         virtual void shoot();
 
         /**
-         * @see Actor::resolveCollision(Actor& other)
+         * @see Actor::onActorCollision(Actor& other)
          */
-        virtual void resolveCollision(Actor& other) override;
+        virtual void onActorCollision(Actor& other) override;
 
         const Vector2f& getMoveDirection() const
         {
@@ -109,6 +109,8 @@ namespace jumper
          */
         void consumePowerUps();
 
+        virtual void setHealth(int health);
+
         int getInitial_health() const
         {
             return m_initial_health;
@@ -127,7 +129,17 @@ namespace jumper
         void setGodModeCheat()
         {
             m_godModeCheat = true;
+            setGodModeDesplay();
+        }
+
+        void setGodModeDesplay()
+        {
             SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
+        }
+
+        void resetGodModeDesplay()
+        {
+            SDL_SetTextureColorMod(m_texture, m_colorModR, m_colorModG, m_colorModB);
         }
 
         void setGodMode(bool godMode)
@@ -135,14 +147,15 @@ namespace jumper
             m_godMode = godMode;
 
             // This changes the color mod of the player when it is in godmode
-            if(godMode) {
-                SDL_SetTextureColorMod(m_texture, m_ColorGod_R, m_ColorGod_G, m_ColorGod_B);
+            if(godMode || isGodModeCheat()) {
+                setGodModeDesplay();
             } // Change it to the initial value if godmode is gone.
             else {
-                SDL_SetTextureColorMod(m_texture, m_colorModR, m_colorModG, m_colorModB);
+                resetGodModeDesplay();
             }
         }
 
+        virtual SDL_Rect& getHitbox() override;
     private:
         Game& m_game;
 

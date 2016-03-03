@@ -15,6 +15,7 @@
 #include "WorldProperty.hpp"
 #include "ItemShop.hpp"
 #include "MainMenu.hpp"
+#include "Profile.hpp"
 
 namespace jumper
 {
@@ -35,7 +36,7 @@ namespace jumper
          * @param w			Width
          * @param h			Height
          */
-        MainWindow(std::string title, int w, int h);
+        MainWindow(std::string title, int w, int h,boost::filesystem::path resPath);
 
         /**
          * Destructor.
@@ -71,6 +72,11 @@ namespace jumper
         ///Sets the Actual Render Screen
         void setActualScreen(int ID);
 
+        ///Gets the Actual Render Screen
+        int getActualScreen();
+
+        Profile* profile;
+        XML* xml;
     private:
 
         /// Initializes all needed SDL resources

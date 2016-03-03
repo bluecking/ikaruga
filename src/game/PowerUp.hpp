@@ -22,8 +22,8 @@ namespace jumper {
 
         ~PowerUp();
         virtual void move(Level& level) final;
-        virtual void onCollide() final;
-        virtual void resolveCollision(Actor& other) final;
+        virtual void onTileCollision() final;
+        virtual void onActorCollision(Actor& other) final;
 
         /**
          * This method will be invoked by the player on every game update, as long as he has not dropped the powerup.
