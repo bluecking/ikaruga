@@ -406,16 +406,6 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
             m_lastY=y;
             QList<QGraphicsItem *> item_list = items(x * m_tileWidth, y * m_tileHeight, width, height);
 
-            QRect tmp(0,0,0,0);
-
-            //caching Qt workaround
-            /**QPixmap *map            = new QPixmap();
-            GraphicsTileItem* item  = new GraphicsTileItem(map,tmp,0,99);
-            this->addItem(item);
-            this->removeItem(item);
-            delete item;*/
-
-
         for(int i=0;i<item_list.size();i++)
         {
             if(!item_list.empty() && (dynamic_cast<GraphicsTileItem *>(item_list[i]))->getType() == m_typeBackground)
@@ -625,11 +615,12 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                 height = m_tileHeight;
                 width = m_tileWidth;
             }
-            m_mainWindow->ui->MainView->update(item_list.first()->pos().x(),item_list.first()->pos().y(),width,height);
 
         }
+            m_mainWindow->ui->MainView->viewport()->update();
 
     }
+
 }
 
 void LevelScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
