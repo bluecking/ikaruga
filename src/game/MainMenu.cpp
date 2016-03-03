@@ -19,6 +19,7 @@ namespace jumper
         concat /= "levels";
         m_levelFiles = Filesystem::findFiles(concat, boost::regex("^.*\\.xml$"));
 
+        m_sound = Sound(m_resDir.string() + "/sounds/HammerFall_Renegade_8_bit.wav", SoundType::SONG);
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
         m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
                 m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
@@ -56,6 +57,8 @@ namespace jumper
         {
             if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
             {
+                m_sound.play(125);
+                m_sound.resume();
 
                 //Render background
 
@@ -112,6 +115,7 @@ namespace jumper
                             {
                                 TextureFactory::instance(m_win->getRenderer()).deleteAll();
                                 SDL_Quit();
+                                m_sound.stop();
                                 delete m_win;
                                 exit(0);
                             }
@@ -233,6 +237,7 @@ namespace jumper
                         m_win, m_game);
         m_win->setGame(m_game);
         m_win->setActualScreen(MainWindow::RENDER_GAME);
+        m_sound.stop();
         m_game->start();
     }
 
