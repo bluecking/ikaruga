@@ -82,8 +82,6 @@ namespace jumper
                     }
                     m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset + actColSize;
                     m_rectTarget.y = m_tableProperties.positionY + (i-startLine) * m_tileHeight;
-                    //std::cout << "recS_Px" << m_rectSource.x << "recS_Py" << m_rectSource.y << "recS_w" << m_rectSource.w << "recS_h" << m_rectSource.h << std::endl;
-                    //std::cout << "recT_Px" << m_rectTarget.x << "recT_Py" << m_rectTarget.y << "recT_w" << m_rectTarget.w << "recT_h" << m_rectTarget.h << std::endl << std::endl;
                     SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
                 }
                 actColSize+=m_textLine.size() * m_tileWidth + m_tileWidth*3;
