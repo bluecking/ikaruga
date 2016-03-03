@@ -373,7 +373,7 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>BLASTER_GUN</stdWeapon>
+            <stdWeapon>CPP_GUN</stdWeapon>
         </npc>
     </bot>
 
