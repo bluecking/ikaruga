@@ -36,7 +36,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         void openLast(QAction *action);
         void on_pushButton_released();
         void on_save_id_released();
-        void on_saveLevelName_released();
         void on_botList_itemClicked(QListWidgetItem *item);
         void on_powerList_itemClicked(QListWidgetItem *item);
 	
