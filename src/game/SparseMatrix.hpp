@@ -1,3 +1,10 @@
+/**
+ * SparseMatrix.hpp
+ *
+ * @date 03.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
+ */
+
 #ifndef __SPARSE_VECTOR_HPP__
 #define __SPARSE_VECTOR_HPP__
 
@@ -35,11 +42,16 @@ public:
 
 	/**
 	 * Copy constructor.
+	 *
+	 * @param other   matrix to copy from
 	 */
 	SparseMatrix(const SparseMatrix& other);
 
 	/**
-	 * Constructs a matrix with \ref rows rows and \ref columns columns
+	 * Constructs a matrix with \ref rows rows and \ref columns columns. And initializes all values with zero.
+	 *
+	 * @param rows    number of rows
+	 * @param cols    number of columns
 	 */
 	SparseMatrix(const int &rows, const int& cols);
 
@@ -50,19 +62,25 @@ public:
 
 	/**
 	 * Assignment operator
+	 *
+	 * @param other   reference of vector to assign from
 	 */
 	SparseMatrix& operator=(const SparseMatrix& other);
 
 	/**
 	 * Inserts an integer \ref value at given \ref row and \ref column
 	 *
-	 * @param row
-	 * @param col
-	 * @param value
+	 * @param row     row to insert value into
+	 * @param col     col to insert value into
+	 * @param value   value to insert
 	 */
 	void insert(const int& row, const int& col, const int& value);
 
-	/// Returns the sparse vector at given \ref row
+	/**
+	 * Returns the sparse vector at given \ref row
+	 *
+	 * @param row     number of row to return the vector from
+	 */
 	SparseVector& operator[](int row) const;
 
 };
