@@ -343,7 +343,7 @@
         <health>250</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
+        <colorOffsetY>160</colorOffsetY>
         <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -364,7 +364,7 @@
         <health>300</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
+        <colorOffsetY>189</colorOffsetY>
         <fps>3</fps>
         <explosionSoundFile>../sounds/player_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
