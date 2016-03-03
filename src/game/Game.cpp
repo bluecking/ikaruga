@@ -527,6 +527,8 @@ namespace jumper
     {
         printStartScreen();
         m_started = true;
+
+        m_player->m_camera.move(Vector2f(0, 0));
     }
 
     void Game::end()

@@ -37,6 +37,7 @@ public:
 	void setId(int id);
 	void setLevelName(QString levelName);
 	void setBackgroundSize(int levelWidth);
+	void setItem(QGraphicsSceneMouseEvent *event);
 	QString toQString(std::string string);
 	QPixmap* getPixmap();
 
@@ -45,6 +46,7 @@ protected:
     /// Is called whenever the mouse is pressend within
     /// the scene
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
+	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
 
 private:
 	void setSceneRect();
@@ -92,6 +94,8 @@ private:
 	int m_levelId;                                  // Level id
 	int m_backgroundHeight;							// background tile height
 	int m_backgroundWidth;							// backgoround tile Width
+	int m_lastX;
+	int m_lastY;
 
 
 
