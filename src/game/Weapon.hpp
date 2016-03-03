@@ -24,7 +24,8 @@ namespace jumper
             LASER_GUN,
             BLASTER_GUN,
             ROCKET_GUN,
-            MEATBALL_GUN
+            MEATBALL_GUN,
+            CPP_GUN
         };
     }
     /**
