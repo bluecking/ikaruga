@@ -29,7 +29,7 @@ namespace jumper
                               20); //TODO static tile height&width -> make dynamic
         //
         // prepareTable();
-       // m_table.setStringProperties(2, 1, 0, m_tableText);
+        // m_table.setStringProperties(2, 1, 0, m_tableText);
         RenderTable::tableProperties tableProps;
         tableProps.positionX = 50;
         tableProps.positionY = 120;
@@ -40,101 +40,116 @@ namespace jumper
         m_offset.setX(0.005f);
         m_offset.setY(0.005f);
         m_layer->setScrollSpeed(100.0f);
+        first = true;
+
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
 
-        if(m_game)
+        if (first)
         {
-            std::cout<<"heureka"<<std::endl;
+            first = false;
         }
-
-        if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
+        else
         {
-            switch(m_menu)
+            if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
             {
-                case MAIN_MENU:
-                    mainMenu();
-                    break;
-                case CREDITS:
-                    credits();
-                    break;
-                case LEVEL_SELECT:
-                    levelSelect();
-                    break;
-                default:
-                    mainMenu();
-            }
-            //Render background
-
-            m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
-
-            SDL_RenderClear(m_win->getRenderer());
-            m_layer->render();
-
-            //Render table
-            if (keyDown[SDL_SCANCODE_DOWN])
-            {
-                m_table.increase();
-            }
-
-            if (keyDown[SDL_SCANCODE_UP])
-            {
-                m_table.decrease();
-            }
-            m_table.setStringProperties(2, 1, 0, m_tableText);
-            m_table.render();
-            SDL_RenderPresent(m_win->getRenderer());
-
-            //temporary to start game -------------------------------------------------------------------
-            if (keyDown[SDL_SCANCODE_RETURN])
-            {
-                switch(m_menu)
+                switch (m_menu)
                 {
                     case MAIN_MENU:
                         mainMenu();
-                        if(m_table.getM_pos()== 0)
-                        {
-                            levelSelect();
-                            m_menu = LEVEL_SELECT;
-                        }
-                        if(m_table.getM_pos()== 1)
-                        {
-                            levelSelect();
-                            m_menu = LEVEL_SELECT;
-                        }
-                        if(m_table.getM_pos()== 2)
-                        {
-                            credits();
-                            m_menu = CREDITS;
-                        }
-                        if(m_table.getM_pos()== 3)
-                        {
-                            SDL_Quit();
-                        }
-
                         break;
                     case CREDITS:
-                        mainMenu();
-                        m_menu = MAIN_MENU;
+                        credits();
                         break;
                     case LEVEL_SELECT:
-                        startGame();
+                        levelSelect();
                         break;
                     default:
                         mainMenu();
-                        m_menu = MAIN_MENU;
                 }
+                //Render background
+
+                m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
+
+                SDL_RenderClear(m_win->getRenderer());
+                m_layer->render();
+
+                //Render table
+                if (keyDown[SDL_SCANCODE_DOWN])
+                {
+                    m_table.increase();
+                }
+
+                if (keyDown[SDL_SCANCODE_UP])
+                {
+                    m_table.decrease();
+                }
+                m_table.setStringProperties(2, 1, 0, m_tableText);
+                m_table.render();
+                SDL_RenderPresent(m_win->getRenderer());
+
+                if(keyDown[SDL_SCANCODE_ESCAPE])
+                {
+                    m_menu = MAIN_MENU;
+                    mainMenu();
+                    m_table.resetPos();
+                }
+
+                //temporary to start game -------------------------------------------------------------------
+                if (keyDown[SDL_SCANCODE_RETURN])
+                {
+
+                    switch (m_menu)
+                    {
+                        case MAIN_MENU:
+                            mainMenu();
+                            if (m_table.getM_pos() == 0)
+                            {
+                                levelSelect();
+                                m_menu = LEVEL_SELECT;
+                            }
+                            if (m_table.getM_pos() == 1)
+                            {
+                                levelSelect();
+                                m_menu = LEVEL_SELECT;
+                            }
+                            if (m_table.getM_pos() == 2)
+                            {
+                                credits();
+                                m_menu = CREDITS;
+                            }
+                            if (m_table.getM_pos() == 3)
+                            {
+                                delete m_win;
+                            }
+
+                            break;
+                        case CREDITS:
+                            mainMenu();
+                            m_menu = MAIN_MENU;
+                            break;
+                        case LEVEL_SELECT:
+                            startGame();
+                            break;
+                        default:
+                            mainMenu();
+                            m_menu = MAIN_MENU;
+                    }
+                    m_table.resetPos();
+                }
+
+                m_table.setStringProperties(2, 1, 0, m_tableText);
+                m_table.render();
+                SDL_RenderPresent(m_win->getRenderer());
             }
-            m_table.setStringProperties(2, 1, 0, m_tableText);
-            m_table.render();
-            SDL_RenderPresent(m_win->getRenderer());
         }
     }
 
     void MainMenu::prepareTable()
-    {   int z = 0;
+    {
+        int z = 0;
         for (int i = 0; i < m_levelFiles.size(); i++)
         {
             try
@@ -149,7 +164,9 @@ namespace jumper
             }
         }
         m_tableText.resize(m_levelId_and_path.size());
-        for(std::map<int,boost::filesystem::path>::iterator it = m_levelId_and_path.begin(); it != m_levelId_and_path.end(); it++) {
+        for (std::map<int, boost::filesystem::path>::iterator it = m_levelId_and_path.begin();
+             it != m_levelId_and_path.end(); it++)
+        {
             m_tableText[z].resize(2);
             m_tableText[z][0] = std::to_string(it->first) + ".";
             XML m_tmp2(it->second.string());
@@ -185,17 +202,22 @@ namespace jumper
             }
         }
         m_tableText.resize(m_levelId_and_path.size());
-        for(std::map<int,boost::filesystem::path>::iterator it = m_levelId_and_path.begin(); it != m_levelId_and_path.end(); it++) {
+        for (std::map<int, boost::filesystem::path>::iterator it = m_levelId_and_path.begin();
+             it != m_levelId_and_path.end(); it++)
+        {
             m_tableText[z].resize(2);
             m_tableText[z][0] = std::to_string(it->first) + ".";
             XML m_tmp2(it->second.string());
             m_tableText[z++][1] = m_tmp2.getLevelname();
         }
     }
+
     void MainMenu::startGame()
     {
         m_game = new Game(m_win);
-        Game::setupGame(m_levelId_and_path.at(std::stoi(m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size()-1))).string(), m_win, m_game);
+        Game::setupGame(m_levelId_and_path.at(std::stoi(
+                m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size() - 1))).string(),
+                        m_win, m_game);
         m_win->setGame(m_game);
         m_win->setActualScreen(MainWindow::RENDER_GAME);
         m_game->start();
@@ -204,7 +226,7 @@ namespace jumper
     void MainMenu::mainMenu()
     {
         m_tableText.resize(4);
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             m_tableText[i].resize(1);
         }
@@ -216,8 +238,8 @@ namespace jumper
 
     void MainMenu::credits()
     {
-        m_tableText.resize(4);
-        for(int i = 0; i < 4; i++)
+        m_tableText.resize(5);
+        for (int i = 0; i < 5; i++)
         {
             m_tableText[i].resize(1);
         }
@@ -225,6 +247,20 @@ namespace jumper
         m_tableText[1][0] = "Swaggy";
         m_tableText[2][0] = "Booster";
         m_tableText[3][0] = "mbrockmo";
+        m_tableText[4][0] = "toaster";
+    }
+
+    void MainMenu::highscore()
+    {
+        std::vector<std::pair<std::string,int>> scores=m_win->profile->getHighScores();
+        m_tableText.resize(scores.size());
+
+        for(int i = 0; i < m_tableText.size(); i++)
+        {
+            m_tableText[i].resize(2);
+            m_tableText[i][0] = scores.at(i).first;
+            m_tableText[i][1] = to_string(scores.at(i).second);
+        }
     }
 
 } //end of namespace jumper

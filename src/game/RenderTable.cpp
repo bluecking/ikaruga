@@ -11,7 +11,7 @@
 namespace jumper
 {
     RenderTable::RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth) :
-    FontRender(tileHeight, tileWidth, renderer, defaultTtexture)
+            FontRender(tileHeight, tileWidth, renderer, defaultTtexture)
     {
         m_renderer = renderer;
         m_texture = defaultTtexture;
@@ -50,9 +50,9 @@ namespace jumper
         if (!m_stringPropertiesSet || !m_tablePropertiesSet)
         { throw std::domain_error("You have to use setStringProperties and setTableProperties first."); }
 
-        for(int i = 0; i < m_content.size(); i++) //loop rows
+        for (int i = 0; i < m_content.size(); i++) //loop rows
         {
-            for(int j = 0; j < m_content[i].size(); j++) //loop columns
+            for (int j = 0; j < m_content[i].size(); j++) //loop columns
             {
                 m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
                 for (int k = 0; k < m_textLine.size(); k++) //print column content
@@ -60,7 +60,7 @@ namespace jumper
                     m_rectSource.x = m_textLine[k].x();
                     m_rectSource.y = m_textLine[k].y();
                     int offset = 0;
-                    if(m_pos == i)
+                    if (m_pos == i)
                     {
                         offset = m_tileWidth;
                     }
@@ -81,21 +81,31 @@ namespace jumper
 
     void RenderTable::increase()
     {
-        if(m_pos >= m_content.size()-1) {
+        if (m_pos >= m_content.size() - 1)
+        {
             m_pos = 0;
         }
-        else {
+        else
+        {
             m_pos++;
         }
     }
 
     void RenderTable::decrease()
     {
-        if(m_pos <= 0) {
-            m_pos = m_content.size()-1;
+        if (m_pos <= 0)
+        {
+            m_pos = m_content.size() - 1;
         }
-        else {
+        else
+        {
             m_pos--;
         }
     }
+
+    void RenderTable::resetPos()
+    {
+        m_pos = 0;
+    }
+
 } //end of namespace jumper

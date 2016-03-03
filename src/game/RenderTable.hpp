@@ -51,7 +51,7 @@ namespace jumper
 
         void increase();
         void decrease();
-
+        void resetPos();
         virtual void render();
     };
 } //end of namespace jumper

@@ -50,6 +50,7 @@ private:
     XML m_tmp;
     RenderTable m_table;
     int m_menu;
+    bool first;
     //TODO move to struct?
 
     void setupBackground(float scrollspeed, string backgroundImage);
@@ -63,6 +64,8 @@ private:
     void mainMenu();
 
     void startGame();
+
+    void highscore();
 };
 } //end of namespace jumper
 
