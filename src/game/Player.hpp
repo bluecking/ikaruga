@@ -32,12 +32,14 @@ namespace jumper
         /**
          * Constructs a player.
          *
-         * @param renderer		A pointer to a valid SDL_Renderer struct that is
-         * 						used for rendering
-         * @param texture		A pointer to a valid SDL_Texture struct
-         * @param frameWidth	Frame width of the animation frames
-         * @param frameHeight	Frame height of the animation frames
-         * @param numFrames		Number of frames
+         * @param renderer		    A pointer to a valid SDL_Renderer struct that is
+         * 						    used for rendering
+         * @param texture		    A pointer to a valid SDL_Texture struct
+         * @param frameWidth	    Frame width of the animation frames
+         * @param frameHeight	    Frame height of the animation frames
+         * @param numFrames		    Number of frames
+         * @param health            start health
+         * @param collisionDamage   the collision Damage a bot get
          */
         Player(SDL_Renderer* renderer,
                SDL_Texture* texture,
