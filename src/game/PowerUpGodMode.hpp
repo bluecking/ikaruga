@@ -13,15 +13,18 @@ namespace jumper {
     class PowerUpGodMode final : public PowerUp
     {
     public:
+        /**
+         * @see PowerUp::PowerUp(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
+         */
         PowerUpGodMode(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames);
 
         /**
-         * see PowerUp::consume(Player& player)
+         * @see PowerUp::consume(Player& player)
          */
         virtual void consume(Player& player);
 
         /**
-         * see PowerUp::stop(Player& player)
+         * @see PowerUp::stop(Player& player)
          */
         virtual void stop(Player& player);
     };

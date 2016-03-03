@@ -64,7 +64,7 @@ namespace jumper
         Vector2f spawnPos = spawnPosition;
 
         // Adjust projectile spawn, considering shoot direction
-        if(direction.x() > 0)
+        if (direction.x() > 0)
         {
             spawnPos += m_actor->w();
             spawnPos += Vector2f(-m_weaponOffset.x(), m_weaponOffset.y());
@@ -80,7 +80,7 @@ namespace jumper
         // Pointer for created projectiles
         Projectile* projectile;
 
-        for(int i = 0; i < numProjectiles; i++)
+        for (int i = 0; i < numProjectiles; i++)
         {
             // Create new projectile
             projectile = new Projectile(m_actor->getRenderer(),

@@ -9,19 +9,18 @@
 
 namespace jumper
 {
-    //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
     BlasterWeapon::BlasterWeapon(Game& game,
-                             Actor& actor,
-                             SDL_Texture* projectileTexture,
-                             const Vector2i& projectileTextureSize,
-                             const Vector2f& weaponOffset,
-                             const Vector2f& projectileColorOffset,
-                             float coolDown,
-                             std::string sound,
-                             int volume,
-                             int collisionDamage,
-                             float speed,
-                             int numFrames)
+                                 Actor& actor,
+                                 SDL_Texture* projectileTexture,
+                                 const Vector2i& projectileTextureSize,
+                                 const Vector2f& weaponOffset,
+                                 const Vector2f& projectileColorOffset,
+                                 float coolDown,
+                                 std::string sound,
+                                 int volume,
+                                 int collisionDamage,
+                                 float speed,
+                                 int numFrames)
             : Weapon(game,
                      actor,
                      projectileTexture,
