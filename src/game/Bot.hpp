@@ -79,12 +79,12 @@ namespace jumper
         /**
          * @see Actor::move(Level& level)
          */
-        virtual void move(Level& level);
+        virtual void move(Level& level) override;
 
         /**
          * @see Collidable::onTileCollision()
          */
-        virtual void onTileCollision();
+        virtual void onTileCollision() override;
 
         /**
          * @see Actor::onActorCollision(Actor& other)
@@ -94,7 +94,7 @@ namespace jumper
         /**
          * @see Armed::shoot()
          */
-        virtual void shoot();
+        virtual void shoot() override;
 
     private:
 
