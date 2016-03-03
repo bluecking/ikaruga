@@ -142,7 +142,7 @@ int main(int argc, char** argv)
         cout << "Profile - money: " << m_xml.getProfile(i).money << endl;
     }
 
-    m_xml.setFilename("/tmp/scrollerXmlOut.xml");
+    m_xml.setFilename("/tmp/ikarugaXmlOut.xml");
     m_xml.save();
 
     m_xml.saveProfiles();

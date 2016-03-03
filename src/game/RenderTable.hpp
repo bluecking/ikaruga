@@ -10,8 +10,8 @@
 #include "FontRender.hpp"
 #include <stdexcept>
 
-#ifndef SCROLLER_RENDERTABLE_HPP
-#define SCROLLER_RENDERTABLE_HPP
+#ifndef IKARUGA_RENDERTABLE_HPP
+#define IKARUGA_RENDERTABLE_HPP
 
 namespace ikaruga
 {
@@ -119,4 +119,4 @@ namespace ikaruga
         bool m_scrollable;
     };
 } //end of namespace ikaruga
-#endif //SCROLLER_RENDERTABLE_HPP
+#endif //IKARUGA_RENDERTABLE_HPP

@@ -4,8 +4,8 @@
  * @date 29.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef SCROLLER_FILESYSTEM_HPP
-#define SCROLLER_FILESYSTEM_HPP
+#ifndef IKARUGA_FILESYSTEM_HPP
+#define IKARUGA_FILESYSTEM_HPP
 
 #include <string>
 #include <boost/regex.hpp>
@@ -61,4 +61,4 @@ namespace ikaruga
 }
 
 
-#endif //SCROLLER_FILESYSTEM_HPP
+#endif //IKARUGA_FILESYSTEM_HPP

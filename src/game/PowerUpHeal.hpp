@@ -5,8 +5,8 @@
  *  @author Benjamin Lücking <bluecking@uos.de>
  */
 
-#ifndef SCROLLER_POWERUPHEAL_HPP
-#define SCROLLER_POWERUPHEAL_HPP
+#ifndef IKARUGA_POWERUPHEAL_HPP
+#define IKARUGA_POWERUPHEAL_HPP
 
 #include "PowerUp.hpp"
 
@@ -39,4 +39,4 @@ namespace ikaruga
 }
 
 
-#endif //SCROLLER_POWERUPHEAL_HPP
+#endif //IKARUGA_POWERUPHEAL_HPP

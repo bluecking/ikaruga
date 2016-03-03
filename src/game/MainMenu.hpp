@@ -6,8 +6,8 @@
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
 * @date 29 Feb 2016
 */
-#ifndef SCROLLER_MAINMENU_HPP
-#define SCROLLER_MAINMENU_HPP
+#ifndef IKARUGA_MAINMENU_HPP
+#define IKARUGA_MAINMENU_HPP
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
@@ -119,4 +119,4 @@ namespace ikaruga
     };
 } //end of namespace ikaruga
 
-#endif //SCROLLER_MAINMENU_HPP
+#endif //IKARUGA_MAINMENU_HPP

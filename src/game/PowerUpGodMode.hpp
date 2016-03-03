@@ -5,8 +5,8 @@
  *  @author Benjamin Lücking <bluecking@uos.de>
  */
 
-#ifndef SCROLLER_POWERUPGODMODE_HPP
-#define SCROLLER_POWERUPGODMODE_HPP
+#ifndef IKARUGA_POWERUPGODMODE_HPP
+#define IKARUGA_POWERUPGODMODE_HPP
 
 #include "PowerUp.hpp"
 
@@ -34,4 +34,4 @@ namespace ikaruga
 }
 
 
-#endif //SCROLLER_POWERUPGODMODE_HPP
+#endif //IKARUGA_POWERUPGODMODE_HPP

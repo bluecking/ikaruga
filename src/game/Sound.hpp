@@ -7,8 +7,8 @@
 
 #include "Level.hpp"
 
-#ifndef SCROLLER_SOUND_HPP
-#define SCROLLER_SOUND_HPP
+#ifndef IKARUGA_SOUND_HPP
+#define IKARUGA_SOUND_HPP
 
 using std::string;
 
@@ -93,4 +93,4 @@ namespace ikaruga
     };
 };
 
-#endif //SCROLLER_SOUND_HPP
+#endif //IKARUGA_SOUND_HPP

@@ -5,8 +5,8 @@
  * @date 27.02.2016
  */
 
-#ifndef SCROLLER_FONTRENDER_H
-#define SCROLLER_FONTRENDER_H
+#ifndef IKARUGA_FONTRENDER_H
+#define IKARUGA_FONTRENDER_H
 
 #include "StaticRenderable.hpp"
 #include <vector>
@@ -65,4 +65,4 @@ namespace ikaruga
     };
 }
 
-#endif //SCROLLER_FONTRENDER_H
+#endif //IKARUGA_FONTRENDER_H

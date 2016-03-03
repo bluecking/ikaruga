@@ -49,7 +49,7 @@ namespace ikaruga
     class Actor;
 
 /**
- * @brief Represents a level in the scroller game.
+ * @brief Represents a level in the ikaruga game.
  */
     class Level : public StaticRenderable
     {
