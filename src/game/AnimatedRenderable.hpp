@@ -1,10 +1,9 @@
-/*
+/**
  * AnimatedRenderable.hpp
  *
- *  Created on: Dec 4, 2015
- *      Author: twiemann
+ * @date 04.12.15
+ * @author Thomas Wiemann (twiemann@uni-osnabrueck.de)
  */
-
 #ifndef SRC_ANIMATEDRENDERABLE_HPP_
 #define SRC_ANIMATEDRENDERABLE_HPP_
 
@@ -24,16 +23,16 @@ class AnimatedRenderable: public Renderable
 public:
 
 	/***
-	 * Constructs an animated renderable from the given \ref filename
-	 * for the internal \ref renderer
+	 * @brief Constructs an animated renderable from the given \ref filename for the internal \ref renderer
+	 *
 	 * @param renderer		A pointer to a SDL renderer struct
 	 * @param filename		A filename with animation definitions
 	 */
 	AnimatedRenderable(SDL_Renderer* renderer, std::string filename);
 
 	/***
-	 * Constructs an animated renderable from given renderer, texture
-	 * and frame information.
+	 * @brief Constructs an animated renderable from given renderer, texture and frame information.
+	 *
 	 * @param renderer		A pointer to a SDL renderer struct
 	 * @param texture		A pointer to valid SDL_Texture struct
 	 * @param frameWidth	The width of the frames within the texture
@@ -44,32 +43,46 @@ public:
 
 
 	/**
-	 * Destructor.
+	 * @brief Destructor.
 	 */
 	virtual ~AnimatedRenderable();
 
 	/**
-	 * Renders the current frame
+	 * @brief Renders the current frame
 	 */
 	virtual void render() = 0;
 
 	/**
-	 * Moves the source rect to the next frame
+	 * @brief Moves the source rect to the next frame
 	 */
 	void nextFrame();
 
 	/**
-	 * Sets frames per second for animation
+	 * @brief Sets frames per second for animation
+	 *
+	 * @param frames the frames per second of an animation
 	 */
 	void setFPS(int frames);
 
-	/// Returns the number of frames in the animation
+	/**
+	 * @brief returns the numbers of frames per second of an animation
+	 *
+	 * @returns the fps of an object
+	 */
 	int numFrames() const { return m_numFrames;}
 
-	/// Returns frame width
+	/**
+	 * @brief returns the frame width
+	 *
+	 * @returns frame width
+	 */
 	int frameWidth() const { return m_frameWidth;}
 
-	/// Returns the frame height
+	/**
+	 * @brief returns the fram height
+	 *
+	 * @returns frame height
+	 */
 	int frameHeight() const { return m_frameHeight;}
 
 protected:
@@ -92,10 +105,10 @@ protected:
 	/// Timeout between frames
 	Uint32			m_frameTimeout;
 
-	/** The tile row that is rendered in the current frame */
+	/// The tile row that is rendered in the current frame
 	char 			m_currentTileRow;
 
-	/** The tile row that should be rendered in the next frame */
+	/// The tile row that should be rendered in the next frame
     char             m_nextTileRow;
 };
 

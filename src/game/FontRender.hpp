@@ -21,7 +21,7 @@ namespace jumper {
     class FontRender : public StaticRenderable {
     public:
         /**
-         * Constructor
+         * @brief Constructor
          *
          * @param tileHeight the tileheigth
          * @param tileWidth the tilewith
@@ -34,7 +34,7 @@ namespace jumper {
                    SDL_Texture *texture);
 
         /**
-         * Returns the x and y coordinates of a number on a tilesheet
+         * @brief Returns the x and y coordinates of a number on a tilesheet
          *
          * @param number number to render
          * @param numberOffset the numberoffset in the tilesheet
@@ -55,10 +55,10 @@ namespace jumper {
 
     private:
 
-        //the heigth of the letters on the tilesheet
+        /// the heigth of the letters on the tilesheet
         int m_tileHeight;
 
-        //the width of the letters on the tilesheet
+        /// the width of the letters on the tilesheet
         int m_tileWidth;
     };
 }

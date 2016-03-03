@@ -3,8 +3,8 @@
  *
  *  @date   03.03.2015
  *  @author Benjamin Lücking <bluecking@uos.de>
- *  @author David Rolfes	 <darolfes@uos.de>
- *  @author Nathan Wollek	 <nwollek@uos.de>
+ *  @author David Rolfes     <darolfes@uos.de>
+ *  @author Nathan Wollek    <nwollek@uos.de>
  *
  */
 
@@ -16,12 +16,25 @@
 
 namespace jumper
 {
+    /**
+     * Interface for objects which support collisions (tile and actor)
+     */
     class Collidable
     {
     public:
+        /**
+         * Constructor for Collidable inits the vars
+         */
         Collidable();
+
+        /**
+         * Destructor of Collidable
+         */
         virtual ~Collidable();
 
+        /**
+         * Is invoked if the actor (Collidable) collides with an tile
+         */
         virtual void onTileCollision() = 0;
 
         /**
@@ -33,8 +46,18 @@ namespace jumper
          */
         virtual void onActorCollision(Actor& other) = 0;
 
+        /**
+         * Is used to get the Hitbox of the Collidable (pure virtual)
+         *
+         * @return SDL_Rect& - Hitbox of the Collidable (Actor collision only)
+         */
         virtual SDL_Rect& getHitbox() = 0;
 
+        /**
+         * Getter of m_collisionDamage (collision damage of Collidable)
+         *
+         * @return int - value of m_collisionDamage
+         */
         int getCollisionDamage() const
         {
             return m_collisionDamage;
