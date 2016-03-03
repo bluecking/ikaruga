@@ -63,7 +63,6 @@ namespace jumper
          */
         virtual void render();
 
->>>>>>> 278121fcc061f65b106161c793c5a9ec081e1129
     private:
         SDL_Renderer* m_renderer;
         SDL_Texture* m_texture;
@@ -80,13 +79,7 @@ namespace jumper
         bool m_stringPropertiesSet;
         bool m_tablePropertiesSet;
         unsigned long m_pos;
-<<<<<<< HEAD
         bool m_scrollable;
-    public:
-        unsigned long getM_pos() const;
-=======
->>>>>>> 278121fcc061f65b106161c793c5a9ec081e1129
-
     };
 } //end of namespace jumper
 #endif //SCROLLER_RENDERTABLE_HPP
