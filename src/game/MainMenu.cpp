@@ -77,10 +77,6 @@ namespace jumper
                 {
                     m_table.decrease();
                 }
-                m_table.setStringProperties(2, 1, 0, m_tableText);
-                m_table.render();
-                SDL_RenderPresent(m_win->getRenderer());
-
                 if(keyDown[SDL_SCANCODE_ESCAPE])
                 {
                     m_menu = MAIN_MENU;
@@ -117,6 +113,7 @@ namespace jumper
                                 SDL_Quit();
                                 m_sound.stop();
                                 delete m_win;
+                                exit(0);
                             }
 
                             break;
