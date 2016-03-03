@@ -118,6 +118,6 @@ namespace ikaruga
         // Border offset of the camera (in pixels) which the player cannot cross.
         float m_borderOffset;
     };
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* CAMERA_HPP_ */

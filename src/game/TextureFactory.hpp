@@ -111,6 +111,6 @@ namespace ikaruga
         //       before deleted status
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_TEXTUREFACTORY_HPP_ */

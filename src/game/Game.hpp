@@ -393,6 +393,6 @@ namespace ikaruga
         const std::string konamiCode = "u u d d l r l r B A";
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_HPP_ */

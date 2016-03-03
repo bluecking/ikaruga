@@ -145,4 +145,4 @@ namespace ikaruga
         m_pos = 0;
     }
 
-} //end of namespace jumper
+} //end of namespace ikaruga

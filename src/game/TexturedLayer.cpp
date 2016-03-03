@@ -73,4 +73,4 @@ namespace ikaruga
         m_scrollSpeed = speed;
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

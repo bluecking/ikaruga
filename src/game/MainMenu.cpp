@@ -340,4 +340,4 @@ namespace ikaruga
             m_tableText[i][1] = to_string(scores.at(i - offsetRow).second);
         }
     }
-} //end of namespace jumper
+} //end of namespace ikaruga

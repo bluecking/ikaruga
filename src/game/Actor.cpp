@@ -207,5 +207,5 @@ namespace ikaruga
     {
         m_explosionSound.play(m_explosionVolume);
     }
-} /* namespace jumper */
+} /* namespace ikaruga */
 

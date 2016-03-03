@@ -19,4 +19,4 @@ namespace ikaruga
     StaticRenderable::~StaticRenderable()
     { }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

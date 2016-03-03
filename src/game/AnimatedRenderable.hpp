@@ -116,6 +116,6 @@ namespace ikaruga
         char m_nextTileRow;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_ANIMATEDRENDERABLE_HPP_ */

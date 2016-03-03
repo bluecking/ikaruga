@@ -101,4 +101,4 @@ namespace ikaruga
         m_frameTimeout = (Uint32) (1000.0 / frames);
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

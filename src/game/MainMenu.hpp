@@ -117,6 +117,6 @@ namespace ikaruga
          */
         void highscore();
     };
-} //end of namespace jumper
+} //end of namespace ikaruga
 
 #endif //SCROLLER_MAINMENU_HPP

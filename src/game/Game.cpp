@@ -859,4 +859,4 @@ namespace ikaruga
 
         return weaponInstance;
     }
-} /* namespace jumper */
+} /* namespace ikaruga */

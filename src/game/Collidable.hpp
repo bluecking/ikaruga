@@ -76,6 +76,6 @@ namespace ikaruga
         const unsigned char m_opacityLevelWhenHit;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_COLLIDABLE_HPP_ */

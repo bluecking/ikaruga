@@ -57,4 +57,4 @@ namespace ikaruga
         return m_height;
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

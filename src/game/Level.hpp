@@ -252,6 +252,6 @@ namespace ikaruga
         SparseMatrix m_tiles;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_LEVEL_HPP_ */

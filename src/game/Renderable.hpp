@@ -96,6 +96,6 @@ namespace ikaruga
 
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif //IKARUGA_RENDERABLE_H

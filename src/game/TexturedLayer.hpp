@@ -63,6 +63,6 @@ namespace ikaruga
         float m_scrollSpeed;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_TEXTUREDLAYER_HPP_ */

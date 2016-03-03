@@ -118,5 +118,5 @@ namespace ikaruga
         unsigned long m_pos;
         bool m_scrollable;
     };
-} //end of namespace jumper
+} //end of namespace ikaruga
 #endif //SCROLLER_RENDERTABLE_HPP

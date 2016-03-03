@@ -46,6 +46,6 @@ namespace ikaruga
         virtual ~StaticRenderable();
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_STATICRENDERABLE_HPP_ */

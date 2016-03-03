@@ -210,6 +210,6 @@ namespace ikaruga
         return !(*this == other);
     }
 
-} // namespace jumper
+} // namespace ikaruga
 
 

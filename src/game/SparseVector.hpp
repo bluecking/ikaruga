@@ -162,6 +162,6 @@ namespace ikaruga
 
     };
 
-} // namespace jumper
+} // namespace ikaruga
 
 #endif

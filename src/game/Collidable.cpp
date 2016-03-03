@@ -26,4 +26,4 @@ namespace ikaruga
         // TODO Auto-generated destructor stub
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

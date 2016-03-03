@@ -199,7 +199,7 @@ namespace ikaruga
         // Type of weapon
         WeaponType::WeaponType m_weaponType;
     };
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 
 #endif //IKARUGA_WEAPON_HPP

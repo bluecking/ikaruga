@@ -31,6 +31,6 @@ namespace ikaruga
         virtual void onActorCollision(Actor& other) override;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_KILLANIMATION_HPP_ */

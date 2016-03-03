@@ -45,7 +45,7 @@ namespace ikaruga
                   int numFrames);
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 
 #endif //IKARUGA_BLASTERWEAPON_HPP

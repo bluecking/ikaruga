@@ -169,4 +169,4 @@ namespace ikaruga
 
         m_weapon->shoot(direction, position());
     }
-} /* namespace jumper */
+} /* namespace ikaruga */

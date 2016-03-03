@@ -248,6 +248,6 @@ namespace ikaruga
         const int offsetBossHealth = 2;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_SCOREBOARD_HPP_ */

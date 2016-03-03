@@ -186,7 +186,7 @@ namespace ikaruga
     typedef Vector2<int> Vector2i;
 
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #include "Vector.tcc"
 

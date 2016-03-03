@@ -359,6 +359,6 @@ namespace ikaruga
         void renderHitbox();
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_ACTOR_HPP_ */

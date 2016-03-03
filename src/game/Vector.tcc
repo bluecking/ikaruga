@@ -168,4 +168,4 @@ namespace ikaruga
         m_y -= other.m_y;
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

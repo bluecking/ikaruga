@@ -170,6 +170,6 @@ namespace ikaruga
         int actRenderID;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_MAINWINDOW_HPP_ */

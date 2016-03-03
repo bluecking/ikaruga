@@ -228,6 +228,6 @@ namespace ikaruga
     {
         return actRenderID;
     }
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 
