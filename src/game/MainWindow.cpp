@@ -18,6 +18,7 @@ namespace jumper
     MainWindow::MainWindow(std::string title, int w, int h,boost::filesystem::path resPath)
             : m_startLoopTicks(0)
     {
+        m_quit = false;
         /// Init width and height
         m_width = w;
         m_height = h;
@@ -53,21 +54,20 @@ namespace jumper
 
     void MainWindow::run()
     {
-        bool quit = false;
         SDL_Event e;
         const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
         bool* keyDown = new bool[SDL_NUM_SCANCODES];
         m_startLoopTicks = SDL_GetTicks();
 
         // Start main loop and event handling
-        while (!quit && m_renderer)
+        while (!m_quit && m_renderer)
         {
             // Process events, detect quit signal for window closing
             while (SDL_PollEvent(&e))
             {
                 if (e.type == SDL_QUIT)
                 {
-                    quit = true;
+                    m_quit = true;
                 }
 
                 // collect down keys

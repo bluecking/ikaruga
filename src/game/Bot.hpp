@@ -1,4 +1,4 @@
-r/*
+/*
  * Bot.hpp
  *
  *  Created on: Dec 9, 2015
