@@ -49,6 +49,8 @@ namespace jumper
         return m_renderer;
     }
 
+
+
     void MainWindow::run()
     {
         bool quit = false;
