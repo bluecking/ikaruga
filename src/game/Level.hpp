@@ -245,6 +245,7 @@ private:
 	/// Level height
 	int					m_levelHeight;
 
+	/// Tiletypes
 	std::vector<TileType>			m_tileTypes;
 
 	///Physical properties of level
