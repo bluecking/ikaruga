@@ -15,7 +15,7 @@
 using std::string;
 using std::map;
 
-namespace jumper
+namespace ikaruga
 {
 
     /**
@@ -111,6 +111,6 @@ namespace jumper
         //       before deleted status
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_TEXTUREFACTORY_HPP_ */

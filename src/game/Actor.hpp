@@ -12,7 +12,7 @@
 #include <chrono>
 #include "Sound.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     enum ActorType
     {
@@ -113,7 +113,8 @@ namespace jumper
          *
          * @return The color that the Actor represents
          */
-        const ColorMode::ColorMode& getColor() const { return m_color; }
+        const ColorMode::ColorMode& getColor() const
+        { return m_color; }
 
         /**
          * @brief Returns the color offset
@@ -122,7 +123,8 @@ namespace jumper
          *
          * @return The color offset as a Vector2f
          */
-        const Vector2f& getColorOffset() const { return m_colorOffset; }
+        const Vector2f& getColorOffset() const
+        { return m_colorOffset; }
 
         /**
          * @brief Returns the Actor's hitbox
@@ -186,19 +188,22 @@ namespace jumper
          * Returns the type of Actor it represents.
          * @return Actor's type
          */
-        const ActorType& type() { return m_type; }
+        const ActorType& type()
+        { return m_type; }
 
         /**
          * @brief Set the ColorMode
          * Set the color the Actor shall represent.
          */
-        void setColor(const ColorMode::ColorMode& m_color) { Actor::m_color = m_color; }
+        void setColor(const ColorMode::ColorMode& m_color)
+        { Actor::m_color = m_color; }
 
         /**
          * @brief Set color offset
          * Set the color offset where the second color is located in the Actor's sprite.
          */
-        void setColorOffset(const Vector2f& colorOffset) { m_colorOffset = colorOffset; }
+        void setColorOffset(const Vector2f& colorOffset)
+        { m_colorOffset = colorOffset; }
 
         /**
          * @brief Set the explosion sound
@@ -286,7 +291,8 @@ namespace jumper
          * Set the Actor's type that it should represent.
          * @param t The type
          */
-        void setType(ActorType t) { m_type = t; }
+        void setType(ActorType t)
+        { m_type = t; }
 
     protected:
         /// The color that the Actor is currently representing
@@ -353,6 +359,6 @@ namespace jumper
         void renderHitbox();
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_ACTOR_HPP_ */

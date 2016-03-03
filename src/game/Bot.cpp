@@ -6,13 +6,12 @@
  */
 
 #include "Bot.hpp"
-#include "Game.hpp"
 #include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Bot::Bot(SDL_Renderer* renderer,
              SDL_Texture* texture,
@@ -170,4 +169,4 @@ namespace jumper
 
         m_weapon->shoot(direction, position());
     }
-} /* namespace jumper */
+} /* namespace ikaruga */

@@ -11,7 +11,8 @@
 #include "Actor.hpp"
 #include "Player.hpp"
 
-namespace jumper {
+namespace ikaruga
+{
 
     class Player;
 
@@ -67,7 +68,8 @@ namespace jumper {
          * @brief getter for expiration time
          * @return expiration time
          */
-        int getExpirationTime() const {
+        int getExpirationTime() const
+        {
             return m_expirationTime;
         }
 

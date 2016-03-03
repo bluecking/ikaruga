@@ -6,7 +6,7 @@
  */
 #include "Armed.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     Armed::Armed()
             : m_weapon(0)

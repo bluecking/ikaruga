@@ -1,6 +1,6 @@
 #include "PlayerProperty.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     PlayerProperty::PlayerProperty() :
             m_pos(0.0, 0.0),

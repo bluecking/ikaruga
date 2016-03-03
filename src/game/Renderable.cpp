@@ -3,10 +3,9 @@
 //
 
 #include <SDL_image.h>
-#include <iostream>
 #include "Renderable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     Camera Renderable::m_camera;
@@ -57,6 +56,6 @@ namespace jumper
 
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 

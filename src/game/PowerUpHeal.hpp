@@ -10,7 +10,7 @@
 
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUpHeal : public PowerUp
     {

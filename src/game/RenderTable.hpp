@@ -13,7 +13,7 @@
 #ifndef SCROLLER_RENDERTABLE_HPP
 #define SCROLLER_RENDERTABLE_HPP
 
-namespace jumper
+namespace ikaruga
 {
     class RenderTable : public FontRender
     {
@@ -118,5 +118,5 @@ namespace jumper
         unsigned long m_pos;
         bool m_scrollable;
     };
-} //end of namespace jumper
+} //end of namespace ikaruga
 #endif //SCROLLER_RENDERTABLE_HPP

@@ -6,9 +6,8 @@
  */
 
 #include "CollisionManager.hpp"
-#include <algorithm>
 
-namespace jumper
+namespace ikaruga
 {
 
     bool compareActorXPositions(Actor* first, Actor* second)
@@ -24,7 +23,7 @@ namespace jumper
         // We must copy the actor vector, because while iterating through it, we invoke onActorCollision
         // and onActorCollision manipulates the same vector instance.
         vector<Actor*> actorCopy(actors);
-        
+
         for (auto currentAABB = actorCopy.begin(); currentAABB != actorCopy.end(); ++currentAABB)
         {
             auto otherAABB = currentAABB;

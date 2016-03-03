@@ -16,7 +16,7 @@ namespace fs = boost::filesystem;
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
     class Filesystem
     {

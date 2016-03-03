@@ -8,7 +8,7 @@
 */
 #include "RenderTable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     RenderTable::RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth) :
             FontRender(tileHeight, tileWidth, renderer, defaultTtexture)
@@ -37,7 +37,8 @@ namespace jumper
         m_content = content;
     }
 
-    void RenderTable::setScrollable(bool scrollable){
+    void RenderTable::setScrollable(bool scrollable)
+    {
         m_scrollable = scrollable;
     }
 
@@ -55,48 +56,59 @@ namespace jumper
         if (!m_stringPropertiesSet || !m_tablePropertiesSet)
         { throw std::domain_error("You have to use setStringProperties and setTableProperties first."); }
         long maxLines = m_tableProperties.height / m_tileHeight; //max lines within table space
-        long startLine = (((long)m_pos) - maxLines) < 0 ? 0 : ((long)m_pos) - maxLines;
+        long startLine = (((long) m_pos) - maxLines) < 0 ? 0 : ((long) m_pos) - maxLines;
         long endLine = startLine + maxLines;
-        if((long)m_pos >= maxLines) {startLine++; endLine++;}
+        if ((long) m_pos >= maxLines)
+        {
+            startLine++;
+            endLine++;
+        }
 
         for (unsigned int i = 0; i < m_content.size(); i++) //loop rows
-        for(unsigned int i = startLine; i < m_content.size() && i < endLine; i++) //loop rows
-        {
-
-            int actColSize=0;
-            for(unsigned int j = 0; j < m_content[i].size(); j++) //loop columns
-
+            for (unsigned int i = startLine; i < m_content.size() && i < endLine; i++) //loop rows
             {
-                if(string_is_number(m_content.at(i).at(j).c_str()))
-                    m_textLine = renderNumber(atoi(m_content[i][j].c_str()),0);
-                else
-                    m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
-                for (unsigned int k = 0; k < m_textLine.size(); k++) //print column content
+
+                int actColSize = 0;
+                for (unsigned int j = 0; j < m_content[i].size(); j++) //loop columns
+
                 {
-                    m_rectSource.x = m_textLine[k].x();
-                    m_rectSource.y = m_textLine[k].y();
-                    int offset = 0;
-                    if (m_pos == i && m_scrollable)
+                    if (string_is_number(m_content.at(i).at(j).c_str()))
                     {
-                        offset = m_tileWidth;
+                        m_textLine = renderNumber(atoi(m_content[i][j].c_str()), 0);
                     }
-                    m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset + actColSize;
-                    m_rectTarget.y = m_tableProperties.positionY + (i-startLine) * m_tileHeight;
-                    SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
+                    else
+                    {
+                        m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
+                    }
+                    for (unsigned int k = 0; k < m_textLine.size(); k++) //print column content
+                    {
+                        m_rectSource.x = m_textLine[k].x();
+                        m_rectSource.y = m_textLine[k].y();
+                        int offset = 0;
+                        if (m_pos == i && m_scrollable)
+                        {
+                            offset = m_tileWidth;
+                        }
+                        m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset + actColSize;
+                        m_rectTarget.y = m_tableProperties.positionY + (i - startLine) * m_tileHeight;
+                        SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
+                    }
+                    actColSize += m_textLine.size() * m_tileWidth + m_tileWidth * 3;
                 }
-                actColSize+=m_textLine.size() * m_tileWidth + m_tileWidth*3;
             }
-        }
     }
 
-    bool RenderTable::string_is_number(char const *str){
-      while(*str) {
-        if(!isdigit(*str)) {
-          return false;
+    bool RenderTable::string_is_number(char const* str)
+    {
+        while (*str)
+        {
+            if (!isdigit(*str))
+            {
+                return false;
+            }
+            ++str;
         }
-        ++str;
-      }
-      return true;
+        return true;
     }
 
     unsigned long RenderTable::getM_pos() const
@@ -133,4 +145,4 @@ namespace jumper
         m_pos = 0;
     }
 
-} //end of namespace jumper
+} //end of namespace ikaruga

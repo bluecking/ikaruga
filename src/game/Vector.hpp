@@ -10,7 +10,7 @@
 
 #include <ostream>
 
-namespace jumper
+namespace ikaruga
 {
     /***
      * A class to represent a Vector2f
@@ -169,7 +169,7 @@ namespace jumper
         T getLength() const;
 
         template<typename S>
-        friend std::ostream& operator<<(std::ostream& stream, const jumper::Vector2<S>& vec);
+        friend std::ostream& operator<<(std::ostream& stream, const ikaruga::Vector2<S>& vec);
 
     private:
 
@@ -186,7 +186,7 @@ namespace jumper
     typedef Vector2<int> Vector2i;
 
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #include "Vector.tcc"
 

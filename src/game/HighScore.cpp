@@ -1,20 +1,26 @@
 #include "HighScore.hpp"
 
-jumper::HighScore::HighScore(Profile *profile, std::string levelFile)
+namespace ikaruga
 {
-    this->levelFile=levelFile;
-    this->actualHighscore=0;
-    this->profile=profile;
-}
+    HighScore::HighScore(Profile* profile, std::string levelFile)
+    {
+        this->levelFile = levelFile;
+        this->actualHighscore = 0;
+        this->profile = profile;
+    }
 
-void jumper::HighScore::addPointsToHighscore(int points){
-    this->actualHighscore+=points;
-}
+    void HighScore::addPointsToHighscore(int points)
+    {
+        this->actualHighscore += points;
+    }
 
-void jumper::HighScore::saveHighscore(){
-    profile->addHighScore(levelFile,actualHighscore);
-}
+    void HighScore::saveHighscore()
+    {
+        profile->addHighScore(levelFile, actualHighscore);
+    }
 
-long jumper::HighScore::getHighscore(){
-    return this->actualHighscore;
-}
+    long HighScore::getHighscore()
+    {
+        return this->actualHighscore;
+    }
+} /* namespace ikaruga */

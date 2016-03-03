@@ -13,7 +13,7 @@
 
 #include "Level.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * Interface for objects which support collisions (tile and actor)
@@ -76,6 +76,6 @@ namespace jumper
         const unsigned char m_opacityLevelWhenHit;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_COLLIDABLE_HPP_ */

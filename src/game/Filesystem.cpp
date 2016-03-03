@@ -6,7 +6,7 @@
  */
 #include "Filesystem.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     string Filesystem::getDirectoryPath(string filePath)
     {

@@ -1,13 +1,12 @@
 #include "StatusBar.hpp"
 #include <list>
-#include "FontRender.hpp"
 
 using std::cout;
 using std::endl;
 using std::list;
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
 
     const int StatusBar::m_maxScore = 1000000;
@@ -289,5 +288,5 @@ namespace jumper
     }
 
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 

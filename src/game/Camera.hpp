@@ -11,7 +11,7 @@
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 /**
  * @brief A camera object to scroll within a level
@@ -118,6 +118,6 @@ namespace jumper
         // Border offset of the camera (in pixels) which the player cannot cross.
         float m_borderOffset;
     };
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* CAMERA_HPP_ */

@@ -9,7 +9,9 @@
 #define SCROLLER_POWERUPGODMODE_HPP
 
 #include "PowerUp.hpp"
-namespace jumper {
+
+namespace ikaruga
+{
     class PowerUpGodMode final : public PowerUp
     {
     public:

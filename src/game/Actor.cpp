@@ -9,12 +9,11 @@
 #include <iostream>
 #include "Actor.hpp"
 #include "Game.hpp"
-#include "PowerUpHeal.hpp"
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Actor::Actor(SDL_Renderer* renderer,
                  SDL_Texture* texture,
@@ -144,7 +143,7 @@ namespace jumper
         return m_physicalProps.position();
     }
 
-    void jumper::Actor::setFocus(bool focus)
+    void Actor::setFocus(bool focus)
     {
         m_focus = focus;
     }
@@ -208,5 +207,5 @@ namespace jumper
     {
         m_explosionSound.play(m_explosionVolume);
     }
-} /* namespace jumper */
+} /* namespace ikaruga */
 

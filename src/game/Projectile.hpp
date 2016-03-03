@@ -4,13 +4,13 @@
  * @date 23.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef JUMPER_PROJECTILE_HPP
-#define JUMPER_PROJECTILE_HPP
+#ifndef IKARUGA_PROJECTILE_HPP
+#define IKARUGA_PROJECTILE_HPP
 
 #include "Level.hpp"
 #include "Game.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Projectile : public Actor
     {
@@ -55,6 +55,7 @@ namespace jumper
         virtual SDL_RendererFlip getFlip() override;
 
         virtual SDL_Rect& getHitbox() override;
+
     protected:
         Vector2f m_direction;
         bool m_launched;
@@ -66,4 +67,4 @@ namespace jumper
 }
 
 
-#endif //JUMPER_PROJECTILE_HPP
+#endif //IKARUGA_PROJECTILE_HPP

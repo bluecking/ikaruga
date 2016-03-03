@@ -1,5 +1,5 @@
 # Setup sources
-set(JUMPER_SOURCES
+set(IKARUGA_SOURCES
         Actor.cpp
         AnimatedRenderable.cpp
         Bot.cpp
@@ -41,7 +41,7 @@ set(JUMPER_SOURCES
         MeatballWeapon.cpp
         CppWeapon.cpp)
 
-set(JUMPER_LIBS ${JUMPER_LIBS}
+set(IKARUGA_LIBS ${IKARUGA_LIBS}
         xml
         ${Boost_LIBRARIES}
         ${SDL2_LIBRARY}
@@ -49,5 +49,5 @@ set(JUMPER_LIBS ${JUMPER_LIBS}
         ${SDL2_MIXER_LIBRARY})
 
 # Build executable
-add_executable(jumper ${JUMPER_SOURCES})
-target_link_libraries(jumper ${JUMPER_LIBS})
+add_executable(ikaruga ${IKARUGA_SOURCES})
+target_link_libraries(ikaruga ${IKARUGA_LIBS})

@@ -9,12 +9,11 @@
 #include "TextureFactory.hpp"
 
 #include <fstream>
-#include <iostream>
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filename)
@@ -102,4 +101,4 @@ namespace jumper
         m_frameTimeout = (Uint32) (1000.0 / frames);
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

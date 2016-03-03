@@ -4,13 +4,13 @@
  * @date 23.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef JUMPER_LASERWEAPON_HPP
-#define JUMPER_LASERWEAPON_HPP
+#ifndef IKARUGA_LASERWEAPON_HPP
+#define IKARUGA_LASERWEAPON_HPP
 
 #include <SDL_render.h>
 #include "Weapon.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class LaserWeapon : public Weapon
     {
@@ -46,7 +46,7 @@ namespace jumper
 
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 
-#endif //JUMPER_LASERWEAPON_HPP
+#endif //IKARUGA_LASERWEAPON_HPP
