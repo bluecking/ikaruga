@@ -86,12 +86,12 @@ namespace jumper
         void increase();
 
         /**
-         * @briefFunction circles through the contents of the Randertable increasing the index
+         * @brief Function circles through the contents of the Randertable increasing the index
          */
         void decrease();
 
         /**
-         * @briefresets the index of the RenderTable to the first in the vertex
+         * @brief resets the index of the RenderTable to the first in the vertex
          */
         void resetPos();
 
