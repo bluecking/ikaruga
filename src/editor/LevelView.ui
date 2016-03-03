@@ -38,16 +38,7 @@
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
-      <property name="leftMargin">
-       <number>10</number>
-      </property>
-      <property name="topMargin">
-       <number>10</number>
-      </property>
-      <property name="rightMargin">
-       <number>10</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>10</number>
       </property>
       <item>
@@ -258,31 +249,8 @@
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="saveLevelName">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>save</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -304,7 +272,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>save</string>
+               <string>set'n'save</string>
               </property>
              </widget>
             </item>
@@ -314,7 +282,7 @@
                <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Expanding</enum>
+               <enum>QSizePolicy::Fixed</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -333,7 +301,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>save</string>
+               <string>update size</string>
               </property>
              </widget>
             </item>
@@ -372,7 +340,7 @@
     </property>
     <widget class="QMenu" name="menuZuletzt_geoeffnet">
      <property name="title">
-      <string>Zuletzt geöffnet</string>
+      <string>Last opened</string>
      </property>
     </widget>
     <addaction name="actionNeu"/>
@@ -385,22 +353,22 @@
   </widget>
   <action name="action_oeffnen">
    <property name="text">
-    <string>Öffnen</string>
+    <string>Open</string>
    </property>
   </action>
   <action name="actionSpeichern">
    <property name="text">
-    <string>Speichern</string>
+    <string>Save</string>
    </property>
   </action>
   <action name="actionSpeichern_unter">
    <property name="text">
-    <string>Speichern unter</string>
+    <string>Save as</string>
    </property>
   </action>
   <action name="actionNeu">
    <property name="text">
-    <string>Neu</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionSasfsa">

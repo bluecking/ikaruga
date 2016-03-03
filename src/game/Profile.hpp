@@ -4,13 +4,16 @@
 #include <vector>
 #include <iostream>
 #include "../xml/XML.hpp"
-#include "ItemShop.hpp"
 #include <boost/foreach.hpp>
 
 namespace jumper{
     class Profile
     {
     public:
+        /**
+         * Constructor
+         *
+         */
         Profile();
         /**
          * Constructor
@@ -44,7 +47,6 @@ namespace jumper{
     private:
         ///the actual profile
         XML::Profile actProfile;
-        XML::Profile tmpProfile;
         /**
          * saves the actual Profile to XML-File
          */

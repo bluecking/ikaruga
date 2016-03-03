@@ -40,7 +40,6 @@ set(JUMPER_SOURCES
         Filesystem.cpp
         PowerUp.cpp
         PowerUpHeal.cpp
-        ItemShop.cpp
         HighScore.cpp
         Filesystem.cpp
         Profile.cpp
@@ -50,7 +49,8 @@ set(JUMPER_SOURCES
         PowerUpGodMode.cpp
         BlasterWeapon.cpp
         RocketWeapon.cpp
-        MeatballWeapon.cpp)
+        MeatballWeapon.cpp
+        CppWeapon.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml

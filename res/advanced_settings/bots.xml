@@ -238,7 +238,7 @@
         <health>25</health>
         <tileID>1</tileID>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>40</colorOffsetY>
+        <colorOffsetY>34</colorOffsetY>
         <fps>12</fps>
         <explosionSoundFile>../sounds/bot_explosion.wav</explosionSoundFile>
         <explosionVolume>150</explosionVolume>
@@ -373,7 +373,7 @@
         <npc type="BOSS">
             <move function="CIRCLE">30</move>
             <speed>0</speed>
-            <stdWeapon>BLASTER_GUN</stdWeapon>
+            <stdWeapon>CPP_GUN</stdWeapon>
         </npc>
     </bot>
 
