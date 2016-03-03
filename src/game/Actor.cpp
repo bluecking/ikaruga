@@ -149,11 +149,6 @@ namespace jumper
         m_focus = focus;
     }
 
-    bool jumper::Actor::hasFocus()
-    {
-        return m_focus;
-    }
-
     void Actor::toggleColor()
     {
         m_color = m_color == ColorMode::BLACK ? ColorMode::WHITE : ColorMode::BLACK;
@@ -212,10 +207,6 @@ namespace jumper
     void Actor::playExplosionSound()
     {
         m_explosionSound.play(m_explosionVolume);
-    }
-
-    void Actor::dropPowerUp()
-    {
     }
 } /* namespace jumper */
 
