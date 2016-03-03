@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
 	Q_OBJECT
 	public:
 		
-        MainWindow (QMainWindow *parent = 0);
+        MainWindow (QMainWindow *parent = 0, std::string folderPath = "");
         virtual ~MainWindow();
         void addBot(QString botName,QString description);
         void addPower(QString powerName,QString description);
@@ -41,7 +41,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow{
         void on_powerList_itemClicked(QListWidgetItem *item);
 	
 	private:
-    
+
+	    std::string m_resPath;
 		LevelScene* scene;
     	QString openedFile;
     	QMap<QString,QString> lastOpenedFiles;
