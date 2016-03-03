@@ -24,6 +24,7 @@ namespace jumper
               m_moveDirection(0, 0), m_initial_health(health), m_godMode(false), m_godModeCheat(false), m_powerUps(), m_game(game)
     {
         SDL_GetTextureColorMod(texture, &m_colorModR, &m_colorModG, &m_colorModB);
+        m_hitboxfactor = 0.8;
     }
 
     void Player::move(Level& level)
@@ -73,7 +74,7 @@ namespace jumper
             // Checks if the player moves up or down and updates the source rect
             updateMoveAnimation();
 
-            //Collision c = level.resolveCollision(this);
+            //Collision c = level.onActorCollision(this);
             //cout << c.delta() << endl;
         }
 
@@ -91,7 +92,7 @@ namespace jumper
         m_weapon->shoot(direction, position());
     }
 
-    void Player::onCollide()
+    void Player::onTileCollision()
     {
         return;
     }
@@ -163,7 +164,7 @@ namespace jumper
         }
     }
 
-    void Player::resolveCollision(Actor& other)
+    void Player::onActorCollision(Actor& other)
     {
         if (!isGodMode() && !isGodModeCheat())
         {

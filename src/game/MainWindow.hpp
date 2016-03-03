@@ -21,7 +21,6 @@ namespace jumper
 {
     class Game;
     class MainMenu;
-
     /**
      *	@brief Represents the main window of the game.
      */
@@ -68,6 +67,7 @@ namespace jumper
         static const int RENDER_GAME=1;
         static const int RENDER_ITEMSHOP=2;
         static const int RENDER_CREDITS=3;
+        static const int RENDER_GAMEEND=4;
 
         ///Sets the Actual Render Screen
         void setActualScreen(int ID);

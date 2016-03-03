@@ -36,6 +36,10 @@ namespace jumper
         m_content = content;
     }
 
+    void RenderTable::setSelOffset(int x){
+        m_pos=x;
+    }
+
     void RenderTable::setTableProperties(RenderTable::tableProperties properties)
     {
         m_tablePropertiesSet = true;
@@ -52,9 +56,15 @@ namespace jumper
 
         for (int i = 0; i < m_content.size(); i++) //loop rows
         {
-            for (int j = 0; j < m_content[i].size(); j++) //loop columns
+
+            int actColSize=0;
+            for(int j = 0; j < m_content[i].size(); j++) //loop columns
+
             {
-                m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
+                if(string_is_number(m_content.at(i).at(j).c_str()))
+                    m_textLine = renderNumber(atoi(m_content[i][j].c_str()),0);
+                else
+                    m_textLine = renderString(m_content[i][j], m_minusculeOffset, m_capitalOffset, m_numberOffset);
                 for (int k = 0; k < m_textLine.size(); k++) //print column content
                 {
                     m_rectSource.x = m_textLine[k].x();
@@ -64,14 +74,25 @@ namespace jumper
                     {
                         offset = m_tileWidth;
                     }
-                    m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset;
+                    m_rectTarget.x = m_tableProperties.positionX + k * m_tileWidth + offset + actColSize;
                     m_rectTarget.y = m_tableProperties.positionY + i * m_tileHeight;
                     //std::cout << "recS_Px" << m_rectSource.x << "recS_Py" << m_rectSource.y << "recS_w" << m_rectSource.w << "recS_h" << m_rectSource.h << std::endl;
                     //std::cout << "recT_Px" << m_rectTarget.x << "recT_Py" << m_rectTarget.y << "recT_w" << m_rectTarget.w << "recT_h" << m_rectTarget.h << std::endl << std::endl;
                     SDL_RenderCopy(m_renderer, m_texture, &m_rectSource, &m_rectTarget);
                 }
+                actColSize+=m_textLine.size() * m_tileWidth + m_tileWidth;
             }
         }
+    }
+
+    bool RenderTable::string_is_number(char const *str){
+      while(*str) {
+        if(!isdigit(*str)) {
+          return false;
+        }
+        ++str;
+      }
+      return true;
     }
 
     unsigned long RenderTable::getM_pos() const

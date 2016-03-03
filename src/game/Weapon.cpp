@@ -26,7 +26,9 @@ namespace jumper
                    int collisionDamage,
                    int evolutionScale,
                    float speed,
-                   int numFrames)
+                   int numFrames,
+                   WeaponType::WeaponType weaponType
+    )
             : m_game(game), m_actor(&actor), m_lastShoot(0), m_coolDown(coolDown),
               m_projectileTexture(projectileTexture),
               m_projectileTextureSize(projectileTextureSize), m_weaponOffset(weaponOffset),
@@ -34,7 +36,7 @@ namespace jumper
               m_sound(Sound(sound, SoundType::SOUND)),
               m_volume(volume), m_collisionDamage(collisionDamage),
               m_evolutionScale(evolutionScale),
-              m_speed(speed), m_numFrames(numFrames)
+              m_speed(speed), m_numFrames(numFrames), m_weaponType(weaponType)
     {
 
     }
@@ -74,7 +76,7 @@ namespace jumper
                                         m_projectileTexture,
                                         m_projectileTextureSize.x(),
                                         m_projectileTextureSize.y(),
-                                        1,
+                                        m_numFrames,
                                         m_collisionDamage,
                                         m_speed);
 

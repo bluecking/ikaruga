@@ -10,28 +10,40 @@ namespace jumper
 {
     const int BULLET_HEALTH = 32767;
 
-    Projectile::Projectile(SDL_Renderer* renderer,
-                           SDL_Texture* texture,
-                           int frameWidth,
-                           int frameHeight,
-                           int numFrames,
-                           int collisionDamage,
-                           float speed)
+    Projectile::Projectile(
+            SDL_Renderer* renderer,
+            SDL_Texture* texture,
+            int frameWidth,
+            int frameHeight,
+            int numFrames,
+            int collisionDamage,
+            float speed)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage),
-              m_launched(false), m_originActor(0), m_speed(speed)
+              m_launched(false), m_originActor(0), m_speed(speed), m_lastPosition(0)
     {
-        m_hitbox.h = frameHeight;
         m_collisionDamage = collisionDamage;
     }
 
-    Projectile::~Projectile()
-    { }
+    Projectile::~Projectile() { }
 
     SDL_Rect& Projectile::getHitbox()
     {
         SDL_Rect& hitbox = Actor::getHitbox();
-        hitbox.x = position().x();
-        hitbox.w = (int) fabs(m_lastPosition.x() - position().x());
+        if (m_lastPosition == 0)
+        {
+            m_lastPosition = position().x();
+        }
+
+        double distanceTravelled = fabs(m_lastPosition.x() - position().x());
+
+        hitbox.x = (int) position().x();
+
+        if (m_direction.x() > 0)
+        {
+            hitbox.x -= distanceTravelled;
+        }
+
+        hitbox.w = (int) distanceTravelled + hitbox.w;
         return hitbox;
     }
 
@@ -56,7 +68,7 @@ namespace jumper
         }
     }
 
-    void Projectile::resolveCollision(Actor& other)
+    void Projectile::onActorCollision(Actor& other)
     {
 
         if ((m_originActor->type() == PLAYER && (other.type() == ENEMY || other.type() == BOSS)) ||
@@ -66,13 +78,13 @@ namespace jumper
         }
     }
 
-    void Projectile::onCollide()
+    void Projectile::onTileCollision()
     {
         // Kill projectile when colliding with a tile
         m_health = 0;
 
-            return;
-        }
+        return;
+    }
 
     SDL_RendererFlip Projectile::getFlip()
     {

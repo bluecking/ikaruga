@@ -84,8 +84,8 @@ namespace jumper
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
                     break;
-                case MainWindow::RENDER_ITEMSHOP:
-                    //ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
+                case MainWindow::RENDER_GAMEEND:
+                    m_menu->showLevelHighscore();
                     break;
                 case MainWindow::RENDER_CREDITS:
                     break;

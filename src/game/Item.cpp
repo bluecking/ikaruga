@@ -22,7 +22,7 @@ namespace jumper {
         nextFrame();
     }
 
-	void Item::onCollide()
+	void Item::onTileCollision()
 	{
 		return;
 	}
@@ -31,7 +31,7 @@ namespace jumper {
         // TODO Auto-generated destructor stub
     }
 
-    void Item::resolveCollision(Actor &other) {
+    void Item::onActorCollision(Actor& other) {
 
     }
 } // namespace jumper

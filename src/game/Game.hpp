@@ -143,6 +143,8 @@ namespace jumper
 
         Actor* getLastBoss();
 
+        HighScore* highscore;
+
     protected:
         bool m_bossFight;
 
@@ -188,7 +190,6 @@ namespace jumper
         /// The current level
         Level* m_level;
 
-        HighScore* highscore;
         MainWindow* window;
 
         /// A Layer
@@ -209,11 +210,6 @@ namespace jumper
         bool m_started;
 
         int m_volume;
-
-        /**
-         * Is invoked by Game::updaL m_xml;te() and checks if an Actor collides with another Actor.
-         */
-        void checkActorCollision();
 
         /**
          * Is invoked by Game::update() and remove Actors with health below 0.

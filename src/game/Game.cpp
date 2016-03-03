@@ -91,7 +91,7 @@ namespace jumper
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
         Player* player = new Player(w->getRenderer(), texture, *game, xplayer.frameWidth, xplayer.frameHeight,
-                xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
+                                    xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
         player->setHitMarkVolume(xplayer.hitVolume);
@@ -179,7 +179,7 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for(auto item : items)
+        for (auto item : items)
         {
             SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
             PowerUp* powerUp = NULL;
@@ -187,36 +187,37 @@ namespace jumper
             if (item.type.type.compare("RESTORE_HEALTH") == 0)
             {
                 powerUp = new PowerUpHeal(w->getRenderer(),
-                                                       texture,
-                                                       item.type.frameWidth,
-                                                       item.type.frameHeight,
-                                                       item.type.numFrames, item.type.healPercentage);
+                                          texture,
+                                          item.type.frameWidth,
+                                          item.type.frameHeight,
+                                          item.type.numFrames, item.type.healPercentage);
 
             }
             else if (item.type.type.compare("GODMODE") == 0)
             {
                 powerUp = new PowerUpGodMode(w->getRenderer(),
-                        texture,
-                        item.type.frameWidth,
-                        item.type.frameHeight,
-                        item.type.numFrames);
+                                             texture,
+                                             item.type.frameWidth,
+                                             item.type.frameHeight,
+                                             item.type.numFrames);
 
                 powerUp->setExpirationTime(item.value);
             }
-            else if (item.type.type.compare("WEAPON") == 0)
+            else if (item.type.type.find("WEAPON_") != std::string::npos)
             {
                 powerUp = new PowerUpWeapon(w->getRenderer(),
-                                                       texture,
-                                                       item.type.frameWidth,
-                                                       item.type.frameHeight,
-                                                       item.type.numFrames,
-                                                        createWeaponFromXML(item.type.weapon, game, 0, w, filepath));
+                                            texture,
+                                            item.type.frameWidth,
+                                            item.type.frameHeight,
+                                            item.type.numFrames,
+                                            createWeaponFromXML(item.type.weapon, game, 0, w, filepath));
 
             }
 
             Vector2f pos = Vector2f(item.positionX, item.positionY);
 
-            if(powerUp != NULL) {
+            if (powerUp != NULL)
+            {
                 powerUp->setPosition(pos);
                 powerUp->setFPS(item.type.fps);
                 game->addActor(powerUp);
@@ -226,13 +227,13 @@ namespace jumper
 
     void Game::setupGame(string filename, MainWindow* w, Game* game)
     {
-        game->window=w;
+        game->window = w;
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
 
         game->m_explosionAnimation = path + xml.getExplosions();
 
-        game->highscore=new HighScore(&(*(w->profile)),xml.getLevelname());
+        game->highscore = new HighScore(&(*(w->profile)), xml.getLevelname());
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -404,6 +405,10 @@ namespace jumper
             {
                 lastKey = 'B';
             }
+            if (currentKeyStates[SDL_SCANCODE_ESCAPE])
+            {
+                end();
+            }
 
             checkCheat(lastKey);
             m_player->setMoveDirection(moveDirection);
@@ -420,7 +425,7 @@ namespace jumper
                 spawnBots();
                 bossFight();
                 checkCameraCollision();
-                checkActorCollision();
+                CollisionManager::checkActorCollision(m_actors);
             }
 
             SDL_RenderClear(m_renderer);
@@ -526,10 +531,11 @@ namespace jumper
 
     void Game::end()
     {
+        m_player->setGodMode(false);
         printEndScreen();
         m_started = false;
         highscore->saveHighscore();
-        this->window->setActualScreen(MainWindow::RENDER_MAINMENU);
+        this->window->setActualScreen(MainWindow::RENDER_GAMEEND);
     }
 
     void Game::scrollHorizontal()
@@ -554,13 +560,6 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
-    }
-
-    void Game::checkActorCollision()
-    {
-        CollisionManager cm;
-
-        cm.checkCollision(m_actors);
     }
 
     void Game::removeDeadActors()
@@ -730,9 +729,9 @@ namespace jumper
             {
                 m_cheat += type;
             }
-            if (m_cheat.size()>=20)
+            if (m_cheat.size() >= 20)
             {
-                m_cheat = m_cheat.substr(m_cheat.size()-20, m_cheat.size());
+                m_cheat = m_cheat.substr(m_cheat.size() - 20, m_cheat.size());
             }
             if (m_cheat.find(konamiCode) != string::npos)
             {
@@ -770,21 +769,6 @@ namespace jumper
         if (weapon.type.compare("LASER_GUN") == 0)
         {
             weaponInstance = new LaserWeapon(*game,
-                            *actor,
-                            weaponTexture,
-                            *textureSize,
-                            *weaponOffset,
-                            *projectileColorOffset,
-                            coolDown,
-                            filepath + weapon.soundfile,
-                            weapon.shootingVolume,
-                            weapon.collisionDamage,
-                            weapon.speed,
-                            weapon.numFrames);
-        }
-        else if (weapon.type.compare("BLASTER_GUN") == 0)
-        {
-            weaponInstance = new BlasterWeapon(*game,
                                              *actor,
                                              weaponTexture,
                                              *textureSize,
@@ -797,9 +781,9 @@ namespace jumper
                                              weapon.speed,
                                              weapon.numFrames);
         }
-        else if (weapon.type.compare("ROCKET_GUN") == 0)
+        else if (weapon.type.compare("BLASTER_GUN") == 0)
         {
-            weaponInstance = new RocketWeapon(*game,
+            weaponInstance = new BlasterWeapon(*game,
                                                *actor,
                                                weaponTexture,
                                                *textureSize,
@@ -812,9 +796,9 @@ namespace jumper
                                                weapon.speed,
                                                weapon.numFrames);
         }
-        else if (weapon.type.compare("MEATBALL_GUN") == 0)
+        else if (weapon.type.compare("ROCKET_GUN") == 0)
         {
-            weaponInstance = new MeatballWeapon(*game,
+            weaponInstance = new RocketWeapon(*game,
                                               *actor,
                                               weaponTexture,
                                               *textureSize,
@@ -826,6 +810,21 @@ namespace jumper
                                               weapon.collisionDamage,
                                               weapon.speed,
                                               weapon.numFrames);
+        }
+        else if (weapon.type.compare("MEATBALL_GUN") == 0)
+        {
+            weaponInstance = new MeatballWeapon(*game,
+                                                *actor,
+                                                weaponTexture,
+                                                *textureSize,
+                                                *weaponOffset,
+                                                *projectileColorOffset,
+                                                coolDown,
+                                                filepath + weapon.soundfile,
+                                                weapon.shootingVolume,
+                                                weapon.collisionDamage,
+                                                weapon.speed,
+                                                weapon.numFrames);
         }
 
         return weaponInstance;

@@ -147,6 +147,54 @@ namespace jumper
         }
     }
 
+    void MainMenu::showLevelHighscore(){
+        long points=this->m_game->highscore->getHighscore();
+        int sleepTime=3000;
+        int sleep=10;
+        std::vector<std::vector<std::string>> texts;
+        texts.resize(2);
+        for(int i=0;i<texts.size();i++){
+            texts.at(i).resize(2);
+        }
+        texts[0][0]="Beendet: ";
+        texts[0][1]=this->m_game->highscore->levelFile;
+        texts[1][0]="Highscore:";
+        texts[1][1]=to_string(points);
+        m_table.setSelOffset(-1);
+        m_table.setStringProperties(2,1,0,texts);
+        for(int i=0;i<sleepTime/sleep;i++){
+            //Render background
+            m_offset.setX(0.005f);
+            m_offset.setY(0.005f);
+            m_layer->setScrollSpeed(100.0f);
+            m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
+
+            SDL_RenderClear(m_win->getRenderer());
+            m_layer->render();
+
+            m_table.render();
+
+            SDL_RenderPresent(m_win->getRenderer());
+            usleep(sleep);
+        }
+        m_table.setSelOffset(0);
+        m_table.setStringProperties(2,1,0,m_tableText);
+        delete m_game;
+        this->m_win->setActualScreen(MainWindow::RENDER_MAINMENU);
+    }
+
+    std::string MainMenu::to_string(long x){
+        std::stringstream ss;
+        ss << x;
+        return ss.str();
+    }
+
+    std::string MainMenu::to_string(int x){
+        std::stringstream ss;
+        ss << x;
+        return ss.str();
+    }
+
     void MainMenu::prepareTable()
     {
         int z = 0;

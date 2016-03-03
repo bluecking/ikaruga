@@ -33,7 +33,7 @@ namespace jumper
 
         virtual void move(Level& level);
 
-        virtual void onCollide();
+        virtual void onTileCollision();
 
         const Vector2f& getDirection() const
         { return m_direction; }
@@ -45,9 +45,9 @@ namespace jumper
         { m_launched = true; }
 
         /**
-         * @see Actor::resolveCollision(Actor& other)
+         * @see Actor::onActorCollision(Actor& other)
          */
-        void resolveCollision(Actor& other);
+        void onActorCollision(Actor& other);
 
         /**
          * @return Whether or not a texture flip is necessary
