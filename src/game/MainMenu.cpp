@@ -66,6 +66,9 @@ namespace jumper
                     case LEVEL_SELECT:
                         levelSelect();
                         break;
+                    case HIGHTSCORE:
+                        highscore();
+                        break;
                     default:
                         mainMenu();
                 }
@@ -112,8 +115,8 @@ namespace jumper
                             }
                             if (m_table.getM_pos() == 1)
                             {
-                                levelSelect();
-                                m_menu = LEVEL_SELECT;
+                                highscore();
+                                m_menu = HIGHTSCORE;
                             }
                             if (m_table.getM_pos() == 2)
                             {
@@ -122,6 +125,8 @@ namespace jumper
                             }
                             if (m_table.getM_pos() == 3)
                             {
+                                TextureFactory::instance(m_win->getRenderer()).deleteAll();
+                                SDL_Quit();
                                 delete m_win;
                             }
 
@@ -195,32 +200,6 @@ namespace jumper
         return ss.str();
     }
 
-    void MainMenu::prepareTable()
-    {
-        int z = 0;
-        for (int i = 0; i < m_levelFiles.size(); i++)
-        {
-            try
-            {
-                XML m_tmp(m_levelFiles[i].string());
-                m_levelId_and_path.insert(std::pair<int, boost::filesystem::path>(m_tmp.getId(), m_levelFiles[i]));
-            }
-            catch (...)
-            {
-                std::cerr << "Failed to read file " + m_levelFiles[i].string() << std::endl;
-                continue;
-            }
-        }
-        m_tableText.resize(m_levelId_and_path.size());
-        for (std::map<int, boost::filesystem::path>::iterator it = m_levelId_and_path.begin();
-             it != m_levelId_and_path.end(); it++)
-        {
-            m_tableText[z].resize(2);
-            m_tableText[z][0] = std::to_string(it->first) + ".";
-            XML m_tmp2(it->second.string());
-            m_tableText[z++][1] = m_tmp2.getLevelname();
-        }
-    }
 
     //Creates the highscore background
     void MainMenu::setupBackground(float scrollspeed, std::string backgroundImage)
@@ -306,8 +285,8 @@ namespace jumper
         for(int i = 0; i < m_tableText.size(); i++)
         {
             m_tableText[i].resize(2);
-            m_tableText[i][0] = scores.at(i).first;
-          //  m_tableText[i][1] = to_string(scores.at(i).second);
+            m_tableText[i][0] = scores.at(i).first+": ";
+            m_tableText[i][1] = to_string(scores.at(i).second);
         }
     }
 

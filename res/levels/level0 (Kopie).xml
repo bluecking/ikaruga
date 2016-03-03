@@ -1,6 +1,6 @@
 <level>
-    <id>1</id>
-    <name>Test</name>
+    <id>2</id>
+    <name>ups</name>
     <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions.png"/>
     <background filename="../images/star_background_2_200x200.png">
@@ -28,15 +28,15 @@
         <collisionDamage>25</collisionDamage>
         <health>100</health>
     </player>
- <statusBar filename="../images/font_yellow_10x10.png">
-      <frameWidth>10</frameWidth>
-      <frameHeight>10</frameHeight>
-      <letterCount>26</letterCount>
-      <capitalOffset>1</capitalOffset>
-      <minusculeOffset>2</minusculeOffset>
-      <numberOffset>0</numberOffset>
-      <offsetToMid>1</offsetToMid>
-  </statusBar>
+    <statusBar filename="../images/font_yellow_10x10.png">
+        <frameWidth>10</frameWidth>
+        <frameHeight>10</frameHeight>
+        <letterCount>26</letterCount>
+        <capitalOffset>1</capitalOffset>
+        <minusculeOffset>2</minusculeOffset>
+        <numberOffset>0</numberOffset>
+        <offsetToMid>1</offsetToMid>
+    </statusBar>
     <bot type="BOT_NYAN_SIN">
         <positionX>600</positionX>
         <positionY>120</positionY>
@@ -50,43 +50,73 @@
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_UNICORN_SIN">
-        <positionX>1200</positionX>
+        <positionX>900</positionX>
         <positionY>120</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_DRONE_SIN_DOWN">
-        <positionX>1350</positionX>
+        <positionX>1050</positionX>
         <positionY>200</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_MIST_SIN_DOWN">
-        <positionX>1700</positionX>
+        <positionX>1300</positionX>
         <positionY>280</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SLIME_SIN_DOWN">
-        <positionX>2000</positionX>
+        <positionX>1450</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOT_SPIKE_SIN_DOWN">
-        <positionX>2200</positionX>
+        <positionX>1700</positionX>
         <positionY>260</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
+    <bot type="BOT_SPACESHIP_STAR_NO_ANIMATION_AI">
+        <positionX>1850</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_ROBOTSHIP_FLYING_SIN_DOWN">
+        <positionX>2000</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_ROBOTSHIP_HOVER_SIN_UP">
+        <positionX>2150</positionX>
+        <positionY>260</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOT_SPACESHIP_AI">
+        <positionX>2300</positionX>
+        <positionY>350</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
     <bot type="BOT_LIGTHPOST_SIN_UP">
-        <positionX>3000</positionX>
+        <positionX>2450</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
     </bot>
     <bot type="BOSS_FSM_CIRCLE">
-        <positionX>1800</positionX>
+        <positionX>2600</positionX>
+        <positionY>100</positionY>
+        <color>black</color>
+        <powerUp probability="100">LASER_GUN</powerUp>
+    </bot>
+    <bot type="BOSS_SPACESHIP_NO_ANIMATION_CIRCLE">
+        <positionX>2750</positionX>
         <positionY>100</positionY>
         <color>black</color>
         <powerUp probability="100">LASER_GUN</powerUp>
@@ -101,8 +131,18 @@
         <positionY>150</positionY>
         <value>50</value>
     </item>
-    <item type="WEAPON">
+    <item type="WEAPON_LASER_GUN">
         <positionX>500</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
+    <item type="WEAPON_BLASTER_GUN">
+        <positionX>400</positionX>
+        <positionY>400</positionY>
+        <value>1</value>
+    </item>
+    <item type="WEAPON_ROCKET_GUN">
+        <positionX>300</positionX>
         <positionY>400</positionY>
         <value>1</value>
     </item>

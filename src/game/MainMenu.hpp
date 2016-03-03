@@ -33,6 +33,7 @@ public:
     static const int LEVEL_SELECT = 0;
     static const int CREDITS      = 1;
     static const int MAIN_MENU    = 2;
+    static const int HIGHTSCORE   = 3;
 
     void showLevelHighscore();
 private:
@@ -56,8 +57,6 @@ private:
     //TODO move to struct?
 
     void setupBackground(float scrollspeed, string backgroundImage);
-
-    void prepareTable();
 
     void levelSelect();
 
