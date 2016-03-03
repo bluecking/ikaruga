@@ -84,7 +84,7 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.w > 0 && target.x + target.w < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
+        if (target.x + target.w > 0 && target.x < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
         {
             // Render current animation frame
             SDL_Rect source = m_sourceRect;
