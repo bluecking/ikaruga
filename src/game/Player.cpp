@@ -110,9 +110,6 @@ namespace jumper
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
-            // TODO: Set the hitbox dynamically
-            m_hitbox.h = (int) (frameHeight() * 0.5);;
-            m_hitbox.y = (int) position().y();
             switch (m_currentTileRow)
             {
                 case NORMAL:
@@ -130,8 +127,6 @@ namespace jumper
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
-            m_hitbox.h = (int) (frameHeight() * 0.5);
-            m_hitbox.y = (int) position().y();
             switch (m_currentTileRow)
             {
                 case NORMAL:
@@ -149,7 +144,6 @@ namespace jumper
         } // Player does not move
         else
         {
-            m_hitbox.h = frameHeight();
             switch (m_currentTileRow)
             {
                 case DOFULL:
@@ -241,5 +235,21 @@ namespace jumper
         }
 
         m_health = health;
+    }
+
+    SDL_Rect& Player::getHitbox()
+    {
+        SDL_Rect& hitbox = Actor::getHitbox();
+
+        if(m_moveDirection.y() < 0) {
+            hitbox.h = (int) (frameHeight() * 0.5);
+            hitbox.y = (int) position().y();
+        }
+        else if(m_moveDirection.y() > 0) {
+            hitbox.h = (int) (frameHeight() * 0.5);
+            hitbox.y = (int) position().y() + hitbox.h;
+        }
+
+        return hitbox;
     }
 }

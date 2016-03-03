@@ -61,7 +61,18 @@ namespace jumper
         float spreadScale = m_projectileTextureSize.y() * 0.005f;
 
         // Spawn position of projectiles
-        Vector2f spawnPos = (spawnPosition + m_weaponOffset);
+        Vector2f spawnPos = spawnPosition;
+
+        // Adjust projectile spawn, considering shoot direction
+        if(direction.x() > 0)
+        {
+            spawnPos += m_actor->w();
+            spawnPos += Vector2f(-m_weaponOffset.x(), m_weaponOffset.y());
+        }
+        else
+        {
+            spawnPos += Vector2f(m_weaponOffset.x(), m_weaponOffset.y());
+        }
 
         // yOffset for even projectile number
         float yOffset = -(((numProjectiles + 1) % 2) * 0.5f);
