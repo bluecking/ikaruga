@@ -4,7 +4,7 @@
 using std::string;
 using std::vector;
 
-namespace jumper
+namespace ikaruga
 {
 
     FontRender::FontRender(int tileHeight,

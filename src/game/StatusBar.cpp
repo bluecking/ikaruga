@@ -6,7 +6,7 @@ using std::endl;
 using std::list;
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
 
     const int StatusBar::m_maxScore = 1000000;

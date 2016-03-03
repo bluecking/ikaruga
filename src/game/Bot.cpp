@@ -11,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Bot::Bot(SDL_Renderer* renderer,
              SDL_Texture* texture,

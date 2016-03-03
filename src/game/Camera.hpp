@@ -11,7 +11,7 @@
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 /**
  * @brief A camera object to scroll within a level

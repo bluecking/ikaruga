@@ -17,13 +17,13 @@ void testGetDirectoryPath()
     // absolut path
     string path = "/usr/local/Cellar/sdl2/2.0.4/test\\ file\\ name.txt";
     string expected = "/usr/local/Cellar/sdl2/2.0.4/";
-    string result = jumper::Filesystem::getDirectoryPath(path);
+    string result = ikaruga::Filesystem::getDirectoryPath(path);
     cout << (expected.compare(result) == 0 ? "." : "-");
 
     // relative path
     path = "../sdl2/2.0.4/test\\ file\\ name.txt";
     expected = "../sdl2/2.0.4/";
-    result = jumper::Filesystem::getDirectoryPath(path);
+    result = ikaruga::Filesystem::getDirectoryPath(path);
     cout << (expected.compare(result) == 0 ? "." : "-");
 }
 
@@ -32,13 +32,13 @@ void testGetParentDirectory()
     // one level
     string path = "/usr/local/Cellar/sdl2/2.0.4/";
     string expected = "/usr/local/Cellar/sdl2/";
-    string result = jumper::Filesystem::getParentDirectory(path, 1);
+    string result = ikaruga::Filesystem::getParentDirectory(path, 1);
     cout << (expected.compare(result) == 0 ? "." : "-");
 
     // two level
     path = "/usr/local/Cellar/sdl2/2.0.4/";
     expected = "/usr/local/Cellar/";
-    result = jumper::Filesystem::getParentDirectory(path, 2);
+    result = ikaruga::Filesystem::getParentDirectory(path, 2);
     cout << (expected.compare(result) == 0 ? "." : "-");
 }
 
@@ -47,13 +47,13 @@ void testSetFileExtension()
     // absolut path
     string path = "/usr/local/Cellar/sdl2/2.0.4/test\\ file\\ name.txt";
     string expected = "/usr/local/Cellar/sdl2/2.0.4/test\\ file\\ name.ti";
-    string result = jumper::Filesystem::setFileExtension(path, "ti");
+    string result = ikaruga::Filesystem::setFileExtension(path, "ti");
     cout << (expected.compare(result) == 0 ? "." : "-");
 
     // relative path
     path = "../sdl2/2.0.4/test\\ file\\ name.txt";
     expected = "../sdl2/2.0.4/test\\ file\\ name.ti";
-    result = jumper::Filesystem::setFileExtension(path, "ti");
+    result = ikaruga::Filesystem::setFileExtension(path, "ti");
     cout << (expected.compare(result) == 0 ? "." : "-");
 }
 

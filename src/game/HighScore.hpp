@@ -10,7 +10,7 @@
 #include <string>
 #include "Profile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Profile;
 

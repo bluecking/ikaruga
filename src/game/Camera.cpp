@@ -7,7 +7,7 @@
 
 #include "Camera.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     float Camera::x()

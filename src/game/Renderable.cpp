@@ -5,7 +5,7 @@
 #include <SDL_image.h>
 #include "Renderable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     Camera Renderable::m_camera;

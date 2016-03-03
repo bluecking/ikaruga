@@ -9,7 +9,7 @@
 
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUpWeapon : public PowerUp
     {

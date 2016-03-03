@@ -5,7 +5,7 @@
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
     int Sound::NEXT_CHANNEL = 1;
 

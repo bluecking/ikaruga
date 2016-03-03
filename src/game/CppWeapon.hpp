@@ -4,13 +4,13 @@
  * @date 03.03.16
  * @author Jochen Saalfeld (jsaalfeld@uni-osnabrueck.de)
  */
-#ifndef JUMPER_CPPWEAPON_HPP
-#define JUMPER_CPPWEAPON_HPP
+#ifndef IKARUGA_CPPWEAPON_HPP
+#define IKARUGA_CPPWEAPON_HPP
 
 #include <SDL_render.h>
 #include "Weapon.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class CppWeapon : public Weapon
     {
@@ -48,4 +48,4 @@ namespace jumper
 } /* namespace jumper */
 
 
-#endif //JUMPER_BLASTERWEAPON_HPP
+#endif //IKARUGA_BLASTERWEAPON_HPP

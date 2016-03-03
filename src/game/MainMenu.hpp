@@ -22,7 +22,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 

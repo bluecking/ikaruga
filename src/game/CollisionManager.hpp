@@ -11,10 +11,9 @@
 #include <vector>
 #include "Actor.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     using std::vector;
-    using jumper::Actor;
 
     class CollisionManager
     {

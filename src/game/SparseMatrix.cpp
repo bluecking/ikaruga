@@ -7,7 +7,7 @@
 
 #include "SparseMatrix.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     SparseMatrix::SparseMatrix(const int& rows, const int& cols)

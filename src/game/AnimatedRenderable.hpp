@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 
-namespace jumper
+namespace ikaruga
 {
 
 /**

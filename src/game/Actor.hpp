@@ -12,7 +12,7 @@
 #include <chrono>
 #include "Sound.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     enum ActorType
     {

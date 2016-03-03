@@ -6,8 +6,8 @@
  *  @author Timo Osterkamp <tosterkamp@uos.de>
  */
 
-#ifndef JUMPER_PLAYER_H
-#define JUMPER_PLAYER_H
+#ifndef IKARUGA_PLAYER_H
+#define IKARUGA_PLAYER_H
 
 #include <fstream>
 #include <iostream>
@@ -21,7 +21,7 @@
 #include "Sound.hpp"
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUp;
 
@@ -261,4 +261,4 @@ namespace jumper
     };
 }
 
-#endif //JUMPER_PLAYER_H
+#endif //IKARUGA_PLAYER_H

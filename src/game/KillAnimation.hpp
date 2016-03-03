@@ -10,7 +10,7 @@
 
 #include "Actor.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     class KillAnimation : public Actor

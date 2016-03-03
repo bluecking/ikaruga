@@ -10,7 +10,7 @@
 
 #include "Collidable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     Collidable::Collidable()

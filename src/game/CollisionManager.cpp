@@ -7,7 +7,7 @@
 
 #include "CollisionManager.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     bool compareActorXPositions(Actor* first, Actor* second)

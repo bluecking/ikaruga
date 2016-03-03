@@ -4,13 +4,13 @@
  * @date 23.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef JUMPER_PROJECTILE_HPP
-#define JUMPER_PROJECTILE_HPP
+#ifndef IKARUGA_PROJECTILE_HPP
+#define IKARUGA_PROJECTILE_HPP
 
 #include "Level.hpp"
 #include "Game.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Projectile : public Actor
     {
@@ -67,4 +67,4 @@ namespace jumper
 }
 
 
-#endif //JUMPER_PROJECTILE_HPP
+#endif //IKARUGA_PROJECTILE_HPP

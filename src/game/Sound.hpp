@@ -12,7 +12,7 @@
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
 
     namespace SoundType

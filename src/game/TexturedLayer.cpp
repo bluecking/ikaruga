@@ -10,7 +10,7 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     TexturedLayer::TexturedLayer(SDL_Renderer* renderer)
             : StaticRenderable(renderer)

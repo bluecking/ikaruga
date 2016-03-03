@@ -16,7 +16,7 @@
 #include "MainMenu.hpp"
 #include "Profile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 

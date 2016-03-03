@@ -4,8 +4,8 @@
  * @date 23.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef JUMPER_WEAPON_HPP
-#define JUMPER_WEAPON_HPP
+#ifndef IKARUGA_WEAPON_HPP
+#define IKARUGA_WEAPON_HPP
 
 #include <SDL_stdinc.h>
 #include <SDL_render.h>
@@ -14,7 +14,7 @@
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 
@@ -202,4 +202,4 @@ namespace jumper
 } /* namespace jumper */
 
 
-#endif //JUMPER_WEAPON_HPP
+#endif //IKARUGA_WEAPON_HPP

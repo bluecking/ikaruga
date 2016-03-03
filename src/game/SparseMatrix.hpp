@@ -10,7 +10,7 @@
 
 #include "SparseVector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 /**

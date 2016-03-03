@@ -13,7 +13,7 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     SparseVector::SparseVector(int size)

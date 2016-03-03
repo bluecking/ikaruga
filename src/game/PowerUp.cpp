@@ -7,7 +7,7 @@
 
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     PowerUp::PowerUp(SDL_Renderer* renderer,
                      SDL_Texture* texture,

@@ -13,7 +13,7 @@
 #include "../xml/XML.hpp"
 #include <boost/foreach.hpp>
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * @brief A class to load and save profile information

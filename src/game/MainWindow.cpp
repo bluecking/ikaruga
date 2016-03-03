@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-namespace jumper
+namespace ikaruga
 {
     const int MainWindow::MAX_FPS = 60;
 
@@ -197,12 +197,12 @@ namespace jumper
         return time;
     }
 
-    int jumper::MainWindow::w()
+    int MainWindow::w()
     {
         return m_width;
     }
 
-    int jumper::MainWindow::h()
+    int MainWindow::h()
     {
         return m_height;
     }

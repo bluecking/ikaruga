@@ -2,12 +2,12 @@
 // Created by isaak on 26.11.15.
 //
 
-#ifndef JUMPER_WorldProperties_H
-#define JUMPER_WorldProperties_H
+#ifndef IKARUGA_WorldProperties_H
+#define IKARUGA_WorldProperties_H
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 /**
@@ -65,4 +65,4 @@ namespace jumper
     };
 
 }
-#endif //JUMPER_WorldProperties_H
+#endif //IKARUGA_WorldProperties_H

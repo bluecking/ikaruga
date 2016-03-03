@@ -4,13 +4,13 @@
  * @date 01.03.16
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
  */
-#ifndef JUMPER_ROCKETWEAPON_HPP
-#define JUMPER_ROCKETWEAPON_HPP
+#ifndef IKARUGA_ROCKETWEAPON_HPP
+#define IKARUGA_ROCKETWEAPON_HPP
 
 #include <SDL_render.h>
 #include "Weapon.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class RocketWeapon : public Weapon
     {
@@ -49,4 +49,4 @@ namespace jumper
 } /* namespace jumper */
 
 
-#endif //JUMPER_ROCKETWEAPON_HPP
+#endif //IKARUGA_ROCKETWEAPON_HPP

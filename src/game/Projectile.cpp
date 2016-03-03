@@ -6,7 +6,7 @@
  */
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     const int BULLET_HEALTH = 32767;
 

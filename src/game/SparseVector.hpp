@@ -10,7 +10,7 @@
 
 #include <cassert>
 
-namespace jumper
+namespace ikaruga
 {
 
 /**

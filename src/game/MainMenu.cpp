@@ -8,7 +8,7 @@
 #include "MainMenu.hpp"
 #include "Filesystem.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 

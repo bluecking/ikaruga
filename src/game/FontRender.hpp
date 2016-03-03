@@ -14,7 +14,7 @@
 using std::string;
 using std::vector;
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * @brief a class for rendereing fonts from a tilesheet

@@ -16,7 +16,7 @@ using std::set;
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)

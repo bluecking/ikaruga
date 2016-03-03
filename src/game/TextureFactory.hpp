@@ -15,7 +15,7 @@
 using std::string;
 using std::map;
 
-namespace jumper
+namespace ikaruga
 {
 
     /**

@@ -3,7 +3,7 @@
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * @brief		A class to represent the physical properties of
@@ -93,4 +93,4 @@ namespace jumper
     };
 }
 
-#endif //JUMPER_PHYSICPLAYER_H
+#endif //IKARUGA_PHYSICPLAYER_H

@@ -6,7 +6,7 @@
  */
 #include "PowerUpWeapon.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     PowerUpWeapon::PowerUpWeapon(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight,
                                  int numFrames, Weapon* weapon)

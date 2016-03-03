@@ -20,7 +20,7 @@
 
 #include "../xml/XML.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 

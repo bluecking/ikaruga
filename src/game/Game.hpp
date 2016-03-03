@@ -35,7 +35,7 @@
 
 using std::vector;
 
-namespace jumper
+namespace ikaruga
 {
     class Bot;
 

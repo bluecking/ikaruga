@@ -11,7 +11,7 @@
 #include "Actor.hpp"
 #include "Player.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     class Player;

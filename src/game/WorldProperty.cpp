@@ -4,7 +4,7 @@
 
 #include "WorldProperty.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
     WorldProperty::WorldProperty()
@@ -19,12 +19,12 @@ namespace jumper
 
     }
 
-    const Vector2f& jumper::WorldProperty::damping() const
+    const Vector2f& ikaruga::WorldProperty::damping() const
     {
         return m_damping;
     }
 
-    void jumper::WorldProperty::setDamping(const Vector2f& damping)
+    void ikaruga::WorldProperty::setDamping(const Vector2f& damping)
     {
         m_damping = damping;
     }

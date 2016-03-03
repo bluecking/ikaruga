@@ -8,7 +8,7 @@
 */
 #include "RenderTable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     RenderTable::RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth) :
             FontRender(tileHeight, tileWidth, renderer, defaultTtexture)

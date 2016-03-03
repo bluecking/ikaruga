@@ -10,7 +10,7 @@
 
 #include "StaticRenderable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 /**

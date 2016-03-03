@@ -13,7 +13,7 @@
 
 #include "Level.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * Interface for objects which support collisions (tile and actor)

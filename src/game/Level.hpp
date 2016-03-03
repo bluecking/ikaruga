@@ -22,7 +22,7 @@
 #include "TextureFactory.hpp"
 
 
-namespace jumper
+namespace ikaruga
 {
 
 /// Directions of actor
