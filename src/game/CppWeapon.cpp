@@ -10,17 +10,17 @@
 namespace jumper
 {
     CppWeapon::CppWeapon(Game& game,
-                             Actor& actor,
-                             SDL_Texture* projectileTexture,
-                             const Vector2i& projectileTextureSize,
-                             const Vector2f& weaponOffset,
-                             const Vector2f& projectileColorOffset,
-                             float coolDown,
-                             std::string sound,
-                             int volume,
-                             int collisionDamage,
-                             float speed,
-                             int numFrames)
+                         Actor& actor,
+                         SDL_Texture* projectileTexture,
+                         const Vector2i& projectileTextureSize,
+                         const Vector2f& weaponOffset,
+                         const Vector2f& projectileColorOffset,
+                         float coolDown,
+                         std::string sound,
+                         int volume,
+                         int collisionDamage,
+                         float speed,
+                         int numFrames)
             : Weapon(game,
                      actor,
                      projectileTexture,
@@ -37,7 +37,5 @@ namespace jumper
                      speed,
                      numFrames,
                      WeaponType::CPP_GUN)
-    {
-
-    }
+    { }
 }
