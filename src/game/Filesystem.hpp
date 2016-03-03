@@ -11,6 +11,7 @@
 #include <boost/regex.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
+
 namespace fs = boost::filesystem;
 
 using std::string;
@@ -48,14 +49,14 @@ namespace jumper
         static string setFileExtension(string filePath, string fileExtension);
 
         /**
-        * Searches files within a directory that match a regex pattern.
-        * @param path The directory path.
-        * @param pattern Regex pattern.
-        * @throw invalid_argument If resDir is not a directory.
-        * @return All files within the given path that match the pattern.
-        */
+         * Searches files within a directory that match a regex pattern.
+         * @param path The directory path.
+         * @param pattern Regex pattern.
+         * @throw invalid_argument If resDir is not a directory.
+         * @return All files within the given path that match the pattern.
+         */
         static std::vector<fs::path> findFiles(const fs::path& path,
-                                        boost::regex pattern);
+                                               boost::regex pattern);
     };
 }
 

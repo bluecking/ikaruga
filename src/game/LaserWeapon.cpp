@@ -9,7 +9,6 @@
 
 namespace jumper
 {
-    //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
     LaserWeapon::LaserWeapon(Game& game,
                              Actor& actor,
                              SDL_Texture* projectileTexture,
@@ -38,7 +37,5 @@ namespace jumper
                      speed,
                      numFrames,
                      WeaponType::LASER_GUN)
-    {
-
-    }
+    { }
 }

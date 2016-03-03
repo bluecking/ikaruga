@@ -9,14 +9,13 @@
 
 namespace jumper
 {
-    //TODO ~ Set Weapon Name and Evolution Stage and Sound from XML
     MeatballWeapon::MeatballWeapon(Game& game,
-                             Actor& actor,
-                             SDL_Texture* projectileTexture,
-                             const Vector2i& projectileTextureSize,
-                             const Vector2f& weaponOffset,
-                             const Vector2f& projectileColorOffset,
-                             float coolDown,
+                                   Actor& actor,
+                                   SDL_Texture* projectileTexture,
+                                   const Vector2i& projectileTextureSize,
+                                   const Vector2f& weaponOffset,
+                                   const Vector2f& projectileColorOffset,
+                                   float coolDown,
                                    std::string sound,
                                    int volume,
                                    int collisionDamage,

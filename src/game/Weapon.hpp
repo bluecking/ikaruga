@@ -11,6 +11,7 @@
 #include <SDL_render.h>
 #include "Vector.hpp"
 #include "Sound.hpp"
+
 using std::string;
 
 namespace jumper
@@ -18,8 +19,10 @@ namespace jumper
     class Game;
 
     class Actor;
-    namespace WeaponType {
-        enum WeaponType {
+    namespace WeaponType
+    {
+        enum WeaponType
+        {
             NONE,
             LASER_GUN,
             BLASTER_GUN,
@@ -35,6 +38,9 @@ namespace jumper
     {
     public:
 
+        /**
+         * Desctructor
+         */
         virtual ~Weapon();
 
         /**
@@ -51,8 +57,13 @@ namespace jumper
          * @returns: Weapon Name
          */
         string getWeaponName(void)
-        { return m_name;}
+        { return m_name; }
 
+        /**
+         * Sets the actor
+         *
+         * @param m_actor Actor to set
+         */
         void setActor(Actor* m_actor)
         {
             Weapon::m_actor = m_actor;
@@ -80,6 +91,11 @@ namespace jumper
          */
         void upgrade();
 
+        /**
+         * Returns type of the weapon
+         *
+         * @return Type of the weapon
+         */
         const WeaponType::WeaponType& getWeaponType() const
         {
             return m_weaponType;
@@ -100,8 +116,11 @@ namespace jumper
          * @param name Name of the weapon
          * @param evolution Evolution Stage of the Weapon
          * @param sound String to soundfile
+         * @param volume Volume of shoot sound
          * @param collisionDamage Damage of collision
          * @param evolutionScale Scale of projectiles with evolution
+         * @param speed Speed of projectiles launched by this weapon
+         * @param numFrames Number of frames for the projectile animation
          * @param weaponType Type of weapon
          */
         Weapon(Game& game,
@@ -171,8 +190,10 @@ namespace jumper
         // Scale of projectiles with evolution
         int m_evolutionScale;
 
+        // Speed of projectiles launched by this weapon
         float m_speed;
 
+        // Number of frames for projectile animation
         int m_numFrames;
 
         // Type of weapon

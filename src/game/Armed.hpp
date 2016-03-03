@@ -18,8 +18,15 @@ namespace jumper
     class Armed
     {
     public:
+
+        /**
+         * Constructor
+         */
         Armed();
 
+        /**
+         * Destructor
+         */
         virtual ~Armed();
 
         /**
@@ -27,9 +34,19 @@ namespace jumper
          */
         virtual void shoot() = 0;
 
+        /**
+         * Sets a weapon
+         *
+         * @param weapon Weapon to set
+         */
         void setWeapon(Weapon* weapon)
         { m_weapon = weapon; }
 
+        /**
+         * Returns the weapon
+         *
+         * @return Current weapon
+         */
         Weapon* getWeapon(void)
         { return m_weapon; }
 
