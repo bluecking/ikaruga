@@ -489,7 +489,7 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent *event)
                     bot.positionX       = x * m_tileWidth;
                     bot.positionY       = y * m_tileHeight;
                     bot.powerUpName     = m_items[0].type;
-                    bot.powerUpProb     = 0.20;
+                    bot.powerUpProb     = 20;
                     bot.type            = m_bot;
 
                     m_levelBots.push_back(bot);

@@ -50,9 +50,9 @@ namespace jumper
                                            int frameHeight, int numFrames)
             : Renderable(renderer, texture),
               m_numFrames(numFrames),
+              m_currentFrame(0),
               m_frameWidth(frameWidth),
               m_frameHeight(frameHeight),
-              m_currentFrame(0),
               m_lastRenderTicks(0),
               m_frameTimeout(0),
               m_currentTileRow(0),

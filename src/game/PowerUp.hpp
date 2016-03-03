@@ -37,17 +37,17 @@ namespace jumper {
         /**
          * @see Actor::move(Level& level)
          */
-        virtual void move(Level& level) final;
+        virtual void move(Level& level) override final;
 
         /**
          * @see Collidable::onTileCollision()
          */
-        virtual void onTileCollision() final;
+        virtual void onTileCollision() override final;
 
         /**
          * @see Collidable::onActorCollision(Actor& other)
          */
-        virtual void onActorCollision(Actor& other) final;
+        virtual void onActorCollision(Actor& other) override final;
 
         /**
          * @brief This method will be invoked by the player on every game update, as long as he has not dropped the powerup.

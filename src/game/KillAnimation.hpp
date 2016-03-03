@@ -20,14 +20,14 @@ public:
 	virtual ~KillAnimation();
 
 
-	virtual void move(Level& level);
+	virtual void move(Level& level) override;
 	//virtual void render();
 
 
 
-	virtual void onTileCollision();
+	virtual void onTileCollision() override;
 
-	virtual void onActorCollision(Actor& other);
+	virtual void onActorCollision(Actor& other) override;
 };
 
 } /* namespace jumper */

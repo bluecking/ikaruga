@@ -13,7 +13,7 @@ namespace jumper
 
 
     MainMenu::MainMenu(MainWindow* win, fs::path resDir) :
-            m_win(win), m_resDir(resDir), m_table(NULL, NULL, NULL, NULL)
+            m_win(win), m_resDir(resDir), m_table(0, 0, 0, 0)
     {
         boost::filesystem::path concat(resDir);
         concat /= "levels";
