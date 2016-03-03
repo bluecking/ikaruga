@@ -32,17 +32,17 @@ namespace jumper
     {
 
     public:
-
+        /// used to calculate the next free channel
         static int NEXT_CHANNEL;
 
         /**
-         * Standard Constructor
+         * @brief Standard Constructor
          */
         Sound()
         { };
 
         /**
-         * Constructor to create a sound
+         * @brief Constructor to create a sound
          *
          * @param filename a relative path to the base to the soundfile
          * @param type the type of the sound
@@ -51,14 +51,14 @@ namespace jumper
 
 
         /**
-         * Plays the sound
+         * @brief Plays the sound
          *
          * @param volume the volume the sound should be played with
          */
         void play(int volume);
 
         /**
-         * Plays the sound with a fadeout
+         * @brief Plays the sound with a fadeout
          *
          * @param volume the volume the sound should be played with
          * @param fadeOut the fadeout in ms
@@ -66,28 +66,29 @@ namespace jumper
         void play(int volume, int fadeOut);
 
         /**
-         * stops Playing
+         * @brief stops Playing
          */
         void stop();
 
         /**
-         * pauses playning
+         * @brief pauses playing
          */
         void pause();
 
         /**
-         * resumes playing
+         * @brief resumes playing
          */
         void resume();
 
     private:
 
-        //The Filename of the sound
+        /// The Filename of the sound
         string m_soundFile;
 
-        //The Type of the Sound
+        /// The Type of the Sound
         int m_type;
 
+        /// The channel, where the sound is played
         int m_channel;
     };
 };
