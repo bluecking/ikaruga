@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<profiles>
-    <profile name="player1">
-        <actualWeapon type="LASER_GUN"/>
-        <boughtWeapons>
-        </boughtWeapons>
-        <boughtPowerUps>
-        </boughtPowerUps>
-        <highscores>
-        </highscores>
-        <money>32</money>
-    </profile>
-</profiles>
-
+<profiles><profile name="player1"><actualWeapon type="LASER_GUN"/><boughtWeapons/><boughtPowerUps/><highscores><highscore filename="Eat">150</highscore><highscore filename="Shorts">2250</highscore><highscore filename="my">1200</highscore></highscores><money>32</money></profile></profiles>
