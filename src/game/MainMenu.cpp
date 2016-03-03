@@ -23,7 +23,7 @@ namespace jumper
         m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
                 m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
         m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
-                m_resDir.string() + "/images/font_blue_20x20.png"); //TODO make dynamic
+                m_resDir.string() + "/images/font_blue_20x20.png"); //TODO mit ake dynamic
 
         m_table = RenderTable(m_win->getRenderer(), m_normalFontTexture, 20,
                               20); //TODO static tile height&width -> make dynamic
@@ -41,6 +41,7 @@ namespace jumper
         m_offset.setY(0.005f);
         m_layer->setScrollSpeed(100.0f);
         first = true;
+        mainMenu();
 
     }
 
@@ -55,23 +56,7 @@ namespace jumper
         {
             if (m_win->getActualScreen() == m_win->RENDER_MAINMENU)
             {
-                switch (m_menu)
-                {
-                    case MAIN_MENU:
-                        mainMenu();
-                        break;
-                    case CREDITS:
-                        credits();
-                        break;
-                    case LEVEL_SELECT:
-                        levelSelect();
-                        break;
-                    case HIGHTSCORE:
-                        highscore();
-                        break;
-                    default:
-                        mainMenu();
-                }
+
                 //Render background
 
                 m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
