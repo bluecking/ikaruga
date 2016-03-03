@@ -143,6 +143,8 @@ namespace jumper
 
         Actor* getLastBoss();
 
+        HighScore* highscore;
+
     protected:
         bool m_bossFight;
 
@@ -188,7 +190,6 @@ namespace jumper
         /// The current level
         Level* m_level;
 
-        HighScore* highscore;
         MainWindow* window;
 
         /// A Layer

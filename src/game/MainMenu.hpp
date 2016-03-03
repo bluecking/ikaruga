@@ -30,6 +30,12 @@ public:
 
     void update(const Uint8*& currentKeyStates, const bool* keyDown);
 
+    static const int LEVEL_SELECT = 0;
+    static const int CREDITS      = 1;
+    static const int MAIN_MENU    = 2;
+    static const int HIGHTSCORE   = 3;
+
+    void showLevelHighscore();
 private:
 
     std::vector<fs::path> m_levelFiles;
@@ -41,15 +47,26 @@ private:
     SDL_Texture* m_normalFontTexture;
     SDL_Texture* m_selectFontTexture;
     std::vector<std::vector<std::string>> m_tableText;
+    std::string to_string (int x);
+    std::string to_string (long x);
     std::map<int, boost::filesystem::path> m_levelId_and_path;
     XML m_tmp;
     RenderTable m_table;
-
+    int m_menu;
+    bool first;
     //TODO move to struct?
 
     void setupBackground(float scrollspeed, string backgroundImage);
 
-    void prepareTable();
+    void levelSelect();
+
+    void credits();
+
+    void mainMenu();
+
+    void startGame();
+
+    void highscore();
 };
 } //end of namespace jumper
 
