@@ -47,7 +47,7 @@
     <weapon type="MEATBALL_GUN">
         <filename>../images/meatball_45x45.png</filename>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
+        <colorOffsetY>45</colorOffsetY>
         <soundfile>../sounds/gun.wav</soundfile>
         <projectileVolume>50</projectileVolume>
         <frameWidth>45</frameWidth>
