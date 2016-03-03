@@ -36,7 +36,8 @@ namespace jumper
                      collisionDamage,
                      1,
                      speed,
-                     numFrames)
+                     numFrames,
+                     WeaponType::LASER_GUN)
     {
 
     }

@@ -388,7 +388,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 								if (x == maxMov)
 								{
-									actor->onCollide();
+									actor->onTileCollision();
 								}
 
 								break;
@@ -432,7 +432,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					{
 						y = upY + posRelativToGrid(pos.x() + width + x, tiles[0].x()) - pos.y(); // stop before you are stuck in edge
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -464,7 +464,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					{
 						y = downY - (posRelativToGrid(pos.x() + width + x, tiles[1].x())) - (pos.y() + height); // stop before you are stuck in edge
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -494,7 +494,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					if (x == maxMov)
 					{
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					int upY = tiles[0].y() * m_tileHeight;
@@ -509,7 +509,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							y = upY + xR - pUp;
 
-							actor->onCollide();
+							actor->onTileCollision();
 						}
 					}
 					else
@@ -518,7 +518,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							y = downY - xR - pDown;
 
-							actor->onCollide();
+							actor->onTileCollision();
 						}
 					}
 				}
@@ -556,7 +556,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 								if (x == maxMov)
 								{
-									actor->onCollide();
+									actor->onTileCollision();
 								}
 
 								break;
@@ -599,7 +599,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					{
 						y = upY + m_tileWidth - posRelativToGrid(pos.x() + x, tiles[0].x()) - pos.y(); // stop before you are stuck in edge
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -631,7 +631,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					{
 						y = downY - (m_tileWidth - posRelativToGrid(pos.x() + x, tiles[1].x())) - (pos.y() + height); // stop before you are stuck in edge
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
@@ -661,7 +661,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					if (x == maxMov)
 					{
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 
 					int upY = tiles[0].y() * m_tileHeight;
@@ -676,7 +676,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							y = upY + xR - pUp;
 
-							actor->onCollide();
+							actor->onTileCollision();
 						}
 					}
 					else
@@ -685,7 +685,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							y = downY - xR - pDown;
 
-							actor->onCollide();
+							actor->onTileCollision();
 						}
 					}
 				}
@@ -733,7 +733,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 							if (y == maxMov)
 							{
-								actor->onCollide();
+								actor->onTileCollision();
 							}
 
 							break;
@@ -764,7 +764,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				{
 					y = (downY - (m_tileHeight - posRelativToGrid(pos.x(), tiles[0].x()))) - (pos.y() + height);
 
-					actor->onCollide();
+					actor->onTileCollision();
 				}
 			}
 			else if (t1 != EDGEDOWNLEFT) // t2 == EDGEDOWNRIGHT, slope collision right
@@ -775,7 +775,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				{
 					y = (downY - (posRelativToGrid(pos.x() + width, tiles[1].x()))) - (pos.y() + height);
 
-					actor->onCollide();
+					actor->onTileCollision();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision right
@@ -796,7 +796,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						y = xR + y1 - pos.y() - height;
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 				}
 				else
@@ -805,7 +805,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						y = -xR2 + y1 - pos.y() - height; std::cout << y << std::endl;
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 				}
 			}
@@ -843,7 +843,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 							if (y == maxMov)
 							{
-								actor->onCollide();
+								actor->onTileCollision();
 							}
 
 							break;
@@ -873,7 +873,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				{
 					y = (downY - posRelativToGrid(pos.x(), tiles[0].x())) - pos.y();
 
-					actor->onCollide();
+					actor->onTileCollision();
 				}
 			}
 			else if (t1 != EDGETOPLEFT) // t2 == EDGETOPRIGHT, slope collision left
@@ -884,7 +884,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				{
 					y = (upY + posRelativToGrid(pos.x() + width, tiles[1].x())) - pos.y();
 
-					actor->onCollide();
+					actor->onTileCollision();
 				}
 			}
 			else // t1 and t2 EDGEs, slope collision left
@@ -905,7 +905,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						y = xR + y1 - pos.y();
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 				}
 				else
@@ -914,7 +914,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					{
 						y = -xR2 + y1 - pos.y();
 
-						actor->onCollide();
+						actor->onTileCollision();
 					}
 				}
 			}

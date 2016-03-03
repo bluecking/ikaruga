@@ -47,7 +47,7 @@ namespace jumper
      * @brief A class the represents a sprite that is moving and implements
      * collision detection.
      */
-    class Actor : public AnimatedRenderable
+    class Actor : public AnimatedRenderable, public Collidable
     {
     public:
 
@@ -64,21 +64,11 @@ namespace jumper
               int numFrames,
               int health,
               int collisionDamage);
+        // todo check if collisionDamage can be transferred to collidable.cpp
 
         virtual ~Actor();
 
         virtual void move(Level& level) = 0;
-
-        virtual void onCollide() = 0;
-
-        /**
-         * Is invoked if the actor collides with another actor
-         * It is pure virtual, since the subclasses react differently on
-         * collisions with different actors.
-         *
-         * @parameter other The actor instance which collided with this instance
-         */
-        virtual void resolveCollision(Actor& other) = 0;
 
         virtual void render();
 
@@ -183,16 +173,6 @@ namespace jumper
             return m_scoreValue;
         }
 
-        int getCollisionDamage() const
-        {
-            return m_collisionDamage;
-        }
-
-        void setCollisionDamage(int collisionDamage)
-        {
-            m_collisionDamage = collisionDamage;
-        }
-
         void dropPowerUp();
 
         void setIsKilled(bool isKilled)
@@ -203,11 +183,9 @@ namespace jumper
         void playExplosionSound();
 
     protected:
-        int m_scoreValue = 0;
+        int m_scoreValue;
 
         int m_health;
-
-        int m_collisionDamage;
 
         bool m_isKilled;
 
@@ -233,10 +211,6 @@ namespace jumper
 
         Vector2f m_colorOffset;
 
-        SDL_Rect m_hitbox;
-
-        bool m_hit = false;
-
         //Explosion Volume
         int m_explosionVolume;
 
@@ -244,13 +218,8 @@ namespace jumper
          * @return Whether or not a texture flip is necessary
          */
         virtual SDL_RendererFlip getFlip();
+
     private:
-        /** The hitbox size is reduced to this factor */
-        const float HITBOXFACTOR = 0.8;
-
-        /** The opacity level that is rendered, when an actor was hit */
-        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
-
         void renderHitbox();
     };
 

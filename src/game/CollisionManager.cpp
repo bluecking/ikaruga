@@ -21,8 +21,8 @@ namespace jumper
         // Sweep and Prune algorithm. Check only actors with other actors that have overlapping x positions
         sort(actors.begin(), actors.end(), compareActorXPositions);
 
-        // We must copy the actor vector, because while iterating through it, we invoke resolveCollision
-        // and resolveCollision manipulates the same vector instance.
+        // We must copy the actor vector, because while iterating through it, we invoke onActorCollision
+        // and onActorCollision manipulates the same vector instance.
         vector<Actor*> actorCopy(actors);
         
         for (auto currentAABB = actorCopy.begin(); currentAABB != actorCopy.end(); ++currentAABB)
@@ -46,8 +46,8 @@ namespace jumper
 
                 if (intersection.h > 0 && intersection.w > 0)
                 {
-                    (*currentAABB)->resolveCollision(**otherAABB);
-                    (*otherAABB)->resolveCollision(**currentAABB);
+                    (*currentAABB)->onActorCollision(**otherAABB);
+                    (*otherAABB)->onActorCollision(**currentAABB);
                 }
             }
         }
