@@ -35,7 +35,6 @@ namespace jumper
         std::cout<<resPath.c_str()<<std::endl;
         xml=new XML(resPath.c_str(),true);
         profile=new Profile(xml);
-        menuHighScore=new MenuHighscore(this,profile);
     }
 
     MainWindow::~MainWindow()
@@ -83,13 +82,10 @@ namespace jumper
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
                     break;
-                case MainWindow::RENDER_ITEMSHOP:
-                    //ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
+                case MainWindow::RENDER_GAMEEND:
+                    m_menu->showLevelHighscore();
                     break;
                 case MainWindow::RENDER_CREDITS:
-                    break;
-                case MainWindow::RENDER_MENUHIGHSCORES:
-                    menuHighScore->update(currentKeyStates, keyDown);
                     break;
                 default: std::cout << "You have to use setActualScreen." << std::endl;
                     break;
@@ -108,8 +104,6 @@ namespace jumper
 
     void MainWindow::setActualScreen(int ID){
         actRenderID=ID;
-        if(actRenderID==this->RENDER_MENUHIGHSCORES)
-            this->menuHighScore->updateHighscore();
     }
 
     void MainWindow::setGame(Game* game)

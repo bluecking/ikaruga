@@ -29,7 +29,7 @@ public:
     MainMenu(MainWindow* win, fs::path resDir);
 
     void update(const Uint8*& currentKeyStates, const bool* keyDown);
-
+    void showLevelHighscore();
 private:
 
     std::vector<fs::path> m_levelFiles;
@@ -41,6 +41,8 @@ private:
     SDL_Texture* m_normalFontTexture;
     SDL_Texture* m_selectFontTexture;
     std::vector<std::vector<std::string>> m_tableText;
+    std::string to_string (int x);
+    std::string to_string (long x);
     std::map<int, boost::filesystem::path> m_levelId_and_path;
     XML m_tmp;
     RenderTable m_table;

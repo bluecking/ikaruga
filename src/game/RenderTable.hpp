@@ -29,7 +29,8 @@ namespace jumper
         void setStringProperties(int minusculeOffset, int capitalOffset, int numberOffset, std::vector<std::vector<std::string>> content);
 
         void setTableProperties(tableProperties properties);
-
+        bool string_is_number(char const *str);
+        void setSelOffset(int x);
     private:
         SDL_Renderer* m_renderer;
         SDL_Texture* m_texture;
