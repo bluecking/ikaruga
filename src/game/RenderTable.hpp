@@ -18,6 +18,9 @@ namespace jumper
     class RenderTable : public FontRender
     {
     public:
+        /**
+         * @brief a struct that contains the necessary information for the RenterTalble
+         */
         struct tableProperties
         {
             int positionX;
@@ -26,7 +29,13 @@ namespace jumper
             int height;
         };
 
-
+        /**
+         * @brief Constructor of the RenderTable class
+         * @param renderer SDL_Renderer* that renders the Game
+         * @param defaultTexture SDL_Texture* texture for the font of the menu
+         * @param tileHeight int the height for the font
+         * @param tileWidth int  the width for the font
+         */
         RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth);
 
 
