@@ -49,7 +49,8 @@ set(JUMPER_SOURCES
         PowerUpGodMode.cpp
         BlasterWeapon.cpp
         RocketWeapon.cpp
-        MeatballWeapon.cpp)
+        MeatballWeapon.cpp
+        CppWeapon.cpp)
 
 set(JUMPER_LIBS ${JUMPER_LIBS}
         xml

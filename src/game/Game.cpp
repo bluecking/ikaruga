@@ -12,6 +12,7 @@
 #include "Filesystem.hpp"
 #include "FontRender.hpp"
 #include "PowerUpWeapon.hpp"
+#include "CppWeapon.hpp"
 
 #include <set>
 
@@ -829,6 +830,21 @@ namespace jumper
                                                 weapon.collisionDamage,
                                                 weapon.speed,
                                                 weapon.numFrames);
+        }
+        else if (weapon.type.compare("CPP_GUN") == 0)
+        {
+            weaponInstance = new CppWeapon(*game,
+                                           *actor,
+                                           weaponTexture,
+                                           *textureSize,
+                                           *weaponOffset,
+                                           *projectileColorOffset,
+                                           coolDown,
+                                           filepath + weapon.soundfile,
+                                           weapon.shootingVolume,
+                                           weapon.collisionDamage,
+                                           weapon.speed,
+                                           weapon.numFrames);
         }
 
         return weaponInstance;
