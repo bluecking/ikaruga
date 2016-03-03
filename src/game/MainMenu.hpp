@@ -16,6 +16,7 @@
 #include "TexturedLayer.hpp"
 #include "../xml/XML.hpp"
 #include "RenderTable.hpp"
+#include "Sound.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -38,6 +39,7 @@ public:
     void showLevelHighscore();
 private:
 
+    Sound m_sound;
     std::vector<fs::path> m_levelFiles;
     MainWindow* m_win;
     fs::path m_resDir;
