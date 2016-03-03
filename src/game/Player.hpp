@@ -1,6 +1,10 @@
-//
-// Created by isaak on 26.11.15.
-//
+/**
+ * Player.hpp
+ *
+ *  @date   01.03.16
+ *
+ *  @author Timo Osterkamp <tosterkamp@uos.de>
+ */
 
 #ifndef JUMPER_PLAYER_H
 #define JUMPER_PLAYER_H

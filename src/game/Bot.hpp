@@ -1,8 +1,9 @@
-/*
+/**
  * Bot.hpp
  *
- *  Created on: Dec 9, 2015
- *      Author: twiemann
+ *  @date   01.03.16
+ *
+ *  @author Timo Osterkamp <tosterkamp@uos.de>
  */
 
 #ifndef SRC_BOT_HPP_
