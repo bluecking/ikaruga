@@ -536,6 +536,7 @@ namespace jumper
     void Game::end()
     {
         m_player->setGodMode(false);
+        m_player->resetGodModeDesplay();
         printEndScreen();
         m_started = false;
         highscore->saveHighscore();
