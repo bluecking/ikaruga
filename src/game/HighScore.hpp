@@ -1,3 +1,9 @@
+/*
+ * HighScore.hpp
+ *
+ * @author Patrick Nolte (pnolte@uni-osnabrueck.de)
+ * @date 29.02.2016
+ */
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
 #include <string>
@@ -15,14 +21,15 @@ namespace jumper{
         /**
          * Creates a Highscore Instance for a level
          *
-         * @param profile where the infos have to be set
-         * @param name of the unique levelname where the highscore is needed
+         * @param profile       profile where the infos have to be set
+         * @param levelFile     name of the unique levelname where the
+         *                      highscore is needed
          */
         HighScore(Profile* profile, std::string levelFile);
         /**
          * Add points to the Highscore of the level
          *
-         * @param Count of points
+         * @param points    Count of points
          */
         void addPointsToHighscore(int points);
         /**

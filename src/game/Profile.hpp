@@ -1,3 +1,9 @@
+/*
+ * Profile.hpp
+ *
+ * @author Patrick Nolte (pnolte@uni-osnabrueck.de)
+ * @date 29.02.2016
+ */
 #ifndef PROFILE_H
 #define PROFILE_H
 #include <string>
@@ -8,6 +14,9 @@
 #include <boost/foreach.hpp>
 
 namespace jumper{
+    /**
+     * @brief A class to load and save profile information
+     */
     class Profile
     {
     public:
@@ -19,7 +28,7 @@ namespace jumper{
         /**
          * Constructor
          *
-         * @param xmlObject for handeling
+         * @param xml       xmlObject for handeling
          */
         Profile(XML *xml);
 
@@ -30,14 +39,14 @@ namespace jumper{
         /**
          * Sets the actual Profile
          *
-         * @param profileName (as returned by getProfiles())
+         * @param profileName The profile-name (as returned by getProfiles())
          */
         void setProfile(std::string profileName);
         /**
          * adds a highscore for a level
          *
-         * @param unique levelname
-         * @param highscorepoints for the level
+         * @param level         unique levelname
+         * @param highscore     highscorepoints for the level
          */
         void addHighScore(std::string level,long highscore);
         /**
