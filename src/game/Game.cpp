@@ -405,6 +405,10 @@ namespace jumper
             {
                 lastKey = 'B';
             }
+            if (currentKeyStates[SDL_SCANCODE_ESCAPE])
+            {
+                end();
+            }
 
             checkCheat(lastKey);
             m_player->setMoveDirection(moveDirection);
