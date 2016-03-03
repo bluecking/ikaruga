@@ -1,7 +1,6 @@
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
 #include <string>
-#include "ItemShop.hpp"
 #include "Profile.hpp"
 
 namespace jumper{

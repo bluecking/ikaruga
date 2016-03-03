@@ -13,7 +13,6 @@
 
 #include "Game.hpp"
 #include "WorldProperty.hpp"
-#include "ItemShop.hpp"
 #include "MainMenu.hpp"
 #include "Profile.hpp"
 
@@ -75,9 +74,16 @@ namespace jumper
         ///Gets the Actual Render Screen
         int getActualScreen();
 
+        void quitGame()
+        {
+            m_quit = true;
+        }
+
         Profile* profile;
         XML* xml;
     private:
+
+        bool m_quit;
 
         /// Initializes all needed SDL resources
         void initSDL();

@@ -47,7 +47,7 @@
     <weapon type="MEATBALL_GUN">
         <filename>../images/meatball_45x45.png</filename>
         <colorOffsetX>0</colorOffsetX>
-        <colorOffsetY>0</colorOffsetY>
+        <colorOffsetY>45</colorOffsetY>
         <soundfile>../sounds/gun.wav</soundfile>
         <projectileVolume>50</projectileVolume>
         <frameWidth>45</frameWidth>
@@ -58,5 +58,20 @@
         <collisionDamage>30</collisionDamage>
         <speed>200</speed>
         <numFrames>14</numFrames>
+    </weapon>
+    <weapon type="CPP_GUN">
+        <filename>../images/weapon_cpp_49x22.png</filename>
+        <colorOffsetX>0</colorOffsetX>
+        <colorOffsetY>22</colorOffsetY>
+        <soundfile>../sounds/gun.wav</soundfile>
+        <projectileVolume>50</projectileVolume>
+        <frameWidth>49</frameWidth>
+        <frameHeight>22</frameHeight>
+        <weaponOffsetX>25</weaponOffsetX>
+        <weaponOffsetY>130</weaponOffsetY>
+        <cooldown>0.5</cooldown>
+        <collisionDamage>30</collisionDamage>
+        <speed>200</speed>
+        <numFrames>12</numFrames>
     </weapon>
 </weapons>
