@@ -53,13 +53,11 @@ void jumper::Profile::addHighScore(std::string level,long highscore){
     std::map<std::string,int>::iterator iter = actProfile.highscores.find(level);
     if (iter != actProfile.highscores.end()) {
         if(iter->second<highscore){
-            ItemShop::addMoney(highscore-(iter->second));
             iter->second=highscore;
         }
     } else {
         std::pair<std::string,int> pair(level,highscore);
         actProfile.highscores.insert(pair);
-        ItemShop::addMoney(highscore);
     }
     saveActProfile();
 }

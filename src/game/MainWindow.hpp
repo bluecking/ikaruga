@@ -13,7 +13,6 @@
 
 #include "Game.hpp"
 #include "WorldProperty.hpp"
-#include "ItemShop.hpp"
 #include "MainMenu.hpp"
 #include "Profile.hpp"
 
