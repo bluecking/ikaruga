@@ -1,7 +1,8 @@
 /**
- * A class representing a vector. Non-Zero Entries are saved in a linked list,
+ * SparseVector.cpp
  *
- * @author Jan Elseberg
+ * @date 03.03.16
+ * @author Jan Elseberg, Dennis Altenhoff
  */
 
 #include "SparseVector.hpp"
@@ -15,16 +16,16 @@ using std::endl;
 namespace jumper
 {
 
-SparseVector::SparseVector(int s)
+SparseVector::SparseVector(int size)
 {
-	m_size = s;
+	m_size = size;
 	m_start = new node(-1,0,0);
 }
 
 
-SparseVector::SparseVector(const SparseVector &c)
+SparseVector::SparseVector(const SparseVector &other)
 {
-	copy(c);
+	copy(other);
 }
 
 SparseVector::~SparseVector()
@@ -32,31 +33,33 @@ SparseVector::~SparseVector()
 	clear();
 }
 
-void SparseVector::setElem(int i, int val)
+void SparseVector::setElem(int index, int value)
 {
-	if (i >= getSize())
+	// If index out of Bounds do nothing
+	if (index >= getSize())
 	{
 		return;
 	}
 
-	if (val != 0)
+	if (value != 0)
 	{
-		setNonzeroElem(i, val);
+		setNonzeroElem(index, value);
 		return;
 	}
-	removeElem(i);
+	removeElem(index);
 }
 
-int SparseVector::getElem(int i) const
+int SparseVector::getElem(int index) const
 {
-	if (i >= getSize())
+	// If index out of Bounds do nothing
+	if (index >= getSize())
 	{
 		return 0.0;
 	}
 
-	node *elem = getPrevElem(i);
+	node *elem = getPrevElem(index);
 
-	if (elem != 0 && elem->next != 0 && elem->next->index == i)
+	if (elem != 0 && elem->next != 0 && elem->next->index == index)
 	{
 		return elem->next->value;
 	}
@@ -80,17 +83,17 @@ void SparseVector::clear()
 	}
 }
 
-void SparseVector::copy(const SparseVector &c)
+void SparseVector::copy(const SparseVector &other)
 {
-	m_size = c.getSize();
-	node *celem = c.m_start;
-	m_start = new node(*celem);
+	m_size = other.getSize();
+	node *otherelem = other.m_start;
+	m_start = new node(*otherelem);
 	node *elem = m_start;
 
-	while (celem->next != 0)
+	while (otherelem->next != 0)
 	{
-		celem = celem->next;
-		elem->next = new node(*celem);
+		otherelem = otherelem->next;
+		elem->next = new node(*otherelem);
 		elem = elem->next;
 	}
 }
@@ -125,6 +128,7 @@ void SparseVector::setNonzeroElem(int index, int value)
 
 void SparseVector::removeElem(int index)
 {
+	// Only go to element to remove if possible
 	node *elem = getPrevElem(index);
 	if (elem == 0 || elem->next == 0)
 	{
@@ -136,12 +140,12 @@ void SparseVector::removeElem(int index)
 }
 
 
-SparseVector::node * SparseVector::getPrevElem(int i) const
+SparseVector::node * SparseVector::getPrevElem(int index) const
 {
 	node *elem ;
 	elem = m_start;
 
-	while (elem != 0 && elem->next != 0 && elem->next->index < i)
+	while (elem != 0 && elem->next != 0 && elem->next->index < index)
 	{
 		elem = elem->next;
 	}
@@ -149,10 +153,10 @@ SparseVector::node * SparseVector::getPrevElem(int i) const
 }
 
 
-SparseVector & SparseVector::operator=(const SparseVector &b)
+SparseVector & SparseVector::operator=(const SparseVector &other)
 {
 	// Check for Self-Assignement
-	if (this == &b)
+	if (this == &other)
 	{
 		return *this;
 	}
@@ -160,49 +164,50 @@ SparseVector & SparseVector::operator=(const SparseVector &b)
 	// destroy old values
 	clear();
 
-	copy(b);
+	copy(other);
 
 	return *this;
 }  
 
 
-bool SparseVector::operator==(const SparseVector &b) const
+bool SparseVector::operator==(const SparseVector &other) const
 {
-	if (getSize() != b.getSize())
+	// If sizes of vectors are different do nothing
+	if (getSize() != other.getSize())
 	{
 		return false;
 	}
 
 	node *elem = m_start;
-	node *elemb = b.m_start;
+	node *elemOther = other.m_start;
 
 	while (true)
 	{
-		if ( elem->index != elemb->index || elem->value != elemb->value)
+		if ( elem->index != elemOther->index || elem->value != elemOther->value)
 		{
 			return false;
 		}
 
 		// end of both SparseVectors
-		if (elem->next == 0 && elemb->next == 0)
+		if (elem->next == 0 && elemOther->next == 0)
 		{
 			return true;
 		}
 		// only reached the end of one SparseVector
-		if (elem->next == 0 || elemb->next == 0)
+		if (elem->next == 0 || elemOther->next == 0)
 		{
 			return false;
 		}
 
 		//iterate otherwise
 		elem = elem->next;
-		elemb = elemb->next;
+		elemb = elemOther->next;
 	}
 }
 
-bool SparseVector::operator!=(const SparseVector &b) const
+bool SparseVector::operator!=(const SparseVector &other) const
 {
-	return !(*this == b);
+	return !(*this == other);
 }
 
 } // namespace jumper

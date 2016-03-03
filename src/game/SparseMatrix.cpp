@@ -1,3 +1,10 @@
+/**
+ * SparseMatrix.cpp
+ *
+ * @date 03.03.16
+ * @author Dennis Altenhoff
+ */
+
 #include "SparseMatrix.hpp"
 
 namespace jumper
@@ -72,6 +79,7 @@ SparseMatrix::~SparseMatrix()
 
 SparseMatrix& SparseMatrix::operator =(const SparseMatrix& other)
 {
+	// Free ressources of this matrix if not already identical to other
 	if(&other != this)
 	{
 		clear();
