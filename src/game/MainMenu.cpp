@@ -286,28 +286,37 @@ namespace jumper
 
     void MainMenu::credits()
     {
-        m_tableText.resize(5);
-        for (int i = 0; i < 5; i++)
+        int offsetRow = 2;
+        m_tableText.resize(5 + offsetRow);
+        m_tableText[0].resize(1);
+        m_tableText[0][0] = "Credits";
+        m_tableText[1].resize(0);
+
+        for (int i = offsetRow; i < 5 + offsetRow; i++)
         {
             m_tableText[i].resize(1);
         }
-        m_tableText[0][0] = "Jenny";
-        m_tableText[1][0] = "Swaggy";
-        m_tableText[2][0] = "Booster";
-        m_tableText[3][0] = "mbrockmo";
-        m_tableText[4][0] = "toaster";
+        m_tableText[0 + offsetRow][0] = "Jenny";
+        m_tableText[1 + offsetRow][0] = "Swaggy";
+        m_tableText[2 + offsetRow][0] = "Booster";
+        m_tableText[3 + offsetRow][0] = "mbrockmo";
+        m_tableText[4 + offsetRow][0] = "toaster";
     }
 
     void MainMenu::highscore()
     {
         std::vector<std::pair<std::string, int>> scores = m_win->profile->getHighScores();
-        m_tableText.resize(scores.size());
+        int offsetRow = 2;
+        m_tableText.resize(scores.size() + offsetRow);
+        m_tableText[0].resize(1);
+        m_tableText[0][0] = "Highscores";
+        m_tableText[1].resize(0);
 
-        for (int i = 0; i < m_tableText.size(); i++)
+        for (int i = offsetRow; i < scores.size() + offsetRow; i++)
         {
             m_tableText[i].resize(2);
-            m_tableText[i][0] = scores.at(i).first;
-            m_tableText[i][1] = to_string(scores.at(i).second);
+            m_tableText[i][0] = scores.at(i - offsetRow).first;
+            m_tableText[i][1] = to_string(scores.at(i - offsetRow).second);
         }
     }
 } //end of namespace jumper
