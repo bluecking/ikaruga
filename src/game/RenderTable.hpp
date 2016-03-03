@@ -3,6 +3,7 @@
 * @brief $BRIEF_DESCRIPTION
 *
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
+ * @author Marius Brockmöller
 * @author Timo Osterkamp (tosterkamp@uni-osnabrueck.de)
 * @date 02 Mrz 2016
 */
@@ -25,40 +26,67 @@ namespace jumper
             int height;
         };
 
+
         RenderTable(SDL_Renderer* renderer, SDL_Texture* defaultTtexture, int tileHeight, int tileWidth);
 
+
+        /**
+         * @brief Set string properties.
+         * @param minusculeOffset Line of minuscule letters within font texture.
+         * @param captialOffset Line of capital letters within font texture.
+         * @param numberOffset Line of numbers within font texture.
+         * @param content String for rendering.
+         */
         void setStringProperties(int minusculeOffset, int capitalOffset, int numberOffset,
                                  std::vector<std::vector<std::string>> content);
 
+
+        /**
+         * @brief sets the properties for the RenderTable
+         *
+         * @param tableProperties the struct which contains the properties for the Rendertable
+         */
         void setTableProperties(tableProperties properties);
 
+
+        /**
+         * @brief can change if a menu is scrollable
+         *
+         * @param boolean set true to make the menu scrollable
+         */
         void setScrollable(bool scrollable);
 
+        /**
+         * @brief checks if the given char is a number
+         *
+         * @param char str the char which is checked
+         * @returns boolean true if the char is a number
+         */
         bool string_is_number(char const* str);
 
-        /*
+        /**
          * @brief retuns the current posistion of the index of the RenderTable
          *
          * @returns int the current position of the RenderTable index
          */
         unsigned long getM_pos() const;
 
-        /*
-         * @biref Function circles through the contents of the Randertable increasing the index
+        /**
+         * @brief Function circles through the contents of the Randertable increasing the index
          */
         void increase();
 
-        /*
-         * @biref Function circles through the contents of the Randertable increasing the index
+        /**
+         * @briefFunction circles through the contents of the Randertable increasing the index
          */
         void decrease();
 
-        /*
-         * @biref resets the index of the RenderTable to the first in the vertex
+        /**
+         * @briefresets the index of the RenderTable to the first in the vertex
          */
         void resetPos();
 
-        /*
+        /**
          * renders the RenderTabble
          */
         virtual void render();
