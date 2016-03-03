@@ -16,6 +16,7 @@
 #include "ItemShop.hpp"
 #include "MainMenu.hpp"
 #include "Profile.hpp"
+#include "MenuHighscore.hpp"
 
 namespace jumper
 {
@@ -68,12 +69,14 @@ namespace jumper
         static const int RENDER_GAME=1;
         static const int RENDER_ITEMSHOP=2;
         static const int RENDER_CREDITS=3;
+        static const int RENDER_MENUHIGHSCORES=4;
 
         ///Sets the Actual Render Screen
         void setActualScreen(int ID);
 
         Profile* profile;
         XML* xml;
+        MenuHighscore* menuHighScore;
     private:
 
         /// Initializes all needed SDL resources

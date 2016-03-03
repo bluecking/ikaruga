@@ -8,17 +8,19 @@
 #include <cmath>
 #include <list>
 #include "MainWindow.hpp"
+#include "Profile.hpp"
 
 namespace jumper
 {
     class MenuHighscore
     {
     public:
-        MenuHighscore(MainWindow* window);
-        void addText(std::string sMessage);
+        MenuHighscore(MainWindow* window, Profile *profile);
+        void updateHighscore();
         void update(const Uint8*& currentKeyStates, const bool* keyDown);
     private:
         MainWindow* window;
+        Profile* profile;
         SDL_Renderer* renderer;
     };
 }
