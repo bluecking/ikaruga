@@ -25,7 +25,7 @@ namespace jumper
          *
          * @parameter actors Vector of available actors in the game.
          */
-        void checkCollision(vector<Actor*>& actors);
+        static void checkActorCollision(vector<Actor*>& actors);
     };
 
 #endif //SRC_COLLISIONMANAGER_HPP

@@ -16,7 +16,7 @@ namespace jumper
         return first->position().x() < second->position().x();
     }
 
-    void CollisionManager::checkCollision(vector<Actor*>& actors)
+    void CollisionManager::checkActorCollision(vector<Actor*>& actors)
     {
         // Sweep and Prune algorithm. Check only actors with other actors that have overlapping x positions
         sort(actors.begin(), actors.end(), compareActorXPositions);

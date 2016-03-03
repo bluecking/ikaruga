@@ -421,7 +421,7 @@ namespace jumper
                 spawnBots();
                 bossFight();
                 checkCameraCollision();
-                checkActorCollision();
+                CollisionManager::checkActorCollision(m_actors);
             }
 
             SDL_RenderClear(m_renderer);
@@ -555,13 +555,6 @@ namespace jumper
         float time = (ticks - m_startTicks) / 1000.0f;
         m_startTicks = ticks;
         return time;
-    }
-
-    void Game::checkActorCollision()
-    {
-        CollisionManager cm;
-
-        cm.checkCollision(m_actors);
     }
 
     void Game::removeDeadActors()
