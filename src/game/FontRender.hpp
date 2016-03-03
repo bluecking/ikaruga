@@ -14,11 +14,13 @@
 using std::string;
 using std::vector;
 
-namespace jumper {
+namespace jumper
+{
     /**
      * @brief a class for rendereing fonts from a tilesheet
      */
-    class FontRender : public StaticRenderable {
+    class FontRender : public StaticRenderable
+    {
     public:
         /**
          * @brief Constructor
@@ -30,8 +32,8 @@ namespace jumper {
          */
         FontRender(int tileHeight,
                    int tileWidth,
-                   SDL_Renderer *renderer,
-                   SDL_Texture *texture);
+                   SDL_Renderer* renderer,
+                   SDL_Texture* texture);
 
         /**
          * @brief Returns the x and y coordinates of a number on a tilesheet

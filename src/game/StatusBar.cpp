@@ -1,6 +1,5 @@
 #include "StatusBar.hpp"
 #include <list>
-#include "FontRender.hpp"
 
 using std::cout;
 using std::endl;

@@ -9,7 +9,6 @@
 #include "TextureFactory.hpp"
 
 #include <fstream>
-#include <iostream>
 
 using std::cout;
 using std::endl;

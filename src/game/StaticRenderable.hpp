@@ -16,35 +16,35 @@ namespace jumper
 /**
  * @brief Marker interface for static objects to render
  */
-class StaticRenderable : public Renderable
-{
-public:
+    class StaticRenderable : public Renderable
+    {
+    public:
 
-	/**
-	 * Constructor.
-	 * @param renderer		A pointer to a SDL_Renderer struct
-	 */
-	StaticRenderable(SDL_Renderer* renderer);
+        /**
+         * Constructor.
+         * @param renderer		A pointer to a SDL_Renderer struct
+         */
+        StaticRenderable(SDL_Renderer* renderer);
 
-	/**
-	 * Constructs a static renderable for the given renderer
-	 * using the given texture
-	 *
-	 * @param renderer		A pointer to a valid SDL_Renderer struct
-	 * @param texture		A pointer to a valid SDL_Renderer struct
-	 */
-	StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture);
+        /**
+         * Constructs a static renderable for the given renderer
+         * using the given texture
+         *
+         * @param renderer		A pointer to a valid SDL_Renderer struct
+         * @param texture		A pointer to a valid SDL_Renderer struct
+         */
+        StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture);
 
-	/**
-	 * Renders the object to its renderer
-	 */
-	virtual void render() = 0;
+        /**
+         * Renders the object to its renderer
+         */
+        virtual void render() = 0;
 
-	/**
-	 * Destructor
-	 */
-	virtual ~StaticRenderable();
-};
+        /**
+         * Destructor
+         */
+        virtual ~StaticRenderable();
+    };
 
 } /* namespace jumper */
 

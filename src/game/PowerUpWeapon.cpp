@@ -10,7 +10,7 @@ namespace jumper
 {
     PowerUpWeapon::PowerUpWeapon(SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight,
                                  int numFrames, Weapon* weapon)
-    : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames), m_weapon(weapon)
+            : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames), m_weapon(weapon)
     {
 
     }

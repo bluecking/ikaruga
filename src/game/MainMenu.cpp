@@ -77,7 +77,7 @@ namespace jumper
                 {
                     m_table.decrease();
                 }
-                if(keyDown[SDL_SCANCODE_ESCAPE])
+                if (keyDown[SDL_SCANCODE_ESCAPE])
                 {
                     m_table.setScrollable(true);
                     m_menu = MAIN_MENU;
@@ -138,22 +138,25 @@ namespace jumper
         }
     }
 
-    void MainMenu::showLevelHighscore(){
+    void MainMenu::showLevelHighscore()
+    {
         m_table.setScrollable(false);
-        long points=this->m_game->highscore->getHighscore();
-        int sleepTime=3000;
-        int sleep=10;
+        long points = this->m_game->highscore->getHighscore();
+        int sleepTime = 3000;
+        int sleep = 10;
         std::vector<std::vector<std::string>> texts;
         texts.resize(2);
-        for(unsigned int i=0;i<texts.size();i++){
+        for (unsigned int i = 0; i < texts.size(); i++)
+        {
             texts.at(i).resize(2);
         }
-        texts[0][0]="Beendet: ";
-        texts[0][1]=this->m_game->highscore->levelFile;
-        texts[1][0]="Highscore:";
-        texts[1][1]=to_string(points);
-        m_table.setStringProperties(2,1,0,texts);
-        for(int i=0;i<sleepTime/sleep;i++){
+        texts[0][0] = "Beendet: ";
+        texts[0][1] = this->m_game->highscore->levelFile;
+        texts[1][0] = "Highscore:";
+        texts[1][1] = to_string(points);
+        m_table.setStringProperties(2, 1, 0, texts);
+        for (int i = 0; i < sleepTime / sleep; i++)
+        {
             //Render background
             m_offset.setX(0.005f);
             m_offset.setY(0.005f);
@@ -168,7 +171,7 @@ namespace jumper
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
-        m_table.setStringProperties(2,1,0,m_tableText);
+        m_table.setStringProperties(2, 1, 0, m_tableText);
         delete m_game;
         this->m_win->setActualScreen(MainWindow::RENDER_MAINMENU);
         m_table.setScrollable(true);
@@ -177,26 +180,28 @@ namespace jumper
     void MainMenu::showLevelName()
     {
         m_table.setScrollable(false);
-        int sleepTime=3100;
-        int sleep=10;
+        int sleepTime = 3100;
+        int sleep = 10;
         std::vector<std::vector<std::string>> texts;
         texts.resize(3);
-        for(unsigned int i=0;i<texts.size();i++){
+        for (unsigned int i = 0; i < texts.size(); i++)
+        {
             texts.at(i).resize(1);
         }
-        texts[0][0]="Start level";
-        texts[1][0]=this->m_game->highscore->levelFile;
-        texts[2][0]=to_string(sleepTime/1000);
-        m_table.setStringProperties(2,1,0,texts);
-        for(int i=0;i<sleepTime/sleep;i++){
+        texts[0][0] = "Start level";
+        texts[1][0] = this->m_game->highscore->levelFile;
+        texts[2][0] = to_string(sleepTime / 1000);
+        m_table.setStringProperties(2, 1, 0, texts);
+        for (int i = 0; i < sleepTime / sleep; i++)
+        {
             //Render background
             m_offset.setX(0.005f);
             m_offset.setY(0.005f);
             m_layer->setScrollSpeed(100.0f);
             m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
 
-            texts[2][0]=to_string((sleepTime-(i*sleep))/1000+1);
-            m_table.setStringProperties(2,1,0,texts);
+            texts[2][0] = to_string((sleepTime - (i * sleep)) / 1000 + 1);
+            m_table.setStringProperties(2, 1, 0, texts);
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
 
@@ -205,16 +210,18 @@ namespace jumper
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
-        m_table.setStringProperties(2,1,0,m_tableText);
+        m_table.setStringProperties(2, 1, 0, m_tableText);
     }
 
-    std::string MainMenu::to_string(long x){
+    std::string MainMenu::to_string(long x)
+    {
         std::stringstream ss;
         ss << x;
         return ss.str();
     }
 
-    std::string MainMenu::to_string(int x){
+    std::string MainMenu::to_string(int x)
+    {
         std::stringstream ss;
         ss << x;
         return ss.str();
@@ -263,7 +270,8 @@ namespace jumper
     {
         m_game = new Game(m_win);
         Game::setupGame(m_levelId_and_path.at(std::stoi(
-                m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size() - 1))).string(),
+                                m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size() -
+                                                                             1))).string(),
                         m_win, m_game);
         m_win->setGame(m_game);
         this->showLevelName();

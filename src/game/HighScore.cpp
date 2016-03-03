@@ -1,20 +1,23 @@
 #include "HighScore.hpp"
 
-jumper::HighScore::HighScore(Profile *profile, std::string levelFile)
+jumper::HighScore::HighScore(Profile* profile, std::string levelFile)
 {
-    this->levelFile=levelFile;
-    this->actualHighscore=0;
-    this->profile=profile;
+    this->levelFile = levelFile;
+    this->actualHighscore = 0;
+    this->profile = profile;
 }
 
-void jumper::HighScore::addPointsToHighscore(int points){
-    this->actualHighscore+=points;
+void jumper::HighScore::addPointsToHighscore(int points)
+{
+    this->actualHighscore += points;
 }
 
-void jumper::HighScore::saveHighscore(){
-    profile->addHighScore(levelFile,actualHighscore);
+void jumper::HighScore::saveHighscore()
+{
+    profile->addHighScore(levelFile, actualHighscore);
 }
 
-long jumper::HighScore::getHighscore(){
+long jumper::HighScore::getHighscore()
+{
     return this->actualHighscore;
 }

@@ -3,7 +3,6 @@
 //
 
 #include <SDL_image.h>
-#include <iostream>
 #include "Renderable.hpp"
 
 namespace jumper

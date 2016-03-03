@@ -7,7 +7,8 @@
 
 #include "PowerUpGodMode.hpp"
 
-namespace jumper {
+namespace jumper
+{
     PowerUpGodMode::PowerUpGodMode(
             SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
             : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames)

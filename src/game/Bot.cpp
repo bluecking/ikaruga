@@ -6,7 +6,6 @@
  */
 
 #include "Bot.hpp"
-#include "Game.hpp"
 #include "Projectile.hpp"
 
 using std::cout;

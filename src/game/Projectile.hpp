@@ -55,6 +55,7 @@ namespace jumper
         virtual SDL_RendererFlip getFlip() override;
 
         virtual SDL_Rect& getHitbox() override;
+
     protected:
         Vector2f m_direction;
         bool m_launched;

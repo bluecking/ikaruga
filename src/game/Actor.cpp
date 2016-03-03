@@ -9,7 +9,6 @@
 #include <iostream>
 #include "Actor.hpp"
 #include "Game.hpp"
-#include "PowerUpHeal.hpp"
 
 using std::cout;
 using std::endl;

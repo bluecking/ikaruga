@@ -13,22 +13,23 @@
 namespace jumper
 {
 
-class KillAnimation : public Actor
-{
-public:
-	KillAnimation(Actor* actor ,std::string filepath);
-	virtual ~KillAnimation();
+    class KillAnimation : public Actor
+    {
+    public:
+        KillAnimation(Actor* actor, std::string filepath);
+
+        virtual ~KillAnimation();
 
 
-	virtual void move(Level& level) override;
-	//virtual void render();
+        virtual void move(Level& level) override;
+        //virtual void render();
 
 
 
-	virtual void onTileCollision() override;
+        virtual void onTileCollision() override;
 
-	virtual void onActorCollision(Actor& other) override;
-};
+        virtual void onActorCollision(Actor& other) override;
+    };
 
 } /* namespace jumper */
 

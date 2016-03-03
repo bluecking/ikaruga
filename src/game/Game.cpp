@@ -6,15 +6,11 @@
  */
 
 #include "MainWindow.hpp"
-#include "Game.hpp"
 #include "CollisionManager.hpp"
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
-#include "FontRender.hpp"
 #include "PowerUpWeapon.hpp"
 #include "CppWeapon.hpp"
-
-#include <set>
 
 using std::set;
 using std::cout;
