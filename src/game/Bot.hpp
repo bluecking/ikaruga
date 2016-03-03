@@ -1,4 +1,4 @@
-/*
+r/*
  * Bot.hpp
  *
  *  Created on: Dec 9, 2015
@@ -44,11 +44,6 @@ namespace jumper
     {
     public:
 
-
-
-        void play();
-
-
         /**
          * @brief	Constructs a bot from given renderer, texture
          * 			and frame information.
@@ -75,13 +70,19 @@ namespace jumper
             int collisionDamage,
             ActorType type);
 
-
+        /**
+         * @brief   Destructor
+         */
         virtual ~Bot();
 
-
-        /// Moves the bot in the given \ref level
+        /**
+         * @see Actor::move(Level& level)
+         */
         virtual void move(Level& level);
 
+        /**
+         * @see Collidable::onTileCollision()
+         */
         virtual void onTileCollision();
 
         /**
@@ -89,6 +90,9 @@ namespace jumper
          */
         virtual void onActorCollision(Actor& other) override;
 
+        /**
+         * @see Armed::shoot()
+         */
         virtual void shoot();
 
     private:
