@@ -259,7 +259,7 @@ namespace jumper
         {
             m_tableText[i].resize(2);
             m_tableText[i][0] = scores.at(i).first;
-            m_tableText[i][1] = to_string(scores.at(i).second);
+          //  m_tableText[i][1] = to_string(scores.at(i).second);
         }
     }
 
