@@ -112,7 +112,6 @@ namespace jumper
                                 TextureFactory::instance(m_win->getRenderer()).deleteAll();
                                 SDL_Quit();
                                 m_sound.stop();
-                                delete m_win;
                                 exit(0);
                             }
 
