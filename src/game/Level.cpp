@@ -3,6 +3,8 @@
  *
  *  Created on: Nov 13, 2015
  *      Author: twiemann
+ *      Author: nwollek
+ *      Author: darolfes
  */
 
 #include "Actor.hpp"
@@ -204,7 +206,7 @@ void Level::getSurroundingTiles(Vector2f pos, int width, int height, Vector2i *t
 
 void Level::getInnerTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles)
 {
-
+	/// calcs the top left and the right bottom position of the actor
 	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
 	Vector2i posInGridEnd(floor((pos.x() - 1 + width) / m_tileWidth), floor((pos.y() - 1 + height) / m_tileHeight));
 
@@ -234,10 +236,11 @@ void Level::getInnerTiles(Vector2f pos, TilesDirection direction, int width, int
 
 void Level::getSurroundingRelevantTiles(Vector2f pos, TilesDirection direction, int width, int height, std::vector<Vector2i>* tiles)
 {
-
+	/// calcs the top left and the right bottom position of the actor
 	Vector2i posInGrid(floor(pos.x() / m_tileWidth), floor(pos.y() / m_tileHeight));
 	Vector2i posInGridEnd(floor((pos.x() - 1 + width) / m_tileWidth), floor((pos.y() - 1 + height) / m_tileHeight));
 
+	/// calcs the size of tiles the player is located in
 	int sizeX = posInGridEnd.x() - posInGrid.x() + 1;
 	int sizeY = posInGridEnd.y() - posInGrid.y() + 1;
 
@@ -316,6 +319,7 @@ int Level::posToGrid(float pos)
 
 	Vector2f Level::collide(Vector2f pos, int width, int height, Vector2f move, Actor* actor)
 	{
+		// Correct screen coordinates to inlevel coordinates
 		pos -= Vector2f(0, m_camera.h() % m_tileHeight);
 
 		return collideRC(pos, width, height, move, actor);
@@ -323,19 +327,23 @@ int Level::posToGrid(float pos)
 
 Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Actor* actor)
 {
+	/// Move wrong pos into the level
 	pos.setY(pos.y() < 0 ? 0 : pos.y());
 	pos.setY(pos.y() + height > m_levelHeight * m_tileHeight ? m_levelHeight * m_tileHeight - height : pos.y());
 
 	bool checkY = true;
 
+	/// collide in X direction
 	move = collideX(pos, width, height, move, actor, checkY);
 
+	/// calc new Position after X movement and collide in Y direction
 	pos += Vector2f(move.x(), 0);
 
 	float y = move.y();
 
 	if (checkY)
 	{
+		/// collide in Y direction
 		y = collideY(pos, width, height, y, actor);
 	}
 
@@ -354,6 +362,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 		if (x != 0)
 		{
+			/// right movement
 			if (x > 0)
 			{
 				getInnerTiles(pos, TRIGHT, width, height, &tiles);
@@ -361,9 +370,8 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 				TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
 				TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
-				if (t1 != EDGETOPRIGHT && t2 != EDGEDOWNRIGHT) // right movement no slope collision
+				if (t1 != EDGETOPRIGHT && t2 != EDGEDOWNRIGHT) //no slope collision
 				{
-
 					tiles.clear();
 
 					getSurroundingRelevantTiles(pos, TRIGHT, width, height, &tiles);
@@ -379,6 +387,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
+							/// collision with solid tiles and slopes which are solid in this direction
 							if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNRIGHT && t != EDGETOPRIGHT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGETOPRIGHT) && t != NONSOLID) || (round == (signed) tiles.size() - 1 && (t != EDGEDOWNRIGHT && t != NONSOLID))) ) ) // collide with something solid
 							{
 								recursionNeeded = false;
@@ -398,6 +407,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
+					/// no collision recursion to accept movement greater than one tile and to have a smoother movement
 					if (recursionNeeded && posRelativToGrid(pos.x() + x + width, tiles[0].x()) > 1.1)
 					{
 
@@ -416,7 +426,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					}
 
 				}
-				else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT no collision down check, slope collision right
+				else if (t2 != EDGEDOWNRIGHT) // t1 == EDGETOPRIGHT
 				{
 					checkY = false;
 
@@ -467,6 +477,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						actor->onTileCollision();
 					}
 
+					/// check whether you collide in y direction if you get pushed by slope
 					float y2 = collideY(Vector2f(pos.x() + x, pos.y()), width, height, y, actor); // repeation
 
 					x -= y2 - y;
@@ -523,13 +534,14 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 					}
 				}
 			}
-			else
+			else /// movement left
 			{
 				getInnerTiles(pos, TLEFT, width, height, &tiles);
 
 				TileType t1 = m_tileTypes[(m_tiles[tiles[0].y()])[tiles[0].x()]];
 				TileType t2 = m_tileTypes[(m_tiles[tiles[1].y()])[tiles[1].x()]];
 
+				/// no slopes
 				if (t1 != EDGETOPLEFT && t2 != EDGEDOWNLEFT)
 				{
 
@@ -547,6 +559,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						{
 							TileType t = m_tileTypes[(m_tiles[tPos.y()])[tPos.x()]];
 
+							/// collision with solid tiles
 							if ( ( tiles.size() == 1 && t != NONSOLID && t != EDGEDOWNLEFT && t != EDGETOPLEFT ) || ( tiles.size() != 1 && ((t != NONSOLID && (round != 0 && round != (signed) tiles.size() - 1)) || (round == 0 && (t != EDGETOPLEFT && t != NONSOLID)) || (round == (signed) tiles.size() - 1 && (t != EDGEDOWNLEFT && t != NONSOLID))) ) ) // collide with something solid
 							{
 								recursionNeeded = false;
@@ -566,6 +579,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 						round++;
 					}
 
+					/// recursion smoother movement see above
 					if (recursionNeeded && posRelativToGrid(pos.x() + x, tiles[0].x() + 1) < -1.1)
 					{
 
@@ -583,7 +597,7 @@ Vector2f Level::collideRC(Vector2f pos, int width, int height, Vector2f move, Ac
 
 					}
 				}
-				else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT no collision down check, slope collision left
+				else if (t2 != EDGEDOWNLEFT) // t1 == EDGETOPLEFT slope collision left
 				{
 					checkY = false;
 
@@ -701,6 +715,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 
 	if (y != 0)
 	{
+		/// down movement
 		if (y> 0)
 		{
 			getInnerTiles(pos, TDOWN, width, height, &tiles);
@@ -743,6 +758,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
+				// recursion for smoother movement
 				if (recursionNeeded && posRelativToGrid(pos.y() + height + y, tiles[0].y()) > 1.1)
 				{
 
@@ -756,7 +772,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				}
 
 			}
-			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT no collision down check, slope collision right
+			else if (t2 != EDGEDOWNRIGHT) // t1 == EDGEDOWNLEFT slope collision right
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
@@ -853,6 +869,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 					round++;
 				}
 
+				/// recursion for smoother
 				if (recursionNeeded && posRelativToGrid(pos.y() + y, tiles[0].y() + 1) < -1.1)
 				{
 					float movRec = posRelativToGrid(pos.y() + y, tiles[0].y() + 1) + 1.1;
@@ -865,7 +882,7 @@ float Level::collideY(Vector2f pos, int width, int height, float y, Actor* actor
 				}
 
 			}
-			else if (t2 != EDGETOPRIGHT) // t1 == EDGETOPLEFT no collision down check, slope collision left
+			else if (t2 != EDGETOPRIGHT) // t1 == EDGETOPLEFT slope collision left
 			{
 				float downY = gridToPos(tiles[0].y() + 1);
 
