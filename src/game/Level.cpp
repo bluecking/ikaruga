@@ -26,7 +26,8 @@ namespace jumper
 {
 
 
-Level::Level(SDL_Renderer* renderer, std::string filename) : StaticRenderable(renderer)
+Level::Level(SDL_Renderer* renderer, std::string filename) :
+		StaticRenderable(renderer), m_tileTypes()
 {
 	// Set all default values
 	m_texture 		= 0;
@@ -973,8 +974,6 @@ int Level::tileHeight() const
 
 Level::~Level()
 {
-    // Free texture resources
-    SDL_DestroyTexture(m_texture);
 }
 
 

@@ -281,6 +281,19 @@ namespace jumper
     {
         // TODO Auto-generated destructor stub
         m_sound.stop();
+
+        for (auto renderable : m_renderables)
+        {
+            delete renderable;
+        }
+
+        for (auto bot : m_bots)
+        {
+            delete bot;
+        }
+
+        delete m_layer;
+        delete m_statusBar;
     }
 
     void Game::addBot(Bot* bot)

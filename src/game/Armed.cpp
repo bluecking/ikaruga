@@ -13,5 +13,7 @@ namespace jumper
     { }
 
     Armed::~Armed()
-    { }
+    {
+        delete m_weapon;
+    }
 }

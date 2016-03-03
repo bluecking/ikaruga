@@ -43,7 +43,9 @@ namespace jumper
 
     Weapon::~Weapon()
     {
-
+        delete &m_projectileTextureSize;
+        delete &m_weaponOffset;
+        delete &m_projectileColorOffset;
     }
 
     void Weapon::shoot(const Vector2f& direction, const Vector2f& spawnPosition)
