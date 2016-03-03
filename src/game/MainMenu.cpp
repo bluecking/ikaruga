@@ -113,6 +113,7 @@ namespace jumper
                                 TextureFactory::instance(m_win->getRenderer()).deleteAll();
                                 SDL_Quit();
                                 delete m_win;
+                                exit(0);
                             }
 
                             break;
