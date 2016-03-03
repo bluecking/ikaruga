@@ -24,7 +24,7 @@ namespace jumper
                  int health,
                  int collisionDamage)
             : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK),
-              m_isKilled(false), m_scoreValue(0)
+              m_isKilled(false), m_scoreValue(0), m_explosionVolume(0)
     {
         m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));

@@ -93,6 +93,7 @@ namespace jumper
         Player* player = new Player(w->getRenderer(), texture, *game, xplayer.frameWidth, xplayer.frameHeight,
                                     xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
+        player->setExplosionVolume(xplayer.explosionVolume);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
         player->setHitMarkVolume(xplayer.hitVolume);
 
