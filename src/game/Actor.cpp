@@ -108,7 +108,7 @@ namespace jumper
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, getFlip());
             }
 
-            renderHitbox();
+//            renderHitbox();
         }
 
     }
