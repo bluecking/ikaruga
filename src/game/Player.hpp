@@ -12,9 +12,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
 #include <SDL.h>
-
 #include "Actor.hpp"
 #include "Vector.hpp"
 #include "Armed.hpp"

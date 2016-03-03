@@ -1,16 +1,15 @@
 set(EDITOR_SOURCES
-		Main.cpp
-		MainWindow.cpp
-		LevelScene.cpp
-		GraphicsTileItem.cpp
-		TextureScene.cpp
-		)
+        Main.cpp
+        MainWindow.cpp
+        LevelScene.cpp
+        GraphicsTileItem.cpp
+        TextureScene.cpp
+        )
 
 FIND_PACKAGE(Qt4 REQUIRED)
 include_directories(${QT_INCLUDE_DIR})
 include_directories(${QT_QTGUI_INCLUDE_DIR})
 include_directories(${QT_QTCORE_INCLUDE_DIR})
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_definitions(-DQT_NO_KEYWORDS )

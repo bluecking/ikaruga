@@ -7,7 +7,6 @@
 
 #include "AnimatedRenderable.hpp"
 #include "TextureFactory.hpp"
-
 #include <fstream>
 
 using std::cout;

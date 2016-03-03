@@ -12,7 +12,6 @@
 
 #include <string>
 #include <SDL.h>
-
 #include <vector>
 #include "Camera.hpp"
 #include "StaticRenderable.hpp"
