@@ -19,7 +19,6 @@ namespace jumper
         ENEMY,
         PLATFORM,
         ITEM,
-        PUZZLEBOX,
         PLAYER,
         PROJECTILE,
         BOSS,
