@@ -82,12 +82,12 @@ namespace jumper
         /// Moves the bot in the given \ref level
         virtual void move(Level& level);
 
-        virtual void onCollide();
+        virtual void onTileCollision();
 
         /**
-         * @see Actor::resolveCollision(Actor& other)
+         * @see Actor::onActorCollision(Actor& other)
          */
-        virtual void resolveCollision(Actor& other) override;
+        virtual void onActorCollision(Actor& other) override;
 
         virtual void shoot();
 

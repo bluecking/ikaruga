@@ -124,7 +124,7 @@ namespace jumper
         }
     }
 
-    void Bot::resolveCollision(Actor& other)
+    void Bot::onActorCollision(Actor& other)
     {
         // Hit by player's projectile with same color
         if (other.type() == PROJECTILE && getColor() == other.getColor())
@@ -146,7 +146,7 @@ namespace jumper
         }
     }
 
-    void Bot::onCollide()
+    void Bot::onTileCollision()
     {
         return;
     }
