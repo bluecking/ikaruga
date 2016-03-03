@@ -3,6 +3,8 @@
  *
  *  Created on: Nov 13, 2015
  *      Author: twiemann
+ *      Author: nwollek
+ *      Author: darolfes
  */
 
 #include "Actor.hpp"
