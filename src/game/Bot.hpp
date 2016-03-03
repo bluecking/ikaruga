@@ -59,8 +59,8 @@ namespace jumper
          * @param type              the ActorType
          */
 
-        Bot(SDL_Renderer *renderer,
-            SDL_Texture *texture,
+        Bot(SDL_Renderer* renderer,
+            SDL_Texture* texture,
             int frameWidth,
             int frameHeight,
             int numFrames,
@@ -97,19 +97,17 @@ namespace jumper
 
     private:
 
-        const float AI_TRACE_SPEED=0.7;
+        /** The trace speed of an AI bot */
+        const float AI_TRACE_SPEED = 0.7;
 
+        /** the move type of the bot */
         int m_move_type;
 
-        int m_move_type_height;
-
-        int m_speed;
-
+        /** an struct with bot infos */
         XML::NPC m_npc;
 
+        /** the game instance */
         Game* m_game;
-
-        const int DAMAGE_BY_PROJECTILE = 500;
     };
 
 } /* namespace jumper */

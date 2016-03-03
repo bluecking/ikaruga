@@ -57,8 +57,6 @@ namespace jumper
         {
             m_move_type = BotType::NO_MOVE;
         }
-        m_move_type_height = 25;
-        m_speed = 100;
     }
 
     void Bot::move(Level& level)
