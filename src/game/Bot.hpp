@@ -96,10 +96,15 @@ namespace jumper
         virtual void shoot();
 
     private:
+
         const float AI_TRACE_SPEED=0.7;
+
         int m_move_type;
+
         int m_move_type_height;
+
         int m_speed;
+
         XML::NPC m_npc;
 
         Game* m_game;
