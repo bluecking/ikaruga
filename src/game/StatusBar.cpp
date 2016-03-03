@@ -82,7 +82,7 @@ namespace jumper
                                                           m_minusculeOffset,
                                                           m_capitalOffset,
                                                           m_numberOffset);
-            setWeaponPosition(Vector2i(m_weaponPosition.x() - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
+            setWeaponPosition(Vector2i((m_endPosition.x() / 2) - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
                                        m_horziontalAlignemnt));
             for (int i = 0; i < weapon_source.size(); i++)
             {

@@ -255,6 +255,7 @@ namespace jumper
     }
 
     Game::Game(MainWindow* mainWindow)
+            : m_bossFight(false)
     {
         m_cheatActive = false;
         m_player = 0;

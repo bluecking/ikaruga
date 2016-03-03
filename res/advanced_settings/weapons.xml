@@ -19,7 +19,7 @@
         <colorOffsetX>0</colorOffsetX>
         <colorOffsetY>10</colorOffsetY>
         <soundfile>../sounds/blaster.wav</soundfile>
-        <projectileVolume>50</projectileVolume>
+        <projectileVolume>75</projectileVolume>
         <frameWidth>20</frameWidth>
         <frameHeight>10</frameHeight>
         <weaponOffsetX>25</weaponOffsetX>
