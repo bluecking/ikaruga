@@ -17,6 +17,8 @@ MainWindow::MainWindow(QMainWindow* parent, std::string folderPath)
     ui->level_size->setMinimum(10);
     ui->level_size->setMaximum(1000);
     ui->level_size->setValue(300);
+    ui->level_id->setMaximum(10000);
+    ui->level_id->setMinimum(0);
 
 
     /**this->setStyle(QStyleFactory::create("Fusion"));
@@ -153,6 +155,8 @@ void MainWindow::on_action_oeffnen_triggered()
 
 void MainWindow::on_actionSpeichern_triggered()
 {
+    scene->setId(ui->level_id->value());
+    scene->setLevelName(ui->level_name->text());
     this->saveFile(this->openedFile);
 }
 
@@ -205,12 +209,11 @@ void MainWindow::on_pushButton_released()
 void MainWindow::on_save_id_released()
 {
     scene->setId(ui->level_id->value());
+    scene->setLevelName(ui->level_name->text());
+    this->saveFile(this->openedFile);
 }
 
-void MainWindow::on_saveLevelName_released()
-{
-    scene->setLevelName(ui->level_name->text());
-}
+
 
 void MainWindow::on_botList_itemClicked(QListWidgetItem* item)
 {
