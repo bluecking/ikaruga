@@ -18,9 +18,8 @@ namespace jumper
                            int collisionDamage,
                            float speed)
             : Actor(renderer, texture, frameWidth, frameHeight, numFrames, BULLET_HEALTH, collisionDamage),
-              m_launched(false), m_originActor(0), m_speed(speed)
+              m_launched(false), m_originActor(0), m_speed(speed), m_lastPosition(0)
     {
-        m_hitbox.h = frameHeight;
         m_collisionDamage = collisionDamage;
     }
 
@@ -30,8 +29,12 @@ namespace jumper
     SDL_Rect& Projectile::getHitbox()
     {
         SDL_Rect& hitbox = Actor::getHitbox();
-        hitbox.x = position().x();
-        hitbox.w = (int) fabs(m_lastPosition.x() - position().x());
+        if(m_lastPosition == 0)
+        {
+            m_lastPosition = position().x();
+        }
+        hitbox.x = m_lastPosition.x();
+        hitbox.w = (int) fabs(m_lastPosition.x() - position().x()) + hitbox.w;
         return hitbox;
     }
 
