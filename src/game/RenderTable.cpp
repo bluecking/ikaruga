@@ -23,7 +23,7 @@ namespace jumper
         m_rectTarget.h = tileHeight;
         m_stringPropertiesSet = false;
         m_tablePropertiesSet = false;
-        m_pos = 6;
+        m_pos = 0;
     }
 
     void RenderTable::setStringProperties(int minusculeOffset, int capitalOffset,
