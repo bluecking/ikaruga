@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profiles>
+    <profile name="player1">
+        <actualWeapon type="LASER_GUN"/>
+        <boughtWeapons>
+            <weapon type="LASER_GUN"/>
+            <weapon type="LASER_GUN"/>
+        </boughtWeapons>
+        <boughtPowerUps>
+            <powerUp type="RESTORE_HEALTH"/>
+            <powerUp type="RESTORE_HEALTH"/>
+        </boughtPowerUps>
+        <highscores>
+            <highscore filename="Milky Way">5000</highscore>
+            <highscore filename="Star Wars">500</highscore>
+            <highscore filename="SuperDuperLevel">1100</highscore>
+            <highscore
+                    filename="SuperDuperLevel mit extra besonders langem Levelnamen ...... jldofdaf l eiasn dsfldf e af afews fadfd f afadfad df">
+                2100
+            </highscore>
+            <highscore filename="Test">1150</highscore>
+            <highscore filename="level0.xml">20000</highscore>
+            <highscore filename="level1.xml">25000</highscore>
+        </highscores>
+        <money>32</money>
+    </profile>
+</profiles>
+
