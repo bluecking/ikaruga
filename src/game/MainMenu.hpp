@@ -71,7 +71,6 @@ namespace ikaruga
         TexturedLayer* m_layer;
         Vector2f m_offset;
         SDL_Texture* m_normalFontTexture;
-        SDL_Texture* m_selectFontTexture;
         std::vector<std::vector<std::string>> m_tableText;
 
         std::string to_string(int x);
