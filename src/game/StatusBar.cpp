@@ -206,7 +206,6 @@ namespace ikaruga
         //and substract to offset to get it perfectly horizontally aligned
         m_horziontalAlignemnt = (m_startPosition.y() / 2) - ((m_tileHeight / 2) - m_offsetMiddle);
         setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
-        //TODO ~ Update Weapon Position, so its always in the middle.
         setWeaponPosition(Vector2i(m_endPosition.x() / 2, m_horziontalAlignemnt));
         setHealthPosition(Vector2i(m_endPosition.x() - 73 - 3 * m_tileWidth, m_horziontalAlignemnt - 1));
     }

@@ -1,5 +1,5 @@
 <level>
-    <id>1</id>
+    <id>45</id>
     <name>Star Wars</name>
     <tileset filename="level0.lvl"/>
     <explosions filename= "../images/explosions_40x40.png"/>

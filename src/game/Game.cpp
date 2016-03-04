@@ -537,7 +537,6 @@ namespace ikaruga
 
     void Game::start()
     {
-        printStartScreen();
         m_started = true;
 
         m_player->m_camera.move(Vector2f(0, 0));
@@ -547,7 +546,6 @@ namespace ikaruga
     {
         m_player->setGodMode(false);
         m_player->resetGodModeDisplay();
-        printEndScreen();
         m_started = false;
         highscore->saveHighscore();
         this->window->setActualScreen(MainWindow::RENDER_GAMEEND);
@@ -608,7 +606,7 @@ namespace ikaruga
 
     void Game::setActorOptionsOnKill(Actor* actor)
     {
-        if (actor->type() == ENEMY || actor->type() == PLAYER)
+        if ((actor->type() == ENEMY || actor->type() == PLAYER || actor->type() == PROJECTILE) && actor->isKilled())
         {
             KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
             addActor(kill);
@@ -758,16 +756,6 @@ namespace ikaruga
     void Game::setBossHealth(int health)
     {
         m_boss_health = health;
-    }
-
-    void Game::printStartScreen()
-    {
-        //TODO ~ Implement
-    }
-
-    void Game::printEndScreen()
-    {
-        //TODO ~ Implement
     }
 
     Weapon* Game::createWeaponFromXML(XML::Weapon weapon, Game* game, Actor* actor, MainWindow* w, std::string filepath)

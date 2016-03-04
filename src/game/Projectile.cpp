@@ -79,6 +79,11 @@ namespace ikaruga
             ((m_originActor->type() == ENEMY || m_originActor->type() == BOSS) && other.type() == PLAYER))
         {
             m_health = 0;
+
+            if (other.getColor() == m_color)
+            {
+                m_isKilled = true;
+            }
         }
     }
 
@@ -86,6 +91,7 @@ namespace ikaruga
     {
         // Kill projectile when colliding with a tile
         m_health = 0;
+        m_isKilled = true;
 
         return;
     }
