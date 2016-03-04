@@ -20,7 +20,6 @@ namespace ikaruga
      */
     class Renderable
     {
-
     public:
 
         /**
@@ -70,7 +69,6 @@ namespace ikaruga
          */
         int h() const;
 
-
         /**
          * @brief global camera object
          * @description global camera object that is used to determine the offset wrt. the current camera position
@@ -95,7 +93,6 @@ namespace ikaruga
         SDL_Rect m_sourceRect;
 
     };
-
 } /* namespace ikaruga */
 
 #endif //IKARUGA_RENDERABLE_H

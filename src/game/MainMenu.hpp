@@ -31,7 +31,6 @@ namespace ikaruga
     class MainMenu
     {
     public:
-
         static const int LEVEL_SELECT = 0;
         static const int CREDITS = 1;
         static const int MAIN_MENU = 2;
