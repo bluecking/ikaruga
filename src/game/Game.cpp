@@ -608,7 +608,7 @@ namespace ikaruga
 
     void Game::setActorOptionsOnKill(Actor* actor)
     {
-        if (actor->type() == ENEMY || actor->type() == PLAYER)
+        if ((actor->type() == ENEMY || actor->type() == PLAYER || actor->type() == PROJECTILE) && actor->isKilled())
         {
             KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
             addActor(kill);
