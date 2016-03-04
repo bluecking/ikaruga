@@ -35,97 +35,97 @@ public:
      */
     LevelScene(QString filename, MainWindow* window);
 
-	/**
-	 * @brief sets the settings of the last clicked tile in the texture window
-	 * @param int index it is the tile_id
-	 * @param int type  it is the type of the texture
-	 * @param QRect rect the rect of the tilesheet to render
-	 */
-	void setTileSettings(int index,int type, QRect rect);
+    /**
+     * @brief sets the settings of the last clicked tile in the texture window
+     * @param int index it is the tile_id
+     * @param int type  it is the type of the texture
+     * @param QRect rect the rect of the tilesheet to render
+     */
+    void setTileSettings(int index, int type, QRect rect);
 
     /**
      * @brief saves the .lvl file
      * @param QString filename name of the .lvl file
      */
-	void saveLevel(QString fileName);
+    void saveLevel(QString fileName);
 
     /**
-	 * @brief saves the XML file
-	 * @param QString fileName name of the XML file
-	 * @param
-	 */
-	void saveXml(QString fileName);
+     * @brief saves the XML file
+     * @param QString fileName name of the XML file
+     * @param
+     */
+    void saveXml(QString fileName);
 
     /**
-	 * @brief loads the XML file or creates a new one
-	 * @param QString fileName name of the XML file
-	 * @param
-	 */
-	void loadXml(QString fileName);
+     * @brief loads the XML file or creates a new one
+     * @param QString fileName name of the XML file
+     * @param
+     */
+    void loadXml(QString fileName);
 
     /**
      * @brief loads the .lvl file or creates a new one
      * @param QString filename name of the .lvl file
      */
-	void loadLevel(QString fileName);
+    void loadLevel(QString fileName);
 
     /**
      * @brief sets the Size of the MainView and updates scene
      * @param int value length of the new file
      */
-	void setSize(int value);
+    void setSize(int value);
 
     /**
      * @brief sets last clicked bot
      * @param QString name of the bot
      */
-	void setBot(QString botName);
+    void setBot(QString botName);
 
     /**
      * @brief sets last clicked power up
      * @param QString powerName name of the power up
      */
-	void setPower(QString powerName);
+    void setPower(QString powerName);
 
     /**
      * @brief sets item and bot null
      */
-	void setNull();
+    void setNull();
 
     /**
      * @brief sets level Id
      * @param int id  the id of the level
      */
-	void setId(int id);
+    void setId(int id);
 
     /**
      * @brief  sets teh level Name seen in the menue
      * @param QString levelName
      */
-	void setLevelName(QString levelName);
+    void setLevelName(QString levelName);
 
     /**
      * @brief sets the size of the Background
      * @param int levelWidth the Width of the level
      */
-	void setBackgroundSize(int levelWidth);
+    void setBackgroundSize(int levelWidth);
 
     /**
      * @brief sets the item or removes it in the view by mousecallback
      * @param QGraphicsSceneMouseEvent *event mousecallback event
      */
-	void setItem(QGraphicsSceneMouseEvent *event);
+    void setItem(QGraphicsSceneMouseEvent* event);
 
     /**
      * @brief converts std::string to QString
      * @param std::string string string to convert
      */
-	QString toQString(std::string string);
+    QString toQString(std::string string);
 
     /**
      * @brief returns pixmap (texture)
      */
-	QPixmap* getPixmap();
+    QPixmap* getPixmap();
 
     virtual ~LevelScene();
 
@@ -135,13 +135,13 @@ protected:
      * @brief is called when mouse is pressed
      * @param QGraphicsSceneMouseEvent * event given mouse action
      */
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
     /**
      * @brief is called when mouse is moved and pressed
      * @param QGraphicsSceneMouseEvent * event given mouse action
      */
-	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
 private:
 	void setSceneRect();
@@ -192,7 +192,7 @@ private:
 	int m_lastX;                                    /// x position of last known item
 	int m_lastY;                                    /// y position of last known item
 	MainWindow* m_mainWindow;                       /// Pointer to a main window
-    
+
 };
 
 #endif

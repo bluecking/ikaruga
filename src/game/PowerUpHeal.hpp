@@ -5,12 +5,12 @@
  *  @author Benjamin Lücking <bluecking@uos.de>
  */
 
-#ifndef SCROLLER_POWERUPHEAL_HPP
-#define SCROLLER_POWERUPHEAL_HPP
+#ifndef IKARUGA_POWERUPHEAL_HPP
+#define IKARUGA_POWERUPHEAL_HPP
 
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUpHeal : public PowerUp
     {
@@ -36,7 +36,7 @@ namespace jumper
         /// heal Percentage
         int m_healPercentage;
     };
-}
+} /* namespace ikaruga */
 
 
-#endif //SCROLLER_POWERUPHEAL_HPP
+#endif //IKARUGA_POWERUPHEAL_HPP

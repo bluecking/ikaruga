@@ -10,20 +10,20 @@
 
 #include "Collidable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
-Collidable::Collidable()
-        : m_hitboxfactor(1.0), m_hit(false), m_opacityLevelWhenHit(0)
-{
-	// TODO Auto-generated constructor stub
+    Collidable::Collidable()
+            : m_hitboxfactor(1.0), m_hit(false), m_opacityLevelWhenHit(0)
+    {
+        // TODO Auto-generated constructor stub
 
-}
+    }
 
 
-Collidable::~Collidable()
-{
-	// TODO Auto-generated destructor stub
-}
+    Collidable::~Collidable()
+    {
+        // TODO Auto-generated destructor stub
+    }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

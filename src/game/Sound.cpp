@@ -5,7 +5,7 @@
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
     int Sound::NEXT_CHANNEL = 1;
 
@@ -29,7 +29,7 @@ namespace jumper
 
             if (song == NULL)
             {
-                std::cerr << "Couldnt open " + m_soundFile+"\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_VolumeMusic(volume);
             Mix_PlayMusic(song, 0);
@@ -40,7 +40,7 @@ namespace jumper
 
             if (sound == NULL)
             {
-                std::cerr << "Couldnt open " + m_soundFile +"\n";
+                std::cerr << "Couldnt open " + m_soundFile + "\n";
             }
             Mix_Volume(m_channel, volume);
             Mix_PlayChannel(m_channel, sound, 0);
@@ -93,4 +93,4 @@ namespace jumper
             Mix_ResumeMusic();
         }
     }
-}
+} /* namespace ikaruga */

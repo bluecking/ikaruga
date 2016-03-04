@@ -5,6 +5,7 @@
  *  @Author: twiemann
  *  @author Marius Brockmöller (mbrockmo@uos.de)
  *  @autor Jochen Saalfeld (jsaalfeld@uos.de)
+ *  @author Patrick Steinforth (psteinforth@uos.de)
  */
 
 #ifndef SRC_GAME_HPP_
@@ -29,13 +30,12 @@
 #include "PowerUpGodMode.hpp"
 #include "../xml/XML.hpp"
 #include "HighScore.hpp"
-
 #include <vector>
 #include "FontRender.hpp"
 
 using std::vector;
 
-namespace jumper
+namespace ikaruga
 {
     class Bot;
 
@@ -43,9 +43,9 @@ namespace jumper
 
     class HighScore;
 
-/**
- * @brief 	Represents a game instance.
- */
+    /**
+     * @brief 	Represents a game instance.
+     */
     class Game
     {
     public:
@@ -129,12 +129,6 @@ namespace jumper
          * @return vector2f containing the player position
          */
         Vector2f getPlayerPosition();
-
-        /**
-         * @brief sets the background sound of the game
-         * @param soundFile string path to the sound file
-         */
-        void setSound(std::string soundFile);
 
         /**
          * @brief Constant Pixel Offset to spawn bots
@@ -393,6 +387,6 @@ namespace jumper
         const std::string konamiCode = "u u d d l r l r B A";
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_HPP_ */

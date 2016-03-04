@@ -16,9 +16,10 @@
 #include "MainMenu.hpp"
 #include "Profile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
+
     class MainMenu;
 
     /**
@@ -36,7 +37,7 @@ namespace jumper
          * @param h			Height
          * @param resPath   Path to a resource directory.
          */
-        MainWindow(std::string title, int w, int h,boost::filesystem::path resPath);
+        MainWindow(std::string title, int w, int h, boost::filesystem::path resPath);
 
         /**
          * @brief Destructor.
@@ -84,10 +85,10 @@ namespace jumper
         int h();
 
         ///Constants for setting the actual renderscreen
-        static const int RENDER_MAINMENU=0;
-        static const int RENDER_GAME=1;
-        static const int RENDER_CREDITS=3; //TODO make enum
-        static const int RENDER_GAMEEND=4;
+        static const int RENDER_MAINMENU = 0;
+        static const int RENDER_GAME = 1;
+        static const int RENDER_CREDITS = 3; //TODO make enum
+        static const int RENDER_GAMEEND = 4;
 
         /**
          * @brief Set the actual screen for rendering.
@@ -169,6 +170,6 @@ namespace jumper
         int actRenderID;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_MAINWINDOW_HPP_ */

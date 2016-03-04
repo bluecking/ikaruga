@@ -7,7 +7,8 @@
 
 #include "PowerUpGodMode.hpp"
 
-namespace jumper {
+namespace ikaruga
+{
     PowerUpGodMode::PowerUpGodMode(
             SDL_Renderer* renderer, SDL_Texture* texture, int frameWidth, int frameHeight, int numFrames)
             : PowerUp(renderer, texture, frameWidth, frameHeight, numFrames)
@@ -24,4 +25,4 @@ namespace jumper {
     {
         player.setGodMode(false);
     }
-}
+} /* namespace ikaruga */

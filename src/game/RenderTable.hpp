@@ -4,16 +4,15 @@
 *
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
  * @author Marius Brockmöller
-* @author Timo Osterkamp (tosterkamp@uni-osnabrueck.de)
 * @date 02 Mrz 2016
 */
 #include "FontRender.hpp"
 #include <stdexcept>
 
-#ifndef SCROLLER_RENDERTABLE_HPP
-#define SCROLLER_RENDERTABLE_HPP
+#ifndef IKARUGA_RENDERTABLE_HPP
+#define IKARUGA_RENDERTABLE_HPP
 
-namespace jumper
+namespace ikaruga
 {
     class RenderTable : public FontRender
     {
@@ -118,5 +117,6 @@ namespace jumper
         unsigned long m_pos;
         bool m_scrollable;
     };
-} //end of namespace jumper
-#endif //SCROLLER_RENDERTABLE_HPP
+}  /* namespace ikaruga */
+
+#endif //IKARUGA_RENDERTABLE_HPP

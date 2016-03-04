@@ -10,7 +10,7 @@
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
     Weapon::Weapon(Game& game,
                    Actor& actor,
@@ -138,4 +138,4 @@ namespace jumper
 
         return false;
     }
-}
+} /* namespace ikaruga */

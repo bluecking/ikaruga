@@ -4,12 +4,12 @@
  * @date 02.03.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef SCROLLER_POWERUPWEAPON_HPP
-#define SCROLLER_POWERUPWEAPON_HPP
+#ifndef IKARUGA_POWERUPWEAPON_HPP
+#define IKARUGA_POWERUPWEAPON_HPP
 
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUpWeapon : public PowerUp
     {
@@ -30,6 +30,6 @@ namespace jumper
     private:
         Weapon* m_weapon;
     };
-}
+} /* namespace ikaruga */
 
-#endif //SCROLLER_POWERUPWEAPON_HPP
+#endif //IKARUGA_POWERUPWEAPON_HPP

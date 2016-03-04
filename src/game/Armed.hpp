@@ -4,12 +4,12 @@
  * @date 23.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
  */
-#ifndef JUMPER_ARMED_HPP
-#define JUMPER_ARMED_HPP
+#ifndef IKARUGA_ARMED_HPP
+#define IKARUGA_ARMED_HPP
 
 #include "Weapon.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * @brief Represents an armed object which has a weapon. With the weapon it's able to shoot projectiles to
@@ -54,6 +54,6 @@ namespace jumper
         // The weapon
         Weapon* m_weapon;
     };
-}
+} /* namespace ikaruga */
 
-#endif //JUMPER_ARMED_HPP
+#endif //IKARUGA_ARMED_HPP

@@ -7,7 +7,7 @@
 #include "MeatballWeapon.hpp"
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     MeatballWeapon::MeatballWeapon(Game& game,
                                    Actor& actor,
@@ -40,4 +40,4 @@ namespace jumper
     {
 
     }
-}
+} /* namespace ikaruga */

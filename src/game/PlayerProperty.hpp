@@ -3,7 +3,7 @@
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     /**
      * @brief		A class to represent the physical properties of
@@ -91,6 +91,6 @@ namespace jumper
         /// Maximum run velocity
         double m_maxVelRun;
     };
-}
+} /* namespace ikaruga */
 
-#endif //JUMPER_PHYSICPLAYER_H
+#endif //IKARUGA_PHYSICPLAYER_H

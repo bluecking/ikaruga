@@ -6,7 +6,7 @@
  */
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     const int BULLET_HEALTH = 32767;
 
@@ -101,4 +101,4 @@ namespace jumper
         // flip texture horizontally if shooting forwards
         return SDL_FLIP_HORIZONTAL;
     }
-}
+} /* namespace ikaruga */

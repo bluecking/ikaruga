@@ -7,7 +7,7 @@
 #include "LaserWeapon.hpp"
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     LaserWeapon::LaserWeapon(Game& game,
                              Actor& actor,
@@ -38,4 +38,4 @@ namespace jumper
                      numFrames,
                      WeaponType::LASER_GUN)
     { }
-}
+} /* namespace ikaruga */

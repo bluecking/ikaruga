@@ -9,7 +9,7 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Player::Player(
             SDL_Renderer* renderer,
@@ -257,4 +257,4 @@ namespace jumper
 
         return hitbox;
     }
-}
+} /* namespace ikaruga */

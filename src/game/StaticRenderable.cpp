@@ -7,13 +7,16 @@
 
 #include "StaticRenderable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
-StaticRenderable::StaticRenderable(SDL_Renderer* renderer) : Renderable(renderer) {}
+    StaticRenderable::StaticRenderable(SDL_Renderer* renderer) : Renderable(renderer)
+    { }
 
-StaticRenderable::StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture) : Renderable(renderer, texture) {}
+    StaticRenderable::StaticRenderable(SDL_Renderer* renderer, SDL_Texture* texture) : Renderable(renderer, texture)
+    { }
 
-StaticRenderable::~StaticRenderable() {}
+    StaticRenderable::~StaticRenderable()
+    { }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

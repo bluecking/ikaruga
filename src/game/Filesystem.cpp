@@ -3,10 +3,11 @@
  * 
  * @date 29.02.16
  * @author Johan M. von Behren (jvonbehren@uni-osnabrueck.de)
+ * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
  */
 #include "Filesystem.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     string Filesystem::getDirectoryPath(string filePath)
     {
@@ -61,4 +62,4 @@ namespace jumper
         }
         return vec;
     }
-}
+} /* namespace ikaruga */

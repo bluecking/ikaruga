@@ -5,13 +5,14 @@
  *  @author Benjamin Lücking <bluecking@uos.de>
  */
 
-#ifndef SCROLLER_POWERUP_HPP
-#define SCROLLER_POWERUP_HPP
+#ifndef IKARUGA_POWERUP_HPP
+#define IKARUGA_POWERUP_HPP
 
 #include "Actor.hpp"
 #include "Player.hpp"
 
-namespace jumper {
+namespace ikaruga
+{
 
     class Player;
 
@@ -67,7 +68,8 @@ namespace jumper {
          * @brief getter for expiration time
          * @return expiration time
          */
-        int getExpirationTime() const {
+        int getExpirationTime() const
+        {
             return m_expirationTime;
         }
 
@@ -84,6 +86,6 @@ namespace jumper {
         /// expiration Time
         int m_expirationTime;
     };
-}
+} /* namespace ikaruga */
 
-#endif //SCROLLER_POWERUP_HPP
+#endif //IKARUGA_POWERUP_HPP

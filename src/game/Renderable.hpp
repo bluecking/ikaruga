@@ -4,20 +4,20 @@
 *
 * @author Thomas Wiemann (twiemann@uos.de)
 */
-#ifndef JUMPER_RENDERABLE_H
-#define JUMPER_RENDERABLE_H
+#ifndef IKARUGA_RENDERABLE_H
+#define IKARUGA_RENDERABLE_H
 
 #include <SDL.h>
 #include <string>
 #include "Camera.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 
-/**
- * @brief Base class for all objects that can be rendered.
- */
+    /**
+     * @brief Base class for all objects that can be rendered.
+     */
     class Renderable
     {
 
@@ -96,6 +96,6 @@ namespace jumper
 
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
-#endif //JUMPER_RENDERABLE_H
+#endif //IKARUGA_RENDERABLE_H

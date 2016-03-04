@@ -17,10 +17,9 @@
 #include <math.h>
 #include <time.h>
 #include "Armed.hpp"
-
 #include "../xml/XML.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 
@@ -111,6 +110,6 @@ namespace jumper
         Game* m_game;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_BOT_HPP_ */

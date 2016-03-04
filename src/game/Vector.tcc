@@ -10,7 +10,7 @@
 #include "Vector.hpp"
 
 
-namespace jumper
+namespace ikaruga
 {
 
     template<typename T>
@@ -147,7 +147,7 @@ namespace jumper
     }
 
     template<typename T>
-    std::ostream& operator<<(std::ostream& stream, const jumper::Vector2<T>& vec)
+    std::ostream& operator<<(std::ostream& stream, const ikaruga::Vector2<T>& vec)
     {
         stream << "(" << vec.x() << "|" << vec.y() << ")";
         return stream;
@@ -168,4 +168,4 @@ namespace jumper
         m_y -= other.m_y;
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

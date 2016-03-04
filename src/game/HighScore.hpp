@@ -6,11 +6,14 @@
  */
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
+
 #include <string>
 #include "Profile.hpp"
 
-namespace jumper{
+namespace ikaruga
+{
     class Profile;
+
     /**
      * @brief 	Represents the Highscore of one Level.
      */
@@ -25,22 +28,26 @@ namespace jumper{
          *                      highscore is needed
          */
         HighScore(Profile* profile, std::string levelFile);
+
         /**
          * Add points to the Highscore of the level
          *
          * @param points    Count of points
          */
         void addPointsToHighscore(int points);
+
         /**
          * Saves the Highscore of the level and set them for profile,
          * where the currency is set.
          * Just Call this at the END OF THE LEVEL
          */
         void saveHighscore();
+
         /**
          * Returns the actual HighScore of the Level
          */
         long getHighscore();
+
         //levelfile
         std::string levelFile;
     private:
@@ -49,6 +56,6 @@ namespace jumper{
         //profile to manage saving
         Profile* profile;
     };
-}
+} /* namespace ikaruga */
 
 #endif // HIGHSCORE_H

@@ -7,7 +7,7 @@
 #include "MainWindow.hpp"
 #include "Filesystem.hpp"
 
-using namespace jumper;
+using namespace ikaruga;
 using std::string;
 using std::cout;
 using std::endl;

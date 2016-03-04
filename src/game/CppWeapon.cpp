@@ -7,7 +7,7 @@
 #include "CppWeapon.hpp"
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     CppWeapon::CppWeapon(Game& game,
                          Actor& actor,
@@ -38,4 +38,4 @@ namespace jumper
                      numFrames,
                      WeaponType::CPP_GUN)
     { }
-}
+} /* namespace ikaruga */

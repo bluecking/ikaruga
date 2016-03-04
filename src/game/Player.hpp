@@ -6,22 +6,20 @@
  *  @author Timo Osterkamp <tosterkamp@uos.de>
  */
 
-#ifndef JUMPER_PLAYER_H
-#define JUMPER_PLAYER_H
+#ifndef IKARUGA_PLAYER_H
+#define IKARUGA_PLAYER_H
 
 #include <fstream>
 #include <iostream>
 #include <string>
-
 #include <SDL.h>
-
 #include "Actor.hpp"
 #include "Vector.hpp"
 #include "Armed.hpp"
 #include "Sound.hpp"
 #include "PowerUp.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class PowerUp;
 
@@ -259,6 +257,6 @@ namespace jumper
         /** GodMode blue value of the texture */
         const Uint8 m_ColorGod_B = 239;
     };
-}
+} /* namespace ikaruga */
 
-#endif //JUMPER_PLAYER_H
+#endif //IKARUGA_PLAYER_H

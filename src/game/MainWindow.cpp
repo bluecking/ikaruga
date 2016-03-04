@@ -7,16 +7,13 @@
 
 #include "MainWindow.hpp"
 #include <SDL_image.h>
-#include <iostream>
 #include <SDL_mixer.h>
-#include "Vector.hpp"
-#include "Renderable.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     const int MainWindow::MAX_FPS = 60;
 
-    MainWindow::MainWindow(std::string title, int w, int h,boost::filesystem::path resPath)
+    MainWindow::MainWindow(std::string title, int w, int h, boost::filesystem::path resPath)
             : m_startLoopTicks(0)
     {
         m_quit = false;
@@ -33,10 +30,10 @@ namespace jumper
         Renderable::m_camera.m_height = h;
         /// Initialize SDL stuff
         initSDL();
-        this->actRenderID=0;
-        std::cout<<resPath.c_str()<<std::endl;
-        xml=new XML(resPath.c_str(),true);
-        profile=new Profile(xml);
+        this->actRenderID = 0;
+        std::cout << resPath.c_str() << std::endl;
+        xml = new XML(resPath.c_str(), true);
+        profile = new Profile(xml);
     }
 
     MainWindow::~MainWindow()
@@ -50,7 +47,6 @@ namespace jumper
     {
         return m_renderer;
     }
-
 
 
     void MainWindow::run()
@@ -78,7 +74,8 @@ namespace jumper
                 }
             }
             //std::cout << actRenderID << std::endl; //Debug Output
-            switch(actRenderID){
+            switch (actRenderID)
+            {
                 case MainWindow::RENDER_MAINMENU:
                     m_menu->update(currentKeyStates, keyDown);
                     break;
@@ -90,7 +87,8 @@ namespace jumper
                     break;
                 case MainWindow::RENDER_CREDITS:
                     break;
-                default: std::cout << "You have to use setActualScreen." << std::endl;
+                default:
+                    std::cout << "You have to use setActualScreen." << std::endl;
                     break;
             }
 
@@ -107,8 +105,9 @@ namespace jumper
         delete[] keyDown;
     }
 
-    void MainWindow::setActualScreen(int ID){
-        actRenderID=ID;
+    void MainWindow::setActualScreen(int ID)
+    {
+        actRenderID = ID;
     }
 
     void MainWindow::setGame(Game* game)
@@ -116,7 +115,8 @@ namespace jumper
         m_game = game;
     }
 
-    void MainWindow::setMenu(MainMenu* menu) {
+    void MainWindow::setMenu(MainMenu* menu)
+    {
         m_menu = menu;
     }
 
@@ -197,12 +197,12 @@ namespace jumper
         return time;
     }
 
-    int jumper::MainWindow::w()
+    int MainWindow::w()
     {
         return m_width;
     }
 
-    int jumper::MainWindow::h()
+    int MainWindow::h()
     {
         return m_height;
     }
@@ -228,6 +228,6 @@ namespace jumper
     {
         return actRenderID;
     }
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 

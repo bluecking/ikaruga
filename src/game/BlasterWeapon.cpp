@@ -7,7 +7,7 @@
 #include "BlasterWeapon.hpp"
 #include "Projectile.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     BlasterWeapon::BlasterWeapon(Game& game,
                                  Actor& actor,
@@ -40,4 +40,4 @@ namespace jumper
     {
 
     }
-}
+} /* namespace ikaruga */

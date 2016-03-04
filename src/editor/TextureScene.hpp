@@ -21,6 +21,7 @@
 #include"LevelScene.hpp"
 
 class MainWindow;
+
 class LevelScene;
 
 class TextureScene : public QGraphicsScene
@@ -32,12 +33,13 @@ public:
      * @param QGraphicsView* View the given View to set
      * @param LevelScene* level the given mainScene for setting values in the LevelScene
      */
-    TextureScene(QGraphicsView* View,LevelScene* level, MainWindow* window);
+    TextureScene(QGraphicsView* View, LevelScene* level, MainWindow* window);
 
     /**
      * @brief default constructor
      */
-    TextureScene(){};
+    TextureScene()
+    { };
 
     /**
      * @brief returns the Scene
@@ -65,7 +67,7 @@ private:
     int m_numRows;              /// Number of rows in the tile bitmap
     int m_textureHeight;        /// Level width (in tiles)
     int m_textureWidth;         /// Level height in tiles
-    int m_type=0;               /// type of the item
+    int m_type = 0;               /// type of the item
 
 };
 

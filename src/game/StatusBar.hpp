@@ -15,12 +15,14 @@
 
 using std::string;
 
-namespace jumper {
+namespace ikaruga
+{
 
     /**
      * @brief A class to display points using a digit map for rendering
      */
-    class StatusBar : public FontRender {
+    class StatusBar : public FontRender
+    {
     public:
 
 
@@ -38,8 +40,8 @@ namespace jumper {
          * @param letterCount       The numbers of Lettrs
          * @param offsetMiddle      Offset to get everything perfectly to the midle
          */
-        StatusBar(SDL_Renderer *renderer,
-                  SDL_Texture *texture,
+        StatusBar(SDL_Renderer* renderer,
+                  SDL_Texture* texture,
                   int tileWidth,
                   int tileHeight,
                   int capitalOffset,
@@ -79,7 +81,7 @@ namespace jumper {
          * @param positionStart the lower left corner of the StatusBar
          * @param positionEnd the upper right corner of the StatusBar
          */
-        void setPosition(const Vector2i &positionStart, const Vector2i &positionEnd);
+        void setPosition(const Vector2i& positionStart, const Vector2i& positionEnd);
 
         /**
          * @brief Sets the weapon name
@@ -116,21 +118,21 @@ namespace jumper {
          *
          * @param position the position of the score
          */
-        void setScorePosition(const Vector2i &position);
+        void setScorePosition(const Vector2i& position);
 
         /**
          * @brief Sets the Weapon Position
          *
          * @param position position of the Weapon String
          */
-        void setWeaponPosition(const Vector2i &position);
+        void setWeaponPosition(const Vector2i& position);
 
         /**
          * @brief Sets the Health Position
          *
          * @param position position of the players health
          */
-        void setHealthPosition(const Vector2i &position);
+        void setHealthPosition(const Vector2i& position);
 
         /// Current score
         int long m_score;
@@ -246,6 +248,6 @@ namespace jumper {
         const int offsetBossHealth = 2;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_SCOREBOARD_HPP_ */

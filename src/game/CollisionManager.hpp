@@ -10,11 +10,11 @@
 
 #include <vector>
 #include "Actor.hpp"
+#include <algorithm>
 
-namespace jumper
+namespace ikaruga
 {
     using std::vector;
-    using jumper::Actor;
 
     class CollisionManager
     {
@@ -28,5 +28,6 @@ namespace jumper
         static void checkActorCollision(vector<Actor*>& actors);
     };
 
+} /* namespace ikaruga */
+
 #endif //SRC_COLLISIONMANAGER_HPP
-}

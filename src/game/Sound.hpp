@@ -7,12 +7,12 @@
 
 #include "Level.hpp"
 
-#ifndef SCROLLER_SOUND_HPP
-#define SCROLLER_SOUND_HPP
+#ifndef IKARUGA_SOUND_HPP
+#define IKARUGA_SOUND_HPP
 
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
 
     namespace SoundType
@@ -91,6 +91,6 @@ namespace jumper
         /// The channel, where the sound is played
         int m_channel;
     };
-};
+}  /* namespace ikaruga */
 
-#endif //SCROLLER_SOUND_HPP
+#endif //IKARUGA_SOUND_HPP

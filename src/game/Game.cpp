@@ -6,21 +6,17 @@
  */
 
 #include "MainWindow.hpp"
-#include "Game.hpp"
 #include "CollisionManager.hpp"
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
-#include "FontRender.hpp"
 #include "PowerUpWeapon.hpp"
 #include "CppWeapon.hpp"
-
-#include <set>
 
 using std::set;
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)
@@ -863,4 +859,4 @@ namespace jumper
 
         return weaponInstance;
     }
-} /* namespace jumper */
+} /* namespace ikaruga */

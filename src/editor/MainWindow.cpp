@@ -1,5 +1,4 @@
 #include "MainWindow.hpp"
-#include <iostream>
 
 MainWindow::MainWindow(QMainWindow* parent, std::string folderPath)
         : QMainWindow(parent), ui(new Ui::MainWindow), m_resPath(folderPath)
@@ -192,7 +191,6 @@ void MainWindow::on_save_id_released()
     scene->setLevelName(ui->level_name->text());
     this->saveFile(this->openedFile);
 }
-
 
 
 void MainWindow::on_botList_itemClicked(QListWidgetItem* item)
