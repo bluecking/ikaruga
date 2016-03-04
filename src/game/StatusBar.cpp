@@ -1,13 +1,12 @@
 #include "StatusBar.hpp"
 #include <list>
-#include "FontRender.hpp"
 
 using std::cout;
 using std::endl;
 using std::list;
 using std::string;
 
-namespace jumper
+namespace ikaruga
 {
 
     const int StatusBar::m_maxScore = 1000000;
@@ -82,9 +81,9 @@ namespace jumper
                                                           m_minusculeOffset,
                                                           m_capitalOffset,
                                                           m_numberOffset);
-            setWeaponPosition(Vector2i(m_weaponPosition.x() - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
+            setWeaponPosition(Vector2i((m_endPosition.x() / 2) - (((m_weaponName.length() + 2) / 2) * m_tileWidth),
                                        m_horziontalAlignemnt));
-            for (int i = 0; i < weapon_source.size(); i++)
+            for (unsigned int i = 0; i < weapon_source.size(); i++)
             {
                 source.x = weapon_source[i].x();
                 source.y = weapon_source[i].y();
@@ -98,7 +97,7 @@ namespace jumper
         }
         else
         {
-            for (int i = 0; i < m_weaponSource.size(); i++)
+            for (unsigned int i = 0; i < m_weaponSource.size(); i++)
             {
                 SDL_RenderCopy(m_renderer, m_texture, &m_weaponSource.at(i), &m_weaponTarget.at(i));
             }
@@ -112,16 +111,16 @@ namespace jumper
 
         //Rendering of Health Display
 
-        RenderHPBar(m_healthPosition, 100, target.h, &m_max_health, &m_health);
+        RenderHPBar(m_healthPosition, m_healthBarWidth, target.h, &m_max_health, &m_health);
         if (m_boss_health != 0)
         {
             Vector2i position = m_healthPosition;
-            position.setY(position.y() + 60);
-            RenderHPBar(position, 100, target.h, &m_boss_max_health, &m_boss_health);
+            position.setY((m_horziontalAlignemnt + offsetBossHealth) * m_tileHeight);
+            RenderHPBar(position, m_healthBarWidth, target.h, &m_boss_max_health, &m_boss_health);
             position.setX(position.x() - 50);
             vector<Vector2i> boss_source = renderString("BOSS:", m_minusculeOffset, m_capitalOffset, m_numberOffset);
 
-            for (int i = 0; i < boss_source.size(); i++)
+            for (unsigned int i = 0; i < boss_source.size(); i++)
             {
                 source.x = boss_source[i].x();
                 source.y = boss_source[i].y();
@@ -131,12 +130,16 @@ namespace jumper
                 SDL_RenderCopy(m_renderer, m_texture, &source, &target);
             }
         }
+        else
+        {
+            m_boss_max_health = 0;
+        }
     }
 
     void StatusBar::displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target)
     {
         vector<Vector2i> vec_source = renderNumber(number, m_numberOffset);
-        for (int i = 0; i < vec_source.size(); i++)
+        for (unsigned int i = 0; i < vec_source.size(); i++)
         {
             source.x = vec_source[i].x();
             source.y = vec_source[i].y();
@@ -203,7 +206,6 @@ namespace jumper
         //and substract to offset to get it perfectly horizontally aligned
         m_horziontalAlignemnt = (m_startPosition.y() / 2) - ((m_tileHeight / 2) - m_offsetMiddle);
         setScorePosition(Vector2i(m_startPosition.x() + 10, m_horziontalAlignemnt));
-        //TODO ~ Update Weapon Position, so its always in the middle.
         setWeaponPosition(Vector2i(m_endPosition.x() / 2, m_horziontalAlignemnt));
         setHealthPosition(Vector2i(m_endPosition.x() - 73 - 3 * m_tileWidth, m_horziontalAlignemnt - 1));
     }
@@ -285,5 +287,5 @@ namespace jumper
     }
 
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 

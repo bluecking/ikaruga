@@ -1,10 +1,15 @@
 #include "MainWindow.hpp"
-#include <QApplication>
 
+int main(int argc, char** argv)
+{
+    if (argc < 2)
+    {
+        std::cout << "Invalid amount of parameters." << std::endl;
+        return -1;
+    }
 
-int main( int argc, char* argv[]){
-	QApplication a(argc, argv);
-	MainWindow w;
-	w.show();
-	return a.exec();
+    QApplication a(argc, argv);
+    MainWindow w(0, argv[1]);
+    w.show();
+    return a.exec();
 }

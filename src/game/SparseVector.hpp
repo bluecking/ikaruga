@@ -1,117 +1,167 @@
+/**
+ * SparseVector.hpp
+ *
+ * @date 03.03.16
+ * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
+ */
+
 #ifndef __SPARSEVECTOR_HPP__
 #define __SPARSEVECTOR_HPP__
 
 #include <cassert>
 
-namespace jumper
+namespace ikaruga
 {
 
-/**
- * @brief A sparse vector representation for integer values
- */
-class SparseVector {
+    /**
+     * @brief A sparse vector representation for integer values. Non-Zero Entries are saved in a linked list,
+     */
+    class SparseVector
+    {
 
-	/// Inner struct to represent a node in the sparse vector
-	struct node
-	{
-		/// Element number, must be smaller than the vector's size
-		int index;
+        /// Inner struct to represent a node in the sparse vector
+        struct node
+        {
+            /// Element number, must be smaller than the vector's size
+            int index;
 
-		/// The value of this element
-		int value; // The value of this element.
+            /// The value of this element
+            int value; // The value of this element.
 
-		/// A pointer to the next node in the list
-		node *next; // A pointer to the next node in the linked-list.
+            /// A pointer to the next node in the list
+            node* next; // A pointer to the next node in the linked-list.
 
-		/**
-		 * Constructor
-		 *
-		 * @param idx	Index of the node
-		 * @param val	Value of the node
-		 * @param nxt	Pointer to next node in list
-		 */
-		node(int idx, int val, node *nxt) : index(idx), value(val), next(nxt) { }
+            /**
+             * Constructor
+             *
+             * @param idx	Index of the node
+             * @param val	Value of the node
+             * @param nxt	Pointer to next node in list
+             */
+            node(int idx, int val, node* nxt) : index(idx), value(val), next(nxt)
+            { }
 
-		/**
-		 * Copy constructor
-		 */
-		node(const node &c) : index(c.index), value(c.value), next(c.next) { }
-	};
+            /**
+             * Copy constructor
+             */
+            node(const node& c) : index(c.index), value(c.value), next(c.next)
+            { }
+        };
 
-public:
-	/**
-	 * Constructs a sparse vector with given size
-	 * @param s 	Size of the vector
-	 */
-	SparseVector(int s);
+    public:
 
-	/**
-	 * Copy constructor
-	 */
-	SparseVector(const SparseVector &c);
-	~SparseVector();
+        /**
+         * Constructs a sparse vector with given size.
+         * @param size   Size of the vector
+         */
+        SparseVector(int size);
 
-	/**
-	 * Assigns the given value the the ith component.
-	 */
-	void setElem(int i, int value);
+        /**
+         * Copy constructor.
+         *
+         * @param other    SparseVector to copy from
+         */
+        SparseVector(const SparseVector& other);
 
-	/**
-	 * Returns the value of component i
-	 */
-	int getElem(int i) const;
+        /*
+         * Destructor.
+         */
+        ~SparseVector();
 
-	/**
-	 * Returns the size of the vector
-	 */
-	int getSize() const;
+        /**
+         * Assigns the given value the the ith component.
+         *
+         * @param index  index of component to assign value to
+         * @param value  value to assign to component
+         */
+        void setElem(int index, int value);
 
-	/**
-	 * Assignment operator
-	 */
-	SparseVector& operator=(const SparseVector &b);
+        /**
+         * Returns the value of component index
+         *
+         * @param index index of component to get value from
+         */
+        int getElem(int index) const;
 
-	/**
-	 * Checks if two vectors are equal
-	 */
-	bool operator==(const SparseVector &b) const;
+        /**
+         * Returns the size of the vector
+         */
+        int getSize() const;
 
-	/**
-	 * Checks for inequality
-	 */
-	bool operator!=(const SparseVector &b) const;
+        /**
+         * Assignment operator
+         *
+         * @param other   reference of vector to assign from
+         */
+        SparseVector& operator=(const SparseVector& other);
 
-	/**
-	 * Returns the value of the ith component
-	 */
-	int operator[](int i) const {return getElem(i);}
+        /**
+         * Checks if two vectors are equal
+         *
+         * @param other   reference of vector to check for equality
+         */
+        bool operator==(const SparseVector& other) const;
 
-private:
+        /**
+         * Checks for inequality
+         *
+         * @param other   reference of vector to check for inequality
+         */
+        bool operator!=(const SparseVector& other) const;
 
-	/// List anchor
-	node 		*m_start;
+        /**
+         * Returns the value of the ith component
+         *
+         * @param ndexi   index of component to get value from
+         */
+        int operator[](int index) const
+        { return getElem(index); }
 
-	/// Size of the vector
-	int 		m_size;
+    private:
 
-	/// Removes all non-zero elements
-	void clear();
+        /// List anchor
+        node* m_start;
 
-	/// Copies the contends of the other vector
-	void copy(const SparseVector &other);
+        /// Size of the vector
+        int m_size;
 
-	/// Sets a value of an non-zero element, i.e., inserts a new
-	/// node in the list
-	void setNonzeroElem(int index, int value);
+        /**
+         * Removes all non-zero elements
+         */
+        void clear();
 
-	/// Removes the element at given index
-	void removeElem(int index);
+        /**
+         * Copies the contends of the other vector
+         *
+         * @param other   Vector to copy contends from.
+         */
+        void copy(const SparseVector& other);
 
-	/// Returns a pointer to node in the list before \ref i
-	node *getPrevElem(int i) const;
+        /**
+         * Sets a value of an non-zero element, i.e., inserts a new
+         * node in the list
+         *
+         * @param index   index to insert to
+         * @param value   value to insert
+         */
+        void setNonzeroElem(int index, int value);
 
-};
+        /**
+         * Removes the element at given
+         *
+         * @param index  index to remove at
+         */
+        void removeElem(int index);
 
-} // namespace jumper
+        /**
+         * Returns a pointer to node in the list before \ref index
+         *
+         * @param index   index to get previous element from
+         */
+        node* getPrevElem(int index) const;
+
+    };
+
+}  /* namespace ikaruga */
 
 #endif

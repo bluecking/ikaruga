@@ -15,17 +15,19 @@
 
 using std::string;
 
-namespace jumper {
+namespace ikaruga
+{
 
     /**
      * @brief A class to display points using a digit map for rendering
      */
-    class StatusBar : public FontRender {
+    class StatusBar : public FontRender
+    {
     public:
 
 
         /**
-         * Constructs a scoreboard for the given renderer
+         * @brief Constructs a Statusbar for the given renderer
          *
          * @param renderer			A valid SDL_Renderer structure
          * @param texture			A texture that contains the 10 digits (from 0 to 9 in
@@ -38,8 +40,8 @@ namespace jumper {
          * @param letterCount       The numbers of Lettrs
          * @param offsetMiddle      Offset to get everything perfectly to the midle
          */
-        StatusBar(SDL_Renderer *renderer,
-                  SDL_Texture *texture,
+        StatusBar(SDL_Renderer* renderer,
+                  SDL_Texture* texture,
                   int tileWidth,
                   int tileHeight,
                   int capitalOffset,
@@ -49,14 +51,14 @@ namespace jumper {
                   int offsetMiddle);
 
         /**
-         * Sets the current Score
+         * @brief Sets the current Score
          *
-         * @param score			Sets the Current Score
+         * @param score	Sets the Current Score
          */
         void setScore(int long score);
 
         /**
-         * Gets the current Score
+         * @brief Gets the current Score
          *
          * @returns currentScore
          */
@@ -64,68 +66,73 @@ namespace jumper {
 
 
         /**
-         * Renders the Scoreboard
+         * @brief Renders the Statusbar
          */
         virtual void render();
 
         /**
-         * Destructor
+         * @brief Destructor
          */
         virtual ~StatusBar();
 
         /**
-         * Sets the StatusBar Position
+         * @brief Sets the StatusBar Position
          *
          * @param positionStart the lower left corner of the StatusBar
          * @param positionEnd the upper right corner of the StatusBar
          */
-        void setPosition(const Vector2i &positionStart, const Vector2i &positionEnd);
+        void setPosition(const Vector2i& positionStart, const Vector2i& positionEnd);
 
         /**
-         * Sets the weapon name
+         * @brief Sets the weapon name
          *
-         * @param weaponName name of the waepon
+         * @param weaponName name of the weapon
          */
         void setWeaponName(string weaponName);
 
         /**
-         * Sets the evolution Stage of the weapon
+         * @brief Sets the evolution Stage of the weapon
          *
-         * @param evolutionStage evolution Stage of the waepon
+         * @param evolutionStage evolution Stage of the weapon
          */
         void setEvolutionStage(string evolutionStage);
 
         /**
-         * Sets the health of the Player
+         * @brief Sets the health of the Player
          *
          * @param health health of the player
          */
         void setHealth(int health);
 
+        /**
+         * @brief Sets the health of a Boss
+         *
+         * @param health health of the boss
+         */
         void setBossHealth(int health);
 
     private:
 
         /**
-         * Sets the Score Position in the bar
+         * @brief Sets the Score Position in the bar
          *
          * @param position the position of the score
          */
-        void setScorePosition(const Vector2i &position);
+        void setScorePosition(const Vector2i& position);
 
         /**
-         * Sets the Weapon Position
+         * @brief Sets the Weapon Position
          *
          * @param position position of the Weapon String
          */
-        void setWeaponPosition(const Vector2i &position);
+        void setWeaponPosition(const Vector2i& position);
 
         /**
-         * Sets the Health Position
+         * @brief Sets the Health Position
          *
          * @param position position of the players health
          */
-        void setHealthPosition(const Vector2i &position);
+        void setHealthPosition(const Vector2i& position);
 
         /// Current score
         int long m_score;
@@ -176,28 +183,35 @@ namespace jumper {
         /// Maxim score that can be displayed
         const static int m_maxScore;
 
-        //lower left corner of the StatusBar
+        /// lower left corner of the StatusBar
         Vector2i m_startPosition;
 
-        //upper Right corner of the Statusbar
+        /// upper Right corner of the Statusbar
         Vector2i m_endPosition;
 
-        //Position of the weapon String
+        /// Position of the weapon String
         Vector2i m_weaponPosition;
 
-        //Poistion of the Players Health
+        /// Poistion of the Players Health
         Vector2i m_healthPosition;
 
-        //Players Health
+        /// Players Health
         int m_health;
 
+        /// Maximum player health
         int m_max_health;
 
+        /// width of the health bar
+        const int m_healthBarWidth = 100;
+
+        /// health of the boss
         int m_boss_health;
+
+        /// maxmimum health of the boss
         int m_boss_max_health;
 
         /**
-         * Renders a Number at a given Position
+         * @brief Renders a Number at a given Position
          *
          * @param number number to render
          * @param position position where to render the number
@@ -206,11 +220,34 @@ namespace jumper {
          */
         void displayNumber(int number, Vector2i position, SDL_Rect source, SDL_Rect target);
 
+        /**
+         * @brief Renders the HP Bar
+         *
+         * @param position the position of the hp-bar
+         * @param w width of the hp-bar
+         * @param h height of the hp-bar
+         * @param max_health pointer to the maximum health
+         * @param health pointer the the current health status
+         */
         void RenderHPBar(Vector2i& position, int w, int h, int* max_health, int* health);
 
+        /**
+         * @brief renders a rectangle
+         *
+         * @param renderer pointer to SDL_Renderer
+         * @param position the start position of the rectangle
+         * @param w width of the rectangle
+         * @param h hegith of the rectangle
+         * @param r red value (0-255)
+         * @prarm g green value (0-255)
+         * @param b blue value (0-255)
+         */
         void renderRectangle(SDL_Renderer* renderer, Vector2i position, int w, int h, int r, int g, int b);
+
+        /// the offset of the boss healthbar
+        const int offsetBossHealth = 2;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_SCOREBOARD_HPP_ */

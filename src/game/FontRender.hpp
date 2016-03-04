@@ -5,23 +5,26 @@
  * @date 27.02.2016
  */
 
-#ifndef SCROLLER_FONTRENDER_H
-#define SCROLLER_FONTRENDER_H
+#ifndef IKARUGA_FONTRENDER_H
+#define IKARUGA_FONTRENDER_H
 
 #include "StaticRenderable.hpp"
 #include <vector>
+#include <algorithm>
 
 using std::string;
 using std::vector;
 
-namespace jumper {
+namespace ikaruga
+{
     /**
      * @brief a class for rendereing fonts from a tilesheet
      */
-    class FontRender : public StaticRenderable {
+    class FontRender : public StaticRenderable
+    {
     public:
         /**
-         * Constructor
+         * @brief Constructor
          *
          * @param tileHeight the tileheigth
          * @param tileWidth the tilewith
@@ -30,11 +33,11 @@ namespace jumper {
          */
         FontRender(int tileHeight,
                    int tileWidth,
-                   SDL_Renderer *renderer,
-                   SDL_Texture *texture);
+                   SDL_Renderer* renderer,
+                   SDL_Texture* texture);
 
         /**
-         * Returns the x and y coordinates of a number on a tilesheet
+         * @brief Returns the x and y coordinates of a number on a tilesheet
          *
          * @param number number to render
          * @param numberOffset the numberoffset in the tilesheet
@@ -55,12 +58,12 @@ namespace jumper {
 
     private:
 
-        //the heigth of the letters on the tilesheet
+        /// the heigth of the letters on the tilesheet
         int m_tileHeight;
 
-        //the width of the letters on the tilesheet
+        /// the width of the letters on the tilesheet
         int m_tileWidth;
     };
-}
+} /* namespace ikaruga */
 
-#endif //SCROLLER_FONTRENDER_H
+#endif //IKARUGA_FONTRENDER_H

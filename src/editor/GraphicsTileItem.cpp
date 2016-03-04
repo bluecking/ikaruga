@@ -1,36 +1,35 @@
+/*
+ * GraphicsTileItem.cpp
+ *
+ *  Created on: Feb 23, 2016
+ *      Author: Johann Arndt
+ */
 #include"GraphicsTileItem.hpp"
 
 
-/// Constructor. Creates a sub-pixmap from tileset at position rect
-    /// and stores the given index
-
-GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type):QGraphicsPixmapItem()
+GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type) : QGraphicsPixmapItem()
 {
-    mainWindow=false;
-    m_pixmap=tileset;
-    m_type=type;
-    m_rect=rect;
-    m_index=index;
+    ///sets values and texture
     this->setPixmap(tileset->copy(rect));
-}
-    
-    /// Constructor. Creartes an item with given color, width w and height h.
-GraphicsTileItem::GraphicsTileItem(QColor* color, int w, int h):QGraphicsPixmapItem()
-{
-
+    m_type = type;
+    m_rect = rect;
+    m_index = index;
 }
 
-void GraphicsTileItem::changeItem(QPixmap* map,QRect& rect,int type)
+
+void GraphicsTileItem::changeItem(QPixmap* map, QRect& rect, int type)
 {
+    ///changes texture and type
     this->setPixmap(map->copy(rect));
-    m_type=type;
+    m_type = type;
 }
 
-void GraphicsTileItem::changeItem(QPixmap* map,QRect& rect,int type,int index)
+void GraphicsTileItem::changeItem(QPixmap* map, QRect& rect, int type, int index)
 {
+    ///set texture, type an tile id
     this->setPixmap(map->copy(rect));
-    m_type=type;
-    m_index=index;
+    m_type = type;
+    m_index = index;
 
 }
 
@@ -39,18 +38,13 @@ int GraphicsTileItem::getType()
     return m_type;
 }
 
-bool GraphicsTileItem::getWindowType()
-{
-    return mainWindow== true;
-}
 
 QRect GraphicsTileItem::getRect()
 {
     return m_rect;
 }
-	    
-
 
 GraphicsTileItem::~GraphicsTileItem()
 {
 }
+

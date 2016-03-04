@@ -10,23 +10,24 @@
 
 #include <vector>
 #include "Actor.hpp"
+#include <algorithm>
 
-namespace jumper
+namespace ikaruga
 {
     using std::vector;
-    using jumper::Actor;
 
     class CollisionManager
     {
     public:
         /**
          * Sorts actors vector by their x position and uses sweep and prune algorithm
-         * to invoke the resolveCollision method in O(n * log(n)) time complexity.
+         * to invoke the onActorCollision method in O(n * log(n)) time complexity.
          *
          * @parameter actors Vector of available actors in the game.
          */
-        void checkCollision(vector<Actor*>& actors);
+        static void checkActorCollision(vector<Actor*>& actors);
     };
 
+} /* namespace ikaruga */
+
 #endif //SRC_COLLISIONMANAGER_HPP
-}

@@ -1,35 +1,39 @@
-//
-// Created by isaak on 25.11.15.
-//
-
-#ifndef JUMPER_RENDERABLE_H
-#define JUMPER_RENDERABLE_H
+/**
+* @file Renderable.hpp
+* @brief Base class for all objects that can be rendered
+*
+* @author Thomas Wiemann (twiemann@uos.de)
+*/
+#ifndef IKARUGA_RENDERABLE_H
+#define IKARUGA_RENDERABLE_H
 
 #include <SDL.h>
 #include <string>
 #include "Camera.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
 
-/**
- * @brief Base class for all objects that can be rendered.
- */
+    /**
+     * @brief Base class for all objects that can be rendered.
+     */
     class Renderable
     {
-
     public:
 
         /**
-         * Constructs a Renderable for the given renderer
+         * @brief Constructs a Renderable for the given renderer
          *
-         * @param m_renderer			A pointer to a valid SDL_Renderer structure.
+         * @param m_renderer pointer to a valid SDL_Renderer structure
          */
         Renderable(SDL_Renderer* m_renderer);
 
-        /***
-         * Contructs a renderable from given texture and renderer.
+        /**
+         * @brief Contructs a renderable from given texture and renderer.
+         *
+         * @param renderer pointer to a valid SDL_Renderer
+         * @param texture pointer to a valid SDL_Texture
          */
         Renderable(SDL_Renderer* renderer, SDL_Texture* texture);
 
@@ -39,7 +43,11 @@ namespace jumper
          */
         SDL_Renderer* getRenderer() const;
 
-        /// Retruns the texture pointer
+        /**
+         * @brief returns the texture pointer
+         *
+         * @return texture pointer
+         */
         SDL_Texture* getTexture() const;
 
         /**
@@ -47,18 +55,30 @@ namespace jumper
         */
         virtual void render() = 0;
 
-        /// Returns the with of the rendered object
+        /**
+         * @brief returns the width of the rendered object
+         *
+         * @returns the width of the rendered object
+         */
         int w() const;
 
-        /// Returns the height of the rendered object
+        /**
+         * @brief returns the height of the rendered object
+         *
+         * @returns the height of the rendered object
+         */
         int h() const;
 
-        /// A global camera object that is used to determine
-        /// the offset wrt. the current camera position when
-        /// rendering
+        /**
+         * @brief global camera object
+         * @description global camera object that is used to determine the offset wrt. the current camera position
+         * when rendering
+         */
         static Camera m_camera;
 
-        // Destructor
+        /**
+         * @brief Destructor
+         */
         virtual ~Renderable();
 
     protected:
@@ -73,7 +93,6 @@ namespace jumper
         SDL_Rect m_sourceRect;
 
     };
+} /* namespace ikaruga */
 
-} /* namespace jumper */
-
-#endif //JUMPER_RENDERABLE_H
+#endif //IKARUGA_RENDERABLE_H

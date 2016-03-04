@@ -7,13 +7,10 @@
 
 #include "TexturedLayer.hpp"
 
-#include <cstdlib>
-#include <iostream>
-
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     TexturedLayer::TexturedLayer(SDL_Renderer* renderer)
             : StaticRenderable(renderer)
@@ -76,4 +73,4 @@ namespace jumper
         m_scrollSpeed = speed;
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

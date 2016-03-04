@@ -14,10 +14,12 @@
 #include <map>
 #include <boost/exception/all.hpp>
 
-class XML {
+class XML
+{
 public:
     //Public structs for xml nodes
-    struct Weapon{
+    struct Weapon
+    {
         std::string type;
         std::string filename;
         int colorOffsetX;
@@ -31,9 +33,12 @@ public:
         float cooldown;
         std::string soundfile;
         int collisionDamage;
+        float speed;
+        int numFrames;
     };
 
-    struct NPC{
+    struct NPC
+    {
         std::string type;
         std::string move_function;
         signed int move_value;
@@ -41,7 +46,8 @@ public:
         Weapon stdWeapon;
     };
 
-    struct Player{
+    struct Player
+    {
         std::string filename;
         int numFrames;
         int frameWidth;
@@ -63,7 +69,8 @@ public:
         int health;
     };
 
-    struct Bot{
+    struct Bot
+    {
         std::string type;
         std::string filename;
         int numFrames;
@@ -81,7 +88,8 @@ public:
         int collisionDamage;
     };
 
-    struct LevelBot{
+    struct LevelBot
+    {
         Bot type;
         int positionX;
         int positionY;
@@ -90,30 +98,37 @@ public:
         std::string powerUpName;
     };
 
-    struct Item{
+    struct Item
+    {
         std::string type;
         std::string filename;
+        Weapon weapon;
         int frameWidth;
         int frameHeight;
-        int health;
+        int fps;
+        int numFrames;
+        int healPercentage;
         int collisionDamage;
     };
 
-    struct LevelItem{
+    struct LevelItem
+    {
         Item type;
         int positionX;
         int positionY;
         int value;
     };
 
-    struct Background{
+    struct Background
+    {
         std::string filename;
         int scrollspeed;
         std::string soundfile;
         int volume;
     };
 
-    struct Statusbar{
+    struct Statusbar
+    {
         std::string filename;
         int frameWidth;
         int frameHeight;
@@ -124,7 +139,8 @@ public:
         int offsetToMid;
     };
 
-    struct Profile{
+    struct Profile
+    {
         std::string name;
         Weapon actualWeapon;
         std::vector<Weapon> boughtWeapons;
@@ -133,6 +149,13 @@ public:
         int money;
     };
 
+
+    /**
+     * This constructor loads the settings files and profiles
+     * @param resPath Path to the res-Directory
+     * @param noLevel Bool if the given string points to the resPath or to a level xml file
+     */
+    XML(std::string resPath, bool noLevel);
 
     /**
      * This constructor loads the given xml file. Exceptions as documented for the load() method can occur.
@@ -156,19 +179,22 @@ public:
      * Set XML filename.
      * @param filename XML file for game specification.
      */
-    void setFilename(std::string filename) {m_filename = filename;}
+    void setFilename(std::string filename)
+    { m_filename = filename; }
 
     /**
      * Get current name of XML file for level specification.
      * @return XML filename
      */
-    std::string getFilename() { return m_filename;}
+    std::string getFilename()
+    { return m_filename; }
 
     /**
      * Set level id.
      * @param id Unique level id.
      */
-    void setId(int id) {m_id = id;}
+    void setId(int id)
+    { m_id = id; }
 
     /**
      * Set level name.
@@ -219,37 +245,43 @@ public:
      * Get level id.
      * @return level id.
      */
-    int getId() { return m_id;}
+    int getId()
+    { return m_id; }
 
     /**
      * Get the current Levelname
      * @return m_levelname
      */
-    std::string getLevelname() { return m_levelname;}
+    std::string getLevelname()
+    { return m_levelname; }
 
     /**
      * Get the current tileset
      * @return m_tileset
      */
-    std::string getTileset() { return m_tileset;}
+    std::string getTileset()
+    { return m_tileset; }
 
     /**
      * Get the current Background
      * @return m_background
      */
-    Background getBackground() { return m_background;}
+    Background getBackground()
+    { return m_background; }
 
     /**
      * Get the Player
      * @return m_player
      */
-    Player getPlayer() { return m_player;}
+    Player getPlayer()
+    { return m_player; }
 
     /**
      * Get the Statusbar
      * @return m_statusbar
      */
-    Statusbar getStatusbar() { return m_statusbar;}
+    Statusbar getStatusbar()
+    { return m_statusbar; }
 
     /************************************** LEVEL STRUCT METHODS **************************************/
 
@@ -299,7 +331,8 @@ public:
      * Get all LevelBots
      * @return Vector with all LevelBots
      */
-    std::vector<LevelBot> getLevelBots() { return m_level_bots;}
+    std::vector<LevelBot> getLevelBots()
+    { return m_level_bots; }
 
     /**
      * Get the LevelItem at given number
@@ -313,19 +346,22 @@ public:
      * Get all LevelItems
      * @return Vector with all LevelItems
      */
-    std::vector<LevelItem> getLevelItems() { return m_level_items;}
+    std::vector<LevelItem> getLevelItems()
+    { return m_level_items; }
 
     /**
      * Add additional LevelBot.
      * @param lBot The new LevelBot.
      */
-    void addLevelBot(LevelBot lBot) {m_level_bots.push_back(lBot);}
+    void addLevelBot(LevelBot lBot)
+    { m_level_bots.push_back(lBot); }
 
     /**
      * Add an additional LevelItem.
      * @param lItem The new LevelItem.
      */
-    void addLevelItem(LevelItem lItem) {m_level_items.push_back(lItem);}
+    void addLevelItem(LevelItem lItem)
+    { m_level_items.push_back(lItem); }
 
     /**
      * Remove a LevelBot.
@@ -345,13 +381,15 @@ public:
      * Returns the total number of LevelBots.
      * @return Total number of LevelBots.
      */
-    unsigned int levelBotSize() {return m_level_bots.size();}
+    unsigned int levelBotSize()
+    { return m_level_bots.size(); }
 
     /**
      * Returns the total number of LevelItems.
      * @return Total number of LevelItems.
      */
-    unsigned int levelItemSize() {return m_level_items.size();}
+    unsigned int levelItemSize()
+    { return m_level_items.size(); }
 
     /************************************** SETTINGS STRUCT METHODS **************************************/
 
@@ -367,7 +405,8 @@ public:
      * Get all Bots
      * @return Vector with all Bots
      */
-    std::vector<Bot> getBots() { return m_bots;}
+    std::vector<Bot> getBots()
+    { return m_bots; }
 
     /**
      * Get the Item at given number
@@ -381,7 +420,8 @@ public:
      * Get all Items
      * @return Vector with all Items
      */
-    std::vector<Item> getItems() { return m_items;}
+    std::vector<Item> getItems()
+    { return m_items; }
 
     /**
      * Get the Weapon at given number
@@ -395,25 +435,29 @@ public:
      * Get all Weapons
      * @return Vector with all Weapons
      */
-    std::vector<Weapon> getWeapons() { return m_weapons;}
+    std::vector<Weapon> getWeapons()
+    { return m_weapons; }
 
     /**
      * Returns the total number of bots.
      * @return Total number of bots.
      */
-    unsigned int botSize() { return m_bots.size(); }
+    unsigned int botSize()
+    { return m_bots.size(); }
 
     /**
      * Returns the total number of items.
      * @return Total number of items.
      */
-    unsigned int itemSize() { return m_items.size(); }
+    unsigned int itemSize()
+    { return m_items.size(); }
 
     /**
      * Returns the total number of weapons.
      * @return Total number of weapons.
      */
-    unsigned int weaponSize() { return m_weapons.size(); }
+    unsigned int weaponSize()
+    { return m_weapons.size(); }
 
     /************************************** PROFILE STRUCT METHODS **************************************/
 
@@ -446,13 +490,15 @@ public:
      * Get all Profiles
      * @return Vector with all Profiles
      */
-    std::vector<Profile> getProfiles() { return m_profiles; }
+    std::vector<Profile> getProfiles()
+    { return m_profiles; }
 
     /**
      * Add an additional Profile.
      * @param profile The new Profile.
      */
-    void addProfile(Profile profile) { m_profiles.push_back(profile); }
+    void addProfile(Profile profile)
+    { m_profiles.push_back(profile); }
 
     /**
      * Remove a Profile.
@@ -465,7 +511,8 @@ public:
      * Returns the total number of profiles.
      * @return Total number of profiles.
      */
-    unsigned int profileSize() { return m_profiles.size(); }
+    unsigned int profileSize()
+    { return m_profiles.size(); }
 
     /**
      * Saves the profile file
@@ -473,7 +520,20 @@ public:
      */
     void saveProfiles();
 
+    /**
+     * Get the explosion image filename
+     * @return string with the explosion image filename
+     */
     std::string getExplosions();
+
+    /**
+     * Set the explosion image filename
+     * @param filename Path to the explosion image file
+     */
+    void setExplosions(std::string filename)
+    {
+        m_explosions = filename;
+    }
 
 private:
     /* XML Filename */
@@ -489,7 +549,6 @@ private:
     std::string m_explosions;
 
 
-
     std::vector<XML::LevelBot> m_level_bots;
     std::vector<XML::LevelItem> m_level_items;
 
@@ -502,7 +561,6 @@ private:
     std::vector<XML::Profile> m_profiles;
 
     std::map<std::string, int> m_requiredAttributes;
-
 
 
     /**

@@ -1,10 +1,3 @@
-/*
- * Actor.hpp
- *
- *  Created on: Dec 9, 2015
- *      Author: twiemann
- */
-
 #ifndef SRC_ACTOR_HPP_
 #define SRC_ACTOR_HPP_
 
@@ -19,14 +12,13 @@
 #include <chrono>
 #include "Sound.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     enum ActorType
     {
         ENEMY,
         PLATFORM,
         ITEM,
-        PUZZLEBOX,
         PLAYER,
         PROJECTILE,
         BOSS,
@@ -47,7 +39,7 @@ namespace jumper
      * @brief A class the represents a sprite that is moving and implements
      * collision detection.
      */
-    class Actor : public AnimatedRenderable
+    class Actor : public AnimatedRenderable, public Collidable
     {
     public:
 
@@ -57,92 +49,167 @@ namespace jumper
          * @param renderer		A pointer to a SDL renderer struct
          * @param filename		A filename with animation definitions
          */
-        Actor(SDL_Renderer* renderer,
-              SDL_Texture* texture,
-              int frameWidth,
-              int frameHeight,
-              int numFrames,
-              int health,
-              int collisionDamage);
+        Actor(
+                SDL_Renderer* renderer,
+                SDL_Texture* texture,
+                int frameWidth,
+                int frameHeight,
+                int numFrames,
+                int health,
+                int collisionDamage);
 
         virtual ~Actor();
 
+        /**
+         * @brief Move the Actor
+         * Every Actor can be moved in a certain level instance.
+         * The movement will be handled by the Actor subclasses separately.
+         * @param level The level instance
+         */
         virtual void move(Level& level) = 0;
 
-        virtual void onCollide() = 0;
-
         /**
-         * Is invoked if the actor collides with another actor
-         * It is pure virtual, since the subclasses react differently on
-         * collisions with different actors.
-         *
-         * @parameter other The actor instance which collided with this instance
+         * @brief Render the Actor
+         * By invoking this method, the Actor gets rendered. This can be overriden by its subclasses.
          */
-        virtual void resolveCollision(Actor& other) = 0;
-
         virtual void render();
 
-        void setPhysics(PlayerProperty p);
+        /**
+         * @brief Returns the player's physical properties
+         * @return The PlayerProperty reference
+         */
+        PlayerProperty& physics();
 
         /**
-         * Sets the player's position
+         * @brief Change color of Actor
+         * Every Actor represents it's state by one of two colors defined by ColorMode::ColorMode.
+         * By invoking this method the color gets toggled to the opposite color.
          */
-        void setPosition(Vector2f pos);
+        void toggleColor();
 
-        /***
-         * Returns the player's current position
+        /**
+         * @brief Set the spawning time.
+         * By invoking this method the spawning time is set.
+         */
+        void setLiveTime();
+
+        /**
+         * @brief Play an explosion sound
+         * If an Actor dies, its explosion sound will be played by invoking this function.
+         */
+        void playExplosionSound();
+
+        /**
+         * @brief Add damage to Actor
+         * Any Actor's health can be reduced by the damage it takes.
+         * @param damage The damage value
+         */
+        void takeDamage(int damage);
+
+        /**
+         * @brief Returns the representing color
+         * An Actor can represent the black or white color defined
+         * in ColorMode::ColorMode.
+         *
+         * @return The color that the Actor represents
+         */
+        const ColorMode::ColorMode& getColor() const
+        { return m_color; }
+
+        /**
+         * @brief Returns the color offset
+         * Depending on the Actor's current color state, the position of the Actor's sprite
+         * is different. By defining a color offset, the proper texture will be rendered.
+         *
+         * @return The color offset as a Vector2f
+         */
+        const Vector2f& getColorOffset() const
+        { return m_colorOffset; }
+
+        /**
+         * @brief Returns the Actor's hitbox
+         * Every Actor owns a hitbox that can collide with other Actor's hitboxes.
+         * @return A SDL_Rect reference representing the hitbox
+         */
+        virtual SDL_Rect& getHitbox();
+
+        /**
+         * @brief Returns if an Actor was hit
+         * Returns true if the Actor was hit in the current update.
+         * @return Flag if Actor was hit
+         */
+        bool isHit() const
+        {
+            return m_hit;
+        }
+
+        /**
+         * @brief Returns if Actor is dead
+         * Returns true if an Actor was killed and false otherwise.
+         * @return killed status
+         */
+        bool isKilled() const
+        {
+            return m_isKilled;
+        }
+
+        /**
+         * @brief Returns the current health of an Actor
+         * @return health value
+         */
+        int getHealth() const;
+
+        /**
+         * @brief Returns the reward for killing this Actor
+         * The player gets rewarded by this score for killing this Actor.
+         * @return Reward value
+         */
+        int getScoreValue() const
+        {
+            return m_scoreValue;
+        }
+
+        /**
+         * @brief Returns visibility
+         * Returns true, if the Actor is visible (in camera rectangle).
+         * @return Visibility status
+         */
+        bool visible();
+
+        /**
+         * @brief Returns Actor's position
+         * Returns the Actor's current position
+         * @return Position
          */
         Vector2f position();
 
         /**
-         * Returns the player's physical properties
+         * @brief Returns Actor's type
+         * Returns the type of Actor it represents.
+         * @return Actor's type
          */
-        PlayerProperty& physics();
-
-        void setFocus(bool focus);
-
-        bool hasFocus();
-
-        const ActorType& type() { return m_type; }
-
-        void setType(ActorType t) { m_type = t; }
-
-        void setColorOffset(const Vector2f& colorOffset) { m_colorOffset = colorOffset; }
-
-        const Vector2f& getColorOffset() const { return m_colorOffset; }
-
-        void toggleColor();
-
-        const ColorMode::ColorMode& getColor() const { return m_color; }
-
-        void setColor(const ColorMode::ColorMode& m_color) { Actor::m_color = m_color; }
+        const ActorType& type()
+        { return m_type; }
 
         /**
-         * Returns true, if the actor is visible (in camera rect)
+         * @brief Set the ColorMode
+         * Set the color the Actor shall represent.
          */
-        bool visible();
-
-        void takeDamage(int damage);
-
-        int getHealth() const;
-
-        virtual SDL_Rect& getHitbox();
-
-        void setHit(bool hit)
-        {
-            m_hit = hit;
-        }
-
-        bool isHit() const {
-            return m_hit;
-        }
-
-        void setLiveTime();
+        void setColor(const ColorMode::ColorMode& m_color)
+        { Actor::m_color = m_color; }
 
         /**
-         * the sound when this thing explodes
+         * @brief Set color offset
+         * Set the color offset where the second color is located in the Actor's sprite.
+         */
+        void setColorOffset(const Vector2f& colorOffset)
+        { m_colorOffset = colorOffset; }
+
+        /**
+         * @brief Set the explosion sound
+         * When this Actor gets killed then this set sound gets played.
          *
-         * @param explosionSoundFilename the filepath to the explosion sound
+         * @param explosionSoundFilename The filepath to the explosion sound
          */
         void setExplosionSound(std::string explosionSoundFilename)
         {
@@ -150,105 +217,148 @@ namespace jumper
         };
 
         /**
-         * the explosion of the volume
+         * @brief Set explosion volume
+         * The volume of the explosion sound.
          *
-         * @param volume
+         * @param volume Volume value
          */
-        void setExplosionVolume(int volume) {
+        void setExplosionVolume(int volume)
+        {
             m_explosionVolume = volume;
         }
 
+        /**
+         * @brief Set Focus
+         * Set the Actor's focus.
+         * @param focus True if it shall have focus, false otherwise.
+         */
+        void setFocus(bool focus);
+
+        /**
+         * @brief Set health
+         * Set the Actor's current health.
+         * @param health Current health value
+         */
+        virtual void setHealth(int health)
+        {
+            m_health = health;
+        }
+
+        /**
+         * @brief Set hit status
+         * Set the hit status to trueif the Actor collided with an Projectile.
+         * @param hit True if hit and false otherwise.
+         */
+        void setHit(bool hit)
+        {
+            m_hit = hit;
+        }
+
+        /**
+         * @brief Set killed status
+         * Set the killed status to true, if the Actor has been killed.
+         * @param killed True if killed and false otherwise.
+         */
+        void setKilled(bool killed)
+        {
+            m_isKilled = killed;
+        }
+
+        /**
+         * @brief Set physics
+         * Set the Actor's physic properties.
+         * @param p The physic properties
+         */
+        void setPhysics(PlayerProperty p);
+
+        /**
+         * Sets the player's position
+         */
+        void setPosition(Vector2f pos);
+
+        /**
+         * @brief Set score value
+         * Set the score value that the player gets rewarded by killing this Actor.
+         * @param score value
+         */
         void setScoreValue(int value)
         {
             m_scoreValue = value;
         }
 
-        void setKilled(bool killed) {
-            m_isKilled = killed;
-        }
-
-        bool isKilled() const
-        {
-            return m_isKilled;
-        }
-
-
-        void setHealth(int health)
-        {
-            m_health = health;
-        }
-
-        int getScoreValue() const
-        {
-            return m_scoreValue;
-        }
-
-        int getCollisionDamage() const
-        {
-            return m_collisionDamage;
-        }
-
-        void setCollisionDamage(int collisionDamage)
-        {
-            m_collisionDamage = collisionDamage;
-        }
-
-        void dropPowerUp();
-
-        void setIsKilled(bool isKilled)
-        {
-            m_isKilled = isKilled;
-        }
-
-        void playExplosionSound();
+        /**
+         * @brief Set Actor's type
+         * Set the Actor's type that it should represent.
+         * @param t The type
+         */
+        void setType(ActorType t)
+        { m_type = t; }
 
     protected:
-        int m_scoreValue = 0;
+        /// The color that the Actor is currently representing
+        ColorMode::ColorMode m_color;
 
-        int m_health;
+        /// The color offset where the second color is located in the sprite.
+        Vector2f m_colorOffset;
 
-        int m_collisionDamage;
-
-        bool m_isKilled;
-
-        //the explosion sound
+        /// The sound that is played at explosion.
         Sound m_explosionSound;
 
-        float getElapsedTime();
+        // Explosion Volume
+        int m_explosionVolume;
 
-        float getLiveTime();
+        /// Focus status.
+        bool m_focus;
+
+        /// The Actor's current health value.
+        int m_health;
+
+        /// Kill status
+        bool m_isKilled;
 
         /// The physical properties of the player
         PlayerProperty m_physicalProps;
 
-        Uint32 m_startTicks;
+        /// Rewarding score value.
+        int m_scoreValue;
 
+        /// The time when the Actor has spawned.
         Uint32 m_spawnTime;
 
-        bool m_focus;
+        /// The time at start.
+        Uint32 m_startTicks;
 
+        /// The type that the Actor is representing.
         ActorType m_type;
 
-        ColorMode::ColorMode m_color;
+        /**
+         * @brief Get elapsed time
+         * Get the elapsed time in seconds since beginning.
+         * @return The time elapsed.
+         */
+        float getElapsedTime();
 
-        Vector2f m_colorOffset;
+        /**
+         * @brief Get flip necessity
+         * @return Whether or not a texture flip is necessary
+         */
+        virtual SDL_RendererFlip getFlip();
 
-        SDL_Rect m_hitbox;
+        /**
+         * @brief Get the current time
+         * Get the current time in seconds since the Actor has spawned.
+         * @return Current time since spawning.
+         */
+        float getLiveTime();
 
-        bool m_hit = false;
-
-        //Explosion Volume
-        int m_explosionVolume;
     private:
-        /** The hitbox size is reduced to this factor */
-        const float HITBOXFACTOR = 0.8;
-
-        /** The opacity level that is rendered, when an actor was hit */
-        const unsigned char OPACITY_LEVEL_WHEN_HIT = 50;
-
+        /**
+         * @brief Render the hitbox
+         * By invoking this method the hitbox gets rendered as well.
+         */
         void renderHitbox();
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_ACTOR_HPP_ */

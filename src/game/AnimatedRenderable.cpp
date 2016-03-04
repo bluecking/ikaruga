@@ -7,14 +7,12 @@
 
 #include "AnimatedRenderable.hpp"
 #include "TextureFactory.hpp"
-
 #include <fstream>
-#include <iostream>
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     AnimatedRenderable::AnimatedRenderable(SDL_Renderer* renderer, std::string filename)
@@ -50,9 +48,9 @@ namespace jumper
                                            int frameHeight, int numFrames)
             : Renderable(renderer, texture),
               m_numFrames(numFrames),
+              m_currentFrame(0),
               m_frameWidth(frameWidth),
               m_frameHeight(frameHeight),
-              m_currentFrame(0),
               m_lastRenderTicks(0),
               m_frameTimeout(0),
               m_currentTileRow(0),
@@ -102,4 +100,4 @@ namespace jumper
         m_frameTimeout = (Uint32) (1000.0 / frames);
     }
 
-} /* namespace jumper */
+} /* namespace ikaruga */

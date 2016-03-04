@@ -9,17 +9,28 @@
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
-    Player::Player(SDL_Renderer* renderer,
-                   SDL_Texture* texture,
-                   int frameWidth,
-                   int frameHeight,
-                   int numFrames,
-                   int health,
-                   int collisionDamage)
-            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage), m_moveDirection(0, 0), m_initial_health(health)
-    { }
+    Player::Player(
+            SDL_Renderer* renderer,
+            SDL_Texture* texture,
+            Game& game,
+            int frameWidth,
+            int frameHeight,
+            int numFrames,
+            int health,
+            int collisionDamage)
+            : Actor(renderer, texture, frameWidth, frameHeight, numFrames, health, collisionDamage),
+              m_game(game),
+              m_moveDirection(0, 0),
+              m_initial_health(health),
+              m_godMode(false),
+              m_godModeCheat(false),
+              m_powerUps()
+    {
+        SDL_GetTextureColorMod(texture, &m_colorModR, &m_colorModG, &m_colorModB);
+        m_hitboxfactor = 0.8;
+    }
 
     void Player::move(Level& level)
     {
@@ -68,7 +79,7 @@ namespace jumper
             // Checks if the player moves up or down and updates the source rect
             updateMoveAnimation();
 
-            //Collision c = level.resolveCollision(this);
+            //Collision c = level.onActorCollision(this);
             //cout << c.delta() << endl;
         }
 
@@ -86,7 +97,7 @@ namespace jumper
         m_weapon->shoot(direction, position());
     }
 
-    void Player::onCollide()
+    void Player::onTileCollision()
     {
         return;
     }
@@ -99,71 +110,98 @@ namespace jumper
         const char DOHALF = 3;
         const char DOFULL = 4;
 
-        SDL_Rect& hitbox = getHitbox();
-
         // Player moves up
         if (getMoveDirection().y() < 0)
         {
-            // TODO: Set the hitbox dynamically
-            m_hitbox.h = (int) (frameHeight() * 0.5);;
-            m_hitbox.y = (int) position().y();
-            switch(m_currentTileRow) {
-                case NORMAL:     m_nextTileRow = UPHALF; break;
-                case DOHALF:     m_nextTileRow = NORMAL; break;
-                case DOFULL:     m_nextTileRow = DOHALF; break;
-                default:         m_nextTileRow = UPFULL;
+            switch (m_currentTileRow)
+            {
+                case NORMAL:
+                    m_nextTileRow = UPHALF;
+                    break;
+                case DOHALF:
+                    m_nextTileRow = NORMAL;
+                    break;
+                case DOFULL:
+                    m_nextTileRow = DOHALF;
+                    break;
+                default:
+                    m_nextTileRow = UPFULL;
             }
         } // Player moves down
         else if (getMoveDirection().y() > 0)
         {
-            m_hitbox.h = (int) (frameHeight() * 0.5);
-            m_hitbox.y = (int) position().y();
-            switch(m_currentTileRow) {
-                case NORMAL:     m_nextTileRow = DOHALF; break;
-                case UPHALF:     m_nextTileRow = NORMAL; break;
-                case UPFULL:     m_nextTileRow = UPHALF; break;
-                default:         m_nextTileRow = DOFULL;
+            switch (m_currentTileRow)
+            {
+                case NORMAL:
+                    m_nextTileRow = DOHALF;
+                    break;
+                case UPHALF:
+                    m_nextTileRow = NORMAL;
+                    break;
+                case UPFULL:
+                    m_nextTileRow = UPHALF;
+                    break;
+                default:
+                    m_nextTileRow = DOFULL;
             }
         } // Player does not move
         else
         {
-            m_hitbox.h = frameHeight();
-            switch(m_currentTileRow) {
-                case DOFULL:     m_nextTileRow = DOHALF; break;
-                case UPFULL:     m_nextTileRow = UPHALF; break;
-                default:         m_nextTileRow = NORMAL;
+            switch (m_currentTileRow)
+            {
+                case DOFULL:
+                    m_nextTileRow = DOHALF;
+                    break;
+                case UPFULL:
+                    m_nextTileRow = UPHALF;
+                    break;
+                default:
+                    m_nextTileRow = NORMAL;
             }
         }
     }
 
-    void Player::resolveCollision(Actor& other)
+    void Player::onActorCollision(Actor& other)
     {
-        if(other.type() == ENEMY) {
-            setHit(true);
-            playHitMark();
-            takeDamage(other.getCollisionDamage());
-            if(getHealth() <= 0) {
-                setKilled(true);
-            }
-        }
-
-        if (other.type() == PROJECTILE && getColor() == other.getColor())
+        if (!isGodMode() && !isGodModeCheat())
         {
-            Projectile* projectile = static_cast<Projectile*>(&other);
-            if (projectile->getOriginActor() != this)
+            if (other.type() == ENEMY || other.type() == BOSS)
             {
                 setHit(true);
+                playHitMark();
                 takeDamage(other.getCollisionDamage());
+                if (getHealth() <= 0)
+                {
+                    setKilled(true);
+                }
+            }
+
+            if (other.type() == PROJECTILE && getColor() == other.getColor())
+            {
+                Projectile* projectile = static_cast<Projectile*>(&other);
+                if (projectile->getOriginActor() != this)
+                {
+                    setHit(true);
+                    takeDamage(other.getCollisionDamage());
+                }
             }
         }
 
-        if(other.type() == POWERUP) {
+        if (other.type() == POWERUP)
+        {
             PowerUp* powerUp = static_cast<PowerUp*>(&other);
             m_powerUps.push_back(powerUp);
+
+            // Necessary, so the powerup will be removed from game, but will NOT be deleted.
+            // So the powerup will not be rendered anymore, but its object will still be existing.
+            // The player will handle the deletion if the player drops the powerup.
+            // See Player::consumePowerUps()
+            m_game.removeActor(powerUp);
         }
     }
 
-    void Player::playHitMark() {
+    void Player::playHitMark()
+    {
         m_hitMarkSound.play(m_hitMarkVolume);
     }
 
@@ -171,17 +209,52 @@ namespace jumper
     {
         vector<PowerUp*> to_remove;
 
-        for(auto powerUp : m_powerUps) {
-            powerUp->consume(this);
+        for (auto powerUp : m_powerUps)
+        {
+            // consume collected powerup at least once
+            powerUp->consume(*this);
 
-            if(getLiveTime() > powerUp->getExpirationTime()) {
+            // check if powerup has expired
+            if (getLiveTime() > powerUp->getExpirationTime())
+            {
+                powerUp->stop(*this);
                 to_remove.push_back(powerUp);
             }
         }
 
-        for(auto powerUp : to_remove) {
+        for (auto powerUp : to_remove)
+        {
             auto itr = std::find(m_powerUps.begin(), m_powerUps.end(), powerUp);
             m_powerUps.erase(itr);
+            delete powerUp;
         }
     }
-}
+
+    void Player::setHealth(int health)
+    {
+        if (health > m_initial_health)
+        {
+            health = m_initial_health;
+        }
+
+        m_health = health;
+    }
+
+    SDL_Rect& Player::getHitbox()
+    {
+        SDL_Rect& hitbox = Actor::getHitbox();
+
+        if (m_moveDirection.y() < 0)
+        {
+            hitbox.h = (int) (frameHeight() * 0.5);
+            hitbox.y = (int) position().y();
+        }
+        else if (m_moveDirection.y() > 0)
+        {
+            hitbox.h = (int) (frameHeight() * 0.5);
+            hitbox.y = (int) position().y() + hitbox.h;
+        }
+
+        return hitbox;
+    }
+} /* namespace ikaruga */

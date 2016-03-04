@@ -1,19 +1,14 @@
-//
-// Created by isaak on 26.11.15.
-//
-
 #ifndef PLAYER_PROPERTIES_H
 #define PLAYER_PROPERTIES_H
 
 #include "Vector.hpp"
 
-namespace jumper
+namespace ikaruga
 {
-
-/**
- * @brief		A class to represent the physical properties of
- * 				a player.
- */
+    /**
+     * @brief		A class to represent the physical properties of
+     * 				a player.
+     */
     class PlayerProperty
     {
     public:
@@ -96,7 +91,6 @@ namespace jumper
         /// Maximum run velocity
         double m_maxVelRun;
     };
+} /* namespace ikaruga */
 
-}
-
-#endif //JUMPER_PHYSICPLAYER_H
+#endif //IKARUGA_PHYSICPLAYER_H

@@ -8,25 +8,29 @@
 #ifndef SRC_GAME_KILLANIMATION_HPP_
 #define SRC_GAME_KILLANIMATION_HPP_
 
-#include "Item.hpp"
+#include "Actor.hpp"
 
-namespace jumper
+namespace ikaruga
 {
 
-class KillAnimation : public Item
-{
-public:
-	KillAnimation(Actor* actor ,std::string filepath);
-	virtual ~KillAnimation();
+    class KillAnimation : public Actor
+    {
+    public:
+        KillAnimation(Actor* actor, std::string filepath);
+
+        virtual ~KillAnimation();
 
 
-	virtual void move(Level& level);
-	//virtual void render();
+        virtual void move(Level& level) override;
+        //virtual void render();
 
 
 
-};
+        virtual void onTileCollision() override;
 
-} /* namespace jumper */
+        virtual void onActorCollision(Actor& other) override;
+    };
+
+} /* namespace ikaruga */
 
 #endif /* SRC_GAME_KILLANIMATION_HPP_ */

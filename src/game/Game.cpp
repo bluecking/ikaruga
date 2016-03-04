@@ -6,18 +6,17 @@
  */
 
 #include "MainWindow.hpp"
-#include "Game.hpp"
 #include "CollisionManager.hpp"
 #include "KillAnimation.hpp"
 #include "Filesystem.hpp"
-
-#include <set>
+#include "PowerUpWeapon.hpp"
+#include "CppWeapon.hpp"
 
 using std::set;
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
 
     void Game::getPlayerProperty(XML::Player player, PlayerProperty& p)
@@ -88,33 +87,18 @@ namespace jumper
     void Game::setupPlayer(XML::Player xplayer, MainWindow* w, Game* game, std::string filepath)
     {
         SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + xplayer.filename);
-        Player* player = new Player(w->getRenderer(), texture, xplayer.frameWidth, xplayer.frameHeight,
+        Player* player = new Player(w->getRenderer(), texture, *game, xplayer.frameWidth, xplayer.frameHeight,
                                     xplayer.numFrames, xplayer.health, xplayer.collisionDamage);
         player->setExplosionSound(filepath + xplayer.explosionSoundFile);
+        player->setExplosionVolume(xplayer.explosionVolume);
         player->setHitMarkSound(filepath + xplayer.hitSoundFile);
         player->setHitMarkVolume(xplayer.hitVolume);
 
         // set weapon
         XML::Weapon weapon = xplayer.stdWeapon;
-        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
-        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
-        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
-        float coolDown = weapon.cooldown;
-        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-                filepath + weapon.filename);
+        Weapon* weapon1 = createWeaponFromXML(weapon, game, player, w, filepath);
 
-        player->setWeapon(
-                new LaserWeapon(*game,
-                                *player,
-                                weaponTexture,
-                                *textureSize,
-                                *weaponOffset,
-                                *projectileColorOffset,
-                                coolDown,
-                                filepath + weapon.soundfile,
-                                weapon.shootingVolume,
-                                weapon.collisionDamage));
-
+        player->setWeapon(weapon1);
 
         game->setPlayer(player);
         player->setFocus(true);
@@ -130,7 +114,7 @@ namespace jumper
         player->setColorOffset(colorOffset);
     }
 
-        //create Bots
+    //create Bots
 
 //create Bots
     void Game::setupBots(vector<XML::LevelBot> bots, MainWindow* w, Game* game, std::string filepath)
@@ -142,10 +126,11 @@ namespace jumper
 
             // Determine of the bot is a boss
             ActorType bot_type;
-            if (currentBot.type.type.find("BOSS")!=std::string::npos)
+            if (currentBot.type.npc.type == "BOSS")
             {
                 bot_type = ActorType::BOSS;
-            } else
+            }
+            else
             {
                 bot_type = ActorType::ENEMY;
             }
@@ -165,28 +150,8 @@ namespace jumper
             bot->setPhysics(p);
             bot->setFPS(currentBot.type.fps);
 
-            // detect Weapon
-            if (currentBot.type.npc.stdWeapon.type.compare("LASER_GUN") == 0)
-            {
-                Vector2i* textureSize = new Vector2i(currentBot.type.npc.stdWeapon.frameWidth, currentBot.type.npc.stdWeapon.frameHeight);
-                Vector2f* weaponOffset = new Vector2f(currentBot.type.npc.stdWeapon.weaponOffsetX, currentBot.type.npc.stdWeapon.weaponOffsetY);
-                Vector2f* projectileColorOffset = new Vector2f(currentBot.type.npc.stdWeapon.colorOffsetX, currentBot.type.npc.stdWeapon.colorOffsetY);
-                float coolDown = currentBot.type.npc.stdWeapon.cooldown;
-                SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
-                        filepath + currentBot.type.npc.stdWeapon.filename);
-
-                LaserWeapon* weapon = new LaserWeapon(*game,
-                                                      *bot,
-                                                      weaponTexture,
-                                                      *textureSize,
-                                                      *weaponOffset,
-                                                      *projectileColorOffset,
-                                                      coolDown,
-                                                      filepath + currentBot.type.npc.stdWeapon.soundfile,
-                                                      currentBot.type.npc.stdWeapon.shootingVolume,
-                                                      currentBot.type.npc.stdWeapon.collisionDamage);
-                bot->setWeapon(weapon);
-            }
+            // set weapon
+            bot->setWeapon(createWeaponFromXML(currentBot.type.npc.stdWeapon, game, bot, w, filepath));
 
             // detect color
             if (currentBot.color.compare("black"))
@@ -212,28 +177,61 @@ namespace jumper
 
     void Game::setupItems(vector<XML::LevelItem> items, MainWindow* w, Game* game, std::string filepath)
     {
-        for(auto it = items.begin(); it != items.end(); ++it) {
-            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + it->type.filename);
+        for (auto item : items)
+        {
+            SDL_Texture* texture = TextureFactory::instance(w->getRenderer()).getTexture(filepath + item.type.filename);
+            PowerUp* powerUp = NULL;
 
-            PowerUpHeal* powerUp = new PowerUpHeal(w->getRenderer(),
-                            texture,
-                            it->type.frameWidth,
-                            it->type.frameHeight,
-                            1);
+            if (item.type.type.compare("RESTORE_HEALTH") == 0)
+            {
+                powerUp = new PowerUpHeal(w->getRenderer(),
+                                          texture,
+                                          item.type.frameWidth,
+                                          item.type.frameHeight,
+                                          item.type.numFrames, item.type.healPercentage);
 
-            Vector2f pos = Vector2f(it->positionX, it->positionY);
-            powerUp->setPosition(pos);
+            }
+            else if (item.type.type.compare("GODMODE") == 0)
+            {
+                powerUp = new PowerUpGodMode(w->getRenderer(),
+                                             texture,
+                                             item.type.frameWidth,
+                                             item.type.frameHeight,
+                                             item.type.numFrames);
 
-            game->addActor(powerUp);
+                powerUp->setExpirationTime(item.value);
+            }
+            else if (item.type.type.find("WEAPON_") != std::string::npos)
+            {
+                powerUp = new PowerUpWeapon(w->getRenderer(),
+                                            texture,
+                                            item.type.frameWidth,
+                                            item.type.frameHeight,
+                                            item.type.numFrames,
+                                            createWeaponFromXML(item.type.weapon, game, 0, w, filepath));
+
+            }
+
+            Vector2f pos = Vector2f(item.positionX, item.positionY);
+
+            if (powerUp != NULL)
+            {
+                powerUp->setPosition(pos);
+                powerUp->setFPS(item.type.fps);
+                game->addActor(powerUp);
+            }
         }
     }
 
     void Game::setupGame(string filename, MainWindow* w, Game* game)
     {
+        game->window = w;
         string path = Filesystem::getDirectoryPath(filename);
         XML xml = XML(filename);
 
-        game->m_explosionAnimation = path+xml.getExplosions();
+        game->m_explosionAnimation = path + xml.getExplosions();
+
+        game->highscore = new HighScore(&(*(w->profile)), xml.getLevelname());
 
         //create Level
         setupLevel(w, game, path + xml.getTileset());
@@ -255,7 +253,9 @@ namespace jumper
     }
 
     Game::Game(MainWindow* mainWindow)
+            : m_bossFight(false)
     {
+        m_cheatActive = false;
         m_player = 0;
         m_level = 0;
         m_layer = 0;
@@ -277,6 +277,19 @@ namespace jumper
     {
         // TODO Auto-generated destructor stub
         m_sound.stop();
+
+        for (auto renderable : m_renderables)
+        {
+            delete renderable;
+        }
+
+        for (auto bot : m_bots)
+        {
+            delete bot;
+        }
+
+        delete m_layer;
+        delete m_statusBar;
     }
 
     void Game::addBot(Bot* bot)
@@ -299,7 +312,7 @@ namespace jumper
                 addActor(*it);
                 if ((*it)->type() == ActorType::BOSS)
                 {
-                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w() / 3)));
+                    setBossFightAt((int) (*it)->position().x() - (Renderable::m_camera.w() / 5 * 4 - ((*it)->w())));
                     //setBossFightAt((int) (*it)->position().x() - (*it)->w());
                     setBossFight(true);
                 }
@@ -355,8 +368,6 @@ namespace jumper
                 (*it)->setHit(false);
             }
 
-            m_player->consumePowerUps();
-
             // react to color change
             if (keyDown[SDL_SCANCODE_C])
             {
@@ -374,49 +385,60 @@ namespace jumper
             m_statusBar->setEvolutionStage(std::to_string(m_player->getWeapon()->getEvolutionStage()));
             m_statusBar->setHealth(m_player->getHealth());
 
+            char lastKey;
+            lastKey = ' ';
             // react to move input
             Vector2f moveDirection(0, 0);
             if (currentKeyStates[SDL_SCANCODE_UP])
             {
+                lastKey = 'u';
                 moveDirection.setY(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_DOWN])
             {
+                lastKey = 'd';
                 moveDirection.setY(1);
             }
             if (currentKeyStates[SDL_SCANCODE_LEFT])
             {
+                lastKey = 'l';
                 moveDirection.setX(-1);
             }
             if (currentKeyStates[SDL_SCANCODE_RIGHT])
             {
+                lastKey = 'r';
                 moveDirection.setX(1);
             }
+            if (currentKeyStates[SDL_SCANCODE_A])
+            {
+                lastKey = 'A';
+            }
+            if (currentKeyStates[SDL_SCANCODE_B])
+            {
+                lastKey = 'B';
+            }
+            if (currentKeyStates[SDL_SCANCODE_ESCAPE])
+            {
+                end();
+            }
+
+            checkCheat(lastKey);
             m_player->setMoveDirection(moveDirection);
 
             removeDeadActors();
 
             // If player is still there, update game
-            if(m_player)
+            if (m_player)
             {
+                m_player->consumePowerUps();
                 moveActors();
 
                 //added spawn bots
                 spawnBots();
                 bossFight();
                 checkCameraCollision();
-                checkActorCollision();
+                CollisionManager::checkActorCollision(m_actors);
             }
-
-            if (m_bossFight)
-            {
-                m_statusBar->setBossHealth(m_boss_health);
-            }
-            else
-            {
-                m_statusBar->setBossHealth(0);
-            }
-
 
             SDL_RenderClear(m_renderer);
 
@@ -516,6 +538,17 @@ namespace jumper
     void Game::start()
     {
         m_started = true;
+
+        m_player->m_camera.move(Vector2f(0, 0));
+    }
+
+    void Game::end()
+    {
+        m_player->setGodMode(false);
+        m_player->resetGodModeDisplay();
+        m_started = false;
+        highscore->saveHighscore();
+        this->window->setActualScreen(MainWindow::RENDER_GAMEEND);
     }
 
     void Game::scrollHorizontal()
@@ -542,13 +575,6 @@ namespace jumper
         return time;
     }
 
-    void Game::checkActorCollision()
-    {
-        CollisionManager cm;
-
-        cm.checkCollision(m_actors);
-    }
-
     void Game::removeDeadActors()
     {
         vector<Actor*> to_remove;
@@ -564,36 +590,40 @@ namespace jumper
 
         for (auto actor : to_remove)
         {
-            removeActor(actor);
             setActorOptionsOnKill(actor);
+            removeActor(actor);
 
             // Clear player pointer member variable before destructing player,
             // so the game update loop can handle the despawn of the player
-            if(actor->type() == ActorType::PLAYER)
+            if (actor->type() == ActorType::PLAYER)
             {
                 m_player = NULL;
             }
 
             delete actor;
-      }
+        }
     }
 
     void Game::setActorOptionsOnKill(Actor* actor)
     {
-        if(actor->type() == ENEMY || actor->type() == PLAYER ){
+        if ((actor->type() == ENEMY || actor->type() == PLAYER || actor->type() == PROJECTILE) && actor->isKilled())
+        {
             KillAnimation* kill = new KillAnimation(actor, m_explosionAnimation);
             addActor(kill);
         }
         if (m_statusBar)
         {
-            if (actor->isKilled()){
+            if (actor->isKilled())
+            {
                 if (actor->type() == ActorType::ENEMY)
                 {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    highscore->addPointsToHighscore(actor->getScoreValue());
+                    m_statusBar->setScore(highscore->getHighscore());
                 }
                 if (actor->type() == ActorType::BOSS)
                 {
-                    m_statusBar->setScore(m_statusBar->getScore() + actor->getScoreValue());
+                    highscore->addPointsToHighscore(actor->getScoreValue());
+                    m_statusBar->setScore(highscore->getHighscore());
                     setBossFight(false);
                 }
                 if (actor->type() == ActorType::ENEMY ||
@@ -602,10 +632,60 @@ namespace jumper
                     actor->playExplosionSound();
                 }
             }
-
         }
-        if ( actor->type() == ActorType::PLAYER) {
+        //End When Player is Dead
+        if (actor->type() == ActorType::PLAYER)
+        {
             actor->playExplosionSound();
+            end();
+        }
+        if (actor->type() == ActorType::BOSS)
+        {
+            if (actor == getLastBoss())
+            {
+                end();
+            }
+        }
+
+    }
+
+    Actor* Game::getLastBoss()
+    {
+        //m_bots und m_actors durchgehen
+        int xOfLastBoss = 0;
+        Actor* lastBoss;
+        for (auto bot : m_bots)
+        {
+            if (bot->type() == ActorType::BOSS)
+            {
+                if (xOfLastBoss < bot->position().x())
+                {
+                    xOfLastBoss = bot->position().x();
+                    lastBoss = bot;
+                }
+            }
+        }
+        if (xOfLastBoss == 0)
+        {
+            for (auto bot : m_actors)
+            {
+                if (bot->type() == ActorType::BOSS)
+                {
+                    if (xOfLastBoss < bot->position().x())
+                    {
+                        xOfLastBoss = bot->position().x();
+                        lastBoss = bot;
+                    }
+                }
+            }
+        }
+        if (xOfLastBoss == 0)
+        {
+            return NULL;
+        }
+        else
+        {
+            return lastBoss;
         }
     }
 
@@ -617,10 +697,6 @@ namespace jumper
 
     void Game::setBossFight(bool bossfight)
     {
-        if (m_bossFight == true && bossfight)
-        {
-            cout << "Bossfight has ended";
-        }
         m_bossFight = bossfight;
 
     }
@@ -630,9 +706,11 @@ namespace jumper
         if (!getBossFight())
         {
             scrollHorizontal();
+            m_statusBar->setBossHealth(0);
         }
         else
         {
+            m_statusBar->setBossHealth(m_boss_health);
             if ((int) Renderable::m_camera.position().x() < getBossFightAt())
             {
                 scrollHorizontal();
@@ -656,9 +734,117 @@ namespace jumper
         return m_bossFightAt;
     }
 
+    void Game::checkCheat(const char type)
+    {
+        if (!m_player->isGodModeCheat())
+        {
+            if (m_cheat.back() != type)
+            {
+                m_cheat += type;
+            }
+            if (m_cheat.size() >= 20)
+            {
+                m_cheat = m_cheat.substr(m_cheat.size() - 20, m_cheat.size());
+            }
+            if (m_cheat.find(konamiCode) != string::npos)
+            {
+                m_player->setGodModeCheat();
+            }
+        }
+    }
+
     void Game::setBossHealth(int health)
     {
         m_boss_health = health;
     }
 
-} /* namespace jumper */
+    Weapon* Game::createWeaponFromXML(XML::Weapon weapon, Game* game, Actor* actor, MainWindow* w, std::string filepath)
+    {
+        Vector2i* textureSize = new Vector2i(weapon.frameWidth, weapon.frameHeight);
+        Vector2f* weaponOffset = new Vector2f(weapon.weaponOffsetX, weapon.weaponOffsetY);
+        Vector2f* projectileColorOffset = new Vector2f(weapon.colorOffsetX, weapon.colorOffsetY);
+        float coolDown = weapon.cooldown;
+        SDL_Texture* weaponTexture = TextureFactory::instance(w->getRenderer()).getTexture(
+                filepath + weapon.filename);
+
+        Weapon* weaponInstance = 0;
+
+        if (weapon.type.compare("LASER_GUN") == 0)
+        {
+            weaponInstance = new LaserWeapon(*game,
+                                             *actor,
+                                             weaponTexture,
+                                             *textureSize,
+                                             *weaponOffset,
+                                             *projectileColorOffset,
+                                             coolDown,
+                                             filepath + weapon.soundfile,
+                                             weapon.shootingVolume,
+                                             weapon.collisionDamage,
+                                             weapon.speed,
+                                             weapon.numFrames);
+        }
+        else if (weapon.type.compare("BLASTER_GUN") == 0)
+        {
+            weaponInstance = new BlasterWeapon(*game,
+                                               *actor,
+                                               weaponTexture,
+                                               *textureSize,
+                                               *weaponOffset,
+                                               *projectileColorOffset,
+                                               coolDown,
+                                               filepath + weapon.soundfile,
+                                               weapon.shootingVolume,
+                                               weapon.collisionDamage,
+                                               weapon.speed,
+                                               weapon.numFrames);
+        }
+        else if (weapon.type.compare("ROCKET_GUN") == 0)
+        {
+            weaponInstance = new RocketWeapon(*game,
+                                              *actor,
+                                              weaponTexture,
+                                              *textureSize,
+                                              *weaponOffset,
+                                              *projectileColorOffset,
+                                              coolDown,
+                                              filepath + weapon.soundfile,
+                                              weapon.shootingVolume,
+                                              weapon.collisionDamage,
+                                              weapon.speed,
+                                              weapon.numFrames);
+        }
+        else if (weapon.type.compare("MEATBALL_GUN") == 0)
+        {
+            weaponInstance = new MeatballWeapon(*game,
+                                                *actor,
+                                                weaponTexture,
+                                                *textureSize,
+                                                *weaponOffset,
+                                                *projectileColorOffset,
+                                                coolDown,
+                                                filepath + weapon.soundfile,
+                                                weapon.shootingVolume,
+                                                weapon.collisionDamage,
+                                                weapon.speed,
+                                                weapon.numFrames);
+        }
+        else if (weapon.type.compare("CPP_GUN") == 0)
+        {
+            weaponInstance = new CppWeapon(*game,
+                                           *actor,
+                                           weaponTexture,
+                                           *textureSize,
+                                           *weaponOffset,
+                                           *projectileColorOffset,
+                                           coolDown,
+                                           filepath + weapon.soundfile,
+                                           weapon.shootingVolume,
+                                           weapon.collisionDamage,
+                                           weapon.speed,
+                                           weapon.numFrames);
+        }
+
+        return weaponInstance;
+    }
+} /* namespace ikaruga */

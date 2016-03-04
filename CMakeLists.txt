@@ -1,12 +1,12 @@
 ################### GAME #################
-project(SCROLLER)
+project(IKARUGA)
 
 # States that CMake required version must be greater than 2.6
 cmake_minimum_required(VERSION 2.8)
 
 # Appends the cmake/modules path inside the MAKE_MODULE_PATH variable which stores the
 # directories of additional CMake modules (ie. MacroOutOfSourceBuild.cmake):
-set(CMAKE_MODULE_PATH ${SCROLLER_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH ${IKARUGA_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # Find SDL2 libraries using the custom made module in

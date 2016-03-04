@@ -7,17 +7,16 @@
 
 #include "MainWindow.hpp"
 #include <SDL_image.h>
-#include <iostream>
-#include "Vector.hpp"
-#include "Renderable.hpp"
+#include <SDL_mixer.h>
 
-namespace jumper
+namespace ikaruga
 {
     const int MainWindow::MAX_FPS = 60;
 
-    MainWindow::MainWindow(std::string title, int w, int h)
+    MainWindow::MainWindow(std::string title, int w, int h, boost::filesystem::path resPath)
             : m_startLoopTicks(0)
     {
+        m_quit = false;
         /// Init width and height
         m_width = w;
         m_height = h;
@@ -31,11 +30,16 @@ namespace jumper
         Renderable::m_camera.m_height = h;
         /// Initialize SDL stuff
         initSDL();
-        this->actRenderID=0;
+        this->actRenderID = 0;
+        std::cout << resPath.c_str() << std::endl;
+        xml = new XML(resPath.c_str(), true);
+        profile = new Profile(xml);
     }
 
     MainWindow::~MainWindow()
     {
+        delete xml;
+        delete profile;
         quitSDL();
     }
 
@@ -44,23 +48,23 @@ namespace jumper
         return m_renderer;
     }
 
+
     void MainWindow::run()
     {
-        bool quit = false;
         SDL_Event e;
         const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
         bool* keyDown = new bool[SDL_NUM_SCANCODES];
         m_startLoopTicks = SDL_GetTicks();
 
         // Start main loop and event handling
-        while (!quit && m_renderer)
+        while (!m_quit && m_renderer)
         {
             // Process events, detect quit signal for window closing
             while (SDL_PollEvent(&e))
             {
                 if (e.type == SDL_QUIT)
                 {
-                    quit = true;
+                    m_quit = true;
                 }
 
                 // collect down keys
@@ -70,21 +74,21 @@ namespace jumper
                 }
             }
             //std::cout << actRenderID << std::endl; //Debug Output
-            switch(actRenderID){
+            switch (actRenderID)
+            {
                 case MainWindow::RENDER_MAINMENU:
-
                     m_menu->update(currentKeyStates, keyDown);
-
                     break;
                 case MainWindow::RENDER_GAME:
                     m_game->update(currentKeyStates, keyDown);
                     break;
-                case MainWindow::RENDER_ITEMSHOP:
-                    //ItemShop::getShop()->mainLoop(currentKeyStates, keyDown);
+                case MainWindow::RENDER_GAMEEND:
+                    m_menu->showLevelHighscore();
                     break;
                 case MainWindow::RENDER_CREDITS:
                     break;
-                default: std::cout << "You have to use setActualScreen." << std::endl;
+                default:
+                    std::cout << "You have to use setActualScreen." << std::endl;
                     break;
             }
 
@@ -97,10 +101,13 @@ namespace jumper
             // sleep not needed time
             limitFPS();
         }
+
+        delete[] keyDown;
     }
 
-    void MainWindow::setActualScreen(int ID){
-        actRenderID=ID;
+    void MainWindow::setActualScreen(int ID)
+    {
+        actRenderID = ID;
     }
 
     void MainWindow::setGame(Game* game)
@@ -108,7 +115,8 @@ namespace jumper
         m_game = game;
     }
 
-    void MainWindow::setMenu(MainMenu* menu) {
+    void MainWindow::setMenu(MainMenu* menu)
+    {
         m_menu = menu;
     }
 
@@ -176,6 +184,7 @@ namespace jumper
         }
 
         // Quit SDL and SDL_Image
+        Mix_CloseAudio();
         IMG_Quit();
         SDL_Quit();
     }
@@ -188,12 +197,12 @@ namespace jumper
         return time;
     }
 
-    int jumper::MainWindow::w()
+    int MainWindow::w()
     {
         return m_width;
     }
 
-    int jumper::MainWindow::h()
+    int MainWindow::h()
     {
         return m_height;
     }
@@ -214,6 +223,11 @@ namespace jumper
             SDL_Delay(sleepTimeUint);
         }
     }
-} /* namespace jumper */
+
+    int MainWindow::getActualScreen()
+    {
+        return actRenderID;
+    }
+} /* namespace ikaruga */
 
 

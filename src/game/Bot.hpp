@@ -1,8 +1,9 @@
-/*
+/**
  * Bot.hpp
  *
- *  Created on: Dec 9, 2015
- *      Author: twiemann
+ *  @date   01.03.16
+ *
+ *  @author Timo Osterkamp <tosterkamp@uos.de>
  */
 
 #ifndef SRC_BOT_HPP_
@@ -16,10 +17,9 @@
 #include <math.h>
 #include <time.h>
 #include "Armed.hpp"
-
 #include "../xml/XML.hpp"
 
-namespace jumper
+namespace ikaruga
 {
     class Game;
 
@@ -31,7 +31,8 @@ namespace jumper
             SIN,
             SIN_UP,
             SIN_DOWN,
-            AI
+            AI,
+            CIRCLE
         };
     }
 
@@ -42,11 +43,6 @@ namespace jumper
     class Bot : public Actor, public Armed
     {
     public:
-
-
-
-        void play();
-
 
         /**
          * @brief	Constructs a bot from given renderer, texture
@@ -63,8 +59,8 @@ namespace jumper
          * @param type              the ActorType
          */
 
-        Bot(SDL_Renderer *renderer,
-            SDL_Texture *texture,
+        Bot(SDL_Renderer* renderer,
+            SDL_Texture* texture,
             int frameWidth,
             int frameHeight,
             int numFrames,
@@ -74,34 +70,46 @@ namespace jumper
             int collisionDamage,
             ActorType type);
 
-
+        /**
+         * @brief   Destructor
+         */
         virtual ~Bot();
 
-
-        /// Moves the bot in the given \ref level
-        virtual void move(Level& level);
-
-        virtual void onCollide();
+        /**
+         * @see Actor::move(Level& level)
+         */
+        virtual void move(Level& level) override;
 
         /**
-         * @see Actor::resolveCollision(Actor& other)
+         * @see Collidable::onTileCollision()
          */
-        virtual void resolveCollision(Actor& other) override;
+        virtual void onTileCollision() override;
 
-        virtual void shoot();
+        /**
+         * @see Actor::onActorCollision(Actor& other)
+         */
+        virtual void onActorCollision(Actor& other) override;
+
+        /**
+         * @see Armed::shoot()
+         */
+        virtual void shoot() override;
 
     private:
-        const float AI_TRACE_SPEED=0.7;
+
+        /** The trace speed of an AI bot */
+        const float AI_TRACE_SPEED = 0.7;
+
+        /** the move type of the bot */
         int m_move_type;
-        int m_move_type_height;
-        int m_speed;
+
+        /** an struct with bot infos */
         XML::NPC m_npc;
 
+        /** the game instance */
         Game* m_game;
-
-        const int DAMAGE_BY_PROJECTILE = 500;
     };
 
-} /* namespace jumper */
+} /* namespace ikaruga */
 
 #endif /* SRC_BOT_HPP_ */

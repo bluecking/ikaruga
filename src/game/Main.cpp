@@ -1,38 +1,34 @@
-#include <boost/property_tree/xml_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/foreach.hpp>
-
+/**
+ * Main.cpp
+ *
+ * @date 03.03.16
+ * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
+ */
 #include "MainWindow.hpp"
-#include "Game.hpp"
-#include "TextureFactory.hpp"
-#include "TexturedLayer.hpp"
-#include "Item.hpp"
-#include "PuzzleBox.hpp"
-#include "../xml/XML.hpp"
 #include "Filesystem.hpp"
-#include "Profile.hpp"
-#include <iostream>
-#include "MainMenu.hpp"
-#include <boost/filesystem/path.hpp>
 
-using namespace jumper;
+using namespace ikaruga;
 using std::string;
 using std::cout;
 using std::endl;
 
-
+/**
+ * @brief Takes command line paramter and starts MainMenu
+ *
+ * @param argv command line parameters. You have to provide a game specific resource directory.
+ * @return exit code
+ */
 int main(int argc, char** argv)
 {
     if (argc != 2)
-
     {
         std::cout << "Invalid amount of parameters." << std::endl;
         return -1;
     }
 
-    MainWindow window("Ikaruga", 625, 576);
-    Game game(&window);
-    MainMenu menu(&window, &game, boost::filesystem::path(argv[1]));
+    MainWindow window("Ikaruga", 625, 576, boost::filesystem::path(argv[1]));
+
+    MainMenu menu(&window, boost::filesystem::path(argv[1]));
     window.setMenu(&menu);
 
     window.setActualScreen(MainWindow::RENDER_MAINMENU);

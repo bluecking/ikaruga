@@ -6,13 +6,12 @@
  */
 
 #include "Bot.hpp"
-#include "Game.hpp"
 #include "Projectile.hpp"
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Bot::Bot(SDL_Renderer* renderer,
              SDL_Texture* texture,
@@ -49,12 +48,14 @@ namespace jumper
         {
             m_move_type = BotType::AI;
         }
+        else if (npc.move_function == "CIRCLE")
+        {
+            m_move_type = BotType::CIRCLE;
+        }
         else
         {
             m_move_type = BotType::NO_MOVE;
         }
-        m_move_type_height = 25;
-        m_speed = 100;
     }
 
     void Bot::move(Level& level)
@@ -78,14 +79,20 @@ namespace jumper
             case BotType::SIN:
             case BotType::SIN_UP:
             case BotType::SIN_DOWN:
+            case BotType::CIRCLE:
             {
                 if (dt > 0)
                 {
+                    d_move.setX(m_npc.speed);
 
                     switch (m_move_type)
                     {
                         case BotType::SIN:
                             d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
+                            break;
+                        case BotType::CIRCLE:
+                            d_move.setY(-cos(getLiveTime()) * m_npc.move_value * 2.6);
+                            d_move.setX(-cos(M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                         case BotType::SIN_UP:
 
@@ -95,7 +102,7 @@ namespace jumper
                             d_move.setY(-cos(-M_PI / 2 + getLiveTime()) * m_npc.move_value * 2.6);
                             break;
                     }
-                    d_move.setX(m_npc.speed);
+
                     physics().setPosition(physics().position() + d_move * dt);
                 }
                 break;
@@ -106,7 +113,7 @@ namespace jumper
         if (position().x() + Game::PIXELS_OFFSET_SPAWN_BOTS < m_camera.x())
         {
             setHealth(0);
-            setIsKilled(false);
+            setKilled(false);
         }
         if (type() == ActorType::BOSS)
         {
@@ -114,7 +121,7 @@ namespace jumper
         }
     }
 
-    void Bot::resolveCollision(Actor& other)
+    void Bot::onActorCollision(Actor& other)
     {
         // Hit by player's projectile with same color
         if (other.type() == PROJECTILE && getColor() == other.getColor())
@@ -124,7 +131,7 @@ namespace jumper
             {
                 setHit(true);
                 takeDamage(other.getCollisionDamage());
-                setIsKilled(true);
+                setKilled(true);
             }
         }
         // Hit by player
@@ -132,11 +139,11 @@ namespace jumper
         {
             setHit(true);
             takeDamage(other.getCollisionDamage());
-            setIsKilled(true);
+            setKilled(true);
         }
     }
 
-    void Bot::onCollide()
+    void Bot::onTileCollision()
     {
         return;
     }
@@ -162,4 +169,4 @@ namespace jumper
 
         m_weapon->shoot(direction, position());
     }
-} /* namespace jumper */
+} /* namespace ikaruga */

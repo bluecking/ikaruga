@@ -1,45 +1,81 @@
+/*
+ * GraphicsTileItem.hpp
+ *
+ *  Created on: Feb 23, 2016
+ *      Author: Johann Arndt
+ */
 #ifndef GRAPHICS_TILE_ITEM_HPP
 #define GRAPHICS_TILE_ITEM_HPP
+
 #include "QGraphicsPixmapItem"
 #include<iostream>
-//#include "itemsettingsgui.h"
 
 class GraphicsTileItem : public QGraphicsPixmapItem
 {
-  
+
 public:
-  
-    /// Constructor. Creates a sub-pixmap from tileset at position rect
-    /// and stores the given index
 
-	GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type);
-    
-    /// Constructor. Creartes an item with given color, width w and height h.
-	GraphicsTileItem(QColor* color, int w, int h);
-    
-    /// Destructor.
-  virtual ~GraphicsTileItem();
+    /**
+     * @brief creates an item with given positon type and rect and tileset
+     * @param QPixmap* tileset given tileset
+     * @param QRect rect  the rectangle to copy
+     * @param int index the given tile id
+     * @param int type the given type of the texture
+     */
+    GraphicsTileItem(QPixmap* tileset, const QRect& rect, int index, int type);
 
-    /// Returns the tile index of the item
-    int getIndex() const { return m_index;}
-	void changeItem(QPixmap* map,QRect& rect,int type);
-	void changeItem(QPixmap* map,QRect& rect,int type,int index);
-	bool getWindowType();
-	QRect getRect();
-	int getType();
+    /**
+     * @brief changes item texture for bots and items
+     * @param QPixmap map tileset
+     * @param QRect& rect reference to teh given rect
+     * @param int type type of the given texture
+     */
+    void changeItem(QPixmap* map, QRect& rect, int type);
 
-    /// Sets the tile index of the item
-    void setIndex(int i) {m_index = i;}
+    /**
+     * @brief changes item texture for texture
+     * @param QPixmap map tileset
+     * @param QRect& rect reference to teh given rect
+     * @param int type type of the given texture
+     * @param int index the tile id
+     */
+    void changeItem(QPixmap* map, QRect& rect, int type, int index);
 
+    /**
+     * @brief resturns rect of the texture
+     */
+    QRect getRect();
+
+    /**
+     * @brief returns type of the texture
+     */
+    int getType();
+
+    /**
+     * @brief returns the tile id of the item
+     */
+    int getIndex() const
+    { return m_index; }
+
+    /**
+     * @brief sets tile id
+     * @param int i id to set
+     */
+    void setIndex(int i)
+    { m_index = i; }
+
+    /**
+     * @brief deletes item
+     */
+    virtual ~GraphicsTileItem();
 
 private:
-    
-    /// The tile index
-	int m_index;
-	int m_type;
-	QPixmap* m_pixmap;
-	bool mainWindow=false;
-	QRect m_rect;
+
+
+    int m_index;                    /// tile index
+    int m_type;                     /// type of Texture
+    QRect m_rect;                    /// copied rect
+
 };
 
 #endif

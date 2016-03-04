@@ -9,12 +9,11 @@
 #include <iostream>
 #include "Actor.hpp"
 #include "Game.hpp"
-#include "PowerUpHeal.hpp"
 
 using std::cout;
 using std::endl;
 
-namespace jumper
+namespace ikaruga
 {
     Actor::Actor(SDL_Renderer* renderer,
                  SDL_Texture* texture,
@@ -23,23 +22,19 @@ namespace jumper
                  int numFrames,
                  int health,
                  int collisionDamage)
-            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames), m_color(ColorMode::BLACK),
-              m_isKilled(false)
+            : AnimatedRenderable(renderer, texture, frameWidth, frameHeight, numFrames),
+              m_color(ColorMode::BLACK),
+              m_explosionVolume(0),
+              m_focus(false),
+              m_health(health),
+              m_isKilled(false),
+              m_scoreValue(0),
+              m_startTicks(0),
+              m_type(PLAYER)
     {
-        m_focus = false;
         m_physicalProps.setPosition(Vector2f(100, 0));
-        m_startTicks = 0;
-        m_type = PLAYER;
-
-        m_hitbox.w = (int) std::floor(frameWidth * HITBOXFACTOR);
-        m_hitbox.h = (int) std::floor(frameHeight * HITBOXFACTOR);
-
-        //TODO: this should not be hardcoded
-        m_health = health;
         m_collisionDamage = collisionDamage;
-
         setLiveTime();
-
     }
 
     void Actor::setPhysics(PlayerProperty p)
@@ -88,7 +83,7 @@ namespace jumper
         target.h = m_frameHeight;
 
         // Do not render if actor is outside frustrum
-        if (target.x + target.w > 0 && target.x + target.w < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
+        if (target.x + target.w > 0 && target.x < m_camera.w() + Game::PIXELS_OFFSET_RENDER)
         {
             // Render current animation frame
             SDL_Rect source = m_sourceRect;
@@ -103,13 +98,13 @@ namespace jumper
             // Make the texture opaque when actor collides
             if (isHit())
             {
-                SDL_SetTextureAlphaMod(m_texture, OPACITY_LEVEL_WHEN_HIT);
+                SDL_SetTextureAlphaMod(m_texture, m_opacityLevelWhenHit);
                 SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
                 SDL_SetTextureAlphaMod(m_texture, 255);
             }
             else
             {
-                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, SDL_FLIP_NONE);
+                SDL_RenderCopyEx(getRenderer(), m_texture, &source, &target, 0, NULL, getFlip());
             }
 
 //            renderHitbox();
@@ -117,8 +112,16 @@ namespace jumper
 
     }
 
+    SDL_RendererFlip Actor::getFlip()
+    {
+        // No flip necessary if not projectile
+        return SDL_FLIP_NONE;
+    }
+
     SDL_Rect& Actor::getHitbox()
     {
+        m_hitbox.w = (int) std::floor(m_frameWidth * m_hitboxfactor);
+        m_hitbox.h = (int) std::floor(m_frameHeight * m_hitboxfactor);
         m_hitbox.x = (int) (std::floor((m_frameWidth - m_hitbox.w) / 2) + position().x());
         m_hitbox.y = (int) (std::floor((m_frameHeight - m_hitbox.h) / 2) + position().y());
 
@@ -140,14 +143,9 @@ namespace jumper
         return m_physicalProps.position();
     }
 
-    void jumper::Actor::setFocus(bool focus)
+    void Actor::setFocus(bool focus)
     {
         m_focus = focus;
-    }
-
-    bool jumper::Actor::hasFocus()
-    {
-        return m_focus;
     }
 
     void Actor::toggleColor()
@@ -209,9 +207,5 @@ namespace jumper
     {
         m_explosionSound.play(m_explosionVolume);
     }
-
-    void Actor::dropPowerUp()
-    {
-    }
-} /* namespace jumper */
+} /* namespace ikaruga */
 
