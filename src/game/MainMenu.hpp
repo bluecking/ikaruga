@@ -74,15 +74,13 @@ namespace ikaruga
         std::vector<std::vector<std::string>> m_tableText;
 
         std::string to_string(int x);
-
         std::string to_string(long x);
 
         std::map<int, boost::filesystem::path> m_levelId_and_path;
         XML m_tmp;
         RenderTable m_table;
         int m_menu;
-        bool first;
-        //TODO move to struct?
+        bool m_first;
 
         /**
          * @brief sets up the background animation for the main menu
