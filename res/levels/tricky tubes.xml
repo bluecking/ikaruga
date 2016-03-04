@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level>
     <id>93</id>
-    <name>tricky tubes</name>
+    <name>Tricky Tubes</name>
     <tileset filename="tricky tubes.lvl"/>
     <explosions filename="../images/explosions_40x40.png"/>
     <background filename="../images/star_background_2_200x200.png">
