@@ -80,7 +80,7 @@ void TextureScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 TextureScene::~TextureScene()
 {
-    while(!this->items().empty())
+    while (!this->items().empty())
     {
         delete this->items().takeAt(0);
     }

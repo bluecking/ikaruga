@@ -50,6 +50,7 @@ public:
      * @brief
      */
     virtual ~TextureScene();
+
 protected:
 
     /**

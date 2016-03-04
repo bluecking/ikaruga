@@ -9,35 +9,35 @@
 LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(window)
 {
 
-	///Set all default values
-	m_tileWidth 	    = 40;
-	m_tileHeight	    = 40;
-	m_tileOffset 	    = 0;
-	m_numRows           = 4;
-	m_tilesPerRow       = 10;
-	m_levelWidth        = 400;
-	m_levelHeight       = 14;
-    m_tiles             = new std::vector<int>[m_levelHeight];
-    m_typeBackground    = 3;
-    m_typeItem          = 2;
-    m_typeBot           = 1;
-    m_typeTexture       = 0;
-    m_levelId           = 0;
-    m_index             = 0;
-    m_scrollSpeed       = 2;
-    m_backgroundHeight  =200;
-    m_backgroundWidth   =200;
-    m_lastX             =0;
-    m_lastY             =0;
-    m_type              = m_typeTexture;
-	m_mainWindow        = window;
-    m_color             = "black";
-    m_imgTexture        = "../images/tileset_rocks_40x40.png";
-    m_imgBackground     = "../images/star_background_2_200x200.png";
-    m_imgExplosion      = "../images/explosions_40x40.png";
-    m_imgStatusbar      = "../images/font_yellow_10x10.png";
-    m_imgPlayer         = "../images/player_animated_55x43_transparent.png";
-    m_soundfile         = "../sounds/game_loop.wav";
+    ///Set all default values
+    m_tileWidth = 40;
+    m_tileHeight = 40;
+    m_tileOffset = 0;
+    m_numRows = 4;
+    m_tilesPerRow = 10;
+    m_levelWidth = 400;
+    m_levelHeight = 14;
+    m_tiles = new std::vector<int>[m_levelHeight];
+    m_typeBackground = 3;
+    m_typeItem = 2;
+    m_typeBot = 1;
+    m_typeTexture = 0;
+    m_levelId = 0;
+    m_index = 0;
+    m_scrollSpeed = 2;
+    m_backgroundHeight = 200;
+    m_backgroundWidth = 200;
+    m_lastX = 0;
+    m_lastY = 0;
+    m_type = m_typeTexture;
+    m_mainWindow = window;
+    m_color = "black";
+    m_imgTexture = "../images/tileset_rocks_40x40.png";
+    m_imgBackground = "../images/star_background_2_200x200.png";
+    m_imgExplosion = "../images/explosions_40x40.png";
+    m_imgStatusbar = "../images/font_yellow_10x10.png";
+    m_imgPlayer = "../images/player_animated_55x43_transparent.png";
+    m_soundfile = "../sounds/game_loop.wav";
 
 
     ///sets  default paths
@@ -132,8 +132,8 @@ LevelScene::LevelScene(QString filename, MainWindow* window) : QGraphicsScene(wi
 
     }
 
-	///Create TextureViews
-    m_textureView = new TextureScene(window->ui->TextureView,this, window);
+    ///Create TextureViews
+    m_textureView = new TextureScene(window->ui->TextureView, this, window);
 
 
     ///sets MainViewScene
@@ -168,7 +168,7 @@ void LevelScene::loadXml(QString fileName)
         m_xml->setFilename(fileName.toStdString());
         m_xml->save();
         delete m_xml;
-        m_xml               = new XML(fileName.toStdString());
+        m_xml = new XML(fileName.toStdString());
     }
 
 }
@@ -343,7 +343,7 @@ void LevelScene::loadLevel(QString fileName)
     else
     {
         ///creates new level
-        for(int i=0;i<m_levelHeight;i++)
+        for (int i = 0; i < m_levelHeight; i++)
         {
             for (int j = 0; j < m_levelWidth; j++)
             {
@@ -524,8 +524,8 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent* event)
                         rect = tmp;
                     }
 
-                    QPixmap *map = new QPixmap(toQString(m_path.toStdString() + m_bot.filename));
-                    (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeBot);
+                    QPixmap* map = new QPixmap(toQString(m_path.toStdString() + m_bot.filename));
+                    (dynamic_cast<GraphicsTileItem*>(item_list.first()))->changeItem(map, rect, m_typeBot);
                     delete map;
 
                     m_tiles[y][x] = -1;
@@ -549,9 +549,9 @@ void LevelScene::setItem(QGraphicsSceneMouseEvent* event)
 
                     m_bot.filename.clear();
 
-                    m_tiles[y][x]   = -1;
-                    QPixmap *map    = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
-                    (dynamic_cast<GraphicsTileItem *>(item_list.first()))->changeItem(map, rect, m_typeItem);
+                    m_tiles[y][x] = -1;
+                    QPixmap* map = new QPixmap(toQString(m_path.toStdString() + m_item.filename));
+                    (dynamic_cast<GraphicsTileItem*>(item_list.first()))->changeItem(map, rect, m_typeItem);
                     delete map;
 
                     XML::LevelItem item;
@@ -747,7 +747,7 @@ void LevelScene::setSize(int value)
 {
 
     ///resize and rerender Window
-    while(!this->items().empty())
+    while (!this->items().empty())
     {
         delete this->items().takeAt(0);
     }
@@ -856,7 +856,7 @@ void LevelScene::setNull()
 
 LevelScene::~LevelScene()
 {
-    while(!this->items().empty())
+    while (!this->items().empty())
     {
         delete this->items().takeAt(0);
     }
