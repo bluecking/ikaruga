@@ -46,6 +46,10 @@ public:
      */
     QGraphicsScene* getScene();
 
+    /**
+     * @brief
+     */
+    virtual ~TextureScene();
 protected:
 
     /**

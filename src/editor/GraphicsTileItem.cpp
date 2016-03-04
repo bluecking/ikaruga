@@ -11,10 +11,9 @@ GraphicsTileItem::GraphicsTileItem(QPixmap* tileset, const QRect& rect, int inde
 {
     ///sets values and texture
     this->setPixmap(tileset->copy(rect));
-    m_pixmap = tileset;
-    m_type = type;
-    m_rect = rect;
-    m_index = index;
+    m_type=type;
+    m_rect=rect;
+    m_index=index;
 }
 
 
@@ -43,5 +42,9 @@ int GraphicsTileItem::getType()
 QRect GraphicsTileItem::getRect()
 {
     return m_rect;
+}
+
+GraphicsTileItem::~GraphicsTileItem()
+{
 }
 
