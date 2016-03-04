@@ -82,10 +82,9 @@ namespace ikaruga
                     m_table.resetPos();
                 }
 
-                //temporary to start game -------------------------------------------------------------------
                 if (keyDown[SDL_SCANCODE_RETURN])
                 {
-
+                    m_table.setScrollable(true);
                     switch (m_menu)
                     {
                         case MAIN_MENU:
