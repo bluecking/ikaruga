@@ -49,17 +49,17 @@ public:
     void saveLevel(QString fileName);
 
     /**
-	 * @brief saves the XML file
-	 * @param QString fileName name of the XML file
-	 * @param
-	 */
+     * @brief saves the XML file
+     * @param QString fileName name of the XML file
+     * @param
+     */
     void saveXml(QString fileName);
 
     /**
-	 * @brief loads the XML file or creates a new one
-	 * @param QString fileName name of the XML file
-	 * @param
-	 */
+     * @brief loads the XML file or creates a new one
+     * @param QString fileName name of the XML file
+     * @param
+     */
     void loadXml(QString fileName);
 
     /**

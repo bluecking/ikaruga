@@ -17,7 +17,6 @@
 #include <math.h>
 #include <time.h>
 #include "Armed.hpp"
-
 #include "../xml/XML.hpp"
 
 namespace ikaruga

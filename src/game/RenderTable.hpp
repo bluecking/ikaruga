@@ -4,7 +4,6 @@
 *
 * @author Patrick Steinforth (psteinforth@uni-osnabrueck.de)
  * @author Marius Brockmöller
-* @author Timo Osterkamp (tosterkamp@uni-osnabrueck.de)
 * @date 02 Mrz 2016
 */
 #include "FontRender.hpp"

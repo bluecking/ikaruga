@@ -23,9 +23,6 @@ namespace ikaruga
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
         m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
                 m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
-        m_selectFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
-                m_resDir.string() + "/images/font_blue_20x20.png"); //TODO mit ake dynamic
-
         m_table = RenderTable(m_win->getRenderer(), m_normalFontTexture, 20,
                               20); //TODO static tile height&width -> make dynamic
         //
@@ -85,10 +82,9 @@ namespace ikaruga
                     m_table.resetPos();
                 }
 
-                //temporary to start game -------------------------------------------------------------------
                 if (keyDown[SDL_SCANCODE_RETURN])
                 {
-
+                    m_table.setScrollable(true);
                     switch (m_menu)
                     {
                         case MAIN_MENU:

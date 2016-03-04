@@ -8,7 +8,6 @@
 #define SRC_ANIMATEDRENDERABLE_HPP_
 
 #include "Renderable.hpp"
-
 #include <string>
 #include <iostream>
 
