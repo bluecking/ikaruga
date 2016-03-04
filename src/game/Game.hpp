@@ -296,16 +296,6 @@ namespace ikaruga
          */
         void checkCheat(const char type);
 
-        /**
-         * @brief prints the start screen
-         */
-        void printStartScreen();
-
-        /**
-         * @brief prints the end screen
-         */
-        void printEndScreen();
-
         int m_boss_health;
 
         int m_bossFightAt;

@@ -22,12 +22,10 @@ namespace ikaruga
         m_sound = Sound(m_resDir.string() + "/sounds/HammerFall_Renegade_8_bit.wav", SoundType::SONG);
         setupBackground(1.0f, m_resDir.string() + "/images/star_background_2_200x200.png");
         m_normalFontTexture = TextureFactory::instance(m_win->getRenderer()).getTexture(
-                m_resDir.string() + "/images/font_white_20x20.png"); //TODO make dynamic
+                m_resDir.string() + "/images/font_white_20x20.png");
         m_table = RenderTable(m_win->getRenderer(), m_normalFontTexture, 20,
-                              20); //TODO static tile height&width -> make dynamic
-        //
-        // prepareTable();
-        // m_table.setStringProperties(2, 1, 0, m_tableText);
+                              20);
+
         RenderTable::tableProperties tableProps;
         tableProps.positionX = 50;
         tableProps.positionY = 120;
@@ -38,17 +36,16 @@ namespace ikaruga
         m_offset.setX(0.005f);
         m_offset.setY(0.005f);
         m_layer->setScrollSpeed(100.0f);
-        first = true;
+        m_first = true;
         mainMenu();
-
     }
 
     void MainMenu::update(const Uint8*& currentKeyStates, const bool* keyDown)
     {
 
-        if (first)
+        if (m_first)
         {
-            first = false;
+            m_first = false;
         }
         else
         {
@@ -58,7 +55,6 @@ namespace ikaruga
                 m_sound.resume();
 
                 //Render background
-
                 m_layer->m_camera.move(m_layer->m_camera.position() + m_offset);
 
                 SDL_RenderClear(m_win->getRenderer());
@@ -74,6 +70,7 @@ namespace ikaruga
                 {
                     m_table.decrease();
                 }
+
                 if (keyDown[SDL_SCANCODE_ESCAPE])
                 {
                     m_table.setScrollable(true);
@@ -146,9 +143,9 @@ namespace ikaruga
         {
             texts.at(i).resize(2);
         }
-        texts[0][0] = "Beendet: ";
+        texts[0][0] = "Game ended: ";
         texts[0][1] = this->m_game->highscore->levelFile;
-        texts[1][0] = "Highscore:";
+        texts[1][0] = "Your score: ";
         texts[1][1] = to_string(points);
         m_table.setStringProperties(2, 1, 0, texts);
         for (int i = 0; i < sleepTime / sleep; i++)
@@ -161,9 +158,7 @@ namespace ikaruga
 
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
-
             m_table.render();
-
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
@@ -200,9 +195,7 @@ namespace ikaruga
             m_table.setStringProperties(2, 1, 0, texts);
             SDL_RenderClear(m_win->getRenderer());
             m_layer->render();
-
             m_table.render();
-
             SDL_RenderPresent(m_win->getRenderer());
             usleep(sleep);
         }
@@ -230,9 +223,6 @@ namespace ikaruga
         SDL_RenderClear(m_win->getRenderer());
         SDL_Texture* texture = TextureFactory::instance(m_win->getRenderer()).getTexture(backgroundImage);
         m_layer = new TexturedLayer(m_win->getRenderer(), texture, 1);
-
-
-        //m_game->setSound(filepath + background.soundfile, background.volume);
     }
 
     void MainMenu::levelSelect()
@@ -267,8 +257,7 @@ namespace ikaruga
         m_game = new Game(m_win);
         Game::setupGame(m_levelId_and_path.at(std::stoi(
                                 m_tableText[m_table.getM_pos()][0].substr(0, m_tableText[m_table.getM_pos()][0].size() -
-                                                                             1))).string(),
-                        m_win, m_game);
+                                                                             1))).string(), m_win, m_game);
         m_win->setGame(m_game);
         this->showLevelName();
         m_win->setActualScreen(MainWindow::RENDER_GAME);
